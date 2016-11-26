@@ -14,7 +14,7 @@
     "build": "tape test/**/*.js | tap-dot && browserify ./src/js/index.js -o ./build/reeborg.js",
     "build2": "tape test/**/*.js | tap-dot && browserify ./src/js/index.js -o ./build/reeborg2.js",
     "only-build": "browserify ./src/js/index.js -o ./build/reeborg.js",
-    "jsdoc": "jsdoc -c jsdoc_conf.json",
+    "jsdoc": "jsdoc -c dev_tools/jsdoc_conf.json",
     "madge": "madge --image graph.png src/js"
   },
   "repository": {

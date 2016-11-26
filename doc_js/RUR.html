@@ -341,194 +341,6 @@ Par &quot;objet&quot;, on entend ici un objet qui peut être transporté ou dép
             
 <hr>
 <dt>
-    <h4 class="name" id="add_new_object_type"><span class="type-signature"></span>add_new_object_type(specific_object, url, url_goal)</h4>
-    
-    
-    <p class="summary"><p>This function makes it possible to add new objects. If the name
-   of an existing object is specified again, the images for that object are
-   replaced.  Two images must be provided: one for the object itself, and
-   another when this object is specified as a goal. N.B. existing names
-   are the English ones.</p></p>
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Cette fonction permet l'ajout de nouveaux objets.  Si le nom d'un
-  objet existant est spécifié, les images pour cet objet seront remplacées
-  par les nouvelles images fournies.  N.B. les noms d'objets par défaut sont
-  des noms anglais (par exemple &quot;token&quot; plutôt que &quot;jeton&quot;).</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>specific_object</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The name of the object type ; e.g. &quot;mouse&quot; <br>
-                       <em>Le nom du type de l'objet; par exemple, &quot;souris&quot;.</em></p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>url</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>URL where the image can be found.
-                   <br> <em>URL où l'image peut être trouvée</em></p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>url_goal</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>URL where the image as a goal can be found.
-                   <br> <em>URL où l'image comme but peut être trouvée</em></p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
     <h4 class="name" id="add_object_at_position"><span class="type-signature"></span>add_object_at_position(specific_object, x, y, nb)</h4>
     
     
@@ -674,6 +486,700 @@ Par &quot;objet&quot;, on entend ici un objet qui peut être transporté ou dép
           a value of zero is used to remove objects.
           <br> <em>Nombre d'objets à cet endroit;
           une valeur de zéro est utilisée pour supprimer les objets.</em></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="add_object_type"><span class="type-signature"></span>add_object_type(object)</h4>
+    
+    
+    <p class="summary"><p>This function makes it possible to add new objects. If the name
+   of an existing object is specified again, it is replaced by a new one
+   which may have completely different characteristics.</p></p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Cette fonction permet l'ajout de nouveaux tuiles.  Si le nom d'une
+  tuile existante est spécifiée, elle est remplacée par la nouvelle qui pourrait
+  avoir des caractéristiques complètement différentes.
+  N.B. les noms de tuiles par défaut sont
+  des noms anglais (par exemple &quot;grass&quot; plutôt que &quot;gazon&quot;).</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>object</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>A Javascript object (similar to a Python dict) that
+                     describes the properties of the obj. <br>
+                     <em>Un objet javascript (similaire à un dict en Python)
+                     qui décrit les propriétés de la tuile.</em></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>obj.name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The unique name to be given to the obj. <br>
+                           <em>Le nom unique donné à la tuile</em></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>obj.public_name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>If various objects are meant to represent
+                                   the same type of object (e.g. different shades of &quot;grass&quot;)
+                                   this attribute can be used to specify that single name.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>obj.url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>If a single image is used, this indicated the source.
+                           <strong>Either obj.url or obj.images must be specified.</strong></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>obj.images</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>If multiple images are used (for animated objects),
+                              this array (list) contains the various URLs.
+                           <strong>Either obj.url or obj.images must be specified.</strong></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>obj.selection_method</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    "random"
+                
+                </td>
+            
+
+            <td class="description last"><p>For animated objects; choose one of
+                          &quot;sync&quot;, &quot;ordered&quot; or &quot;random&quot;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>obj.fatal</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Program ends if Reeborg steps on such a object set to &quot;true&quot;.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>obj.detectable</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>If <code>obj.fatal == obj.detectable == True</code>, Reeborg can
+                                   detect with <code>front_is_clear()</code> and <code>right_is_clear()</code>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>obj.solid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>If sets to &quot;true&quot;, prevents a box from sliding onto this obj.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>obj.slippery</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>If sets to &quot;true&quot;, Reeborg will keep going to next object if
+                                 it attempts to move on this obj.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">// This first example shows how to set various objects;// the mode will be set to Python and the highlighting// will be turned offWorld(&quot;/worlds/examples/object1.json&quot;, &quot;Example 1&quot;)// A second example shows how one can change objects behaviour.// A possible usage of this would be to have Reeborg wear crampons// so that it does not slip on the ice.World(&quot;/worlds/examples/object2.json&quot;, &quot;Example 2&quot;)</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="add_obstacle_at_position"><span class="type-signature"></span>add_obstacle_at_position(specific_object, x, y)</h4>
+    
+    
+    <p class="summary"><p>This function adds a given solid object (like a fence)
+at a certain location.</p></p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Cette fonction ajoute un objet solide (comme une clôture) à un endroit donné.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>specific_object</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The name of the object type ; e.g. &quot;fence_right&quot; <br>
+                       _Le nom [anglais] du type de l'objet; par exemple, &quot;fence<em>right&quot;.</em></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Position of the object
+                   <br> <em>position de l'objet</em></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Position of the object
+                   <br> <em>position de l'objet</em></p></td>
         </tr>
 
     
@@ -1620,6 +2126,268 @@ Par &quot;objet&quot;, on entend ici un objet qui peut être transporté ou dép
             
 <hr>
 <dt>
+    <h4 class="name" id="remove_obstacle_at_position"><span class="type-signature"></span>remove_obstacle_at_position(specific_object, x, y)</h4>
+    
+    
+    <p class="summary"><p>This function removes a given solid object (like a fence)
+at a certain location.</p></p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Cette fonction enlève un objet solide (comme une clôture) à un endroit donné.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>specific_object</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The name of the object type ; e.g. &quot;fence_right&quot; <br>
+                       _Le nom [anglais] du type de l'objet; par exemple, &quot;fence<em>right&quot;.</em></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Position of the object
+                   <br> <em>position de l'objet</em></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Position of the object
+                   <br> <em>position de l'objet</em></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="set_goal_position"><span class="type-signature"></span>set_goal_position()</h4>
+    
+    
+    <p class="summary"><p>TODO This needs to be refactored and documented</p></p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Ceci doit être documenté</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="set_tile_at_position"><span class="type-signature"></span>set_tile_at_position(tile, x, y)</h4>
     
     
@@ -1990,10 +2758,90 @@ at a certain location.</p></p>
             
 <hr>
 <dt>
-    <h4 class="name" id="toggle_solid_object_at_position"><span class="type-signature"></span>toggle_solid_object_at_position(specific_object, x, y)</h4>
+    <h4 class="name" id="toggle_goal_wall"><span class="type-signature"></span>toggle_goal_wall()</h4>
     
     
-    <p class="summary"><p>This function adds or remove a given solid object (like a fence)
+    <p class="summary"><p>TODO This needs to be refactored and documented</p></p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Ceci doit être documenté</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="toggle_obstacle_at_position"><span class="type-signature"></span>toggle_obstacle_at_position(specific_object, x, y)</h4>
+    
+    
+    <p class="summary"><p>This function adds or removes a given solid object (like a fence)
 at a certain location.</p></p>
     
 </dt>
@@ -2053,8 +2901,8 @@ at a certain location.</p></p>
 
             
 
-            <td class="description last"><p>The name of the object type ; e.g. &quot;fence&quot; <br>
-                       <em>Le nom [anglais] du type de l'objet; par exemple, &quot;fence&quot;.</em></p></td>
+            <td class="description last"><p>The name of the object type ; e.g. &quot;fence_right&quot; <br>
+                       _Le nom [anglais] du type de l'objet; par exemple, &quot;fence<em>right&quot;.</em></p></td>
         </tr>
 
     
@@ -2168,6 +3016,86 @@ at a certain location.</p></p>
     
 </dd>
 
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="toggle_wall"><span class="type-signature"></span>toggle_wall()</h4>
+    
+    
+    <p class="summary"><p>TODO  This needs to be documented</p></p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Ceci doit être documenté</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
         </dl>
     
 
@@ -2199,9 +3127,9 @@ at a certain location.</p></p>
 
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2016-03-19T10:59:50-03:00
+		on 2016-11-26T19:40:53-04:00
 	
 </span>
 </footer>
