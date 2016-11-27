@@ -1,24 +1,51 @@
 About Reeborg's World
 ============================================
 
-Please consult the documentation which can be found at http://reeborg.ca/docs/en/
+[Reeborg's World](http://reeborg.ca/reeborg.html) is a site designed for 
+people wishing to learn computer programming using either Python, Javascript or a Blockly
+interface.  It is free to use and does not require login. 
 
-It includes information for users (educators and students) as well as potential contributors (developers, translators, artists).
+Some documentation which includes information for users (educators and students) 
+as well as for potential contributors (developers, translators, artists) can be found at:
 
-Also, note some [known problems](https://github.com/aroberge/reeborg/blob/master/known_problems.md) especially when dealing with saving files on Mac computers.
+* [English version](http://reeborg.ca/docs/en/)
+* [French version](http://reeborg.ca/docs/fr/)
+* [Korean version](http://reeborg.ca/docs/ko/)
 
-Permission is given to make copies on some other site, *but* I would request that you contact me to inform me so that I can add the information about where Reeborg is used and so that I can keep you abreast of any new development.
+Note that the (human) language can easily be switched using a selector
+on the right-hand side of the documentation page.  
 
-Important information
-=====================
+The source for the documentation is found in another repository
+(https://github.com/aroberge/reeborg-docs).
 
-This project uses npm and browserify as part of its build process.
+If you only want a copy of the files to put on your own site, please
+consult this repository: https://github.com/aroberge/reeborg-dist.
+
+Important information for developers
+====================================
+
+If you wish to make changes to fork this project, you should consult
+[this document](https://github.com/aroberge/reeborg/blob/master/dev_tools/readme_for_devel.md) 
+
+Known problems on Mac computers
+================================
+
+If you or your students use Mac computers, please consult
+[known problems](https://github.com/aroberge/reeborg/blob/master/dev_tools/known_problems.md) 
+
 
 Offline version
 ===============
 
 An offline version (reeborg_offline.html) can be used without an Internet connection.
-You do need a local webserver running (I usually do this via `python -m http.server`)
-as well as a copy of the repository. After starting the webserver, point your browser to `http://localhost:8000/reeborg_offline.html`.
+You do need a local webserver running 
+as well as a copy of the repository or the 
+[separate distribution mentioned above](https://github.com/aroberge/reeborg-dist).
+Note that some multimedia files (sound and images) used by the blockly 
+version will likely be missing, but everything will still be quite workable.
 
-Note that some multimedia files (sound and images) needed for the blockly version will be missing.
+
+When I need to run a local web server, I usually do this via `python -m http.server`
+which starts a server on port 8000 by default (this can be changed).
+After starting the webserver, 
+I point my browser to `http://localhost:8000/reeborg_offline.html`.
