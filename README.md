@@ -18,20 +18,20 @@ on the right-hand side of the documentation page.
 The source for the documentation is found in another repository
 (https://github.com/aroberge/reeborg-docs).
 
-If you only want a copy of the files to put on your own site, please
-consult this repository: https://github.com/aroberge/reeborg-dist.
+If you only want a copy of the files to require to run Reeborg's World on your 
+own site, please consult this repository: https://github.com/aroberge/reeborg-dist.
 
 Important information for developers
 ====================================
 
 If you wish to make changes to fork this project, you should consult
-[this document](https://github.com/aroberge/reeborg/blob/master/dev_tools/readme_for_devel.md) 
+[this document](https://github.com/aroberge/reeborg/blob/master/dev_tools/readme_for_devel.md). 
 
 Known problems on Mac computers
 ================================
 
 If you or your students use Mac computers, please consult
-[known problems](https://github.com/aroberge/reeborg/blob/master/dev_tools/known_problems.md) 
+[known problems](https://github.com/aroberge/reeborg/blob/master/dev_tools/known_problems.md). 
 
 
 Offline version
