@@ -15,7 +15,8 @@
         "destination": "./doc_js/",
         "recurse": true,
         "readme": "src/js/README.md",
-        "template": "./dev_tools/jsdoc_templates/ink-docstrap/template"
+        "template": "./dev_tools/jsdoc_templates/ink-docstrap/template",
+        "tutorials": "extra_docs"
     },
     "templates": {
       "theme": "reeborg"

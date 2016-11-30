@@ -89,7 +89,7 @@ var navigationMaster = {
     members: []
   },
   tutorial: {
-    title: "Tutorials",
+    title: "See also",  // was Tutorials
     link: helper.getUniqueFilename("tutorials.list"),
     members: []
   },

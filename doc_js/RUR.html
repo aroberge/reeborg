@@ -31,6 +31,13 @@
 				</ul>
 			</li>
 			
+			<li class="dropdown">
+				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">See also<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="tutorial-english_readme.html">Readme</a></li><li><a href="tutorial-french_readme.html">Lisez-moi</a></li>
+				</ul>
+			</li>
+			
 		</ul>
 
 	</div>
@@ -274,218 +281,6 @@ Par &quot;objet&quot;, on entend ici un objet qui peut être transporté ou dép
           a value of zero is used to remove any such goal set.
           <br> <em>Nombre d'objets désiré à cet endroit;
  une valeur de zéro est utilisée pour supprimer un but semblable pré-existant.</em></p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="add_object_at_position"><span class="type-signature"></span>add_object_at_position(specific_object, x, y, nb)</h4>
-    
-    
-    <p class="summary"><p>This function sets a specified quantity of a given object
-at a certain location.
-By &quot;object&quot; we mean a type of object that can be taken or put down by Reeborg.</p></p>
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Cette fonction spécifie la quantité d'un certain type d'objet qui doit être
-mis à un endroit donné.
-Par &quot;objet&quot;, on entend ici un objet qui peut être transporté ou déposé par Reeborg.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>specific_object</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The name of the object type ; e.g. &quot;token&quot; <br>
-                       <em>Le nom du type de l'objet; par exemple, &quot;jeton&quot;.</em></p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>x</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">integer</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Position of the object
-                   <br> <em>position de l'objet</em></p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>y</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">integer</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Position of the object
-                   <br> <em>position de l'objet</em></p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>nb</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">integer</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Number of objects at that location;
-          a value of zero is used to remove objects.
-          <br> <em>Nombre d'objets à cet endroit;
-          une valeur de zéro est utilisée pour supprimer les objets.</em></p></td>
         </tr>
 
     
@@ -2388,6 +2183,218 @@ at a certain location.</p></p>
             
 <hr>
 <dt>
+    <h4 class="name" id="set_object_nb_at_position"><span class="type-signature"></span>set_object_nb_at_position(specific_object, x, y, nb)</h4>
+    
+    
+    <p class="summary"><p>This function sets a specified quantity of a given object
+at a certain location.
+By &quot;object&quot; we mean a type of object that can be taken or put down by Reeborg.</p></p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Cette fonction spécifie la quantité d'un certain type d'objet qui doit être
+mis à un endroit donné.
+Par &quot;objet&quot;, on entend ici un objet qui peut être transporté ou déposé par Reeborg.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>specific_object</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The name of the object type ; e.g. &quot;token&quot; <br>
+                       <em>Le nom du type de l'objet; par exemple, &quot;jeton&quot;.</em></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Position of the object
+                   <br> <em>position de l'objet</em></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Position of the object
+                   <br> <em>position de l'objet</em></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>nb</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Number of objects at that location;
+          a value of zero is used to remove objects.
+          <br> <em>Nombre d'objets à cet endroit;
+          une valeur de zéro est utilisée pour supprimer les objets.</em></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="set_tile_at_position"><span class="type-signature"></span>set_tile_at_position(tile, x, y)</h4>
     
     
@@ -3129,7 +3136,7 @@ at a certain location.</p></p>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on Saturday, November 26th 2016
+		on Wednesday, November 30th 2016
 	
 </span>
 </footer>
