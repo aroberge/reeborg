@@ -23,7 +23,9 @@ RUR.translate = function (s) {
 };
 
 RUR.translate_to_english = function (s) {
-    if (RUR.translation_to_english[s] !== undefined) {
+    if (RUR.untranslated[s]) {
+        return s;
+    } else if (RUR.translation_to_english[s] !== undefined) {
         return RUR.translation_to_english[s];
     } else {
         console.log("Translation to English needed for");
