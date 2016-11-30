@@ -3,7 +3,7 @@ var silencer =  require('silencer');
 
 global.RUR = {};
 
-test('adding known object', function (assert) {
+test('adding known decorative object', function (assert) {
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
     RUR.KNOWN_OBJECTS = ['a'];

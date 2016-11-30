@@ -38,7 +38,7 @@ with open('reeborg_qunit_test.html', 'w') as f:
     for line in lines:
         if '</head>' in line:
             line = """
-<link rel="stylesheet" href="//code.jquery.com/qunit_test/qunit-2.0.1.css">
+<link rel="stylesheet" href="qunit_test/qunit-2.0.1.css">
 </head>
 """
         elif '<body>' in line:

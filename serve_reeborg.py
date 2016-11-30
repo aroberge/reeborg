@@ -14,7 +14,6 @@ this can be changed if needed.
 
 import http.server
 import socketserver
-import time
 import _thread
 import webbrowser
 import datetime

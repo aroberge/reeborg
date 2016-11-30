@@ -1221,14 +1221,14 @@ RUR.control.move_object = function(obj, x, y, to_x, to_y){
     }
 
 
-    RUR.add_object_at_position(obj, x, y, 0);
+    RUR.set_object_nb_at_position(obj, x, y, 0);
     if (RUR.OBJECTS[obj].in_water &&
         RUR.world_get.tile_at_position(to_x, to_y) == RUR.TILES.water &&
         !bridge_already_there){
             // TODO: fix this
         RUR.world_set.add_solid_object(RUR.OBJECTS[obj].in_water, to_x, to_y, 1);
     } else {
-        RUR.add_object_at_position(obj, to_x, to_y, 1);
+        RUR.set_object_nb_at_position(obj, to_x, to_y, 1);
     }
 };
 
@@ -2010,7 +2010,7 @@ RUR.make_default_menu_fr = function () {
 */
 
 require("./../rur.js");
-require("./../world_set/add_object.js");
+require("./../world_set/object.js");
 require("./../visible_world.js");
 require("./../state.js");
 var msg = require("./../../lang/msg.js");
@@ -2051,7 +2051,7 @@ function add_object () {
     } else {
         query = input_add_number_result;
     }
-    RUR.add_object_at_position(RUR.state.specific_object, RUR.state.x, RUR.state.y, query);
+    RUR.set_object_nb_at_position(RUR.state.specific_object, RUR.state.x, RUR.state.y, query);
     RUR.vis_world.refresh_world_edited();
     dialog_add_object.dialog("close");
     return true;
@@ -2062,7 +2062,7 @@ add_object_form = dialog_add_object.find("form").on("submit", function( event ) 
     add_object();
 });
 
-},{"./../../lang/msg.js":88,"./../rur.js":52,"./../state.js":55,"./../visible_world.js":67,"./../world_set/add_object.js":79}],8:[function(require,module,exports){
+},{"./../../lang/msg.js":88,"./../rur.js":52,"./../state.js":55,"./../visible_world.js":67,"./../world_set/object.js":81}],8:[function(require,module,exports){
 
 require("./../libs/jquery.ui.dialog.minmax.js");
 require("./../rur.js");
@@ -2175,7 +2175,7 @@ give_object_form = dialog_give_object.find("form").on("submit", function( event 
     give_object();
 });
 
-},{"./../../lang/msg.js":88,"./../rur.js":52,"./../state.js":55,"./../visible_world.js":67,"./../world_set.js":77,"./../world_set/give_object_to_robot.js":81}],10:[function(require,module,exports){
+},{"./../../lang/msg.js":88,"./../rur.js":52,"./../state.js":55,"./../visible_world.js":67,"./../world_set.js":77,"./../world_set/give_object_to_robot.js":80}],10:[function(require,module,exports){
 require("./../visible_world.js");
 require("./../world_set/give_object_to_robot.js");
 require("./../state.js");
@@ -2225,7 +2225,7 @@ goal_objects_form = dialog_goal_object.find("form").on("submit", function( event
     goal_objects();
 });
 
-},{"./../../lang/msg.js":88,"./../state.js":55,"./../visible_world.js":67,"./../world_set/give_object_to_robot.js":81}],11:[function(require,module,exports){
+},{"./../../lang/msg.js":88,"./../state.js":55,"./../visible_world.js":67,"./../world_set/give_object_to_robot.js":80}],11:[function(require,module,exports){
 require("./../visible_world.js");
 var msg = require("./../../lang/msg.js");
 
@@ -2785,13 +2785,11 @@ require("./world_editor.js");
 
 require("./start_session.js");
 
-// TODO: easy function to hide edit world button (to prevent students seeing hidden code)
 // TODO: animated robots/ decorative objects, objects
 // TODO: document all world-editing functions, make them directly available as methods of RUR.
-//       Use jsdoc and put on site.
+// TODO: Use jsdoc and put on site.
 // TODO: add turtle mode (see blockly for comparing with expected solution); ensure a blockly counterpart
 // TODO: implement paint() and colour_here() in Blockly
-// TODO: Create offline version as part of the build sequence
 
 },{"./commands.js":2,"./start_session.js":54,"./utils/cors.js":60,"./world_editor.js":73}],19:[function(require,module,exports){
 /* This file contains the tiles included by default */
@@ -8447,7 +8445,7 @@ require("./create_editors.js");
 require("./utils/supplant.js");
 require("./utils/key_exist.js");
 
-require("./world_set/add_object.js");
+require("./world_set/object.js");
 require("./world_set/add_goal_object.js");
 require("./world_set/add_robot.js");
 require("./world_set/toggle_decorative_object.js");
@@ -8910,9 +8908,9 @@ RUR.we._add_object = function (specific_object){
         if (RUR.CURRENT_WORLD.objects !== undefined &&
             RUR.CURRENT_WORLD.objects[x+','+y] !== undefined &&
             RUR.CURRENT_WORLD.objects[x+','+y]["box"] == 1){  // jshint ignore:line
-            RUR.add_object_at_position("box", x, y, 0);
+            RUR.set_object_nb_at_position("box", x, y, 0);
         } else {
-            RUR.add_object_at_position("box", x, y, 1);
+            RUR.set_object_nb_at_position("box", x, y, 1);
         }
         return;
     }
@@ -9093,7 +9091,7 @@ $("#robot-canvas").on("click", function (evt) {
     RUR.world_get.world_info();
 });
 
-},{"./constants.js":3,"./create_editors.js":5,"./dialogs/add_object.js":7,"./dialogs/create.js":8,"./dialogs/give_object.js":9,"./dialogs/goal_object.js":10,"./dialogs/select_colour.js":11,"./dialogs/set_background_image.js":12,"./exceptions.js":13,"./listeners/canvas.js":23,"./objects.js":41,"./robot.js":50,"./state.js":55,"./translator.js":57,"./ui/edit_robot_menu.js":58,"./utils/filterint.js":61,"./utils/identical.js":62,"./utils/key_exist.js":63,"./utils/supplant.js":65,"./visible_world.js":67,"./world.js":68,"./world_get.js":74,"./world_set.js":77,"./world_set/add_goal_object.js":78,"./world_set/add_object.js":79,"./world_set/add_robot.js":80,"./world_set/give_object_to_robot.js":81,"./world_set/toggle_decorative_object.js":84,"./world_set/toggle_obstacle.js":85}],74:[function(require,module,exports){
+},{"./constants.js":3,"./create_editors.js":5,"./dialogs/add_object.js":7,"./dialogs/create.js":8,"./dialogs/give_object.js":9,"./dialogs/goal_object.js":10,"./dialogs/select_colour.js":11,"./dialogs/set_background_image.js":12,"./exceptions.js":13,"./listeners/canvas.js":23,"./objects.js":41,"./robot.js":50,"./state.js":55,"./translator.js":57,"./ui/edit_robot_menu.js":58,"./utils/filterint.js":61,"./utils/identical.js":62,"./utils/key_exist.js":63,"./utils/supplant.js":65,"./visible_world.js":67,"./world.js":68,"./world_get.js":74,"./world_set.js":77,"./world_set/add_goal_object.js":78,"./world_set/add_robot.js":79,"./world_set/give_object_to_robot.js":80,"./world_set/object.js":81,"./world_set/toggle_decorative_object.js":84,"./world_set/toggle_obstacle.js":85}],74:[function(require,module,exports){
 /* Obtain specific information about the world, either at a given
    position, or for the world in general.
 */
@@ -9798,61 +9796,6 @@ RUR.add_goal_object_at_position = function (specific_object, x, y, nb){
 };
 
 },{"./../exceptions.js":13,"./../translator.js":57,"./../utils/key_exist.js":63,"./../utils/supplant.js":65}],79:[function(require,module,exports){
-require("./../exceptions.js");
-require("./../utils/supplant.js");
-require("./../utils/key_exist.js");
-require("./../translator.js");
-
-/** @function add_object_at_position
- * @memberof RUR
- * @instance
- * @summary This function sets a specified quantity of a given object
- * at a certain location.
- * By "object" we mean a type of object that can be taken or put down by Reeborg.
- *
- * @desc Cette fonction spécifie la quantité d'un certain type d'objet qui doit être
- * mis à un endroit donné.
- * Par "objet", on entend ici un objet qui peut être transporté ou déposé par Reeborg.
- *
- * @param {string} specific_object The name of the object type ; e.g. "token" <br>
- *                        _Le nom du type de l'objet; par exemple, "jeton"._
- * @param {integer} x - Position of the object
- *                    <br> _position de l'objet_
- * @param {integer} y - Position of the object
- *                    <br> _position de l'objet_
- * @param {integer} nb - Number of objects at that location;
- *           a value of zero is used to remove objects.
- *           <br> _Nombre d'objets à cet endroit;
- *           une valeur de zéro est utilisée pour supprimer les objets._
- *
- */
-
-RUR.add_object_at_position = function (specific_object, x, y, nb){
-    "use strict";
-    var coords, cw;
-    specific_object = RUR.translate_to_english(specific_object);
-    if (RUR.KNOWN_OBJECTS.indexOf(specific_object) == -1){
-        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: specific_object}));
-    }
-
-    coords = x + "," + y;
-    cw = RUR.CURRENT_WORLD;
-    RUR._ensure_key_exists(cw, "objects");
-    RUR._ensure_key_exists(cw.objects, coords);
-    if (nb !== 0) {
-        cw.objects[coords][specific_object] = nb;
-    } else {
-        try {
-            delete cw.objects[coords][specific_object];
-        } catch (e) {}
-        if (Object.keys(cw.objects[coords]).length === 0){
-            delete cw.objects[coords];
-        }
-    }
-    RUR.record_frame("debug", "add_object_at_position");
-};
-
-},{"./../exceptions.js":13,"./../translator.js":57,"./../utils/key_exist.js":63,"./../utils/supplant.js":65}],80:[function(require,module,exports){
 require("./../recorder/record_frame.js");
 
 
@@ -9864,7 +9807,7 @@ RUR._add_robot = function (robot) {
     RUR.record_frame();
 };
 
-},{"./../recorder/record_frame.js":48}],81:[function(require,module,exports){
+},{"./../recorder/record_frame.js":48}],80:[function(require,module,exports){
 require("./../exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
@@ -9916,7 +9859,65 @@ RUR.give_object_to_robot = function (obj, nb, robot) {
     }
 };
 
-},{"./../exceptions.js":13,"./../translator.js":57,"./../utils/filterint.js":61,"./../utils/key_exist.js":63}],82:[function(require,module,exports){
+},{"./../exceptions.js":13,"./../translator.js":57,"./../utils/filterint.js":61,"./../utils/key_exist.js":63}],81:[function(require,module,exports){
+require("./../exceptions.js");
+require("./../utils/supplant.js");
+require("./../utils/key_exist.js");
+require("./../translator.js");
+
+/** @function set_object_nb_at_position
+ * @memberof RUR
+ * @instance
+ * @summary This function sets a specified quantity of a given object
+ * at a certain location.
+ * By "object" we mean a type of object that can be taken or put down by Reeborg.
+ *
+ * @desc Cette fonction spécifie la quantité d'un certain type d'objet qui doit être
+ * mis à un endroit donné.
+ * Par "objet", on entend ici un objet qui peut être transporté ou déposé par Reeborg.
+ *
+ * @param {string} specific_object The name of the object type ; e.g. "token" <br>
+ *                        _Le nom du type de l'objet; par exemple, "jeton"._
+ * @param {integer} x - Position of the object
+ *                    <br> _position de l'objet_
+ * @param {integer} y - Position of the object
+ *                    <br> _position de l'objet_
+ * @param {integer} nb - Number of objects at that location;
+ *           a value of zero is used to remove objects.
+ *           <br> _Nombre d'objets à cet endroit;
+ *           une valeur de zéro est utilisée pour supprimer les objets._
+ *
+ */
+
+RUR.set_object_nb_at_position = function (specific_object, x, y, nb){
+    "use strict";
+    var coords, cw;
+    specific_object = RUR.translate_to_english(specific_object);
+    if (RUR.KNOWN_OBJECTS.indexOf(specific_object) == -1){
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: specific_object}));
+    }
+
+    coords = x + "," + y;
+    cw = RUR.CURRENT_WORLD;
+    RUR._ensure_key_exists(cw, "objects");
+    RUR._ensure_key_exists(cw.objects, coords);
+    if (nb !== 0) {
+        cw.objects[coords][specific_object] = nb;
+    } else {
+        try {
+            delete cw.objects[coords][specific_object];
+        } catch (e) {}
+        if (Object.keys(cw.objects[coords]).length === 0){
+            delete cw.objects[coords];
+        }
+    }
+    RUR.record_frame("debug", "set_object_nb_at_position");
+};
+
+// OBSOLETE RUR.add_object_at_position
+RUR.add_object_at_position = RUR.set_object_nb_at_position;
+
+},{"./../exceptions.js":13,"./../translator.js":57,"./../utils/key_exist.js":63,"./../utils/supplant.js":65}],82:[function(require,module,exports){
 require("./../world/create_empty.js");
 require("./../visible_robot.js");
 require("./../visible_world.js");

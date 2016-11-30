@@ -2,7 +2,7 @@
 */
 
 require("./../rur.js");
-require("./../world_set/add_object.js");
+require("./../world_set/object.js");
 require("./../visible_world.js");
 require("./../state.js");
 var msg = require("./../../lang/msg.js");
@@ -43,7 +43,7 @@ function add_object () {
     } else {
         query = input_add_number_result;
     }
-    RUR.add_object_at_position(RUR.state.specific_object, RUR.state.x, RUR.state.y, query);
+    RUR.set_object_nb_at_position(RUR.state.specific_object, RUR.state.x, RUR.state.y, query);
     RUR.vis_world.refresh_world_edited();
     dialog_add_object.dialog("close");
     return true;

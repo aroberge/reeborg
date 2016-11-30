@@ -3,7 +3,7 @@ require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
 
-/** @function add_object_at_position
+/** @function set_object_nb_at_position
  * @memberof RUR
  * @instance
  * @summary This function sets a specified quantity of a given object
@@ -27,7 +27,7 @@ require("./../translator.js");
  *
  */
 
-RUR.add_object_at_position = function (specific_object, x, y, nb){
+RUR.set_object_nb_at_position = function (specific_object, x, y, nb){
     "use strict";
     var coords, cw;
     specific_object = RUR.translate_to_english(specific_object);
@@ -49,5 +49,8 @@ RUR.add_object_at_position = function (specific_object, x, y, nb){
             delete cw.objects[coords];
         }
     }
-    RUR.record_frame("debug", "add_object_at_position");
+    RUR.record_frame("debug", "set_object_nb_at_position");
 };
+
+// OBSOLETE RUR.add_object_at_position
+RUR.add_object_at_position = RUR.set_object_nb_at_position;

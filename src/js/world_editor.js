@@ -15,7 +15,7 @@ require("./create_editors.js");
 require("./utils/supplant.js");
 require("./utils/key_exist.js");
 
-require("./world_set/add_object.js");
+require("./world_set/object.js");
 require("./world_set/add_goal_object.js");
 require("./world_set/add_robot.js");
 require("./world_set/toggle_decorative_object.js");
@@ -478,9 +478,9 @@ RUR.we._add_object = function (specific_object){
         if (RUR.CURRENT_WORLD.objects !== undefined &&
             RUR.CURRENT_WORLD.objects[x+','+y] !== undefined &&
             RUR.CURRENT_WORLD.objects[x+','+y]["box"] == 1){  // jshint ignore:line
-            RUR.add_object_at_position("box", x, y, 0);
+            RUR.set_object_nb_at_position("box", x, y, 0);
         } else {
-            RUR.add_object_at_position("box", x, y, 1);
+            RUR.set_object_nb_at_position("box", x, y, 1);
         }
         return;
     }

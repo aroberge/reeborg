@@ -126,3 +126,7 @@ The documentation produced is found in /doc_js/index.html.
 [make.bat](https://github.com/aroberge/reeborg/blob/master/make.bat) 
 contains a more complete build process; this is a Windows batch file which 
 could be easily translated into a shell script suitable for Mac/Linux.
+
+**Important** When running qunit tests, most often the tests for one 
+world fails. However, if run in isolation, the tests pass. This is likely 
+due to an async process not terminated when running the full test suite.
