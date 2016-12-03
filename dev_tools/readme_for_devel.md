@@ -33,11 +33,12 @@ or globally
 
 Tape output, according to his creator, 
 _is good for machines and humans that are robots_. As I am neither, 
-I use one of the three following formatters:
+I use one or two of the four following formatters:
 
-* tape-diff
-* tape-dot  (a minimal formatter, used by default)
-* tape-spec
+* tap-diff
+* tap-dot  (a minimal formatter, used by default)
+* tap-notify (also used by default, together with tap-dot)
+* tap-spec
 
 These are also modules that can be installed using npm.
 
