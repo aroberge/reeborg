@@ -1,5 +1,0 @@
-{
-  "#py:hello": "def hello():\\n    print(\"hello\")\\n",
-  "#py:korean": "def 안녕하세요():\\n    print(\"hello\")",
-  "py:__head": "'''Some docstring by André'''\\n"
-}

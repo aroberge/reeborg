@@ -1,4 +1,0 @@
-{
-  "py:__head": "'''Some docstring by Andr\u00e9'''\\n",
-  "#py:hello": "def bonjour():\\n    print(\"bonjour\")\\n"
-}

@@ -83,6 +83,11 @@ distribution found on github. Install jsdoc using
 
 `npm install -g jsdoc`
 
+I also use ink-docstrap as jsdoc templates. Install using 
+
+`npm install ink-docstrap`
+
+
 ## Building a new version
 
 After making changes, a new version should be built (and tested).
@@ -119,7 +124,7 @@ from these files, use
 
 `npm run jsdoc`
 
-The documentation produced is found in /doc_js/index.html.
+The documentation produced is found in /advanced_world_creation/index.html.
 
 ### More complete build
 
@@ -128,5 +133,6 @@ contains a more complete build process; this is a Windows batch file which
 could be easily translated into a shell script suitable for Mac/Linux.
 
 **Important** When running qunit tests, most often the tests for one 
-world fails. However, if run in isolation, the tests pass. This is likely 
-due to an async process not terminated when running the full test suite.
+world fails. However, if run in isolation, the tests pass. 
+I have not been able to track down the cause of this but I am guessing that this
+is due to an async process not terminated when running the full test suite.

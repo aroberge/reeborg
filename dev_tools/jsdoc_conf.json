@@ -1,5 +1,4 @@
 {
-    "MY COMMENT": "I am using a heavily modified version of the ink-docstrap template",
     "tags": {
         "allowUnknownTags": true,
         "dictionaries": ["jsdoc", "closure"]
