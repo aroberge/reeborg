@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: world_set/toggle_obstacle.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: world_set/toggle_obstacle.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>require("./../exceptions.js");
+require("./../utils/key_exist.js");
+require("./../translator.js");
+require("./../utils/supplant.js");
+
+/** @function toggle_obstacle_at_position
+ * @memberof RUR
+ * @instance
+ * @summary This function adds or removes a given solid object (like a fence)
+ * at a certain location.
+ *
+ * @desc Cette fonction ajoute ou enlève un objet solide (comme une clôture) à un endroit donné.
+ *
+ * @param {string} specific_object The name of the object type ; e.g. "fence_right" &lt;br>
+ *                        _Le nom [anglais] du type de l'objet; par exemple, "fence_right"._
+ * @param {integer} x - Position of the object
+ *                    &lt;br> _position de l'objet_
+ * @param {integer} y - Position of the object
+ *                    &lt;br> _position de l'objet_
+ */
+
+RUR.toggle_obstacle_at_position = function (specific_object, x, y){
+    "use strict";
+    var coords, cw;
+    if (RUR.KNOWN_OBSTACLES.indexOf(specific_object) == -1){
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant(
+                                                 {obj: specific_object}));
+    }
+    coords = x + "," + y;
+    cw = RUR.CURRENT_WORLD;
+    RUR._ensure_key_exists(cw, "obstacles");
+    RUR._ensure_key_exists(cw.obstacles, coords);
+
+    if (cw.obstacles[coords][specific_object]) {
+        delete cw.obstacles[coords][specific_object];
+        if (Object.keys(cw.obstacles[coords]).length === 0) {
+            delete cw.obstacles[coords];
+            if (Object.keys(cw.obstacles).length === 0) {
+                delete cw.obstacles;
+            }
+        }
+    } else {
+        cw.obstacles[coords][specific_object] = true;
+    }
+};
+
+/** @function add_obstacle_at_position
+ * @memberof RUR
+ * @instance
+ * @summary This function adds a given solid object (like a fence)
+ * at a certain location.
+ *
+ * @desc Cette fonction ajoute un objet solide (comme une clôture) à un endroit donné.
+ *
+ * @param {string} specific_object The name of the object type ; e.g. "fence_right" &lt;br>
+ *                        _Le nom [anglais] du type de l'objet; par exemple, "fence_right"._
+ * @param {integer} x - Position of the object
+ *                    &lt;br> _position de l'objet_
+ * @param {integer} y - Position of the object
+ *                    &lt;br> _position de l'objet_
+ */
+
+RUR.add_obstacle_at_position = function (specific_object, x, y){
+    "use strict";
+    var coords, cw;
+    if (RUR.KNOWN_OBSTACLES.indexOf(specific_object) == -1){
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant(
+                                                 {obj: specific_object}));
+    }
+    coords = x + "," + y;
+    cw = RUR.CURRENT_WORLD;
+    RUR._ensure_key_exists(cw, "obstacles");
+    RUR._ensure_key_exists(cw.obstacles, coords);
+
+    if (cw.obstacles[coords][specific_object]) {
+        RUR.output.print_html("&lt;h2>Warning&lt;/h2>&lt;p>" +
+            specific_object +
+            " is already present at the requested location.&lt;/p>", true);
+    } else {
+        cw.obstacles[coords][specific_object] = true;
+    }
+};
+
+/** @function remove_obstacle_at_position
+ * @memberof RUR
+ * @instance
+ * @summary This function removes a given solid object (like a fence)
+ * at a certain location.
+ *
+ * @desc Cette fonction enlève un objet solide (comme une clôture) à un endroit donné.
+ *
+ * @param {string} specific_object The name of the object type ; e.g. "fence_right" &lt;br>
+ *                        _Le nom [anglais] du type de l'objet; par exemple, "fence_right"._
+ * @param {integer} x - Position of the object
+ *                    &lt;br> _position de l'objet_
+ * @param {integer} y - Position of the object
+ *                    &lt;br> _position de l'objet_
+ */
+
+RUR.remove_obstacle_at_position = function (specific_object, x, y){
+    "use strict";
+    var coords, cw;
+    if (RUR.KNOWN_OBSTACLES.indexOf(specific_object) == -1){
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant(
+                                                 {obj: specific_object}));
+    }
+    coords = x + "," + y;
+    cw = RUR.CURRENT_WORLD;
+    RUR._ensure_key_exists(cw, "obstacles");
+    RUR._ensure_key_exists(cw.obstacles, coords);
+
+    if (cw.obstacles[coords][specific_object]) {
+        delete cw.obstacles[coords][specific_object];
+        if (Object.keys(cw.obstacles[coords]).length === 0) {
+            delete cw.obstacles[coords];
+            if (Object.keys(cw.obstacles).length === 0) {
+                delete cw.obstacles;
+            }
+        }
+    } else {
+        RUR.output.print_html("&lt;h2>Warning&lt;/h2>&lt;p>" +
+            specific_object +
+            " is &lt;b>not&lt;/b> present at the requested location.&lt;/p>", true);
+        cw.obstacles[coords][specific_object] = true;
+    }
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="RUR.html">RUR</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-english_readme.html">Readme</a></li><li><a href="tutorial-french_readme.html">Lisez-moi</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Dec 01 2016 09:28:30 GMT-0400 (Atlantique)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

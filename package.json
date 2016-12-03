@@ -11,7 +11,8 @@
     "test": "tape test/**/*.js | tap-diff",
     "test-dot": "tape test/**/*.js | tap-dot",
     "test-raw": "tape test/**/*.js",
-    "build": "tape test/**/*.js | tap-dot && browserify ./src/js/index.js -o ./build/reeborg.js",
+    "test-notify": "tape test/**/*.js | tap-notify | tap-dot",
+    "build": "tape test/**/*.js | tap-notify | tap-dot && browserify ./src/js/index.js -o ./build/reeborg.js",
     "build2": "tape test/**/*.js | tap-dot && browserify ./src/js/index.js -o ./build/reeborg2.js",
     "only-build": "browserify ./src/js/index.js -o ./build/reeborg.js",
     "jsdoc": "jsdoc -c dev_tools/jsdoc_conf.json"

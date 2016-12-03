@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: extend/add_tile_type.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: extend/add_tile_type.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>require("./../rur.js");
+require("./images.js");
+//require("./../init/images_onload.js");
+
+/** @function add_tile_type
+ * @memberof RUR
+ * @instance
+ * @summary This function makes it possible to add new tiles. If the name
+ *    of an existing tile is specified again, it is replaced by a new one
+ *    which may have completely different characteristics.
+ *
+ * @desc Cette fonction permet l'ajout de nouveaux tuiles.  Si le nom d'une
+ *   tuile existante est spécifiée, elle est remplacée par la nouvelle qui pourrait
+ *   avoir des caractéristiques complètement différentes.
+ *   N.B. les noms de tuiles par défaut sont
+ *   des noms anglais (par exemple "grass" plutôt que "gazon").
+ *
+ * @param {Object} tile A Javascript object (similar to a Python dict) that
+ *                      describes the properties of the tile. &lt;br>
+ *                      _Un objet javascript (similaire à un dict en Python)
+ *                      qui décrit les propriétés de la tuile._
+ *
+ * @param {string} tile.name  The unique name to be given to the tile. &lt;br>
+ *                            _Le nom unique donné à la tuile_
+ *
+ * @param {string} [tile.public_name] If various tiles are meant to represent
+ *                                    the same type of tile (e.g. different shades of "grass")
+ *                                    this attribute can be used to specify that single name.
+ *
+ * @param {string} [tile.url] If a single image is used, this indicated the source.
+ *                            **Either tile.url or tile.images must be specified.**
+ *
+ * @param {string[]} [tile.images] If multiple images are used (for animated tiles),
+ *                               this array (list) contains the various URLs.
+ *                            **Either tile.url or tile.images must be specified.**
+ *
+ * @param {string} [tile.selection_method = "random"]  For animated tiles; choose one of
+ *                           "sync", "ordered" or "random"
+ *
+ * @param {boolean} [tile.fatal] Program ends if Reeborg steps on such a tile set to "true".
+ *
+ * @param {boolean} [tile.detectable] If `tile.fatal == tile.detectable == True`, Reeborg can
+ *                                    detect with `front_is_clear()` and `right_is_clear()`.
+ *
+ * @param {boolean} [tile.solid] If sets to "true", prevents a box from sliding onto this tile.
+ *
+ * @param {boolean} [tile.slippery] If sets to "true", Reeborg will keep going to next tile if
+ *                                  it attempts to move on this tile.
+ *
+ * @example
+ * // This first example shows how to set various tiles;
+ * // the mode will be set to Python and the highlighting
+ * // will be turned off
+ * World("/worlds/examples/tile1.json", "Example 1")
+ *
+ * // A second example shows how one can change tiles behaviour.
+ * // A possible usage of this would be to have Reeborg wear crampons
+ * // so that it does not slip on the ice.
+ * World("/worlds/examples/tile2.json", "Example 2")
+ */
+RUR.TILES = {};
+
+RUR.add_tile_type = function (new_tile) {
+    "use strict";
+    var i, key, keys, name, tile;
+    name = new_tile.name;
+    if (RUR.KNOWN_TILES.indexOf(new_tile.name) != -1) {
+        console.log("Warning: tile name " + name + " already exists");
+    } else {
+        RUR.KNOWN_TILES.push(name);
+    }
+    RUR.TILES[name] = {};
+    tile = RUR.TILES[name];
+    // copy all properties
+    keys = Object.keys(new_tile);
+    for(i=0; i &lt; keys.length; i++){
+        key = keys[i];
+        tile[key] = new_tile[key];
+    }
+    // allow multiple tiles to appear under the same name;
+    // for example, we might want to visually have different types of grass tiles
+    // but referring under the single name "grass" when giving information
+    if (tile.public_name) {
+        tile.name = tile.public_name;
+    }
+    if (tile.url) {
+        tile.image = new Image();
+        tile.image.src = tile.url;
+        RUR.images_onload(tile.image);
+    } else if (tile.images) {
+        RUR.animate_images(tile);
+    } else {
+        alert("Fatal error: need either tile.url or a list: tile.images");
+    }
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="RUR.html">RUR</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-english_readme.html">Readme</a></li><li><a href="tutorial-french_readme.html">Lisez-moi</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Dec 01 2016 09:28:30 GMT-0400 (Atlantique)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -12,7 +12,7 @@
         "tags": ["summary"]
     },
     "opts": {
-        "destination": "./doc_js/",
+        "destination": "./advanced_world_creation/",
         "recurse": true,
         "readme": "src/js/README.md",
         "template": "./dev_tools/jsdoc_templates/ink-docstrap/template",
