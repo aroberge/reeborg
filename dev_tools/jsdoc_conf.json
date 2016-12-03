@@ -2,7 +2,7 @@
     "MY COMMENT": "I am using a heavily modified version of the ink-docstrap template",
     "tags": {
         "allowUnknownTags": true,
-        "dictionaries": ["jsdoc","closure"]
+        "dictionaries": ["jsdoc", "closure"]
     },
     "source": {
         "include": [ "src/js"]
@@ -15,10 +15,19 @@
         "destination": "./advanced_world_creation/",
         "recurse": true,
         "readme": "src/js/README.md",
-        "template": "./dev_tools/jsdoc_templates/ink-docstrap/template",
+        "template": "../node_modules/ink-docstrap/template",
         "tutorials": "extra_docs"
     },
     "templates": {
-      "theme": "reeborg"
+      "default" : {
+        "staticFiles": {
+          "include": ["src/css/jsdoc"]
+        }
+      },
+      "theme": "reeborg",
+      "outputSourceFiles": true,
+      "search": false,
+      "dateFormat": "dddd, MMMM Do YYYY",
+      "systemName": "Advanced World Creation"
     }
 }

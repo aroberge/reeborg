@@ -3,7 +3,7 @@ require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
 
-/** @function add_goal_object
+/** @function add_goal_object_at_position
 * @memberof RUR
 * @instance
 * @summary This function sets a specified quantity of a given object
