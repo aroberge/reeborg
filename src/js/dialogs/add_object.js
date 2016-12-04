@@ -43,7 +43,7 @@ function add_object () {
     } else {
         query = input_add_number_result;
     }
-    RUR.set_object_nb_at_position(RUR.state.specific_object, RUR.state.x, RUR.state.y, query);
+    RUR.set_nb_object_at_position(RUR.state.specific_object, RUR.state.x, RUR.state.y, query);
     RUR.vis_world.refresh_world_edited();
     dialog_add_object.dialog("close");
     return true;

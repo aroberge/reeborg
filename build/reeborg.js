@@ -1221,14 +1221,14 @@ RUR.control.move_object = function(obj, x, y, to_x, to_y){
     }
 
 
-    RUR.set_object_nb_at_position(obj, x, y, 0);
+    RUR.set_nb_object_at_position(obj, x, y, 0);
     if (RUR.OBJECTS[obj].in_water &&
         RUR.world_get.tile_at_position(to_x, to_y) == RUR.TILES.water &&
         !bridge_already_there){
             // TODO: fix this
         RUR.world_set.add_solid_object(RUR.OBJECTS[obj].in_water, to_x, to_y, 1);
     } else {
-        RUR.set_object_nb_at_position(obj, to_x, to_y, 1);
+        RUR.set_nb_object_at_position(obj, to_x, to_y, 1);
     }
 };
 
@@ -2051,7 +2051,7 @@ function add_object () {
     } else {
         query = input_add_number_result;
     }
-    RUR.set_object_nb_at_position(RUR.state.specific_object, RUR.state.x, RUR.state.y, query);
+    RUR.set_nb_object_at_position(RUR.state.specific_object, RUR.state.x, RUR.state.y, query);
     RUR.vis_world.refresh_world_edited();
     dialog_add_object.dialog("close");
     return true;
@@ -8910,9 +8910,9 @@ RUR.we._add_object = function (specific_object){
         if (RUR.CURRENT_WORLD.objects !== undefined &&
             RUR.CURRENT_WORLD.objects[x+','+y] !== undefined &&
             RUR.CURRENT_WORLD.objects[x+','+y]["box"] == 1){  // jshint ignore:line
-            RUR.set_object_nb_at_position("box", x, y, 0);
+            RUR.set_nb_object_at_position("box", x, y, 0);
         } else {
-            RUR.set_object_nb_at_position("box", x, y, 1);
+            RUR.set_nb_object_at_position("box", x, y, 1);
         }
         return;
     }
@@ -9867,37 +9867,24 @@ require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
 
-/** @function set_object_nb_at_position
+/** @function set_nb_object_at_position
  * @memberof RUR
  * @instance
- * @summary This function sets a specified quantity of a given object
+ * @desc This function sets a specified quantity of a given object
  * at a certain location.
  * By "object" we mean a type of object that can be taken or put down by Reeborg.
  *
  *
- * @desc Cette fonction spécifie la quantité d'un certain type d'objet qui doit être
- * mis à un endroit donné.
- * Par "objet", on entend ici un objet qui peut être transporté ou déposé par Reeborg.
- *
- * @param {string} specific_object The name of the object type ; e.g. "token" <br>
- *                        _Le nom du type de l'objet; par exemple, "jeton"._
+ * @param {string} specific_object The name of the object type ; e.g. "token" 
  * @param {integer} x - Position of the object
- *                    <br> _position de l'objet_
  * @param {integer} y - Position of the object
- *                    <br> _position de l'objet_
  * @param {integer} nb - Number of objects at that location;
  *           a value of zero is used to remove objects.
- *           <br> _Nombre d'objets à cet endroit;
- *           une valeur de zéro est utilisée pour supprimer les objets._
  *
  *  @see {@link module:tests/world_set/test_set_objects} for unit tests
- *  @see {@link module:qunit_tests/js/all_qunit_tests} for qunit tests
- *  @see {@link module:qunit_tests/js/all_qunit_tests#my_test} for qunit tests
- *  @see {@link module:qunit_tests/js/all_qunit_tests.my_test} for qunit tests
- *  @see {@link module:qunit_tests/js/all_qunit_tests~my_test} for qunit tests
  */
 
-RUR.set_object_nb_at_position = function (specific_object, x, y, nb){
+RUR.set_nb_object_at_position = function (specific_object, x, y, nb){
     "use strict";
     var coords, cw;
     specific_object = RUR.translate_to_english(specific_object);
@@ -9919,11 +9906,11 @@ RUR.set_object_nb_at_position = function (specific_object, x, y, nb){
             delete cw.objects[coords];
         }
     }
-    RUR.record_frame("debug", "set_object_nb_at_position");
+    RUR.record_frame("debug", "set_nb_object_at_position");
 };
 
 // OBSOLETE RUR.add_object_at_position
-RUR.add_object_at_position = RUR.set_object_nb_at_position;
+RUR.add_object_at_position = RUR.set_nb_object_at_position;
 
 },{"./../exceptions.js":13,"./../translator.js":57,"./../utils/key_exist.js":63,"./../utils/supplant.js":65}],82:[function(require,module,exports){
 require("./../world/create_empty.js");

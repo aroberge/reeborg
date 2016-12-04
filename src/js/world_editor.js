@@ -478,9 +478,9 @@ RUR.we._add_object = function (specific_object){
         if (RUR.CURRENT_WORLD.objects !== undefined &&
             RUR.CURRENT_WORLD.objects[x+','+y] !== undefined &&
             RUR.CURRENT_WORLD.objects[x+','+y]["box"] == 1){  // jshint ignore:line
-            RUR.set_object_nb_at_position("box", x, y, 0);
+            RUR.set_nb_object_at_position("box", x, y, 0);
         } else {
-            RUR.set_object_nb_at_position("box", x, y, 1);
+            RUR.set_nb_object_at_position("box", x, y, 1);
         }
         return;
     }

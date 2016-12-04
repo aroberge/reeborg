@@ -1,4 +1,9 @@
-/** @module tests/world_set/test_set_objects  */
+/** @module tests/world_set/test_set_objects  
+*
+* @desc This module contains unit tests for 
+* {@link RUR#set_nb_object_at_position}.
+*
+*/
 
 var test = require('tape');
 var silencer =  require('silencer');
@@ -10,7 +15,7 @@ test('adding known object', function (assert) {
     RUR.KNOWN_OBJECTS = ['a'];
     RUR.untranslated['a'] = true;
     RUR.record_frame = function () {};
-    RUR.set_object_nb_at_position('a', 2, 3, 4);
+    RUR.set_nb_object_at_position('a', 2, 3, 4);
     assert.equal(RUR.CURRENT_WORLD.objects['2,3'].a, 4, "nb objects ok");
     silencer.restore();
     assert.end();
@@ -24,8 +29,8 @@ test('adding and removing known object', function (assert) {
     RUR.KNOWN_OBJECTS = ['a'];
     RUR.untranslated['a'] = true;
     RUR.record_frame = function () {};
-    RUR.set_object_nb_at_position('a', 2, 3, 4);
-    RUR.set_object_nb_at_position('a', 2, 3, 0); 
+    RUR.set_nb_object_at_position('a', 2, 3, 4);
+    RUR.set_nb_object_at_position('a', 2, 3, 0); 
     assert.ok(identical(RUR.CURRENT_WORLD.objects, {}), "nb objects left");
     assert.end();
 });
@@ -39,9 +44,9 @@ test('adding two and removing one known objects', function (assert) {
     RUR.record_frame = function () {};
     RUR.untranslated['a'] = true;
     RUR.untranslated['b'] = true;
-    RUR.set_object_nb_at_position('b', 2, 3, 4);
-    RUR.set_object_nb_at_position('a', 2, 3, 4);
-    RUR.set_object_nb_at_position('b', 2, 3, 0);
+    RUR.set_nb_object_at_position('b', 2, 3, 4);
+    RUR.set_nb_object_at_position('a', 2, 3, 4);
+    RUR.set_nb_object_at_position('b', 2, 3, 0);
     assert.equal(RUR.CURRENT_WORLD.objects['2,3'].a, 4, "nb objects ok");
     assert.end();
 });
@@ -58,7 +63,7 @@ test('adding unknown object', function (assert) {
     RUR.translation = {};
     RUR.untranslated['a'] = false;
     try {
-        RUR.set_object_nb_at_position('a', 2, 3, 4);
+        RUR.set_nb_object_at_position('a', 2, 3, 4);
     } catch (e) {
         assert.equal(e.message, "Unknown object", "error message");
         assert.equal(e.reeborg_shouts, "Unknown object", "reeborg_shouts");

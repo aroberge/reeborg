@@ -7,7 +7,27 @@
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 
 /* main addition to original version */
-td.description p {
+body {
+  font-size: 12pt;
+}
+
+.sunlight-highlighted, .sunlight-container, .sunlight-container textarea {
+    font-size: 12pt !important;
+}
+
+code {
+  color: #468847;
+  font-weight: 700;
+  font-family: Consolas, Inconsolata, Monaco, "Courier New", Courier, monospace !important;
+}
+.sunlight-highlighted, .sunlight-container, .sunlight-container textarea {
+  font-size: 12pt !important;
+  font-family: Consolas, Inconsolata, Monaco, "Courier New", Courier, monospace !important;
+}
+.tag-deprecated {background-color: gold;
+}
+
+.description p {
     font-style: normal;
     color: black;
     margin: 0;
@@ -18,31 +38,29 @@ dl {
 dt a {
     font-size: 1.4em;
 }
-hr {
-    display:none;
-}
 table {
     border-bottom: 1px solid #ccc;
 }
-.description p, .last em, .last br {
-    color: #468847;
-    font-style: oblique;
-}
-h1, h2, h3, h5, h6, .h1, .h2, .h3, .h5, .h6 {
+h1, h2, h6, .h1, .h2, .h6 {
   color: #468847;
 }
-h4, .h4 {
+h3, .h3, h5, .h5 {
   color: #157ab5;
 }
-h5, .h5 {
-  color: black;
+h4, .h4, .page-title {
+  color: #248;
 }
-code {
-  color: #468847;
-  font-size:1.2em;
-  font-weight: 900;
-  font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace;
+.subsection-title {
+  display: none;
 }
+hr {
+  background: url("robot_hr.png") no-repeat;
+  height: 20px;
+  border: 0;
+  max-width: 300px;
+  margin: auto;
+}
+
 .navbar, .navbar-default, .navbar-header {
     background-color: #123264;
     background-image: -webkit-linear-gradient(top, #2d5ab4 20%, #1e3c78 60%, #123264 80%);
@@ -54,8 +72,8 @@ code {
 .list-group-item.active,
 .list-group-item.active:hover,
 .list-group-item.active:focus {
-  background-color: #123264;
-  border-color: #123264;
+  background-color: #248;
+  border-color: #248;
 }
 .type-signature {
     color: #468847;
@@ -151,10 +169,10 @@ svg:not(:root) {
 figure {
   margin: 1em 40px;
 }
-hr {
+/*hr {
   box-sizing: content-box;
   height: 0;
-}
+}*/
 pre {
   overflow: auto;
 }
@@ -1131,7 +1149,7 @@ html {
 }
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+/*  font-size: 14px;*/
 /*  line-height: 1.42857143; */
 /*  color: #555555;*/
   background-color: #fff;
@@ -1192,12 +1210,12 @@ img {
 .img-circle {
   border-radius: 50%;
 }
-hr {
+/*hr {
   margin-top: 20px;
   margin-bottom: 20px;
   border: 0;
   border-top: 1px solid #eeeeee;
-}
+}*/
 .sr-only {
   position: absolute;
   width: 1px;
@@ -6966,7 +6984,7 @@ img.branding-logo {
 }
 .page-title {
   font-size: 220%;
-  color: #033C73;
+/*  color: #033C73;*/
   font-weight: 700;
   padding-top: 10px;
   padding-bottom: 7px;
