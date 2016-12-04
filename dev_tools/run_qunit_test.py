@@ -8,7 +8,6 @@ The server can be stopped "nicely".
 # http://stackoverflow.com/questions/10085996/shutdown-socketserver-serve-forever-in-one-thread-python-application/22533929#22533929
 import http.server
 import socketserver
-import time
 import _thread
 import webbrowser
 

@@ -27,6 +27,10 @@ require("./../translator.js");
  *           une valeur de zéro est utilisée pour supprimer les objets._
  *
  *  @see {@link module:tests/world_set/test_set_objects} for unit tests
+ *  @see {@link module:qunit_tests/js/all_qunit_tests} for qunit tests
+ *  @see {@link module:qunit_tests/js/all_qunit_tests#my_test} for qunit tests
+ *  @see {@link module:qunit_tests/js/all_qunit_tests.my_test} for qunit tests
+ *  @see {@link module:qunit_tests/js/all_qunit_tests~my_test} for qunit tests
  */
 
 RUR.set_object_nb_at_position = function (specific_object, x, y, nb){

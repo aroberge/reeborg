@@ -1,4 +1,4 @@
-/** @module test/world_set/test_set_objects  */
+/** @module tests/world_set/test_set_objects  */
 
 var test = require('tape');
 var silencer =  require('silencer');

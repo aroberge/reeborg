@@ -38,7 +38,7 @@ with open('reeborg_qunit_test.html', 'w') as f:
     for line in lines:
         if '</head>' in line:
             line = """
-<link rel="stylesheet" href="qunit_test/qunit-2.0.1.css">
+<link rel="stylesheet" href="qunit_tests/qunit-2.0.1.css">
 </head>
 """
         elif '<body>' in line:
@@ -56,9 +56,9 @@ with open('reeborg_qunit_test.html', 'w') as f:
         elif '</body>' in line:
             line = """
 </div>
-<script src="qunit_test/qunit-2.0.1.js"></script>
-<script src="qunit_test/js/test_utils.js" defer></script>
-<script src="qunit_test/js/all_qunit_tests.js" defer></script>
+<script src="qunit_tests/qunit-2.0.1.js"></script>
+<script src="qunit_tests/js/test_utils.js" defer></script>
+<script src="qunit_tests/js/all_qunit_tests.js" defer></script>
 </body>
 """
         f.write(line)
