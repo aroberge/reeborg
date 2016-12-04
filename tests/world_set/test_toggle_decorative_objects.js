@@ -46,6 +46,7 @@ test('adding unknown decorative object', function (assert) {
     RUR.KNOWN_OBJECTS = [];
     require("../../src/js/world_set/toggle_decorative_object.js");
     RUR.translation = {};
+    RUR.untranslated['a'] = false;
     try {
         RUR.toggle_decorative_object_at_position('a', 2, 3, 4);
     } catch (e) {

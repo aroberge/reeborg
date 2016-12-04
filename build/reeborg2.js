@@ -2215,7 +2215,7 @@ goal_objects = function () {
     } else {
         query = input_goal_number_result;
     }
-    RUR.add_goal_object_at_position(RUR.state.specific_object, RUR.state.x, RUR.state.y, query);
+    RUR.set_nb_goal_object_at_position(RUR.state.specific_object, RUR.state.x, RUR.state.y, query);
     RUR.vis_world.refresh_world_edited();
     dialog_goal_object.dialog("close");
     return true;
@@ -8938,9 +8938,9 @@ RUR.we._add_goal_objects = function (specific_object){
             RUR.CURRENT_WORLD.goal.objects !== undefined &&
             RUR.CURRENT_WORLD.goal.objects[coords] !== undefined &&
             RUR.CURRENT_WORLD.goal.objects[coords].box ==1){
-                RUR.add_goal_object_at_position("box", x, y, 0);
+                RUR.set_nb_goal_object_at_position("box", x, y, 0);
         } else {
-            RUR.add_goal_object_at_position("box", x, y, 1);
+            RUR.set_nb_goal_object_at_position("box", x, y, 1);
         }
         return;
     }
@@ -9762,7 +9762,7 @@ require("./../translator.js");
 *  une valeur de zéro est utilisée pour supprimer un but semblable pré-existant._
 *
 */
-RUR.add_goal_object_at_position = function (specific_object, x, y, nb){
+RUR.set_nb_goal_object_at_position = function (specific_object, x, y, nb){
     "use strict";
     var coords;
     specific_object = RUR.translate_to_english(specific_object);

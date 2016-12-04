@@ -37,7 +37,7 @@ goal_objects = function () {
     } else {
         query = input_goal_number_result;
     }
-    RUR.add_goal_object_at_position(RUR.state.specific_object, RUR.state.x, RUR.state.y, query);
+    RUR.set_nb_goal_object_at_position(RUR.state.specific_object, RUR.state.x, RUR.state.y, query);
     RUR.vis_world.refresh_world_edited();
     dialog_goal_object.dialog("close");
     return true;

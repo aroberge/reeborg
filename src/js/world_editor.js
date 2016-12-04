@@ -506,9 +506,9 @@ RUR.we._add_goal_objects = function (specific_object){
             RUR.CURRENT_WORLD.goal.objects !== undefined &&
             RUR.CURRENT_WORLD.goal.objects[coords] !== undefined &&
             RUR.CURRENT_WORLD.goal.objects[coords].box ==1){
-                RUR.add_goal_object_at_position("box", x, y, 0);
+                RUR.set_nb_goal_object_at_position("box", x, y, 0);
         } else {
-            RUR.add_goal_object_at_position("box", x, y, 1);
+            RUR.set_nb_goal_object_at_position("box", x, y, 1);
         }
         return;
     }
