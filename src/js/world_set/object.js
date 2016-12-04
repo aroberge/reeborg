@@ -10,6 +10,7 @@ require("./../translator.js");
  * at a certain location.
  * By "object" we mean a type of object that can be taken or put down by Reeborg.
  *
+ *
  * @desc Cette fonction spécifie la quantité d'un certain type d'objet qui doit être
  * mis à un endroit donné.
  * Par "objet", on entend ici un objet qui peut être transporté ou déposé par Reeborg.
@@ -25,6 +26,7 @@ require("./../translator.js");
  *           <br> _Nombre d'objets à cet endroit;
  *           une valeur de zéro est utilisée pour supprimer les objets._
  *
+ *  @see {@link module:tests/world_set/test_set_objects} for unit tests
  */
 
 RUR.set_object_nb_at_position = function (specific_object, x, y, nb){

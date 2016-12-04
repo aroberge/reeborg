@@ -1,3 +1,7 @@
+/**
+ * @module QUnit_test
+ */
+
 QUnit.module("world.js", {
   beforeEach: function() {
     RUR.unit_tests.reset();

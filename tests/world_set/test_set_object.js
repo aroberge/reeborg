@@ -1,3 +1,5 @@
+/** @module test/world_set/test_set_objects  */
+
 var test = require('tape');
 var silencer =  require('silencer');
 
@@ -27,8 +29,6 @@ test('adding and removing known object', function (assert) {
     assert.ok(identical(RUR.CURRENT_WORLD.objects, {}), "nb objects left");
     assert.end();
 });
-
-
 
 test('adding two and removing one known objects', function (assert) {
     var identical = require("../../src/js/utils/identical.js").identical; 
