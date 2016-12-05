@@ -6741,7 +6741,10 @@ RUR.runner.check_func_parentheses = function(line_of_code) {
 };
 
 },{"./blockly.js":1,"./create_editors.js":5,"./recorder.js":47,"./rur.js":52,"./state.js":55,"./translator.js":57,"./utils/supplant.js":66,"./visible_world.js":68,"./world.js":69,"./world/clone_world.js":70,"./world_init.js":76}],52:[function(require,module,exports){
-/** @namespace RUR */         // for jsdoc
+/** @namespace RUR 
+ * @desc The namespace reserved for all the Reeborg World methods.
+ *
+ */
 window.RUR = RUR || {}; // RUR could be already be defined in the html file
 
 RUR.BACKGROUND_IMAGE = new Image();
@@ -9757,67 +9760,78 @@ set_dimension_form = RUR.world_set.dialog_set_dimensions.find("form").on("submit
 require("./../exceptions.js");
 require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
+require("./../utils/ensure_integer.js");
 require("./../translator.js");
 
-/** @function add_goal_object_at_position
+/** @function set_nb_goal_object_at_position
 * @memberof RUR
 * @instance
-* @summary This function sets a specified quantity of a given object
+* @desc This function sets a specified quantity of a given object
 * as a goal at a certain location.
-* By "object" we mean a type of object that can be taken or put down by Reeborg.
+* By **object** we mean a type of object that can be taken or put down by Reeborg.
 *
-* @desc Cette fonction spécifie la quantité d'un certain type d'objet qui doit être
-* mis comme but à un endroit donné.
-* Par "objet", on entend ici un objet qui peut être transporté ou déposé par Reeborg.
-*
-* @param {string} specific_object The name of the object type ; e.g. "token" <br>
-*                        _Le nom du type de l'objet; par exemple, "jeton"._
-* @param {integer} x - Position of the object
-*                    <br> _position de l'objet_
-* @param {integer} y - Position of the object
-*                    <br> _position de l'objet_
-* @param {integer} nb - Number of desired objects at that location;
-*           a value of zero is used to remove any such goal set.
-*           <br> _Nombre d'objets désiré à cet endroit;
-*  une valeur de zéro est utilisée pour supprimer un but semblable pré-existant._
+ * @param {string} specific_object The name of the object type ; e.g. `"token"` 
+ * @param {integer} x - Position of the object; must be greater than zero
+ * @param {integer} y - Position of the object; must be greater than zero
+ * @param {integer} nb - Number of desired objects at that location;
+ *           a value of zero can be used to remove a previously set goal.
+ *
+ * @throws Will throw an error is `specific_object` is not known.
+ * @throws Will throw an error if `x` or `y` is not a positive integer.
+ * @throws Will throw an error if `nb` is not a positive integer or zero.
+ *
+ * @see {@link UnitTest#test_set_nb_goal_object_at_position} for unit tests.
 *
 */
 RUR.set_nb_goal_object_at_position = function (specific_object, x, y, nb){
     "use strict";
-    var coords;
+    var coords, cw, my_name;
     specific_object = RUR.translate_to_english(specific_object);
+    my_name = "RUR.set_nb_goal_object_at_position(specific_object, x, y, nb): ";
     if (RUR.KNOWN_OBJECTS.indexOf(specific_object) == -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: specific_object}));
     }
+    RUR._ensure_positive_integer(x, my_name+"x");
+    RUR._ensure_positive_integer(y, my_name+"y");
+    RUR._ensure_positive_integer_or_zero(nb, my_name+"nb");
 
     coords = x + "," + y;
+    cw = RUR.CURRENT_WORLD;
 
-    RUR._ensure_key_exists(RUR.CURRENT_WORLD, "goal");
-    RUR._ensure_key_exists(RUR.CURRENT_WORLD.goal, "objects");
-    RUR._ensure_key_exists(RUR.CURRENT_WORLD.goal.objects, coords);
+    RUR._ensure_key_exists(cw, "goal");
+    RUR._ensure_key_exists(cw.goal, "objects");
+    RUR._ensure_key_exists(cw.goal.objects, coords);
     if (nb === 0) {
         try {
-            delete RUR.CURRENT_WORLD.goal.objects[coords][specific_object];
+            delete cw.goal.objects[coords][specific_object];
         } catch (e) {}
 
-        if (Object.keys(RUR.CURRENT_WORLD.goal.objects[coords]).length === 0){
-            delete RUR.CURRENT_WORLD.goal.objects[coords];
-            if (Object.keys(RUR.CURRENT_WORLD.goal.objects).length === 0){
-                delete RUR.CURRENT_WORLD.goal.objects;
-                if (Object.keys(RUR.CURRENT_WORLD.goal).length === 0){
-                    delete RUR.CURRENT_WORLD.goal;
+        if (Object.keys(cw.goal.objects[coords]).length === 0){
+            delete cw.goal.objects[coords];
+            if (Object.keys(cw.goal.objects).length === 0){
+                delete cw.goal.objects;
+                if (Object.keys(cw.goal).length === 0){
+                    delete cw.goal;
                 }
             }
         }
     } else {
-        RUR.CURRENT_WORLD.goal.objects[coords][specific_object] = nb;
+        cw.goal.objects[coords][specific_object] = nb;
     }
     try {
-        RUR.record_frame("debug", "add_goal_object_at_position");
+        RUR.record_frame("debug", "set_nb_goal_object_at_position");
     } catch (e) {}
 };
 
-},{"./../exceptions.js":13,"./../translator.js":57,"./../utils/key_exist.js":64,"./../utils/supplant.js":66}],80:[function(require,module,exports){
+/** @function add_goal_object_at_position
+ * @memberof RUR
+ * @instance
+ *
+ *
+ * @deprecated Use {@link RUR#set_nb_goal_object_at_position} instead.
+ */
+RUR.add_goal_object_at_position = RUR.set_nb_goal_object_at_position;
+},{"./../exceptions.js":13,"./../translator.js":57,"./../utils/ensure_integer.js":61,"./../utils/key_exist.js":64,"./../utils/supplant.js":66}],80:[function(require,module,exports){
 require("./../recorder/record_frame.js");
 
 
@@ -9944,7 +9958,7 @@ RUR.set_nb_object_at_position = function (specific_object, x, y, nb){
  * @instance
  *
  *
- * @deprecated Use {@link RUR#set_nb_object_at_position} instead
+ * @deprecated Use {@link RUR#set_nb_object_at_position} instead.
  */
 RUR.add_object_at_position = RUR.set_nb_object_at_position;
 

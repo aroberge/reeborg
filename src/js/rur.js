@@ -1,4 +1,7 @@
-/** @namespace RUR */         // for jsdoc
+/** @namespace RUR 
+ * @desc The namespace reserved for all the Reeborg World methods.
+ *
+ */
 window.RUR = RUR || {}; // RUR could be already be defined in the html file
 
 RUR.BACKGROUND_IMAGE = new Image();

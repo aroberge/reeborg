@@ -22,6 +22,13 @@ require("./../translator.js");
  * @throws Will throw an error if `x` or `y` is not a positive integer.
  * @throws Will throw an error if `nb` is not a positive integer or zero.
  *
+ * @example
+ * // This example shows how to add or remove objects, or object goals
+ * // Make sure to allow it to replace the content of the editor.
+ * // Upon loading this world, the programming language will be set
+ * // to Python.
+ * World("/worlds/examples/set_nb_object.json", "Set nb")
+ *
  * @see {@link UnitTest#test_set_nb_object_at_position} for unit tests.
  */
 

@@ -24,6 +24,7 @@ QUnit.module("Testing framework self-consistency", {
 });
 QUnit.test("Load world", function(assert) {
     var url = "/src/worlds/alone.json";
+    var done = assert.async();
     var world_alone = {
         robots: [ {
                   "x": 1,
@@ -48,6 +49,7 @@ QUnit.test("Load world", function(assert) {
 
     RUR.unit_tests.load_world_file(url);
     assert.deepEqual(world_alone, RUR.CURRENT_WORLD, "Ensuring loading world is done properly in testing framework.");
+    done();
 });
 
 QUnit.module("file_io.js tests", {
@@ -77,6 +79,7 @@ QUnit.test("Load world without running program", function(assert) {
 QUnit.test("Load world by running Python programs", function(assert) {
     "use strict";
     var frames, last_frame, contents;
+    var done = assert.async();
     contents = [["/src/worlds/tutorial_en/home1.json", "Home 1"],
                 ["/src/worlds/tutorial_en/home2.json", "Home 2"]];
     RUR.custom_world_select.make(contents);
@@ -97,7 +100,7 @@ QUnit.test("Load world by running Python programs", function(assert) {
     assert.equal(RUR.unit_tests.content,
         "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></u>",
         "Feedback text ok.");
-
+    done();
 });
 
 QUnit.module(" runner.js : Javascript programs", {
@@ -106,19 +109,24 @@ QUnit.module(" runner.js : Javascript programs", {
 });
 QUnit.test("Centre 1", function(assert) {
     var world_url = "/src/worlds/tutorial_en/center1.json";
+    var done = assert.async();
     RUR.unit_tests.set_human_language("en");
     assert.ok(RUR.unit_tests.eval_javascript(world_url, "/qunit_tests/src/test_center1.js").success, "Centre1 run successfully.");
     assert.notOk(RUR.unit_tests.eval_javascript(world_url, "/qunit_tests/src/test_center1_fail.js").success, "Failing program recognized as such.");
     assert.notOk(RUR.unit_tests.eval_javascript(world_url, "/qunit_tests/src/test_syntax_fail.js").success, "Failing program (syntax error) recognized as such.");
+    done();
 });
 QUnit.test("Centre 1", function(assert) {
     var world_url = "/src/worlds/tutorial_en/center1.json";
+    var done = assert.async();
     RUR.unit_tests.set_human_language("fr");
     assert.ok(RUR.unit_tests.eval_javascript(world_url, "/qunit_tests/src/test_center1_fr.js").success, "Centre1 run successfully.");
     assert.notOk(RUR.unit_tests.eval_javascript(world_url, "/qunit_tests/src/test_center1_fail_fr.js").success, "Failing program recognized as such.");
     assert.notOk(RUR.unit_tests.eval_javascript(world_url, "/qunit_tests/src/test_syntax_fail_fr.js").success, "Failing program (syntax error) recognized as such.");
+    done();
 });
 QUnit.test("Failed goal with zero frame recorded", function(assert) {
+    var done = assert.async();
     RUR.unit_tests.set_human_language("en");
     RUR.state.programming_language = "javascript";
     RUR.unit_tests.load_world_file("/src/worlds/tutorial_en/center1.json");
@@ -126,6 +134,7 @@ QUnit.test("Failed goal with zero frame recorded", function(assert) {
     RUR.runner.eval(RUR.unit_tests.program);
     RUR.rec.conclude();
     assert.equal(RUR.unit_tests.feedback_element, "#Reeborg-shouts", "Failure properly recognized.");
+    done();
 });
 
 QUnit.module("Failing Python programs", {
@@ -134,15 +143,19 @@ QUnit.module("Failing Python programs", {
 });
 QUnit.test("Centre 1", function(assert) {
     var world_url = "/src/worlds/tutorial_en/center1.json";
+    var done = assert.async();
     RUR.unit_tests.set_human_language("en");
     assert.notOk(RUR.unit_tests.eval_python(world_url, "/qunit_tests/src/test_center1_fail.py").success, "Failing program recognized as such.");
     assert.notOk(RUR.unit_tests.eval_python(world_url, "/qunit_tests/src/test_syntax_fail.py").success, "Failing program (syntax error) recognized as such.");
+    done();
 });
 QUnit.test("Centre 1", function(assert) {
     var world_url = "/src/worlds/tutorial_en/center1.json";
+    var done = assert.async();
     RUR.unit_tests.set_human_language("fr");
     assert.notOk(RUR.unit_tests.eval_python(world_url, "/qunit_tests/src/test_center1_fail_fr.py").success, "Failing program recognized as such.");
     assert.notOk(RUR.unit_tests.eval_python(world_url, "/qunit_tests/src/test_syntax_fail_fr.py").success, "Failing program (syntax error) recognized as such.");
+    done();
 });
 
 QUnit.module("Tutorial worlds: English Python programs", {
@@ -155,7 +168,7 @@ QUnit.module("Tutorial worlds: English Python programs", {
 QUnit.test("Around 1, 2, 3, 4", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
-
+    var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
     world_file = "around1.json";
     frames = RUR.unit_tests.run_python(base_url + world_file, "/qunit_tests/src/around_en.py");
@@ -202,9 +215,11 @@ QUnit.test("Around 1, 2, 3, 4", function(assert) {
     assert.equal(RUR.unit_tests.content,
         "<p class='center'>Last instruction completed!</p>",
         "Feedback text ok.");
+    done();
 });
 QUnit.test("Center 1, 2, 3", function(assert) {
     var base_url, i, world_files;
+    var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
     world_files = ["center1.json", "center2.json", "center3.json"];
     RUR.unit_tests.load_program("/qunit_tests/src/center_en.py");
@@ -217,9 +232,11 @@ QUnit.test("Center 1, 2, 3", function(assert) {
     assert.equal(RUR.unit_tests.content,
         "<ul><li class='success'>All objects are at the correct location.</li></u>",
         "Feedback text ok.");
+    done();
 });
 QUnit.test("Hurdles 1, 2, 3, 4", function(assert) {
     var base_url, i, world_files;
+    var done = assert.async();
     RUR.unit_tests.set_human_language("en");
     base_url = "/src/worlds/tutorial_en/";
     world_files = ["hurdle1.json", "hurdle2.json", "hurdle3.json", "hurdle4.json"];
@@ -233,9 +250,11 @@ QUnit.test("Hurdles 1, 2, 3, 4", function(assert) {
     assert.equal(RUR.unit_tests.content,
         "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></u>",
         "Feedback text ok.");
+    done();
 });
 QUnit.test("Maze 1, 2", function(assert) {
     var base_url, i, world_files;
+    var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
     world_files = ["maze1.json", "maze2.json"];
 
@@ -251,9 +270,11 @@ QUnit.test("Maze 1, 2", function(assert) {
     assert.equal(RUR.unit_tests.content,
         "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></u>",
         "Feedback text ok.");
+    done();
 });
 QUnit.test("Home 1, 2, 3", function(assert) {
     var base_url, i, world_files;
+    var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
     world_files = ["home1.json", "home2.json", "home3.json"];
     RUR.unit_tests.load_program("/qunit_tests/src/home_en.py");
@@ -266,10 +287,12 @@ QUnit.test("Home 1, 2, 3", function(assert) {
     assert.equal(RUR.unit_tests.content,
         "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></u>",
         "Feedback text ok.");
+    done();
 });
 QUnit.test("Harvests", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
+    var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
 
     world_file = "harvest1.json";
@@ -306,10 +329,12 @@ QUnit.test("Harvests", function(assert) {
     world_file = "harvest4d.json";
     assert.ok(RUR.unit_tests.eval_python(base_url + world_file).success,
                                       world_file + " run successfully.");
+    done();
 });
 QUnit.test("Tokens", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
+    var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
     RUR.unit_tests.set_human_language("en");
 
@@ -343,11 +368,12 @@ QUnit.test("Tokens", function(assert) {
     world_file = "tokens6.json";
     assert.ok(RUR.unit_tests.eval_python(base_url + world_file).success,
                                       world_file + " run successfully.");
-
+    done();
 });
 QUnit.test("Rain", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
+    var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
     RUR.unit_tests.set_human_language("en");
 
@@ -366,10 +392,12 @@ QUnit.test("Rain", function(assert) {
     world_file = "rain2.json";
     assert.ok(RUR.unit_tests.eval_python(base_url + world_file).success,
                                       world_file + " run successfully.");
+    done();
 });
 QUnit.test("Newspaper", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
+    var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
     RUR.unit_tests.set_human_language("en");
 
@@ -392,10 +420,12 @@ QUnit.test("Newspaper", function(assert) {
                                       world_file + " run successfully.");
     last_frame = RUR.frames[RUR.frames.length - 1];
     assert.deepEqual(last_frame.world.robots[0].objects, {"token": 3}, "3 tokens carried.");
+    done();
 });
 QUnit.test("Storm 1", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
+    var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
     RUR.unit_tests.set_human_language("en");
 
@@ -414,12 +444,12 @@ QUnit.test("Storm 1", function(assert) {
         "<li class='success'>All objects are at the correct location.</li>" +
         "<li class='success'>All walls have been built correctly.</li></u>",
         "Feedback text ok.");
-
-
+    done();
 });
 QUnit.test("Storm 2; also tests library", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
+    var done = assert.async();    
     base_url = "/src/worlds/tutorial_en/";
     RUR.unit_tests.set_human_language("en");
 
@@ -441,11 +471,12 @@ QUnit.test("Storm 2; also tests library", function(assert) {
         "<li class='success'>All objects are at the correct location.</li>" +
         "<li class='success'>All walls have been built correctly.</li></u>",
         "Feedback text ok.");
-
+    done();
     });
 QUnit.test("Storm 3; also tests library", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
+    var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
     RUR.unit_tests.set_human_language("en");
     world_file = "storm3.json";
@@ -467,6 +498,7 @@ QUnit.test("Storm 3; also tests library", function(assert) {
         "<li class='success'>All objects are at the correct location.</li>" +
         "<li class='success'>All walls have been built correctly.</li></u>",
         "Feedback text ok.");
+    done();
 });
 
 QUnit.module("Tutorial worlds: French Python programs", {
@@ -479,7 +511,7 @@ QUnit.module("Tutorial worlds: French Python programs", {
 QUnit.test("Around 1, 2, 3, 4", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
-
+    var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
     world_file = "around1.json";
     frames = RUR.unit_tests.run_python(base_url + world_file, "/qunit_tests/src/around_fr.py");
@@ -526,9 +558,11 @@ QUnit.test("Around 1, 2, 3, 4", function(assert) {
     assert.equal(RUR.unit_tests.content,
         "<p class='center'>Dernière instruction complétée!</p>",
         "Feedback text ok.");
+    done();
 });
 QUnit.test("Centre 1, 2, 3", function(assert) {
     var base_url, i, world_files;
+    var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
     world_files = ["center1.json", "center2.json", "center3.json"];
     RUR.unit_tests.load_program("/qunit_tests/src/center_fr.py");
@@ -541,9 +575,11 @@ QUnit.test("Centre 1, 2, 3", function(assert) {
     assert.equal(RUR.unit_tests.content,
         "<ul><li class='success'>Tous les objets sont aux bons endroits.</li></u>",
         "Feedback text ok.");
+    done();
 });
 QUnit.test("Hurdles 1, 2, 3, 4", function(assert) {
     var base_url, i, world_files;
+    var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
     world_files = ["hurdle1.json", "hurdle2.json", "hurdle3.json", "hurdle4.json"];
     RUR.unit_tests.load_program("/qunit_tests/src/hurdle_fr.py");
@@ -556,9 +592,11 @@ QUnit.test("Hurdles 1, 2, 3, 4", function(assert) {
     assert.equal(RUR.unit_tests.content,
         "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li><li class='success'>Reeborg est à la bonne coordonnée y.</li></u>",
         "Feedback text ok.");
+    done();
 });
 QUnit.test("Maze 1, 2", function(assert) {
     var base_url, i, world_files;
+    var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
     world_files = ["maze1.json", "maze2.json"];
 
@@ -574,9 +612,11 @@ QUnit.test("Maze 1, 2", function(assert) {
     assert.equal(RUR.unit_tests.content,
         "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li><li class='success'>Reeborg est à la bonne coordonnée y.</li></u>",
         "Feedback text ok.");
+    done();
 });
 QUnit.test("Home 1, 2, 3", function(assert) {
     var base_url, i, world_files;
+    var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
     world_files = ["home1.json", "home2.json", "home3.json"];
     RUR.unit_tests.load_program("/qunit_tests/src/home_fr.py");
@@ -589,10 +629,12 @@ QUnit.test("Home 1, 2, 3", function(assert) {
     assert.equal(RUR.unit_tests.content,
         "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li><li class='success'>Reeborg est à la bonne coordonnée y.</li></u>",
         "Feedback text ok.");
+    done();
 });
 QUnit.test("Harvests", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
+    var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
 
     world_file = "harvest1.json";
@@ -629,10 +671,12 @@ QUnit.test("Harvests", function(assert) {
     world_file = "harvest4d.json";
     assert.ok(RUR.unit_tests.eval_python(base_url + world_file).success,
                                       world_file + " run successfully.");
+    done();
 });
 QUnit.test("Tokens", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
+    var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
 
     world_file = "tokens1.json";
@@ -666,11 +710,12 @@ QUnit.test("Tokens", function(assert) {
     world_file = "tokens6.json";
     assert.ok(RUR.unit_tests.eval_python(base_url + world_file).success,
                                       world_file + " run successfully.");
-
+    done();
 });
 QUnit.test("Rain", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
+    var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
 
     world_file = "rain1.json";
@@ -688,10 +733,12 @@ QUnit.test("Rain", function(assert) {
     world_file = "rain2.json";
     assert.ok(RUR.unit_tests.eval_python(base_url + world_file).success,
                                       world_file + " run successfully.");
+    done();
 });
 QUnit.test("Newspaper", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
+    var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
     world_file = "newspaper0.json";
     assert.ok(RUR.unit_tests.eval_python(base_url + world_file, "/qunit_tests/src/newspaper0_fr.py").success,
@@ -717,6 +764,7 @@ QUnit.test("Newspaper", function(assert) {
                                       world_file + " run successfully.");
     last_frame = RUR.frames[RUR.frames.length - 1];
     assert.deepEqual(last_frame.world.robots[0].objects, {"token": 3}, "3 tokens carried.");
+    done();
 });
 QUnit.test("Storm 1", function(assert) {
     "use strict";
