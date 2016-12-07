@@ -98,6 +98,7 @@ to point to the right html file.<br>
 <script src="/src/misc/conversion.js"></script>
 
 <script>
+alert("If running from repo: conversion.js is stored in different location than written in html file.")
 function do_convert_world() {
   var source = $("#old-world").val();
   $("#new-world").html(convert_world(source));
