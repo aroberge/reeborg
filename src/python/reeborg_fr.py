@@ -675,18 +675,19 @@ class InfoSatellite():  #py:SI
 
 
 def nombre_d_instructions(nb):
+    '''désuète'''
     raise ReeborgError(
         "nombre_d_instructions() a été remplacé par max_nb_instructions().")
 
 
 def face_au_nord():
-    # obsolete
+    '''désuète'''
     raise ReeborgError("face_au_nord() est désuet;" +
                        " utilisez est_face_au_nord()")
 
 def repete(fn, n):
-    '''Fonction maintenue pour compatibilité avec d'anciens programmes.
-       SVP, ne pas l'utiliser.'''
+    '''désuète'''
+    print("repete() ou répète() est désuète; SVP, ne pas l'utiliser.")
     for i in range(n):
         fn()
 répète = repete

@@ -7,7 +7,9 @@ included in a Python program for Reeborg's World.
 try:
     from browser import window
     RUR = window.RUR
-except:
+except ImportError:
+    from collections import defaultdict
+    window = defaultdict(str)
     print("\n --> Skipping importing from browser for sphinx.\n")
 
 # All functions from Javascript used below should have names of the form
@@ -362,7 +364,7 @@ class UsedRobot(object):  #py:UR
             Args:
                x: horizontal coordinate; an integer greater or equal to 1.
                y: vertical coordinate; an integer greater or equal to 1.
-               orientation (string):,
+               orientation (string):
                             one of "e" or "east",
                             "w" or "west", "n" or "north", "s" or "south".
                tokens: Initial number of tokens to give to the robot;
@@ -615,7 +617,7 @@ except:
 class ReeborgError(Exception):  #py:RE
     """Exceptions specific to Reeborg's World.
 
-       Examples::
+       Examples:
 
             def done():  #py:
                 message = "You can not use done() for this task."
@@ -670,8 +672,10 @@ class SatelliteInfo():  #py:SI
 # Do not tranlate the following
 
 def narration(html):
+    '''deprecated'''
     raise ReeborgError("narration is obsolete; use print_html().")
 
 
 def say():
+    '''deprecated'''
     raise ReeborgError("say() is no longer supported; use print() instead.")

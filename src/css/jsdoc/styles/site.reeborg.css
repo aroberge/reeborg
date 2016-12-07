@@ -63,7 +63,13 @@ hr {
   max-width: 300px;
   margin: auto;
 }
-
+.reeborg-important {
+  font-weight: bold;
+  border: 2px solid red;
+  display: block;
+  margin: 10px;
+  padding: 10px;
+}
 .navbar, .navbar-default, .navbar-header {
     background-color: #123264;
     background-image: -webkit-linear-gradient(top, #2d5ab4 20%, #1e3c78 60%, #123264 80%);
