@@ -4,13 +4,10 @@
   "private": true,
   "description": "Reeborg's World engine",
   "scripts": {
-    "test-spec": "tape tests/unit_tests/**/*.js | tap-spec",
-    "test": "tape tests/unit_tests/**/*.js | tap-diff",
-    "test-dot": "tape tests/unit_tests/**/*.js | tap-dot",
-    "test-raw": "tape tests/unit_tests/**/*.js",
-    "test-notify": "tape tests/unit_tests/**/*.js | tap-notify | tap-dot",
-    "build": "tape tests/unit_tests/**/*.js | tap-notify | tap-dot && browserify ./src/js/index.js -o ./build/reeborg.js",
-    "build2": "tape tests/unit_tests/**/*.js | tap-dot && browserify ./src/js/index.js -o ./build/reeborg2.js",
+    "test": "tape tests/unit_tests/**/*.js | faucet",
+    "tests": "tape tests/unit_tests/**/*.js | faucet",
+    "build": "tape tests/unit_tests/**/*.js | faucet && browserify ./src/js/index.js -o ./build/reeborg.js",
+    "build2": "tape tests/unit_tests/**/*.js | faucet && browserify ./src/js/index.js -o ./build/reeborg2.js",
     "only-build": "browserify ./src/js/index.js -o ./build/reeborg.js",
     "jsdoc": "jsdoc -c dev_tools/jsdoc_conf.json"
   },
@@ -26,13 +23,11 @@
   "homepage": "https://github.com/aroberge/reeborg#readme",
   "devDependencies": {
     "browserify": "^13.0.0",
+    "faucet": "0.0.1",
     "ink-docstrap": "^1.1.0",
+    "jsdoc": "^3.4.3",
     "mock-require": "^1.2.1",
     "silencer": "0.0.2",
-    "tap-diff": "^0.1.1",
-    "tap-dot": "^1.0.1",
-    "tap-spec": "^4.1.1",
-    "tape": "^4.4.0",
-    "jsdoc": "^3.4.3"
+    "tape": "^4.4.0"
   }
 }

@@ -33,14 +33,30 @@ or globally
 
 Tape output, according to his creator, 
 _is good for machines and humans that are robots_. As I am neither, 
-I use one or two of the four following formatters:
+I use the following formatters:
+
+* faucet
+
+
+This is also a module that can be installed using npm.
+In the past, I have also used 
 
 * tap-diff
-* tap-dot  (a minimal formatter, used by default)
-* tap-notify (also used by default, together with tap-dot)
+* tap-dot  (a minimal formatter)
 * tap-spec
+* tap-notify (used in conjunction with any of the others)
 
-These are also modules that can be installed using npm.
+but I have found that faucet, written (I believe) by the creator of tape,
+did the best job in terms of providing the required information with 
+reduced clutter.
+
+To run the unit tests, do
+
+`npm run test`
+
+or
+
+`npm run tests` 
 
 ### Functional tests with qunit
 
