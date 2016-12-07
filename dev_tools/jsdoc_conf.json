@@ -11,11 +11,11 @@
         "tags": ["summary"]
     },
     "opts": {
-        "destination": "./advanced_world_creation/",
+        "destination": "./api_docs/advanced_world_creation/",
         "recurse": true,
         "readme": "src/js/README.md",
         "template": "../node_modules/ink-docstrap/template",
-        "tutorials": "extra_docs"
+        "tutorials": "./api_docs/hand_written/"
     },
     "templates": {
       "default" : {

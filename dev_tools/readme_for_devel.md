@@ -125,7 +125,8 @@ from these files, use
 
 `npm run jsdoc`
 
-The documentation produced is found in /advanced_world_creation/index.html.
+The documentation produced is found in api_docs/advanced_world_creation/index.html.
+You should read api_docs/readme.md for more details.
 
 ### More complete build
 
@@ -137,3 +138,13 @@ could be easily translated into a shell script suitable for Mac/Linux.
 world fails. However, if run in isolation, the tests pass. 
 I have not been able to track down the cause of this but I am guessing that this
 is due to an async process not terminated when running the full test suite.
+
+## Other repositories
+
+There are two other repositories of potential interest:
+
+* https://github.com/aroberge/reeborg-docs contains hand-written documentation 
+  for users in three languages (English, French, Korean)
+
+* https://github.com/aroberge/reeborg-dist is used to create and store a single zip file 
+  for easy deployment of Reeborg's World on a server.

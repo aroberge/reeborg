@@ -1,5 +1,9 @@
 # Known problems / _Problèmes connus_
 
+This following are known problems affecting **users** of Reeborg's World.
+
+_Ce qui suit est une liste de problèmes pour les **utilisateurs**
+du monde de Reeborg._
 
 ## Mac computers / _Ordinateurs Mac_
 
