@@ -5,8 +5,13 @@
 '''
 
 # First we create the version that can be run without internet access
-with open('reeborg.html', 'r') as f:
-    lines = f.readlines()
+try:
+    with open('reeborg.html', 'r') as f:
+        lines = f.readlines()
+except FileNotFoundError:
+    import sys
+    print("This script is meant to run from the base directory of the project.")
+    sys.exit()
 
 with open('reeborg_offline.html', 'w') as f:
     for line in lines:
@@ -38,7 +43,7 @@ with open('reeborg_qunit_test.html', 'w') as f:
     for line in lines:
         if '</head>' in line:
             line = """
-<link rel="stylesheet" href="qunit_tests/qunit-2.0.1.css">
+<link rel="stylesheet" href="tests/functional_tests/qunit-2.0.1.css">
 </head>
 """
         elif '<body>' in line:
@@ -56,9 +61,9 @@ with open('reeborg_qunit_test.html', 'w') as f:
         elif '</body>' in line:
             line = """
 </div>
-<script src="qunit_tests/qunit-2.0.1.js"></script>
-<script src="qunit_tests/js/test_utils.js" defer></script>
-<script src="qunit_tests/js/all_qunit_tests.js" defer></script>
+<script src="tests/functional_tests/qunit-2.0.1.js"></script>
+<script src="tests/functional_tests/js/test_utils.js" defer></script>
+<script src="tests/functional_tests/js/all_qunit_tests.js" defer></script>
 </body>
 """
         f.write(line)

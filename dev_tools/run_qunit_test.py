@@ -1,5 +1,5 @@
 '''This program starts a server, opens a specially written version
-of Reeborg's World that runs a series of unit tests in a browser
+of Reeborg's World that runs a series of functional tests in a browser
 using the QUnit framework.
 
 The server can be stopped "nicely".
