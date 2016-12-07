@@ -7,18 +7,18 @@ test('adding known object', function (assert) {
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
     RUR.KNOWN_OBSTACLES = ['a'];
-    require("../../src/js/world_set/toggle_obstacle.js");
+    require("../../../src/js/world_set/toggle_obstacle.js");
     global.RUR.toggle_obstacle_at_position('a', 2, 3, 4);
     assert.ok(RUR.CURRENT_WORLD.obstacles['2,3'].a, "solid objects ok");
     assert.end();
 });
 
 test('adding and removing known solid object', function (assert) {
-    var identical = require("../../src/js/utils/identical.js").identical;
+    var identical = require("../../../src/js/utils/identical.js").identical;
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
     RUR.KNOWN_OBSTACLES = ['a'];
-    require("../../src/js/world_set/toggle_obstacle.js");
+    require("../../../src/js/world_set/toggle_obstacle.js");
     RUR.toggle_obstacle_at_position('a', 2, 3);
     RUR.toggle_obstacle_at_position('a', 2, 3);
     assert.ok(identical(RUR.CURRENT_WORLD, {}), "nb solid objects left");
@@ -26,11 +26,11 @@ test('adding and removing known solid object', function (assert) {
 });
 
 test('adding two and removing one known solid objects', function (assert) {
-    var identical = require("../../src/js/utils/identical.js").identical;
+    var identical = require("../../../src/js/utils/identical.js").identical;
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
     RUR.KNOWN_OBSTACLES = ['a', 'b'];
-    require("../../src/js/world_set/toggle_obstacle.js");
+    require("../../../src/js/world_set/toggle_obstacle.js");
     RUR.toggle_obstacle_at_position('b', 2, 3);
     RUR.toggle_obstacle_at_position('a', 2, 3);
     RUR.toggle_obstacle_at_position('b', 2, 3);
@@ -44,7 +44,7 @@ test('adding unknown solid object', function (assert) {
     silencer.disable();
     RUR.OBJECTS = {};
     RUR.KNOWN_OBSTACLES = [];
-    require("../../src/js/world_set/toggle_obstacle.js");
+    require("../../../src/js/world_set/toggle_obstacle.js");
     RUR.translation = {};
     try {
         RUR.toggle_obstacle_at_position('a', 2, 3, 4);

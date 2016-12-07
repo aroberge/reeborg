@@ -5,11 +5,12 @@
 * @desc The file listed below as the source contains unit tests for 
 * {@link RUR#set_nb_goal_object_at_position}.
 *
-*/var test = require('tape');
+*/
+var test = require('tape');
 var silencer =  require('silencer');
 
 test('adding known goal object', function (assert) {
-    require("../../src/js/world_set/add_goal_object.js");
+    require("../../../src/js/world_set/add_goal_object.js");
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
     RUR.KNOWN_OBJECTS = ['a'];
@@ -20,8 +21,8 @@ test('adding known goal object', function (assert) {
 });
 
 test('adding and removing known goal object', function (assert) {
-    var identical = require("../../src/js/utils/identical.js").identical;
-    require("../../src/js/world_set/add_goal_object.js");
+    var identical = require("../../../src/js/utils/identical.js").identical;
+    require("../../../src/js/world_set/add_goal_object.js");
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
     RUR.KNOWN_OBJECTS = ['a'];
@@ -33,8 +34,8 @@ test('adding and removing known goal object', function (assert) {
 });
 
 test('adding two and removing one known goal objects', function (assert) {
-    var identical = require("../../src/js/utils/identical.js").identical;
-    require("../../src/js/world_set/add_goal_object.js");
+    var identical = require("../../../src/js/utils/identical.js").identical;
+    require("../../../src/js/world_set/add_goal_object.js");
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
     RUR.KNOWN_OBJECTS = ['a', 'b'];
@@ -51,7 +52,7 @@ test('adding two and removing one known goal objects', function (assert) {
 test('adding unknown goal object', function (assert) {
     silencer.reset();
     silencer.disable('log');
-    require("../../src/js/world_set/add_goal_object.js");
+    require("../../../src/js/world_set/add_goal_object.js");
     RUR.OBJECTS = {};
     RUR.KNOWN_OBJECTS = [];
     RUR.untranslated['a'] = false;
@@ -69,7 +70,7 @@ test('adding unknown goal object', function (assert) {
 test('invalid x value', function (assert) {
     var mess = "RUR.set_nb_goal_object_at_position(specific_object, x, y, nb): x" +
                 " must be a positive integer.";
-    require("../../src/js/world_set/add_goal_object.js");
+    require("../../../src/js/world_set/add_goal_object.js");
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
     RUR.KNOWN_OBJECTS = ['a'];
@@ -88,7 +89,7 @@ test('invalid x value', function (assert) {
 test('invalid y value', function (assert) {
     var mess = "RUR.set_nb_goal_object_at_position(specific_object, x, y, nb): y" +
                 " must be a positive integer.";
-    require("../../src/js/world_set/add_goal_object.js");
+    require("../../../src/js/world_set/add_goal_object.js");
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
     RUR.KNOWN_OBJECTS = ['a'];
@@ -107,7 +108,7 @@ test('invalid y value', function (assert) {
 test('invalid nb value', function (assert) {
     var mess = "RUR.set_nb_goal_object_at_position(specific_object, x, y, nb): nb" +
                 " must be a positive integer or zero.";
-    require("../../src/js/world_set/add_goal_object.js");
+    require("../../../src/js/world_set/add_goal_object.js");
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
     RUR.KNOWN_OBJECTS = ['a'];

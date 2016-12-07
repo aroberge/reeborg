@@ -1,6 +1,6 @@
 
 var test = require('tape');
-var filterInt = require("../../src/js/utils/filterint.js").filterInt;
+var filterInt = require("../../../src/js/utils/filterint.js").filterInt;
 
 test('filterInt()', function (assert) {
       assert.equal(42, filterInt(42), 'pure number');

@@ -42,6 +42,10 @@ I use one or two of the four following formatters:
 
 These are also modules that can be installed using npm.
 
+### Functional tests with qunit
+
+To be written.
+
 ### Checking for circular dependencies with madge
 
 Earlier on, I did not use any of the above modules and found that 
