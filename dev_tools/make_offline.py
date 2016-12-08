@@ -50,7 +50,7 @@ with open('reeborg_qunit_test.html', 'w') as f:
             line = """
 <body>
   <h1>After tests are completed:
-  <button onclick="RUR.unit_tests.stop_server()">click to stop server</button>
+  <button onclick="RUR.unit_tests.stop_server();window.location.reload();">click to stop server</button>
   </h1>
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>

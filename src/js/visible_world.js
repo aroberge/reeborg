@@ -1,8 +1,8 @@
 require("./translator.js");
 require("./constants.js");
 require("./state.js");
-require("./extend/add_object_type.js");
-require("./extend/add_tile_type.js");
+require("./world_augment/add_object_type.js");
+require("./world_augment/add_tile_type.js");
 require("./world/create_empty.js");
 
 //TODO add overlay object (like sensor) on robot canvas.

@@ -1,6 +1,6 @@
 /* This file contains the tiles included by default */
 require("./../rur.js");
-require("./../extend/add_tile_type.js");
+require("./../world_augment/add_tile_type.js");
 
 var home_message, tile;
 

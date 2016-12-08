@@ -1,5 +1,5 @@
 require("./rur.js");
-require("./extend/add_object_type.js");
+require("./world_augment/add_object_type.js");
 
 var obj;
 

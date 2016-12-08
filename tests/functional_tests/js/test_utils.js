@@ -47,7 +47,7 @@ RUR.unit_tests.load_program = function (url) {
         async: false,
         dataType: "text",
         error: function(e){
-            throw new Error("Problem in _load_program");
+            throw new Error("Problem in _load_program; url=" + url);
         },
         success: function(data){
             RUR.unit_tests.program = data;

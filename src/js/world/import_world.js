@@ -6,7 +6,7 @@ require("./../state.js");
 require("./../exceptions.js");
 require("./../create_editors.js");
 require("./create_empty.js");
-var images_init = require("./../extend/images.js").images_init;
+var images_init = require("./../world_augment/images.js").images_init;
 var edit_robot_menu = require("./../ui/edit_robot_menu.js");
 var clone_world = require("./clone_world.js").clone_world;
 

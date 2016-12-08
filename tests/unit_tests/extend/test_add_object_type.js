@@ -10,7 +10,7 @@ global.Image = function () {
 
 
 test('adding new object type', function (assert) {
-    require("../../../src/js/extend/add_object_type.js");    
+    require("../../../src/js/world_augment/add_object_type.js");    
     RUR.KNOWN_OBJECTS = [];
     RUR._NB_IMAGES_LOADED = 0;
     RUR._NB_IMAGES_TO_LOAD = 0;
@@ -32,7 +32,7 @@ test('adding new object type', function (assert) {
 });
 
 test('replace object type', function (assert) {
-    require("../../../src/js/extend/add_object_type.js");
+    require("../../../src/js/world_augment/add_object_type.js");
     RUR.KNOWN_OBJECTS = [];
     RUR.OBJECTS = {};
     RUR.state = {};
