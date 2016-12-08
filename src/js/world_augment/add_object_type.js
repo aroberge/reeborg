@@ -1,9 +1,10 @@
 require("./../rur.js");
+require("./namespace.js");
 require("./images.js");
 
 
 /** @function add_object_type
- * @memberof RUR
+ * @memberof RUR.augment
  * @instance
  * @summary This function makes it possible to add new objects. If the name
  *    of an existing object is specified again, it is replaced by a new one
@@ -47,6 +48,8 @@ require("./images.js");
  * @param {boolean} [obj.slippery] If sets to "true", Reeborg will keep going to next object if
  *                                  it attempts to move on this obj.
  *
+ *
+ * @todo examples are missing
  * @example
  * // This first example shows how to set various objects;
  * // the mode will be set to Python and the highlighting
@@ -60,12 +63,13 @@ require("./images.js");
  */
 RUR.OBJECTS = {};
 
-RUR.add_object_type = function (new_obj) {
+RUR.augment.add_object_type = function (new_obj) {
     "use strict";
     var i, key, keys, name, obj;
+    // TODO: raise error if attribute name not defined and add test for it
     name = new_obj.name;
     if (RUR.KNOWN_OBJECTS.indexOf(new_obj.name) != -1) {
-        console.log("Warning: object name " + name + " already exists");
+        console.warn("Warning: object name " + name + " already exists");
     } else {
         RUR.KNOWN_OBJECTS.push(name);
         RUR.OBJECTS[name] = {};
@@ -85,6 +89,7 @@ RUR.add_object_type = function (new_obj) {
     } else if (obj.images) {
         RUR.animate_images(obj);
     } else {
+        // TODO: replace alert by raising error, and test for it.
         alert("Fatal error: need either obj.url or a list: obj.images");
     }
     // Object goal (not required for decorative objects): either
@@ -101,9 +106,19 @@ RUR.add_object_type = function (new_obj) {
 };
 
 
-// supporting worlds created previously.
-//
+/** @function add_new_object_type
+ * @memberof RUR
+ * @instance
+ *
+ * @deprecated Use {@link RUR.augment#add_object_type} instead.
+ */
 RUR.add_new_object_type = function (name, url, url_goal) {
-    RUR.add_object_type({"name": name, "url": url, "goal": {"url": url_goal}});
+    RUR.augment.add_object_type({"name": name, "url": url, "goal": {"url": url_goal}});
 };
+/** @function add_object_image
+ * @memberof RUR
+ * @instance
+ *
+ * @deprecated Use {@link RUR.augment#add_object_type} instead.
+ */
 RUR.add_object_image = RUR.add_new_object_type; // Vincent Maille's book.

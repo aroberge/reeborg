@@ -2,7 +2,7 @@
 var test = require('tape');
 var filterInt = require("../../../src/js/utils/filterint.js").filterInt;
 
-test('filterInt()', function (assert) {
+test('Testing filterInt()', function (assert) {
       assert.equal(filterInt(42), 42, 'pure number');
       assert.equal(filterInt('42'), 42, 'string rep');
       assert.equal(filterInt('-42'), -42, '-42');

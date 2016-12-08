@@ -8,7 +8,7 @@ _add_object_type = function (name) {
     var url, url_goal;
     url = RUR._BASE_URL + '/src/images/' + name + '.png';
     url_goal = RUR._BASE_URL + '/src/images/' + name + '_goal.png';
-    RUR.add_object_type({"name": name, "url": url, "goal": {"url": url_goal}});
+    RUR.augment.add_object_type({"name": name, "url": url, "goal": {"url": url_goal}});
 };
 
 _add_object_type("token");
@@ -39,7 +39,7 @@ obj = {"name": 'beeper',
             'src/images/beeper3.png'],
     "goal": {'url': 'src/images/beeper_goal.png'}
 };
-RUR.add_object_type(obj);
+RUR.augment.add_object_type(obj);
 
 
 RUR.OBSTACLES = {};

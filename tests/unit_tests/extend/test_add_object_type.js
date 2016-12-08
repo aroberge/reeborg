@@ -8,9 +8,7 @@ global.Image = function () {
     return {};
 };
 
-
-test('adding new object type', function (assert) {
-    require("../../../src/js/world_augment/add_object_type.js");    
+function set_defaults() {
     RUR.KNOWN_OBJECTS = [];
     RUR._NB_IMAGES_LOADED = 0;
     RUR._NB_IMAGES_TO_LOAD = 0;
@@ -20,7 +18,16 @@ test('adding new object type', function (assert) {
     RUR.INCREMENT_LOADED_FN = function () {
         RUR._NB_IMAGES_LOADED += 1;
     };
-    RUR.add_new_object_type('name', 'URL', 'GOAL');
+}
+
+test('adding new object type', function (assert) {
+    require("../../../src/js/world_augment/add_object_type.js");   
+    var obj = {}; 
+    set_defaults();
+    obj.name = "name";
+    obj.url = "URL";
+    obj.goal = {"url": "GOAL"};
+    RUR.augment.add_object_type(obj); 
     assert.equal(RUR.KNOWN_OBJECTS[0], 'name', "object added");
     assert.equal(RUR.OBJECTS.name.image.src, 'URL', "url for objects ok");
     assert.equal(RUR.OBJECTS.name.goal.image.src, 'GOAL', "url for goal ok");
@@ -33,20 +40,37 @@ test('adding new object type', function (assert) {
 
 test('replace object type', function (assert) {
     require("../../../src/js/world_augment/add_object_type.js");
-    RUR.KNOWN_OBJECTS = [];
-    RUR.OBJECTS = {};
-    RUR.state = {};
-    RUR.state.ready = false;
+    var obj = {}; 
+    set_defaults();
     silencer.reset();
-    silencer.disable('log');
-    RUR.add_new_object_type('name', 'old_URL', 'old_GOAL');
-    RUR.add_new_object_type('name', 'URL', 'GOAL');
+    silencer.disable('warn');
+    obj.name = "name";
+    obj.url = "old_URL";
+    obj.goal = {"url": "old_GOAL"};
+    RUR.augment.add_object_type(obj); 
+    obj.url = "URL";
+    obj.goal = {"url": "GOAL"};
+    RUR.augment.add_object_type(obj); 
     assert.equal(RUR.KNOWN_OBJECTS[0], 'name', "object replaced");
     assert.equal(RUR.OBJECTS.name.image.src, 'URL', "url for objects ok");
     assert.equal(RUR.OBJECTS.name.goal.image.src, 'GOAL', "url for goal ok");
     silencer.restore()
-    assert.equal(silencer.getOutput('log')[0][0], 
+    assert.equal(silencer.getOutput('warn')[0][0], 
                  "Warning: object name name already exists",
                  "Console warning ok.")
+    assert.end();
+});
+
+test('adding new decorative object type', function (assert) {
+    // decorative objects do not need "goal" attribute defined
+    require("../../../src/js/world_augment/add_object_type.js");   
+    var obj = {}; 
+    set_defaults();
+    obj.name = "name";
+    obj.url = "URL";
+    RUR.augment.add_object_type(obj); 
+    assert.equal(RUR.KNOWN_OBJECTS[0], 'name', "object added");
+    assert.equal(RUR.OBJECTS.name.image.src, 'URL', "url for objects ok");
+    assert.equal(RUR.OBJECTS.name.goal, undefined, "no goal set ok");
     assert.end();
 });
