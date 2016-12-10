@@ -73,7 +73,7 @@ RUR.control.move = function (robot) {
         solid_object_beyond = false;
         if (solids_beyond) {
             for (name in solids_beyond) {
-                if (RUR.OBSTACLES[name] !== undefined && RUR.OBSTACLES[name].solid) {
+                if (RUR.TILES[name] !== undefined && RUR.TILES[name].solid) {
                     solid_object_beyond = true;
                     break;
                 }
@@ -108,10 +108,10 @@ RUR.control.move = function (robot) {
     objects = RUR.world_get.obstacles_at_position(robot.x, robot.y);
     if (objects) {
         for (name in objects) {
-            if (RUR.OBSTACLES[name] !== undefined && RUR.OBSTACLES[name].fatal) {
+            if (RUR.TILES[name] !== undefined && RUR.TILES[name].fatal) {
                 robot.x = robot._prev_x;
                 robot.y = robot._prev_y;
-                throw new RUR.ReeborgError(RUR.OBSTACLES[name].message);
+                throw new RUR.ReeborgError(RUR.TILES[name].message);
             }
         }
     }
@@ -473,9 +473,9 @@ RUR.control.front_is_clear = function(robot){
     solid = RUR.control.obstacles_in_front(robot);
     if (solid) {
         for (name in solid) {
-            if (RUR.OBSTACLES[name] !== undefined &&
-                RUR.OBSTACLES[name].detectable &&
-                RUR.OBSTACLES[name].fatal) {
+            if (RUR.TILES[name] !== undefined &&
+                RUR.TILES[name].detectable &&
+                RUR.TILES[name].fatal) {
                 return false;
             }
         }

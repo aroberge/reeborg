@@ -1158,7 +1158,7 @@ RUR.control.move = function (robot) {
         solid_object_beyond = false;
         if (solids_beyond) {
             for (name in solids_beyond) {
-                if (RUR.OBSTACLES[name] !== undefined && RUR.OBSTACLES[name].solid) {
+                if (RUR.TILES[name] !== undefined && RUR.TILES[name].solid) {
                     solid_object_beyond = true;
                     break;
                 }
@@ -1193,10 +1193,10 @@ RUR.control.move = function (robot) {
     objects = RUR.world_get.obstacles_at_position(robot.x, robot.y);
     if (objects) {
         for (name in objects) {
-            if (RUR.OBSTACLES[name] !== undefined && RUR.OBSTACLES[name].fatal) {
+            if (RUR.TILES[name] !== undefined && RUR.TILES[name].fatal) {
                 robot.x = robot._prev_x;
                 robot.y = robot._prev_y;
-                throw new RUR.ReeborgError(RUR.OBSTACLES[name].message);
+                throw new RUR.ReeborgError(RUR.TILES[name].message);
             }
         }
     }
@@ -1558,9 +1558,9 @@ RUR.control.front_is_clear = function(robot){
     solid = RUR.control.obstacles_in_front(robot);
     if (solid) {
         for (name in solid) {
-            if (RUR.OBSTACLES[name] !== undefined &&
-                RUR.OBSTACLES[name].detectable &&
-                RUR.OBSTACLES[name].fatal) {
+            if (RUR.TILES[name] !== undefined &&
+                RUR.TILES[name].detectable &&
+                RUR.TILES[name].fatal) {
                 return false;
             }
         }
@@ -5257,10 +5257,8 @@ obj = {"name": 'beeper',
 };
 RUR.augment.new_tile_type(obj);
 
-
-RUR.OBSTACLES = {};
 RUR.add_new_solid_object_type = function (name, url, nickname) {
-    var obj = RUR.OBSTACLES;
+    var obj = RUR.TILES;
     obj[name] = {};
     if (nickname === undefined) {
         obj[name].name = name;
@@ -5272,38 +5270,40 @@ RUR.add_new_solid_object_type = function (name, url, nickname) {
     }
     obj[name].ctx = RUR.OBSTACLES_CTX;
     obj[name].image = new Image();
-    if (!url) {
-        obj[name].image.src = RUR._BASE_URL + '/src/images/' + name + '.png';
+    if (url) {
+        obj[name].url = url;
     } else {
-        obj[name].image.src = url;
+        obj[name].url = RUR._BASE_URL + '/src/images/' + name + '.png';
     }
+    obj[name].image.src = obj[name].url;
+
     obj[name].image.onload = RUR._incremented_loaded_images;
     RUR._NB_IMAGES_TO_LOAD += 1;
     RUR.KNOWN_TILES.push(name);
 };
 
 RUR.add_new_solid_object_type("bridge");
-RUR.OBSTACLES.bridge.info = "Bridge:Reeborg <b>can</b> detect this and will know that it allows safe passage over water.";
+RUR.TILES.bridge.info = "Bridge:Reeborg <b>can</b> detect this and will know that it allows safe passage over water.";
 
 RUR.add_new_solid_object_type("fence_right", false, "fence");
-RUR.OBSTACLES.fence_right.message = "I hit a fence!";
-RUR.OBSTACLES.fence_right.info = "Fence: Reeborg <b>can</b> detect this but will be stopped by it.";
-RUR.OBSTACLES.fence4 = RUR.OBSTACLES.fence_right;  // compatibility with old worlds
+RUR.TILES.fence_right.message = "I hit a fence!";
+RUR.TILES.fence_right.info = "Fence: Reeborg <b>can</b> detect this but will be stopped by it.";
+RUR.TILES.fence4 = RUR.TILES.fence_right;  // compatibility with old worlds
 
 RUR.add_new_solid_object_type("fence_left", false, "fence");
-RUR.OBSTACLES.fence_left.message = RUR.OBSTACLES.fence_right.message;
-RUR.OBSTACLES.fence_left.info = RUR.OBSTACLES.fence_right.info;
-RUR.OBSTACLES.fence5 = RUR.OBSTACLES.fence_left;  // compatibility with old worlds
+RUR.TILES.fence_left.message = RUR.TILES.fence_right.message;
+RUR.TILES.fence_left.info = RUR.TILES.fence_right.info;
+RUR.TILES.fence5 = RUR.TILES.fence_left;  // compatibility with old worlds
 
 RUR.add_new_solid_object_type("fence_double", false, "fence");
-RUR.OBSTACLES.fence_double.message = RUR.OBSTACLES.fence_right.message;
-RUR.OBSTACLES.fence_double.info = RUR.OBSTACLES.fence_right.info;
-RUR.OBSTACLES.fence6 = RUR.OBSTACLES.fence_double;  // compatibility with old worlds
+RUR.TILES.fence_double.message = RUR.TILES.fence_right.message;
+RUR.TILES.fence_double.info = RUR.TILES.fence_right.info;
+RUR.TILES.fence6 = RUR.TILES.fence_double;  // compatibility with old worlds
 
 RUR.add_new_solid_object_type("fence_vertical", false, "fence");
-RUR.OBSTACLES.fence_vertical.message = RUR.OBSTACLES.fence_right.message;
-RUR.OBSTACLES.fence_vertical.info = RUR.OBSTACLES.fence_right.info;
-RUR.OBSTACLES.fence7 = RUR.OBSTACLES.fence_vertical;  // compatibility with old worlds
+RUR.TILES.fence_vertical.message = RUR.TILES.fence_right.message;
+RUR.TILES.fence_vertical.info = RUR.TILES.fence_right.info;
+RUR.TILES.fence7 = RUR.TILES.fence_vertical;  // compatibility with old worlds
 
 },{"./rur.js":49,"./world_augment/add_tile_type.js":71}],39:[function(require,module,exports){
 
@@ -5658,6 +5658,7 @@ require("./listeners/pause.js");
 require("./listeners/stop.js");
 require("./playback/play_sound.js");
 require("./create_editors.js");
+require("./recorder/record_frame.js");
 
 var identical = require("./utils/identical.js").identical;
 var clone_world = require("./world/clone_world.js").clone_world;
@@ -5906,7 +5907,7 @@ RUR.rec.check_goal = function (frame) {
     return goal_status;
 };
 
-},{"./constants.js":3,"./create_editors.js":5,"./exceptions.js":13,"./listeners/pause.js":27,"./listeners/stop.js":35,"./playback/play_sound.js":42,"./state.js":52,"./translator.js":54,"./utils/identical.js":60,"./visible_world.js":65,"./world/clone_world.js":67,"./world_get.js":75}],45:[function(require,module,exports){
+},{"./constants.js":3,"./create_editors.js":5,"./exceptions.js":13,"./listeners/pause.js":27,"./listeners/stop.js":35,"./playback/play_sound.js":42,"./recorder/record_frame.js":45,"./state.js":52,"./translator.js":54,"./utils/identical.js":60,"./visible_world.js":65,"./world/clone_world.js":67,"./world_get.js":75}],45:[function(require,module,exports){
 
 require("./../state.js");
 require("./reset.js");
@@ -7645,22 +7646,13 @@ draw_all_objects = function (objects, goal, tile){
             if (i <= RUR.COLS && j <= RUR.ROWS) {
                 for (obj_name in objects_here){
                     if (objects_here.hasOwnProperty(obj_name)){
-                        if (tile){
-                            specific_object = RUR.OBSTACLES[obj_name];
-                        } else {
-                            specific_object = RUR.TILES[obj_name];
-                        }
+                        specific_object = RUR.TILES[obj_name];
                         if (goal) {
                             ctx = RUR.GOAL_CTX;
                             image = specific_object.goal.image;
                         } else if (specific_object === undefined){
-                            console.log("problem: specific_object is undefined");
-                            console.log("    obj_name = ", obj_name, "  tile = ", tile);
-                            if (tile) {
-                                console.log("    RUR.OBSTACLES = ", RUR.OBSTACLES);
-                            } else {
-                                console.log("    RUR.OBJECTS = ", RUR.OBJECTS);
-                            }
+                            console.warn("problem: specific_object is undefined");
+                            console.warn("    obj_name = ", obj_name, "  tile = ", tile);
                             image = undefined;
                         } else if (specific_object.ctx !== undefined){
                             ctx = specific_object.ctx;
@@ -7674,7 +7666,7 @@ draw_all_objects = function (objects, goal, tile){
                             draw_single_object(image, i, j, ctx);
                         } else if (specific_object.choose_image === undefined){
                             if (image === undefined){
-                                console.log("problem in draw_all_objects; obj =", specific_object);
+                                console.warn("problem in draw_all_objects; obj =", specific_object);
                             }
                             draw_single_object(image, i, j, ctx);
                         }
@@ -9033,6 +9025,29 @@ require("./utils/supplant.js");
 
 RUR.world_get = {};
 
+RUR.world_get.show_all_tiles = function () {
+    var i, j, info, images, name;
+    info = "<table border='1'><tr><th>name</th><th>image(s)</th></tr>";
+    for (i=0; i< RUR.KNOWN_TILES.length; i++) {
+        name = RUR.KNOWN_TILES[i];
+        url = RUR.TILES[name].url;
+        images = RUR.TILES[name].images;
+        info += "<tr><td>" +  name + "</td><td>";
+        if (url !== undefined) {
+            info += "<img src = '" + RUR.TILES[name].url + "'>";
+        } else if (images !== undefined) {
+            for(j=0; j<images.length; j++) {
+                info += "<img src = '" + images[j] + "'> - ";
+            }
+        } else {
+            info += "Missing image";
+        } 
+        info += "</td></tr>";
+    }
+    info += "</table>";
+    RUR._print_html_(info);
+};
+
 RUR.world_get.is_wall_at = function (coords, orientation) {
     if (RUR.CURRENT_WORLD.walls === undefined) {
         return false;
@@ -9163,7 +9178,7 @@ RUR.world_get.world_info = function (no_grid) {
     tiles = RUR.world_get.obstacles_at_position(x, y);
     if (tiles) {
         for (tilename in tiles) {
-            tile = RUR.OBSTACLES[tilename];
+            tile = RUR.TILES[tilename];
             if (RUR.translate(tile.info)){
                 if (topic){
                     topic = false;

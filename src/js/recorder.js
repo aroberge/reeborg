@@ -9,6 +9,7 @@ require("./listeners/pause.js");
 require("./listeners/stop.js");
 require("./playback/play_sound.js");
 require("./create_editors.js");
+require("./recorder/record_frame.js");
 
 var identical = require("./utils/identical.js").identical;
 var clone_world = require("./world/clone_world.js").clone_world;

@@ -458,22 +458,13 @@ draw_all_objects = function (objects, goal, tile){
             if (i <= RUR.COLS && j <= RUR.ROWS) {
                 for (obj_name in objects_here){
                     if (objects_here.hasOwnProperty(obj_name)){
-                        if (tile){
-                            specific_object = RUR.OBSTACLES[obj_name];
-                        } else {
-                            specific_object = RUR.TILES[obj_name];
-                        }
+                        specific_object = RUR.TILES[obj_name];
                         if (goal) {
                             ctx = RUR.GOAL_CTX;
                             image = specific_object.goal.image;
                         } else if (specific_object === undefined){
-                            console.log("problem: specific_object is undefined");
-                            console.log("    obj_name = ", obj_name, "  tile = ", tile);
-                            if (tile) {
-                                console.log("    RUR.OBSTACLES = ", RUR.OBSTACLES);
-                            } else {
-                                console.log("    RUR.OBJECTS = ", RUR.OBJECTS);
-                            }
+                            console.warn("problem: specific_object is undefined");
+                            console.warn("    obj_name = ", obj_name, "  tile = ", tile);
                             image = undefined;
                         } else if (specific_object.ctx !== undefined){
                             ctx = specific_object.ctx;
@@ -487,7 +478,7 @@ draw_all_objects = function (objects, goal, tile){
                             draw_single_object(image, i, j, ctx);
                         } else if (specific_object.choose_image === undefined){
                             if (image === undefined){
-                                console.log("problem in draw_all_objects; obj =", specific_object);
+                                console.warn("problem in draw_all_objects; obj =", specific_object);
                             }
                             draw_single_object(image, i, j, ctx);
                         }

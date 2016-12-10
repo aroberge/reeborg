@@ -10,6 +10,29 @@ require("./utils/supplant.js");
 
 RUR.world_get = {};
 
+RUR.world_get.show_all_tiles = function () {
+    var i, j, info, images, name;
+    info = "<table border='1'><tr><th>name</th><th>image(s)</th></tr>";
+    for (i=0; i< RUR.KNOWN_TILES.length; i++) {
+        name = RUR.KNOWN_TILES[i];
+        url = RUR.TILES[name].url;
+        images = RUR.TILES[name].images;
+        info += "<tr><td>" +  name + "</td><td>";
+        if (url !== undefined) {
+            info += "<img src = '" + RUR.TILES[name].url + "'>";
+        } else if (images !== undefined) {
+            for(j=0; j<images.length; j++) {
+                info += "<img src = '" + images[j] + "'> - ";
+            }
+        } else {
+            info += "Missing image";
+        } 
+        info += "</td></tr>";
+    }
+    info += "</table>";
+    RUR._print_html_(info);
+};
+
 RUR.world_get.is_wall_at = function (coords, orientation) {
     if (RUR.CURRENT_WORLD.walls === undefined) {
         return false;
@@ -140,7 +163,7 @@ RUR.world_get.world_info = function (no_grid) {
     tiles = RUR.world_get.obstacles_at_position(x, y);
     if (tiles) {
         for (tilename in tiles) {
-            tile = RUR.OBSTACLES[tilename];
+            tile = RUR.TILES[tilename];
             if (RUR.translate(tile.info)){
                 if (topic){
                     topic = false;
