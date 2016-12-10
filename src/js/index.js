@@ -1,9 +1,8 @@
 /* require this module that will automatically modify a global object*/
 require("./utils/cors.js");
 
-require("./commands.js");
-require("./world_editor.js");
-
+require("./commands.js"); // to control Reeborg's actions
+require("./world_editor.js"); // the world editor is not required by other modules
 require("./start_session.js");
 
 // TODO: animated robots/ decorative objects, objects

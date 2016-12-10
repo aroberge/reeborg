@@ -61,7 +61,7 @@ RUR.add_new_solid_object_type = function (name, url, nickname) {
     } else {
         obj[name].image.src = url;
     }
-    obj[name].image.onload = RUR.INCREMENT_LOADED_FN;
+    obj[name].image.onload = RUR._incremented_loaded_images;
     RUR._NB_IMAGES_TO_LOAD += 1;
     RUR.KNOWN_TILES.push(name);
 };

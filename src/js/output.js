@@ -1,6 +1,6 @@
 
-
-require("./recorder.js");
+require("./rur.js");
+require("./recorder/record_frame.js");
 require("./state.js");
 
 RUR.output = {};

@@ -107,11 +107,7 @@ RUR._put_ = function(arg) {
 };
 
 RUR._recording_ = function(bool) {
-    if (bool) {
-        RUR.state.do_not_record = false;
-    } else {
-        RUR.state.do_not_record = true;
-    }
+    RUR.state.do_not_record = !bool;
 };
 
 RUR._remove_robots_ = function () {

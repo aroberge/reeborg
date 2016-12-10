@@ -2,13 +2,12 @@
  * @desc The namespace reserved for all the Reeborg World methods.
  *
  */
-window.RUR = RUR || {}; // RUR could be already be defined in the html file
+window.RUR = RUR || {}; // RUR should be already defined in the html file;
+                        // however, it might not when running tests.
 
 RUR.BACKGROUND_IMAGE = new Image();
 RUR.BACKGROUND_IMAGE.src = '';
 
-RUR._NB_IMAGES_TO_LOAD = 0;
-RUR._NB_IMAGES_LOADED = 0;
 try {
     RUR._BASE_URL = window.location.pathname.substr(0, window.location.pathname.lastIndexOf('/'));
 } catch(e) {  // for testing, window.location... is not defined.

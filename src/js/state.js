@@ -4,7 +4,6 @@
    single place, it helps in avoiding the creation of inconsistent states.*/
 
 require("./rur.js");
-require("./translator.js");
 
 RUR.state = {};
 RUR.state.code_evaluated = false;

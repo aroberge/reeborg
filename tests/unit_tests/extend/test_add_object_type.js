@@ -10,9 +10,6 @@ function set_defaults() {
     RUR._NB_IMAGES_LOADED = 0;
     RUR._NB_IMAGES_TO_LOAD = 0;
     RUR.TILES = {};
-    RUR.INCREMENT_LOADED_FN = function () {
-        RUR._NB_IMAGES_LOADED += 1;
-    };
 }
 
 test('RUR.augment.new_tile_type: adding new tile type', function (assert) {

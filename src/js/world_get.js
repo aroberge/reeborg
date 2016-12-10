@@ -2,6 +2,7 @@
    position, or for the world in general.
 */
 
+require("./exceptions.js");
 require("./objects.js");
 require("./dialogs/create.js");
 require("./listeners/canvas.js");

@@ -1,5 +1,5 @@
 require("./../rur.js");
-require("./namespace.js");
+require("./augment_namespace.js");
 require("./animated_images.js");
 require("./../exceptions.js");
 //require("./../init/images_onload.js");

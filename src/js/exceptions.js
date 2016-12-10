@@ -38,3 +38,5 @@ RUR.WallCollisionError = function (message) {
     this.message = message;
     this.reeborg_shouts = message;
 };
+
+

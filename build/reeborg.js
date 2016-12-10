@@ -859,11 +859,7 @@ RUR._put_ = function(arg) {
 };
 
 RUR._recording_ = function(bool) {
-    if (bool) {
-        RUR.state.do_not_record = false;
-    } else {
-        RUR.state.do_not_record = true;
-    }
+    RUR.state.do_not_record = !bool;
 };
 
 RUR._remove_robots_ = function () {
@@ -2342,6 +2338,8 @@ RUR.WallCollisionError = function (message) {
     this.reeborg_shouts = message;
 };
 
+
+
 },{"./rur.js":49,"./state.js":52}],14:[function(require,module,exports){
 
 require("./output.js");
@@ -2477,9 +2475,8 @@ RUR.file_io.load_world_file = function (url, shortname) {
 /* require this module that will automatically modify a global object*/
 require("./utils/cors.js");
 
-require("./commands.js");
-require("./world_editor.js");
-
+require("./commands.js"); // to control Reeborg's actions
+require("./world_editor.js"); // the world editor is not required by other modules
 require("./start_session.js");
 
 // TODO: animated robots/ decorative objects, objects
@@ -5280,7 +5277,7 @@ RUR.add_new_solid_object_type = function (name, url, nickname) {
     } else {
         obj[name].image.src = url;
     }
-    obj[name].image.onload = RUR.INCREMENT_LOADED_FN;
+    obj[name].image.onload = RUR._incremented_loaded_images;
     RUR._NB_IMAGES_TO_LOAD += 1;
     RUR.KNOWN_TILES.push(name);
 };
@@ -5310,8 +5307,8 @@ RUR.OBSTACLES.fence7 = RUR.OBSTACLES.fence_vertical;  // compatibility with old 
 
 },{"./rur.js":49,"./world_augment/add_tile_type.js":71}],39:[function(require,module,exports){
 
-
-require("./recorder.js");
+require("./rur.js");
+require("./recorder/record_frame.js");
 require("./state.js");
 
 RUR.output = {};
@@ -5375,7 +5372,7 @@ RUR.output.view_source_js = function(fn) {
     });
 };
 
-},{"./recorder.js":44,"./state.js":52}],40:[function(require,module,exports){
+},{"./recorder/record_frame.js":45,"./rur.js":49,"./state.js":52}],40:[function(require,module,exports){
 
 require("./state.js");
 require("./storage.js");
@@ -5909,28 +5906,12 @@ RUR.rec.check_goal = function (frame) {
     return goal_status;
 };
 
-// A sneaky programmer could teleport a robot on a forbidden tile
-// to perform an action; we catch any such potential problem here
-RUR.rec.check_robots_on_tiles = function(frame){
-    var tile, robots, robot, coords;
-    if (frame.world.robots === undefined){
-        return;
-    }
-    for (robot=0; robot < frame.world.robots.length; robot++){
-        tile = RUR.world_get.tile_at_position(frame.world.robots[robot]);
-        if (tile) {
-            if (tile.fatal){
-                throw new RUR.ReeborgError(RUR.translate(tile.message));
-            }
-        }
-    }
-};
-
 },{"./constants.js":3,"./create_editors.js":5,"./exceptions.js":13,"./listeners/pause.js":27,"./listeners/stop.js":35,"./playback/play_sound.js":42,"./state.js":52,"./translator.js":54,"./utils/identical.js":60,"./visible_world.js":65,"./world/clone_world.js":67,"./world_get.js":75}],45:[function(require,module,exports){
 
 require("./../state.js");
 require("./reset.js");
 require("./../exceptions.js");
+require("./../world_get.js");
 require("./../playback/show_immediate.js");
 require("./../utils/supplant.js");
 var clone_world = require("./../world/clone_world.js").clone_world;
@@ -5938,16 +5919,19 @@ var clone_world = require("./../world/clone_world.js").clone_world;
 RUR.record_frame = function (name, obj) {
     "use strict";
     var frame = {}, robot;
-    if (RUR.state.do_not_record) {
-        return;
-    }
-    if (RUR.state.prevent_playback){  // TODO see if this can be replaced by do_not_record
+
+    if (RUR.state.do_not_record || RUR.state.prevent_playback) {
+        // prevent sneaky attempt to safely move on otherwise fatal tile
+        frame.world = clone_world();
+        check_robots_on_tiles(frame);
         return;
     }
 
     /* if the REPL is active, we do not record anything, and show immediately
        the updated world */
     if (RUR.state.input_method==="py-repl") {
+        // do not perform check_robots_on_tiles in this mode; allow for
+        // casual exploration of the world.
         return RUR._show_immediate(name, obj);
     }
 
@@ -5998,15 +5982,34 @@ RUR.record_frame = function (name, obj) {
         return;
     }
 
-    // catch any robot that teleported itself to a forbidden tile
-    // to try to do a sneaky action
-    RUR.rec.check_robots_on_tiles(frame);
+    check_robots_on_tiles(frame);
     if (RUR.nb_frames > RUR.MAX_STEPS) {
         throw new RUR.ReeborgError(RUR.translate("Too many steps:").supplant({max_steps: RUR.MAX_STEPS}));
     }
 };
 
-},{"./../exceptions.js":13,"./../playback/show_immediate.js":43,"./../state.js":52,"./../utils/supplant.js":63,"./../world/clone_world.js":67,"./reset.js":46}],46:[function(require,module,exports){
+
+// TODO: create test for this.
+// This function checks to see if any robot is found on a fatal tile
+// We do not add it to the RUR namespace so that it cannot be redefined
+// by a sneaky programmer.
+check_robots_on_tiles = function(frame){
+    var tile, robots, robot, coords;
+    if (frame.world.robots === undefined){
+        return;
+    }
+    for (robot=0; robot < frame.world.robots.length; robot++){
+        tile = RUR.world_get.tile_at_position(frame.world.robots[robot]);
+        if (tile) {
+            if (tile.fatal){
+                throw new RUR.ReeborgError(RUR.translate(tile.message));
+            }
+        }
+    }
+};
+
+
+},{"./../exceptions.js":13,"./../playback/show_immediate.js":43,"./../state.js":52,"./../utils/supplant.js":63,"./../world/clone_world.js":67,"./../world_get.js":75,"./reset.js":46}],46:[function(require,module,exports){
 require("./../state.js");
 require("./../create_editors.js");
 
@@ -6426,13 +6429,12 @@ RUR.runner.check_func_parentheses = function(line_of_code) {
  * @desc The namespace reserved for all the Reeborg World methods.
  *
  */
-window.RUR = RUR || {}; // RUR could be already be defined in the html file
+window.RUR = RUR || {}; // RUR should be already defined in the html file;
+                        // however, it might not when running tests.
 
 RUR.BACKGROUND_IMAGE = new Image();
 RUR.BACKGROUND_IMAGE.src = '';
 
-RUR._NB_IMAGES_TO_LOAD = 0;
-RUR._NB_IMAGES_LOADED = 0;
 try {
     RUR._BASE_URL = window.location.pathname.substr(0, window.location.pathname.lastIndexOf('/'));
 } catch(e) {  // for testing, window.location... is not defined.
@@ -6562,7 +6564,6 @@ function set_world(url_query) {
    single place, it helps in avoiding the creation of inconsistent states.*/
 
 require("./rur.js");
-require("./translator.js");
 
 RUR.state = {};
 RUR.state.code_evaluated = false;
@@ -6593,7 +6594,7 @@ RUR.state.changed_cells = [];
 // TODO: after simplifying the permalink, see if RUR.state.prevent_playback
 // is still needed.
 
-},{"./rur.js":49,"./translator.js":54}],53:[function(require,module,exports){
+},{"./rur.js":49}],53:[function(require,module,exports){
 
 require("./rur.js");
 require("./translator.js");
@@ -8129,7 +8130,7 @@ eval_onload = function () {
 
 },{"./../constants.js":3,"./../create_editors.js":5,"./../exceptions.js":13,"./../robot.js":47,"./../state.js":52,"./../translator.js":54,"./../ui/edit_robot_menu.js":55,"./../visible_world.js":65,"./../world_augment/animated_images.js":72,"./clone_world.js":67,"./create_empty.js":68}],71:[function(require,module,exports){
 require("./../rur.js");
-require("./namespace.js");
+require("./augment_namespace.js");
 require("./animated_images.js");
 require("./../exceptions.js");
 //require("./../init/images_onload.js");
@@ -8254,7 +8255,7 @@ RUR.add_new_object_type = function (name, url, url_goal) {
  */
 RUR.add_object_image = RUR.add_new_object_type; // Vincent Maille's book.
 
-},{"./../exceptions.js":13,"./../rur.js":49,"./animated_images.js":72,"./namespace.js":73}],72:[function(require,module,exports){
+},{"./../exceptions.js":13,"./../rur.js":49,"./animated_images.js":72,"./augment_namespace.js":73}],72:[function(require,module,exports){
 require("./../rur.js");
 require("./../state.js");
 
@@ -8267,6 +8268,12 @@ exports.images_init = images_init = function () {
     RUR.ANIMATION_TIME = 120;
 };
 
+RUR._NB_IMAGES_TO_LOAD = 0;
+RUR._NB_IMAGES_LOADED = 0;
+RUR._incremented_loaded_images = function () {
+    RUR._NB_IMAGES_LOADED += 1;
+};
+
 /* Important: we need to use a method from visible_world.js ONLY after
    the session is initialized; at that point, we know that visible_world.js
    has been loaded and we know it will be available even if we don't
@@ -8274,18 +8281,12 @@ exports.images_init = images_init = function () {
    we would end up with a circular requirement (e.g. animated_images.js require
    visible_world.js which require animated_images.js) with unpredictable consequences.
 */
-
-RUR.INCREMENT_LOADED_FN = function () {
-    RUR._NB_IMAGES_LOADED += 1;
-};
-
-
 RUR.images_onload = function (image) {
-    if (RUR.state.session_initialized) {
+    if (RUR.vis_world !== undefined) {
         image.onload = RUR.vis_world.refresh;
     } else {
         RUR._NB_IMAGES_TO_LOAD += 1;
-        image.onload = RUR.INCREMENT_LOADED_FN;
+        image.onload = RUR._incremented_loaded_images;
     }
 };
 
@@ -9024,6 +9025,7 @@ $("#robot-canvas").on("click", function (evt) {
    position, or for the world in general.
 */
 
+require("./exceptions.js");
 require("./objects.js");
 require("./dialogs/create.js");
 require("./listeners/canvas.js");
@@ -9291,7 +9293,7 @@ RUR.world_get.world_info = function (no_grid) {
 RUR.create_and_activate_dialogs( $("#world-info-button"), $("#World-info"),
                                  {height:300, width:600}, RUR.world_get.world_info);
 
-},{"./dialogs/create.js":8,"./listeners/canvas.js":20,"./objects.js":38,"./utils/supplant.js":63}],76:[function(require,module,exports){
+},{"./dialogs/create.js":8,"./exceptions.js":13,"./listeners/canvas.js":20,"./objects.js":38,"./utils/supplant.js":63}],76:[function(require,module,exports){
 
 require("./visible_world.js");
 require("./constants.js");
