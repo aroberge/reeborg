@@ -39,7 +39,7 @@ RUR.world_get.pushable_object_at_position = function(x, y) {
 
     for (obj_type in objects_here) {
         if (objects_here.hasOwnProperty(obj_type)) {
-            if (RUR.OBJECTS[obj_type].pushable) {
+            if (RUR.TILES[obj_type].pushable) {
                 return obj_type;
             }
         }

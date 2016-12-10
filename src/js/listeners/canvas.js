@@ -63,9 +63,9 @@ function handleMouseMove(evt) {
         tooltip.canvas.style.top = y + "px";
         tooltip.ctx.clearRect(0, 0, tooltip.canvas.width, tooltip.canvas.height);
         for (i=0; i < objects_carried.length; i++){
-            image = RUR.OBJECTS[objects_carried[i]].image;
+            image = RUR.TILES[objects_carried[i]].image;
             if (image === undefined) {
-                image = RUR.OBJECTS[objects_carried[i]]["image0"];
+                image = RUR.TILES[objects_carried[i]]["image0"];
             }
             nb_obj = robot.objects[objects_carried[i]];
             if (nb_obj == "infinite" || nb_obj == Infinity) {

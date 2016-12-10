@@ -131,11 +131,11 @@ RUR.control.move_object = function(obj, x, y, to_x, to_y){
 
 
     RUR.set_nb_object_at_position(obj, x, y, 0);
-    if (RUR.OBJECTS[obj].in_water &&
+    if (RUR.TILES[obj].in_water &&
         RUR.world_get.tile_at_position(to_x, to_y) == RUR.TILES.water &&
         !bridge_already_there){
             // TODO: fix this
-        RUR.world_set.add_solid_object(RUR.OBJECTS[obj].in_water, to_x, to_y, 1);
+        RUR.world_set.add_solid_object(RUR.TILES[obj].in_water, to_x, to_y, 1);
     } else {
         RUR.set_nb_object_at_position(obj, to_x, to_y, 1);
     }
@@ -190,7 +190,7 @@ RUR.control.put = function(robot, arg){
 
     if (arg !== undefined) {
         translated_arg = RUR.translate_to_english(arg);
-        if (RUR.KNOWN_OBJECTS.indexOf(translated_arg) == -1){
+        if (RUR.KNOWN_TILES.indexOf(translated_arg) == -1){
             throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
         }
     }
@@ -257,7 +257,7 @@ RUR.control.take = function(robot, arg){
     RUR.state.sound_id = "#take-sound";
     if (arg !== undefined) {
         translated_arg = RUR.translate_to_english(arg);
-        if (RUR.KNOWN_OBJECTS.indexOf(translated_arg) == -1){
+        if (RUR.KNOWN_TILES.indexOf(translated_arg) == -1){
             throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
         }
     }

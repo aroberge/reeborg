@@ -10,7 +10,7 @@ tile = {name: "mud",
     fatal: true,
     info: "Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."
 };
-RUR.add_tile_type(tile);
+RUR.augment.new_tile_type(tile);
 
 tile = {name: "ice",
     url: RUR._BASE_URL + '/src/images/ice.png',
@@ -18,26 +18,26 @@ tile = {name: "ice",
     slippery: true,
     info: "Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location."
 };
-RUR.add_tile_type(tile);
+RUR.augment.new_tile_type(tile);
 
 tile = {name: "grass",
     url: RUR._BASE_URL + '/src/images/grass.png',
     info: "Grass: usually safe."
 };
-RUR.add_tile_type(tile);
+RUR.augment.new_tile_type(tile);
 
 tile = {name: "pale_grass",
     url: RUR._BASE_URL + '/src/images/pale_grass.png',
     info: "Grass: usually safe.",
     public_name: "grass"
 };
-RUR.add_tile_type(tile);
+RUR.augment.new_tile_type(tile);
 
 tile = {name: "gravel",
     url: RUR._BASE_URL + '/src/images/gravel.png',
     info: "Gravel: usually safe."
 };
-RUR.add_tile_type(tile);
+RUR.augment.new_tile_type(tile);
 
 tile = {
     name:"water",
@@ -52,7 +52,7 @@ tile = {
     detectable: true,
     message: "I'm in water!"
 };
-RUR.add_tile_type(tile);
+RUR.augment.new_tile_type(tile);
 
 
 RUR._add_new_tile_type = function (name, url) {
@@ -79,7 +79,7 @@ tile = {name: "bricks",
     fatal: true,
     solid: true
 };
-RUR.add_tile_type(tile);
+RUR.augment.new_tile_type(tile);
 
 /*--- home tiles ---*/
 
@@ -90,18 +90,18 @@ tile = {name: "green_home_tile",
     info: "green_home_tile" + home_message,
     detectable: true
 };
-RUR.add_tile_type(tile);
+RUR.augment.new_tile_type(tile);
 
 tile = {name: "house",
     url: RUR._BASE_URL + '/src/images/house.png',
     info: "house" + home_message,
     detectable: true
 };
-RUR.add_tile_type(tile);
+RUR.augment.new_tile_type(tile);
 
 tile = {name: "racing_flag",
     url: RUR._BASE_URL + '/src/images/racing_flag.png',
     info: "racing_flag" + home_message,
     detectable: true
 };
-RUR.add_tile_type(tile);
+RUR.augment.new_tile_type(tile);

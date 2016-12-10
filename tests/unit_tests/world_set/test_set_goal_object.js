@@ -13,7 +13,7 @@ test('Goal object: adding known goal object', function (assert) {
     require("../../../src/js/world_set/add_goal_object.js");
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
-    RUR.KNOWN_OBJECTS = ['a'];
+    RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.set_nb_goal_object_at_position('a', 2, 3, 4);
     assert.equal(RUR.CURRENT_WORLD.goal.objects['2,3'].a, 4, "nb objects ok");
@@ -25,7 +25,7 @@ test('Goal object: adding and removing known goal object', function (assert) {
     require("../../../src/js/world_set/add_goal_object.js");
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
-    RUR.KNOWN_OBJECTS = ['a'];
+    RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.set_nb_goal_object_at_position('a', 2, 3, 4);
     RUR.set_nb_goal_object_at_position('a', 2, 3, 0);
@@ -38,7 +38,7 @@ test('Goal object: adding two and removing one known goal objects', function (as
     require("../../../src/js/world_set/add_goal_object.js");
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
-    RUR.KNOWN_OBJECTS = ['a', 'b'];
+    RUR.KNOWN_TILES = ['a', 'b'];
     RUR.untranslated['a'] = true;
     RUR.untranslated['b'] = true;
     RUR.set_nb_goal_object_at_position('b', 2, 3, 4);
@@ -54,7 +54,7 @@ test('Goal object: adding unknown goal object', function (assert) {
     silencer.disable('log');
     require("../../../src/js/world_set/add_goal_object.js");
     RUR.OBJECTS = {};
-    RUR.KNOWN_OBJECTS = [];
+    RUR.KNOWN_TILES = [];
     RUR.untranslated['a'] = false;
     RUR.translation = {};
     try {
@@ -73,7 +73,7 @@ test('Goal object: invalid x value', function (assert) {
     require("../../../src/js/world_set/add_goal_object.js");
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
-    RUR.KNOWN_OBJECTS = ['a'];
+    RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.record_frame = function () {};
     try {
@@ -92,7 +92,7 @@ test('Goal object: invalid y value', function (assert) {
     require("../../../src/js/world_set/add_goal_object.js");
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
-    RUR.KNOWN_OBJECTS = ['a'];
+    RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.record_frame = function () {};
     try {
@@ -111,7 +111,7 @@ test('Goal object: invalid nb value', function (assert) {
     require("../../../src/js/world_set/add_goal_object.js");
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
-    RUR.KNOWN_OBJECTS = ['a'];
+    RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.record_frame = function () {};
     try {

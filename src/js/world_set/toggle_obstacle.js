@@ -22,7 +22,7 @@ require("./../utils/supplant.js");
 RUR.toggle_obstacle_at_position = function (specific_object, x, y){
     "use strict";
     var coords, cw;
-    if (RUR.KNOWN_OBSTACLES.indexOf(specific_object) == -1){
+    if (RUR.KNOWN_TILES.indexOf(specific_object) == -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant(
                                                  {obj: specific_object}));
     }
@@ -63,7 +63,7 @@ RUR.toggle_obstacle_at_position = function (specific_object, x, y){
 RUR.add_obstacle_at_position = function (specific_object, x, y){
     "use strict";
     var coords, cw;
-    if (RUR.KNOWN_OBSTACLES.indexOf(specific_object) == -1){
+    if (RUR.KNOWN_TILES.indexOf(specific_object) == -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant(
                                                  {obj: specific_object}));
     }
@@ -100,7 +100,7 @@ RUR.add_obstacle_at_position = function (specific_object, x, y){
 RUR.remove_obstacle_at_position = function (specific_object, x, y){
     "use strict";
     var coords, cw;
-    if (RUR.KNOWN_OBSTACLES.indexOf(specific_object) == -1){
+    if (RUR.KNOWN_TILES.indexOf(specific_object) == -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant(
                                                  {obj: specific_object}));
     }

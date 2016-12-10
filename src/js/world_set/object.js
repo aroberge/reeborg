@@ -37,7 +37,7 @@ RUR.set_nb_object_at_position = function (specific_object, x, y, nb){
     var coords, cw, my_name;
     specific_object = RUR.translate_to_english(specific_object);
     my_name = "RUR.set_nb_object_at_position(specific_object, x, y, nb): ";
-    if (RUR.KNOWN_OBJECTS.indexOf(specific_object) == -1){
+    if (RUR.KNOWN_TILES.indexOf(specific_object) == -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: specific_object}));
     }
     RUR._ensure_positive_integer(x, my_name+"x");

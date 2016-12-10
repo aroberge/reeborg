@@ -27,7 +27,7 @@ var filterInt = require("./../utils/filterint.js").filterInt;
 RUR.give_object_to_robot = function (obj, nb, robot) {
     var _nb, translated_arg = RUR.translate_to_english(obj);
 
-    if (RUR.KNOWN_OBJECTS.indexOf(translated_arg) == -1){
+    if (RUR.KNOWN_TILES.indexOf(translated_arg) == -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: obj}));
     }
 

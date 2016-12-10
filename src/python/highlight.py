@@ -54,7 +54,7 @@ def replace_brackets_and_sharp(src):
             if char == quote:
                 in_string = False
                 quote = None
-            elif char in ['(', ')', '[', ']', '{', '}']:
+            elif char in ['(', ')', '[', ']', '{', '}', '#']:
                 char = ' '
         elif char == '"' or char == "'":
             quote = char

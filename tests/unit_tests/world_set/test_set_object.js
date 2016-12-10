@@ -14,7 +14,7 @@ test('Object: adding known object', function (assert) {
     require("../../../src/js/world_set/object.js");
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
-    RUR.KNOWN_OBJECTS = ['a'];
+    RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.record_frame = function () {};
     RUR.set_nb_object_at_position('a', 2, 3, 4);
@@ -28,7 +28,7 @@ test('Object: adding and removing known object', function (assert) {
     require("../../../src/js/world_set/object.js");  
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
-    RUR.KNOWN_OBJECTS = ['a'];
+    RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.record_frame = function () {};
     RUR.set_nb_object_at_position('a', 2, 3, 4);
@@ -42,7 +42,7 @@ test('Object: adding two and removing one known objects', function (assert) {
     require("../../../src/js/world_set/object.js");    
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
-    RUR.KNOWN_OBJECTS = ['a', 'b'];
+    RUR.KNOWN_TILES = ['a', 'b'];
     RUR.record_frame = function () {};
     RUR.untranslated['a'] = true;
     RUR.untranslated['b'] = true;
@@ -60,7 +60,7 @@ test('Object: adding unknown object', function (assert) {
     silencer.disable('log');
     require("../../../src/js/world_set/object.js");
     RUR.OBJECTS = {};
-    RUR.KNOWN_OBJECTS = [];
+    RUR.KNOWN_TILES = [];
     RUR.record_frame = function () {};    
     RUR.translation = {};
     RUR.untranslated['a'] = false;
@@ -80,7 +80,7 @@ test('Object: invalid x value', function (assert) {
     require("../../../src/js/world_set/object.js");
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
-    RUR.KNOWN_OBJECTS = ['a'];
+    RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.record_frame = function () {};
     try {
@@ -99,7 +99,7 @@ test('Object: invalid y value', function (assert) {
     require("../../../src/js/world_set/object.js");
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
-    RUR.KNOWN_OBJECTS = ['a'];
+    RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.record_frame = function () {};
     try {
@@ -118,7 +118,7 @@ test('Object: invalid nb value', function (assert) {
     require("../../../src/js/world_set/object.js");
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
-    RUR.KNOWN_OBJECTS = ['a'];
+    RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.record_frame = function () {};
     try {

@@ -1,5 +1,5 @@
 require("./rur.js");
-require("./world_augment/add_object_type.js");
+require("./world_augment/add_tile_type.js");
 
 var obj;
 
@@ -8,7 +8,7 @@ _add_object_type = function (name) {
     var url, url_goal;
     url = RUR._BASE_URL + '/src/images/' + name + '.png';
     url_goal = RUR._BASE_URL + '/src/images/' + name + '_goal.png';
-    RUR.augment.add_object_type({"name": name, "url": url, "goal": {"url": url_goal}});
+    RUR.augment.new_tile_type({"name": name, "url": url, "goal": {"url": url_goal}});
 };
 
 _add_object_type("token");
@@ -26,10 +26,10 @@ _add_object_type("daisy");
 _add_object_type("tulip");
 
 _add_object_type("box");
-RUR.OBJECTS.box.name = "box";
-RUR.OBJECTS.box.pushable = true;
-RUR.OBJECTS.box.in_water = "bridge";
-RUR.OBJECTS.box.ctx = RUR.ROBOT_CTX;
+RUR.TILES.box.name = "box";
+RUR.TILES.box.pushable = true;
+RUR.TILES.box.in_water = "bridge";
+RUR.TILES.box.ctx = RUR.ROBOT_CTX;
 
 obj = {"name": 'beeper',
     "selection_method": 'ordered',
@@ -39,7 +39,7 @@ obj = {"name": 'beeper',
             'src/images/beeper3.png'],
     "goal": {'url': 'src/images/beeper_goal.png'}
 };
-RUR.augment.add_object_type(obj);
+RUR.augment.new_tile_type(obj);
 
 
 RUR.OBSTACLES = {};
@@ -63,7 +63,7 @@ RUR.add_new_solid_object_type = function (name, url, nickname) {
     }
     obj[name].image.onload = RUR.INCREMENT_LOADED_FN;
     RUR._NB_IMAGES_TO_LOAD += 1;
-    RUR.KNOWN_OBSTACLES.push(name);
+    RUR.KNOWN_TILES.push(name);
 };
 
 RUR.add_new_solid_object_type("bridge");

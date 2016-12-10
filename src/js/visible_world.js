@@ -1,7 +1,6 @@
 require("./translator.js");
 require("./constants.js");
 require("./state.js");
-require("./world_augment/add_object_type.js");
 require("./world_augment/add_tile_type.js");
 require("./world/create_empty.js");
 
@@ -97,7 +96,7 @@ RUR.vis_world.refresh = function () {
 
     // meant to be called at each step
     // does not draw background (i.e. coordinates, grid walls and possibly image)
-    // does not clear trace
+    // does not clear trace // TODO is this still relevant?
 
     // start by clearing all the relevant contexts first.
     // some objects are drown on their own contexts.
@@ -374,7 +373,7 @@ draw_animated_images = function (){
                                 RUR.animated_images, RUR.TILES, RUR.TILES_ANIM_CTX);
     objects = RUR.CURRENT_WORLD.objects;
     RUR.animated_images = __draw_animated_images(objects,
-                                RUR.animated_images, RUR.OBJECTS, RUR.OBJECTS_ANIM_CTX);
+                                RUR.animated_images, RUR.TILES, RUR.OBJECTS_ANIM_CTX);
     if (RUR.animated_images) {
         clearTimeout(RUR.ANIMATION_FRAME_ID);
         RUR.ANIMATION_FRAME_ID = setTimeout(draw_animated_images,
@@ -462,7 +461,7 @@ draw_all_objects = function (objects, goal, tile){
                         if (tile){
                             specific_object = RUR.OBSTACLES[obj_name];
                         } else {
-                            specific_object = RUR.OBJECTS[obj_name];
+                            specific_object = RUR.TILES[obj_name];
                         }
                         if (goal) {
                             ctx = RUR.GOAL_CTX;
