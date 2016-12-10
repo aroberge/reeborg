@@ -16,8 +16,7 @@ RUR.translate = function (s) {
     } else if (RUR.translation !== undefined && RUR.translation[s] !== undefined) {
         return RUR.translation[s];
     } else {
-        console.log("Translation needed for");
-        console.log("%c" + s, "color:blue;font-weight:bold;");
+        console.warn("Translation needed for " + s);
         return s;
     }
 };
@@ -28,8 +27,7 @@ RUR.translate_to_english = function (s) {
     } else if (RUR.translation_to_english[s] !== undefined) {
         return RUR.translation_to_english[s];
     } else {
-        console.log("Translation to English needed for");
-        console.log("%c" + s, "color:green;font-weight:bold;");
+        console.warn("Translation to English needed for " + s);
         return s;
     }
 };

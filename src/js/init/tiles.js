@@ -54,22 +54,6 @@ tile = {
 };
 RUR.augment.new_tile_type(tile);
 
-
-RUR._add_new_tile_type = function (name, url) {
-    var tiles = RUR.TILES;
-    tiles[name] = {};
-    tiles[name].name = name;
-    tiles[name].image = new Image();
-    if (url===undefined) {
-        tiles[name].image.src = RUR._BASE_URL + '/src/images/' + name + '.png';
-    } else {
-        tiles[name].image.src = url;
-    }
-    tiles[name].image.onload = RUR.INCREMENT_LOADED_FN;
-    RUR.KNOWN_TILES.push(name);
-    RUR._NB_IMAGES_TO_LOAD += 1;
-};
-
 tile = {name: "bricks",
     public_name: "brick wall",
     url: RUR._BASE_URL + '/src/images/bricks.png',

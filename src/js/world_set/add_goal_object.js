@@ -21,6 +21,8 @@ require("./../translator.js");
  * @throws Will throw an error if `x` or `y` is not a positive integer.
  * @throws Will throw an error if `nb` is not a positive integer or zero.
  *
+ * @todo Ensure that it throws an error if tile does not have an image.
+ *
  * @example
  * // This example shows how to add or remove objects, or object goals
  * // Make sure to allow it to replace the content of the editor.

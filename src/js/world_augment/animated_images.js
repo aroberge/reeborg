@@ -14,11 +14,13 @@ exports.images_init = images_init = function () {
    the session is initialized; at that point, we know that visible_world.js
    has been loaded and we know it will be available even if we don't
    put it as a formal requirement.  If we were to put it as a requirement,
-   we would end up with a circular requirement (e.g. objs.js require
-   visible_world.js which require objs.js) with unpredictable consequences.
+   we would end up with a circular requirement (e.g. animated_images.js require
+   visible_world.js which require animated_images.js) with unpredictable consequences.
 */
 
-//TODO: move RUR.INCREMENT_LOADED_FN here.
+RUR.INCREMENT_LOADED_FN = function () {
+    RUR._NB_IMAGES_LOADED += 1;
+};
 
 
 RUR.images_onload = function (image) {
@@ -50,9 +52,6 @@ RUR.animate_images = function (obj) {
         };
     }
 };
-
-
-
 
 RUR._random = function (obj, nb) {
     // each animated image is given a random value at all iteration

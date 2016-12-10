@@ -59,7 +59,7 @@ QUnit.module("file_io.js tests", {
   }
 });
 QUnit.test("Load world without running program", function(assert) {
-    var done = assert.async();
+    var contents, done = assert.async();
     contents = [["/src/worlds/tutorial_en/home1.json", "Home 1"],
                 ["/src/worlds/tutorial_en/home2.json", "Home 2"]];
     RUR.custom_world_select.make(contents);

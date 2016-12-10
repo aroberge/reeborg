@@ -54,7 +54,7 @@ test('adding unknown decorative object', function (assert) {
         assert.equal(e.message, "Unknown object", "error message");
         assert.equal(e.reeborg_shouts, "Unknown object", "reeborg_shouts");
         assert.equal(e.name, "ReeborgError", "error name ok");
-        assert.ok(silencer.getOutput('log')[0][0].startsWith("Translation to English"),
+        assert.ok(silencer.getOutput('warn')[0][0].startsWith("Translation to English"),
                   "Console log ok.");
         assert.end();
     }

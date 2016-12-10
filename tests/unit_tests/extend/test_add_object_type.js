@@ -1,9 +1,6 @@
 window = global;
 var test = require('tape');
-var mock = require('mock-require');
 var silencer =  require('silencer');
-mock("../../../src/js/state.js", {});
-mock("../../../src/js/visible_world.js", {});
 global.Image = function () {
     return {};
 };
@@ -13,8 +10,6 @@ function set_defaults() {
     RUR._NB_IMAGES_LOADED = 0;
     RUR._NB_IMAGES_TO_LOAD = 0;
     RUR.TILES = {};
-    RUR.state = {};
-    RUR.state.ready = false;
     RUR.INCREMENT_LOADED_FN = function () {
         RUR._NB_IMAGES_LOADED += 1;
     };

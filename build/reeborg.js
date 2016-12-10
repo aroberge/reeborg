@@ -2545,22 +2545,6 @@ tile = {
 };
 RUR.augment.new_tile_type(tile);
 
-
-RUR._add_new_tile_type = function (name, url) {
-    var tiles = RUR.TILES;
-    tiles[name] = {};
-    tiles[name].name = name;
-    tiles[name].image = new Image();
-    if (url===undefined) {
-        tiles[name].image.src = RUR._BASE_URL + '/src/images/' + name + '.png';
-    } else {
-        tiles[name].image.src = url;
-    }
-    tiles[name].image.onload = RUR.INCREMENT_LOADED_FN;
-    RUR.KNOWN_TILES.push(name);
-    RUR._NB_IMAGES_TO_LOAD += 1;
-};
-
 tile = {name: "bricks",
     public_name: "brick wall",
     url: RUR._BASE_URL + '/src/images/bricks.png',
@@ -6454,9 +6438,6 @@ try {
 } catch(e) {  // for testing, window.location... is not defined.
     RUR._BASE_URL = '';
 }
-RUR.INCREMENT_LOADED_FN = function () {
-    RUR._NB_IMAGES_LOADED += 1;
-};
 
 RUR.show_feedback = function (element, content) {
     $(element).html(content).dialog("open");
@@ -6702,8 +6683,7 @@ RUR.translate = function (s) {
     } else if (RUR.translation !== undefined && RUR.translation[s] !== undefined) {
         return RUR.translation[s];
     } else {
-        console.log("Translation needed for");
-        console.log("%c" + s, "color:blue;font-weight:bold;");
+        console.warn("Translation needed for " + s);
         return s;
     }
 };
@@ -6714,8 +6694,7 @@ RUR.translate_to_english = function (s) {
     } else if (RUR.translation_to_english[s] !== undefined) {
         return RUR.translation_to_english[s];
     } else {
-        console.log("Translation to English needed for");
-        console.log("%c" + s, "color:green;font-weight:bold;");
+        console.warn("Translation to English needed for " + s);
         return s;
     }
 };
@@ -8196,6 +8175,7 @@ require("./../exceptions.js");
  * @todo  Add new method to retrieve the untranslated name of the tile, to help
  * world designers
  * @todo  document goal
+ * @todo throw an error if no image is specified.
  *
  * @throws Will throw an error is `name` attribute is not specified.
  *  
@@ -8227,26 +8207,6 @@ RUR.augment.new_tile_type = function (tile) {
         RUR.KNOWN_TILES.push(name);
     }
 
-    // tile = RUR.TILES[name] = {};
-    // // copy all properties
-    // keys = Object.keys(new_tile);
-    // for(i=0; i < keys.length; i++){
-    //     key = keys[i];
-    //     tile[key] = new_tile[key];
-    // }
-    // // allow multiple tiles to appear under the same name;
-    // // for example, we might want to visually have different types of grass tiles
-    // // but referring under the single name "grass" when giving information
-    // if (tile.public_name) {
-    //     tile.name = tile.public_name;
-    // }
-    // create_images(tile);
-
-    // // Object goal (not required for decorative objects): either
-    // // a single url or a list for animated images.
-    // if (tile.goal) {
-    //     create_images(tile.goal);
-    // }
     RUR.TILES[name] = tile;
     // allow multiple tiles to appear under the same name;
     // for example, we might want to visually have different types of grass tiles
@@ -8311,11 +8271,13 @@ exports.images_init = images_init = function () {
    the session is initialized; at that point, we know that visible_world.js
    has been loaded and we know it will be available even if we don't
    put it as a formal requirement.  If we were to put it as a requirement,
-   we would end up with a circular requirement (e.g. objs.js require
-   visible_world.js which require objs.js) with unpredictable consequences.
+   we would end up with a circular requirement (e.g. animated_images.js require
+   visible_world.js which require animated_images.js) with unpredictable consequences.
 */
 
-//TODO: move RUR.INCREMENT_LOADED_FN here.
+RUR.INCREMENT_LOADED_FN = function () {
+    RUR._NB_IMAGES_LOADED += 1;
+};
 
 
 RUR.images_onload = function (image) {
@@ -8347,9 +8309,6 @@ RUR.animate_images = function (obj) {
         };
     }
 };
-
-
-
 
 RUR._random = function (obj, nb) {
     // each animated image is given a random value at all iteration
@@ -9724,6 +9683,8 @@ require("./../translator.js");
  * @throws Will throw an error if `x` or `y` is not a positive integer.
  * @throws Will throw an error if `nb` is not a positive integer or zero.
  *
+ * @todo Ensure that it throws an error if tile does not have an image.
+ *
  * @example
  * // This example shows how to add or remove objects, or object goals
  * // Make sure to allow it to replace the content of the editor.
@@ -9966,17 +9927,15 @@ require("./../recorder/record_frame.js");
  * @instance
  * @summary This function sets a given tile type at a location.
  *
- * @desc Cette fonction spécifie le type de tuile à un endroit.
- *
  * @param {string} tile The name of a tile **or** a colour recognized by HTML.
- *                      Note that rgba format for the colour has an unexpected result
- *                      since the tiles are redrawn each time so that semi-transparent
- *                      tiles will get progressively darker at each step. <br>
- *                      _Le nom d'une tuile **ou** celui d'une couleur reconnue par HTML._
+ *    No check is performed to ensure that the value given is valid.
  *
- * @param {integer} x  Position of the tile. <br>  _Position de la tuile_
+ * @param {integer} x  Position of the tile.
+ * @param {integer} y  Position of the tile.
  *
- * @param {integer} y  Position of the tile. <br>  _Position de la tuile_
+ * @throws Will throw an error if `x` or `y` is not a positive integer.
+ *
+ * @todo add test - at least for throws if others are present.
  *
  * @example
  * // shows how to set various tiles;
@@ -9988,7 +9947,10 @@ require("./../recorder/record_frame.js");
 
 RUR.set_tile_at_position = function (tile, x, y) {
     "use strict";
+    my_name = "RUR.set_tile_at_position(tile, x, y): ";
     RUR._ensure_key_exists(RUR.CURRENT_WORLD, "tiles");
+    RUR._ensure_positive_integer(x, my_name+"x");
+    RUR._ensure_positive_integer(y, my_name+"y");
     RUR.CURRENT_WORLD.tiles[x + "," + y] = tile;
     RUR.record_frame("debug", "set_tile_at_position");
 };

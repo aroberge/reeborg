@@ -45,6 +45,7 @@ require("./../exceptions.js");
  * @todo  Add new method to retrieve the untranslated name of the tile, to help
  * world designers
  * @todo  document goal
+ * @todo throw an error if no image is specified.
  *
  * @throws Will throw an error is `name` attribute is not specified.
  *  

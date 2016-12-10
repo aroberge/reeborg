@@ -19,7 +19,6 @@ test('Object: adding known object', function (assert) {
     RUR.record_frame = function () {};
     RUR.set_nb_object_at_position('a', 2, 3, 4);
     assert.equal(RUR.CURRENT_WORLD.objects['2,3'].a, 4, "nb objects ok");
-    silencer.restore();
     assert.end();
 });
 
@@ -57,7 +56,7 @@ test('Object: adding two and removing one known objects', function (assert) {
 test('Object: adding unknown object', function (assert) {
     var out;
     silencer.reset();
-    silencer.disable('log');
+    silencer.disable('warn');
     require("../../../src/js/world_set/object.js");
     RUR.OBJECTS = {};
     RUR.KNOWN_TILES = [];

@@ -14,9 +14,6 @@ try {
 } catch(e) {  // for testing, window.location... is not defined.
     RUR._BASE_URL = '';
 }
-RUR.INCREMENT_LOADED_FN = function () {
-    RUR._NB_IMAGES_LOADED += 1;
-};
 
 RUR.show_feedback = function (element, content) {
     $(element).html(content).dialog("open");

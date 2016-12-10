@@ -7,17 +7,15 @@ require("./../recorder/record_frame.js");
  * @instance
  * @summary This function sets a given tile type at a location.
  *
- * @desc Cette fonction spécifie le type de tuile à un endroit.
- *
  * @param {string} tile The name of a tile **or** a colour recognized by HTML.
- *                      Note that rgba format for the colour has an unexpected result
- *                      since the tiles are redrawn each time so that semi-transparent
- *                      tiles will get progressively darker at each step. <br>
- *                      _Le nom d'une tuile **ou** celui d'une couleur reconnue par HTML._
+ *    No check is performed to ensure that the value given is valid.
  *
- * @param {integer} x  Position of the tile. <br>  _Position de la tuile_
+ * @param {integer} x  Position of the tile.
+ * @param {integer} y  Position of the tile.
  *
- * @param {integer} y  Position of the tile. <br>  _Position de la tuile_
+ * @throws Will throw an error if `x` or `y` is not a positive integer.
+ *
+ * @todo add test - at least for throws if others are present.
  *
  * @example
  * // shows how to set various tiles;
@@ -29,7 +27,10 @@ require("./../recorder/record_frame.js");
 
 RUR.set_tile_at_position = function (tile, x, y) {
     "use strict";
+    my_name = "RUR.set_tile_at_position(tile, x, y): ";
     RUR._ensure_key_exists(RUR.CURRENT_WORLD, "tiles");
+    RUR._ensure_positive_integer(x, my_name+"x");
+    RUR._ensure_positive_integer(y, my_name+"y");
     RUR.CURRENT_WORLD.tiles[x + "," + y] = tile;
     RUR.record_frame("debug", "set_tile_at_position");
 };

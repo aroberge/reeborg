@@ -51,7 +51,7 @@ test('Goal object: adding two and removing one known goal objects', function (as
 
 test('Goal object: adding unknown goal object', function (assert) {
     silencer.reset();
-    silencer.disable('log');
+    silencer.disable('warn');
     require("../../../src/js/world_set/add_goal_object.js");
     RUR.OBJECTS = {};
     RUR.KNOWN_TILES = [];
