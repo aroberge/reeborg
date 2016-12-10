@@ -1083,9 +1083,8 @@ RUR._CALLBACK_FN = function () {
 };
 
 },{"./rur.js":49}],4:[function(require,module,exports){
-/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR */
 
+require("./rur.js");
 require("./translator.js");
 require("./constants.js");
 require("./objects.js");
@@ -1349,18 +1348,12 @@ RUR.control.take = function(robot, arg){
 
     objects_here = RUR.world_get.object_at_robot_position(robot, arg);
     if (arg !== undefined) {
-        // WARNING: do not change this silly comparison to false
-        // to anything else ... []==false is true  but []==[] is false
-        // and ![] is false
-        if (objects_here.length === 0 || objects_here == false) { // jshint ignore:line
+        if (Array.isArray(objects_here) && objects_here.length === 0) {
             throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: arg}));
         }  else {
             RUR.control._take_object_and_give_to_robot(robot, arg);
         }
-        // WARNING: do not change this silly comparison to false
-        // to anything else ... []==false is true  but []==[] is false
-        // and ![] is false
-    }  else if (objects_here.length === 0 || objects_here == false){ // jshint ignore:line
+    }  else if (Array.isArray(objects_here) && objects_here.length === 0){
         throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: RUR.translate("object")}));
     }  else if (objects_here.length > 1){
         throw new RUR.ReeborgError(RUR.translate("Many objects are here; I do not know which one to take!"));
@@ -1707,7 +1700,7 @@ RUR.control.get_colour_at_position = function (x, y) {
 };
 RUR.control.get_color_at_position = RUR.control.get_colour_at_position;
 
-},{"./constants.js":3,"./exceptions.js":13,"./objects.js":38,"./output.js":39,"./recorder/record_frame.js":45,"./state.js":52,"./translator.js":54,"./utils/key_exist.js":61,"./utils/supplant.js":63,"./world_get.js":75,"./world_set.js":78}],5:[function(require,module,exports){
+},{"./constants.js":3,"./exceptions.js":13,"./objects.js":38,"./output.js":39,"./recorder/record_frame.js":45,"./rur.js":49,"./state.js":52,"./translator.js":54,"./utils/key_exist.js":61,"./utils/supplant.js":63,"./world_get.js":75,"./world_set.js":78}],5:[function(require,module,exports){
 function betterTab(cm) {
   if (cm.somethingSelected()) {
     cm.indentSelection("add");

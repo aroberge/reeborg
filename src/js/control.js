@@ -1,6 +1,5 @@
-/*jshint  -W002,browser:true, devel:true, indent:4, white:false, plusplus:false */
-/*globals $, RUR */
 
+require("./rur.js");
 require("./translator.js");
 require("./constants.js");
 require("./objects.js");
@@ -264,18 +263,12 @@ RUR.control.take = function(robot, arg){
 
     objects_here = RUR.world_get.object_at_robot_position(robot, arg);
     if (arg !== undefined) {
-        // WARNING: do not change this silly comparison to false
-        // to anything else ... []==false is true  but []==[] is false
-        // and ![] is false
-        if (objects_here.length === 0 || objects_here == false) { // jshint ignore:line
+        if (Array.isArray(objects_here) && objects_here.length === 0) {
             throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: arg}));
         }  else {
             RUR.control._take_object_and_give_to_robot(robot, arg);
         }
-        // WARNING: do not change this silly comparison to false
-        // to anything else ... []==false is true  but []==[] is false
-        // and ![] is false
-    }  else if (objects_here.length === 0 || objects_here == false){ // jshint ignore:line
+    }  else if (Array.isArray(objects_here) && objects_here.length === 0){
         throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: RUR.translate("object")}));
     }  else if (objects_here.length > 1){
         throw new RUR.ReeborgError(RUR.translate("Many objects are here; I do not know which one to take!"));
