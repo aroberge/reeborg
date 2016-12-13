@@ -15,7 +15,7 @@ To create a single javascript file (reeborg.js) from the various modules,
 we use browserify (http://browserify.org/) which can be installed from 
 a terminal window as follows: 
 
-`npm install -g browserify`
+    npm install -g browserify
 
 ### Unit testing with tape
 
@@ -25,11 +25,11 @@ I agree with [Eric Elliott's reasons for using tape](https://medium.com/javascri
 
 Tape can be installed either locally for this project using 
 
-`npm install tape --save-dev`
+    npm install tape --save-dev
 
 or globally
 
-`npm install -g tape`
+    npm install -g tape
 
 Tape output, according to his creator, 
 _is good for machines and humans that are robots_. As I am neither, 
@@ -52,11 +52,13 @@ reduced clutter.
 
 To run the unit tests, do
 
-`npm run test`
+    npm run test
 
 or
 
-`npm run tests` 
+    npm run tests
+
+I included both versions so as to not have to worry about typos. 
 
 ### Functional tests with qunit
 
@@ -102,11 +104,11 @@ to document some "advanced world creation methods".
 Currently, these are not found on the site and only live in the 
 distribution found on github. Install jsdoc using
 
-`npm install -g jsdoc`
+    npm install -g jsdoc
 
 I also use ink-docstrap as jsdoc templates. Install using 
 
-`npm install ink-docstrap`
+    npm install ink-docstrap
 
 
 ## Building a new version
@@ -124,7 +126,7 @@ scripts not mentioned here.
 To simply create a new version of reeborg.js (found in the folder /build), 
 from a terminal, type:
 
-`npm run only-build`
+    npm run only-build
 
 This will use browserify to concatenate all the relevant javscript files 
 into a single one (reeborg.js).
@@ -133,7 +135,7 @@ into a single one (reeborg.js).
 
 Type
 
-`npm run build`
+    npm run build
 
 to first run some unit tests followed by a new build using browserify.
 
@@ -143,7 +145,7 @@ I have started documenting some Javascript modules containing
 methods useful for creating "advanced" worlds. To produce the documentation
 from these files, use 
 
-`npm run jsdoc`
+    npm run jsdoc
 
 The documentation produced is found in api_docs/advanced_world_creation/index.html.
 You should read api_docs/readme.md for more details.

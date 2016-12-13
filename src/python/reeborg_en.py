@@ -99,6 +99,10 @@ def front_is_clear():  #py:front_is_clear
     """
     return RUR._front_is_clear_()
 
+def install_extra(url):
+    """Install a module (single file) to be used from within Reeborg."""
+    RUR.install_extra(url)
+
 
 def is_facing_north():  #py:is_facing_north
     """Indicates if Reeborg is facing North (top of the screen) or not."""

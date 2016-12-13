@@ -2464,6 +2464,50 @@ RUR.file_io.load_world_file = function (url, shortname) {
     }
 };
 
+/**
+ * Note that the cors server may cache the result beyond our local
+ * control. A script writer might be surprised to see that 
+ * things are not working as expected.
+ */
+RUR.load_js_module = function(url) {
+    loadFile(url, eval_js);
+};
+
+function eval_js () {
+    try {
+        eval(this.responseText); //jshint ignore:line
+    } catch (e) {
+        console.error("error in attempting to evaluated loaded module");
+        console.log(this.responseText);
+        console.error(e);
+    }
+}
+/* adapted from https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Synchronous_and_Asynchronous_Requests */
+
+function xhrSuccess () { this.callback.apply(this, this.arguments); }
+
+function xhrError () { console.error(this.statusText); }
+
+function loadFile (sURL, fCallback) {
+  var oReq = new XMLHttpRequest();
+  oReq.callback = fCallback;
+  oReq.onload = xhrSuccess;
+  oReq.onerror = xhrError;
+  sURL = 'http://cors-anywhere.herokuapp.com/' + sURL;
+  oReq.open("get", sURL, true);
+  oReq.send(null);
+}
+
+RUR.install_extra = function(url) {
+    loadFile(url, copy_content);
+};
+function copy_content() {
+    $("#extra").html(this.responseText);
+}
+window.get_extra_content = function () {
+    return $("#extra").html();
+};
+
 },{"./exceptions.js":13,"./listeners/stop.js":35,"./output.js":39,"./permalink.js":40,"./recorder.js":44,"./translator.js":54,"./utils/supplant.js":63,"./world.js":66,"./world/import_world.js":70,"./world_select.js":77}],15:[function(require,module,exports){
 /* require this module that will automatically modify a global object*/
 require("./utils/cors.js");
@@ -5617,6 +5661,9 @@ RUR._play_sound = function (sound_id) {
     current_sound = $(sound_id)[0];
     current_sound.load();
     current_sound.play();
+    //TODO see if rewinding to zero instead of load() might not be a better
+    //way to do things. In particular, this might enable the removal of
+    //the minimum time limit for the sound.
 };
 
 },{}],43:[function(require,module,exports){

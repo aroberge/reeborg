@@ -99,6 +99,11 @@ def rien_devant():  #py:front_is_clear
        True si le chemin est non bloqué, False autrement."""
     return RUR._front_is_clear_()
 
+
+def install_extra(url):
+    """Installe un module (simple fichier) dans un module utile à Reeborg."""
+    RUR.install_extra(url)
+
 def est_face_au_nord():  #py:is_facing_north
     """Indique si Reeborg fait face au nord (haut de l'écran) ou non."""
     return RUR._is_facing_north_()

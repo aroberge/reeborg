@@ -127,3 +127,51 @@ RUR.file_io.load_world_file = function (url, shortname) {
         });
     }
 };
+
+/**
+ * Note that the cors server may cache the result beyond our local
+ * control. A script writer might be surprised to see that 
+ * things are not working as expected.
+ */
+RUR.load_js_module = function(url) {
+    loadFile(url, eval_js);
+};
+
+function eval_js () {
+    try {
+        eval(this.responseText); //jshint ignore:line
+    } catch (e) {
+        console.error("error in attempting to evaluated loaded module");
+        console.log(this.responseText);
+        console.error(e);
+    }
+}
+/* adapted from https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Synchronous_and_Asynchronous_Requests */
+
+function xhrSuccess () { this.callback.apply(this, this.arguments); }
+
+function xhrError () { console.error(this.statusText); }
+
+function loadFile (sURL, fCallback) {
+  var oReq = new XMLHttpRequest();
+  oReq.callback = fCallback;
+  oReq.onload = xhrSuccess;
+  oReq.onerror = xhrError;
+  sURL = 'http://cors-anywhere.herokuapp.com/' + sURL;
+  oReq.open("get", sURL, true);
+  oReq.send(null);
+}
+
+// TODO: move to load_modules  (see above code too)
+//       and ensure that it still works.
+// TODO: add (q)unit tests
+
+RUR.install_extra = function(url) {
+    loadFile(url, copy_content);
+};
+function copy_content() {
+    $("#extra").html(this.responseText);
+}
+window.get_extra_content = function () {
+    return $("#extra").html();
+};
