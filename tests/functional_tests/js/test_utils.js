@@ -122,7 +122,7 @@ RUR.unit_tests.playback = function() {
     return true;
 };
 
-RUR.unit_tests.initial_world = RUR.create_empty_world();
+RUR.unit_tests.initial_world = RUR.functional_tests.create_empty_world();
 RUR.unit_tests.empty_world = {robots: [],
         objects: {},
         walls: {},

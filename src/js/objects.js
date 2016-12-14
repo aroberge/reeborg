@@ -1,5 +1,5 @@
 require("./rur.js");
-require("./world_augment/add_tile_type.js");
+require("./world_enhance/add_tile_type.js");
 
 var obj;
 
@@ -8,7 +8,7 @@ _add_object_type = function (name) {
     var url, url_goal;
     url = RUR._BASE_URL + '/src/images/' + name + '.png';
     url_goal = RUR._BASE_URL + '/src/images/' + name + '_goal.png';
-    RUR.augment.new_tile_type({"name": name, "url": url, "goal": {"url": url_goal}});
+    RUR.enhance.new_tile_type({"name": name, "url": url, "goal": {"url": url_goal}});
 };
 
 _add_object_type("token");
@@ -39,7 +39,7 @@ obj = {"name": 'beeper',
             'src/images/beeper3.png'],
     "goal": {'url': 'src/images/beeper_goal.png'}
 };
-RUR.augment.new_tile_type(obj);
+RUR.enhance.new_tile_type(obj);
 
 RUR.add_new_solid_object_type = function (name, url, nickname) {
     var obj = RUR.TILES;

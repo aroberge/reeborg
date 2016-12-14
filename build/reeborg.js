@@ -2498,6 +2498,10 @@ function loadFile (sURL, fCallback) {
   oReq.send(null);
 }
 
+// TODO: move to load_modules  (see above code too)
+//       and ensure that it still works.
+// TODO: add (q)unit tests
+
 RUR.install_extra = function(url) {
     loadFile(url, copy_content);
 };
@@ -2522,10 +2526,10 @@ require("./start_session.js");
 // TODO: add turtle mode (see blockly for comparing with expected solution); ensure a blockly counterpart
 // TODO: implement paint() and colour_here() in Blockly
 
-},{"./commands.js":2,"./start_session.js":51,"./utils/cors.js":57,"./world_editor.js":74}],16:[function(require,module,exports){
+},{"./commands.js":2,"./start_session.js":51,"./utils/cors.js":57,"./world_editor.js":71}],16:[function(require,module,exports){
 /* This file contains the tiles included by default */
 require("./../rur.js");
-require("./../world_augment/add_tile_type.js");
+require("./../world_enhance/add_tile_type.js");
 
 var home_message, tile;
 
@@ -2535,7 +2539,7 @@ tile = {name: "mud",
     fatal: true,
     info: "Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."
 };
-RUR.augment.new_tile_type(tile);
+RUR.enhance.new_tile_type(tile);
 
 tile = {name: "ice",
     url: RUR._BASE_URL + '/src/images/ice.png',
@@ -2543,26 +2547,26 @@ tile = {name: "ice",
     slippery: true,
     info: "Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location."
 };
-RUR.augment.new_tile_type(tile);
+RUR.enhance.new_tile_type(tile);
 
 tile = {name: "grass",
     url: RUR._BASE_URL + '/src/images/grass.png',
     info: "Grass: usually safe."
 };
-RUR.augment.new_tile_type(tile);
+RUR.enhance.new_tile_type(tile);
 
 tile = {name: "pale_grass",
     url: RUR._BASE_URL + '/src/images/pale_grass.png',
     info: "Grass: usually safe.",
     public_name: "grass"
 };
-RUR.augment.new_tile_type(tile);
+RUR.enhance.new_tile_type(tile);
 
 tile = {name: "gravel",
     url: RUR._BASE_URL + '/src/images/gravel.png',
     info: "Gravel: usually safe."
 };
-RUR.augment.new_tile_type(tile);
+RUR.enhance.new_tile_type(tile);
 
 tile = {
     name:"water",
@@ -2577,7 +2581,7 @@ tile = {
     detectable: true,
     message: "I'm in water!"
 };
-RUR.augment.new_tile_type(tile);
+RUR.enhance.new_tile_type(tile);
 
 tile = {name: "bricks",
     public_name: "brick wall",
@@ -2588,7 +2592,7 @@ tile = {name: "bricks",
     fatal: true,
     solid: true
 };
-RUR.augment.new_tile_type(tile);
+RUR.enhance.new_tile_type(tile);
 
 /*--- home tiles ---*/
 
@@ -2599,23 +2603,23 @@ tile = {name: "green_home_tile",
     info: "green_home_tile" + home_message,
     detectable: true
 };
-RUR.augment.new_tile_type(tile);
+RUR.enhance.new_tile_type(tile);
 
 tile = {name: "house",
     url: RUR._BASE_URL + '/src/images/house.png',
     info: "house" + home_message,
     detectable: true
 };
-RUR.augment.new_tile_type(tile);
+RUR.enhance.new_tile_type(tile);
 
 tile = {name: "racing_flag",
     url: RUR._BASE_URL + '/src/images/racing_flag.png',
     info: "racing_flag" + home_message,
     detectable: true
 };
-RUR.augment.new_tile_type(tile);
+RUR.enhance.new_tile_type(tile);
 
-},{"./../rur.js":49,"./../world_augment/add_tile_type.js":71}],17:[function(require,module,exports){
+},{"./../rur.js":49,"./../world_enhance/add_tile_type.js":72}],17:[function(require,module,exports){
 /*  Handler of special on-screen keyboard
 */
 
@@ -5252,7 +5256,7 @@ watch_button.addEventListener("click", toggle_watch_variables, false);
 
 },{"./../../lang/msg.js":89,"./../state.js":52}],38:[function(require,module,exports){
 require("./rur.js");
-require("./world_augment/add_tile_type.js");
+require("./world_enhance/add_tile_type.js");
 
 var obj;
 
@@ -5261,7 +5265,7 @@ _add_object_type = function (name) {
     var url, url_goal;
     url = RUR._BASE_URL + '/src/images/' + name + '.png';
     url_goal = RUR._BASE_URL + '/src/images/' + name + '_goal.png';
-    RUR.augment.new_tile_type({"name": name, "url": url, "goal": {"url": url_goal}});
+    RUR.enhance.new_tile_type({"name": name, "url": url, "goal": {"url": url_goal}});
 };
 
 _add_object_type("token");
@@ -5292,7 +5296,7 @@ obj = {"name": 'beeper',
             'src/images/beeper3.png'],
     "goal": {'url': 'src/images/beeper_goal.png'}
 };
-RUR.augment.new_tile_type(obj);
+RUR.enhance.new_tile_type(obj);
 
 RUR.add_new_solid_object_type = function (name, url, nickname) {
     var obj = RUR.TILES;
@@ -5342,7 +5346,7 @@ RUR.TILES.fence_vertical.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_vertical.info = RUR.TILES.fence_right.info;
 RUR.TILES.fence7 = RUR.TILES.fence_vertical;  // compatibility with old worlds
 
-},{"./rur.js":49,"./world_augment/add_tile_type.js":71}],39:[function(require,module,exports){
+},{"./rur.js":49,"./world_enhance/add_tile_type.js":72}],39:[function(require,module,exports){
 
 require("./rur.js");
 require("./recorder/record_frame.js");
@@ -6486,6 +6490,10 @@ RUR.show_feedback = function (element, content) {
     $(element).html(content).dialog("open");
 };
 
+// namespace used to hold global reference to functions
+// that are useful to perform some functional tests only.
+RUR.functional_tests = {};
+
 },{}],50:[function(require,module,exports){
 require("./state.js");
 require("./visible_world.js");
@@ -7229,7 +7237,7 @@ RUR.vis_robot.new_robot_images = function (images) {
 require("./translator.js");
 require("./constants.js");
 require("./state.js");
-require("./world_augment/add_tile_type.js");
+require("./world_enhance/add_tile_type.js");
 require("./world/create_empty.js");
 
 //TODO add overlay object (like sensor) on robot canvas.
@@ -7871,7 +7879,7 @@ draw_info = function() {
     }
 };
 
-},{"./constants.js":3,"./state.js":52,"./translator.js":54,"./world/create_empty.js":68,"./world_augment/add_tile_type.js":71}],66:[function(require,module,exports){
+},{"./constants.js":3,"./state.js":52,"./translator.js":54,"./world/create_empty.js":68,"./world_enhance/add_tile_type.js":72}],66:[function(require,module,exports){
 
 require("./state.js");
 require("./create_editors.js");
@@ -8019,9 +8027,10 @@ exports.clone_world = clone_world = function (world) {
 RUR.clone_world = clone_world; // for automated testing
 
 },{}],68:[function(require,module,exports){
+require("./../rur.js");
 require("./../constants.js");
 
-create_empty_world = function (blank_canvas) {
+exports.create_empty_world = create_empty_world = function (blank_canvas) {
     "use strict";
     var world = {};
     if (blank_canvas) {
@@ -8031,19 +8040,17 @@ create_empty_world = function (blank_canvas) {
     world.robots = [];
     world.walls = {};
     world.objects = {};
-    // allow teacher to insert code to be run before and after the
-    // code entered by the student
     world.small_tiles = false;
     world.rows = RUR.MAX_Y;
     world.cols = RUR.MAX_X;
 
-    RUR.CURRENT_WORLD = world;
     return world;
 };
-RUR.create_empty_world = create_empty_world; // for automated tests.
+RUR.functional_tests.create_empty_world = create_empty_world;
+
 RUR.CURRENT_WORLD = create_empty_world();
 
-},{"./../constants.js":3}],69:[function(require,module,exports){
+},{"./../constants.js":3,"./../rur.js":49}],69:[function(require,module,exports){
 
 exports.export_world = function () {
     return JSON.stringify(RUR.CURRENT_WORLD, null, 2);
@@ -8057,8 +8064,8 @@ require("./../visible_world.js");
 require("./../state.js");
 require("./../exceptions.js");
 require("./../create_editors.js");
-require("./create_empty.js");
-var images_init = require("./../world_augment/animated_images.js").images_init;
+var create_empty_world = require("./create_empty.js");
+var images_init = require("./../world_enhance/animated_images.js").images_init;
 var edit_robot_menu = require("./../ui/edit_robot_menu.js");
 var clone_world = require("./clone_world.js").clone_world;
 
@@ -8072,16 +8079,16 @@ RUR.world.import_world = function (json_string) {
     images_init();
     if (typeof json_string == "string"){
         try {
-            RUR.CURRENT_WORLD = JSON.parse(json_string) || RUR.create_empty_world();
+            RUR.CURRENT_WORLD = JSON.parse(json_string) || create_empty_world();
         } catch (e) {
             alert(e);
             console.log("Exception caught in import_world.");
             console.log("json_string = ", json_string);
             console.log("error = ", e);
-            RUR.create_empty_world();
+            RUR.CURRENT_WORLD = create_empty_world();
             return;
         }
-    } else {  // already parsed
+    } else {  // already parsed into a Javascript Object
         RUR.CURRENT_WORLD = json_string;
     }
 
@@ -8160,235 +8167,7 @@ eval_onload = function () {
     RUR.vis_world.draw_all();
 };
 
-},{"./../constants.js":3,"./../create_editors.js":5,"./../exceptions.js":13,"./../robot.js":47,"./../state.js":52,"./../translator.js":54,"./../ui/edit_robot_menu.js":55,"./../visible_world.js":65,"./../world_augment/animated_images.js":72,"./clone_world.js":67,"./create_empty.js":68}],71:[function(require,module,exports){
-require("./../rur.js");
-require("./augment_namespace.js");
-require("./animated_images.js");
-require("./../exceptions.js");
-//require("./../init/images_onload.js");
-
-/** @function new_tile_type
- * @memberof RUR.augment
- * @instance
- * @summary This function makes it possible to add new tiles. If the name
- *    of an existing tile is specified again, it is replaced by a new one
- *    which may have completely different characteristics. 
- *
- * @param {Object} tile A Javascript object (similar to a Python dict) that
- *                      describes the properties of the tile.
- *
- * @param {string} tile.name  The name to be given to the tile; an exception
- *    will be raisd if it is missing.
- *
- * @param {string} [tile.public_name] If various tiles are meant to represent
- *                                    the same type of tile (e.g. different shades of "grass")
- *                                    this attribute can be used to specify that single name.
- *
- * @param {string} [tile.url] If a single image is used, this indicated the source.
- *                            **Either tile.url or tile.images must be specified.**
- *
- * @param {string[]} [tile.images] If multiple images are used (for animated tiles),
- *                               this array (list) contains the various URLs.
- *                            **Either tile.url or tile.images must be specified.**
- *
- * @param {string} [tile.selection_method = "random"]  For animated tiles; choose one of
- *                           "sync", "ordered" or "random"
- *
- * @param {boolean} [tile.fatal] Program ends if Reeborg steps on such a tile set to `True`.
- *
- * @param {boolean} [tile.detectable] If `tile.fatal == tile.detectable == True`, Reeborg can
- *                                    detect with `front_is_clear()` and `right_is_clear()`.
- *
- * @param {boolean} [tile.solid] If sets to `True`, prevents a box from sliding onto this tile.
- *
- * @param {boolean} [tile.slippery] If sets to `True`, Reeborg will keep going to next tile if
- *                                  it attempts to move on this tile.
- *
- * @todo  Add "x-offset" and "y-offset" as additional properties, used for drawing
- * @todo  Add new method to retrieve the untranslated name of the tile, to help
- * world designers
- * @todo  document goal
- * @todo throw an error if no image is specified.
- *
- * @throws Will throw an error is `name` attribute is not specified.
- *  
- * @example
- * // This first example shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
- *
- * // A second example shows how one can change tiles behaviour.
- * // A possible usage of this would be to have Reeborg wear crampons
- * // so that it does not slip on the ice.
- * World("/worlds/examples/tile2.json", "Example 2")
- */
-RUR.TILES = {};
-
-RUR.augment.new_tile_type = function (tile) {
-    "use strict";
-    var i, key, keys, name;
-    name = tile.name;
-
-    if (name === undefined){
-        throw new RUR.ReeborgError("RUR.augment.new_tile_type(tile): new_tile.name attribute missing.");
-    }
-
-    if (RUR.KNOWN_TILES.indexOf(name) != -1) {
-        console.warn("Warning: tile name " + name + " already exists");
-    } else {
-        RUR.KNOWN_TILES.push(name);
-    }
-
-    RUR.TILES[name] = tile;
-    // allow multiple tiles to appear under the same name;
-    // for example, we might want to visually have different types of grass tiles
-    // but referring under the single name "grass" when giving information
-    // while keeping the different tiles distinct using their original name
-    // internally.
-    if (tile.public_name) {
-        tile.name = tile.public_name;
-    }
-    create_images(tile);
-    // Object goal (not required for decorative objects): either
-    // a single url or a list for animated images.
-    if (tile.goal) {
-        create_images(tile.goal);
-    }
-};
-
-function create_images(obj) {
-    if (obj.url) {
-        obj.image = new Image();
-        obj.image.src = obj.url;
-        RUR.images_onload(obj.image);
-    } else if (obj.images) {
-        RUR.animate_images(obj);
-    } else {
-        alert("Fatal error: need either tile.url or a list: tile.images");
-    }
-}
-
-
-/** @function add_new_object_type
- * @memberof RUR
- * @instance
- *
- * @deprecated Use {@link RUR.augment#new_tile_type} instead.
- */
-RUR.add_new_object_type = function (name, url, url_goal) {
-    RUR.augment.new_tile_type({"name": name, "url": url, "goal": {"url": url_goal}});
-};
-/** @function add_object_image
- * @memberof RUR
- * @instance
- *
- * @deprecated Use {@link RUR.augment#new_tile_type} instead.
- */
-RUR.add_object_image = RUR.add_new_object_type; // Vincent Maille's book.
-
-},{"./../exceptions.js":13,"./../rur.js":49,"./animated_images.js":72,"./augment_namespace.js":73}],72:[function(require,module,exports){
-require("./../rur.js");
-require("./../state.js");
-
-var _ORDERED, _SYNC, _SYNC_VALUE;
-
-exports.images_init = images_init = function () {
-    _ORDERED = {};
-    _SYNC = {};
-    _SYNC_VALUE = {};
-    RUR.ANIMATION_TIME = 120;
-};
-
-RUR._NB_IMAGES_TO_LOAD = 0;
-RUR._NB_IMAGES_LOADED = 0;
-RUR._incremented_loaded_images = function () {
-    RUR._NB_IMAGES_LOADED += 1;
-};
-
-/* Important: we need to use a method from visible_world.js ONLY after
-   the session is initialized; at that point, we know that visible_world.js
-   has been loaded and we know it will be available even if we don't
-   put it as a formal requirement.  If we were to put it as a requirement,
-   we would end up with a circular requirement (e.g. animated_images.js require
-   visible_world.js which require animated_images.js) with unpredictable consequences.
-*/
-RUR.images_onload = function (image) {
-    if (RUR.vis_world !== undefined) {
-        image.onload = RUR.vis_world.refresh;
-    } else {
-        RUR._NB_IMAGES_TO_LOAD += 1;
-        image.onload = RUR._incremented_loaded_images;
-    }
-};
-
-RUR.animate_images = function (obj) {
-    for (i=0; i < obj.images.length; i++){
-        obj["image"+i] = new Image();
-        obj["image"+i].src = obj.images[i];
-        RUR.images_onload(obj["image"+i]);
-    }
-    if (obj.selection_method === "sync") {
-        obj.choose_image = function (coords) {
-            return RUR._sync(obj, obj.images.length, coords);
-        };
-    } else if (obj.selection_method === "ordered") {
-        obj.choose_image = function (coords) {
-            return RUR._ordered(obj, obj.images.length, coords);
-        };
-    } else {
-        obj.choose_image = function (coords) {
-            return RUR._random(obj, obj.images.length);
-        };
-    }
-};
-
-RUR._random = function (obj, nb) {
-    // each animated image is given a random value at all iteration
-    var choice = Math.floor(Math.random() * nb);
-    return obj["image" + choice];
-};
-
-RUR._ordered = function (obj, nb, coords) {
-    // each animated image is given a random initial value but then goes in order
-
-    if (_ORDERED[obj.name] === undefined) {
-        _ORDERED[obj.name] = {};
-        _ORDERED[obj.name][coords] = Math.floor(Math.random() * nb);
-    } else if (Object.keys(_ORDERED[obj.name]).indexOf(coords) === -1) {
-        _ORDERED[obj.name][coords] = Math.floor(Math.random() * nb);
-    } else {
-        _ORDERED[obj.name][coords] += 1;
-        _ORDERED[obj.name][coords] %= nb;
-    }
-    return obj["image" + _ORDERED[obj.name][coords]];
-};
-
-RUR._sync = function (obj, nb, coords) {
-    // every animated image of this type is kept in sync
-    if (_SYNC[obj.name] === undefined) {
-        _SYNC[obj.name] = [];
-        _SYNC_VALUE[obj.name] = 1;
-    } else if (_SYNC[obj.name].indexOf(coords) !== -1) {
-        // see an same animated image present: we are starting a new sequence
-        _SYNC[obj.name] = [];
-        _SYNC_VALUE[obj.name] += 1;
-        _SYNC_VALUE[obj.name] %= nb;
-    }
-    _SYNC[obj.name].push(coords);
-    return obj["image" + _SYNC_VALUE[obj.name]];
-};
-
-},{"./../rur.js":49,"./../state.js":52}],73:[function(require,module,exports){
-require("./../rur.js");
-/** @namespace augment
- * @memberof RUR
- * @desc RUR.augment is the name space used to group all methods that
- * add new objects (including tiles, obstacles, etc) to Reeborg's World.
- */
-RUR.augment = {};
-
-},{"./../rur.js":49}],74:[function(require,module,exports){
+},{"./../constants.js":3,"./../create_editors.js":5,"./../exceptions.js":13,"./../robot.js":47,"./../state.js":52,"./../translator.js":54,"./../ui/edit_robot_menu.js":55,"./../visible_world.js":65,"./../world_enhance/animated_images.js":73,"./clone_world.js":67,"./create_empty.js":68}],71:[function(require,module,exports){
 
 require("./translator.js");
 require("./constants.js");
@@ -9052,7 +8831,235 @@ $("#robot-canvas").on("click", function (evt) {
     RUR.world_get.world_info();
 });
 
-},{"./constants.js":3,"./create_editors.js":5,"./dialogs/add_object.js":7,"./dialogs/create.js":8,"./dialogs/give_object.js":9,"./dialogs/goal_object.js":10,"./dialogs/select_colour.js":11,"./dialogs/set_background_image.js":12,"./exceptions.js":13,"./listeners/canvas.js":20,"./objects.js":38,"./robot.js":47,"./state.js":52,"./translator.js":54,"./ui/edit_robot_menu.js":55,"./utils/filterint.js":59,"./utils/identical.js":60,"./utils/key_exist.js":61,"./utils/supplant.js":63,"./visible_world.js":65,"./world.js":66,"./world_get.js":75,"./world_set.js":78,"./world_set/add_goal_object.js":79,"./world_set/add_robot.js":80,"./world_set/give_object_to_robot.js":81,"./world_set/object.js":82,"./world_set/toggle_decorative_object.js":85,"./world_set/toggle_obstacle.js":86}],75:[function(require,module,exports){
+},{"./constants.js":3,"./create_editors.js":5,"./dialogs/add_object.js":7,"./dialogs/create.js":8,"./dialogs/give_object.js":9,"./dialogs/goal_object.js":10,"./dialogs/select_colour.js":11,"./dialogs/set_background_image.js":12,"./exceptions.js":13,"./listeners/canvas.js":20,"./objects.js":38,"./robot.js":47,"./state.js":52,"./translator.js":54,"./ui/edit_robot_menu.js":55,"./utils/filterint.js":59,"./utils/identical.js":60,"./utils/key_exist.js":61,"./utils/supplant.js":63,"./visible_world.js":65,"./world.js":66,"./world_get.js":75,"./world_set.js":78,"./world_set/add_goal_object.js":79,"./world_set/add_robot.js":80,"./world_set/give_object_to_robot.js":81,"./world_set/object.js":82,"./world_set/toggle_decorative_object.js":85,"./world_set/toggle_obstacle.js":86}],72:[function(require,module,exports){
+require("./../rur.js");
+require("./enhance_namespace.js");
+require("./animated_images.js");
+require("./../exceptions.js");
+//require("./../init/images_onload.js");
+
+/** @function new_tile_type
+ * @memberof RUR.enhance
+ * @instance
+ * @summary This function makes it possible to add new tiles. If the name
+ *    of an existing tile is specified again, it is replaced by a new one
+ *    which may have completely different characteristics. 
+ *
+ * @param {Object} tile A Javascript object (similar to a Python dict) that
+ *                      describes the properties of the tile.
+ *
+ * @param {string} tile.name  The name to be given to the tile; an exception
+ *    will be raisd if it is missing.
+ *
+ * @param {string} [tile.public_name] If various tiles are meant to represent
+ *                                    the same type of tile (e.g. different shades of "grass")
+ *                                    this attribute can be used to specify that single name.
+ *
+ * @param {string} [tile.url] If a single image is used, this indicated the source.
+ *                            **Either tile.url or tile.images must be specified.**
+ *
+ * @param {string[]} [tile.images] If multiple images are used (for animated tiles),
+ *                               this array (list) contains the various URLs.
+ *                            **Either tile.url or tile.images must be specified.**
+ *
+ * @param {string} [tile.selection_method = "random"]  For animated tiles; choose one of
+ *                           "sync", "ordered" or "random"
+ *
+ * @param {boolean} [tile.fatal] Program ends if Reeborg steps on such a tile set to `True`.
+ *
+ * @param {boolean} [tile.detectable] If `tile.fatal == tile.detectable == True`, Reeborg can
+ *                                    detect with `front_is_clear()` and `right_is_clear()`.
+ *
+ * @param {boolean} [tile.solid] If sets to `True`, prevents a box from sliding onto this tile.
+ *
+ * @param {boolean} [tile.slippery] If sets to `True`, Reeborg will keep going to next tile if
+ *                                  it attempts to move on this tile.
+ *
+ * @todo  Add "x-offset" and "y-offset" as additional properties, used for drawing
+ * @todo  Add new method to retrieve the untranslated name of the tile, to help
+ * world designers
+ * @todo  document goal
+ * @todo throw an error if no image is specified.
+ *
+ * @throws Will throw an error is `name` attribute is not specified.
+ *  
+ * @example
+ * // This first example shows how to set various tiles;
+ * // the mode will be set to Python and the highlighting
+ * // will be turned off
+ * World("/worlds/examples/tile1.json", "Example 1")
+ *
+ * // A second example shows how one can change tiles behaviour.
+ * // A possible usage of this would be to have Reeborg wear crampons
+ * // so that it does not slip on the ice.
+ * World("/worlds/examples/tile2.json", "Example 2")
+ */
+RUR.TILES = {};
+
+RUR.enhance.new_tile_type = function (tile) {
+    "use strict";
+    var i, key, keys, name;
+    name = tile.name;
+
+    if (name === undefined){
+        throw new RUR.ReeborgError("RUR.enhance.new_tile_type(tile): new_tile.name attribute missing.");
+    }
+
+    if (RUR.KNOWN_TILES.indexOf(name) != -1) {
+        console.warn("Warning: tile name " + name + " already exists");
+    } else {
+        RUR.KNOWN_TILES.push(name);
+    }
+
+    RUR.TILES[name] = tile;
+    // allow multiple tiles to appear under the same name;
+    // for example, we might want to visually have different types of grass tiles
+    // but referring under the single name "grass" when giving information
+    // while keeping the different tiles distinct using their original name
+    // internally.
+    if (tile.public_name) {
+        tile.name = tile.public_name;
+    }
+    create_images(tile);
+    // Object goal (not required for decorative objects): either
+    // a single url or a list for animated images.
+    if (tile.goal) {
+        create_images(tile.goal);
+    }
+};
+
+function create_images(obj) {
+    if (obj.url) {
+        obj.image = new Image();
+        obj.image.src = obj.url;
+        RUR.images_onload(obj.image);
+    } else if (obj.images) {
+        RUR.animate_images(obj);
+    } else {
+        alert("Fatal error: need either tile.url or a list: tile.images");
+    }
+}
+
+
+/** @function add_new_object_type
+ * @memberof RUR
+ * @instance
+ *
+ * @deprecated Use {@link RUR.enhance#new_tile_type} instead.
+ */
+RUR.add_new_object_type = function (name, url, url_goal) {
+    RUR.enhance.new_tile_type({"name": name, "url": url, "goal": {"url": url_goal}});
+};
+/** @function add_object_image
+ * @memberof RUR
+ * @instance
+ *
+ * @deprecated Use {@link RUR.enhance#new_tile_type} instead.
+ */
+RUR.add_object_image = RUR.add_new_object_type; // Vincent Maille's book.
+
+},{"./../exceptions.js":13,"./../rur.js":49,"./animated_images.js":73,"./enhance_namespace.js":74}],73:[function(require,module,exports){
+require("./../rur.js");
+require("./../state.js");
+
+var _ORDERED, _SYNC, _SYNC_VALUE;
+
+exports.images_init = images_init = function () {
+    _ORDERED = {};
+    _SYNC = {};
+    _SYNC_VALUE = {};
+    RUR.ANIMATION_TIME = 120;
+};
+
+RUR._NB_IMAGES_TO_LOAD = 0;
+RUR._NB_IMAGES_LOADED = 0;
+RUR._incremented_loaded_images = function () {
+    RUR._NB_IMAGES_LOADED += 1;
+};
+
+/* Important: we need to use a method from visible_world.js ONLY after
+   the session is initialized; at that point, we know that visible_world.js
+   has been loaded and we know it will be available even if we don't
+   put it as a formal requirement.  If we were to put it as a requirement,
+   we would end up with a circular requirement (e.g. animated_images.js require
+   visible_world.js which require animated_images.js) with unpredictable consequences.
+*/
+RUR.images_onload = function (image) {
+    if (RUR.vis_world !== undefined) {
+        image.onload = RUR.vis_world.refresh;
+    } else {
+        RUR._NB_IMAGES_TO_LOAD += 1;
+        image.onload = RUR._incremented_loaded_images;
+    }
+};
+
+RUR.animate_images = function (obj) {
+    for (i=0; i < obj.images.length; i++){
+        obj["image"+i] = new Image();
+        obj["image"+i].src = obj.images[i];
+        RUR.images_onload(obj["image"+i]);
+    }
+    if (obj.selection_method === "sync") {
+        obj.choose_image = function (coords) {
+            return RUR._sync(obj, obj.images.length, coords);
+        };
+    } else if (obj.selection_method === "ordered") {
+        obj.choose_image = function (coords) {
+            return RUR._ordered(obj, obj.images.length, coords);
+        };
+    } else {
+        obj.choose_image = function (coords) {
+            return RUR._random(obj, obj.images.length);
+        };
+    }
+};
+
+RUR._random = function (obj, nb) {
+    // each animated image is given a random value at all iteration
+    var choice = Math.floor(Math.random() * nb);
+    return obj["image" + choice];
+};
+
+RUR._ordered = function (obj, nb, coords) {
+    // each animated image is given a random initial value but then goes in order
+
+    if (_ORDERED[obj.name] === undefined) {
+        _ORDERED[obj.name] = {};
+        _ORDERED[obj.name][coords] = Math.floor(Math.random() * nb);
+    } else if (Object.keys(_ORDERED[obj.name]).indexOf(coords) === -1) {
+        _ORDERED[obj.name][coords] = Math.floor(Math.random() * nb);
+    } else {
+        _ORDERED[obj.name][coords] += 1;
+        _ORDERED[obj.name][coords] %= nb;
+    }
+    return obj["image" + _ORDERED[obj.name][coords]];
+};
+
+RUR._sync = function (obj, nb, coords) {
+    // every animated image of this type is kept in sync
+    if (_SYNC[obj.name] === undefined) {
+        _SYNC[obj.name] = [];
+        _SYNC_VALUE[obj.name] = 1;
+    } else if (_SYNC[obj.name].indexOf(coords) !== -1) {
+        // see an same animated image present: we are starting a new sequence
+        _SYNC[obj.name] = [];
+        _SYNC_VALUE[obj.name] += 1;
+        _SYNC_VALUE[obj.name] %= nb;
+    }
+    _SYNC[obj.name].push(coords);
+    return obj["image" + _SYNC_VALUE[obj.name]];
+};
+
+},{"./../rur.js":49,"./../state.js":52}],74:[function(require,module,exports){
+require("./../rur.js");
+/** @namespace enhance
+ * @memberof RUR
+ * @desc RUR.enhance is the name space used to group all methods that
+ * add new objects (including tiles, obstacles, etc) to Reeborg's World.
+ */
+RUR.enhance = {};
+
+},{"./../rur.js":49}],75:[function(require,module,exports){
 /* Obtain specific information about the world, either at a given
    position, or for the world in general.
 */

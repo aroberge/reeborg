@@ -17,3 +17,7 @@ try {
 RUR.show_feedback = function (element, content) {
     $(element).html(content).dialog("open");
 };
+
+// namespace used to hold global reference to functions
+// that are useful to perform some functional tests only.
+RUR.functional_tests = {};

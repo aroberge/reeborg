@@ -1,11 +1,11 @@
 require("./../rur.js");
-require("./augment_namespace.js");
+require("./enhance_namespace.js");
 require("./animated_images.js");
 require("./../exceptions.js");
 //require("./../init/images_onload.js");
 
 /** @function new_tile_type
- * @memberof RUR.augment
+ * @memberof RUR.enhance
  * @instance
  * @summary This function makes it possible to add new tiles. If the name
  *    of an existing tile is specified again, it is replaced by a new one
@@ -62,13 +62,13 @@ require("./../exceptions.js");
  */
 RUR.TILES = {};
 
-RUR.augment.new_tile_type = function (tile) {
+RUR.enhance.new_tile_type = function (tile) {
     "use strict";
     var i, key, keys, name;
     name = tile.name;
 
     if (name === undefined){
-        throw new RUR.ReeborgError("RUR.augment.new_tile_type(tile): new_tile.name attribute missing.");
+        throw new RUR.ReeborgError("RUR.enhance.new_tile_type(tile): new_tile.name attribute missing.");
     }
 
     if (RUR.KNOWN_TILES.indexOf(name) != -1) {
@@ -111,15 +111,15 @@ function create_images(obj) {
  * @memberof RUR
  * @instance
  *
- * @deprecated Use {@link RUR.augment#new_tile_type} instead.
+ * @deprecated Use {@link RUR.enhance#new_tile_type} instead.
  */
 RUR.add_new_object_type = function (name, url, url_goal) {
-    RUR.augment.new_tile_type({"name": name, "url": url, "goal": {"url": url_goal}});
+    RUR.enhance.new_tile_type({"name": name, "url": url, "goal": {"url": url_goal}});
 };
 /** @function add_object_image
  * @memberof RUR
  * @instance
  *
- * @deprecated Use {@link RUR.augment#new_tile_type} instead.
+ * @deprecated Use {@link RUR.enhance#new_tile_type} instead.
  */
 RUR.add_object_image = RUR.add_new_object_type; // Vincent Maille's book.
