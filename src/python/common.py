@@ -60,6 +60,8 @@ def _watch_(default, loc={}, gl={}):
                 no_new_local = False
                 out.append(title % window.RUR.translate("Local variables"))
             value = html_escape(loc[arg])
+            # if hasattr(loc[arg], "body"):
+            #     print(loc[arg].body.x)
             current_watch_values[arg] = value
         append_watch(arg, value, out)
 

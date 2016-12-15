@@ -19,10 +19,7 @@ RUR.rec = {};
 
 RUR.set_lineno_highlight = function(lineno, frame) {
     RUR.current_line_no = lineno;
-    if (frame) {
-        RUR.record_frame("highlight");
-        return true;
-    }
+    RUR.record_frame("highlight");
 };
 
 RUR.rec.display_frame = function () {
@@ -76,7 +73,8 @@ RUR.rec.display_frame = function () {
 
     // many of these are exlusive of others ... but to give more flexibility
     // in adding options (and prevent bugs!!), we do not use an
-    // if/else if/... structure, but rather a series of if clauses.
+    // if/else if/... structure, but rather a series of if clauses
+    // unless it is clear that they are completely independent
 
 
     if (frame.delay !== undefined){
@@ -86,10 +84,7 @@ RUR.rec.display_frame = function () {
     if (frame.pause) {
         RUR.pause(frame.pause.pause_time);
         return "pause";
-    }
-
-    if (frame.error !== undefined) {
-
+    } else if (frame.error !== undefined) {
         return RUR.rec.handle_error(frame);
     }
 

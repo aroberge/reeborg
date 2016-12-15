@@ -6,6 +6,8 @@ var filterInt = require("./utils/filterint.js").filterInt;
 
 RUR.robot = {};
 
+RUR.robot.__ID = 1;
+
 RUR.robot.create_robot = function (x, y, orientation, tokens) {
     "use strict";
     var robot = {};
@@ -43,6 +45,7 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
         default:
             throw new RUR.ReeborgError(RUR.translate("Unknown orientation for robot."));
         }
+    robot.__id = 0;
     }
 
     // private variables that should not be set directly in user programs.
@@ -87,4 +90,9 @@ RUR.robot.cleanup_objects = function (robot) {
     if (robot._is_leaky === undefined) {
         robot._is_leaky = true;
     }
+};
+
+RUR.robot.assign_id = function (robot) {
+    robot.__id = RUR.robot.__ID;
+    RUR.robot.__ID += 1;
 };
