@@ -1,4 +1,5 @@
 require("./get_namespace.js");
+get_world = require("./world.js").get_world;
 
 /*=========================================
 walls data structure
@@ -33,13 +34,11 @@ that lists the walls, and must be handled separately.
  */
 RUR.get.list_walls_at_position = function(x, y, goal) {
     if (goal) {
-        return list_walls_at(x, y, RUR.CURRENT_WORLD.goal.walls);
+        return list_walls_at(x, y, get_world().goal.walls);
     } else {
-        return list_walls_at(x, y, RUR.CURRENT_WORLD.walls);
+        return list_walls_at(x, y, get_world().walls);
     }    
 };
-
-   
 
 
 /** @function is_wall_at
@@ -63,9 +62,9 @@ RUR.get.list_walls_at_position = function(x, y, goal) {
 RUR.get.is_wall_at = function(x, y, orientation, goal) {
     orientation = orientation.toLowerCase();
     if (goal) {
-        return is_wall_at(x, y, orientation, RUR.CURRENT_WORLD.goal.walls)
+        return is_wall_at(x, y, orientation, get_world().goal.walls);
     } else {
-        return is_wall_at(x, y, orientation, RUR.CURRENT_WORLD.walls);
+        return is_wall_at(x, y, orientation, get_world().walls);
     }      
 };
 
@@ -84,7 +83,7 @@ function list_walls_at (x, y, walls) {
         }
     }
     return result;
-};
+}
 
 
 // private helper function

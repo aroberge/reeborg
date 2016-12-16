@@ -3,7 +3,7 @@ require("./constants.js");
 require("./state.js");
 require("./world_enhance/add_tile_type.js");
 require("./world/create_empty.js");
-
+var get_world = require("./world_get/world.js").get_world;
 //TODO add overlay object (like sensor) on robot canvas.
 
 RUR.vis_world = {};
@@ -16,7 +16,7 @@ RUR.vis_world.refresh_world_edited = function () {
 RUR.vis_world.compute_world_geometry = function (cols, rows) {
     "use strict";
     var height, width, canvas;
-    if (RUR.CURRENT_WORLD.small_tiles) {
+    if (get_world().small_tiles) {
         RUR.WALL_LENGTH = 20;
         RUR.WALL_THICKNESS = 2;
         RUR.SCALE = 0.5;
@@ -37,8 +37,8 @@ RUR.vis_world.compute_world_geometry = function (cols, rows) {
         height = (RUR.ROWS + 1.5) * RUR.WALL_LENGTH;
         width = (RUR.COLS + 1.5) * RUR.WALL_LENGTH;
     }
-    RUR.CURRENT_WORLD.rows = RUR.ROWS;
-    RUR.CURRENT_WORLD.cols = RUR.COLS;
+    get_world().rows = RUR.ROWS;
+    get_world().cols = RUR.COLS;
 
     if (height !== RUR.HEIGHT || width !== RUR.WIDTH) {
         for (canvas of RUR.CANVASES) { //jshint ignore:line
@@ -55,7 +55,7 @@ RUR.vis_world.compute_world_geometry = function (cols, rows) {
 RUR.vis_world.draw_all = function () {
     "use strict";
 
-    if (RUR.CURRENT_WORLD.blank_canvas) {
+    if (get_world().blank_canvas) {
         if (RUR.state.editing_world) {
             RUR.show_feedback("#Reeborg-shouts",
                                 RUR.translate("Editing of blank canvas is not supported."));
@@ -79,7 +79,7 @@ RUR.vis_world.draw_all = function () {
 
     RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     draw_grid_walls(RUR.BACKGROUND_CTX);
-    if (RUR.CURRENT_WORLD.background_image !== undefined) {
+    if (get_world().background_image !== undefined) {
         draw_background_image(RUR.BACKGROUND_IMAGE, 1, RUR.ROWS, RUR.BACKGROUND_CTX);
     }
     draw_coordinates(); // on BACKGROUND_CTX
@@ -91,7 +91,7 @@ RUR.vis_world.draw_all = function () {
 
 RUR.vis_world.refresh = function () {
     "use strict";
-    var current = RUR.CURRENT_WORLD;
+    var current = get_world();
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
     // meant to be called at each step
@@ -266,11 +266,11 @@ draw_goal = function () {
     "use strict";
     var goal, ctx = RUR.GOAL_CTX;
 
-    if (RUR.CURRENT_WORLD.goal === undefined) {
+    if (get_world().goal === undefined) {
         return;
     }
 
-    goal = RUR.CURRENT_WORLD.goal;
+    goal = get_world().goal;
     if (goal.position !== undefined) {
         draw_goal_position(goal, ctx);
     }
@@ -368,10 +368,10 @@ draw_animated_images = function (){
     RUR.TILES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
     RUR.animated_images = false;
-    objects = RUR.CURRENT_WORLD.tiles;
+    objects = get_world().tiles;
     RUR.animated_images = __draw_animated_images(objects,
                                 RUR.animated_images, RUR.TILES, RUR.TILES_ANIM_CTX);
-    objects = RUR.CURRENT_WORLD.objects;
+    objects = get_world().objects;
     RUR.animated_images = __draw_animated_images(objects,
                                 RUR.animated_images, RUR.TILES, RUR.OBJECTS_ANIM_CTX);
     if (RUR.animated_images) {
@@ -536,16 +536,16 @@ compile_info = function() {
     RUR.vis_world.information = {};
     RUR.vis_world.goal_information = {};
     RUR.vis_world.goal_present = false;
-    if (RUR.CURRENT_WORLD.goal !== undefined &&
-        RUR.CURRENT_WORLD.goal.objects !== undefined) {
-        compile_partial_info(RUR.CURRENT_WORLD.goal.objects,
+    if (get_world().goal !== undefined &&
+        get_world().goal.objects !== undefined) {
+        compile_partial_info(get_world().goal.objects,
             RUR.vis_world.goal_information, 'goal');
             RUR.vis_world.goal_present = true;
     }
 
 
-    if (RUR.CURRENT_WORLD.objects !== undefined) {
-        compile_partial_info(RUR.CURRENT_WORLD.objects,
+    if (get_world().objects !== undefined) {
+        compile_partial_info(get_world().objects,
             RUR.vis_world.information, 'objects');
     }
 };

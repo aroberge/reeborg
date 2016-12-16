@@ -157,6 +157,6 @@ if __name__ == "__main__":
     if ARGS.offline:
         FILENAME = "reeborg_offline.html"
     if ARGS.no_button:
-        print("Use %s\stop_server as URL to stop the server" % host)
+        print("Use %s/stop_server as URL to stop the server" % host)
 
     main(ARGS.port, host)
