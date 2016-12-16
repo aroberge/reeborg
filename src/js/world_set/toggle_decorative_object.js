@@ -2,6 +2,7 @@ require("./../exceptions.js");
 require("./../translator.js");
 require("./../utils/key_exist.js");
 require("./../utils/supplant.js");
+var get_world = require("./../world_get/world.js").get_world;
 
 /** @function toggle_decorative_object_at_position
  * @memberof RUR
@@ -28,7 +29,7 @@ RUR.toggle_decorative_object_at_position = function (specific_object, x, y){
                                                  {obj: specific_object}));
     }
     coords = x + "," + y;
-    cw = RUR.CURRENT_WORLD;
+    cw = get_world();
     RUR._ensure_key_exists(cw, "decorative_objects");
     RUR._ensure_key_exists(cw.decorative_objects, coords);
 

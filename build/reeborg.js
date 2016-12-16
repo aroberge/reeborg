@@ -9868,6 +9868,7 @@ require("./../exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
 var filterInt = require("./../utils/filterint.js").filterInt;
+var get_world = require("./../world_get/world.js").get_world;
 
 /** @function give_object_to_robot
  * @memberof RUR
@@ -9891,7 +9892,7 @@ var filterInt = require("./../utils/filterint.js").filterInt;
  */
 
 RUR.give_object_to_robot = function (obj, nb, robot) {
-    var _nb, translated_arg = RUR.translate_to_english(obj);
+    var _nb, world=get_world(), translated_arg=RUR.translate_to_english(obj);
 
     if (RUR.KNOWN_TILES.indexOf(translated_arg) == -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: obj}));
@@ -9899,7 +9900,7 @@ RUR.give_object_to_robot = function (obj, nb, robot) {
 
     obj = translated_arg;
     if (robot === undefined){
-        robot = RUR.CURRENT_WORLD.robots[0];
+        robot = world.robots[0];
     }
     RUR._ensure_key_exists(robot, "objects");
 
@@ -9915,12 +9916,13 @@ RUR.give_object_to_robot = function (obj, nb, robot) {
     }
 };
 
-},{"./../exceptions.js":13,"./../translator.js":54,"./../utils/filterint.js":59,"./../utils/key_exist.js":61}],84:[function(require,module,exports){
+},{"./../exceptions.js":13,"./../translator.js":54,"./../utils/filterint.js":59,"./../utils/key_exist.js":61,"./../world_get/world.js":77}],84:[function(require,module,exports){
 require("./../exceptions.js");
 require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
 require("./../utils/ensure_integer.js");
 require("./../translator.js");
+var get_world = require("./../world_get/world.js").get_world;
 
 /** @function set_nb_object_at_position
  * @memberof RUR
@@ -9964,7 +9966,7 @@ RUR.set_nb_object_at_position = function (specific_object, x, y, nb){
 
 
     coords = x + "," + y;
-    cw = RUR.CURRENT_WORLD;
+    cw = get_world();
     RUR._ensure_key_exists(cw, "objects");
     RUR._ensure_key_exists(cw.objects, coords);
     if (nb !== 0) {
@@ -9989,7 +9991,7 @@ RUR.set_nb_object_at_position = function (specific_object, x, y, nb){
  */
 RUR.add_object_at_position = RUR.set_nb_object_at_position;
 
-},{"./../exceptions.js":13,"./../translator.js":54,"./../utils/ensure_integer.js":58,"./../utils/key_exist.js":61,"./../utils/supplant.js":63}],85:[function(require,module,exports){
+},{"./../exceptions.js":13,"./../translator.js":54,"./../utils/ensure_integer.js":58,"./../utils/key_exist.js":61,"./../utils/supplant.js":63,"./../world_get/world.js":77}],85:[function(require,module,exports){
 require("./../world/create_empty.js");
 require("./../visible_robot.js");
 require("./../visible_world.js");
@@ -10029,6 +10031,7 @@ reset_world();
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../recorder/record_frame.js");
+var get_world = require("./../world_get/world.js").get_world;
 
 /** @function set_tile_at_position
  * @memberof RUR
@@ -10055,19 +10058,21 @@ require("./../recorder/record_frame.js");
 
 RUR.set_tile_at_position = function (tile, x, y) {
     "use strict";
+    var world = get_world();
     my_name = "RUR.set_tile_at_position(tile, x, y): ";
-    RUR._ensure_key_exists(RUR.CURRENT_WORLD, "tiles");
+    RUR._ensure_key_exists(world, "tiles");
     RUR._ensure_positive_integer(x, my_name+"x");
     RUR._ensure_positive_integer(y, my_name+"y");
-    RUR.CURRENT_WORLD.tiles[x + "," + y] = tile;
+    world.tiles[x + "," + y] = tile;
     RUR.record_frame("debug", "set_tile_at_position");
 };
 
-},{"./../recorder/record_frame.js":45,"./../rur.js":49,"./../utils/key_exist.js":61}],87:[function(require,module,exports){
+},{"./../recorder/record_frame.js":45,"./../rur.js":49,"./../utils/key_exist.js":61,"./../world_get/world.js":77}],87:[function(require,module,exports){
 require("./../exceptions.js");
 require("./../translator.js");
 require("./../utils/key_exist.js");
 require("./../utils/supplant.js");
+var get_world = require("./../world_get/world.js").get_world;
 
 /** @function toggle_decorative_object_at_position
  * @memberof RUR
@@ -10094,7 +10099,7 @@ RUR.toggle_decorative_object_at_position = function (specific_object, x, y){
                                                  {obj: specific_object}));
     }
     coords = x + "," + y;
-    cw = RUR.CURRENT_WORLD;
+    cw = get_world();
     RUR._ensure_key_exists(cw, "decorative_objects");
     RUR._ensure_key_exists(cw.decorative_objects, coords);
 
@@ -10111,11 +10116,12 @@ RUR.toggle_decorative_object_at_position = function (specific_object, x, y){
     }
 };
 
-},{"./../exceptions.js":13,"./../translator.js":54,"./../utils/key_exist.js":61,"./../utils/supplant.js":63}],88:[function(require,module,exports){
+},{"./../exceptions.js":13,"./../translator.js":54,"./../utils/key_exist.js":61,"./../utils/supplant.js":63,"./../world_get/world.js":77}],88:[function(require,module,exports){
 require("./../exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
 require("./../utils/supplant.js");
+var get_world = require("./../world_get/world.js").get_world;
 
 /** @function toggle_obstacle_at_position
  * @memberof RUR
@@ -10141,7 +10147,7 @@ RUR.toggle_obstacle_at_position = function (specific_object, x, y){
                                                  {obj: specific_object}));
     }
     coords = x + "," + y;
-    cw = RUR.CURRENT_WORLD;
+    cw = get_world();
     RUR._ensure_key_exists(cw, "obstacles");
     RUR._ensure_key_exists(cw.obstacles, coords);
 
@@ -10182,7 +10188,7 @@ RUR.add_obstacle_at_position = function (specific_object, x, y){
                                                  {obj: specific_object}));
     }
     coords = x + "," + y;
-    cw = RUR.CURRENT_WORLD;
+    cw = get_world();
     RUR._ensure_key_exists(cw, "obstacles");
     RUR._ensure_key_exists(cw.obstacles, coords);
 
@@ -10219,7 +10225,7 @@ RUR.remove_obstacle_at_position = function (specific_object, x, y){
                                                  {obj: specific_object}));
     }
     coords = x + "," + y;
-    cw = RUR.CURRENT_WORLD;
+    cw = get_world();
     RUR._ensure_key_exists(cw, "obstacles");
     RUR._ensure_key_exists(cw.obstacles, coords);
 
@@ -10239,7 +10245,7 @@ RUR.remove_obstacle_at_position = function (specific_object, x, y){
     }
 };
 
-},{"./../exceptions.js":13,"./../translator.js":54,"./../utils/key_exist.js":61,"./../utils/supplant.js":63}],89:[function(require,module,exports){
+},{"./../exceptions.js":13,"./../translator.js":54,"./../utils/key_exist.js":61,"./../utils/supplant.js":63,"./../world_get/world.js":77}],89:[function(require,module,exports){
 // Only create a new version of this file for a target language
 // if the corresponding functions are
 // defined in reeborg_xx.js and reeborg_xx.py

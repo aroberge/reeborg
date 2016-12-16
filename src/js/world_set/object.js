@@ -3,6 +3,7 @@ require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
 require("./../utils/ensure_integer.js");
 require("./../translator.js");
+var get_world = require("./../world_get/world.js").get_world;
 
 /** @function set_nb_object_at_position
  * @memberof RUR
@@ -46,7 +47,7 @@ RUR.set_nb_object_at_position = function (specific_object, x, y, nb){
 
 
     coords = x + "," + y;
-    cw = RUR.CURRENT_WORLD;
+    cw = get_world();
     RUR._ensure_key_exists(cw, "objects");
     RUR._ensure_key_exists(cw.objects, coords);
     if (nb !== 0) {

@@ -2,6 +2,7 @@ require("./../exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
 var filterInt = require("./../utils/filterint.js").filterInt;
+var get_world = require("./../world_get/world.js").get_world;
 
 /** @function give_object_to_robot
  * @memberof RUR
@@ -25,7 +26,7 @@ var filterInt = require("./../utils/filterint.js").filterInt;
  */
 
 RUR.give_object_to_robot = function (obj, nb, robot) {
-    var _nb, translated_arg = RUR.translate_to_english(obj);
+    var _nb, world=get_world(), translated_arg=RUR.translate_to_english(obj);
 
     if (RUR.KNOWN_TILES.indexOf(translated_arg) == -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: obj}));
@@ -33,7 +34,7 @@ RUR.give_object_to_robot = function (obj, nb, robot) {
 
     obj = translated_arg;
     if (robot === undefined){
-        robot = RUR.CURRENT_WORLD.robots[0];
+        robot = world.robots[0];
     }
     RUR._ensure_key_exists(robot, "objects");
 

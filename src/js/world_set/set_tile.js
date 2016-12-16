@@ -1,6 +1,7 @@
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../recorder/record_frame.js");
+var get_world = require("./../world_get/world.js").get_world;
 
 /** @function set_tile_at_position
  * @memberof RUR
@@ -27,10 +28,11 @@ require("./../recorder/record_frame.js");
 
 RUR.set_tile_at_position = function (tile, x, y) {
     "use strict";
+    var world = get_world();
     my_name = "RUR.set_tile_at_position(tile, x, y): ";
-    RUR._ensure_key_exists(RUR.CURRENT_WORLD, "tiles");
+    RUR._ensure_key_exists(world, "tiles");
     RUR._ensure_positive_integer(x, my_name+"x");
     RUR._ensure_positive_integer(y, my_name+"y");
-    RUR.CURRENT_WORLD.tiles[x + "," + y] = tile;
+    world.tiles[x + "," + y] = tile;
     RUR.record_frame("debug", "set_tile_at_position");
 };
