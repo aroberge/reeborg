@@ -5292,11 +5292,11 @@ RUR.TILES.box.ctx = RUR.ROBOT_CTX;
 
 obj = {"name": 'beeper',
     "selection_method": 'ordered',
-    "images": ['src/images/beeper0.png',
-            'src/images/beeper1.png',
-            'src/images/beeper2.png',
-            'src/images/beeper3.png'],
-    "goal": {'url': 'src/images/beeper_goal.png'}
+    "images": [RUR._BASE_URL + '/src/images/beeper0.png',
+            RUR._BASE_URL + '/src/images/beeper1.png',
+            RUR._BASE_URL + '/src/images/beeper2.png',
+            RUR._BASE_URL + '/src/images/beeper3.png'],
+    "goal": {'url': RUR._BASE_URL + '/src/images/beeper_goal.png'}
 };
 RUR.enhance.new_tile_type(obj);
 
@@ -6490,9 +6490,21 @@ window.RUR = RUR || {}; // RUR should be already defined in the html file;
 RUR.BACKGROUND_IMAGE = new Image();
 RUR.BACKGROUND_IMAGE.src = '';
 
+// try {
+//     RUR._BASE_URL = window.location.pathname.substr(0, window.location.pathname.lastIndexOf('/'));
+// } catch(e) {  // for testing, window.location... is not defined.
+//     RUR._BASE_URL = '';
+// }
+// 
+var pathname;
 try {
-    RUR._BASE_URL = window.location.pathname.substr(0, window.location.pathname.lastIndexOf('/'));
-} catch(e) {  // for testing, window.location... is not defined.
+    pathname = window.location.pathname;  // not defined for tape tests
+    if (pathname.indexOf("qunit") !== -1 ){  // running qunit test
+        RUR._BASE_URL = '../..';
+    } else {
+        RUR._BASE_URL = window.location.pathname.substr(0, window.location.pathname.lastIndexOf('/'));
+    }
+} catch (e) {
     RUR._BASE_URL = '';
 }
 

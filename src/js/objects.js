@@ -33,11 +33,11 @@ RUR.TILES.box.ctx = RUR.ROBOT_CTX;
 
 obj = {"name": 'beeper',
     "selection_method": 'ordered',
-    "images": ['src/images/beeper0.png',
-            'src/images/beeper1.png',
-            'src/images/beeper2.png',
-            'src/images/beeper3.png'],
-    "goal": {'url': 'src/images/beeper_goal.png'}
+    "images": [RUR._BASE_URL + '/src/images/beeper0.png',
+            RUR._BASE_URL + '/src/images/beeper1.png',
+            RUR._BASE_URL + '/src/images/beeper2.png',
+            RUR._BASE_URL + '/src/images/beeper3.png'],
+    "goal": {'url': RUR._BASE_URL + '/src/images/beeper_goal.png'}
 };
 RUR.enhance.new_tile_type(obj);
 

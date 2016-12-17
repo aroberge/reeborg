@@ -8,9 +8,21 @@ window.RUR = RUR || {}; // RUR should be already defined in the html file;
 RUR.BACKGROUND_IMAGE = new Image();
 RUR.BACKGROUND_IMAGE.src = '';
 
+// try {
+//     RUR._BASE_URL = window.location.pathname.substr(0, window.location.pathname.lastIndexOf('/'));
+// } catch(e) {  // for testing, window.location... is not defined.
+//     RUR._BASE_URL = '';
+// }
+// 
+var pathname;
 try {
-    RUR._BASE_URL = window.location.pathname.substr(0, window.location.pathname.lastIndexOf('/'));
-} catch(e) {  // for testing, window.location... is not defined.
+    pathname = window.location.pathname;  // not defined for tape tests
+    if (pathname.indexOf("qunit") !== -1 ){  // running qunit test
+        RUR._BASE_URL = '../..';
+    } else {
+        RUR._BASE_URL = window.location.pathname.substr(0, window.location.pathname.lastIndexOf('/'));
+    }
+} catch (e) {
     RUR._BASE_URL = '';
 }
 

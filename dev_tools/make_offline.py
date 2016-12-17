@@ -36,36 +36,45 @@ print("offline version recreated.")
 # to be unreliable.
 #
 
-with open('reeborg_offline.html', 'r') as f:
-    lines = f.readlines()
-
-with open('reeborg_qunit_test.html', 'w') as f:
-    for line in lines:
-        if '</head>' in line:
-            line = """
-<link rel="stylesheet" href="tests/functional_tests/qunit-2.0.1.css">
+qunit_css = """
+<link rel="stylesheet" href="qunit-2.0.1.css">
 </head>
 """
-        elif '<body>' in line:
-            line = """
+qunit_body_addition = """
 <body>
   <h1>After tests are completed:
   <button onclick="RUR.unit_tests.stop_server();window.location.reload();">click to stop server</button>
   </h1>
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
-
   <div style="display:none;">
-
 """
-        elif '</body>' in line:
-            line = """
+qunit_scripts = """
 </div>
-<script src="tests/functional_tests/qunit-2.0.1.js"></script>
-<script src="tests/functional_tests/js/test_utils.js" defer></script>
-<script src="tests/functional_tests/js/all_qunit_tests.js" defer></script>
+<script type="text/javascript" src="qunit-2.0.1.js"></script>
+<script type="text/javascript" src="js/test_utils.js" defer></script>
+<script type="text/javascript" src="js/all_qunit_tests.js" defer></script>
 </body>
 """
+
+
+with open('reeborg_offline.html', 'r') as f:
+    lines = f.readlines()
+
+with open('tests/functional_tests/reeborg_qunit_offline.html', 'w') as f:
+    for line in lines:
+        if '</head>' in line:
+            line = qunit_css
+        elif '<body>' in line:
+            line = qunit_body_addition
+        elif "src/" in line:
+            line = line.replace("src/", "../../src/")
+        elif "build/" in line:
+            line = line.replace("build/", "../../build/")
+        elif "offline/" in line:
+            line = line.replace("offline/", "../../offline/")
+        elif '</body>' in line:
+            line = qunit_scripts
         f.write(line)
 
 print("QUnit offline version recreated.")
