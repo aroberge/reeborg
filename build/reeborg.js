@@ -2393,6 +2393,8 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     selected = RUR.world_select.get_selected();
 
     if (selected.shortname.toLowerCase() === shortname.toLowerCase()) {
+        // We never pay attention to the return value in the main program.
+        // However, it is useful for testing purpose.
         return "no world change";
     } else if (selected.url === url && shortname != selected.shortname) {
         RUR.world_select.replace_shortname(url, shortname);
@@ -2467,7 +2469,7 @@ RUR.file_io.load_world_file = function (url, shortname) {
 };
 
 /**
- * Note that the cors server may cache the result beyond our local
+ * Note that the CORS server may cache the result beyond our local
  * control. A script writer might be surprised to see that 
  * things are not working as expected.
  */
@@ -5717,25 +5719,19 @@ RUR.set_lineno_highlight = function(lineno, frame) {
     RUR.record_frame("highlight");
 };
 
-RUR.rec.display_frame = function () {
-    // set current world to frame being played.
+function update_editor_highlight() {
     "use strict";
-    var frame, goal_status, i, next_frame_line_numbers;
-    if (RUR.current_frame_no >= RUR.nb_frames) {
-        RUR.update_frame_nb_info();
-        return RUR.rec.conclude();
-    }
-
-    //track line number and highlight line to be executed
+    var i, next_frame_line_numbers;
+        //track line number and highlight line to be executed
     if (RUR.state.programming_language === "python" && RUR.state.highlight) {
         try {
-            for (i = 0; i < RUR.rec_previous_lines.length; i++){
+            for (i=0; i < RUR.rec_previous_lines.length; i++){
                 editor.removeLineClass(RUR.rec_previous_lines[i], 'background', 'editor-highlight');
             }
         }catch (e) {console.log("diagnostic: error was raised while trying to removeLineClass", e);}
         if (RUR.rec_line_numbers [RUR.current_frame_no+1] !== undefined){
             next_frame_line_numbers = RUR.rec_line_numbers [RUR.current_frame_no+1];
-            for(i = 0; i < next_frame_line_numbers.length; i++){
+            for(i=0; i < next_frame_line_numbers.length; i++){
                 editor.addLineClass(next_frame_line_numbers[i], 'background', 'editor-highlight');
             }
             i = next_frame_line_numbers.length - 1;
@@ -5751,6 +5747,18 @@ RUR.rec.display_frame = function () {
             }catch (e) {console.log("diagnostic: error was raised while trying to addLineClass", e);}
         }
     }
+}
+
+RUR.rec.display_frame = function () {
+    // set current world to frame being played.
+    "use strict";
+    var frame, goal_status;
+    if (RUR.current_frame_no >= RUR.nb_frames) {
+        RUR.update_frame_nb_info();
+        return RUR.rec.conclude();
+    }
+
+    update_editor_highlight();
 
     frame = RUR.frames[RUR.current_frame_no];
     RUR.update_frame_nb_info();
@@ -5806,6 +5814,10 @@ RUR.rec.display_frame = function () {
         $("#Reeborg-watches").dialog("open");
     }
 
+    /* The world is a global object which changes as the program is "compiled".
+       When we do a playback, we need to ensure that the relevant parameters
+       for display (e.g. delay, sound, etc.) are set to what was intended
+        at a given programming step. */
     RUR.CURRENT_WORLD = frame.world;
     if (frame.sound_id !== undefined){
         RUR._play_sound(frame.sound_id);

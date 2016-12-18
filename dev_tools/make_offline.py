@@ -29,16 +29,17 @@ make_offline()
 
 # Next, we use this offline version to create a version that will
 # be used to run some integration tests using QUnit.
+# We also do the same with the online version, for completeness.
 #
 # The basic idea is to use the current offline version (html file)
 # but hide all the UI specific to Reeborg's World.
 # Then we add a div required to display the results from
 # the QUnit tests.  We also add a button used to stop the custom
 # server we use to run the tests. Since this is run from
-# a command line, it gives us a nice way to return to the
-# command line without having to use ctrl-c which I have found
+# a command line, using the custom server and button gives us a nice way to 
+# return to the command line without having to use ctrl-c which I have found
 # to be unreliable.
-#
+
 
 online = 'reeborg_qunit_online.html'
 offline = 'reeborg_qunit_offline.html'
@@ -61,8 +62,12 @@ qunit_body_addition = """
 
 qunit_scripts = """
 </div>
+<script>
+    var test_utils = {}; 
+</script>
 <script type="text/javascript" src="qunit-2.0.1.js"></script>
 <script type="text/javascript" src="js/test_utils.js" defer></script>
+<script type="text/javascript" src="js/test_world_creation.js" defer></script>
 <script type="text/javascript" src="js/all_qunit_tests.js" defer></script>
 </body>
 """

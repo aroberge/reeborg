@@ -1,28 +1,26 @@
-RUR.unit_tests = {};
-
-RUR.unit_tests.stop_server = function () { // for use with custom server.
+test_utils.stop_server = function () { // for use with custom server.
     $.ajax({url: "/stop_server",
         async: false,
         success: function(data){}
     });
 };
 
-RUR.unit_tests.set_human_language = function (lang) {
+test_utils.set_human_language = function (lang) {
     document.getElementById('human-language').value = lang;
     $("#human-language").change();
 };
 
-RUR.unit_tests.reset = function () {
-    RUR.CURRENT_WORLD = RUR.clone_world(RUR.unit_tests.empty_world);
+test_utils.reset = function () {
+    RUR.CURRENT_WORLD = RUR.clone_world(test_utils.empty_world);
     RUR._reset();
     RUR.state.highlight = false;
     RUR.state.prevent_playback = false;
-    RUR.unit_tests.feedback_element = undefined;
-    RUR.unit_tests.content = undefined;
-    RUR.unit_tests.set_mocks();
+    test_utils.feedback_element = undefined;
+    test_utils.content = undefined;
+    test_utils.set_mocks();
 };
 
-RUR.unit_tests.load_world_file = function (url) {
+test_utils.load_world_file = function (url) {
     /** Loads a bare world file (json) or more complex permalink */
     "use strict";
     var data, i;
@@ -38,7 +36,7 @@ RUR.unit_tests.load_world_file = function (url) {
     });
 };
 
-RUR.unit_tests.load_program = function (url) {
+test_utils.load_program = function (url) {
     /** Loads a program */
     "use strict";
     var data, i;
@@ -50,80 +48,80 @@ RUR.unit_tests.load_program = function (url) {
             throw new Error("Problem in _load_program; url=" + url);
         },
         success: function(data){
-            RUR.unit_tests.program = data;
+            test_utils.program = data;
         }
     });
 };
 
 
-RUR.unit_tests.mock_show_feedback = function(element, content) {
-    RUR.unit_tests.feedback_element = element;
-    RUR.unit_tests.content = content;
+test_utils.mock_show_feedback = function(element, content) {
+    test_utils.feedback_element = element;
+    test_utils.content = content;
 };
 
-RUR.unit_tests.set_mocks = function() {
-    RUR.show_feedback = RUR.unit_tests.mock_show_feedback;
+test_utils.set_mocks = function() {
+    RUR.show_feedback = test_utils.mock_show_feedback;
     RUR.blockly.init = function (){};
     RUR.blockly.workspace = function (){};
     window.blockly_init_en = function (){};
     window.blockly_init_fr = function (){};
 };
-RUR.unit_tests.set_mocks();
+test_utils.set_mocks();
 
-RUR.unit_tests.eval_javascript = function (world_url, program_url) {
-    return RUR.unit_tests.eval_program(world_url, program_url, "javascript");
+test_utils.eval_javascript = function (world_url, program_url) {
+    return test_utils.eval_program(world_url, program_url, "javascript");
 };
 
-RUR.unit_tests.eval_python = function (world_url, program_url) {
-    return RUR.unit_tests.eval_program(world_url, program_url, "python");
+test_utils.eval_python = function (world_url, program_url) {
+    return test_utils.eval_program(world_url, program_url, "python");
 };
 
-RUR.unit_tests.eval_program = function(world_url, program_url, language) {
+test_utils.eval_program = function(world_url, program_url, language) {
     var last_frame, world;
-    RUR.unit_tests.reset();
+    test_utils.reset();
     RUR.state.programming_language = language;
 
-    RUR.unit_tests.load_world_file(world_url);
+    test_utils.load_world_file(world_url);
     if (program_url !== undefined) {    // otherwise, reuse same program
-        RUR.unit_tests.load_program(program_url);
+        test_utils.load_program(program_url);
     }
-    RUR.runner.eval(RUR.unit_tests.program);
+    RUR.runner.eval(test_utils.program);
     last_frame = RUR.frames[RUR.frames.length - 1];
     return RUR.rec.check_goal(last_frame);
 };
 
-RUR.unit_tests.run_javascript = function (world_url, program_url) {
-    return RUR.unit_tests.run_program(world_url, program_url, "javascript");
+test_utils.run_javascript = function (world_url, program_url) {
+    return test_utils.run_program(world_url, program_url, "javascript");
 };
 
 
-RUR.unit_tests.run_python = function (world_url, program_url) {
-    return RUR.unit_tests.run_program(world_url, program_url, "python");
+test_utils.run_python = function (world_url, program_url) {
+    return test_utils.run_program(world_url, program_url, "python");
 };
 
 
-RUR.unit_tests.run_program = function(world_url, program_url, language) {
+test_utils.run_program = function(world_url, program_url, language) {
     var world;
-    RUR.unit_tests.reset();
+    test_utils.reset();
     RUR.state.programming_language = language;
     RUR.state.code_evaluated = false;
 
     if (world_url !== null) {
-        RUR.unit_tests.load_world_file(world_url);
+        test_utils.load_world_file(world_url);
     }
     if (program_url !== undefined) {    // otherwise, reuse same program
-        RUR.unit_tests.load_program(program_url);
+        test_utils.load_program(program_url);
     }
-    RUR.runner.run(RUR.unit_tests.playback);
+    RUR.runner.run(test_utils.playback);
     return RUR.frames;
 };
 
-RUR.unit_tests.playback = function() {
+test_utils.playback = function() {
     return true;
 };
 
-RUR.unit_tests.initial_world = RUR.functional_tests.create_empty_world();
-RUR.unit_tests.empty_world = {robots: [],
+test_utils.initial_world = RUR.functional_tests.create_empty_world();
+test_utils.empty_world = {robots: [],
         objects: {},
         walls: {},
         rows: RUR.MAX_Y,
@@ -132,15 +130,15 @@ RUR.unit_tests.empty_world = {robots: [],
     };
 
 editor.getValue = function() {
-    return RUR.unit_tests.program || '';
+    return test_utils.program || '';
 };
 
 editor.setValue = function(arg) {
-    RUR.unit_tests.program = arg;
+    test_utils.program = arg;
 };
 
 library.getValue = function() {
-    return RUR.unit_tests.library || '';
+    return test_utils.library || '';
 };
 
 pre_code_editor = {};
@@ -148,27 +146,27 @@ post_code_editor = {};
 description_editor = {};
 onload_editor = {};
 pre_code_editor.getValue = function () {
-    return RUR.unit_tests.pre_code || '';
+    return test_utils.pre_code || '';
 };
 post_code_editor.getValue = function () {
-    return RUR.unit_tests.post_code || '';
+    return test_utils.post_code || '';
 };
 description_editor.getValue = function () {
-    return RUR.unit_tests.description || '';
+    return test_utils.description || '';
 };
 onload_editor.getValue = function () {
-    return RUR.unit_tests.onload || "/* Javascript */";
+    return test_utils.onload || "/* Javascript */";
 };
 
 pre_code_editor.setValue = function (code) {
-    RUR.unit_tests.pre_code = code;
+    test_utils.pre_code = code;
 };
 post_code_editor.setValue = function (code) {
-    RUR.unit_tests.post_code = code;
+    test_utils.post_code = code;
 };
 description_editor.setValue = function (code) {
-    RUR.unit_tests.description = code;
+    test_utils.description = code;
 };
 onload_editor.setValue = function (code) {
-    RUR.unit_tests.onload = code;
+    test_utils.onload = code;
 };

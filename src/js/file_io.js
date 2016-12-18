@@ -55,6 +55,8 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     selected = RUR.world_select.get_selected();
 
     if (selected.shortname.toLowerCase() === shortname.toLowerCase()) {
+        // We never pay attention to the return value in the main program.
+        // However, it is useful for testing purpose.
         return "no world change";
     } else if (selected.url === url && shortname != selected.shortname) {
         RUR.world_select.replace_shortname(url, shortname);
@@ -129,7 +131,7 @@ RUR.file_io.load_world_file = function (url, shortname) {
 };
 
 /**
- * Note that the cors server may cache the result beyond our local
+ * Note that the CORS server may cache the result beyond our local
  * control. A script writer might be surprised to see that 
  * things are not working as expected.
  */
