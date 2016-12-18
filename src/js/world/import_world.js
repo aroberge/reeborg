@@ -5,9 +5,9 @@ require("./../visible_world.js");
 require("./../state.js");
 require("./../exceptions.js");
 require("./../create_editors.js");
-var create_empty_world = require("./create_empty.js");
+var create_empty_world = require("./create_empty.js").create_empty_world;
 var images_init = require("./../world_enhance/animated_images.js").images_init;
-var edit_robot_menu = require("./../ui/edit_robot_menu.js");
+var edit_robot_menu = require("./../ui/edit_robot_menu.js").edit_robot_menu;
 var clone_world = require("./clone_world.js").clone_world;
 
 RUR.world.import_world = function (json_string) {
@@ -22,12 +22,11 @@ RUR.world.import_world = function (json_string) {
         try {
             RUR.CURRENT_WORLD = JSON.parse(json_string) || create_empty_world();
         } catch (e) {
-            alert(e);
-            console.log("Exception caught in import_world.");
-            console.log("json_string = ", json_string);
-            console.log("error = ", e);
+            alert("Exception caught in import_world; see console for details.");
+            console.warn("Exception caught in import_world.");
+            console.log("First 80 characters of json_string = ", json_string.substring(0, 80));
+            console.log("Error = ", e);
             RUR.CURRENT_WORLD = create_empty_world();
-            return;
         }
     } else {  // already parsed into a Javascript Object
         RUR.CURRENT_WORLD = json_string;

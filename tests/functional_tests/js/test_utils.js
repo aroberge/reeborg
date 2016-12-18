@@ -1,4 +1,4 @@
-test_utils.stop_server = function () { // for use with custom server.
+stop_server = function () { // for use with custom server.
     $.ajax({url: "/stop_server",
         async: false,
         success: function(data){}

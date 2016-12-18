@@ -47,6 +47,39 @@ QUnit.test("Load world", function(assert) {
     done();
 });
 
+QUnit.test("Load world from url-permalink", function(assert) {
+    var url =  window.location.origin + "/src/worlds/alone.json";
+    var query = {};
+    query.queryKey = {"mode": "python", "lang": "en", "url": url};
+    var done = assert.async();
+    var world_alone = {
+        robots: [ {
+                  "x": 1,
+                  "y": 1,
+                  "_orientation": 0,
+                  "_prev_x": 1,
+                  "_prev_y": 1,
+                  "_prev_orientation": 0,
+                  "_is_leaky": true,
+                  "_trace_color": "seagreen",
+                  "_trace_history": [],
+                  "_trace_style": "default",
+                  "objects": {}
+                }
+            ],
+        walls: {},
+        description: "A simple, empty world, ready for Reeborg to explore.",
+        rows: RUR.MAX_Y,
+        cols: RUR.MAX_X,
+        small_tiles: false
+    };
+
+    RUR.permalink.from_url(query);
+    assert.deepEqual(world_alone, RUR.CURRENT_WORLD, "Ensuring loading world from url is done properly.");
+    done();
+});
+
+
 QUnit.test("Load world without running program", function(assert) {
     var contents, done = assert.async();
     test_utils.set_human_language("en"); // language needed for comparison with error message
@@ -71,16 +104,12 @@ QUnit.test("Load world by running Python programs", function(assert) {
     var frames, last_frame, contents;
     var done = assert.async();
     test_utils.set_human_language("en"); // language needed for comparison with error message
-    contents = [["/src/worlds/tutorial_en/home1.json", "Home 1"],
-                ["/src/worlds/tutorial_en/home2.json", "Home 2"]];
+    contents = [["/src/worlds/tutorial_en/home2.json", "Home 2"],
+                ["/src/worlds/tutorial_en/home1.json", "Home 1"]];
     RUR.custom_world_select.make(contents);
 
-    // first select world Home 2 as our current default
-    assert.throws(function() {RUR.file_io.load_world_from_program('Home 2');},
-                 "Raised expected 'error' from successfully loading Home 2.");
-
-    // select world from program
     test_utils.run_python(null, "/tests/functional_tests/src/select_home1_en.py");
+    //playback should have been prevented, and only the feedback shown.
     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element expected.");
     assert.equal(test_utils.content, "World Home 1 selected");
 

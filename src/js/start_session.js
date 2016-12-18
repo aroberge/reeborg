@@ -67,19 +67,16 @@ function set_library() {
 }
 
 function set_world(url_query) {
+    var world, name;
     if (RUR.permalink.from_url(url_query)){
         return;
     }
-    //     RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-    //     RUR.storage.save_world(RUR.translate("PERMALINK"));
-    // } else
-    if (localStorage.getItem("world")) {
-        try {
-            RUR.world_select.set_url(
-                RUR.world_select.url_from_shortname(
-                    localStorage.getItem("world"))
-                );
-        } catch (e) {
+    name = localStorage.getItem("world");
+    if (name) {
+        world = RUR.world_select.url_from_shortname(name);
+        if (world) {
+            RUR.world_select.set_url(world);
+        } else {
             RUR.world_select.set_default();
         }
     } else {

@@ -69,16 +69,11 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     }
 
     RUR.file_io.load_world_file(url, shortname);
-    if (RUR.file_io.status !== undefined) {
-        RUR.frames = [];
-        RUR.stop();
-        RUR.state.prevent_playback = true;
-    }
     if (RUR.file_io.status === "no link") {
-        RUR.show_feedback("#Reeborg-shouts",
-                RUR.translate("Could not find link: ") + url);
-        throw new RUR.ReeborgError("no link");
+        RUR.show_feedback("#Reeborg-shouts", RUR.translate("Could not find link: ") + url);
+        throw new RUR.ReeborgError(RUR.translate("Could not find link: ") + url);
     } else if (RUR.file_io.status === "success") {
+        RUR.state.prevent_playback = true;
         if (new_world) {
             RUR.world_select.append_world({url:url, shortname:new_world});
         }

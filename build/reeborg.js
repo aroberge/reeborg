@@ -2407,16 +2407,11 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     }
 
     RUR.file_io.load_world_file(url, shortname);
-    if (RUR.file_io.status !== undefined) {
-        RUR.frames = [];
-        RUR.stop();
-        RUR.state.prevent_playback = true;
-    }
     if (RUR.file_io.status === "no link") {
-        RUR.show_feedback("#Reeborg-shouts",
-                RUR.translate("Could not find link: ") + url);
-        throw new RUR.ReeborgError("no link");
+        RUR.show_feedback("#Reeborg-shouts", RUR.translate("Could not find link: ") + url);
+        throw new RUR.ReeborgError(RUR.translate("Could not find link: ") + url);
     } else if (RUR.file_io.status === "success") {
+        RUR.state.prevent_playback = true;
         if (new_world) {
             RUR.world_select.append_world({url:url, shortname:new_world});
         }
@@ -5551,68 +5546,11 @@ RUR.permalink.from_url = function(url_query) {
             } else {
                 console.log("unidentified error", e);
             }
+            return false;
         }
         return true;
     }
 };
-
-// RUR.permalink.update = function (arg, shortname) {
-//     "use strict";
-//     var url_query, mode, name, tmp;
-//
-// 	if (RUR.permalink_update_previous_arg === undefined) {
-// 		RUR.permalink_update_previous_arg = arg;
-// 	} else if (RUR.permalink_update_previous_arg === arg) {
-// 		return;
-// 	} else {
-// 		RUR.permalink_update_previous_arg = arg;
-// 	}
-//
-//     if (arg !== undefined) {
-//         url_query = parseUri(arg);
-//     } else {
-//         url_query = parseUri($("#url-input-textarea").val());
-//     }
-//
-//     RUR.permalink.set_language(url_query);
-//     RUR.permalink.set_mode(url_query);
-//
-//     if ( url_query.queryKey.editor !== undefined) { // old permalink
-//         editor.setValue(decodeURIComponent(url_query.queryKey.editor));
-//     }
-//     if (RUR.state.programming_language == "python" &&
-//        url_query.queryKey.library !== undefined) {  // old permalink
-//         library.setValue(decodeURIComponent(url_query.queryKey.library));
-//     }
-//     /* The world can contain some content for the editor and the library which
-//        would potentially replace what's defined in the permalink.
-//      */
-//     if (url_query.queryKey.world !== undefined) {
-//         RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-//         if (shortname !== undefined) {
-//             RUR.storage.save_world(shortname);
-//         } else {
-//             RUR.storage.save_world(RUR.translate("PERMALINK"));
-//         }
-//     }
-//
-//     $("#url-input").hide();
-//     $("#permalink").removeClass('active-element');
-//     $("#permalink").addClass('blue-gradient');
-// };
-
-// record_id("replace-permalink", "REPLACE PERMALINK");
-// record_id("replace-permalink-text", "REPLACE PERMALINK EXPLAIN");
-// $("#replace-permalink").on("click", function (evt) {
-//     RUR.permalink.update();
-// });
-
-// record_id("cancel-permalink", "CANCEL");
-// $("#cancel-permalink").on("click", function (evt) {
-//     $('#url-input').hide();
-//     $("#permalink").removeClass('active-element');
-//     $("#permalink").addClass('blue-gradient');
-// });
 
 /* IMPORTANT : keep version of copy to clipboard. */
 // copy to clipboard
@@ -6620,19 +6558,16 @@ function set_library() {
 }
 
 function set_world(url_query) {
+    var world, name;
     if (RUR.permalink.from_url(url_query)){
         return;
     }
-    //     RUR.world.import_world(decodeURIComponent(url_query.queryKey.world));
-    //     RUR.storage.save_world(RUR.translate("PERMALINK"));
-    // } else
-    if (localStorage.getItem("world")) {
-        try {
-            RUR.world_select.set_url(
-                RUR.world_select.url_from_shortname(
-                    localStorage.getItem("world"))
-                );
-        } catch (e) {
+    name = localStorage.getItem("world");
+    if (name) {
+        world = RUR.world_select.url_from_shortname(name);
+        if (world) {
+            RUR.world_select.set_url(world);
+        } else {
             RUR.world_select.set_default();
         }
     } else {
@@ -8099,9 +8034,9 @@ require("./../visible_world.js");
 require("./../state.js");
 require("./../exceptions.js");
 require("./../create_editors.js");
-var create_empty_world = require("./create_empty.js");
+var create_empty_world = require("./create_empty.js").create_empty_world;
 var images_init = require("./../world_enhance/animated_images.js").images_init;
-var edit_robot_menu = require("./../ui/edit_robot_menu.js");
+var edit_robot_menu = require("./../ui/edit_robot_menu.js").edit_robot_menu;
 var clone_world = require("./clone_world.js").clone_world;
 
 RUR.world.import_world = function (json_string) {
@@ -8116,12 +8051,11 @@ RUR.world.import_world = function (json_string) {
         try {
             RUR.CURRENT_WORLD = JSON.parse(json_string) || create_empty_world();
         } catch (e) {
-            alert(e);
-            console.log("Exception caught in import_world.");
-            console.log("json_string = ", json_string);
-            console.log("error = ", e);
+            alert("Exception caught in import_world; see console for details.");
+            console.warn("Exception caught in import_world.");
+            console.log("First 80 characters of json_string = ", json_string.substring(0, 80));
+            console.log("Error = ", e);
             RUR.CURRENT_WORLD = create_empty_world();
-            return;
         }
     } else {  // already parsed into a Javascript Object
         RUR.CURRENT_WORLD = json_string;

@@ -52,7 +52,7 @@ qunit_css = """
 qunit_body_addition = """
 <body>
   <h1>After tests are completed:
-  <button onclick="RUR.unit_tests.stop_server();window.location.reload();">click to stop server</button>
+  <button onclick="stop_server();window.location.reload();">click to stop server</button>
   <a href="%s">online</a> - <a href="%s">offline</a>
   </h1>
   <div id="qunit"></div>
