@@ -178,11 +178,17 @@ def pause(ms=None):  #py:pause
         RUR._pause_(ms)
 
 
-def print_html(html, append=False):  #py:print_html
+def print_html(html, replace=False):  #py:print_html
     """Intended primarily for world creators, this function is similar to
        print() except it can make use of html input.
+
+    Args:
+        html: the content (in html format) to be displayed.
+        replace: if True, the html content will replace whatever was there
+            already; otherwise, it is appended.
+
     """
-    RUR._print_html_(html, append)
+    RUR._print_html_(html, replace)
 window['print_html'] = print_html   # No translation needed
 
 

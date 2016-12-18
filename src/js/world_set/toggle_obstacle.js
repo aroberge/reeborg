@@ -76,7 +76,7 @@ RUR.add_obstacle_at_position = function (specific_object, x, y){
     if (cw.obstacles[coords][specific_object]) {
         RUR.output.print_html("<h2>Warning</h2><p>" +
             specific_object +
-            " is already present at the requested location.</p>", true);
+            " is already present at the requested location.</p>");
     } else {
         cw.obstacles[coords][specific_object] = true;
     }
@@ -121,7 +121,7 @@ RUR.remove_obstacle_at_position = function (specific_object, x, y){
     } else {
         RUR.output.print_html("<h2>Warning</h2><p>" +
             specific_object +
-            " is <b>not</b> present at the requested location.</p>", true);
+            " is <b>not</b> present at the requested location.</p>");
         cw.obstacles[coords][specific_object] = true;
     }
 };

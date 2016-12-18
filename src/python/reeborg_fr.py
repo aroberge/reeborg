@@ -183,11 +183,16 @@ def pause(ms=None):  #py:pause
         RUR._pause_(ms)
 
 
-def print_html(html, append=False):  #py:print_html
+def print_html(html, replace=False):  #py:print_html
     """Surtout destiné aux créateurs de monde, la fonction print_html() est
        semblable à print() sauf qu'elle accepte du texte html.
+
+    Args:
+        html: le contenu (en format html) qui sera affich/.
+        replace: si égal à True, l'ancien contenu sera remplacé par le nouveau;
+            sinon, le nouveau contenu remplacera l'ancien.     
     """
-    RUR._print_html_(html, append)
+    RUR._print_html_(html, replace)
 window['print_html'] = print_html
 
 

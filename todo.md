@@ -24,6 +24,8 @@ Keeping track of advanced editing api
 | new robot      |           |     |          |          |         |
 
 
-* Include a function to set world size.
-* Include a function to automatically check goal.
-* Write some examples where a different world is chosen when a program is run successfully.
+  * Include a function to set world size.
+  * Include a function to automatically check goal.
+  * Write some examples where a different world is chosen when a program is run successfully.
+
+  * remove existing permalink creation and include replacement

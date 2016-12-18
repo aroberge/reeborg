@@ -99,8 +99,8 @@ RUR._paint_square_ = function (color) {
 
 RUR._pause_ = RUR.control.pause;
 
-RUR._print_html_ = function (html, append) {
-    RUR.output.print_html(html, append);
+RUR._print_html_ = function (html, replace) {
+    RUR.output.print_html(html, replace);
 };
 
 RUR._put_ = function(arg) {

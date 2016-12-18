@@ -35,11 +35,11 @@ RUR.output.clear_print = function () {
     RUR.record_frame("stdout", {"element": "#stdout", "clear": true});
 };
 
-RUR.output.print_html = function (arg, append) {
-    if (append) {
-        RUR.record_frame("print_html", {"element": "#print-html", "message": arg, "append": true});
-    } else {
+RUR.output.print_html = function (arg, replace) {
+    if (replace) {
         RUR.record_frame("print_html", {"element": "#print-html", "message": arg});
+    } else {
+        RUR.record_frame("print_html", {"element": "#print-html", "message": arg, "append": true});
     }
 };
 

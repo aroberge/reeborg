@@ -851,8 +851,8 @@ RUR._paint_square_ = function (color) {
 
 RUR._pause_ = RUR.control.pause;
 
-RUR._print_html_ = function (html, append) {
-    RUR.output.print_html(html, append);
+RUR._print_html_ = function (html, replace) {
+    RUR.output.print_html(html, replace);
 };
 
 RUR._put_ = function(arg) {
@@ -5383,11 +5383,11 @@ RUR.output.clear_print = function () {
     RUR.record_frame("stdout", {"element": "#stdout", "clear": true});
 };
 
-RUR.output.print_html = function (arg, append) {
-    if (append) {
-        RUR.record_frame("print_html", {"element": "#print-html", "message": arg, "append": true});
-    } else {
+RUR.output.print_html = function (arg, replace) {
+    if (replace) {
         RUR.record_frame("print_html", {"element": "#print-html", "message": arg});
+    } else {
+        RUR.record_frame("print_html", {"element": "#print-html", "message": arg, "append": true});
     }
 };
 
@@ -5481,13 +5481,6 @@ RUR.permalink.set_mode = function (url_query) {
     if (url_query.queryKey.mode !== undefined) {
         mode = url_query.queryKey.mode;
     }
-    //  else if (url_query.queryKey.proglang !== undefined) {  // old permalinks
-    //     if (url_query.queryKey.proglang.startsWith("python")) {
-    //         mode = "python";
-    //     } else {
-    //         mode = "javascript";
-    //     }
-    // }
     else if (localStorage.getItem("programming-mode")) {
         mode = localStorage.getItem("programming-mode");
     } else {
@@ -5504,12 +5497,6 @@ RUR.permalink.set_language = function (url_query) {
     var lang;
     if (url_query.queryKey.lang !== undefined) {
         lang = url_query.queryKey.lang;
-    // } else if (url_query.queryKey.proglang !== undefined) {  // old permalinks
-    //     if (url_query.queryKey.proglang.endsWith("fr")) {
-    //         lang = "fr";
-    //     } else {
-    //         lang = 'en';
-    //     }
     } else if (localStorage.getItem("human_language")) {
         lang = localStorage.getItem("human_language");
     } else {
@@ -10153,7 +10140,7 @@ RUR.add_obstacle_at_position = function (specific_object, x, y){
     if (cw.obstacles[coords][specific_object]) {
         RUR.output.print_html("<h2>Warning</h2><p>" +
             specific_object +
-            " is already present at the requested location.</p>", true);
+            " is already present at the requested location.</p>");
     } else {
         cw.obstacles[coords][specific_object] = true;
     }
@@ -10198,7 +10185,7 @@ RUR.remove_obstacle_at_position = function (specific_object, x, y){
     } else {
         RUR.output.print_html("<h2>Warning</h2><p>" +
             specific_object +
-            " is <b>not</b> present at the requested location.</p>", true);
+            " is <b>not</b> present at the requested location.</p>");
         cw.obstacles[coords][specific_object] = true;
     }
 };
