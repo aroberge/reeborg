@@ -93,15 +93,15 @@ RUR.calculate_grid_position = function () {
     if (x < 1 ) {
         x = 1;
         tooltip.mouse_contained = false;
-    } else if (x > RUR.COLS) {
-        x = RUR.COLS;
+    } else if (x > RUR.MAX_X) {
+        x = RUR.MAX_X;
         tooltip.mouse_contained = false;
     }
     if (y < 1 ) {
         y = 1;
         tooltip.mouse_contained = false;
-    } else if (y > RUR.ROWS) {
-        y = RUR.ROWS;
+    } else if (y > RUR.MAX_Y) {
+        y = RUR.MAX_Y;
         tooltip.mouse_contained = false;
     }
     return [x, y];

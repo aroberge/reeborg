@@ -44,7 +44,7 @@ RUR.world_set.add_solid_object = function (specific_object, x, y, nb){
 
 RUR.world_set.remove_all = function () {
     RUR.CURRENT_WORLD.robots = [];
-    trim_world(0,0, RUR.COLS, RUR.ROWS);
+    trim_world(0,0, RUR.MAX_X, RUR.MAX_Y);
 };
 
 function trim_world (min_x, min_y, max_x, max_y) {
@@ -141,7 +141,7 @@ function set_dimension () {
     max_y = parseInt($("#input-max-y").val(), 10);
     RUR.CURRENT_WORLD.small_tiles = $("#use-small-tiles").prop("checked");
 
-    trim_world(max_x, max_y, RUR.COLS, RUR.ROWS);   // remove extra objects
+    trim_world(max_x, max_y, RUR.MAX_X, RUR.MAX_Y);   // remove extra objects
     RUR.vis_world.compute_world_geometry(max_x, max_y);
     RUR.world_set.dialog_set_dimensions.dialog("close");
     return true;

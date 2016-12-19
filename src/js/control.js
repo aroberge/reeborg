@@ -360,7 +360,7 @@ RUR.control.wall_in_front = function (robot) {
     switch (robot._orientation){
     case RUR.EAST:
         coords = robot.x + "," + robot.y;
-        if (robot.x == RUR.COLS){
+        if (robot.x == RUR.MAX_X){
             return true;
         }
         if (RUR.world_get.is_wall_at(coords, "east")) {
@@ -369,7 +369,7 @@ RUR.control.wall_in_front = function (robot) {
         break;
     case RUR.NORTH:
         coords = robot.x + "," + robot.y;
-        if (robot.y == RUR.ROWS){
+        if (robot.y == RUR.MAX_Y){
             return true;
         }
         if (RUR.world_get.is_wall_at(coords, "north")) {

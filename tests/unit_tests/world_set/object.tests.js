@@ -7,10 +7,18 @@
 *
 */
 
-var test = require('tape');
+var tape = require('tape');
 var silencer =  require('silencer');
+global.window = {};
+global.RUR = {};
+global.Image = function () {
+    return {};
+};
+function test(info, fn) {
+    tape("Object.js: "+info, fn)
+}
 
-test('Object: adding known object', function (assert) {    
+test('adding known object', function (assert) {    
     require("../../../src/js/world_set/object.js");
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
@@ -22,7 +30,7 @@ test('Object: adding known object', function (assert) {
     assert.end();
 });
 
-test('Object: adding and removing known object', function (assert) {
+test('adding and removing known object', function (assert) {
     var identical = require("../../../src/js/utils/identical.js").identical;  
     require("../../../src/js/world_set/object.js");  
     RUR.CURRENT_WORLD = {};
@@ -36,7 +44,7 @@ test('Object: adding and removing known object', function (assert) {
     assert.end();
 });
 
-test('Object: adding two and removing one known objects', function (assert) {
+test('adding two and removing one known objects', function (assert) {
     var identical = require("../../../src/js/utils/identical.js").identical; 
     require("../../../src/js/world_set/object.js");    
     RUR.CURRENT_WORLD = {};
@@ -53,7 +61,7 @@ test('Object: adding two and removing one known objects', function (assert) {
 });
 
 
-test('Object: adding unknown object', function (assert) {
+test('adding unknown object', function (assert) {
     var out;
     silencer.reset();
     silencer.disable('warn');
@@ -73,7 +81,7 @@ test('Object: adding unknown object', function (assert) {
     }
 });
 
-test('Object: invalid x value', function (assert) {
+test('invalid x value', function (assert) {
     var mess = "RUR.set_nb_object_at_position(specific_object, x, y, nb): x" +
                 " must be a positive integer.";
     require("../../../src/js/world_set/object.js");
@@ -92,7 +100,7 @@ test('Object: invalid x value', function (assert) {
     }
 });
 
-test('Object: invalid y value', function (assert) {
+test('invalid y value', function (assert) {
     var mess = "RUR.set_nb_object_at_position(specific_object, x, y, nb): y" +
                 " must be a positive integer.";
     require("../../../src/js/world_set/object.js");
@@ -111,7 +119,7 @@ test('Object: invalid y value', function (assert) {
     }
 });
 
-test('Object: invalid nb value', function (assert) {
+test('invalid nb value', function (assert) {
     var mess = "RUR.set_nb_object_at_position(specific_object, x, y, nb): nb" +
                 " must be a positive integer or zero.";
     require("../../../src/js/world_set/object.js");

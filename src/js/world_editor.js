@@ -16,10 +16,10 @@ require("./utils/supplant.js");
 require("./utils/key_exist.js");
 
 require("./world_set/object.js");
-require("./world_set/add_goal_object.js");
+require("./world_set/goal_object.js");
 require("./world_set/add_robot.js");
-require("./world_set/toggle_decorative_object.js");
-require("./world_set/toggle_obstacle.js");
+require("./world_set/decorative_object.js");
+require("./world_set/obstacle.js");
 require("./world_set/give_object_to_robot.js");
 
 
@@ -376,13 +376,13 @@ RUR.we.calculate_wall_position = function () {
 
     if (x < 1 ) {
         x = 1;
-    } else if (x > RUR.COLS) {
-        x = RUR.COLS;
+    } else if (x > RUR.MAX_X) {
+        x = RUR.MAX_X;
     }
     if (y < 1 ) {
         y = 1;
-    } else if (y > RUR.ROWS) {
-        y = RUR.ROWS;
+    } else if (y > RUR.MAX_Y) {
+        y = RUR.MAX_Y;
     }
 
     return [x, y, orientation];
@@ -622,8 +622,8 @@ RUR.we.fill_with_tile = function (tile) {
     }
 
     RUR._ensure_key_exists(RUR.CURRENT_WORLD, "tiles");
-    for (x = 1; x <= RUR.COLS; x++) {
-        for (y = 1; y <= RUR.ROWS; y++) {
+    for (x = 1; x <= RUR.MAX_X; x++) {
+        for (y = 1; y <= RUR.MAX_Y; y++) {
             coords = x + "," + y;
             RUR.CURRENT_WORLD.tiles[coords] = tile;
         }

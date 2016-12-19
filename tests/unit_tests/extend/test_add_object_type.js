@@ -1,9 +1,12 @@
 window = global;
 var test = require('tape');
 var silencer =  require('silencer');
+global.window = {};
+global.RUR = {};
 global.Image = function () {
     return {};
 };
+
 
 function set_defaults() {
     RUR.KNOWN_TILES = [];

@@ -125,7 +125,7 @@ RUR.vis_robot.draw = function (robot) {
     if (!robot) {
         return;
     }
-    if (robot.x > RUR.COLS || robot.y > RUR.ROWS) {
+    if (robot.x > RUR.MAX_X || robot.y > RUR.MAX_Y) {
         return;
     }
 

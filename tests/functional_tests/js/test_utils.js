@@ -124,8 +124,8 @@ test_utils.initial_world = RUR.functional_tests.create_empty_world();
 test_utils.empty_world = {robots: [],
         objects: {},
         walls: {},
-        rows: RUR.MAX_Y,
-        cols: RUR.MAX_X,
+        rows: RUR.MAX_Y_DEFAULT,
+        cols: RUR.MAX_X_DEFAULT,
         small_tiles: false
     };
 

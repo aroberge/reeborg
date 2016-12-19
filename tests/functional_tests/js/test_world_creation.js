@@ -37,8 +37,8 @@ QUnit.test("Load world", function(assert) {
             ],
         walls: {},
         description: "A simple, empty world, ready for Reeborg to explore.",
-        rows: RUR.MAX_Y,
-        cols: RUR.MAX_X,
+        rows: RUR.MAX_Y_DEFAULT,
+        cols: RUR.MAX_X_DEFAULT,
         small_tiles: false
     };
 
@@ -69,8 +69,8 @@ QUnit.test("Load world from url-permalink", function(assert) {
             ],
         walls: {},
         description: "A simple, empty world, ready for Reeborg to explore.",
-        rows: RUR.MAX_Y,
-        cols: RUR.MAX_X,
+        rows: RUR.MAX_Y_DEFAULT,
+        cols: RUR.MAX_X_DEFAULT,
         small_tiles: false
     };
 

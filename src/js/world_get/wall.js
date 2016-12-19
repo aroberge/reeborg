@@ -96,7 +96,7 @@ function is_wall_at(x, y, orientation, walls) {
     switch (orientation){
     case "east":
         coords = x + "," + y;
-        if (x === RUR.COLS){
+        if (x === RUR.MAX_X){
             return true;
         }
         if (__is_wall_at(coords, "east", walls)) {
@@ -105,7 +105,7 @@ function is_wall_at(x, y, orientation, walls) {
         break;
     case "north":
         coords = x + "," + y;
-        if (y === RUR.ROWS){
+        if (y === RUR.MAX_Y){
             return true;
         }
         if (RUR.__is_wall_at(coords, "north", walls)) {

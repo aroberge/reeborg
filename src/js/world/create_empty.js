@@ -12,8 +12,8 @@ exports.create_empty_world = create_empty_world = function (blank_canvas) {
     world.walls = {};
     world.objects = {};
     world.small_tiles = false;
-    world.rows = RUR.MAX_Y;
-    world.cols = RUR.MAX_X;
+    world.rows = RUR.MAX_Y_DEFAULT;
+    world.cols = RUR.MAX_X_DEFAULT;
 
     return world;
 };
