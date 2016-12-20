@@ -166,3 +166,14 @@ RUR.ANIMATION_TIME = 120;
 RUR.BACKGROUND_IMAGE = new Image();
 RUR.BACKGROUND_IMAGE.src = '';
 
+var pathname;
+try {
+    pathname = window.location.pathname;  // not defined for tape tests
+    if (pathname.indexOf("qunit") !== -1 ){  // running qunit test
+        RUR._BASE_URL = '../..';
+    } else {
+        RUR._BASE_URL = window.location.pathname.substr(0, window.location.pathname.lastIndexOf('/'));
+    }
+} catch (e) {
+    RUR._BASE_URL = '';
+}

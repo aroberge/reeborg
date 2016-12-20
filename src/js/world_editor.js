@@ -1,7 +1,6 @@
 
 require("./translator.js");
 require("./rur.js");
-require("./default_tiles/objects.js");
 require("./default_tiles/tiles.js");
 
 require("./robot.js");
