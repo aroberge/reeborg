@@ -77,7 +77,7 @@ function list_walls_at (x, y, walls) {
     result = [];
     orientations = ["east", "north", "west", "south"];
     for (index in orientations) {
-        orient = orientations(index);
+        orient = orientations[index];
         if (is_wall_at(x, y, orient, walls)) {
             result.push(orient);
         }
@@ -108,7 +108,7 @@ function is_wall_at(x, y, orientation, walls) {
         if (y === RUR.MAX_Y){
             return true;
         }
-        if (RUR.__is_wall_at(coords, "north", walls)) {
+        if (__is_wall_at(coords, "north", walls)) {
             return true;
         }
         break;

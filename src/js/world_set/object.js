@@ -3,6 +3,8 @@ require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
 require("./../utils/ensure_integer.js");
 require("./../translator.js");
+require("./../recorder/record_frame.js");
+
 var get_world = require("./../world_get/world.js").get_world;
 
 /** @function set_nb_object_at_position

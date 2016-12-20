@@ -1,6 +1,7 @@
 require("./set_namespace.js");
-require("./../world_get/walls.js");
-require("./utils/key_exist.js");
+require("./../recorder/record_frame.js");
+require("./../world_get/wall.js");
+require("./../utils/key_exist.js");
 get_world = require("./../world_get/world.js").get_world;
 
 /*=========================================
@@ -44,11 +45,12 @@ RUR.set.add_wall_at = function(x, y, orientation, goal) {
     if (goal) {
         RUR._ensure_key_exists(world, goal);
         RUR._ensure_key_exists(world.goal, "walls");
-        return add_wall_at(x, y, orientation, world.goal.walls);
+        add_wall_at(x, y, orientation, world.goal.walls);
     } else {
         RUR._ensure_key_exists(world, "walls");
-        return add_wall_at(x, y, orientation, world.walls);
-    }      
+        add_wall_at(x, y, orientation, world.walls);
+    }   
+    RUR.record_frame();   
 };
 
 /** @function remove_wall_from

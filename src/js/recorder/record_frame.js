@@ -19,7 +19,7 @@ RUR.record_frame = function (name, obj) {
         frame.world = clone_world();
         check_robots_on_tiles(frame);
         return;
-    } else  if (RUR.state.input_method==="py-repl") {
+    } else if (RUR.state.input_method==="py-repl") {
         /* if the REPL is active, we do not record anything, and show 
            immediately the updated world.
            However do not perform check_robots_on_tiles in this mode; allow for

@@ -1,4 +1,4 @@
-/** @function test_set_nb_object_at_position
+ /** @function test_set_nb_object_at_position
  * @memberof UnitTest
  * @instance
 *
@@ -9,11 +9,16 @@
 
 var tape = require('tape');
 var silencer =  require('silencer');
+var mock = require('mock-require');
+
 global.window = {};
 global.RUR = {};
 global.Image = function () {
     return {};
 };
+RUR.record_frame = function () {};
+mock("../../../src/js/recorder/record_frame.js", {});
+
 function test(info, fn) {
     tape("Object.js: "+info, fn)
 }
@@ -24,7 +29,6 @@ test('adding known object', function (assert) {
     RUR.OBJECTS = {};
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
-    RUR.record_frame = function () {};
     RUR.set_nb_object_at_position('a', 2, 3, 4);
     assert.equal(RUR.CURRENT_WORLD.objects['2,3'].a, 4, "nb objects ok");
     assert.end();
@@ -37,7 +41,6 @@ test('adding and removing known object', function (assert) {
     RUR.OBJECTS = {};
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
-    RUR.record_frame = function () {};
     RUR.set_nb_object_at_position('a', 2, 3, 4);
     RUR.set_nb_object_at_position('a', 2, 3, 0); 
     assert.ok(identical(RUR.CURRENT_WORLD.objects, {}), "nb objects left");
@@ -50,7 +53,6 @@ test('adding two and removing one known objects', function (assert) {
     RUR.CURRENT_WORLD = {};
     RUR.OBJECTS = {};
     RUR.KNOWN_TILES = ['a', 'b'];
-    RUR.record_frame = function () {};
     RUR.untranslated['a'] = true;
     RUR.untranslated['b'] = true;
     RUR.set_nb_object_at_position('b', 2, 3, 4);
@@ -68,7 +70,6 @@ test('adding unknown object', function (assert) {
     require("../../../src/js/world_set/object.js");
     RUR.OBJECTS = {};
     RUR.KNOWN_TILES = [];
-    RUR.record_frame = function () {};    
     RUR.translation = {};
     RUR.untranslated['a'] = false;
     try {
@@ -89,7 +90,6 @@ test('invalid x value', function (assert) {
     RUR.OBJECTS = {};
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
-    RUR.record_frame = function () {};
     try {
         RUR.set_nb_object_at_position('a', 0, 3, 4);
     } catch (e) {
@@ -108,7 +108,6 @@ test('invalid y value', function (assert) {
     RUR.OBJECTS = {};
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
-    RUR.record_frame = function () {};
     try {
         RUR.set_nb_object_at_position('a', 3, -1, 4);
     } catch (e) {
@@ -127,7 +126,6 @@ test('invalid nb value', function (assert) {
     RUR.OBJECTS = {};
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
-    RUR.record_frame = function () {};
     try {
         RUR.set_nb_object_at_position('a', 3, 2, Infinity);
     } catch (e) {

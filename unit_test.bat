@@ -1,5 +1,5 @@
-rem This batch file is used to run each unit test in isolation.
 @echo off
+rem This batch file is used to run each unit test in isolation.
 cd tests
 call :treeProcess
 goto :back

@@ -184,7 +184,7 @@ RUR.vis_robot.draw = function (robot) {
 };
 
 
-
+// TODO: extract to its own file, to reduce dependencies
 RUR.vis_robot.update_trace_history = function (robot) {
     var offset, prev_offset, trace_segment={};
     if (robot._prev_x == robot.x &&
