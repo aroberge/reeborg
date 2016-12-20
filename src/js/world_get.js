@@ -2,8 +2,9 @@
    position, or for the world in general.
 */
 
+require("./rur.js");
 require("./exceptions.js");
-require("./objects.js");
+require("./init/objects.js");
 require("./dialogs/create.js");
 require("./listeners/canvas.js");
 require("./utils/supplant.js");

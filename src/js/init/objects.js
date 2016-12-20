@@ -1,5 +1,5 @@
-require("./rur.js");
-require("./world_enhance/add_tile_type.js");
+require("./../rur.js");
+require("./../world_enhance/add_tile_type.js");
 
 var obj;
 

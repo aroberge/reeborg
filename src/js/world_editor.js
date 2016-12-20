@@ -1,7 +1,9 @@
 
 require("./translator.js");
 require("./rur.js");
-require("./objects.js");
+require("./init/objects.js");
+require("./init/tiles.js");
+
 require("./robot.js");
 require("./world.js");
 require("./visible_world.js");
