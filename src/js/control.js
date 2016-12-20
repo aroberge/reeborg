@@ -1,7 +1,7 @@
 
 require("./rur.js");
 require("./translator.js");
-require("./init/objects.js");
+require("./default_tiles/objects.js");
 require("./output.js");
 require("./recorder/record_frame.js");
 require("./exceptions.js");

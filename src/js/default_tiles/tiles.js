@@ -1,4 +1,5 @@
-/* This file contains the tiles included by default */
+/* This file contains the tiles included by default'
+   see the comment in object.js in the same folder */
 require("./../rur.js");
 require("./../world_enhance/add_tile_type.js");
 

@@ -1,3 +1,18 @@
+/* Initially, Reeborg's World only contained "objects", starting with a 
+  single one (beeper, which became token) and slowly increasing the number
+  and characteristics (e.g. animated object).  The first objects were
+  drawn on the canvas; eventually they were replaced by square images.
+
+  In parallel, background images, known as tiles could be added on the grid
+  to create worlds that could be more visually appealing.  
+
+  Eventually, all custom canvas drawings were replaced by square images for
+  simplicity and consistency.  However, we do (for now) have two separate
+  files for adding default "objects" and "tiles" */
+
+// TODO: combine object.js and tile.js into a single file named tile.js
+// to avoid confusion with other files named object.js in other directories
+
 require("./../rur.js");
 require("./../world_enhance/add_tile_type.js");
 

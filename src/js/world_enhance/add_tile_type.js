@@ -2,7 +2,7 @@ require("./../rur.js");
 require("./enhance_namespace.js");
 require("./animated_images.js");
 require("./../exceptions.js");
-//require("./../init/images_onload.js");
+//require("./../default_tiles/images_onload.js");
 
 /** @function new_tile_type
  * @memberof RUR.enhance

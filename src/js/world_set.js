@@ -1,7 +1,7 @@
 /* In some ways, this is the counterpart of world_get.js
 */
 require("./rur.js");
-require("./init/objects.js");
+require("./default_tiles/objects.js");
 require("./exceptions.js");
 require("./visible_world.js");
 require("./recorder.js"); // TODO: investigate if needed.
