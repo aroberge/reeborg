@@ -1,12 +1,11 @@
 
 require("./translator.js");
-require("./constants.js");
+require("./rur.js");
 require("./objects.js");
 require("./robot.js");
 require("./world.js");
 require("./visible_world.js");
 require("./exceptions.js");
-require("./state.js");
 require("./world_get.js");
 require("./world_set.js");
 require("./dialogs/create.js");

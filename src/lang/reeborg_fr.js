@@ -1,6 +1,8 @@
 /* See reeborg_en.js */
 window.RUR = RUR || {};
 
+// TODO: add proper dependencies
+
 RUR.reset_definitions_fr = function () {
 
     window.au_but = RUR._at_goal_;
@@ -99,7 +101,7 @@ RUR.reset_definitions_fr = function () {
     };
 
     RobotUsage.prototype.mur_devant = function () {
-        RUR.control.wall_in_front(this.body);
+        RUR.control.wall_in_front(this.body); //TODO: remove control
     };
 
     RobotUsage.prototype.couleur_de_trace = function (robot, color) {

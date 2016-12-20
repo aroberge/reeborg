@@ -1,5 +1,5 @@
 
-require("./../state.js");
+require("./../rur.js");
 var set_ready_to_run = require("./../ui/set_ready_to_run.js").set_ready_to_run;
 var rec_reset = require("./../recorder/reset.js").reset;
 var reset_world = require("./../world_set/reset_world.js").reset_world;

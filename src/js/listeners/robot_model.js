@@ -1,6 +1,6 @@
 require("./../visible_robot.js");
 
-require("./../state.js");
+require("./../rur.js");
 var record_id = require("./../../lang/msg.js").record_id;
 
 record_id("robot0");

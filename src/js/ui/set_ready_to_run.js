@@ -1,5 +1,5 @@
 
-require("./../state.js");
+require("./../rur.js");
 
 exports.set_ready_to_run = set_ready_to_run = function () {
     RUR.state.prevent_playback = false;

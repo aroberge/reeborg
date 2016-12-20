@@ -1,5 +1,4 @@
 require("./get_namespace.js");
-require("./../constants.js");
 require("./../rur.js");
 require("./../utils/ensure_integers.js");
 

@@ -1,7 +1,7 @@
 /*  Handler of special on-screen keyboard
 */
 
-require("./state.js");
+require("./rur.js");
 require("./dialogs/create.js");
 require("./listeners/editors_tabs.js");
 require("./translator.js");

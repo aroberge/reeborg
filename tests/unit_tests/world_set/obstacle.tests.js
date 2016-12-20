@@ -13,7 +13,6 @@ function test(info, fn) {
 test('adding known object', function (assert) {
     require("../../../src/js/world_set/obstacle.js");
     RUR.CURRENT_WORLD = {};
-    RUR.OBJECTS = {};
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     global.RUR.toggle_obstacle_at_position('a', 2, 3, 4);
@@ -25,7 +24,6 @@ test('adding and removing known solid object', function (assert) {
     var identical = require("../../../src/js/utils/identical.js").identical;
     require("../../../src/js/world_set/obstacle.js");
     RUR.CURRENT_WORLD = {};
-    RUR.OBJECTS = {};
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.toggle_obstacle_at_position('a', 2, 3);
@@ -38,7 +36,6 @@ test('adding two and removing one known solid objects', function (assert) {
     var identical = require("../../../src/js/utils/identical.js").identical;
     require("../../../src/js/world_set/obstacle.js");
     RUR.CURRENT_WORLD = {};
-    RUR.OBJECTS = {};
     RUR.KNOWN_TILES = ['a', 'b'];
     RUR.untranslated['a'] = true;
     RUR.untranslated['b'] = true;
@@ -54,7 +51,6 @@ test('adding unknown solid object', function (assert) {
     silencer.reset();
     silencer.disable();
     require("../../../src/js/world_set/obstacle.js");
-    RUR.OBJECTS = {};
     RUR.KNOWN_TILES = [];
     RUR.translation = {};
     try {

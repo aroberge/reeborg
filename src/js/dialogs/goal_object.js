@@ -1,6 +1,6 @@
 require("./../visible_world.js");
 require("./../world_set/give_object_to_robot.js");
-require("./../state.js");
+require("./../rur.js");
 
 var msg = require("./../../lang/msg.js");
 

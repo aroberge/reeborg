@@ -1,6 +1,5 @@
 require("./translator.js");
-require("./constants.js");
-require("./state.js");
+require("./rur.js");
 require("./world_enhance/add_tile_type.js");
 require("./world/create_empty.js");
 var get_world = require("./world_get/world.js").get_world;

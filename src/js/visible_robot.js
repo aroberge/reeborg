@@ -1,6 +1,5 @@
 
-require("./constants.js");
-require("./state.js");
+require("./rur.js");
 var get_world = require("./world_get/world.js").get_world;
 // TODO: RUR._BASE_URL -> need to change it to state...
 

@@ -1,4 +1,4 @@
-require("./../state.js");
+require("./../rur.js");
 require("./../../lang/reeborg_en.js");
 require("./../../lang/reeborg_fr.js");
 require("./../custom_world_select.js");

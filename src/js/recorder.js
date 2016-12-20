@@ -1,8 +1,7 @@
 
-require("./state.js");
+require("./rur.js");
 require("./visible_world.js");
 require("./world_get.js");
-require("./constants.js");
 require("./translator.js");
 require("./exceptions.js");
 require("./listeners/pause.js");

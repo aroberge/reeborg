@@ -3,7 +3,6 @@ require("./rur.js");
 require("./translator.js");
 require("./visible_world.js");
 require("./world.js");
-require("./state.js");
 require("./blockly.js");
 require("./recorder.js");
 require("./world_init.js");

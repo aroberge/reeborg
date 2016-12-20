@@ -1,8 +1,7 @@
 require("./../translator.js");
-require("./../constants.js");
+require("./../rur.js");
 require("./../robot.js");
 require("./../visible_world.js");
-require("./../state.js");
 require("./../exceptions.js");
 require("./../create_editors.js");
 var create_empty_world = require("./create_empty.js").create_empty_world;

@@ -20,13 +20,12 @@ RUR.record_frame = function () {};
 mock("../../../src/js/recorder/record_frame.js", {});
 
 function test(info, fn) {
-    tape("Object.js: "+info, fn)
+    tape("Object.js: "+info, fn);
 }
 
 test('adding known object', function (assert) {    
     require("../../../src/js/world_set/object.js");
     RUR.CURRENT_WORLD = {};
-    RUR.OBJECTS = {};
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.set_nb_object_at_position('a', 2, 3, 4);
@@ -38,7 +37,6 @@ test('adding and removing known object', function (assert) {
     var identical = require("../../../src/js/utils/identical.js").identical;  
     require("../../../src/js/world_set/object.js");  
     RUR.CURRENT_WORLD = {};
-    RUR.OBJECTS = {};
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.set_nb_object_at_position('a', 2, 3, 4);
@@ -51,7 +49,6 @@ test('adding two and removing one known objects', function (assert) {
     var identical = require("../../../src/js/utils/identical.js").identical; 
     require("../../../src/js/world_set/object.js");    
     RUR.CURRENT_WORLD = {};
-    RUR.OBJECTS = {};
     RUR.KNOWN_TILES = ['a', 'b'];
     RUR.untranslated['a'] = true;
     RUR.untranslated['b'] = true;
@@ -68,7 +65,6 @@ test('adding unknown object', function (assert) {
     silencer.reset();
     silencer.disable('warn');
     require("../../../src/js/world_set/object.js");
-    RUR.OBJECTS = {};
     RUR.KNOWN_TILES = [];
     RUR.translation = {};
     RUR.untranslated['a'] = false;
@@ -87,7 +83,6 @@ test('invalid x value', function (assert) {
                 " must be a positive integer.";
     require("../../../src/js/world_set/object.js");
     RUR.CURRENT_WORLD = {};
-    RUR.OBJECTS = {};
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     try {
@@ -105,7 +100,6 @@ test('invalid y value', function (assert) {
                 " must be a positive integer.";
     require("../../../src/js/world_set/object.js");
     RUR.CURRENT_WORLD = {};
-    RUR.OBJECTS = {};
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     try {
@@ -123,7 +117,6 @@ test('invalid nb value', function (assert) {
                 " must be a positive integer or zero.";
     require("../../../src/js/world_set/object.js");
     RUR.CURRENT_WORLD = {};
-    RUR.OBJECTS = {};
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     try {

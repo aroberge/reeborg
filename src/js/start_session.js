@@ -1,4 +1,5 @@
 
+require("./rur.js");
 /* Requiring the following just to get things started */
 require("./listeners/add_listeners.js");
 require("./splash_screen.js");
@@ -9,7 +10,7 @@ require("./init/tiles.js");
 require("./utils/parseuri.js");
 require("./world/import_world.js");
 require("./storage.js");
-require("./state.js");
+
 require("./permalink.js");
 require("./create_editors.js");
 

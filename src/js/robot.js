@@ -1,5 +1,5 @@
 
-require("./constants.js");
+require("./rur.js");
 require("./translator.js");
 require("./exceptions.js");
 var filterInt = require("./utils/filterint.js").filterInt;

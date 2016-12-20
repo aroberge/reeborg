@@ -6,13 +6,12 @@ global.Image = function () {
     return {};
 };
 function test(info, fn) {
-    tape("Decorative_object.js: "+info, fn)
+    tape("Decorative_object.js: "+info, fn);
 }
 
 test('adding known decorative object', function (assert) {
     require("../../../src/js/world_set/decorative_object.js");
     RUR.CURRENT_WORLD = {};
-    RUR.OBJECTS = {};
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.toggle_decorative_object_at_position('a', 2, 3, 4);
@@ -24,7 +23,6 @@ test('adding and removing known decorative object', function (assert) {
     var identical = require("../../../src/js/utils/identical.js").identical;
     require("../../../src/js/world_set/decorative_object.js");
     RUR.CURRENT_WORLD = {};
-    RUR.OBJECTS = {};
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.toggle_decorative_object_at_position('a', 2, 3);
@@ -37,7 +35,6 @@ test('adding two and removing one known decorative objects', function (assert) {
     var identical = require("../../../src/js/utils/identical.js").identical;
     require("../../../src/js/world_set/decorative_object.js");
     RUR.CURRENT_WORLD = {};
-    RUR.OBJECTS = {};
     RUR.KNOWN_TILES = ['a', 'b'];
     RUR.untranslated['a'] = true;
     RUR.untranslated['b'] = true;
@@ -53,7 +50,6 @@ test('adding unknown decorative object', function (assert) {
     silencer.reset();
     silencer.disable();
     require("../../../src/js/world_set/decorative_object.js");
-    RUR.OBJECTS = {};
     RUR.KNOWN_TILES = [];
     RUR.translation = {};
     RUR.untranslated['a'] = false;

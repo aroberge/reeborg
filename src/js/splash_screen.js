@@ -1,4 +1,4 @@
-require("./state.js");
+require("./rur.js");
 require("./visible_world.js");
 require("./visible_robot.js");
 

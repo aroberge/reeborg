@@ -1,11 +1,9 @@
 
 require("./rur.js");
 require("./translator.js");
-require("./constants.js");
 require("./objects.js");
 require("./output.js");
 require("./recorder/record_frame.js");
-require("./state.js");
 require("./exceptions.js");
 require("./world_get.js");
 require("./world_set.js");
@@ -141,6 +139,9 @@ RUR.control.move_object = function(obj, x, y, to_x, to_y){
     }
 };
 
+
+// leave end of line comments below such as using += 1
+// as I (indirectly) refer to these comments in the programming tutorial
 
 RUR.control.turn_left = function(robot){
     "use strict";

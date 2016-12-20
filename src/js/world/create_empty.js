@@ -1,5 +1,4 @@
 require("./../rur.js");
-require("./../constants.js");
 
 exports.create_empty_world = create_empty_world = function (blank_canvas) {
     "use strict";
@@ -17,6 +16,6 @@ exports.create_empty_world = create_empty_world = function (blank_canvas) {
 
     return world;
 };
-RUR.functional_tests.create_empty_world = create_empty_world;
+window.FUNC_TESTS.create_empty_world = create_empty_world;
 
 RUR.CURRENT_WORLD = create_empty_world();

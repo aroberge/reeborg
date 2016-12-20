@@ -1,4 +1,4 @@
-require("./../state.js");
+require("./../rur.js");
 require("./../recorder.js");
 
 var record_id = require("./../../lang/msg.js").record_id;

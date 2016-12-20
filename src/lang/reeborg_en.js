@@ -1,4 +1,7 @@
-/** Since Javascript is a dynamic language, a user or world creator could
+// TODO: add proper dependencies
+
+
+/* Since Javascript is a dynamic language, a user or world creator could
     (possibly accidently) redefine a basic function, which could lead to some
     apparent bugs.  For this reason, we include a function whose role is to
     make it possible to reset the basic functions to their desired values.
