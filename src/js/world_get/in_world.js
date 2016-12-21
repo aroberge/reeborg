@@ -14,7 +14,7 @@ exports.in_world = in_world = function (x, y) {
 /** @function in_world
  * @memberof RUR.get
  * @instance
- * @summary 
+ * @summary some text to be added
  *
  */
 RUR.in_world = in_world;

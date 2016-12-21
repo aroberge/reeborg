@@ -29,3 +29,4 @@ Keeping track of advanced editing api
   * Write some examples where a different world is chosen when a program is run successfully.
 
   * remove existing permalink creation and include replacement
+  * See if dirty canvases can be implemented.

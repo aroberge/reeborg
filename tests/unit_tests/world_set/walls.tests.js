@@ -25,7 +25,7 @@ function test(info, fn) {
 }
 
 
-test('list walls', function (assert) {    
+test('list empty walls', function (assert) {    
     require("../../../src/js/world_get/wall.js");
     RUR.CURRENT_WORLD = {};
     assert.deepEqual(RUR.get.list_walls_at_position(3, 3), [], "No walls present");
@@ -50,5 +50,21 @@ test('Add and list walls', function (assert) {
     assert.deepEqual(RUR.get.list_walls_at_position(2, 3), ["east"], "east wall");
     assert.deepEqual(RUR.get.list_walls_at_position(3, 2), ["north"], "north wall");
     assert.deepEqual(RUR.get.list_walls_at_position(3, 4), ["south"], "south wall");
+    assert.end();
+});
+
+test('Add and get wall at', function (assert) {    
+    require("../../../src/js/world_get/wall.js");
+    require("../../../src/js/world_set/wall.js");
+    RUR.CURRENT_WORLD = {};
+    RUR.set.add_wall_at(3, 3, "east");  // west of (4, 3)
+    RUR.set.add_wall_at(3, 3, "north");  // south of (3, 4)
+    assert.ok(RUR.get.is_wall_at(3, 3, "east"), "east wall present");
+    assert.ok(RUR.get.is_wall_at(3, 3, "north"), "north wall present");
+    assert.notOk(RUR.get.is_wall_at(3, 3, "south"), "south wall not present");
+    assert.notOk(RUR.get.is_wall_at(3, 3, "west"), "west wall not present");
+    //
+    assert.ok(RUR.get.is_wall_at(4, 3, "west"), "east wall present");
+    assert.ok(RUR.get.is_wall_at(3, 4, "south"), "south wall present");
     assert.end();
 });

@@ -6323,6 +6323,24 @@ RUR.runner.check_func_parentheses = function(line_of_code) {
 window.RUR = RUR || {}; // RUR should be already defined in the html file;
                         // however, it might not when running tests.
 
+/* In order to make it easier to have a version of Reeborg's World
+   installed on different servers, or from different location with
+   respect to the base directory, we introduce a global variables that
+   is used to obtain the relative path to use when loading various
+   files elsewhere */
+var pathname;
+try {
+    pathname = window.location.pathname;  // not defined for unit tests
+    if (pathname.indexOf("qunit") !== -1 ){  // running functional/qunit test
+        RUR._BASE_URL = '../..';
+    } else {
+        RUR._BASE_URL = window.location.pathname.substr(0, window.location.pathname.lastIndexOf('/'));
+    }
+} catch (e) {
+    RUR._BASE_URL = '';
+}
+
+
 /** @namespace FUNC_TESTS 
  * @desc Namespace used to hold global reference to functions
  * that are useful to perform some functional tests only.
@@ -6333,6 +6351,7 @@ window.FUNC_TESTS = {};
 
 /** @namespace state
  * @memberof RUR
+ * 
  * @desc Reeborg's World can be in different states (running a program,
  * editing a world, etc.) and the behaviour of some features can be affected
  * (e.g. enabled or disabled) depending on that state.
@@ -6369,7 +6388,7 @@ RUR.state.changed_cells = [];
 // is still needed.
 
 
-/*============================================
+/*====================================================
     CONSTANTS
 
  Yes, I know, global variables are a terrible thing.
@@ -6387,15 +6406,20 @@ RUR.TILE_SIZE = 40;
 RUR.DEFAULT_HEIGHT = 550;
 RUR.DEFAULT_WIDTH = 625;
 
+//----------------------------------------------------------------
 // We use multiple canvases to facilitate the drawing of objects
 // without having to worry much about the order in which we draw
 // the various types of objects.
 // 
-// However, when doing unit tests (not functional tests), we do not
+// The order in which the canvases are overlayed one on top of another
+// is set in the CSS file and should not be inferred from the
+// Javascript code below.
+// 
+// Note that, when doing unit tests (not functional tests), we do not
 // have canvases defined; so we enclose these definitions in a function
 // that does ignores canvases when appropriate.
 function set_canvases () {
-    if (window.document === undefined) { // when doing unit tests - not functional tests
+    if (window.document === undefined) {
         return;
     }
     RUR.CANVASES = [];
@@ -6457,7 +6481,8 @@ RUR.WALL_THICKNESS = 4;  // elsewhere if RUR.CURRENT_WORLD.small_tiles become tr
 
 RUR.MAX_Y = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
 RUR.MAX_X = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
-// the current default values of RUR.MAX_X and RUR.MAX_Y on the fixed-size
+
+// The current default values of RUR.MAX_X and RUR.MAX_Y on the fixed-size
 // canvas work out to be 14 and 12 respectively: these seem to be appropriate
 // values for the lower entry screen resolution.  The following are meant
 // to be essentially synonymous - but are also meant to be used only if/when
@@ -6484,17 +6509,15 @@ RUR.ANIMATION_TIME = 120;
 RUR.BACKGROUND_IMAGE = new Image();
 RUR.BACKGROUND_IMAGE.src = '';
 
-var pathname;
-try {
-    pathname = window.location.pathname;  // not defined for tape tests
-    if (pathname.indexOf("qunit") !== -1 ){  // running qunit test
-        RUR._BASE_URL = '../..';
-    } else {
-        RUR._BASE_URL = window.location.pathname.substr(0, window.location.pathname.lastIndexOf('/'));
-    }
-} catch (e) {
-    RUR._BASE_URL = '';
-}
+//--------------------------------------------------------
+// We communicate information to the user using various
+// styled dialog windows; this generic function specifies
+// which dialog (html "element") to use and the content to
+// display to the user. 
+// 
+RUR.show_feedback = function (element, content) {
+    $(element).html(content).dialog("open");
+};
 },{}],48:[function(require,module,exports){
 require("./rur.js");
 require("./visible_world.js");
