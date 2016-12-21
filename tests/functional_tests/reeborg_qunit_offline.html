@@ -185,6 +185,9 @@
   </xml>
   <div id="world-panel" class="active">
     <div id="world-controls">
+      <button class="blue-gradient" id="reverse-step">
+        <img src="../../src/images/reverse_step.png" alt="reverse step">
+      </button>
       <button class="blue-gradient" id="run" title="run">
         <img src="../../src/images/play.png" alt="run">
       </button>
@@ -203,6 +206,8 @@
       <button class="blue-gradient" id="reload2" title="reload" disabled>
         <img src="../../src/images/reload.png" alt="reload">
       </button>
+      <input id="frame-selector" class="disabled" type="range" min="0" value="0" step="1"/>
+      <span id="frame-id">0/0</span>
     </div>
     <div id="canvas-wrapper">
       <canvas id="background-canvas" width="625" height="550"></canvas>
@@ -231,7 +236,7 @@
       <div id="watch-variables"></div>
     </div>
     <div id="World-info" title="Click on the world to get some additional information." style="display:none"></div>
-    <div id="image-choice-buttons">
+    <div id="image-choice-buttons-small">
       <button id="robot0"><img></button>
       <button id="robot1"><img></button>
       <button id="robot2"><img></button>
@@ -690,12 +695,6 @@
     <hr>
 
     <h3 id="special-execution"></h3>
-    <p>
-      <button class="blue-gradient" id="reverse-step">
-        <img src="../../src/images/reverse_step.png" alt="reverse step">
-      </button>
-      <span id="reverse-step-text"></span>
-    </p>
     <p>
       <button id="erase-trace" class="blue-gradient"></button>
       <span id="erase-trace-text"></span>
