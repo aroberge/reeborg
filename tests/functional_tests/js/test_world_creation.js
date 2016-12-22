@@ -5,8 +5,8 @@ QUnit.module("World creation, loading, and format consistency", {
 });
 QUnit.test( "Empty worlds", function(assert) {
     assert.deepEqual(test_utils.initial_world, test_utils.empty_world, "Empty world initially created." );
-    assert.deepEqual(window.FUNC_TESTS.create_empty_world(), test_utils.empty_world, "Empty world explicitly created.");
-    assert.ok(RUR.object_identical(window.FUNC_TESTS.create_empty_world(), test_utils.empty_world),
+    assert.deepEqual(RUR.create_empty_world(), test_utils.empty_world, "Empty world explicitly created.");
+    assert.ok(RUR.object_identical(RUR.create_empty_world(), test_utils.empty_world),
         "Empty world explictly created; compare with my own object-comparison method." );
 });
 QUnit.test("import_world", function(assert) {

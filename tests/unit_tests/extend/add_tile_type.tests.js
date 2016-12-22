@@ -78,6 +78,6 @@ test('RUR.enhance.new_tile_type: error raised if name attribute missing.'), func
         assert.equal(e.message, message, "error message ok");
         assert.equal(e.reeborg_shouts, message, "reeborg_shouts ok");
         assert.equal(e.name, "ReeborgError", "error name ok");
-        assert.end();
     }
+    assert.end();
 }

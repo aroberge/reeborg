@@ -39,14 +39,18 @@ RUR.set_nb_object_at_position = function (specific_object, x, y, nb){
     "use strict";
     var coords, cw, my_name;
     specific_object = RUR.translate_to_english(specific_object);
-    my_name = "RUR.set_nb_object_at_position(specific_object, x, y, nb): ";
+    my_name = "RUR.set_nb_object_at_position(specific_object, x, y, nb)";
     if (RUR.KNOWN_TILES.indexOf(specific_object) == -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: specific_object}));
     }
-    RUR._ensure_positive_integer(x, my_name+"x");
-    RUR._ensure_positive_integer(y, my_name+"y");
-    RUR._ensure_positive_integer_or_zero(nb, my_name+"nb");
-
+    if (!RUR.utils.is_valid_position(x, y)) {
+        throw new RUR.ReeborgError(
+            RUR.translate("Invalid position in {fn_name}").supplant({fn_name: my_name}));
+    }
+    if (!(RUR.utils.is_integer(nb) && nb>=0)) {
+        throw new RUR.ReeborgError(
+            RUR.translate("Invalid number of objects in {fn_name}").supplant({fn_name: my_name}));
+    }
 
     coords = x + "," + y;
     cw = get_world();

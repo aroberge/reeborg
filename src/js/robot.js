@@ -2,7 +2,7 @@
 require("./rur.js");
 require("./translator.js");
 require("./exceptions.js");
-var filterInt = require("./utils/validator.js").filterInt;
+require("./utils/validator.js");
 
 RUR.robot = {};
 
@@ -15,7 +15,7 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     robot.y = y || 1;
     robot.objects = {};
     if (tokens !== undefined){
-        tokens = filterInt(tokens);
+        tokens = RUR.utils.filterInt(tokens);
         if (tokens > 0) {
             robot.objects.token = tokens;
         }

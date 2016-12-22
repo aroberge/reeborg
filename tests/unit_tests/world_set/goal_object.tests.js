@@ -16,7 +16,7 @@ function test(test_name, fn) {
 
 test('adding known goal object', function (assert) {
     require("../../../src/js/world_set/goal_object.js");
-    RUR.CURRENT_WORLD = {};
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.set_nb_goal_object_at_position('a', 2, 3, 4);
@@ -27,7 +27,7 @@ test('adding known goal object', function (assert) {
 test('adding and removing known goal object', function (assert) {
     var identical = require("../../../src/js/utils/identical.js").identical;
     require("../../../src/js/world_set/goal_object.js");
-    RUR.CURRENT_WORLD = {};
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.set_nb_goal_object_at_position('a', 2, 3, 4);
@@ -39,7 +39,9 @@ test('adding and removing known goal object', function (assert) {
 test('adding two and removing one known goal objects', function (assert) {
     var identical = require("../../../src/js/utils/identical.js").identical;
     require("../../../src/js/world_set/goal_object.js");
-    RUR.CURRENT_WORLD = {};
+    // silencer.reset();
+    // silencer.disable('log');
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
     RUR.KNOWN_TILES = ['a', 'b'];
     RUR.untranslated['a'] = true;
     RUR.untranslated['b'] = true;
@@ -55,6 +57,7 @@ test('adding unknown goal object', function (assert) {
     silencer.reset();
     silencer.disable('warn');
     require("../../../src/js/world_set/goal_object.js");
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
     RUR.KNOWN_TILES = [];
     RUR.untranslated['a'] = false;
     RUR.translation = {};
@@ -64,15 +67,15 @@ test('adding unknown goal object', function (assert) {
         assert.equal(e.message, "Unknown object", "error message");
         assert.equal(e.reeborg_shouts, "Unknown object", "reeborg_shouts");
         assert.equal(e.name, "ReeborgError", "error name ok");
-        assert.end();
     }
+    assert.end();
 });
 
 test('invalid x value', function (assert) {
-    var mess = "RUR.set_nb_goal_object_at_position(specific_object, x, y, nb): x" +
-                " must be a positive integer.";
+    var mess = "Invalid position in " +
+                "RUR.set_nb_goal_object_at_position(specific_object, x, y, nb)";
     require("../../../src/js/world_set/goal_object.js");
-    RUR.CURRENT_WORLD = {};
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.record_frame = function () {};
@@ -82,15 +85,15 @@ test('invalid x value', function (assert) {
         assert.equal(e.message, mess, "error message ok");
         assert.equal(e.reeborg_shouts, mess, "reeborg_shouts ok");
         assert.equal(e.name, "ReeborgError", "error name ok");
-        assert.end();
     }
+    assert.end();
 });
 
 test('invalid y value', function (assert) {
-    var mess = "RUR.set_nb_goal_object_at_position(specific_object, x, y, nb): y" +
-                " must be a positive integer.";
+    var mess = "Invalid position in " +
+                "RUR.set_nb_goal_object_at_position(specific_object, x, y, nb)";
     require("../../../src/js/world_set/goal_object.js");
-    RUR.CURRENT_WORLD = {};
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.record_frame = function () {};
@@ -100,15 +103,15 @@ test('invalid y value', function (assert) {
         assert.equal(e.message, mess, "error message ok");
         assert.equal(e.reeborg_shouts, mess, "reeborg_shouts ok");
         assert.equal(e.name, "ReeborgError", "error name ok");
-        assert.end();
     }
+    assert.end();
 });
 
 test('invalid nb value', function (assert) {
-    var mess = "RUR.set_nb_goal_object_at_position(specific_object, x, y, nb): nb" +
-                " must be a positive integer or zero.";
+    var mess = "Invalid number of objects in " +
+                "RUR.set_nb_goal_object_at_position(specific_object, x, y, nb)";
     require("../../../src/js/world_set/goal_object.js");
-    RUR.CURRENT_WORLD = {};
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.record_frame = function () {};
@@ -118,6 +121,6 @@ test('invalid nb value', function (assert) {
         assert.equal(e.message, mess, "error message ok");
         assert.equal(e.reeborg_shouts, mess, "reeborg_shouts ok");
         assert.equal(e.name, "ReeborgError", "error name ok");
-        assert.end();
     }
+    assert.end();
 });

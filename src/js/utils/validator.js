@@ -1,25 +1,20 @@
 
 require("./../rur.js");
 require("./../exceptions.js");
+require("./utils_namespace.js");
 
-RUR._ensure_positive_integer = function(n, info){
-    "use strict";
-    if (typeof n==='number' && (n%1)===0 && n>0) {
-        return;
-    }
-    throw new RUR.ReeborgError(info + " must be a positive integer.");
+_is_integer = function(n) {
+    return typeof n==='number' && (n%1)===0;
 };
 
-RUR._ensure_positive_integer_or_zero = function(n, info){
-    "use strict";
-    if (typeof n==='number' && (n%1)===0 && n>=0) {
-        return;
-    }
-    throw new RUR.ReeborgError(info + " must be a positive integer or zero.");
+RUR.utils.is_integer = _is_integer;
+
+
+RUR.utils.is_valid_position = function(x, y) {
+    return (_is_integer(x) && _is_integer(y) && 
+           x >= 1 && x <= RUR.CURRENT_WORLD.cols &&
+           y >= 1 && y <= RUR.CURRENT_WORLD.rows);
 };
-
-
-
 
 
 /* filterInt taken from
@@ -31,8 +26,9 @@ Infinity as a valid integer.
 See tests/unit_tests/utils/filterint.tests.js for tests illustrating sample
 uses.
 */
-exports.filterInt = function (value) {
-  if(/^(\-|\+)?([0-9]+|Infinity)$/.test(value))
+RUR.utils.filterInt = function (value) {
+  if(/^(\-|\+)?([0-9]+|Infinity)$/.test(value)){
     return Number(value);
+  }
   return undefined;
 };

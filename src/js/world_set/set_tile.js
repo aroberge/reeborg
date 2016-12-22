@@ -28,11 +28,11 @@ var get_world = require("./../world_get/world.js").get_world;
 
 RUR.set_tile_at_position = function (tile, x, y) {
     "use strict";
-    var world = get_world();
-    my_name = "RUR.set_tile_at_position(tile, x, y): ";
+    var world = get_world(), info;
+    info = "RUR.set_tile_at_position(tile, x, y): ";
     RUR.utils.ensure_key_exists(world, "tiles");
-    RUR._ensure_positive_integer(x, my_name+"x");
-    RUR._ensure_positive_integer(y, my_name+"y");
+    RUR.utils.require_positive_integer(x, my_name+"x");
+    RUR.utils.require_positive_integer(y, my_name+"y");
     world.tiles[x + "," + y] = tile;
     RUR.record_frame("debug", "set_tile_at_position");
 };

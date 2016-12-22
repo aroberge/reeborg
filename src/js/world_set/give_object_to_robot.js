@@ -1,7 +1,7 @@
 require("./../exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
-var filterInt = require("./../utils/validator.js").filterInt;
+require("./../utils/validator.js");
 var get_world = require("./../world_get/world.js").get_world;
 
 /** @function give_object_to_robot
@@ -38,7 +38,7 @@ RUR.give_object_to_robot = function (obj, nb, robot) {
     }
     RUR.utils.ensure_key_exists(robot, "objects");
 
-    _nb = filterInt(nb);
+    _nb = RUR.utils.filterInt(nb);
     if (_nb >= 0) {
         if (_nb !== 0) {
             robot.objects[obj] = _nb;

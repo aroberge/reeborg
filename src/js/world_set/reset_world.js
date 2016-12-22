@@ -1,4 +1,3 @@
-require("./../world/create_empty.js");
 require("./../visible_robot.js");
 require("./../visible_world.js");
 var clone_world = require("./../world/clone_world.js").clone_world;
