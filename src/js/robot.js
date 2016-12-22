@@ -2,7 +2,7 @@
 require("./rur.js");
 require("./translator.js");
 require("./exceptions.js");
-var filterInt = require("./utils/filterint.js").filterInt;
+var filterInt = require("./utils/validator.js").filterInt;
 
 RUR.robot = {};
 

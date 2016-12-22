@@ -31,7 +31,7 @@ var dialog_set_background_image = require("./dialogs/set_background_image.js").d
 var dialog_select_colour = require("./dialogs/select_colour.js").dialog_select_colour;
 
 
-var filterInt = require("./utils/filterint.js").filterInt;
+var filterInt = require("./utils/validator.js").filterInt;
 var identical = require("./utils/identical.js").identical;
 
 RUR.we = {};   // we == World Editor

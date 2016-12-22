@@ -7,22 +7,15 @@
 *
 */
 
-var tape = require('tape');
+var tape_test = require('./../test_globals.js').tape_test;
 var mock = require('mock-require');
 
+function test(test_name, fn) {
+    tape_test("[get/set] wall.js: ", test_name, fn);
+}
 
-//var silencer =  require('silencer');
-global.window = {};
-global.RUR = {};
 RUR.record_frame = function () {};
 mock("../../../src/js/recorder/record_frame.js", {});
-
-global.Image = function () {
-    return {};
-};
-function test(info, fn) {
-    tape("Wall.js: "+info, fn);
-}
 
 
 test('list empty walls', function (assert) {    

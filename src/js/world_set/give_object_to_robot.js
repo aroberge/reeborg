@@ -1,7 +1,7 @@
 require("./../exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
-var filterInt = require("./../utils/filterint.js").filterInt;
+var filterInt = require("./../utils/validator.js").filterInt;
 var get_world = require("./../world_get/world.js").get_world;
 
 /** @function give_object_to_robot

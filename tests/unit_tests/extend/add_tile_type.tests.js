@@ -1,11 +1,10 @@
-window = global;
-var test = require('tape');
+
+var tape_test = require('./../test_globals.js').tape_test;
 var silencer =  require('silencer');
-global.window = {};
-global.RUR = {};
-global.Image = function () {
-    return {};
-};
+
+function test(test_name, fn) {
+    tape_test("add_tile_type.js: ", test_name, fn);
+}
 
 
 function set_defaults() {

@@ -1,7 +1,7 @@
 require("./../exceptions.js");
 require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
-require("./../utils/ensure_integer.js");
+require("./../utils/validator.js");
 require("./../translator.js");
 
 /** @function set_nb_goal_object_at_position

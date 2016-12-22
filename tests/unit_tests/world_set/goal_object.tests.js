@@ -6,15 +6,12 @@
 * {@link RUR#set_nb_goal_object_at_position}.
 *
 */
-var tape = require('tape');
+
+var tape_test = require('./../test_globals.js').tape_test;
 var silencer =  require('silencer');
-global.window = {};
-global.RUR = {};
-global.Image = function () {
-    return {};
-};
-function test(info, fn) {
-    tape("Goal_object.js: "+info, fn);
+
+function test(test_name, fn) {
+    tape_test("goal_object.js: ", test_name, fn);
 }
 
 test('adding known goal object', function (assert) {

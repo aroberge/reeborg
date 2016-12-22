@@ -1,12 +1,8 @@
-var tape = require('tape');
+var tape_test = require('./../test_globals.js').tape_test;
 var silencer =  require('silencer');
-global.window = {};
-global.RUR = {};
-global.Image = function () {
-    return {};
-};
-function test(info, fn) {
-    tape("Decorative_object.js: "+info, fn);
+
+function test(test_name, fn) {
+    tape_test("decorative_object.js: ", test_name, fn);
 }
 
 test('adding known decorative object', function (assert) {

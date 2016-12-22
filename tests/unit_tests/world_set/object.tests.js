@@ -7,21 +7,16 @@
 *
 */
 
-var tape = require('tape');
+var tape_test = require('./../test_globals.js').tape_test;
 var silencer =  require('silencer');
 var mock = require('mock-require');
 
-global.window = {};
-global.RUR = {};
-global.Image = function () {
-    return {};
-};
+function test(test_name, fn) {
+    tape_test("object.js: ", test_name, fn);
+}
+
 RUR.record_frame = function () {};
 mock("../../../src/js/recorder/record_frame.js", {});
-
-function test(info, fn) {
-    tape("Object.js: "+info, fn);
-}
 
 test('adding known object', function (assert) {    
     require("../../../src/js/world_set/object.js");

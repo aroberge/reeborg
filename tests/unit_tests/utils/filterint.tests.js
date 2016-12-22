@@ -1,8 +1,8 @@
 
-var test = require('tape');
-var filterInt = require("../../../src/js/utils/filterint.js").filterInt;
+var test = require('./../test_globals.js').tape_test;
 
-test('Testing filterInt()', function (assert) {
+test('validator.js: ', 'Testing filterInt()', function (assert) {
+      var filterInt = require("../../../src/js/utils/validator.js").filterInt;
       assert.equal(filterInt(42), 42, 'pure number');
       assert.equal(filterInt('42'), 42, 'string rep');
       assert.equal(filterInt('-42'), -42, '-42');

@@ -1,13 +1,8 @@
-var tape = require('tape');
+var tape_test = require('./../test_globals.js').tape_test;
 var silencer =  require('silencer');
-global.window = {};
-global.RUR = {};
-global.Image = function () {
-    return {};
-};
 
-function test(info, fn) {
-    tape("Obstacle.js: "+info, fn)
+function test(test_name, fn) {
+    tape_test("obstacle.js: ", test_name, fn);
 }
 
 test('adding known object', function (assert) {
