@@ -36,7 +36,7 @@ RUR.give_object_to_robot = function (obj, nb, robot) {
     if (robot === undefined){
         robot = world.robots[0];
     }
-    RUR._ensure_key_exists(robot, "objects");
+    RUR.utils.ensure_key_exists(robot, "objects");
 
     _nb = filterInt(nb);
     if (_nb >= 0) {

@@ -30,8 +30,8 @@ RUR.toggle_decorative_object_at_position = function (specific_object, x, y){
     }
     coords = x + "," + y;
     cw = get_world();
-    RUR._ensure_key_exists(cw, "decorative_objects");
-    RUR._ensure_key_exists(cw.decorative_objects, coords);
+    RUR.utils.ensure_key_exists(cw, "decorative_objects");
+    RUR.utils.ensure_key_exists(cw.decorative_objects, coords);
 
     if (cw.decorative_objects[coords][specific_object]) {
         delete cw.decorative_objects[coords][specific_object];

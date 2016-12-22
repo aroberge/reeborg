@@ -79,7 +79,7 @@ RUR.vis_world.draw_all = function () {
     RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     draw_grid_walls(RUR.BACKGROUND_CTX);
     if (get_world().background_image !== undefined) {
-        draw_background_image(RUR.BACKGROUND_IMAGE, 1, RUR.MAX_Y, RUR.BACKGROUND_CTX);
+        draw_background_image(RUR.BACKGROUND_IMAGE);
     }
     draw_coordinates(); // on BACKGROUND_CTX
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
@@ -503,20 +503,35 @@ draw_single_object = function (image, i, j, ctx) {
    }
 };
 
-draw_background_image = function (image, i, j, ctx) {
-    //like draw_single_object but we do not fix the size.
-    var thick=RUR.WALL_THICKNESS/2, size=RUR.WALL_LENGTH;
-    var x, y;
-    if (i > RUR.MAX_X || j > RUR.MAX_Y){
-        return;
+
+draw_background_image = function (image) {
+    // we draw the image so that it fills the entire world
+    var thick=RUR.WALL_THICKNESS/2, size=RUR.WALL_LENGTH,
+        image_width, image_height, world_width, world_height,
+        x, y, ctx=RUR.BACKGROUND_CTX;
+
+    world_width = RUR.MAX_X*size;  // space to
+    world_height = RUR.MAX_Y*size; // be filled
+
+    image_width = image.width;
+    image_height = image.height;
+
+    if (image_width > world_width) {
+        image_width = world_width;  // crop
     }
-    x = i*size + thick;
-    y = RUR.HEIGHT - (j+1)*size + thick;
+    if (image_height > world_height) {
+        image_height = world_height;
+    }
+
+    y = RUR.HEIGHT - (RUR.MAX_Y+1)*size + thick; // location of top ...
+    x = size + thick;                            // ... left corner
+    
     try{
-       ctx.drawImage(image, x, y);
-   } catch (e) {
-       console.log("problem in draw_background_image", image, ctx, e);
-   }
+        ctx.drawImage(image, 0, 0, image_width, image_height, 
+                             x, y, world_width, world_height);
+    } catch (e) {
+        console.log("problem in draw_background_image", image, ctx, e);
+    }
 };
 
 

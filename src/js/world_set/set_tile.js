@@ -30,7 +30,7 @@ RUR.set_tile_at_position = function (tile, x, y) {
     "use strict";
     var world = get_world();
     my_name = "RUR.set_tile_at_position(tile, x, y): ";
-    RUR._ensure_key_exists(world, "tiles");
+    RUR.utils.ensure_key_exists(world, "tiles");
     RUR._ensure_positive_integer(x, my_name+"x");
     RUR._ensure_positive_integer(y, my_name+"y");
     world.tiles[x + "," + y] = tile;

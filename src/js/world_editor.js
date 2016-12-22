@@ -410,7 +410,7 @@ RUR.we.toggle_wall = function (x, y, orientation) {
     var coords, index;
     coords = x + "," + y;
 
-    RUR._ensure_key_exists(RUR.CURRENT_WORLD, "walls");
+    RUR.utils.ensure_key_exists(RUR.CURRENT_WORLD, "walls");
     if (RUR.CURRENT_WORLD.walls[coords] === undefined){
         RUR.CURRENT_WORLD.walls[coords] = [orientation];
     } else {
@@ -445,8 +445,8 @@ RUR.we.toggle_goal_wall = function () {
     orientation = position[2];
     coords = x + "," + y;
 
-    RUR._ensure_key_exists(RUR.CURRENT_WORLD, "goal");
-    RUR._ensure_key_exists(RUR.CURRENT_WORLD.goal, "walls");
+    RUR.utils.ensure_key_exists(RUR.CURRENT_WORLD, "goal");
+    RUR.utils.ensure_key_exists(RUR.CURRENT_WORLD.goal, "walls");
     if (RUR.CURRENT_WORLD.goal.walls[coords] === undefined){
         RUR.CURRENT_WORLD.goal.walls[coords] = [orientation];
     } else {
@@ -536,15 +536,15 @@ RUR.we.set_goal_position = function (home){
 
     $("#cmd-result").html(RUR.translate("Click on world to set home position for robot.")).effect("highlight", {color: "gold"}, 1500);
 
-    RUR._ensure_key_exists(world, "goal");
+    RUR.utils.ensure_key_exists(world, "goal");
     goal = world.goal;
 
     if (goal.possible_positions === undefined) {
-        RUR._ensure_key_exists(goal, "possible_positions");
+        RUR.utils.ensure_key_exists(goal, "possible_positions");
         if (goal.position !== undefined) {
             goal.possible_positions = [[goal.position.x, goal.position.y]];
         } else {
-            RUR._ensure_key_exists(goal, "position");
+            RUR.utils.ensure_key_exists(goal, "position");
         }
     }
 
@@ -601,7 +601,7 @@ RUR.we.toggle_tile = function (tile){
     y = position[1];
     coords = x + "," + y;
 
-    RUR._ensure_key_exists(RUR.CURRENT_WORLD, "tiles");
+    RUR.utils.ensure_key_exists(RUR.CURRENT_WORLD, "tiles");
     if (RUR.CURRENT_WORLD.tiles[coords] === undefined ||
         RUR.CURRENT_WORLD.tiles[coords] != tile){
         RUR.CURRENT_WORLD.tiles[coords] = tile;
@@ -621,7 +621,7 @@ RUR.we.fill_with_tile = function (tile) {
         return;
     }
 
-    RUR._ensure_key_exists(RUR.CURRENT_WORLD, "tiles");
+    RUR.utils.ensure_key_exists(RUR.CURRENT_WORLD, "tiles");
     for (x = 1; x <= RUR.MAX_X; x++) {
         for (y = 1; y <= RUR.MAX_Y; y++) {
             coords = x + "," + y;

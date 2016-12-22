@@ -29,8 +29,8 @@ RUR.toggle_obstacle_at_position = function (specific_object, x, y){
     }
     coords = x + "," + y;
     cw = get_world();
-    RUR._ensure_key_exists(cw, "obstacles");
-    RUR._ensure_key_exists(cw.obstacles, coords);
+    RUR.utils.ensure_key_exists(cw, "obstacles");
+    RUR.utils.ensure_key_exists(cw.obstacles, coords);
 
     if (cw.obstacles[coords][specific_object]) {
         delete cw.obstacles[coords][specific_object];
@@ -70,8 +70,8 @@ RUR.add_obstacle_at_position = function (specific_object, x, y){
     }
     coords = x + "," + y;
     cw = get_world();
-    RUR._ensure_key_exists(cw, "obstacles");
-    RUR._ensure_key_exists(cw.obstacles, coords);
+    RUR.utils.ensure_key_exists(cw, "obstacles");
+    RUR.utils.ensure_key_exists(cw.obstacles, coords);
 
     if (cw.obstacles[coords][specific_object]) {
         RUR.output.print_html("<h2>Warning</h2><p>" +
@@ -107,8 +107,8 @@ RUR.remove_obstacle_at_position = function (specific_object, x, y){
     }
     coords = x + "," + y;
     cw = get_world();
-    RUR._ensure_key_exists(cw, "obstacles");
-    RUR._ensure_key_exists(cw.obstacles, coords);
+    RUR.utils.ensure_key_exists(cw, "obstacles");
+    RUR.utils.ensure_key_exists(cw.obstacles, coords);
 
     if (cw.obstacles[coords][specific_object]) {
         delete cw.obstacles[coords][specific_object];

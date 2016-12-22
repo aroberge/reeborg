@@ -43,11 +43,11 @@ RUR.set.add_wall_at = function(x, y, orientation, goal) {
     }
     orientation = orientation.toLowerCase();
     if (goal) {
-        RUR._ensure_key_exists(world, goal);
-        RUR._ensure_key_exists(world.goal, "walls");
+        RUR.utils.ensure_key_exists(world, goal);
+        RUR.utils.ensure_key_exists(world.goal, "walls");
         add_wall_at(x, y, orientation, world.goal.walls);
     } else {
-        RUR._ensure_key_exists(world, "walls");
+        RUR.utils.ensure_key_exists(world, "walls");
         add_wall_at(x, y, orientation, world.walls);
     }   
     RUR.record_frame();   
