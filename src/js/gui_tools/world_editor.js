@@ -24,10 +24,8 @@ require("./../world_set/decorative_object.js");
 require("./../world_set/obstacle.js");
 require("./../world_set/give_object_to_robot.js");
 
-//new - unused
 
-require("./../world_set/wall.js");
-require("./../world_get/wall.js");
+require("./../world_api/wall.js"); //new - unused for now
 
 
 var edit_robot_menu = require("./../ui/edit_robot_menu.js");
