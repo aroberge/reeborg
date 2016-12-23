@@ -15,7 +15,7 @@ require("./custom_world_select.js");
 require("./file_io.js");
 require("./output.js");
 require("./visible_robot.js");
-require("./world.js");
+require("./editors/update.js");
 require("./world_set.js");
 require("./world_set/set_tile.js");
 var get_world = require("./world_get/world.js").get_world;

@@ -1,7 +1,7 @@
 
 require("./output.js");
 require("./recorder.js");
-require("./world.js");
+require("./editors/update.js");
 require("./world/import_world.js");
 require("./world_select.js");
 require("./permalink.js");
@@ -103,7 +103,7 @@ RUR.file_io.load_world_file = function (url, shortname) {
             RUR.file_io.status = "no link";
             return;
         }
-        RUR.world.import_world(data);
+        RUR.import_world(data);
         RUR.file_io.status = "success";
         RUR.frames = [];
     } else {
@@ -117,7 +117,7 @@ RUR.file_io.load_world_file = function (url, shortname) {
                     RUR.permalink.update(data, shortname);
                     RUR.reload();
                 } else {
-                    RUR.world.import_world(data);
+                    RUR.import_world(data);
                 }
                 RUR.file_io.status = "success";
             }

@@ -3,16 +3,16 @@ require("./../rur.js");
 require("./../robot.js");
 require("./../visible_world.js");
 require("./../exceptions.js");
-require("./../create_editors.js");
+require("./../editors/create.js");
 var images_init = require("./../world_enhance/animated_images.js").images_init;
 var edit_robot_menu = require("./../ui/edit_robot_menu.js").edit_robot_menu;
 var clone_world = require("./clone_world.js").clone_world;
 
-RUR.world.import_world = function (json_string) {
+RUR.import_world = function (json_string) {
     "use strict";
     var body, editor_content, library_content;
     if (json_string === undefined){
-        console.log("Problem: no argument passed to RUR.world.import_world");
+        console.log("Problem: no argument passed to RUR.import_world");
         return {};
     }
     images_init();
@@ -78,7 +78,7 @@ RUR.world.import_world = function (json_string) {
     RUR.CURRENT_WORLD.cols = RUR.CURRENT_WORLD.cols || RUR.MAX_X_DEFAULT;
     RUR.vis_world.compute_world_geometry(RUR.CURRENT_WORLD.cols, RUR.CURRENT_WORLD.rows);
 
-    RUR.world.update_editors(RUR.CURRENT_WORLD);
+    RUR.update_editors(RUR.CURRENT_WORLD);
 
     if (RUR.state.editing_world) {
         edit_robot_menu.toggle();

@@ -1,37 +1,44 @@
-
-require("./translator.js");
-require("./rur.js");
-require("./default_tiles/tiles.js");
-
-require("./robot.js");
-require("./world.js");
-require("./visible_world.js");
-require("./exceptions.js");
-require("./world_get.js");
-require("./world_set.js");
-require("./dialogs/create.js");
-require("./listeners/canvas.js");
-require("./create_editors.js");
-require("./utils/supplant.js");
-require("./utils/key_exist.js");
-
-require("./world_set/object.js");
-require("./world_set/goal_object.js");
-require("./world_set/add_robot.js");
-require("./world_set/decorative_object.js");
-require("./world_set/obstacle.js");
-require("./world_set/give_object_to_robot.js");
+/* Menu driven world editor */
 
 
-var edit_robot_menu = require("./ui/edit_robot_menu.js");
-var dialog_add_object = require("./dialogs/add_object.js").dialog_add_object;
-var dialog_give_object = require("./dialogs/give_object.js").dialog_give_object;
-var dialog_goal_object = require("./dialogs/goal_object.js").dialog_goal_object;
-var dialog_set_background_image = require("./dialogs/set_background_image.js").dialog_set_background_image;
-var dialog_select_colour = require("./dialogs/select_colour.js").dialog_select_colour;
+require("./../translator.js");
+require("./../rur.js");
+require("./../default_tiles/tiles.js");
+
+require("./../robot.js");
+require("./../editors/update.js");
+require("./../visible_world.js");
+require("./../exceptions.js");
+require("./../world_get.js");
+require("./../world_set.js");
+require("./../dialogs/create.js");
+require("./../listeners/canvas.js");
+require("./../editors/create.js");
+require("./../utils/supplant.js");
+require("./../utils/key_exist.js");
+
+require("./../world_set/object.js");
+require("./../world_set/goal_object.js");
+require("./../world_set/add_robot.js");
+require("./../world_set/decorative_object.js");
+require("./../world_set/obstacle.js");
+require("./../world_set/give_object_to_robot.js");
+
+//new - unused
+
+require("./../world_set/wall.js");
+require("./../world_get/wall.js");
 
 
-var identical = require("./utils/identical.js").identical;
+var edit_robot_menu = require("./../ui/edit_robot_menu.js");
+var dialog_add_object = require("./../dialogs/add_object.js").dialog_add_object;
+var dialog_give_object = require("./../dialogs/give_object.js").dialog_give_object;
+var dialog_goal_object = require("./../dialogs/goal_object.js").dialog_goal_object;
+var dialog_set_background_image = require("./../dialogs/set_background_image.js").dialog_set_background_image;
+var dialog_select_colour = require("./../dialogs/select_colour.js").dialog_select_colour;
+
+
+var identical = require("./../utils/identical.js").identical;
 
 RUR.we = {};   // we == World Editor
 

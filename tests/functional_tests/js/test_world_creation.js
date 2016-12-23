@@ -10,10 +10,10 @@ QUnit.test( "Empty worlds", function(assert) {
         "Empty world explictly created; compare with my own object-comparison method." );
 });
 QUnit.test("import_world", function(assert) {
-    RUR.world.import_world(test_utils.empty_world);
+    RUR.import_world(test_utils.empty_world);
     assert.deepEqual(RUR.CURRENT_WORLD, test_utils.empty_world, "Empty world created by importing empty world as object." );
     //
-    RUR.world.import_world(JSON.stringify(test_utils.empty_world));
+    RUR.import_world(JSON.stringify(test_utils.empty_world));
     assert.deepEqual(RUR.CURRENT_WORLD, test_utils.empty_world, "Empty world created by importing empty world as string." );
 });
 

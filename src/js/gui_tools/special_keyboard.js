@@ -1,11 +1,11 @@
 /*  Handler of special on-screen keyboard
 */
 
-require("./rur.js");
-require("./dialogs/create.js");
-require("./listeners/editors_tabs.js");
-require("./translator.js");
-var msg = require("./../lang/msg.js");
+require("./../rur.js");
+require("./../dialogs/create.js");
+require("./../listeners/editors_tabs.js");
+require("./../translator.js");
+var msg = require("./../../lang/msg.js");
 
 RUR.kbd = {};
 

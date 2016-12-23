@@ -1,5 +1,5 @@
 require("./../rur.js");
-require("./../create_editors.js");
+require("./../editors/create.js");
 
 exports.reset = reset = function() {
     RUR.nb_frames = 0;

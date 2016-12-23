@@ -2,9 +2,9 @@
 */
 
 require("./../translator.js");
-require("./../world.js");
+require("./../editors/update.js");
 require("./../rur.js");
-require("./../create_editors.js");
+require("./../editors/create.js");
 require("./../blockly.js");
 
 var export_world = require("./../world/export_world.js").export_world;
@@ -46,7 +46,7 @@ $("#load-world").on("click", function(evt) {
         var reader = new FileReader();
         reader.onload = function(e) {
             try {
-                RUR.world.import_world(reader.result);
+                RUR.import_world(reader.result);
                 RUR.storage.save_world(file.name);
             } catch (e) {  // jshint ignore:line
                 console.log("invalid world", e);
@@ -110,7 +110,7 @@ var save_world_form = document.getElementById("save-world-form");
 save_world_form.addEventListener("submit", function(event) {
     event.preventDefault();
     var world_filename = document.getElementById("world-filename");
-    RUR.CURRENT_WORLD = RUR.world.update_from_editors(RUR.CURRENT_WORLD);
+    RUR.CURRENT_WORLD = RUR.update_world_from_editors(RUR.CURRENT_WORLD);
     var blob = new Blob([export_world()], {
         type: "text/javascript;charset=utf-8"
     });

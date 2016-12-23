@@ -1,9 +1,7 @@
 
-require("./rur.js");
-require("./create_editors.js");
-var msg = require("./../lang/msg.js");
-
-RUR.world = {};
+require("./../rur.js");
+require("./create.js");
+var msg = require("./../../lang/msg.js");
 
 function _update_from_editor(world, name, _editor) {
     if ($("#add-"+name+"-to-world-btn").hasClass("blue-gradient")) {
@@ -13,7 +11,7 @@ function _update_from_editor(world, name, _editor) {
     }
 }
 
-RUR.world.update_from_editors = function (world) {
+RUR.update_world_from_editors = function (world) {
     _update_from_editor(world, "blockly",RUR.blockly);
     _update_from_editor(world, "editor", editor);
     _update_from_editor(world, "library", library);
@@ -70,7 +68,7 @@ function _update_world_editor (world, name, ed) {
     }
 }
 
-RUR.world.update_editors = function (world) {
+RUR.update_editors = function (world) {
     _update_user_editor(world, "blockly", RUR.blockly);
     _update_user_editor(world, "editor", editor);
     _update_user_editor(world, "library", library);

@@ -43,7 +43,7 @@ RUR.set.add_wall_at = function(x, y, orientation, goal) {
     }
     orientation = orientation.toLowerCase();
     if (goal) {
-        RUR.utils.ensure_key_exists(world, goal);
+        RUR.utils.ensure_key_exists(world, "goal");
         RUR.utils.ensure_key_exists(world.goal, "walls");
         add_wall_at(x, y, orientation, world.goal.walls);
     } else {
@@ -73,12 +73,12 @@ RUR.set.add_wall_at = function(x, y, orientation, goal) {
  *
  */
 RUR.set.remove_wall_from = function(x, y, orientation, goal) {
-    var world = get_world();
     if (!RUR.get.is_wall_at(x, y, orientation, goal)){
         throw new RUR.ReeborgError("There is no wall to remove.");
     }
     orientation = orientation.toLowerCase();
-    remove_wall_from(x, y, orientation, goal);      
+    remove_wall_from(x, y, orientation, goal);   
+    RUR.record_frame();   
 };
 
 
@@ -150,8 +150,7 @@ function remove_wall_from(x, y, orientation, goal) {
 
 
 function __remove_wall_from(coords, orientation, goal) {
-    var index, world=get_world();
-
+    var index, world = get_world();
     if (goal) {
         index = world.goal.walls[coords].indexOf(orientation);
         world.goal.walls[coords].splice(index, 1);

@@ -12,7 +12,7 @@ require("./world/import_world.js");
 require("./storage.js");
 
 require("./permalink.js");
-require("./create_editors.js");
+require("./editors/create.js");
 
 brython({debug:1, pythonpath:[RUR._BASE_URL + '/src/python']});
 if (__BRYTHON__.__MAGIC__ != "3.2.7") {

@@ -2,7 +2,7 @@
 require("./utils/cors.js");
 
 require("./commands.js"); // to control Reeborg's actions
-require("./world_editor.js"); // the world editor is not required by other modules
+require("./gui_tools/world_editor.js"); // the world editor is not required by other modules
 require("./start_session.js");
 
 // TODO: animated robots/ decorative objects, objects

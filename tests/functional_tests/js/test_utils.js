@@ -31,7 +31,7 @@ test_utils.load_world_file = function (url) {
             throw new Error("Problem in _load_world_file");
         },
         success: function(data){
-            RUR.world.import_world(data);
+            RUR.import_world(data);
         }
     });
 };

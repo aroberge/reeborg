@@ -50,7 +50,7 @@ dialog.find("form").on("submit", function( event ) {
 });
 
 save_world = function () {
-    RUR.CURRENT_WORLD = RUR.world.update_from_editors(RUR.CURRENT_WORLD);
+    RUR.CURRENT_WORLD = RUR.update_world_from_editors(RUR.CURRENT_WORLD);
     RUR.storage._save_world($("#world-name").val().trim());
     RUR._SAVED_WORLD = clone_world();
     dialog.dialog("close");

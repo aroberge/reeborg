@@ -33,8 +33,12 @@ that lists the walls, and must be handled separately.
  *
  */
 RUR.get.list_walls_at_position = function(x, y, goal) {
+    var world = get_world();
     if (goal) {
-        return list_walls_at(x, y, get_world().goal.walls);
+        if (world.goal === undefined || world.goal.walls === undefined) {
+            return [];
+        }
+        return list_walls_at(x, y, world.goal.walls);
     } else {
         return list_walls_at(x, y, get_world().walls);
     }    
@@ -60,11 +64,15 @@ RUR.get.list_walls_at_position = function(x, y, goal) {
  *
  */
 RUR.get.is_wall_at = function(x, y, orientation, goal) {
+    var world = get_world();
     orientation = orientation.toLowerCase();
     if (goal) {
-        return is_wall_at(x, y, orientation, get_world().goal.walls);
+        if (world.goal === undefined || world.goal.walls === undefined) {
+            return false;
+        }
+        return is_wall_at(x, y, orientation, world.goal.walls);
     } else {
-        return is_wall_at(x, y, orientation, get_world().walls);
+        return is_wall_at(x, y, orientation, world.walls);
     }      
 };
 

@@ -14,7 +14,14 @@ RUR.record_frame = function (name, obj) {
     /* There are a number of conditions that would prevent the recording
        of a frame; they are as follows. */
 
-    if (RUR.state.do_not_record || RUR.state.prevent_playback) {
+// TODO: document a test that would fail if we were to remove the condition
+// name!="error" below -- this addition was done by 
+// 1. turning off recording
+// 2. doing stuff ... including something that should have raised an error
+// 3. resuming recording.
+// The program stopped, but no error was shown.
+
+    if ((RUR.state.do_not_record || RUR.state.prevent_playback) && name != "error") {
         // Prevent sneaky attempt to safely move on otherwise fatal tile
         frame.world = clone_world();
         check_robots_on_tiles(frame);
