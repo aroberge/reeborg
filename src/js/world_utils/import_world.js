@@ -2,7 +2,7 @@ require("./../translator.js");
 require("./../rur.js");
 require("./../robot.js");
 require("./../visible_world.js");
-require("./../exceptions.js");
+require("./../programming_ui/exceptions.js");
 require("./../editors/create.js");
 require("./create_empty_world.js");
 var images_init = require("./../world_enhance/animated_images.js").images_init;

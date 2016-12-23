@@ -1,6 +1,6 @@
 /* jshint -W069 */
-require("./rur.js");
-require("./translator.js");
+require("./../rur.js");
+require("./../translator.js");
 
 RUR.blockly = {};
 RUR.color_basic = 120;

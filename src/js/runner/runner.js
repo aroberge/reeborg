@@ -1,14 +1,16 @@
 
-require("./rur.js");
-require("./translator.js");
-require("./visible_world.js");
-require("./editors/update.js");
-require("./blockly.js");
-require("./recorder.js");
+require("./../rur.js");
+require("./../translator.js");
+require("./../visible_world.js");
+require("./../editors/update.js");
+require("./../programming_ui/blockly.js");
+require("./../recorder.js");
 require("./world_init.js");
-require("./editors/create.js");
-require("./utils/supplant.js");
-var clone_world = require("./world_utils/clone_world.js").clone_world;
+require("./../editors/create.js");
+require("./../utils/supplant.js");
+var clone_world = require("./../world_utils/clone_world.js").clone_world;
+
+//TODO: refactor this
 
 RUR.runner = {};
 
@@ -21,8 +23,6 @@ RUR.runner = {};
    only need to show a frame already recorded, or if we need to evaluate the
    program.
  */
-
-RUR.state.code_evaluated = false;
 
 RUR.runner.run = function (playback) {
     "use strict";

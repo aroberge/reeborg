@@ -1,5 +1,5 @@
 
-require("./rur.js");
+require("./../rur.js");
 
 /* When loading a world from a url, Python names may not have been
    defined in the running environment. If that is the case,

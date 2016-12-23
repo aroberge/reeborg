@@ -1,7 +1,8 @@
-
-require("./translator.js");
+/* In this module, we make it possible for a user to define their
+   own world menu selection. We also include some default world menus. */
+require("./../translator.js");
 require("./world_select.js");
-require("./storage.js");
+require("./../storage.js");
 
 RUR.custom_world_select = {};
 

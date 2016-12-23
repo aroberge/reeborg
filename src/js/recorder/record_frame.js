@@ -1,7 +1,7 @@
 
 require("./../rur.js");
 require("./reset.js");
-require("./../exceptions.js");
+require("./../programming_ui/exceptions.js");
 require("./../world_get.js");
 require("./../playback/show_immediate.js");
 require("./../utils/supplant.js");

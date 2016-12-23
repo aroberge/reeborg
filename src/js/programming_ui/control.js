@@ -1,15 +1,15 @@
 
-require("./rur.js");
-require("./translator.js");
-require("./default_tiles/tiles.js");
-require("./output.js");
-require("./recorder/record_frame.js");
+require("./../rur.js");
+require("./../translator.js");
+require("./../default_tiles/tiles.js");
+require("./../output.js");
+require("./../recorder/record_frame.js");
 require("./exceptions.js");
-require("./world_get.js");
-require("./world_set.js");
-require("./utils/supplant.js");
-require("./utils/key_exist.js");
-var get_world = require("./world_get/world.js").get_world;
+require("./../world_get.js");
+require("./../world_set.js");
+require("./../utils/supplant.js");
+require("./../utils/key_exist.js");
+var get_world = require("./../world_get/world.js").get_world;
 
 RUR.control = {};
 

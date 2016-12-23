@@ -1,4 +1,4 @@
-require("./../exceptions.js");
+require("./../programming_ui/exceptions.js");
 require("./../translator.js");
 require("./../utils/key_exist.js");
 require("./../utils/supplant.js");

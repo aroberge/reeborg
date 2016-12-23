@@ -8,17 +8,19 @@ Convention: all "public" function names follow the pattern RUR._xyz_
             Order function names alphabetically (in English)
  */
 
-require("./rur.js");
-require("./translator.js");
+//TODO: review the dependencies
+
+require("./../rur.js");
+require("./../translator.js");
 require("./control.js");
-require("./custom_world_select.js");
-require("./file_io.js");
-require("./output.js");
-require("./visible_robot.js");
-require("./editors/update.js");
-require("./world_set.js");
-require("./world_set/set_tile.js");
-var get_world = require("./world_get/world.js").get_world;
+require("./../ui/custom_world_select.js");
+require("./../file_io.js");
+require("./../output.js");
+require("./../visible_robot.js");
+require("./../editors/update.js");
+require("./../world_set.js");
+require("./../world_set/set_tile.js");
+var get_world = require("./../world_get/world.js").get_world;
 
 RUR.inspect = function (obj){
     var props, result = "";

@@ -8,7 +8,7 @@ require("./../default_tiles/tiles.js");
 require("./../robot.js");
 require("./../editors/update.js");
 require("./../visible_world.js");
-require("./../exceptions.js");
+require("./../programming_ui/exceptions.js");
 require("./../world_get.js");
 require("./../world_set.js");
 require("./../dialogs/create.js");

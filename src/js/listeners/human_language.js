@@ -1,7 +1,8 @@
 require("./../rur.js");
-require("./../../lang/reeborg_en.js");
-require("./../../lang/reeborg_fr.js");
-require("./../custom_world_select.js");
+require("./../programming_ui/reeborg_en.js");
+require("./../programming_ui/reeborg_fr.js");
+require("./../ui/custom_world_select.js");
+
 var msg = require("./../../lang/msg.js");
 var update_url = require("./../utils/parseuri.js").update_url;
 

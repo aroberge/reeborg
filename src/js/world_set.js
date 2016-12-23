@@ -2,7 +2,7 @@
 */
 require("./rur.js");
 require("./default_tiles/tiles.js");
-require("./exceptions.js");
+require("./programming_ui/exceptions.js");
 require("./visible_world.js");
 require("./recorder.js"); // TODO: investigate if needed.
 require("./utils/key_exist.js");

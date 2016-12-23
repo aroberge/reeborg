@@ -3,7 +3,7 @@ require("./rur.js");
 require("./visible_world.js");
 require("./world_get.js");
 require("./translator.js");
-require("./exceptions.js");
+require("./programming_ui/exceptions.js");
 require("./listeners/pause.js");
 require("./listeners/stop.js");
 require("./playback/play_sound.js");

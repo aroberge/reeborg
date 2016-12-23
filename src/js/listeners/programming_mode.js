@@ -10,28 +10,23 @@ record_id("programming-mode");
 /** @function onload_set_programming_mode
  * @memberof RUR
  * @instance
- * @summary This function MUST be called from an onload editor. It is used
+ * @summary This function must ONLY be called from an onload editor. It is used
  *          to specify which of three mode must be used for a given world.
  *          This should only be required if the world contains some content to
  *          be run (either as blocks, in the editor, or in the pre- or post- code stage.)
  *
- * @desc Cette fonction doit être invoquée **uniquement** à partir de l'éditeur "onload".
- *       Son but est de changer le mode de programmation devant être utilisé pour un
- *       monde particulier.  Ceci ne devrait être requis que si le monde en question contient
- *       du code prédéfini (dans l'éditeur, sous forme de blocs, ou dans l'éditeur pre- ou post-.)
  *
- * @param {string} mode  One of "python", "javascript", or "blokcly" <br>
- *                            _Un de trois choix possibles : "python", "javascript", or "blokcly"_
+ * @param {string} mode  One of "python", "javascript", or "blockly" 
  *
+ * @todo: see if we should not distinguish between blockly-js and blockly-py
+ * @todo: see if we should not add py-repl as an option
+ * 
  * @example
  * // shows how to switch mode to Blockly, where some blocks are already placed.
  * World("/worlds/examples/square_blockly.json", "Square")
  */
 
 RUR.onload_set_programming_mode = function(mode) {
-    //TODO: Document this function
-    //
-    //
     if (!RUR.state.evaluating_onload) {
         alert("RUR.onload_set_programming_mode should only be called from the 'onload' World component.");
         return;

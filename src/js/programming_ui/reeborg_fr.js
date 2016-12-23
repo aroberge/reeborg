@@ -1,7 +1,7 @@
-/* See reeborg_en.js */
-window.RUR = RUR || {};
+require("./../rur.js");
+require("./commands.js");
 
-// TODO: add proper dependencies
+/* See reeborg_en.js for an explanation about the purpose of this file. */
 
 RUR.reset_definitions_fr = function () {
 

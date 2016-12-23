@@ -1,5 +1,5 @@
-// TODO: add proper dependencies
-
+require("./../rur.js");
+require("./commands.js");
 
 /* Since Javascript is a dynamic language, a user or world creator could
     (possibly accidently) redefine a basic function, which could lead to some
@@ -25,7 +25,6 @@
         }
 **/
 
-window.RUR = RUR || {};
 
 RUR.reset_definitions_en = function () {
 

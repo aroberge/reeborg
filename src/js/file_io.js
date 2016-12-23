@@ -3,10 +3,10 @@ require("./output.js");
 require("./recorder.js");
 require("./editors/update.js");
 require("./world_utils/import_world.js");
-require("./world_select.js");
+require("./ui/world_select.js");
 require("./permalink.js");
 require("./translator.js");
-require("./exceptions.js");
+require("./programming_ui/exceptions.js");
 require("./listeners/stop.js");
 require("./utils/supplant.js");
 

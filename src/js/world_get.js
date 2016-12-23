@@ -3,7 +3,7 @@
 */
 
 require("./rur.js");
-require("./exceptions.js");
+require("./programming_ui/exceptions.js");
 require("./default_tiles/tiles.js");
 require("./dialogs/create.js");
 require("./listeners/canvas.js");

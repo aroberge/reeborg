@@ -1,7 +1,7 @@
 
 require("./rur.js");
 require("./translator.js");
-require("./world_select.js");
+require("./ui/world_select.js");
 
 
 var export_world = require("./world_utils/export_world.js").export_world;

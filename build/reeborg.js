@@ -1,1791 +1,4 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-/* jshint -W069 */
-require("./rur.js");
-require("./translator.js");
-
-RUR.blockly = {};
-RUR.color_basic = 120;
-RUR.color_condition = 240;
-RUR.done_colour = "#aa0000";
-
-/****  Begin over-riding Blockly's default */
-Blockly.Blocks.loops.HUE = 230;
-
-Blockly.JavaScript['text_print'] = function(block) {
-  var argument0 = Blockly.JavaScript.valueToCode(block, 'TEXT',
-      Blockly.JavaScript.ORDER_NONE) || '\'\'';
-  return RUR.translate("write")+'(' + argument0 + ');\n';
-};
-
-Blockly.makeColour = function(hue) {
-  if (hue === RUR.done_colour){
-      return hue;
-  }
-  return goog.color.hsvToHex(hue, Blockly.HSV_SATURATION,
-      Blockly.HSV_VALUE * 255);
-};
-
-Blockly.Python.INDENT = '    ';
-Blockly.JavaScript.INDENT = '    ';
-
-// removing mutator for simple function definitions as per
-// https://groups.google.com/d/msg/blockly/_rrwh-Lc-sE/cHAk5yNfhUEJ
-
-(function(){var old = Blockly.Blocks.procedures_defnoreturn.init;
-    Blockly.Blocks.procedures_defnoreturn.init =
-    function(){old.call(this);
-        this.setMutator(undefined);
-        // this.setColour(RUR.color_basic);
-    };
-})();
-
-
-
-RUR.blockly.init = function () {
-
-    // override some defaults
-    Blockly.Msg.CONTROLS_IF_MSG_THEN = "    " + Blockly.Msg.CONTROLS_IF_MSG_THEN;
-    Blockly.Msg.CONTROLS_REPEAT_INPUT_DO = "    " + Blockly.Msg.CONTROLS_REPEAT_INPUT_DO;
-    Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO = "    " + Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO;
-
-
-    Blockly.Blocks['_sound_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .setAlign(Blockly.ALIGN_RIGHT)
-            .appendField(RUR.translate("sound"))
-            .appendField(new Blockly.FieldCheckbox("TRUE"), "SOUND");
-        this.setInputsInline(true);
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setColour(20);
-        this.setTooltip('');
-      }
-    };
-    Blockly.JavaScript['_sound_'] = function(block) {
-      var checkbox_sound = block.getFieldValue('SOUND') == 'TRUE';
-      if (checkbox_sound) {
-          return RUR.translate("sound") + "(true);\n";
-      } else {
-          return RUR.translate("sound") + "(false);\n";
-      }
-    };
-    Blockly.Python['_sound_'] = function(block) {
-      var checkbox_sound = block.getFieldValue('SOUND') == 'TRUE';
-      if (checkbox_sound) {
-          return RUR.translate("sound") + "(True)\n";
-      } else {
-          return RUR.translate("sound") + "(False)\n";
-      }
-    };
-
-    Blockly.Blocks['_think_'] = {
-      init: function() {
-        this.appendValueInput("NAME")
-            .setCheck("Number")
-            .appendField(RUR.translate("think"));
-        this.setInputsInline(true);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(20);
-        this.setTooltip(RUR.translate("Delay between actions; default is 300 ms."));
-      }
-    };
-    Blockly.Python['_think_'] = function(block) {
-      var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
-      return RUR.translate("think") + "("+value_name+")\n";
-    };
-    Blockly.JavaScript['_think_'] = function(block) {
-      var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
-      return RUR.translate("think") + "("+value_name+");\n";
-    };
-
-    Blockly.Blocks['_move_'] = {
-      init: function() {
-        this.setColour(RUR.color_basic);
-        this.appendDummyInput().appendField(RUR.translate("move"));
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setTooltip(RUR.translate("move forward"));
-      }
-    };
-    Blockly.Python['_move_'] = function(block) {
-      return RUR.translate("move")+'()\n';
-    };
-    Blockly.JavaScript['_move_'] = function(block) {
-      return RUR.translate("move")+'();\n';
-    };
-
-
-    Blockly.Blocks['_turn_left_'] = {
-      init: function() {
-        this.setColour(RUR.color_basic);
-        this.appendDummyInput().appendField(RUR.translate("turn_left")+" \u21BA");
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setTooltip(RUR.translate("turn left"));
-      }
-    };
-    Blockly.Python['_turn_left_'] = function(block) {
-      return RUR.translate("turn_left")+'()\n';
-    };
-    Blockly.JavaScript['_turn_left_'] = function(block) {
-      return RUR.translate("turn_left")+'();\n';
-    };
-
-
-    Blockly.Blocks['_take_'] = {
-      init: function() {
-        this.setColour(RUR.color_basic);
-        this.appendDummyInput().appendField(RUR.translate("take"));
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setTooltip(RUR.translate("take object"));
-      }
-    };
-    Blockly.Python['_take_'] = function(block) {
-      return RUR.translate("take")+'()\n';
-    };
-    Blockly.JavaScript['_take_'] = function(block) {
-      return RUR.translate("take")+'();\n';
-    };
-
-
-    Blockly.Blocks['_put_'] = {
-      init: function() {
-        this.setColour(RUR.color_basic);
-        this.appendDummyInput().appendField(RUR.translate("put"));
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setTooltip(RUR.translate("put object"));
-      }
-    };
-    Blockly.Python['_put_'] = function(block) {
-      return RUR.translate("put")+'()\n';
-    };
-    Blockly.JavaScript['_put_'] = function(block) {
-      return RUR.translate("put")+'();\n';
-    };
-
-
-    Blockly.Blocks['_pause_'] = {
-      init: function() {
-        this.setColour(30);
-        this.appendDummyInput().appendField(RUR.translate("pause"));
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setTooltip(RUR.translate("Pause the program's execution."));
-      }
-    };
-    Blockly.Python['_pause_'] = function(block) {
-      return RUR.translate("pause")+'()\n';
-    };
-    Blockly.JavaScript['_pause_'] = function(block) {
-      return RUR.translate("pause")+'();\n';
-    };
-
-
-    Blockly.Blocks['_build_wall_'] = {
-      init: function() {
-        this.setColour(RUR.color_basic);
-        this.appendDummyInput().appendField(RUR.translate("build_wall"));
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setTooltip(RUR.translate("Build a wall in front of the robot."));
-      }
-    };
-    Blockly.Python['_build_wall_'] = function(block) {
-      return RUR.translate("build_wall")+'()\n';
-    };
-    Blockly.JavaScript['_build_wall_'] = function(block) {
-      return RUR.translate("build_wall")+'();\n';
-    };
-
-
-    Blockly.Blocks['_done_'] = {
-      init: function() {
-        this.setColour(RUR.done_colour);
-        this.appendDummyInput().appendField(RUR.translate("done"));
-        this.setPreviousStatement(true);
-        this.setTooltip(RUR.translate("End the program's execution."));
-      }
-    };
-    Blockly.Python['_done_'] = function(block) {
-      return RUR.translate("done")+'()\n';
-    };
-    Blockly.JavaScript['_done_'] = function(block) {
-      return RUR.translate("done")+'();\n';
-    };
-
-
-    Blockly.Blocks['_wall_in_front_or_right_'] = {
-      init: function() {
-        var choices =  [
-            [RUR.translate("wall_in_front"), RUR.translate("wall_in_front")],
-            [RUR.translate("wall_on_right"), RUR.translate("wall_on_right")]];
-        this.setColour(RUR.color_condition);
-        this.appendDummyInput().appendField(new Blockly.FieldDropdown(choices), 'choice');
-        this.setOutput(true, "Boolean");
-        this.setTooltip(RUR.translate("True if a wall is blocking the way."));
-      }
-    };
-    Blockly.Python['_wall_in_front_or_right_'] = function(block) {
-      return [block.getFieldValue('choice')+'()'];
-    };
-    Blockly.JavaScript['_wall_in_front_or_right_'] = function(block) {
-      return [block.getFieldValue('choice')+'()'];
-    };
-
-
-    Blockly.Blocks['_front_or_right_is_clear_'] = {
-      init: function() {
-        var choices =  [
-            [RUR.translate("front_is_clear"), RUR.translate("front_is_clear")],
-            [RUR.translate("right_is_clear"), RUR.translate("right_is_clear")]];
-        this.setColour(RUR.color_condition);
-        this.appendDummyInput().appendField(new Blockly.FieldDropdown(choices), 'choice');
-        this.setOutput(true, "Boolean");
-        this.setTooltip(RUR.translate("True if nothing is blocking the way."));
-      }
-    };
-    Blockly.Python['_front_or_right_is_clear_'] = function(block) {
-      return [block.getFieldValue('choice')+'()'];
-    };
-    Blockly.JavaScript['_front_or_right_is_clear_'] = function(block) {
-      return [block.getFieldValue('choice')+'()'];
-    };
-
-
-    Blockly.Blocks['_at_goal_'] = {
-      init: function() {
-        this.setColour(RUR.color_condition);
-        this.appendDummyInput().appendField(RUR.translate("at_goal"));
-        this.setOutput(true, "Boolean");
-        this.setTooltip(RUR.translate("True if desired destination."));
-      }
-    };
-    Blockly.Python['_at_goal_'] = function(block) {
-      return [RUR.translate("at_goal")+'()'];
-    };
-    Blockly.JavaScript['_at_goal_'] = function(block) {
-      return [RUR.translate("at_goal")+'()'];
-    };
-
-
-    Blockly.Blocks['_carries_object_'] = {
-      init: function() {
-        this.setColour(RUR.color_condition);
-        this.appendDummyInput().appendField(RUR.translate("carries_object"));
-        this.setOutput(true, "Boolean");
-        this.setTooltip(RUR.translate("True if robot carries at least one object."));
-      }
-    };
-    Blockly.Python['_carries_object_'] = function(block) {
-      return [RUR.translate("carries_object")+'()'];
-    };
-    Blockly.JavaScript['_carries_object_'] = function(block) {
-      return [RUR.translate("carries_object")+'()'];
-    };
-
-
-    Blockly.Blocks['_object_here_'] = {
-      init: function() {
-        this.setColour(RUR.color_condition);
-        this.appendDummyInput().appendField(RUR.translate("object_here"));
-        this.setOutput(true, "Boolean");
-        this.setTooltip(RUR.translate("True if there is at least one object here."));
-      }
-    };
-    Blockly.Python['_object_here_'] = function(block) {
-      return [RUR.translate("object_here")+'()'];
-    };
-    Blockly.JavaScript['_object_here_'] = function(block) {
-      return [RUR.translate("object_here")+'()'];
-    };
-
-
-    Blockly.Blocks['_is_facing_north_'] = {
-      init: function() {
-        this.setColour(RUR.color_condition);
-        this.appendDummyInput().appendField(RUR.translate("is_facing_north"));
-        this.setOutput(true, "Boolean");
-        this.setTooltip(RUR.translate("True if robot is facing North."));
-      }
-    };
-    Blockly.Python['_is_facing_north_'] = function(block) {
-      return [RUR.translate("is_facing_north")+'()'];
-    };
-    Blockly.JavaScript['_is_facing_north_'] = function(block) {
-      return [RUR.translate("is_facing_north")+'()'];
-    };
-
-
-    Blockly.Blocks['_star_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("star"))
-            .appendField(new Blockly.FieldImage("/src/images/star.png", 15, 15, RUR.translate("star")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_star_'] = function(block) {
-      return [RUR.translate("star")];
-    };
-    Blockly.JavaScript['_star_'] = function(block) {
-      return [RUR.translate("star")];
-    };
-
-    Blockly.Blocks['_token_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("token"))
-            .appendField(new Blockly.FieldImage("/src/images/token.png", 15, 15, RUR.translate("token")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_token_'] = function(block) {
-      return [RUR.translate("token")];
-    };
-    Blockly.JavaScript['_token_'] = function(block) {
-      return [RUR.translate("token")];
-    };
-
-    Blockly.Blocks['_apple_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("apple"))
-            .appendField(new Blockly.FieldImage("/src/images/apple.png", 15, 15, RUR.translate("apple")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_apple_'] = function(block) {
-      return [RUR.translate("apple")];
-    };
-    Blockly.JavaScript['_apple_'] = function(block) {
-      return [RUR.translate("apple")];
-    };
-
-    Blockly.Blocks['_carrot_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("carrot"))
-            .appendField(new Blockly.FieldImage("/src/images/carrot.png", 15, 15, RUR.translate("carrot")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_carrot_'] = function(block) {
-      return [RUR.translate("carrot")];
-    };
-    Blockly.JavaScript['_carrot_'] = function(block) {
-      return [RUR.translate("carrot")];
-    };
-
-    Blockly.Blocks['_dandelion_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("dandelion"))
-            .appendField(new Blockly.FieldImage("/src/images/dandelion.png", 15, 15, RUR.translate("dandelion")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_dandelion_'] = function(block) {
-      return [RUR.translate("dandelion")];
-    };
-    Blockly.JavaScript['_dandelion_'] = function(block) {
-      return [RUR.translate("dandelion")];
-    };
-
-    Blockly.Blocks['_daisy_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("daisy"))
-            .appendField(new Blockly.FieldImage("/src/images/daisy.png", 15, 15, RUR.translate("daisy")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_daisy_'] = function(block) {
-      return [RUR.translate("daisy")];
-    };
-    Blockly.JavaScript['_daisy_'] = function(block) {
-      return [RUR.translate("daisy")];
-    };
-
-    Blockly.Blocks['_triangle_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("triangle"))
-            .appendField(new Blockly.FieldImage("/src/images/triangle.png", 15, 15, RUR.translate("triangle")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_triangle_'] = function(block) {
-      return [RUR.translate("triangle")];
-    };
-    Blockly.JavaScript['_triangle_'] = function(block) {
-      return [RUR.translate("triangle")];
-    };
-
-    Blockly.Blocks['_square_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("square"))
-            .appendField(new Blockly.FieldImage("/src/images/square.png", 15, 15, RUR.translate("square")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_square_'] = function(block) {
-      return [RUR.translate("square")];
-    };
-    Blockly.JavaScript['_square_'] = function(block) {
-      return [RUR.translate("square")];
-    };
-
-    Blockly.Blocks['_strawberry_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("strawberry"))
-            .appendField(new Blockly.FieldImage("/src/images/strawberry.png", 15, 15, RUR.translate("strawberry")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_strawberry_'] = function(block) {
-      return [RUR.translate("strawberry")];
-    };
-    Blockly.JavaScript['_strawberry_'] = function(block) {
-      return [RUR.translate("strawberry")];
-    };
-
-    Blockly.Blocks['_leaf_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("leaf"))
-            .appendField(new Blockly.FieldImage("/src/images/leaf.png", 15, 15, RUR.translate("leaf")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_leaf_'] = function(block) {
-      return [RUR.translate("leaf")];
-    };
-    Blockly.JavaScript['_leaf_'] = function(block) {
-      return [RUR.translate("leaf")];
-    };
-
-    Blockly.Blocks['_banana_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("banana"))
-            .appendField(new Blockly.FieldImage("/src/images/banana.png", 15, 15, RUR.translate("banana")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_banana_'] = function(block) {
-      return [RUR.translate("banana")];
-    };
-    Blockly.JavaScript['_banana_'] = function(block) {
-      return [RUR.translate("banana")];
-    };
-
-    Blockly.Blocks['_orange_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("orange"))
-            .appendField(new Blockly.FieldImage("/src/images/orange.png", 15, 15, RUR.translate("orange")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_orange_'] = function(block) {
-      return [RUR.translate("orange")];
-    };
-    Blockly.JavaScript['_orange_'] = function(block) {
-      return [RUR.translate("orange")];
-    };
-
-    Blockly.Blocks['_tulip_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("tulip"))
-            .appendField(new Blockly.FieldImage("/src/images/tulip.png", 15, 15, RUR.translate("tulip")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_tulip_'] = function(block) {
-      return [RUR.translate("tulip")];
-    };
-    Blockly.JavaScript['_tulip_'] = function(block) {
-      return [RUR.translate("tulip")];
-    };
-
-    Blockly.Blocks['_carries_object_or_here_'] = {
-      init: function() {
-        this.appendValueInput("action")
-            .setCheck("String")
-            .appendField(new Blockly.FieldDropdown([
-                [RUR.translate("carries_object"), RUR.translate("carries_object")],
-                [RUR.translate("object_here"), RUR.translate("object_here")]]), "condition");
-        this.setOutput(true, "Boolean");
-        this.setColour(RUR.color_condition);
-      }
-    };
-    Blockly.Python['_carries_object_or_here_'] = function(block) {
-      var dropdown_condition = block.getFieldValue('condition');
-      var value_action = Blockly.Python.valueToCode(block, 'action', Blockly.Python.ORDER_ATOMIC);
-      return [RUR.translate(dropdown_condition)+'("'+ value_action +'")'];
-    };
-    Blockly.JavaScript['_carries_object_or_here_'] = function(block) {
-      var dropdown_condition = block.getFieldValue('condition');
-      var value_action = Blockly.JavaScript.valueToCode(block, 'action', Blockly.JavaScript.ORDER_ATOMIC);
-      return [RUR.translate(dropdown_condition)+'("'+ value_action +'")'];
-    };
-
-
-    Blockly.Blocks['_take_or_put_'] = {
-      init: function() {
-        this.appendValueInput("obj")
-            .setCheck("String")
-            .appendField(new Blockly.FieldDropdown([
-                [RUR.translate("take"), RUR.translate("take")],
-                [RUR.translate("put"), RUR.translate("put")]]), "action");
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(RUR.color_basic);
-      }
-    };
-    Blockly.Python['_take_or_put_'] = function(block) {
-      var dropdown_action = block.getFieldValue('action');
-      var value_obj = Blockly.Python.valueToCode(block, 'obj', Blockly.Python.ORDER_ATOMIC);
-      return dropdown_action + '("' + value_obj + '")\n';
-    };
-    Blockly.JavaScript['_take_or_put_'] = function(block) {
-      var dropdown_action = block.getFieldValue('action');
-      var value_obj = Blockly.JavaScript.valueToCode(block, 'obj', Blockly.JavaScript.ORDER_ATOMIC);
-      return dropdown_action + '("' + value_obj + '");\n';
-    };
-
-
-
-    /** Simple if skeletton from
-    https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#k8aine
-    ****/
-
-    Blockly.Blocks['_if_'] = {
-      init: function() {
-        this.appendValueInput("condition")
-            .setCheck("Boolean")
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
-        this.appendStatementInput("then")
-            .setCheck(null)
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setColour(210);
-        // this.setTooltip('');
-      }
-    };
-    Blockly.JavaScript['_if_'] = function(block) {
-      var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
-      var statements_then = Blockly.JavaScript.statementToCode(block, 'then');
-      return "if (" + value_condition + ") {\n" + statements_then + "}\n";
-
-    };
-    Blockly.Python['_if_'] = function(block) {
-      var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
-      var statements_then = Blockly.Python.statementToCode(block, 'then');
-      return "if " + value_condition + ":\n" + statements_then;
-    };
-
-
-    Blockly.Blocks['_if_else_'] = {
-      init: function() {
-        this.appendValueInput("condition")
-            .setCheck("Boolean")
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
-        this.appendStatementInput("then")
-            .setCheck(null)
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
-        this.appendDummyInput()
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
-        this.appendStatementInput("else")
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setColour(210);
-        this.setTooltip('');
-      }
-    };
-    Blockly.JavaScript['_if_else_'] = function(block) {
-      var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
-      var statements_then = Blockly.JavaScript.statementToCode(block, 'then');
-      var statements_else = Blockly.JavaScript.statementToCode(block, 'else');
-      return "if (" + value_condition + ") {\n" + statements_then + "} else {\n" + statements_else+"}\n";
-    };
-    Blockly.Python['_if_else_'] = function(block) {
-      var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
-      var statements_then = Blockly.Python.statementToCode(block, 'then');
-      var statements_else = Blockly.Python.statementToCode(block, 'else');
-      return "if " + value_condition + ":\n" + statements_then + "else:\n" + statements_else;
-    };
-
-
-    Blockly.Blocks['_if_else_if_else_'] = {
-      init: function() {
-        this.appendValueInput("condition")
-            .setCheck("Boolean")
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
-        this.appendStatementInput("do")
-            .setCheck(null)
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
-        this.appendValueInput("condition2")
-            .setCheck("Boolean")
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
-        this.appendStatementInput("do2")
-            .setCheck(null)
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
-        this.appendDummyInput()
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
-        this.appendStatementInput("else")
-            .setCheck(null)
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setColour(210);
-        this.setTooltip('');
-      }
-    };
-    Blockly.JavaScript['_if_else_if_else_'] = function(block) {
-      var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
-      var statements_do = Blockly.JavaScript.statementToCode(block, 'do');
-      var value_condition2 = Blockly.JavaScript.valueToCode(block, 'condition2', Blockly.JavaScript.ORDER_ATOMIC);
-      var statements_do2 = Blockly.JavaScript.statementToCode(block, 'do2');
-      var statements_else = Blockly.JavaScript.statementToCode(block, 'else');
-      return "if (" + value_condition + ") {\n" + statements_do +
-             "} else if (" + value_condition2 + ") {\n" + statements_do2 +
-             "} else {\n" + statements_else+"}\n";
-    };
-    Blockly.Python['_if_else_if_else_'] = function(block) {
-      var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
-      var statements_do = Blockly.Python.statementToCode(block, 'do');
-      var value_condition2 = Blockly.Python.valueToCode(block, 'condition2', Blockly.Python.ORDER_ATOMIC);
-      var statements_do2 = Blockly.Python.statementToCode(block, 'do2');
-      var statements_else = Blockly.Python.statementToCode(block, 'else');
-      return "if " + value_condition + ":\n" + statements_do +
-             "elif " + value_condition2 + ":\n" + statements_do2 +
-             "else:\n" + statements_else;
-    };
-
-    $("#blocklyDiv").remove();
-    $("#blockly-wrapper").append('<div id="blocklyDiv"></div>');
-    $(".blocklyToolboxDiv").remove();
-
-    /* With the current version of the code, Firefox does not display
-       the trashcan and controls properly; so we do not show them ... but
-       allow for testing via the console by setting RUR.firefox_ok to true */
-    var firefox_present = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-    if (firefox_present && !RUR.firefox_ok) {
-        RUR.blockly.workspace = Blockly.inject('blocklyDiv', {
-            toolbox: document.getElementById('toolbox'),
-            trashcan: false});
-    } else {
-        RUR.blockly.workspace = Blockly.inject('blocklyDiv', {
-            toolbox: document.getElementById('toolbox'),
-            zoom:{
-                controls: true,
-                wheel: true,
-                startScale: 1.0,
-                maxScale: 3,
-                minScale: 0.3,
-                scaleSpeed: 1.2},
-            trashcan: true});
-    }
-
-    $("#blocklyDiv").resizable({
-        resize: function() {
-            $("#blocklyDiv:first-child").height($(this).height()-1).width($(this).width()-1);
-            window.dispatchEvent(new Event('resize'));
-        }
-    });
-
-    if (RUR.state.input_method == "python" ||
-        RUR.state.input_method == "javascript" ||
-        RUR.state.input_method == "py-repl") {
-            $(".blocklyToolboxDiv").css({"pointer-events": "none", "opacity": 0.01});
-        }
-
-};
-RUR.firefox_ok = false;
-
-$("#blockly-wrapper").draggable({
-    cursor: "move",
-    handle: "p",
-    drag: function( event, ui ) {
-        window.dispatchEvent(new Event('resize'));
-    },
-    stop: function( event, ui ) {
-        window.dispatchEvent(new Event('resize'));
-    }
-});
-
-
-
-RUR.blockly.getValue = function () {
-    var xml = Blockly.Xml.workspaceToDom(RUR.blockly.workspace);
-    return Blockly.Xml.domToText(xml);
-};
-RUR.blockly.setValue = function (xml_text) {
-    var xml = Blockly.Xml.textToDom(xml_text);
-    RUR.blockly.workspace.clear();
-    Blockly.Xml.domToWorkspace(RUR.blockly.workspace, xml);
-};
-
-},{"./rur.js":49,"./translator.js":53}],2:[function(require,module,exports){
-/*  The purpose of this module is to act as an intermediary between end user
-modules in various languages (e.g. reeborg_en.py or reeborg_fr.js) and
-the other modules.  This way, in theory, (most) refactoring can take place in the
-basic javascript code without affecting the end user code.
-
-Convention: all "public" function names follow the pattern RUR._xyz_
-            Use four spaces for indentation
-            Order function names alphabetically (in English)
- */
-
-require("./rur.js");
-require("./translator.js");
-require("./control.js");
-require("./custom_world_select.js");
-require("./file_io.js");
-require("./output.js");
-require("./visible_robot.js");
-require("./editors/update.js");
-require("./world_set.js");
-require("./world_set/set_tile.js");
-var get_world = require("./world_get/world.js").get_world;
-
-RUR.inspect = function (obj){
-    var props, result = "";
-    for (props in obj) {
-        if (typeof obj[props] === "function") {
-            result += props + "()\n";
-        } else{
-            result += props + "\n";
-        }
-    }
-    RUR.output._write(result);
-};
-
-function user_no_highlight () {
-    if (RUR.state.highlight) {
-        RUR.state.highlight = false;
-        $("#highlight").addClass("blue-gradient");
-        $("#highlight").removeClass("active-element");
-    }
-}
-
-
-RUR._at_goal_ = function () {
-    return RUR.control.at_goal(get_world().robots[0]);
-};
-
-RUR._build_wall_ = function() {
-    RUR.control.build_wall(get_world().robots[0]);
-};
-
-RUR._carries_object_ = function (arg) {
-    return RUR.control.carries_object(get_world().robots[0], arg);
-};
-
-RUR._clear_print_ = RUR.output.clear_print;
-
-RUR._color_here_ = function () {
-    var robot = get_world().robots[0];
-    return RUR.control.get_colour_at_position(robot.x, robot.y);
-};
-
-RUR._default_robot_body_ = function () { // simply returns body
-    return get_world().robots[0];
-};
-
-RUR._dir_js_ = RUR.inspect;
-
-RUR._done_ = RUR.control.done;
-
-RUR._front_is_clear_ = function() {
-  return RUR.control.front_is_clear(get_world().robots[0]);
-};
-
-
-RUR._is_facing_north_ = function () {
-    return RUR.control.is_facing_north(get_world().robots[0]);
-};
-
-RUR._move_ = function () {
-    RUR.control.move(get_world().robots[0]);
-};
-
-RUR._new_robot_images_ = RUR.vis_robot.new_robot_images;
-
-RUR._no_highlight_ = user_no_highlight;
-
-RUR._object_here_ = function (arg) {
-    return RUR.world_get.object_at_robot_position(get_world().robots[0], arg);
-};
-
-RUR._paint_square_ = function (color) {
-    // note that this can do more than simply setting the color: it can also
-    // set the tile type.
-    var robot = get_world().robots[0];
-    RUR.set_tile_at_position(color, robot.x, robot.y);
-};
-
-RUR._pause_ = RUR.control.pause;
-
-RUR._print_html_ = function (html, replace) {
-    RUR.output.print_html(html, replace);
-};
-
-RUR._put_ = function(arg) {
-    RUR.control.put(get_world().robots[0], arg);
-};
-
-RUR._recording_ = function(bool) {
-    RUR.state.do_not_record = !bool;
-};
-
-RUR._remove_robots_ = function () {
-    get_world().robots = [];
-};
-
-RUR._right_is_clear_ = function() {
-    return RUR.control.right_is_clear(get_world().robots[0]);
-};
-
-RUR._set_max_nb_instructions_ = function(n){
-    RUR.MAX_STEPS = n;
-};
-
-RUR._set_trace_color_ = function(color){
-    get_world().robots[0]._trace_color = color;
-};
-
-RUR._set_trace_style_ = function(style){
-    get_world().robots[0]._trace_style = style;
-};
-
-RUR._sound_ = RUR.control.sound;
-
-RUR._take_ = function(arg) {
-    RUR.control.take(get_world().robots[0], arg);
-};
-
-RUR._think_ = RUR.control.think;
-
-RUR._turn_left_ = function () {
-    RUR.control.turn_left(get_world().robots[0]);
-};
-
-RUR._view_source_js_ = RUR.output.view_source_js;
-
-RUR._wall_in_front_ = function() {
-    return RUR.control.wall_in_front(get_world().robots[0]);
-};
-
-RUR._write_ = RUR.output.write;
-
-RUR.__write_ = RUR.output._write;
-
-RUR._wall_on_right_ = function() {
-    return RUR.control.wall_on_right(get_world().robots[0]);
-};
-
-RUR._MakeCustomMenu_ = RUR.custom_world_select.make;
-
-RUR._World_ = RUR.file_io.load_world_from_program;
-
-/*  methods below */
-
-RUR._UR = {};
-
-RUR._UR.at_goal_ = function (robot) {
-    return RUR.control.at_goal(robot);
-};
-
-RUR._UR.build_wall_ = function (robot) {
-    return RUR.control.build_wall(robot);
-};
-
-RUR._UR.carries_object_ = function (robot, obj) {
-    return RUR.control.carries_object(robot, obj);
-};
-
-RUR._UR.front_is_clear_ = function (robot) {
-    return RUR.control.front_is_clear(robot);
-};
-
-RUR._UR.is_facing_north_ = function (robot) {
-    return RUR.control.is_facing_north(robot);
-};
-
-RUR._UR.move_ = function (robot) {
-    RUR.control.move(robot);
-};
-
-RUR._UR.object_here_ = function (robot, obj) {
-    return RUR.world_get.object_at_robot_position(robot, obj);
-};
-
-RUR._UR.put_ = function (robot, obj) {
-    RUR.control.put(robot, obj);
-};
-
-RUR._UR.right_is_clear_ = function (robot) {
-    return RUR.control.right_is_clear(robot);
-};
-
-RUR._UR.set_model_ = function (robot, model) {
-    RUR.control.set_model(robot, model);
-};
-
-RUR._UR.set_trace_color_ = function (robot, color) {
-    RUR.control.set_trace_color(robot, color);
-};
-
-RUR._UR.set_trace_style_ = function (robot, style) {
-    RUR.control.set_trace_style(robot, style);
-};
-
-RUR._UR.take_ = function (robot, obj) {
-    RUR.control.take(robot, obj);
-};
-
-RUR._UR.turn_left_ = function (robot) {
-    RUR.control.turn_left(robot);
-};
-
-RUR._UR.wall_in_front_ = function (robot) {
-    return RUR.control.wall_in_front(robot);
-};
-
-RUR._UR.wall_on_right_ = function (robot) {
-    return RUR.control.wall_on_right(robot);
-};
-
-},{"./control.js":3,"./custom_world_select.js":4,"./editors/update.js":13,"./file_io.js":15,"./output.js":39,"./rur.js":49,"./translator.js":53,"./visible_robot.js":63,"./world_get/world.js":71,"./world_set.js":74,"./world_set/set_tile.js":83}],3:[function(require,module,exports){
-
-require("./rur.js");
-require("./translator.js");
-require("./default_tiles/tiles.js");
-require("./output.js");
-require("./recorder/record_frame.js");
-require("./exceptions.js");
-require("./world_get.js");
-require("./world_set.js");
-require("./utils/supplant.js");
-require("./utils/key_exist.js");
-var get_world = require("./world_get/world.js").get_world;
-
-RUR.control = {};
-
-RUR.control.move = function (robot) {
-    "use strict";
-    var tile, tiles, name, objects, tile_beyond, solid_tile_beyond,
-        solids_beyond, solid_object_beyond,
-        pushable_object_here, pushable_object_beyond,
-        wall_beyond, x_beyond, y_beyond;
-
-    if (RUR.control.wall_in_front(robot)) {
-        throw new RUR.WallCollisionError(RUR.translate("Ouch! I hit a wall!"));
-    }
-
-    robot._prev_x = robot.x;
-    robot._prev_y = robot.y;
-
-    x_beyond = robot.x;  // if robot is moving vertically, it x coordinate does not change
-    y_beyond = robot.y;
-
-    switch (robot._orientation){
-    case RUR.EAST:
-        robot.x += 1;
-        x_beyond = robot.x + 1;
-        break;
-    case RUR.NORTH:
-        robot.y += 1;
-        y_beyond = robot.y + 1;
-        break;
-    case RUR.WEST:
-        robot.x -= 1;
-        x_beyond = robot.x - 1;
-        break;
-    case RUR.SOUTH:
-        robot.y -= 1;
-        y_beyond = robot.y - 1;
-        break;
-    default:
-        throw new Error("Should not happen: unhandled case in RUR.control.move().");
-    }
-
-    pushable_object_here = RUR.world_get.pushable_object_at_position(robot.x, robot.y);
-
-    if (pushable_object_here) {
-        // we had assume that we have made a successful move as nothing was
-        // blocking the robot which is now at its next position.
-        // However, something may have prevented the pushable object from
-        // actually being pushed
-        wall_beyond = RUR.control.wall_in_front(robot);
-        pushable_object_beyond = RUR.world_get.pushable_object_at_position(x_beyond, y_beyond);
-        tile_beyond = RUR.world_get.tile_at_position(x_beyond, y_beyond);
-        if (tile_beyond && tile_beyond.solid) {
-            solid_tile_beyond = true;
-            } else {
-            solid_tile_beyond = false;
-        }
-
-        solids_beyond = RUR.world_get.obstacles_at_position(x_beyond, y_beyond);
-        solid_object_beyond = false;
-        if (solids_beyond) {
-            for (name in solids_beyond) {
-                if (RUR.TILES[name] !== undefined && RUR.TILES[name].solid) {
-                    solid_object_beyond = true;
-                    break;
-                }
-            }
-        }
-
-        if (pushable_object_beyond || wall_beyond || solid_tile_beyond || solid_object_beyond) {
-            robot.x = robot._prev_x;
-            robot.y = robot._prev_y;
-            throw new RUR.ReeborgError(RUR.translate("Something is blocking the way!"));
-        } else {
-            RUR.control.move_object(pushable_object_here, robot.x, robot.y,
-            x_beyond, y_beyond);
-        }
-    }
-
-    RUR.state.sound_id = "#move-sound";
-    RUR.record_frame("debug", "RUR.control.move");
-    tile = RUR.world_get.tile_at_position(robot.x, robot.y);
-    if (tile) {
-        if (tile.fatal){
-            if (!(tile == RUR.TILES.water && RUR.control.solid_object_here(robot, RUR.translate("bridge"))) ){
-                throw new RUR.ReeborgError(RUR.translate(tile.message));
-            }
-        }
-        if (tile.slippery){
-            RUR.output.write(RUR.translate(tile.message) + "\n");
-            RUR.control.move(robot);
-        }
-    }
-
-    objects = RUR.world_get.obstacles_at_position(robot.x, robot.y);
-    if (objects) {
-        for (name in objects) {
-            if (RUR.TILES[name] !== undefined && RUR.TILES[name].fatal) {
-                robot.x = robot._prev_x;
-                robot.y = robot._prev_y;
-                throw new RUR.ReeborgError(RUR.TILES[name].message);
-            }
-        }
-    }
-    if (robot._is_leaky !== undefined && !robot._is_leaky) {  // update to avoid drawing from previous point.
-        robot._prev_x = robot.x;
-        robot._prev_y = robot.y;
-    }
-
-};
-
-RUR.control.move_object = function(obj, x, y, to_x, to_y){
-    "use strict";
-    var bridge_already_there = false;
-    if (RUR.world_get.obstacles_at_position(to_x, to_y).bridge !== undefined){
-        bridge_already_there = true;
-    }
-
-
-    RUR.set_nb_object_at_position(obj, x, y, 0);
-    if (RUR.TILES[obj].in_water &&
-        RUR.world_get.tile_at_position(to_x, to_y) == RUR.TILES.water &&
-        !bridge_already_there){
-            // TODO: fix this
-        RUR.world_set.add_solid_object(RUR.TILES[obj].in_water, to_x, to_y, 1);
-    } else {
-        RUR.set_nb_object_at_position(obj, to_x, to_y, 1);
-    }
-};
-
-
-// leave end of line comments below such as using += 1
-// as I (indirectly) refer to these comments in the programming tutorial
-
-RUR.control.turn_left = function(robot){
-    "use strict";
-    robot._prev_orientation = robot._orientation;
-    robot._prev_x = robot.x;
-    robot._prev_y = robot.y;
-    robot._orientation += 1;  // could have used "++" instead of "+= 1"
-    robot._orientation %= 4;
-    RUR.state.sound_id = "#turn-sound";
-    if (robot._is_leaky !== undefined && !robot._is_leaky) {  // update to avoid drawing from previous point.
-        robot._prev_orientation = robot._orientation;
-    }
-    RUR.record_frame("debug", "RUR.control.turn_left");
-};
-
-RUR.control.__turn_right = function(robot){
-    "use strict";
-    robot._prev_orientation = (robot._orientation+2)%4; // fix so that oil trace looks right
-    robot._prev_x = robot.x;
-    robot._prev_y = robot.y;
-    robot._orientation += 3;
-    robot._orientation %= 4;
-    if (robot._is_leaky !== undefined && !robot._is_leaky) {  // update to avoid drawing from previous point.
-        robot._prev_orientation = robot._orientation;
-    }
-    RUR.record_frame("debug", "RUR.control.__turn_right");
-};
-
-RUR.control.pause = function (ms) {
-    RUR.record_frame("pause", {pause_time:ms});
-};
-
-RUR.control.done = function () {
-    if (RUR.state.input_method === "py-repl") {
-        RUR.frames = [];
-        RUR.nb_frames = 1;
-        RUR.record_frame();
-        RUR.rec.conclude();
-    } else {
-        throw new RUR.ReeborgError(RUR.translate("Done!"));
-    }
-};
-
-RUR.control.put = function(robot, arg){
-    var translated_arg, objects_carried, obj_type, all_objects;
-    RUR.state.sound_id = "#put-sound";
-
-    if (arg !== undefined) {
-        translated_arg = RUR.translate_to_english(arg);
-        if (RUR.KNOWN_TILES.indexOf(translated_arg) == -1){
-            throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
-        }
-    }
-
-    objects_carried = robot.objects;
-    all_objects = [];
-    for (obj_type in objects_carried) {
-        if (objects_carried.hasOwnProperty(obj_type)) {
-            all_objects.push(obj_type);
-        }
-    }
-    if (all_objects.length === 0){
-        throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({obj: RUR.translate("object")}));
-    }
-    if (arg !== undefined) {
-        if (robot.objects[translated_arg] === undefined) {
-            throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({obj:arg}));
-        }  else {
-            RUR.control._robot_put_down_object(robot, translated_arg);
-        }
-    }  else {
-        if (objects_carried.length === 0){
-            throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({obj: RUR.translate("object")}));
-        } else if (all_objects.length > 1){
-             throw new RUR.ReeborgError(RUR.translate("I carry too many different objects. I don't know which one to put down!"));
-        } else {
-            RUR.control._robot_put_down_object(robot, translated_arg);
-        }
-    }
-};
-
-RUR.control._robot_put_down_object = function (robot, obj) {
-    "use strict";
-    var objects_carried, coords, obj_type;
-    if (obj === undefined){
-        objects_carried = robot.objects;
-        for (obj_type in objects_carried) {
-            if (objects_carried.hasOwnProperty(obj_type)) {
-                obj = obj_type;
-            }
-        }
-    }
-    if (robot.objects[obj] != "infinite") {
-        robot.objects[obj] -= 1;
-    }
-    if (robot.objects[obj] === 0) {
-        delete robot.objects[obj];
-    }
-
-    RUR.utils.ensure_key_exists(get_world(), "objects");
-    coords = robot.x + "," + robot.y;
-    RUR.utils.ensure_key_exists(get_world().objects, coords);
-    if (get_world().objects[coords][obj] === undefined) {
-        get_world().objects[coords][obj] = 1;
-    } else {
-        get_world().objects[coords][obj] += 1;
-    }
-    RUR.record_frame("debug", "RUR.control._put_object");
-};
-
-
-RUR.control.take = function(robot, arg){
-    var translated_arg, objects_here;
-    RUR.state.sound_id = "#take-sound";
-    if (arg !== undefined) {
-        translated_arg = RUR.translate_to_english(arg);
-        if (RUR.KNOWN_TILES.indexOf(translated_arg) == -1){
-            throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
-        }
-    }
-
-    objects_here = RUR.world_get.object_at_robot_position(robot, arg);
-    if (arg !== undefined) {
-        if (Array.isArray(objects_here) && objects_here.length === 0) {
-            throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: arg}));
-        }  else {
-            RUR.control._take_object_and_give_to_robot(robot, arg);
-        }
-    }  else if (Array.isArray(objects_here) && objects_here.length === 0){
-        throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: RUR.translate("object")}));
-    }  else if (objects_here.length > 1){
-        throw new RUR.ReeborgError(RUR.translate("Many objects are here; I do not know which one to take!"));
-    } else {
-        RUR.control._take_object_and_give_to_robot(robot, objects_here[0]);
-    }
-};
-
-RUR.control._take_object_and_give_to_robot = function (robot, obj) {
-    var objects_here, coords;
-    obj = RUR.translate_to_english(obj);
-    coords = robot.x + "," + robot.y;
-    get_world().objects[coords][obj] -= 1;
-
-    if (get_world().objects[coords][obj] === 0){
-        delete get_world().objects[coords][obj];
-        // WARNING: do not change this silly comparison to false
-        // to anything else ... []==false is true  but []==[] is false
-        // and ![] is false
-        if (RUR.world_get.object_at_robot_position(robot) == false){ // jshint ignore:line
-            delete get_world().objects[coords];
-        }
-    }
-    RUR.utils.ensure_key_exists(robot, "objects");
-    if (robot.objects[obj] === undefined){
-        robot.objects[obj] = 1;
-    } else {
-        if (robot.objects[obj] != "infinite") {
-            robot.objects[obj]++;
-        }
-    }
-    RUR.record_frame("debug", "RUR.control._take_object");
-};
-
-
-RUR.control.build_wall = function (robot){
-    var coords, orientation, x, y, walls;
-    if (RUR.control.wall_in_front(robot)){
-        throw new RUR.WallCollisionError(RUR.translate("There is already a wall here!"));
-    }
-
-    switch (robot._orientation){
-    case RUR.EAST:
-        coords = robot.x + "," + robot.y;
-        orientation = "east";
-        x = robot.x;
-        y = robot.y;
-        break;
-    case RUR.NORTH:
-        coords = robot.x + "," + robot.y;
-        orientation = "north";
-        x = robot.x;
-        y = robot.y;
-        break;
-    case RUR.WEST:
-        orientation = "east";
-        x = robot.x-1;
-        y = robot.y;
-        break;
-    case RUR.SOUTH:
-        orientation = "north";
-        x = robot.x;
-        y = robot.y-1;
-        break;
-    default:
-        throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.build_wall().");
-    }
-
-    coords = x + "," + y;
-    walls = get_world().walls;
-    if (walls === undefined){
-        walls = {};
-        get_world().walls = walls;
-    }
-
-    if (walls[coords] === undefined){
-        walls[coords] = [orientation];
-    } else {
-        walls[coords].push(orientation);
-    }
-    RUR.state.sound_id = "#build-sound";
-    RUR.record_frame("debug", "RUR.control.build_wall");
-};
-
-
-RUR.control.wall_in_front = function (robot) {
-    var coords;
-    switch (robot._orientation){
-    case RUR.EAST:
-        coords = robot.x + "," + robot.y;
-        if (robot.x == RUR.MAX_X){
-            return true;
-        }
-        if (RUR.world_get.is_wall_at(coords, "east")) {
-            return true;
-        }
-        break;
-    case RUR.NORTH:
-        coords = robot.x + "," + robot.y;
-        if (robot.y == RUR.MAX_Y){
-            return true;
-        }
-        if (RUR.world_get.is_wall_at(coords, "north")) {
-            return true;
-        }
-        break;
-    case RUR.WEST:
-        if (robot.x===1){
-            return true;
-        } else {
-            coords = (robot.x-1) + "," + robot.y; // do math first before building strings
-            if (RUR.world_get.is_wall_at(coords, "east")) {
-                return true;
-            }
-        }
-        break;
-    case RUR.SOUTH:
-        if (robot.y===1){
-            return true;
-        } else {
-            coords = robot.x + "," + (robot.y-1);  // do math first before building strings
-            if (RUR.world_get.is_wall_at(coords, "north")) {
-                return true;
-            }
-        }
-        break;
-    default:
-        throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.wall_in_front().");
-    }
-    return false;
-};
-
-RUR.control.wall_on_right = function (robot) {
-    var result;
-    RUR._recording_(false);
-    RUR.control.__turn_right(robot);
-    result = RUR.control.wall_in_front(robot);
-    RUR.control.turn_left(robot);
-    RUR._recording_(true);
-    return result;
-};
-
-RUR.control.tile_in_front = function (robot) {
-    // returns single tile
-    switch (robot._orientation){
-    case RUR.EAST:
-        return RUR.world_get.tile_at_position(robot.x+1, robot.y);
-    case RUR.NORTH:
-        return RUR.world_get.tile_at_position(robot.x, robot.y+1);
-    case RUR.WEST:
-        return RUR.world_get.tile_at_position(robot.x-1, robot.y);
-    case RUR.SOUTH:
-        return RUR.world_get.tile_at_position(robot.x, robot.y-1);
-    default:
-        throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.tile_in_front().");
-    }
-};
-
-
-RUR.control.obstacles_in_front = function (robot) {
-    // returns list of tiles
-    switch (robot._orientation){
-    case RUR.EAST:
-        return RUR.world_get.obstacles_at_position(robot.x+1, robot.y);
-    case RUR.NORTH:
-        return RUR.world_get.obstacles_at_position(robot.x, robot.y+1);
-    case RUR.WEST:
-        return RUR.world_get.obstacles_at_position(robot.x-1, robot.y);
-    case RUR.SOUTH:
-        return RUR.world_get.obstacles_at_position(robot.x, robot.y-1);
-    default:
-        throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.obstacles_in_front().");
-    }
-};
-
-
-RUR.control.front_is_clear = function(robot){
-    var tile, tiles, solid, name;
-    if( RUR.control.wall_in_front(robot)) {
-        return false;
-    }
-    tile = RUR.control.tile_in_front(robot);
-    if (tile) {
-        if (tile.detectable && tile.fatal){
-                if (tile == RUR.TILES.water) {
-                    if (!RUR.control._bridge_present(robot)){
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-        }
-    }
-
-    solid = RUR.control.obstacles_in_front(robot);
-    if (solid) {
-        for (name in solid) {
-            if (RUR.TILES[name] !== undefined &&
-                RUR.TILES[name].detectable &&
-                RUR.TILES[name].fatal) {
-                return false;
-            }
-        }
-    }
-
-    return true;
-};
-
-
-RUR.control._bridge_present = function(robot) {
-    var solid, name;
-        solid = RUR.control.obstacles_in_front(robot);
-    if (solid) {
-        for (name in solid) {
-            if (name == "bridge") {
-                return true;
-            }
-        }
-    }
-    return false;
-};
-
-
-RUR.control.right_is_clear = function(robot){
-    var result;
-    RUR._recording_(false);
-    RUR.control.__turn_right(robot);
-    result = RUR.control.front_is_clear(robot);
-    RUR.control.turn_left(robot);
-    RUR._recording_(true);
-    return result;
-};
-
-RUR.control.is_facing_north = function (robot) {
-    return robot._orientation === RUR.NORTH;
-};
-
-RUR.control.think = function (delay) {
-    RUR.playback_delay = delay;
-};
-
-RUR.control.at_goal = function (robot) {
-    var goal = get_world().goal;
-    if (goal !== undefined){
-        if (goal.position !== undefined) {
-            return (robot.x === goal.position.x && robot.y === goal.position.y);
-        }
-        throw new RUR.ReeborgError(RUR.translate("There is no position as a goal in this world!"));
-    }
-    throw new RUR.ReeborgError(RUR.translate("There is no goal in this world!"));
-};
-
-
-// TODO: review this as it seems redundant ... and may not work as expected.
-RUR.control.solid_object_here = function (robot, tile) {
-    var tile_here, tile_type, all_solid_objects;
-    var coords = robot.x + "," + robot.y;
-
-    if (get_world().obstacles === undefined ||
-        get_world().obstacles[coords] === undefined) {
-        return false;
-    }
-
-    tile_here =  get_world().obstacles[coords];
-
-    for (tile_type in tile_here) {
-        if (tile_here.hasOwnProperty(tile_type)) {
-            if (tile!== undefined && tile_type == RUR.translate_to_english(tile)) {
-                return true;
-            }
-        }
-    }
-    return false;
-};
-
-
-RUR.control.carries_object = function (robot, obj) {
-    var obj_type, all_objects, carried=false;
-
-    if (robot === undefined || robot.objects === undefined) {
-        return 0;
-    }
-
-    all_objects = {};
-
-    if (obj === undefined) {
-        for (obj_type in robot.objects) {
-            if (robot.objects.hasOwnProperty(obj_type)) {
-                all_objects[RUR.translate(obj_type)] = robot.objects[obj_type];
-                carried = true;
-            }
-        }
-        if (carried) {
-            return all_objects;
-        } else {
-            return 0;
-        }
-    } else {
-        obj = RUR.translate_to_english(obj);
-        for (obj_type in robot.objects) {
-            if (robot.objects.hasOwnProperty(obj_type) && obj_type == obj) {
-                return robot.objects[obj_type];
-            }
-        }
-        return 0;
-    }
-};
-
-
-RUR.control.set_model = function(robot, model){
-    robot.model = model;
-    RUR.record_frame();
- };
-
-RUR.control.set_trace_color = function(robot, color){
-    robot._trace_color = color;
- };
-
-RUR.control.set_trace_style = function(robot, style){
-    robot._trace_style = style;
- };
-
-if (RUR.state === undefined){
-    RUR.state = {};
-}
-
-RUR.state.sound_on = false;
-RUR.control.sound = function(on){
-    if(!on){
-        RUR.state.sound_on = false;
-        return;
-    }
-    RUR.state.sound_on = true;
-};
-
-RUR.control.get_colour_at_position = function (x, y) {
-    if (RUR.world_get.tile_at_position(x, y)===false) {
-        return null;
-    } else if (RUR.world_get.tile_at_position(x, y)===undefined){
-        return get_world().tiles[x + "," + y];
-    } else {
-        return null;
-    }
-};
-RUR.control.get_color_at_position = RUR.control.get_colour_at_position;
-
-},{"./default_tiles/tiles.js":5,"./exceptions.js":14,"./output.js":39,"./recorder/record_frame.js":45,"./rur.js":49,"./translator.js":53,"./utils/key_exist.js":58,"./utils/supplant.js":60,"./world_get.js":68,"./world_get/world.js":71,"./world_set.js":74}],4:[function(require,module,exports){
-
-require("./translator.js");
-require("./world_select.js");
-require("./storage.js");
-
-RUR.custom_world_select = {};
-
-RUR.custom_world_select.make = function (contents) {
-    "use strict";
-    var i, url;
-    RUR.world_select.empty_menu();
-    for(i=0; i<contents.length; i++){
-        RUR.world_select.append_world( {url:contents[i][0],
-                                        shortname:contents[i][1]});
-    }
-    load_user_worlds();
-    if (RUR.state.session_initialized) {
-        RUR.world_select.set_default();
-    }
-};
-
-function load_user_worlds() {
-    var key, name, i;
-    RUR.state.creating_menu = true;
-    for (i = localStorage.length - 1; i >= 0; i--) {
-        key = localStorage.key(i);
-        if (key.slice(0, 11) === "user_world:") {
-            name = key.slice(11);
-            RUR.storage.append_world_name(name);
-            $('#delete-world').show();
-        }
-    }
-    RUR.state.creating_menu = false;
-}
-
-
-RUR.make_default_menu = function(language) {
-    switch (language) {
-        case 'en':
-        case 'fr-en':
-        case 'ko-en':
-            RUR.make_default_menu_en();
-            break;
-        case 'fr':
-        case 'en-fr':
-            RUR.make_default_menu_fr();
-            break;
-        default: RUR.make_default_menu_en();
-    }
-};
-
-
-RUR.make_default_menu_en = function () {
-    "use strict";
-    var contents,
-        tutorial_en = RUR._BASE_URL + '/src/worlds/tutorial_en/',
-        menus = RUR._BASE_URL + '/src/worlds/menus/',
-        worlds = RUR._BASE_URL + '/src/worlds/',
-        docs = RUR._BASE_URL + '/src/worlds/documentation/',
-        permalinks = RUR._BASE_URL + '/src/worlds/permalinks/';
-
-    contents = [
-        [worlds + 'alone.json', 'Alone'],
-        [worlds + 'empty.json', 'Empty'],
-        [tutorial_en + 'around1.json', 'Around 1'],
-        [tutorial_en + 'around2.json', 'Around 2'],
-        [tutorial_en + 'around3.json', 'Around 3'],
-        [tutorial_en + 'around4.json', 'Around 4'],
-        [tutorial_en + 'center1.json', 'Center 1'],
-        [tutorial_en + 'center2.json', 'Center 2'],
-        [tutorial_en + 'center3.json', 'Center 3'],
-        [tutorial_en + 'harvest1.json', 'Harvest 1'],
-        [tutorial_en + 'harvest2.json', 'Harvest 2'],
-        [tutorial_en + 'harvest3.json', 'Harvest 3'],
-        [tutorial_en + 'harvest4a.json', 'Harvest 4a'],
-        [tutorial_en + 'harvest4b.json', 'Harvest 4b'],
-        [tutorial_en + 'harvest4c.json', 'Harvest 4c'],
-        [tutorial_en + 'harvest4d.json', 'Harvest 4d'],
-        [tutorial_en + 'home1.json', 'Home 1'],
-        [tutorial_en + 'home2.json', 'Home 2'],
-        [tutorial_en + 'home3.json', 'Home 3'],
-        [tutorial_en + 'hurdle1.json', 'Hurdle 1'],
-        [tutorial_en + 'hurdle2.json', 'Hurdle 2'],
-        [tutorial_en + 'hurdle3.json', 'Hurdle 3'],
-        [tutorial_en + 'hurdle4.json', 'Hurdle 4'],
-        [tutorial_en + 'maze1.json', 'Maze 1'],
-        [tutorial_en + 'maze2.json', 'Maze 2'],
-        [tutorial_en + 'newspaper0.json', 'Newspaper 0'],
-        [tutorial_en + 'newspaper1.json', 'Newspaper 1'],
-        [tutorial_en + 'newspaper2.json', 'Newspaper 2'],
-        [tutorial_en + 'rain1_en.json', 'Rain 1'],
-        [tutorial_en + 'rain2_en.json', 'Rain 2'],
-        [tutorial_en + 'storm1.json', 'Storm 1'],
-        [tutorial_en + 'storm2.json', 'Storm 2'],
-        [tutorial_en + 'storm3.json', 'Storm 3'],
-        [tutorial_en + 'tokens1.json', 'Tokens 1'],
-        [tutorial_en + 'tokens2.json', 'Tokens 2'],
-        [tutorial_en + 'tokens3.json', 'Tokens 3'],
-        [tutorial_en + 'tokens4.json', 'Tokens 4'],
-        [tutorial_en + 'tokens5.json', 'Tokens 5'],
-        [tutorial_en + 'tokens6.json', 'Tokens 6'],
-        [docs + 'simple_demo1', 'Demo 1 (solution)'],
-        [docs + 'simple_demo2', 'Demo 2 (solution)'],
-        [docs + 'simple_demo3', 'Demo 3 (solution)'],
-        [worlds + 'simple_path.json', 'Simple path'],
-        [worlds + 'gravel_path.json', 'Gravel path'],
-        [worlds + 'gravel_path',
-                           'Gravel path (solution)'],
-        [worlds + 'slalom.json', 'Slalom'],
-        [permalinks + 'pre_post_demo', 'Pre & Post code demo'],
-        [permalinks + 'story', 'Story'],
-        [permalinks + 'test_remove', 'Robot replacement'],
-        [docs + 'big_maze.json', 'Big maze'],
-        [worlds + 'maze_gen_py', 'Maze generation (Python)'],
-        [worlds + 'maze_gen_js', 'Maze generation (Javascript)'],
-        [worlds + 'blank.json', 'Blank canvas'],
-        ];
-
-    RUR.custom_world_select.make(contents);
-};
-
-RUR.make_default_menu_fr = function () {
-    "use strict";
-    var base_url, base_url2, contents, menus, worlds;
-
-    base_url = RUR._BASE_URL + '/src/worlds/tutorial_en/';
-    base_url2 = RUR._BASE_URL + '/src/worlds/tutorial_fr/';
-
-    menus = RUR._BASE_URL + '/src/worlds/menus/';
-    worlds = RUR._BASE_URL + '/src/worlds/';
-
-    contents = [
-        ['src/worlds/seul.json', 'Seul'],
-        ['src/worlds/empty.json', 'Vide'],
-        [base_url2 + 'around1.json', 'Autour 1'],
-        [base_url2 + 'around2.json', 'Autour 2'],
-        [base_url2 + 'around3.json', 'Autour 3'],
-        [base_url2 + 'around4.json', 'Autour 4'],
-        [base_url + 'home1.json', 'But 1'],
-        [base_url + 'home2.json', 'But 2'],
-        [base_url + 'home3.json', 'But 3'],
-        [base_url + 'center1.json', 'Centrer 1'],
-        [base_url + 'center2.json', 'Centrer 2'],
-        [base_url + 'center3.json', 'Centrer 3'],
-        [base_url + 'hurdle1.json', 'Haies 1'],
-        [base_url + 'hurdle2.json', 'Haies 2'],
-        [base_url + 'hurdle3.json', 'Haies 3'],
-        [base_url + 'hurdle4.json', 'Haies 4'],
-        [base_url + 'tokens1.json', 'Jetons 1'],
-        [base_url + 'tokens2.json', 'Jetons 2'],
-        [base_url + 'tokens3.json', 'Jetons 3'],
-        [base_url + 'tokens4.json', 'Jetons 4'],
-        [base_url + 'tokens5.json', 'Jetons 5'],
-        [base_url + 'tokens6.json', 'Jetons 6'],
-        [base_url + 'newspaper0.json', 'Journal 0'],
-        [base_url + 'newspaper1.json', 'Journal 1'],
-        [base_url + 'newspaper2.json', 'Journal 2'],
-        [base_url + 'maze1.json', 'Labyrinthe 1'],
-        [base_url + 'maze2.json', 'Labyrinthe 2'],
-        [base_url + 'rain1.json', 'Pluie 1'],
-        [base_url + 'rain2.json', 'Pluie 2'],
-        [base_url + 'harvest1.json', 'Récolte 1'],
-        [base_url + 'harvest2.json', 'Récolte 2'],
-        [base_url + 'harvest3.json', 'Récolte 3'],
-        [base_url + 'harvest4a.json', 'Récolte 4a'],
-        [base_url + 'harvest4b.json', 'Récolte 4b'],
-        [base_url + 'harvest4c.json', 'Récolte 4c'],
-        [base_url + 'harvest4d.json', 'Récolte 4d'],
-        [base_url + 'storm1.json', 'Tempête 1'],
-        [base_url + 'storm2.json', 'Tempête 2'],
-        [base_url + 'storm3.json', 'Tempête 3'],
-        // [menus + 'default_fr', 'Menu par défaut'],
-        [worlds + 'menus/documentation_fr', 'Documentation (menu anglais)'],
-        [worlds + 'simple_path_fr.json', 'Simple sentier'],
-        [worlds + 'gravel_path.json', 'Sentier de gravier'],
-        [worlds + 'gravel_path_fr',
-                           'Sentier de gravier (solution)'],
-        [worlds + 'slalom.json', 'Slalom'],
-        [RUR._BASE_URL + 'src/worlds/blank.json', 'Canevas graphique'],
-    ];
-
-    RUR.custom_world_select.make(contents);
-};
-
-},{"./storage.js":52,"./translator.js":53,"./world_select.js":73}],5:[function(require,module,exports){
 /* Initially, Reeborg's World only contained "objects", starting with a 
   single one (beeper, which became token) and slowly increasing the number
   and characteristics (e.g. animated object).  The first objects were
@@ -1977,7 +190,7 @@ RUR.TILES.fence_vertical.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_vertical.info = RUR.TILES.fence_right.info;
 RUR.TILES.fence7 = RUR.TILES.fence_vertical;  // compatibility with old worlds
 
-},{"./../rur.js":49,"./../world_enhance/add_tile_type.js":65}],6:[function(require,module,exports){
+},{"./../rur.js":51,"./../world_enhance/add_tile_type.js":69}],2:[function(require,module,exports){
 /* Dialog used by the Interactive world editor to add objects to the world.
 */
 
@@ -2033,7 +246,7 @@ add_object_form = dialog_add_object.find("form").on("submit", function( event ) 
     add_object();
 });
 
-},{"./../../lang/msg.js":91,"./../rur.js":49,"./../visible_world.js":64,"./../world_set/object.js":79}],7:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../rur.js":51,"./../visible_world.js":68,"./../world_set/object.js":81}],3:[function(require,module,exports){
 
 require("./../libs/jquery.ui.dialog.minmax.js");
 require("./../rur.js");
@@ -2092,7 +305,7 @@ $("#Reeborg-proclaims").dialog({minimize: false, maximize: false, autoOpen:false
 $("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:400, dialogClass: "watches",
                                 position:{my: "bottom", at: "bottom-140", of: window}});
 
-},{"./../../lang/msg.js":91,"./../libs/jquery.ui.dialog.minmax.js":19,"./../rur.js":49}],8:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../libs/jquery.ui.dialog.minmax.js":14,"./../rur.js":51}],4:[function(require,module,exports){
 
 require("./../world_set.js");
 require("./../visible_world.js");
@@ -2145,7 +358,7 @@ give_object_form = dialog_give_object.find("form").on("submit", function( event 
     give_object();
 });
 
-},{"./../../lang/msg.js":91,"./../rur.js":49,"./../visible_world.js":64,"./../world_set.js":74,"./../world_set/give_object_to_robot.js":77}],9:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../rur.js":51,"./../visible_world.js":68,"./../world_set.js":76,"./../world_set/give_object_to_robot.js":79}],5:[function(require,module,exports){
 require("./../visible_world.js");
 require("./../world_set/give_object_to_robot.js");
 require("./../rur.js");
@@ -2195,7 +408,7 @@ goal_objects_form = dialog_goal_object.find("form").on("submit", function( event
     goal_objects();
 });
 
-},{"./../../lang/msg.js":91,"./../rur.js":49,"./../visible_world.js":64,"./../world_set/give_object_to_robot.js":77}],10:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../rur.js":51,"./../visible_world.js":68,"./../world_set/give_object_to_robot.js":79}],6:[function(require,module,exports){
 require("./../visible_world.js");
 var msg = require("./../../lang/msg.js");
 
@@ -2234,7 +447,7 @@ select_colour = function () {
     RUR.vis_world.draw_all();
 };
 
-},{"./../../lang/msg.js":91,"./../visible_world.js":64}],11:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../visible_world.js":68}],7:[function(require,module,exports){
 require("./../visible_world.js");
 var msg = require("./../../lang/msg.js");
 var dialog;
@@ -2272,7 +485,7 @@ set_background_image = function () {
     dialog.dialog("close");
 };
 
-},{"./../../lang/msg.js":91,"./../visible_world.js":64}],12:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../visible_world.js":68}],8:[function(require,module,exports){
 function betterTab(cm) {
   if (cm.somethingSelected()) {
     cm.indentSelection("add");
@@ -2379,7 +592,7 @@ onload_editor.setOption("extraKeys", {
   "Shift-Tab": shiftTab
 });
 
-},{}],13:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 
 require("./../rur.js");
 require("./create.js");
@@ -2513,59 +726,16 @@ $("#update-library-content-btn").on("click", function(evt) {
     }
 });
 
-},{"./../../lang/msg.js":91,"./../rur.js":49,"./create.js":12}],14:[function(require,module,exports){
-
-require("./rur.js");
-
-/* When loading a world from a url, Python names may not have been
-   defined in the running environment. If that is the case,
-   we make sure to stop that error and let a the basic javascript
-   one propagate so that the correct dialog can be shown.
- */
-
-RUR.ReeborgOK = function (message) {
-    if (RUR.state.programming_language == "python"){
-        try { // see comment above
-            return ReeborgOK(message);
-        } catch (e) {}
-    }
-    this.reeborg_concludes = message;
-    this.message = message;
-};
-
-RUR.ReeborgError = function (message) {
-    if (RUR.state.programming_language == "python"){
-        try { // see comment above
-            return ReeborgError(message);
-        } catch (e) {}
-    }
-
-    this.name = "ReeborgError";
-    this.message = message;
-    this.reeborg_shouts = message;
-};
-
-RUR.WallCollisionError = function (message) {
-    if (RUR.state.programming_language == "python"){
-        return WallCollisionError(message);
-    }
-    this.name = "WallCollisionError";
-    this.message = message;
-    this.reeborg_shouts = message;
-};
-
-
-
-},{"./rur.js":49}],15:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../rur.js":51,"./create.js":8}],10:[function(require,module,exports){
 
 require("./output.js");
 require("./recorder.js");
 require("./editors/update.js");
 require("./world_utils/import_world.js");
-require("./world_select.js");
+require("./ui/world_select.js");
 require("./permalink.js");
 require("./translator.js");
-require("./exceptions.js");
+require("./programming_ui/exceptions.js");
 require("./listeners/stop.js");
 require("./utils/supplant.js");
 
@@ -2732,7 +902,7 @@ window.get_extra_content = function () {
     return $("#extra").html();
 };
 
-},{"./editors/update.js":13,"./exceptions.js":14,"./listeners/stop.js":36,"./output.js":39,"./permalink.js":40,"./recorder.js":44,"./translator.js":53,"./utils/supplant.js":60,"./world_select.js":73,"./world_utils/import_world.js":88}],16:[function(require,module,exports){
+},{"./editors/update.js":9,"./listeners/stop.js":31,"./output.js":34,"./permalink.js":35,"./programming_ui/exceptions.js":42,"./recorder.js":45,"./translator.js":55,"./ui/world_select.js":59,"./utils/supplant.js":64,"./world_utils/import_world.js":90}],11:[function(require,module,exports){
 /*  Handler of special on-screen keyboard
 */
 
@@ -3162,7 +1332,7 @@ function add_onclick(id, fn, arg, record, enter) {
     }
 }
 
-},{"./../../lang/msg.js":91,"./../dialogs/create.js":7,"./../listeners/editors_tabs.js":22,"./../rur.js":49,"./../translator.js":53}],17:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../dialogs/create.js":3,"./../listeners/editors_tabs.js":17,"./../rur.js":51,"./../translator.js":55}],12:[function(require,module,exports){
 /* Menu driven world editor */
 
 
@@ -3173,7 +1343,7 @@ require("./../default_tiles/tiles.js");
 require("./../robot.js");
 require("./../editors/update.js");
 require("./../visible_world.js");
-require("./../exceptions.js");
+require("./../programming_ui/exceptions.js");
 require("./../world_get.js");
 require("./../world_set.js");
 require("./../dialogs/create.js");
@@ -3832,11 +2002,11 @@ $("#robot-canvas").on("click", function (evt) {
     RUR.world_get.world_info();
 });
 
-},{"./../default_tiles/tiles.js":5,"./../dialogs/add_object.js":6,"./../dialogs/create.js":7,"./../dialogs/give_object.js":8,"./../dialogs/goal_object.js":9,"./../dialogs/select_colour.js":10,"./../dialogs/set_background_image.js":11,"./../editors/create.js":12,"./../editors/update.js":13,"./../exceptions.js":14,"./../listeners/canvas.js":21,"./../robot.js":47,"./../rur.js":49,"./../translator.js":53,"./../ui/edit_robot_menu.js":54,"./../utils/identical.js":57,"./../utils/key_exist.js":58,"./../utils/supplant.js":60,"./../visible_world.js":64,"./../world_get.js":68,"./../world_get/wall.js":70,"./../world_set.js":74,"./../world_set/add_robot.js":75,"./../world_set/decorative_object.js":76,"./../world_set/give_object_to_robot.js":77,"./../world_set/goal_object.js":78,"./../world_set/object.js":79,"./../world_set/obstacle.js":80,"./../world_set/wall.js":84}],18:[function(require,module,exports){
+},{"./../default_tiles/tiles.js":1,"./../dialogs/add_object.js":2,"./../dialogs/create.js":3,"./../dialogs/give_object.js":4,"./../dialogs/goal_object.js":5,"./../dialogs/select_colour.js":6,"./../dialogs/set_background_image.js":7,"./../editors/create.js":8,"./../editors/update.js":9,"./../listeners/canvas.js":16,"./../programming_ui/exceptions.js":42,"./../robot.js":48,"./../rur.js":51,"./../translator.js":55,"./../ui/edit_robot_menu.js":57,"./../utils/identical.js":61,"./../utils/key_exist.js":62,"./../utils/supplant.js":64,"./../visible_world.js":68,"./../world_get.js":72,"./../world_get/wall.js":74,"./../world_set.js":76,"./../world_set/add_robot.js":77,"./../world_set/decorative_object.js":78,"./../world_set/give_object_to_robot.js":79,"./../world_set/goal_object.js":80,"./../world_set/object.js":81,"./../world_set/obstacle.js":82,"./../world_set/wall.js":86}],13:[function(require,module,exports){
 /* require this module that will automatically modify a global object*/
 require("./utils/cors.js");
 
-require("./commands.js"); // to control Reeborg's actions
+require("./programming_ui/commands.js"); // to control Reeborg's actions
 require("./gui_tools/world_editor.js"); // the world editor is not required by other modules
 require("./start_session.js");
 
@@ -3846,7 +2016,7 @@ require("./start_session.js");
 // TODO: add turtle mode (see blockly for comparing with expected solution); ensure a blockly counterpart
 // TODO: implement paint() and colour_here() in Blockly
 
-},{"./commands.js":2,"./gui_tools/world_editor.js":17,"./start_session.js":51,"./utils/cors.js":56}],19:[function(require,module,exports){
+},{"./gui_tools/world_editor.js":12,"./programming_ui/commands.js":40,"./start_session.js":53,"./utils/cors.js":60}],14:[function(require,module,exports){
 /*
  * jQuery UI Dialog 1.8.16
  * w/ Minimize & Maximize Support
@@ -4868,7 +3038,7 @@ $.extend($.ui.dialog.overlay.prototype, {
 });
 
 }(jQuery));
-},{}],20:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 require("./canvas.js");
 require("./editors_tabs.js");
 require("./erase_trace.js");
@@ -4888,7 +3058,7 @@ require("./stop.js");
 require("./toggle_highlight.js");
 require("./toggle_watch.js");
 
-},{"./canvas.js":21,"./editors_tabs.js":22,"./erase_trace.js":23,"./frame_slider.js":24,"./human_language.js":25,"./memorize_world.js":26,"./onclick.js":27,"./pause.js":28,"./programming_mode.js":29,"./reload.js":30,"./reverse_step.js":31,"./robot_model.js":32,"./run.js":33,"./select_world_change.js":34,"./step.js":35,"./stop.js":36,"./toggle_highlight.js":37,"./toggle_watch.js":38}],21:[function(require,module,exports){
+},{"./canvas.js":16,"./editors_tabs.js":17,"./erase_trace.js":18,"./frame_slider.js":19,"./human_language.js":20,"./memorize_world.js":21,"./onclick.js":22,"./pause.js":23,"./programming_mode.js":24,"./reload.js":25,"./reverse_step.js":26,"./robot_model.js":27,"./run.js":28,"./select_world_change.js":29,"./step.js":30,"./stop.js":31,"./toggle_highlight.js":32,"./toggle_watch.js":33}],16:[function(require,module,exports){
 require("./../rur.js");
 
 $("#robot-canvas").mousemove(function (evt) {
@@ -4998,7 +3168,7 @@ RUR.calculate_grid_position = function () {
     return [x, y];
 };
 
-},{"./../rur.js":49}],22:[function(require,module,exports){
+},{"./../rur.js":51}],17:[function(require,module,exports){
 require("./../editors/create.js");
 var record_id = require("./../../lang/msg.js").record_id;
 
@@ -5052,7 +3222,7 @@ $("#library-tab").on("click", function (evt) {
     $("#watch-variables-btn").hide();
 });
 
-},{"./../../lang/msg.js":91,"./../editors/create.js":12}],23:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../editors/create.js":8}],18:[function(require,module,exports){
 require("./../rur.js");
 
 var record_id = require("./../../lang/msg.js").record_id;
@@ -5064,10 +3234,10 @@ RUR.erase_trace = function(){
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 };
 
-},{"./../../lang/msg.js":91,"./../rur.js":49}],24:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../rur.js":51}],19:[function(require,module,exports){
 require("./../rur.js");
 require("./reload.js");
-require("./../runner.js");
+require("./../runner/runner.js");
 
 RUR.update_frame_nb_info = function() {
     var frame_no=0;
@@ -5110,11 +3280,12 @@ $("#frame-selector").on("input change", function() {
     RUR.rec.display_frame();
 });
 
-},{"./../runner.js":48,"./../rur.js":49,"./reload.js":30}],25:[function(require,module,exports){
+},{"./../runner/runner.js":49,"./../rur.js":51,"./reload.js":25}],20:[function(require,module,exports){
 require("./../rur.js");
-require("./../../lang/reeborg_en.js");
-require("./../../lang/reeborg_fr.js");
-require("./../custom_world_select.js");
+require("./../programming_ui/reeborg_en.js");
+require("./../programming_ui/reeborg_fr.js");
+require("./../ui/custom_world_select.js");
+
 var msg = require("./../../lang/msg.js");
 var update_url = require("./../utils/parseuri.js").update_url;
 
@@ -5241,7 +3412,7 @@ $("#human-language").change(function() {
     update_url();
 });
 
-},{"./../../lang/msg.js":91,"./../../lang/reeborg_en.js":92,"./../../lang/reeborg_fr.js":93,"./../custom_world_select.js":4,"./../rur.js":49,"./../utils/parseuri.js":59}],26:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../programming_ui/reeborg_en.js":43,"./../programming_ui/reeborg_fr.js":44,"./../rur.js":51,"./../ui/custom_world_select.js":56,"./../utils/parseuri.js":63}],21:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../storage.js");
@@ -5301,7 +3472,7 @@ save_world = function () {
     $('#delete-world').show();
 };
 
-},{"./../../lang/msg.js":91,"./../rur.js":49,"./../storage.js":52,"./../world_utils/clone_world.js":85}],27:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../rur.js":51,"./../storage.js":54,"./../world_utils/clone_world.js":87}],22:[function(require,module,exports){
 /* Sets up what happens when the user clicks on various html elements.
 */
 
@@ -5309,7 +3480,7 @@ require("./../translator.js");
 require("./../editors/update.js");
 require("./../rur.js");
 require("./../editors/create.js");
-require("./../blockly.js");
+require("./../programming_ui/blockly.js");
 
 var export_world = require("./../world_utils/export_world.js").export_world;
 var record_id = require("./../../lang/msg.js").record_id;
@@ -5482,7 +3653,7 @@ toggle_content("description", description_editor);
 record_id("add-onload-text", "ADD ONLOAD TEXT");
 toggle_content("onload", onload_editor);
 
-},{"./../../lang/msg.js":91,"./../blockly.js":1,"./../editors/create.js":12,"./../editors/update.js":13,"./../rur.js":49,"./../translator.js":53,"./../world_utils/export_world.js":87}],28:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../editors/create.js":8,"./../editors/update.js":9,"./../programming_ui/blockly.js":39,"./../rur.js":51,"./../translator.js":55,"./../world_utils/export_world.js":89}],23:[function(require,module,exports){
 require("./../rur.js");
 require("./../playback/play.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -5516,7 +3687,7 @@ pause = function () {
 
 pause_button.addEventListener("click", pause, false);
 
-},{"./../../lang/msg.js":91,"./../playback/play.js":41,"./../rur.js":49}],29:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../playback/play.js":36,"./../rur.js":51}],24:[function(require,module,exports){
 require("./../rur.js");
 require("./../listeners/reload.js");
 require("./../gui_tools/special_keyboard.js");
@@ -5529,28 +3700,23 @@ record_id("programming-mode");
 /** @function onload_set_programming_mode
  * @memberof RUR
  * @instance
- * @summary This function MUST be called from an onload editor. It is used
+ * @summary This function must ONLY be called from an onload editor. It is used
  *          to specify which of three mode must be used for a given world.
  *          This should only be required if the world contains some content to
  *          be run (either as blocks, in the editor, or in the pre- or post- code stage.)
  *
- * @desc Cette fonction doit être invoquée **uniquement** à partir de l'éditeur "onload".
- *       Son but est de changer le mode de programmation devant être utilisé pour un
- *       monde particulier.  Ceci ne devrait être requis que si le monde en question contient
- *       du code prédéfini (dans l'éditeur, sous forme de blocs, ou dans l'éditeur pre- ou post-.)
  *
- * @param {string} mode  One of "python", "javascript", or "blokcly" <br>
- *                            _Un de trois choix possibles : "python", "javascript", or "blokcly"_
+ * @param {string} mode  One of "python", "javascript", or "blockly" 
  *
+ * @todo: see if we should not distinguish between blockly-js and blockly-py
+ * @todo: see if we should not add py-repl as an option
+ * 
  * @example
  * // shows how to switch mode to Blockly, where some blocks are already placed.
  * World("/worlds/examples/square_blockly.json", "Square")
  */
 
 RUR.onload_set_programming_mode = function(mode) {
-    //TODO: Document this function
-    //
-    //
     if (!RUR.state.evaluating_onload) {
         alert("RUR.onload_set_programming_mode should only be called from the 'onload' World component.");
         return;
@@ -5820,7 +3986,7 @@ function hide_console() {
 show_editor("python");
 // see start_session.js for initialization.
 
-},{"./../../lang/msg.js":91,"./../editors/create.js":12,"./../gui_tools/special_keyboard.js":16,"./../listeners/reload.js":30,"./../rur.js":49,"./../utils/parseuri.js":59}],30:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../editors/create.js":8,"./../gui_tools/special_keyboard.js":11,"./../listeners/reload.js":25,"./../rur.js":51,"./../utils/parseuri.js":63}],25:[function(require,module,exports){
 
 require("./../rur.js");
 var set_ready_to_run = require("./../ui/set_ready_to_run.js").set_ready_to_run;
@@ -5866,7 +4032,7 @@ RUR.reload2 = function() {
 reload_button.addEventListener("click", RUR.reload, false);
 reload2_button.addEventListener("click", RUR.reload2, false);
 
-},{"./../../lang/msg.js":91,"./../recorder/reset.js":46,"./../rur.js":49,"./../ui/set_ready_to_run.js":55,"./../world_set/reset_world.js":81}],31:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../recorder/reset.js":47,"./../rur.js":51,"./../ui/set_ready_to_run.js":58,"./../world_set/reset_world.js":83}],26:[function(require,module,exports){
 require("./../rur.js");
 require("./../recorder.js");
 
@@ -5889,7 +4055,7 @@ reverse_step = function () {
     clearTimeout(RUR._TIMER);
 };
 
-},{"./../../lang/msg.js":91,"./../recorder.js":44,"./../rur.js":49}],32:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../recorder.js":45,"./../rur.js":51}],27:[function(require,module,exports){
 require("./../visible_robot.js");
 
 require("./../rur.js");
@@ -5916,11 +4082,11 @@ $("#robot3").on("click", function (evt) {
     RUR.select_default_robot_model(3);
 });
 
-},{"./../../lang/msg.js":91,"./../rur.js":49,"./../visible_robot.js":63}],33:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../rur.js":51,"./../visible_robot.js":67}],28:[function(require,module,exports){
 
 require("./../rur.js");
 require("./reload.js");
-require("./../runner.js");
+require("./../runner/runner.js");
 require("./../playback/play.js");
 var record_id = require("./../../lang/msg.js").record_id;
 
@@ -5945,7 +4111,7 @@ function run () {
 }
 run_button.addEventListener("click", run, false);
 
-},{"./../../lang/msg.js":91,"./../playback/play.js":41,"./../runner.js":48,"./../rur.js":49,"./reload.js":30}],34:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../playback/play.js":36,"./../runner/runner.js":49,"./../rur.js":51,"./reload.js":25}],29:[function(require,module,exports){
 require("./../file_io.js");
 require("./../storage.js");
 
@@ -5964,11 +4130,11 @@ $("#select-world").change(function() {
     } catch (e) {}
 });
 
-},{"./../../lang/msg.js":91,"./../file_io.js":15,"./../storage.js":52}],35:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../file_io.js":10,"./../storage.js":54}],30:[function(require,module,exports){
 
 require("./../rur.js");
 require("./reload.js");
-require("./../runner.js");
+require("./../runner/runner.js");
 require("./../playback/play.js");
 var record_id = require("./../../lang/msg.js").record_id;
 
@@ -5985,7 +4151,7 @@ step = function () {
 };
 step_button.addEventListener("click", step, false);
 
-},{"./../../lang/msg.js":91,"./../playback/play.js":41,"./../runner.js":48,"./../rur.js":49,"./reload.js":30}],36:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../playback/play.js":36,"./../runner/runner.js":49,"./../rur.js":51,"./reload.js":25}],31:[function(require,module,exports){
 
 require("./../rur.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -6005,7 +4171,7 @@ RUR.stop = function () {
 };
 stop_button.addEventListener("click", RUR.stop, false);
 
-},{"./../../lang/msg.js":91,"./../rur.js":49}],37:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../rur.js":51}],32:[function(require,module,exports){
 ;
 require("./../rur.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -6026,7 +4192,7 @@ RUR.toggle_highlight = function () {  // keep part of RUR for Python
 };
 highlight_button.addEventListener("click", RUR.toggle_highlight, false);
 
-},{"./../../lang/msg.js":91,"./../rur.js":49}],38:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../rur.js":51}],33:[function(require,module,exports){
 ;
 require("./../rur.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -6051,7 +4217,7 @@ toggle_watch_variables = function () {
 };
 watch_button.addEventListener("click", toggle_watch_variables, false);
 
-},{"./../../lang/msg.js":91,"./../rur.js":49}],39:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../rur.js":51}],34:[function(require,module,exports){
 
 require("./rur.js");
 require("./recorder/record_frame.js");
@@ -6117,7 +4283,7 @@ RUR.output.view_source_js = function(fn) {
     });
 };
 
-},{"./recorder/record_frame.js":45,"./rur.js":49}],40:[function(require,module,exports){
+},{"./recorder/record_frame.js":46,"./rur.js":51}],35:[function(require,module,exports){
 
 require("./rur.js");
 require("./storage.js");
@@ -6259,7 +4425,7 @@ function receiveMessage(event){
     RUR.permalink.update(event.data);
 }
 
-},{"./../lang/msg.js":91,"./editors/create.js":12,"./editors/update.js":13,"./listeners/programming_mode.js":29,"./rur.js":49,"./storage.js":52,"./translator.js":53,"./utils/parseuri.js":59,"./world_utils/export_world.js":87}],41:[function(require,module,exports){
+},{"./../lang/msg.js":93,"./editors/create.js":8,"./editors/update.js":9,"./listeners/programming_mode.js":24,"./rur.js":51,"./storage.js":54,"./translator.js":55,"./utils/parseuri.js":63,"./world_utils/export_world.js":89}],36:[function(require,module,exports){
 require("./../rur.js");
 require("./../listeners/stop.js");
 
@@ -6291,7 +4457,7 @@ function loop () {
     RUR._TIMER = setTimeout(loop, RUR.playback_delay);
 }
 
-},{"./../listeners/stop.js":36,"./../rur.js":49}],42:[function(require,module,exports){
+},{"./../listeners/stop.js":31,"./../rur.js":51}],37:[function(require,module,exports){
 
 RUR._play_sound = function (sound_id) {
     "use strict";
@@ -6304,10 +4470,10 @@ RUR._play_sound = function (sound_id) {
     //the minimum time limit for the sound.
 };
 
-},{}],43:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 
 require("./../visible_world.js");
-require("./../exceptions.js");
+require("./../programming_ui/exceptions.js");
 /* if the REPL is active, we do not record anything, and show immediately
    the updated world */
 
@@ -6324,13 +4490,1941 @@ RUR._show_immediate = function (name, obj) {
     }
 };
 
-},{"./../exceptions.js":14,"./../visible_world.js":64}],44:[function(require,module,exports){
+},{"./../programming_ui/exceptions.js":42,"./../visible_world.js":68}],39:[function(require,module,exports){
+/* jshint -W069 */
+require("./../rur.js");
+require("./../translator.js");
+
+RUR.blockly = {};
+RUR.color_basic = 120;
+RUR.color_condition = 240;
+RUR.done_colour = "#aa0000";
+
+/****  Begin over-riding Blockly's default */
+Blockly.Blocks.loops.HUE = 230;
+
+Blockly.JavaScript['text_print'] = function(block) {
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'TEXT',
+      Blockly.JavaScript.ORDER_NONE) || '\'\'';
+  return RUR.translate("write")+'(' + argument0 + ');\n';
+};
+
+Blockly.makeColour = function(hue) {
+  if (hue === RUR.done_colour){
+      return hue;
+  }
+  return goog.color.hsvToHex(hue, Blockly.HSV_SATURATION,
+      Blockly.HSV_VALUE * 255);
+};
+
+Blockly.Python.INDENT = '    ';
+Blockly.JavaScript.INDENT = '    ';
+
+// removing mutator for simple function definitions as per
+// https://groups.google.com/d/msg/blockly/_rrwh-Lc-sE/cHAk5yNfhUEJ
+
+(function(){var old = Blockly.Blocks.procedures_defnoreturn.init;
+    Blockly.Blocks.procedures_defnoreturn.init =
+    function(){old.call(this);
+        this.setMutator(undefined);
+        // this.setColour(RUR.color_basic);
+    };
+})();
+
+
+
+RUR.blockly.init = function () {
+
+    // override some defaults
+    Blockly.Msg.CONTROLS_IF_MSG_THEN = "    " + Blockly.Msg.CONTROLS_IF_MSG_THEN;
+    Blockly.Msg.CONTROLS_REPEAT_INPUT_DO = "    " + Blockly.Msg.CONTROLS_REPEAT_INPUT_DO;
+    Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO = "    " + Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO;
+
+
+    Blockly.Blocks['_sound_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField(RUR.translate("sound"))
+            .appendField(new Blockly.FieldCheckbox("TRUE"), "SOUND");
+        this.setInputsInline(true);
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setColour(20);
+        this.setTooltip('');
+      }
+    };
+    Blockly.JavaScript['_sound_'] = function(block) {
+      var checkbox_sound = block.getFieldValue('SOUND') == 'TRUE';
+      if (checkbox_sound) {
+          return RUR.translate("sound") + "(true);\n";
+      } else {
+          return RUR.translate("sound") + "(false);\n";
+      }
+    };
+    Blockly.Python['_sound_'] = function(block) {
+      var checkbox_sound = block.getFieldValue('SOUND') == 'TRUE';
+      if (checkbox_sound) {
+          return RUR.translate("sound") + "(True)\n";
+      } else {
+          return RUR.translate("sound") + "(False)\n";
+      }
+    };
+
+    Blockly.Blocks['_think_'] = {
+      init: function() {
+        this.appendValueInput("NAME")
+            .setCheck("Number")
+            .appendField(RUR.translate("think"));
+        this.setInputsInline(true);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(20);
+        this.setTooltip(RUR.translate("Delay between actions; default is 300 ms."));
+      }
+    };
+    Blockly.Python['_think_'] = function(block) {
+      var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
+      return RUR.translate("think") + "("+value_name+")\n";
+    };
+    Blockly.JavaScript['_think_'] = function(block) {
+      var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+      return RUR.translate("think") + "("+value_name+");\n";
+    };
+
+    Blockly.Blocks['_move_'] = {
+      init: function() {
+        this.setColour(RUR.color_basic);
+        this.appendDummyInput().appendField(RUR.translate("move"));
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setTooltip(RUR.translate("move forward"));
+      }
+    };
+    Blockly.Python['_move_'] = function(block) {
+      return RUR.translate("move")+'()\n';
+    };
+    Blockly.JavaScript['_move_'] = function(block) {
+      return RUR.translate("move")+'();\n';
+    };
+
+
+    Blockly.Blocks['_turn_left_'] = {
+      init: function() {
+        this.setColour(RUR.color_basic);
+        this.appendDummyInput().appendField(RUR.translate("turn_left")+" \u21BA");
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setTooltip(RUR.translate("turn left"));
+      }
+    };
+    Blockly.Python['_turn_left_'] = function(block) {
+      return RUR.translate("turn_left")+'()\n';
+    };
+    Blockly.JavaScript['_turn_left_'] = function(block) {
+      return RUR.translate("turn_left")+'();\n';
+    };
+
+
+    Blockly.Blocks['_take_'] = {
+      init: function() {
+        this.setColour(RUR.color_basic);
+        this.appendDummyInput().appendField(RUR.translate("take"));
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setTooltip(RUR.translate("take object"));
+      }
+    };
+    Blockly.Python['_take_'] = function(block) {
+      return RUR.translate("take")+'()\n';
+    };
+    Blockly.JavaScript['_take_'] = function(block) {
+      return RUR.translate("take")+'();\n';
+    };
+
+
+    Blockly.Blocks['_put_'] = {
+      init: function() {
+        this.setColour(RUR.color_basic);
+        this.appendDummyInput().appendField(RUR.translate("put"));
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setTooltip(RUR.translate("put object"));
+      }
+    };
+    Blockly.Python['_put_'] = function(block) {
+      return RUR.translate("put")+'()\n';
+    };
+    Blockly.JavaScript['_put_'] = function(block) {
+      return RUR.translate("put")+'();\n';
+    };
+
+
+    Blockly.Blocks['_pause_'] = {
+      init: function() {
+        this.setColour(30);
+        this.appendDummyInput().appendField(RUR.translate("pause"));
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setTooltip(RUR.translate("Pause the program's execution."));
+      }
+    };
+    Blockly.Python['_pause_'] = function(block) {
+      return RUR.translate("pause")+'()\n';
+    };
+    Blockly.JavaScript['_pause_'] = function(block) {
+      return RUR.translate("pause")+'();\n';
+    };
+
+
+    Blockly.Blocks['_build_wall_'] = {
+      init: function() {
+        this.setColour(RUR.color_basic);
+        this.appendDummyInput().appendField(RUR.translate("build_wall"));
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setTooltip(RUR.translate("Build a wall in front of the robot."));
+      }
+    };
+    Blockly.Python['_build_wall_'] = function(block) {
+      return RUR.translate("build_wall")+'()\n';
+    };
+    Blockly.JavaScript['_build_wall_'] = function(block) {
+      return RUR.translate("build_wall")+'();\n';
+    };
+
+
+    Blockly.Blocks['_done_'] = {
+      init: function() {
+        this.setColour(RUR.done_colour);
+        this.appendDummyInput().appendField(RUR.translate("done"));
+        this.setPreviousStatement(true);
+        this.setTooltip(RUR.translate("End the program's execution."));
+      }
+    };
+    Blockly.Python['_done_'] = function(block) {
+      return RUR.translate("done")+'()\n';
+    };
+    Blockly.JavaScript['_done_'] = function(block) {
+      return RUR.translate("done")+'();\n';
+    };
+
+
+    Blockly.Blocks['_wall_in_front_or_right_'] = {
+      init: function() {
+        var choices =  [
+            [RUR.translate("wall_in_front"), RUR.translate("wall_in_front")],
+            [RUR.translate("wall_on_right"), RUR.translate("wall_on_right")]];
+        this.setColour(RUR.color_condition);
+        this.appendDummyInput().appendField(new Blockly.FieldDropdown(choices), 'choice');
+        this.setOutput(true, "Boolean");
+        this.setTooltip(RUR.translate("True if a wall is blocking the way."));
+      }
+    };
+    Blockly.Python['_wall_in_front_or_right_'] = function(block) {
+      return [block.getFieldValue('choice')+'()'];
+    };
+    Blockly.JavaScript['_wall_in_front_or_right_'] = function(block) {
+      return [block.getFieldValue('choice')+'()'];
+    };
+
+
+    Blockly.Blocks['_front_or_right_is_clear_'] = {
+      init: function() {
+        var choices =  [
+            [RUR.translate("front_is_clear"), RUR.translate("front_is_clear")],
+            [RUR.translate("right_is_clear"), RUR.translate("right_is_clear")]];
+        this.setColour(RUR.color_condition);
+        this.appendDummyInput().appendField(new Blockly.FieldDropdown(choices), 'choice');
+        this.setOutput(true, "Boolean");
+        this.setTooltip(RUR.translate("True if nothing is blocking the way."));
+      }
+    };
+    Blockly.Python['_front_or_right_is_clear_'] = function(block) {
+      return [block.getFieldValue('choice')+'()'];
+    };
+    Blockly.JavaScript['_front_or_right_is_clear_'] = function(block) {
+      return [block.getFieldValue('choice')+'()'];
+    };
+
+
+    Blockly.Blocks['_at_goal_'] = {
+      init: function() {
+        this.setColour(RUR.color_condition);
+        this.appendDummyInput().appendField(RUR.translate("at_goal"));
+        this.setOutput(true, "Boolean");
+        this.setTooltip(RUR.translate("True if desired destination."));
+      }
+    };
+    Blockly.Python['_at_goal_'] = function(block) {
+      return [RUR.translate("at_goal")+'()'];
+    };
+    Blockly.JavaScript['_at_goal_'] = function(block) {
+      return [RUR.translate("at_goal")+'()'];
+    };
+
+
+    Blockly.Blocks['_carries_object_'] = {
+      init: function() {
+        this.setColour(RUR.color_condition);
+        this.appendDummyInput().appendField(RUR.translate("carries_object"));
+        this.setOutput(true, "Boolean");
+        this.setTooltip(RUR.translate("True if robot carries at least one object."));
+      }
+    };
+    Blockly.Python['_carries_object_'] = function(block) {
+      return [RUR.translate("carries_object")+'()'];
+    };
+    Blockly.JavaScript['_carries_object_'] = function(block) {
+      return [RUR.translate("carries_object")+'()'];
+    };
+
+
+    Blockly.Blocks['_object_here_'] = {
+      init: function() {
+        this.setColour(RUR.color_condition);
+        this.appendDummyInput().appendField(RUR.translate("object_here"));
+        this.setOutput(true, "Boolean");
+        this.setTooltip(RUR.translate("True if there is at least one object here."));
+      }
+    };
+    Blockly.Python['_object_here_'] = function(block) {
+      return [RUR.translate("object_here")+'()'];
+    };
+    Blockly.JavaScript['_object_here_'] = function(block) {
+      return [RUR.translate("object_here")+'()'];
+    };
+
+
+    Blockly.Blocks['_is_facing_north_'] = {
+      init: function() {
+        this.setColour(RUR.color_condition);
+        this.appendDummyInput().appendField(RUR.translate("is_facing_north"));
+        this.setOutput(true, "Boolean");
+        this.setTooltip(RUR.translate("True if robot is facing North."));
+      }
+    };
+    Blockly.Python['_is_facing_north_'] = function(block) {
+      return [RUR.translate("is_facing_north")+'()'];
+    };
+    Blockly.JavaScript['_is_facing_north_'] = function(block) {
+      return [RUR.translate("is_facing_north")+'()'];
+    };
+
+
+    Blockly.Blocks['_star_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("star"))
+            .appendField(new Blockly.FieldImage("/src/images/star.png", 15, 15, RUR.translate("star")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_star_'] = function(block) {
+      return [RUR.translate("star")];
+    };
+    Blockly.JavaScript['_star_'] = function(block) {
+      return [RUR.translate("star")];
+    };
+
+    Blockly.Blocks['_token_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("token"))
+            .appendField(new Blockly.FieldImage("/src/images/token.png", 15, 15, RUR.translate("token")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_token_'] = function(block) {
+      return [RUR.translate("token")];
+    };
+    Blockly.JavaScript['_token_'] = function(block) {
+      return [RUR.translate("token")];
+    };
+
+    Blockly.Blocks['_apple_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("apple"))
+            .appendField(new Blockly.FieldImage("/src/images/apple.png", 15, 15, RUR.translate("apple")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_apple_'] = function(block) {
+      return [RUR.translate("apple")];
+    };
+    Blockly.JavaScript['_apple_'] = function(block) {
+      return [RUR.translate("apple")];
+    };
+
+    Blockly.Blocks['_carrot_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("carrot"))
+            .appendField(new Blockly.FieldImage("/src/images/carrot.png", 15, 15, RUR.translate("carrot")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_carrot_'] = function(block) {
+      return [RUR.translate("carrot")];
+    };
+    Blockly.JavaScript['_carrot_'] = function(block) {
+      return [RUR.translate("carrot")];
+    };
+
+    Blockly.Blocks['_dandelion_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("dandelion"))
+            .appendField(new Blockly.FieldImage("/src/images/dandelion.png", 15, 15, RUR.translate("dandelion")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_dandelion_'] = function(block) {
+      return [RUR.translate("dandelion")];
+    };
+    Blockly.JavaScript['_dandelion_'] = function(block) {
+      return [RUR.translate("dandelion")];
+    };
+
+    Blockly.Blocks['_daisy_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("daisy"))
+            .appendField(new Blockly.FieldImage("/src/images/daisy.png", 15, 15, RUR.translate("daisy")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_daisy_'] = function(block) {
+      return [RUR.translate("daisy")];
+    };
+    Blockly.JavaScript['_daisy_'] = function(block) {
+      return [RUR.translate("daisy")];
+    };
+
+    Blockly.Blocks['_triangle_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("triangle"))
+            .appendField(new Blockly.FieldImage("/src/images/triangle.png", 15, 15, RUR.translate("triangle")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_triangle_'] = function(block) {
+      return [RUR.translate("triangle")];
+    };
+    Blockly.JavaScript['_triangle_'] = function(block) {
+      return [RUR.translate("triangle")];
+    };
+
+    Blockly.Blocks['_square_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("square"))
+            .appendField(new Blockly.FieldImage("/src/images/square.png", 15, 15, RUR.translate("square")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_square_'] = function(block) {
+      return [RUR.translate("square")];
+    };
+    Blockly.JavaScript['_square_'] = function(block) {
+      return [RUR.translate("square")];
+    };
+
+    Blockly.Blocks['_strawberry_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("strawberry"))
+            .appendField(new Blockly.FieldImage("/src/images/strawberry.png", 15, 15, RUR.translate("strawberry")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_strawberry_'] = function(block) {
+      return [RUR.translate("strawberry")];
+    };
+    Blockly.JavaScript['_strawberry_'] = function(block) {
+      return [RUR.translate("strawberry")];
+    };
+
+    Blockly.Blocks['_leaf_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("leaf"))
+            .appendField(new Blockly.FieldImage("/src/images/leaf.png", 15, 15, RUR.translate("leaf")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_leaf_'] = function(block) {
+      return [RUR.translate("leaf")];
+    };
+    Blockly.JavaScript['_leaf_'] = function(block) {
+      return [RUR.translate("leaf")];
+    };
+
+    Blockly.Blocks['_banana_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("banana"))
+            .appendField(new Blockly.FieldImage("/src/images/banana.png", 15, 15, RUR.translate("banana")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_banana_'] = function(block) {
+      return [RUR.translate("banana")];
+    };
+    Blockly.JavaScript['_banana_'] = function(block) {
+      return [RUR.translate("banana")];
+    };
+
+    Blockly.Blocks['_orange_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("orange"))
+            .appendField(new Blockly.FieldImage("/src/images/orange.png", 15, 15, RUR.translate("orange")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_orange_'] = function(block) {
+      return [RUR.translate("orange")];
+    };
+    Blockly.JavaScript['_orange_'] = function(block) {
+      return [RUR.translate("orange")];
+    };
+
+    Blockly.Blocks['_tulip_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("tulip"))
+            .appendField(new Blockly.FieldImage("/src/images/tulip.png", 15, 15, RUR.translate("tulip")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_tulip_'] = function(block) {
+      return [RUR.translate("tulip")];
+    };
+    Blockly.JavaScript['_tulip_'] = function(block) {
+      return [RUR.translate("tulip")];
+    };
+
+    Blockly.Blocks['_carries_object_or_here_'] = {
+      init: function() {
+        this.appendValueInput("action")
+            .setCheck("String")
+            .appendField(new Blockly.FieldDropdown([
+                [RUR.translate("carries_object"), RUR.translate("carries_object")],
+                [RUR.translate("object_here"), RUR.translate("object_here")]]), "condition");
+        this.setOutput(true, "Boolean");
+        this.setColour(RUR.color_condition);
+      }
+    };
+    Blockly.Python['_carries_object_or_here_'] = function(block) {
+      var dropdown_condition = block.getFieldValue('condition');
+      var value_action = Blockly.Python.valueToCode(block, 'action', Blockly.Python.ORDER_ATOMIC);
+      return [RUR.translate(dropdown_condition)+'("'+ value_action +'")'];
+    };
+    Blockly.JavaScript['_carries_object_or_here_'] = function(block) {
+      var dropdown_condition = block.getFieldValue('condition');
+      var value_action = Blockly.JavaScript.valueToCode(block, 'action', Blockly.JavaScript.ORDER_ATOMIC);
+      return [RUR.translate(dropdown_condition)+'("'+ value_action +'")'];
+    };
+
+
+    Blockly.Blocks['_take_or_put_'] = {
+      init: function() {
+        this.appendValueInput("obj")
+            .setCheck("String")
+            .appendField(new Blockly.FieldDropdown([
+                [RUR.translate("take"), RUR.translate("take")],
+                [RUR.translate("put"), RUR.translate("put")]]), "action");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(RUR.color_basic);
+      }
+    };
+    Blockly.Python['_take_or_put_'] = function(block) {
+      var dropdown_action = block.getFieldValue('action');
+      var value_obj = Blockly.Python.valueToCode(block, 'obj', Blockly.Python.ORDER_ATOMIC);
+      return dropdown_action + '("' + value_obj + '")\n';
+    };
+    Blockly.JavaScript['_take_or_put_'] = function(block) {
+      var dropdown_action = block.getFieldValue('action');
+      var value_obj = Blockly.JavaScript.valueToCode(block, 'obj', Blockly.JavaScript.ORDER_ATOMIC);
+      return dropdown_action + '("' + value_obj + '");\n';
+    };
+
+
+
+    /** Simple if skeletton from
+    https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#k8aine
+    ****/
+
+    Blockly.Blocks['_if_'] = {
+      init: function() {
+        this.appendValueInput("condition")
+            .setCheck("Boolean")
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
+        this.appendStatementInput("then")
+            .setCheck(null)
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setColour(210);
+        // this.setTooltip('');
+      }
+    };
+    Blockly.JavaScript['_if_'] = function(block) {
+      var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
+      var statements_then = Blockly.JavaScript.statementToCode(block, 'then');
+      return "if (" + value_condition + ") {\n" + statements_then + "}\n";
+
+    };
+    Blockly.Python['_if_'] = function(block) {
+      var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
+      var statements_then = Blockly.Python.statementToCode(block, 'then');
+      return "if " + value_condition + ":\n" + statements_then;
+    };
+
+
+    Blockly.Blocks['_if_else_'] = {
+      init: function() {
+        this.appendValueInput("condition")
+            .setCheck("Boolean")
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
+        this.appendStatementInput("then")
+            .setCheck(null)
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+        this.appendDummyInput()
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
+        this.appendStatementInput("else")
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setColour(210);
+        this.setTooltip('');
+      }
+    };
+    Blockly.JavaScript['_if_else_'] = function(block) {
+      var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
+      var statements_then = Blockly.JavaScript.statementToCode(block, 'then');
+      var statements_else = Blockly.JavaScript.statementToCode(block, 'else');
+      return "if (" + value_condition + ") {\n" + statements_then + "} else {\n" + statements_else+"}\n";
+    };
+    Blockly.Python['_if_else_'] = function(block) {
+      var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
+      var statements_then = Blockly.Python.statementToCode(block, 'then');
+      var statements_else = Blockly.Python.statementToCode(block, 'else');
+      return "if " + value_condition + ":\n" + statements_then + "else:\n" + statements_else;
+    };
+
+
+    Blockly.Blocks['_if_else_if_else_'] = {
+      init: function() {
+        this.appendValueInput("condition")
+            .setCheck("Boolean")
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
+        this.appendStatementInput("do")
+            .setCheck(null)
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+        this.appendValueInput("condition2")
+            .setCheck("Boolean")
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
+        this.appendStatementInput("do2")
+            .setCheck(null)
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+        this.appendDummyInput()
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
+        this.appendStatementInput("else")
+            .setCheck(null)
+            .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setColour(210);
+        this.setTooltip('');
+      }
+    };
+    Blockly.JavaScript['_if_else_if_else_'] = function(block) {
+      var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
+      var statements_do = Blockly.JavaScript.statementToCode(block, 'do');
+      var value_condition2 = Blockly.JavaScript.valueToCode(block, 'condition2', Blockly.JavaScript.ORDER_ATOMIC);
+      var statements_do2 = Blockly.JavaScript.statementToCode(block, 'do2');
+      var statements_else = Blockly.JavaScript.statementToCode(block, 'else');
+      return "if (" + value_condition + ") {\n" + statements_do +
+             "} else if (" + value_condition2 + ") {\n" + statements_do2 +
+             "} else {\n" + statements_else+"}\n";
+    };
+    Blockly.Python['_if_else_if_else_'] = function(block) {
+      var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
+      var statements_do = Blockly.Python.statementToCode(block, 'do');
+      var value_condition2 = Blockly.Python.valueToCode(block, 'condition2', Blockly.Python.ORDER_ATOMIC);
+      var statements_do2 = Blockly.Python.statementToCode(block, 'do2');
+      var statements_else = Blockly.Python.statementToCode(block, 'else');
+      return "if " + value_condition + ":\n" + statements_do +
+             "elif " + value_condition2 + ":\n" + statements_do2 +
+             "else:\n" + statements_else;
+    };
+
+    $("#blocklyDiv").remove();
+    $("#blockly-wrapper").append('<div id="blocklyDiv"></div>');
+    $(".blocklyToolboxDiv").remove();
+
+    /* With the current version of the code, Firefox does not display
+       the trashcan and controls properly; so we do not show them ... but
+       allow for testing via the console by setting RUR.firefox_ok to true */
+    var firefox_present = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+    if (firefox_present && !RUR.firefox_ok) {
+        RUR.blockly.workspace = Blockly.inject('blocklyDiv', {
+            toolbox: document.getElementById('toolbox'),
+            trashcan: false});
+    } else {
+        RUR.blockly.workspace = Blockly.inject('blocklyDiv', {
+            toolbox: document.getElementById('toolbox'),
+            zoom:{
+                controls: true,
+                wheel: true,
+                startScale: 1.0,
+                maxScale: 3,
+                minScale: 0.3,
+                scaleSpeed: 1.2},
+            trashcan: true});
+    }
+
+    $("#blocklyDiv").resizable({
+        resize: function() {
+            $("#blocklyDiv:first-child").height($(this).height()-1).width($(this).width()-1);
+            window.dispatchEvent(new Event('resize'));
+        }
+    });
+
+    if (RUR.state.input_method == "python" ||
+        RUR.state.input_method == "javascript" ||
+        RUR.state.input_method == "py-repl") {
+            $(".blocklyToolboxDiv").css({"pointer-events": "none", "opacity": 0.01});
+        }
+
+};
+RUR.firefox_ok = false;
+
+$("#blockly-wrapper").draggable({
+    cursor: "move",
+    handle: "p",
+    drag: function( event, ui ) {
+        window.dispatchEvent(new Event('resize'));
+    },
+    stop: function( event, ui ) {
+        window.dispatchEvent(new Event('resize'));
+    }
+});
+
+
+
+RUR.blockly.getValue = function () {
+    var xml = Blockly.Xml.workspaceToDom(RUR.blockly.workspace);
+    return Blockly.Xml.domToText(xml);
+};
+RUR.blockly.setValue = function (xml_text) {
+    var xml = Blockly.Xml.textToDom(xml_text);
+    RUR.blockly.workspace.clear();
+    Blockly.Xml.domToWorkspace(RUR.blockly.workspace, xml);
+};
+
+},{"./../rur.js":51,"./../translator.js":55}],40:[function(require,module,exports){
+/*  The purpose of this module is to act as an intermediary between end user
+modules in various languages (e.g. reeborg_en.py or reeborg_fr.js) and
+the other modules.  This way, in theory, (most) refactoring can take place in the
+basic javascript code without affecting the end user code.
+
+Convention: all "public" function names follow the pattern RUR._xyz_
+            Use four spaces for indentation
+            Order function names alphabetically (in English)
+ */
+
+//TODO: review the dependencies
+
+require("./../rur.js");
+require("./../translator.js");
+require("./control.js");
+require("./../ui/custom_world_select.js");
+require("./../file_io.js");
+require("./../output.js");
+require("./../visible_robot.js");
+require("./../editors/update.js");
+require("./../world_set.js");
+require("./../world_set/set_tile.js");
+var get_world = require("./../world_get/world.js").get_world;
+
+RUR.inspect = function (obj){
+    var props, result = "";
+    for (props in obj) {
+        if (typeof obj[props] === "function") {
+            result += props + "()\n";
+        } else{
+            result += props + "\n";
+        }
+    }
+    RUR.output._write(result);
+};
+
+function user_no_highlight () {
+    if (RUR.state.highlight) {
+        RUR.state.highlight = false;
+        $("#highlight").addClass("blue-gradient");
+        $("#highlight").removeClass("active-element");
+    }
+}
+
+
+RUR._at_goal_ = function () {
+    return RUR.control.at_goal(get_world().robots[0]);
+};
+
+RUR._build_wall_ = function() {
+    RUR.control.build_wall(get_world().robots[0]);
+};
+
+RUR._carries_object_ = function (arg) {
+    return RUR.control.carries_object(get_world().robots[0], arg);
+};
+
+RUR._clear_print_ = RUR.output.clear_print;
+
+RUR._color_here_ = function () {
+    var robot = get_world().robots[0];
+    return RUR.control.get_colour_at_position(robot.x, robot.y);
+};
+
+RUR._default_robot_body_ = function () { // simply returns body
+    return get_world().robots[0];
+};
+
+RUR._dir_js_ = RUR.inspect;
+
+RUR._done_ = RUR.control.done;
+
+RUR._front_is_clear_ = function() {
+  return RUR.control.front_is_clear(get_world().robots[0]);
+};
+
+
+RUR._is_facing_north_ = function () {
+    return RUR.control.is_facing_north(get_world().robots[0]);
+};
+
+RUR._move_ = function () {
+    RUR.control.move(get_world().robots[0]);
+};
+
+RUR._new_robot_images_ = RUR.vis_robot.new_robot_images;
+
+RUR._no_highlight_ = user_no_highlight;
+
+RUR._object_here_ = function (arg) {
+    return RUR.world_get.object_at_robot_position(get_world().robots[0], arg);
+};
+
+RUR._paint_square_ = function (color) {
+    // note that this can do more than simply setting the color: it can also
+    // set the tile type.
+    var robot = get_world().robots[0];
+    RUR.set_tile_at_position(color, robot.x, robot.y);
+};
+
+RUR._pause_ = RUR.control.pause;
+
+RUR._print_html_ = function (html, replace) {
+    RUR.output.print_html(html, replace);
+};
+
+RUR._put_ = function(arg) {
+    RUR.control.put(get_world().robots[0], arg);
+};
+
+RUR._recording_ = function(bool) {
+    RUR.state.do_not_record = !bool;
+};
+
+RUR._remove_robots_ = function () {
+    get_world().robots = [];
+};
+
+RUR._right_is_clear_ = function() {
+    return RUR.control.right_is_clear(get_world().robots[0]);
+};
+
+RUR._set_max_nb_instructions_ = function(n){
+    RUR.MAX_STEPS = n;
+};
+
+RUR._set_trace_color_ = function(color){
+    get_world().robots[0]._trace_color = color;
+};
+
+RUR._set_trace_style_ = function(style){
+    get_world().robots[0]._trace_style = style;
+};
+
+RUR._sound_ = RUR.control.sound;
+
+RUR._take_ = function(arg) {
+    RUR.control.take(get_world().robots[0], arg);
+};
+
+RUR._think_ = RUR.control.think;
+
+RUR._turn_left_ = function () {
+    RUR.control.turn_left(get_world().robots[0]);
+};
+
+RUR._view_source_js_ = RUR.output.view_source_js;
+
+RUR._wall_in_front_ = function() {
+    return RUR.control.wall_in_front(get_world().robots[0]);
+};
+
+RUR._write_ = RUR.output.write;
+
+RUR.__write_ = RUR.output._write;
+
+RUR._wall_on_right_ = function() {
+    return RUR.control.wall_on_right(get_world().robots[0]);
+};
+
+RUR._MakeCustomMenu_ = RUR.custom_world_select.make;
+
+RUR._World_ = RUR.file_io.load_world_from_program;
+
+/*  methods below */
+
+RUR._UR = {};
+
+RUR._UR.at_goal_ = function (robot) {
+    return RUR.control.at_goal(robot);
+};
+
+RUR._UR.build_wall_ = function (robot) {
+    return RUR.control.build_wall(robot);
+};
+
+RUR._UR.carries_object_ = function (robot, obj) {
+    return RUR.control.carries_object(robot, obj);
+};
+
+RUR._UR.front_is_clear_ = function (robot) {
+    return RUR.control.front_is_clear(robot);
+};
+
+RUR._UR.is_facing_north_ = function (robot) {
+    return RUR.control.is_facing_north(robot);
+};
+
+RUR._UR.move_ = function (robot) {
+    RUR.control.move(robot);
+};
+
+RUR._UR.object_here_ = function (robot, obj) {
+    return RUR.world_get.object_at_robot_position(robot, obj);
+};
+
+RUR._UR.put_ = function (robot, obj) {
+    RUR.control.put(robot, obj);
+};
+
+RUR._UR.right_is_clear_ = function (robot) {
+    return RUR.control.right_is_clear(robot);
+};
+
+RUR._UR.set_model_ = function (robot, model) {
+    RUR.control.set_model(robot, model);
+};
+
+RUR._UR.set_trace_color_ = function (robot, color) {
+    RUR.control.set_trace_color(robot, color);
+};
+
+RUR._UR.set_trace_style_ = function (robot, style) {
+    RUR.control.set_trace_style(robot, style);
+};
+
+RUR._UR.take_ = function (robot, obj) {
+    RUR.control.take(robot, obj);
+};
+
+RUR._UR.turn_left_ = function (robot) {
+    RUR.control.turn_left(robot);
+};
+
+RUR._UR.wall_in_front_ = function (robot) {
+    return RUR.control.wall_in_front(robot);
+};
+
+RUR._UR.wall_on_right_ = function (robot) {
+    return RUR.control.wall_on_right(robot);
+};
+
+},{"./../editors/update.js":9,"./../file_io.js":10,"./../output.js":34,"./../rur.js":51,"./../translator.js":55,"./../ui/custom_world_select.js":56,"./../visible_robot.js":67,"./../world_get/world.js":75,"./../world_set.js":76,"./../world_set/set_tile.js":85,"./control.js":41}],41:[function(require,module,exports){
+
+require("./../rur.js");
+require("./../translator.js");
+require("./../default_tiles/tiles.js");
+require("./../output.js");
+require("./../recorder/record_frame.js");
+require("./exceptions.js");
+require("./../world_get.js");
+require("./../world_set.js");
+require("./../utils/supplant.js");
+require("./../utils/key_exist.js");
+var get_world = require("./../world_get/world.js").get_world;
+
+RUR.control = {};
+
+RUR.control.move = function (robot) {
+    "use strict";
+    var tile, tiles, name, objects, tile_beyond, solid_tile_beyond,
+        solids_beyond, solid_object_beyond,
+        pushable_object_here, pushable_object_beyond,
+        wall_beyond, x_beyond, y_beyond;
+
+    if (RUR.control.wall_in_front(robot)) {
+        throw new RUR.WallCollisionError(RUR.translate("Ouch! I hit a wall!"));
+    }
+
+    robot._prev_x = robot.x;
+    robot._prev_y = robot.y;
+
+    x_beyond = robot.x;  // if robot is moving vertically, it x coordinate does not change
+    y_beyond = robot.y;
+
+    switch (robot._orientation){
+    case RUR.EAST:
+        robot.x += 1;
+        x_beyond = robot.x + 1;
+        break;
+    case RUR.NORTH:
+        robot.y += 1;
+        y_beyond = robot.y + 1;
+        break;
+    case RUR.WEST:
+        robot.x -= 1;
+        x_beyond = robot.x - 1;
+        break;
+    case RUR.SOUTH:
+        robot.y -= 1;
+        y_beyond = robot.y - 1;
+        break;
+    default:
+        throw new Error("Should not happen: unhandled case in RUR.control.move().");
+    }
+
+    pushable_object_here = RUR.world_get.pushable_object_at_position(robot.x, robot.y);
+
+    if (pushable_object_here) {
+        // we had assume that we have made a successful move as nothing was
+        // blocking the robot which is now at its next position.
+        // However, something may have prevented the pushable object from
+        // actually being pushed
+        wall_beyond = RUR.control.wall_in_front(robot);
+        pushable_object_beyond = RUR.world_get.pushable_object_at_position(x_beyond, y_beyond);
+        tile_beyond = RUR.world_get.tile_at_position(x_beyond, y_beyond);
+        if (tile_beyond && tile_beyond.solid) {
+            solid_tile_beyond = true;
+            } else {
+            solid_tile_beyond = false;
+        }
+
+        solids_beyond = RUR.world_get.obstacles_at_position(x_beyond, y_beyond);
+        solid_object_beyond = false;
+        if (solids_beyond) {
+            for (name in solids_beyond) {
+                if (RUR.TILES[name] !== undefined && RUR.TILES[name].solid) {
+                    solid_object_beyond = true;
+                    break;
+                }
+            }
+        }
+
+        if (pushable_object_beyond || wall_beyond || solid_tile_beyond || solid_object_beyond) {
+            robot.x = robot._prev_x;
+            robot.y = robot._prev_y;
+            throw new RUR.ReeborgError(RUR.translate("Something is blocking the way!"));
+        } else {
+            RUR.control.move_object(pushable_object_here, robot.x, robot.y,
+            x_beyond, y_beyond);
+        }
+    }
+
+    RUR.state.sound_id = "#move-sound";
+    RUR.record_frame("debug", "RUR.control.move");
+    tile = RUR.world_get.tile_at_position(robot.x, robot.y);
+    if (tile) {
+        if (tile.fatal){
+            if (!(tile == RUR.TILES.water && RUR.control.solid_object_here(robot, RUR.translate("bridge"))) ){
+                throw new RUR.ReeborgError(RUR.translate(tile.message));
+            }
+        }
+        if (tile.slippery){
+            RUR.output.write(RUR.translate(tile.message) + "\n");
+            RUR.control.move(robot);
+        }
+    }
+
+    objects = RUR.world_get.obstacles_at_position(robot.x, robot.y);
+    if (objects) {
+        for (name in objects) {
+            if (RUR.TILES[name] !== undefined && RUR.TILES[name].fatal) {
+                robot.x = robot._prev_x;
+                robot.y = robot._prev_y;
+                throw new RUR.ReeborgError(RUR.TILES[name].message);
+            }
+        }
+    }
+    if (robot._is_leaky !== undefined && !robot._is_leaky) {  // update to avoid drawing from previous point.
+        robot._prev_x = robot.x;
+        robot._prev_y = robot.y;
+    }
+
+};
+
+RUR.control.move_object = function(obj, x, y, to_x, to_y){
+    "use strict";
+    var bridge_already_there = false;
+    if (RUR.world_get.obstacles_at_position(to_x, to_y).bridge !== undefined){
+        bridge_already_there = true;
+    }
+
+
+    RUR.set_nb_object_at_position(obj, x, y, 0);
+    if (RUR.TILES[obj].in_water &&
+        RUR.world_get.tile_at_position(to_x, to_y) == RUR.TILES.water &&
+        !bridge_already_there){
+            // TODO: fix this
+        RUR.world_set.add_solid_object(RUR.TILES[obj].in_water, to_x, to_y, 1);
+    } else {
+        RUR.set_nb_object_at_position(obj, to_x, to_y, 1);
+    }
+};
+
+
+// leave end of line comments below such as using += 1
+// as I (indirectly) refer to these comments in the programming tutorial
+
+RUR.control.turn_left = function(robot){
+    "use strict";
+    robot._prev_orientation = robot._orientation;
+    robot._prev_x = robot.x;
+    robot._prev_y = robot.y;
+    robot._orientation += 1;  // could have used "++" instead of "+= 1"
+    robot._orientation %= 4;
+    RUR.state.sound_id = "#turn-sound";
+    if (robot._is_leaky !== undefined && !robot._is_leaky) {  // update to avoid drawing from previous point.
+        robot._prev_orientation = robot._orientation;
+    }
+    RUR.record_frame("debug", "RUR.control.turn_left");
+};
+
+RUR.control.__turn_right = function(robot){
+    "use strict";
+    robot._prev_orientation = (robot._orientation+2)%4; // fix so that oil trace looks right
+    robot._prev_x = robot.x;
+    robot._prev_y = robot.y;
+    robot._orientation += 3;
+    robot._orientation %= 4;
+    if (robot._is_leaky !== undefined && !robot._is_leaky) {  // update to avoid drawing from previous point.
+        robot._prev_orientation = robot._orientation;
+    }
+    RUR.record_frame("debug", "RUR.control.__turn_right");
+};
+
+RUR.control.pause = function (ms) {
+    RUR.record_frame("pause", {pause_time:ms});
+};
+
+RUR.control.done = function () {
+    if (RUR.state.input_method === "py-repl") {
+        RUR.frames = [];
+        RUR.nb_frames = 1;
+        RUR.record_frame();
+        RUR.rec.conclude();
+    } else {
+        throw new RUR.ReeborgError(RUR.translate("Done!"));
+    }
+};
+
+RUR.control.put = function(robot, arg){
+    var translated_arg, objects_carried, obj_type, all_objects;
+    RUR.state.sound_id = "#put-sound";
+
+    if (arg !== undefined) {
+        translated_arg = RUR.translate_to_english(arg);
+        if (RUR.KNOWN_TILES.indexOf(translated_arg) == -1){
+            throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
+        }
+    }
+
+    objects_carried = robot.objects;
+    all_objects = [];
+    for (obj_type in objects_carried) {
+        if (objects_carried.hasOwnProperty(obj_type)) {
+            all_objects.push(obj_type);
+        }
+    }
+    if (all_objects.length === 0){
+        throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({obj: RUR.translate("object")}));
+    }
+    if (arg !== undefined) {
+        if (robot.objects[translated_arg] === undefined) {
+            throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({obj:arg}));
+        }  else {
+            RUR.control._robot_put_down_object(robot, translated_arg);
+        }
+    }  else {
+        if (objects_carried.length === 0){
+            throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({obj: RUR.translate("object")}));
+        } else if (all_objects.length > 1){
+             throw new RUR.ReeborgError(RUR.translate("I carry too many different objects. I don't know which one to put down!"));
+        } else {
+            RUR.control._robot_put_down_object(robot, translated_arg);
+        }
+    }
+};
+
+RUR.control._robot_put_down_object = function (robot, obj) {
+    "use strict";
+    var objects_carried, coords, obj_type;
+    if (obj === undefined){
+        objects_carried = robot.objects;
+        for (obj_type in objects_carried) {
+            if (objects_carried.hasOwnProperty(obj_type)) {
+                obj = obj_type;
+            }
+        }
+    }
+    if (robot.objects[obj] != "infinite") {
+        robot.objects[obj] -= 1;
+    }
+    if (robot.objects[obj] === 0) {
+        delete robot.objects[obj];
+    }
+
+    RUR.utils.ensure_key_exists(get_world(), "objects");
+    coords = robot.x + "," + robot.y;
+    RUR.utils.ensure_key_exists(get_world().objects, coords);
+    if (get_world().objects[coords][obj] === undefined) {
+        get_world().objects[coords][obj] = 1;
+    } else {
+        get_world().objects[coords][obj] += 1;
+    }
+    RUR.record_frame("debug", "RUR.control._put_object");
+};
+
+
+RUR.control.take = function(robot, arg){
+    var translated_arg, objects_here;
+    RUR.state.sound_id = "#take-sound";
+    if (arg !== undefined) {
+        translated_arg = RUR.translate_to_english(arg);
+        if (RUR.KNOWN_TILES.indexOf(translated_arg) == -1){
+            throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
+        }
+    }
+
+    objects_here = RUR.world_get.object_at_robot_position(robot, arg);
+    if (arg !== undefined) {
+        if (Array.isArray(objects_here) && objects_here.length === 0) {
+            throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: arg}));
+        }  else {
+            RUR.control._take_object_and_give_to_robot(robot, arg);
+        }
+    }  else if (Array.isArray(objects_here) && objects_here.length === 0){
+        throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: RUR.translate("object")}));
+    }  else if (objects_here.length > 1){
+        throw new RUR.ReeborgError(RUR.translate("Many objects are here; I do not know which one to take!"));
+    } else {
+        RUR.control._take_object_and_give_to_robot(robot, objects_here[0]);
+    }
+};
+
+RUR.control._take_object_and_give_to_robot = function (robot, obj) {
+    var objects_here, coords;
+    obj = RUR.translate_to_english(obj);
+    coords = robot.x + "," + robot.y;
+    get_world().objects[coords][obj] -= 1;
+
+    if (get_world().objects[coords][obj] === 0){
+        delete get_world().objects[coords][obj];
+        // WARNING: do not change this silly comparison to false
+        // to anything else ... []==false is true  but []==[] is false
+        // and ![] is false
+        if (RUR.world_get.object_at_robot_position(robot) == false){ // jshint ignore:line
+            delete get_world().objects[coords];
+        }
+    }
+    RUR.utils.ensure_key_exists(robot, "objects");
+    if (robot.objects[obj] === undefined){
+        robot.objects[obj] = 1;
+    } else {
+        if (robot.objects[obj] != "infinite") {
+            robot.objects[obj]++;
+        }
+    }
+    RUR.record_frame("debug", "RUR.control._take_object");
+};
+
+
+RUR.control.build_wall = function (robot){
+    var coords, orientation, x, y, walls;
+    if (RUR.control.wall_in_front(robot)){
+        throw new RUR.WallCollisionError(RUR.translate("There is already a wall here!"));
+    }
+
+    switch (robot._orientation){
+    case RUR.EAST:
+        coords = robot.x + "," + robot.y;
+        orientation = "east";
+        x = robot.x;
+        y = robot.y;
+        break;
+    case RUR.NORTH:
+        coords = robot.x + "," + robot.y;
+        orientation = "north";
+        x = robot.x;
+        y = robot.y;
+        break;
+    case RUR.WEST:
+        orientation = "east";
+        x = robot.x-1;
+        y = robot.y;
+        break;
+    case RUR.SOUTH:
+        orientation = "north";
+        x = robot.x;
+        y = robot.y-1;
+        break;
+    default:
+        throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.build_wall().");
+    }
+
+    coords = x + "," + y;
+    walls = get_world().walls;
+    if (walls === undefined){
+        walls = {};
+        get_world().walls = walls;
+    }
+
+    if (walls[coords] === undefined){
+        walls[coords] = [orientation];
+    } else {
+        walls[coords].push(orientation);
+    }
+    RUR.state.sound_id = "#build-sound";
+    RUR.record_frame("debug", "RUR.control.build_wall");
+};
+
+
+RUR.control.wall_in_front = function (robot) {
+    var coords;
+    switch (robot._orientation){
+    case RUR.EAST:
+        coords = robot.x + "," + robot.y;
+        if (robot.x == RUR.MAX_X){
+            return true;
+        }
+        if (RUR.world_get.is_wall_at(coords, "east")) {
+            return true;
+        }
+        break;
+    case RUR.NORTH:
+        coords = robot.x + "," + robot.y;
+        if (robot.y == RUR.MAX_Y){
+            return true;
+        }
+        if (RUR.world_get.is_wall_at(coords, "north")) {
+            return true;
+        }
+        break;
+    case RUR.WEST:
+        if (robot.x===1){
+            return true;
+        } else {
+            coords = (robot.x-1) + "," + robot.y; // do math first before building strings
+            if (RUR.world_get.is_wall_at(coords, "east")) {
+                return true;
+            }
+        }
+        break;
+    case RUR.SOUTH:
+        if (robot.y===1){
+            return true;
+        } else {
+            coords = robot.x + "," + (robot.y-1);  // do math first before building strings
+            if (RUR.world_get.is_wall_at(coords, "north")) {
+                return true;
+            }
+        }
+        break;
+    default:
+        throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.wall_in_front().");
+    }
+    return false;
+};
+
+RUR.control.wall_on_right = function (robot) {
+    var result;
+    RUR._recording_(false);
+    RUR.control.__turn_right(robot);
+    result = RUR.control.wall_in_front(robot);
+    RUR.control.turn_left(robot);
+    RUR._recording_(true);
+    return result;
+};
+
+RUR.control.tile_in_front = function (robot) {
+    // returns single tile
+    switch (robot._orientation){
+    case RUR.EAST:
+        return RUR.world_get.tile_at_position(robot.x+1, robot.y);
+    case RUR.NORTH:
+        return RUR.world_get.tile_at_position(robot.x, robot.y+1);
+    case RUR.WEST:
+        return RUR.world_get.tile_at_position(robot.x-1, robot.y);
+    case RUR.SOUTH:
+        return RUR.world_get.tile_at_position(robot.x, robot.y-1);
+    default:
+        throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.tile_in_front().");
+    }
+};
+
+
+RUR.control.obstacles_in_front = function (robot) {
+    // returns list of tiles
+    switch (robot._orientation){
+    case RUR.EAST:
+        return RUR.world_get.obstacles_at_position(robot.x+1, robot.y);
+    case RUR.NORTH:
+        return RUR.world_get.obstacles_at_position(robot.x, robot.y+1);
+    case RUR.WEST:
+        return RUR.world_get.obstacles_at_position(robot.x-1, robot.y);
+    case RUR.SOUTH:
+        return RUR.world_get.obstacles_at_position(robot.x, robot.y-1);
+    default:
+        throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.obstacles_in_front().");
+    }
+};
+
+
+RUR.control.front_is_clear = function(robot){
+    var tile, tiles, solid, name;
+    if( RUR.control.wall_in_front(robot)) {
+        return false;
+    }
+    tile = RUR.control.tile_in_front(robot);
+    if (tile) {
+        if (tile.detectable && tile.fatal){
+                if (tile == RUR.TILES.water) {
+                    if (!RUR.control._bridge_present(robot)){
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+        }
+    }
+
+    solid = RUR.control.obstacles_in_front(robot);
+    if (solid) {
+        for (name in solid) {
+            if (RUR.TILES[name] !== undefined &&
+                RUR.TILES[name].detectable &&
+                RUR.TILES[name].fatal) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+};
+
+
+RUR.control._bridge_present = function(robot) {
+    var solid, name;
+        solid = RUR.control.obstacles_in_front(robot);
+    if (solid) {
+        for (name in solid) {
+            if (name == "bridge") {
+                return true;
+            }
+        }
+    }
+    return false;
+};
+
+
+RUR.control.right_is_clear = function(robot){
+    var result;
+    RUR._recording_(false);
+    RUR.control.__turn_right(robot);
+    result = RUR.control.front_is_clear(robot);
+    RUR.control.turn_left(robot);
+    RUR._recording_(true);
+    return result;
+};
+
+RUR.control.is_facing_north = function (robot) {
+    return robot._orientation === RUR.NORTH;
+};
+
+RUR.control.think = function (delay) {
+    RUR.playback_delay = delay;
+};
+
+RUR.control.at_goal = function (robot) {
+    var goal = get_world().goal;
+    if (goal !== undefined){
+        if (goal.position !== undefined) {
+            return (robot.x === goal.position.x && robot.y === goal.position.y);
+        }
+        throw new RUR.ReeborgError(RUR.translate("There is no position as a goal in this world!"));
+    }
+    throw new RUR.ReeborgError(RUR.translate("There is no goal in this world!"));
+};
+
+
+// TODO: review this as it seems redundant ... and may not work as expected.
+RUR.control.solid_object_here = function (robot, tile) {
+    var tile_here, tile_type, all_solid_objects;
+    var coords = robot.x + "," + robot.y;
+
+    if (get_world().obstacles === undefined ||
+        get_world().obstacles[coords] === undefined) {
+        return false;
+    }
+
+    tile_here =  get_world().obstacles[coords];
+
+    for (tile_type in tile_here) {
+        if (tile_here.hasOwnProperty(tile_type)) {
+            if (tile!== undefined && tile_type == RUR.translate_to_english(tile)) {
+                return true;
+            }
+        }
+    }
+    return false;
+};
+
+
+RUR.control.carries_object = function (robot, obj) {
+    var obj_type, all_objects, carried=false;
+
+    if (robot === undefined || robot.objects === undefined) {
+        return 0;
+    }
+
+    all_objects = {};
+
+    if (obj === undefined) {
+        for (obj_type in robot.objects) {
+            if (robot.objects.hasOwnProperty(obj_type)) {
+                all_objects[RUR.translate(obj_type)] = robot.objects[obj_type];
+                carried = true;
+            }
+        }
+        if (carried) {
+            return all_objects;
+        } else {
+            return 0;
+        }
+    } else {
+        obj = RUR.translate_to_english(obj);
+        for (obj_type in robot.objects) {
+            if (robot.objects.hasOwnProperty(obj_type) && obj_type == obj) {
+                return robot.objects[obj_type];
+            }
+        }
+        return 0;
+    }
+};
+
+
+RUR.control.set_model = function(robot, model){
+    robot.model = model;
+    RUR.record_frame();
+ };
+
+RUR.control.set_trace_color = function(robot, color){
+    robot._trace_color = color;
+ };
+
+RUR.control.set_trace_style = function(robot, style){
+    robot._trace_style = style;
+ };
+
+if (RUR.state === undefined){
+    RUR.state = {};
+}
+
+RUR.state.sound_on = false;
+RUR.control.sound = function(on){
+    if(!on){
+        RUR.state.sound_on = false;
+        return;
+    }
+    RUR.state.sound_on = true;
+};
+
+RUR.control.get_colour_at_position = function (x, y) {
+    if (RUR.world_get.tile_at_position(x, y)===false) {
+        return null;
+    } else if (RUR.world_get.tile_at_position(x, y)===undefined){
+        return get_world().tiles[x + "," + y];
+    } else {
+        return null;
+    }
+};
+RUR.control.get_color_at_position = RUR.control.get_colour_at_position;
+
+},{"./../default_tiles/tiles.js":1,"./../output.js":34,"./../recorder/record_frame.js":46,"./../rur.js":51,"./../translator.js":55,"./../utils/key_exist.js":62,"./../utils/supplant.js":64,"./../world_get.js":72,"./../world_get/world.js":75,"./../world_set.js":76,"./exceptions.js":42}],42:[function(require,module,exports){
+
+require("./../rur.js");
+
+/* When loading a world from a url, Python names may not have been
+   defined in the running environment. If that is the case,
+   we make sure to stop that error and let a the basic javascript
+   one propagate so that the correct dialog can be shown.
+ */
+
+RUR.ReeborgOK = function (message) {
+    if (RUR.state.programming_language == "python"){
+        try { // see comment above
+            return ReeborgOK(message);
+        } catch (e) {}
+    }
+    this.reeborg_concludes = message;
+    this.message = message;
+};
+
+RUR.ReeborgError = function (message) {
+    if (RUR.state.programming_language == "python"){
+        try { // see comment above
+            return ReeborgError(message);
+        } catch (e) {}
+    }
+
+    this.name = "ReeborgError";
+    this.message = message;
+    this.reeborg_shouts = message;
+};
+
+RUR.WallCollisionError = function (message) {
+    if (RUR.state.programming_language == "python"){
+        return WallCollisionError(message);
+    }
+    this.name = "WallCollisionError";
+    this.message = message;
+    this.reeborg_shouts = message;
+};
+
+
+
+},{"./../rur.js":51}],43:[function(require,module,exports){
+require("./../rur.js");
+require("./commands.js");
+
+/* Since Javascript is a dynamic language, a user or world creator could
+    (possibly accidently) redefine a basic function, which could lead to some
+    apparent bugs.  For this reason, we include a function whose role is to
+    make it possible to reset the basic functions to their desired values.
+
+    These functions have to be known globally; the standard way would be to do:
+
+        var fn_name;
+        RUR.reset_definitions = function () {
+            fn_name = ...;
+            ...
+            UsedRobot.prototype.fn_name = ...
+        }
+
+    Instead we use the pattern following pattern which does not require to write
+    a separate declaration.
+
+        RUR.reset_definitions = function () {
+            window.fn_name = ...;
+            ...
+            UsedRobot.prototype.fn_name = ...
+        }
+**/
+
+
+RUR.reset_definitions_en = function () {
+
+    window.at_goal = RUR._at_goal_;
+    window.build_wall = RUR._build_wall_;
+    window.carries_object = RUR._carries_object_;
+    window.default_robot = function () {
+        var r = Object.create(UsedRobot.prototype);
+        r.body = RUR._default_robot_body_();
+        return r;
+    };
+    window.dir_js = RUR._dir_js_;
+    window.done = RUR._done_;
+    window.front_is_clear = RUR._front_is_clear_;
+    window.is_facing_north = RUR._is_facing_north_;
+    window.move = RUR._move_;
+    window.new_robot_images = RUR._new_robot_images_;
+    window.object_here = RUR._object_here_;
+    window.pause = RUR._pause_;
+    window.print_html = RUR._print_html_;
+    window.put = RUR._put_;
+    window.recording = RUR._recording_;
+    window.remove_robots = RUR._remove_robots_;
+    window.right_is_clear = RUR._right_is_clear_;
+    window.set_max_steps = RUR._set_max_steps_;
+    window.sound = RUR._sound_;
+    window.take = RUR._take_;
+    window.think = RUR._think_;
+    window.turn_left = RUR._turn_left_;
+    window.view_source_js = RUR._view_source_js_;
+    window.wall_in_front = RUR._wall_in_front_;
+    window.wall_on_right = RUR._wall_on_right_;
+    window.write = RUR._write_;
+    window._write = RUR.__write_;
+    window.MakeCustomMenu = RUR._MakeCustomMenu_;
+    window.World = RUR._World_;
+
+
+    var UsedRobot = window.UsedRobot = function (x, y, orientation, tokens)  {
+        this.body = RUR.robot.create_robot(x, y, orientation, tokens);
+        RUR._add_robot(this.body);
+    };
+
+    UsedRobot.prototype.at_goal = function () {
+        RUR._UR.at_goal_(this.body);
+    };
+
+    UsedRobot.prototype.build_wall = function () {
+        RUR._UR.build_wall_(this.body);
+    };
+
+    UsedRobot.prototype.carries_object = function () {
+        RUR._UR.carries_object_(this.body);
+    };
+
+    UsedRobot.prototype.front_is_clear = function () {
+        RUR._UR.front_is_clear_(this.body);
+    };
+
+    UsedRobot.prototype.is_facing_north = function () {
+        RUR._UR.is_facing_north_(this.body);
+    };
+
+    UsedRobot.prototype.move = function () {
+        RUR._UR.move_(this.body);
+    };
+
+    UsedRobot.prototype.object_here = function (obj) {
+        RUR._UR.object_here_(this.body, obj);
+    };
+
+    UsedRobot.prototype.put = function () {
+        RUR._UR.put_(this.body);
+    };
+
+    UsedRobot.prototype.right_is_clear = function () {
+        RUR._UR.right_is_clear_(this.body);
+    };
+
+    UsedRobot.prototype.set_model = function(model) {
+        RUR._UR.set_model_(this.body, model);
+    };
+
+    UsedRobot.prototype.set_trace_color_ = function (robot, color) {
+        RUR._UR.set_trace_color_(robot, color);
+    };
+
+    UsedRobot.prototype.set_trace_style_ = function (robot, style) {
+        RUR._UR.set_trace_style_(robot, style);
+    };
+
+    UsedRobot.prototype.take = function () {
+        RUR._UR.take_(this.body);
+    };
+
+
+    UsedRobot.prototype.turn_left = function () {
+        RUR._UR.turn_left_(this.body);
+    };
+
+    UsedRobot.prototype.wall_in_front = function () {
+        RUR._UR.wall_in_front_(this.body);
+    };
+
+    UsedRobot.prototype.wall_on_right = function () {
+        RUR._UR.wall_on_right_(this.body);
+    };
+
+    // English specific and only for compatibility with rur-ple
+    // do not translate the following
+    window.put_beeper = put;
+    window.pick_beeper = take;
+    window.turn_off = done;
+    window.on_beeper = object_here;
+    window.next_to_a_beeper = object_here;
+    window.carries_beepers = carries_object;
+    window.set_delay = think;
+    window.facing_north = is_facing_north;
+};
+
+},{"./../rur.js":51,"./commands.js":40}],44:[function(require,module,exports){
+require("./../rur.js");
+require("./commands.js");
+
+/* See reeborg_en.js for an explanation about the purpose of this file. */
+
+RUR.reset_definitions_fr = function () {
+
+    window.au_but = RUR._at_goal_;
+    window.construit_un_mur = RUR._build_wall_;
+    window.transporte = RUR._carries_object_;
+    window.robot_par_defaut = function () {
+        var r = Object.create(RobotUsage.prototype);
+        r.body = RUR._default_robot_body_();
+        return r;
+    };
+    window.dir_js = RUR._dir_js_;
+    window.termine = RUR._done_;
+    window.rien_devant = RUR._front_is_clear_;
+    window.est_face_au_nord = RUR._is_facing_north_;
+    window.avance = RUR._move_;
+
+    window.mur_devant = RUR._wall_in_front_;
+    window.nouvelles_images_de_robot = function (images) {
+        if (images.est !== undefined) {
+            images.east = images.est;
+        }
+        if (images.ouest !== undefined) {
+            images.west = images.ouest;
+        }
+        if (images.sud !== undefined) {
+            images.south = images.sud;
+        }
+        if (images.nord !== undefined) {
+            images.north = images.nord;
+        }
+        RUR._new_robot_images_(images);
+    };
+    window.objet_ici = RUR._object_here_;
+    window.pause = RUR._pause_;
+    window.print_html = RUR._print_html_;
+    window.depose = RUR._put_;
+    window.enregistrement = RUR._recording_;
+    window.plus_de_robots = RUR._remove_robots_;
+    window.rien_a_droite = RUR._right_is_clear_;
+    window.nombre_d_instructions = RUR._set_max_steps_;
+    window.son = RUR._sound_;
+    window.prend = RUR._take_;
+    window.pense = RUR._think_;
+    window.tourne_a_gauche = RUR._turn_left_;
+    window.voir_source_js = RUR._view_source_js_;
+    window.mur_devant = RUR._wall_in_front_;
+    window.mur_a_droite = RUR._wall_on_right_;
+    window.ecrit = RUR._write_;
+    window._write = RUR.__write_;
+    window.MenuPersonalise = RUR._MakeCustomMenu_;
+    window.Monde = RUR._World_;
+
+    // The following are for OOP programming in Javascript
+    var RobotUsage = window.RobotUsage = function (x, y, orientation, tokens)  {
+        this.body = RUR.robot.create_robot(x, y, orientation, tokens);
+        RUR._add_robot(this.body);
+    };
+    RobotUsage.prototype.au_but = function () {
+        RUR._UR.at_goal_(this.body);
+    };
+
+    RobotUsage.prototype.construit_un_mur = function () {
+        RUR._UR.build_wall_(this.body);
+    };
+
+    RobotUsage.prototype.transporte = function () {
+        RUR._UR.carries_object_(this.body);
+    };
+
+    RobotUsage.prototype.rien_devant = function () {
+        RUR._UR.front_is_clear_(this.body);
+    };
+
+    RobotUsage.prototype.est_face_au_nord = function () {
+        RUR._UR.is_facing_north_(this.body);
+    };
+
+    RobotUsage.prototype.avance = function () {
+        RUR._UR.move_(this.body);
+    };
+
+    RobotUsage.prototype.objet_ici = function (obj) {
+        RUR._UR.object_here_(this.body, obj);
+    };
+
+    RobotUsage.prototype.depose = function () {
+        RUR._UR.put_(this.body);
+    };
+
+    RobotUsage.prototype.rien_a_droite = function () {
+        RUR._UR.right_is_clear_(this.body);
+    };
+
+    RobotUsage.prototype.modele = function(model) {
+        RUR._UR.set_model_(this.body, model);
+    };
+
+    RobotUsage.prototype.mur_devant = function () {
+        RUR.control.wall_in_front(this.body); //TODO: remove control
+    };
+
+    RobotUsage.prototype.couleur_de_trace = function (robot, color) {
+        RUR._UR.set_trace_color_(robot, color);
+    };
+
+    RobotUsage.prototype.style_de_trace = function (robot, style) {
+        RUR._UR.set_trace_style_(robot, style);
+    };
+
+    RobotUsage.prototype.prend = function () {
+        RUR._UR.take_(this.body);
+    };
+
+    RobotUsage.prototype.tourne_a_gauche = function () {
+        RUR._UR.turn_left_(this.body);
+    };
+
+    RobotUsage.prototype.mur_devant = function () {
+        RUR._UR.wall_in_front_(this.body);
+    };
+
+    RobotUsage.prototype.mur_a_droite = function () {
+        RUR._UR.wall_on_right_(this.body);
+    };
+
+};
+
+},{"./../rur.js":51,"./commands.js":40}],45:[function(require,module,exports){
 
 require("./rur.js");
 require("./visible_world.js");
 require("./world_get.js");
 require("./translator.js");
-require("./exceptions.js");
+require("./programming_ui/exceptions.js");
 require("./listeners/pause.js");
 require("./listeners/stop.js");
 require("./playback/play_sound.js");
@@ -6589,11 +6683,11 @@ RUR.rec.check_goal = function (frame) {
     return goal_status;
 };
 
-},{"./editors/create.js":12,"./exceptions.js":14,"./listeners/pause.js":28,"./listeners/stop.js":36,"./playback/play_sound.js":42,"./recorder/record_frame.js":45,"./rur.js":49,"./translator.js":53,"./utils/identical.js":57,"./visible_world.js":64,"./world_get.js":68,"./world_utils/clone_world.js":85}],45:[function(require,module,exports){
+},{"./editors/create.js":8,"./listeners/pause.js":23,"./listeners/stop.js":31,"./playback/play_sound.js":37,"./programming_ui/exceptions.js":42,"./recorder/record_frame.js":46,"./rur.js":51,"./translator.js":55,"./utils/identical.js":61,"./visible_world.js":68,"./world_get.js":72,"./world_utils/clone_world.js":87}],46:[function(require,module,exports){
 
 require("./../rur.js");
 require("./reset.js");
-require("./../exceptions.js");
+require("./../programming_ui/exceptions.js");
 require("./../world_get.js");
 require("./../playback/show_immediate.js");
 require("./../utils/supplant.js");
@@ -6704,7 +6798,7 @@ check_robots_on_tiles = function(frame){
 };
 
 
-},{"./../exceptions.js":14,"./../playback/show_immediate.js":43,"./../rur.js":49,"./../utils/supplant.js":60,"./../world_get.js":68,"./../world_utils/clone_world.js":85,"./reset.js":46}],46:[function(require,module,exports){
+},{"./../playback/show_immediate.js":38,"./../programming_ui/exceptions.js":42,"./../rur.js":51,"./../utils/supplant.js":64,"./../world_get.js":72,"./../world_utils/clone_world.js":87,"./reset.js":47}],47:[function(require,module,exports){
 require("./../rur.js");
 require("./../editors/create.js");
 
@@ -6738,11 +6832,11 @@ exports.reset = reset = function() {
 reset();
 RUR._reset = reset; // for automated testing
 
-},{"./../editors/create.js":12,"./../rur.js":49}],47:[function(require,module,exports){
+},{"./../editors/create.js":8,"./../rur.js":51}],48:[function(require,module,exports){
 
 require("./rur.js");
 require("./translator.js");
-require("./exceptions.js");
+require("./programming_ui/exceptions.js");
 require("./utils/validator.js");
 
 RUR.robot = {};
@@ -6838,18 +6932,20 @@ RUR.robot.assign_id = function (robot) {
     RUR.robot.__ID += 1;
 };
 
-},{"./exceptions.js":14,"./rur.js":49,"./translator.js":53,"./utils/validator.js":62}],48:[function(require,module,exports){
+},{"./programming_ui/exceptions.js":42,"./rur.js":51,"./translator.js":55,"./utils/validator.js":66}],49:[function(require,module,exports){
 
-require("./rur.js");
-require("./translator.js");
-require("./visible_world.js");
-require("./editors/update.js");
-require("./blockly.js");
-require("./recorder.js");
+require("./../rur.js");
+require("./../translator.js");
+require("./../visible_world.js");
+require("./../editors/update.js");
+require("./../programming_ui/blockly.js");
+require("./../recorder.js");
 require("./world_init.js");
-require("./editors/create.js");
-require("./utils/supplant.js");
-var clone_world = require("./world_utils/clone_world.js").clone_world;
+require("./../editors/create.js");
+require("./../utils/supplant.js");
+var clone_world = require("./../world_utils/clone_world.js").clone_world;
+
+//TODO: refactor this
 
 RUR.runner = {};
 
@@ -6862,8 +6958,6 @@ RUR.runner = {};
    only need to show a frame already recorded, or if we need to evaluate the
    program.
  */
-
-RUR.state.code_evaluated = false;
 
 RUR.runner.run = function (playback) {
     "use strict";
@@ -7126,7 +7220,124 @@ RUR.runner.check_func_parentheses = function(line_of_code) {
     return false;  // no missing parentheses
 };
 
-},{"./blockly.js":1,"./editors/create.js":12,"./editors/update.js":13,"./recorder.js":44,"./rur.js":49,"./translator.js":53,"./utils/supplant.js":60,"./visible_world.js":64,"./world_init.js":72,"./world_utils/clone_world.js":85}],49:[function(require,module,exports){
+},{"./../editors/create.js":8,"./../editors/update.js":9,"./../programming_ui/blockly.js":39,"./../recorder.js":45,"./../rur.js":51,"./../translator.js":55,"./../utils/supplant.js":64,"./../visible_world.js":68,"./../world_utils/clone_world.js":87,"./world_init.js":50}],50:[function(require,module,exports){
+
+require("./../visible_world.js");
+require("./../rur.js");
+
+RUR.world_init = {};
+
+// Returns a random integer between min and max (both included)
+randint = function (min, max, previous) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+
+// assigns initial values
+RUR.world_init.set = function () {
+    "use strict";
+    var coords, obj, objects, objects_here, nb, range, robot;
+    var position, goal, total_nb_objects = {};
+
+   // First, deal with objects
+
+    if (RUR.CURRENT_WORLD.objects !== undefined){
+        objects = RUR.CURRENT_WORLD.objects;
+        for (coords in objects){
+            if (objects.hasOwnProperty(coords)){
+                objects_here = objects[coords];
+                for (obj in objects_here){
+                    if (objects_here.hasOwnProperty(obj)){
+                        nb = objects_here[obj];
+                        if (nb.toString().indexOf("-") != -1){
+                            range = nb.split("-");
+                            nb = randint(parseInt(range[0], 10), parseInt(range[1], 10));
+                            if (nb !== 0){
+                                objects_here[obj] = nb;
+                            } else {
+                                delete objects_here[obj];
+                            }
+                        }
+                        if (total_nb_objects[obj] === undefined){
+                            if (parseInt(nb, 10) !== 0) {
+                                total_nb_objects[obj] = parseInt(nb, 10);
+                            }
+                        } else {
+                            total_nb_objects[obj] += parseInt(nb, 10);
+                        }
+                    }
+                }
+                if (Object.keys(RUR.CURRENT_WORLD.objects[coords]).length === 0){
+                    delete RUR.CURRENT_WORLD.objects[coords];
+                }
+            }
+        }
+    }
+
+    // then look for "goals" with "all" as value;
+
+    if (RUR.CURRENT_WORLD.goal !== undefined &&
+        RUR.CURRENT_WORLD.goal.objects !== undefined){
+        objects = RUR.CURRENT_WORLD.goal.objects;
+        for (coords in objects){
+            if (objects.hasOwnProperty(coords)){
+                objects_here = objects[coords];
+                for (obj in objects_here){
+                    if (objects_here.hasOwnProperty(obj)){
+                        nb = objects_here[obj];
+                        if (nb == "all") {
+                            try {
+                                if (total_nb_objects[obj] !== undefined) {
+                                    objects_here[obj] = total_nb_objects[obj];
+                                } else {
+                                    delete objects[coords][obj];
+                                }
+                            } catch (e) {
+                                $("#world-info-button").click();
+                                $("#World-info").html("<b>Warning</b> Trying to assign a goal when no corresponding objects are found in the world.");
+                            }
+                        }
+                    }
+                }
+                if (Object.keys(RUR.CURRENT_WORLD.goal.objects[coords]).length === 0){
+                    delete RUR.CURRENT_WORLD.goal.objects[coords];
+                }
+            }
+        }
+    }
+
+    // next, initial position for robot
+    if (RUR.CURRENT_WORLD.robots !== undefined && RUR.CURRENT_WORLD.robots.length == 1){
+        robot = RUR.CURRENT_WORLD.robots[0];
+        if (robot.start_positions !== undefined) {
+            position = robot.start_positions[randint(0, robot.start_positions.length-1)];
+            robot.x = position[0];
+            robot.y = position[1];
+            robot._prev_x = robot.x;
+            robot._prev_y = robot.y;
+            delete robot.start_positions;
+        }
+        if (robot._orientation == -1){
+            RUR.CURRENT_WORLD.robots[0]._orientation = randint(0, 3);
+            RUR.CURRENT_WORLD.robots[0]._prev_orientation = RUR.CURRENT_WORLD.robots[0]._orientation;
+        }
+    }
+
+    // then final position for robot
+
+    if (RUR.CURRENT_WORLD.goal !== undefined &&
+        RUR.CURRENT_WORLD.goal.possible_positions !== undefined &&
+        RUR.CURRENT_WORLD.goal.possible_positions.length > 1) {
+        goal = RUR.CURRENT_WORLD.goal;
+        position = goal.possible_positions[randint(0, goal.possible_positions.length-1)];
+        goal.position.x = position[0];
+        goal.position.y = position[1];
+        delete goal.possible_positions;
+    }
+    RUR.vis_world.refresh();
+};
+
+},{"./../rur.js":51,"./../visible_world.js":68}],51:[function(require,module,exports){
 /** @namespace RUR 
  * @desc The namespace reserved for all the core Reeborg World methods.
  *
@@ -7332,7 +7543,7 @@ RUR.CURRENT_WORLD = null; // needs to be created explicitly
 RUR.show_feedback = function (element, content) {
     $(element).html(content).dialog("open");
 };
-},{}],50:[function(require,module,exports){
+},{}],52:[function(require,module,exports){
 require("./rur.js");
 require("./visible_world.js");
 require("./visible_robot.js");
@@ -7354,7 +7565,7 @@ function everything_loaded () {
 }
 everything_loaded();
 
-},{"./rur.js":49,"./visible_robot.js":63,"./visible_world.js":64}],51:[function(require,module,exports){
+},{"./rur.js":51,"./visible_robot.js":67,"./visible_world.js":68}],53:[function(require,module,exports){
 
 require("./rur.js");
 /* Requiring the following just to get things started */
@@ -7442,11 +7653,11 @@ function set_world(url_query) {
     }
 }
 
-},{"./default_tiles/tiles.js":5,"./editors/create.js":12,"./listeners/add_listeners.js":20,"./permalink.js":40,"./rur.js":49,"./splash_screen.js":50,"./storage.js":52,"./utils/parseuri.js":59,"./world_utils/import_world.js":88}],52:[function(require,module,exports){
+},{"./default_tiles/tiles.js":1,"./editors/create.js":8,"./listeners/add_listeners.js":15,"./permalink.js":35,"./rur.js":51,"./splash_screen.js":52,"./storage.js":54,"./utils/parseuri.js":63,"./world_utils/import_world.js":90}],54:[function(require,module,exports){
 
 require("./rur.js");
 require("./translator.js");
-require("./world_select.js");
+require("./ui/world_select.js");
 
 
 var export_world = require("./world_utils/export_world.js").export_world;
@@ -7513,7 +7724,7 @@ RUR.storage.delete_world = function (name){
     $('#delete-world').hide();
 };
 
-},{"./rur.js":49,"./translator.js":53,"./world_select.js":73,"./world_utils/clone_world.js":85,"./world_utils/export_world.js":87}],53:[function(require,module,exports){
+},{"./rur.js":51,"./translator.js":55,"./ui/world_select.js":59,"./world_utils/clone_world.js":87,"./world_utils/export_world.js":89}],55:[function(require,module,exports){
 require("./rur.js");
 require("./../lang/ui_en.js");
 require("./../lang/ui_fr.js");
@@ -7548,7 +7759,193 @@ RUR.translate_to_english = function (s) {
     }
 };
 
-},{"./../lang/en.js":89,"./../lang/fr.js":90,"./../lang/ui_en.js":94,"./../lang/ui_fr.js":95,"./../lang/ui_ko.js":96,"./rur.js":49}],54:[function(require,module,exports){
+},{"./../lang/en.js":91,"./../lang/fr.js":92,"./../lang/ui_en.js":94,"./../lang/ui_fr.js":95,"./../lang/ui_ko.js":96,"./rur.js":51}],56:[function(require,module,exports){
+/* In this module, we make it possible for a user to define their
+   own world menu selection. We also include some default world menus. */
+require("./../translator.js");
+require("./world_select.js");
+require("./../storage.js");
+
+RUR.custom_world_select = {};
+
+RUR.custom_world_select.make = function (contents) {
+    "use strict";
+    var i, url;
+    RUR.world_select.empty_menu();
+    for(i=0; i<contents.length; i++){
+        RUR.world_select.append_world( {url:contents[i][0],
+                                        shortname:contents[i][1]});
+    }
+    load_user_worlds();
+    if (RUR.state.session_initialized) {
+        RUR.world_select.set_default();
+    }
+};
+
+function load_user_worlds() {
+    var key, name, i;
+    RUR.state.creating_menu = true;
+    for (i = localStorage.length - 1; i >= 0; i--) {
+        key = localStorage.key(i);
+        if (key.slice(0, 11) === "user_world:") {
+            name = key.slice(11);
+            RUR.storage.append_world_name(name);
+            $('#delete-world').show();
+        }
+    }
+    RUR.state.creating_menu = false;
+}
+
+
+RUR.make_default_menu = function(language) {
+    switch (language) {
+        case 'en':
+        case 'fr-en':
+        case 'ko-en':
+            RUR.make_default_menu_en();
+            break;
+        case 'fr':
+        case 'en-fr':
+            RUR.make_default_menu_fr();
+            break;
+        default: RUR.make_default_menu_en();
+    }
+};
+
+
+RUR.make_default_menu_en = function () {
+    "use strict";
+    var contents,
+        tutorial_en = RUR._BASE_URL + '/src/worlds/tutorial_en/',
+        menus = RUR._BASE_URL + '/src/worlds/menus/',
+        worlds = RUR._BASE_URL + '/src/worlds/',
+        docs = RUR._BASE_URL + '/src/worlds/documentation/',
+        permalinks = RUR._BASE_URL + '/src/worlds/permalinks/';
+
+    contents = [
+        [worlds + 'alone.json', 'Alone'],
+        [worlds + 'empty.json', 'Empty'],
+        [tutorial_en + 'around1.json', 'Around 1'],
+        [tutorial_en + 'around2.json', 'Around 2'],
+        [tutorial_en + 'around3.json', 'Around 3'],
+        [tutorial_en + 'around4.json', 'Around 4'],
+        [tutorial_en + 'center1.json', 'Center 1'],
+        [tutorial_en + 'center2.json', 'Center 2'],
+        [tutorial_en + 'center3.json', 'Center 3'],
+        [tutorial_en + 'harvest1.json', 'Harvest 1'],
+        [tutorial_en + 'harvest2.json', 'Harvest 2'],
+        [tutorial_en + 'harvest3.json', 'Harvest 3'],
+        [tutorial_en + 'harvest4a.json', 'Harvest 4a'],
+        [tutorial_en + 'harvest4b.json', 'Harvest 4b'],
+        [tutorial_en + 'harvest4c.json', 'Harvest 4c'],
+        [tutorial_en + 'harvest4d.json', 'Harvest 4d'],
+        [tutorial_en + 'home1.json', 'Home 1'],
+        [tutorial_en + 'home2.json', 'Home 2'],
+        [tutorial_en + 'home3.json', 'Home 3'],
+        [tutorial_en + 'hurdle1.json', 'Hurdle 1'],
+        [tutorial_en + 'hurdle2.json', 'Hurdle 2'],
+        [tutorial_en + 'hurdle3.json', 'Hurdle 3'],
+        [tutorial_en + 'hurdle4.json', 'Hurdle 4'],
+        [tutorial_en + 'maze1.json', 'Maze 1'],
+        [tutorial_en + 'maze2.json', 'Maze 2'],
+        [tutorial_en + 'newspaper0.json', 'Newspaper 0'],
+        [tutorial_en + 'newspaper1.json', 'Newspaper 1'],
+        [tutorial_en + 'newspaper2.json', 'Newspaper 2'],
+        [tutorial_en + 'rain1_en.json', 'Rain 1'],
+        [tutorial_en + 'rain2_en.json', 'Rain 2'],
+        [tutorial_en + 'storm1.json', 'Storm 1'],
+        [tutorial_en + 'storm2.json', 'Storm 2'],
+        [tutorial_en + 'storm3.json', 'Storm 3'],
+        [tutorial_en + 'tokens1.json', 'Tokens 1'],
+        [tutorial_en + 'tokens2.json', 'Tokens 2'],
+        [tutorial_en + 'tokens3.json', 'Tokens 3'],
+        [tutorial_en + 'tokens4.json', 'Tokens 4'],
+        [tutorial_en + 'tokens5.json', 'Tokens 5'],
+        [tutorial_en + 'tokens6.json', 'Tokens 6'],
+        [docs + 'simple_demo1', 'Demo 1 (solution)'],
+        [docs + 'simple_demo2', 'Demo 2 (solution)'],
+        [docs + 'simple_demo3', 'Demo 3 (solution)'],
+        [worlds + 'simple_path.json', 'Simple path'],
+        [worlds + 'gravel_path.json', 'Gravel path'],
+        [worlds + 'gravel_path',
+                           'Gravel path (solution)'],
+        [worlds + 'slalom.json', 'Slalom'],
+        [permalinks + 'pre_post_demo', 'Pre & Post code demo'],
+        [permalinks + 'story', 'Story'],
+        [permalinks + 'test_remove', 'Robot replacement'],
+        [docs + 'big_maze.json', 'Big maze'],
+        [worlds + 'maze_gen_py', 'Maze generation (Python)'],
+        [worlds + 'maze_gen_js', 'Maze generation (Javascript)'],
+        [worlds + 'blank.json', 'Blank canvas'],
+        ];
+
+    RUR.custom_world_select.make(contents);
+};
+
+RUR.make_default_menu_fr = function () {
+    "use strict";
+    var base_url, base_url2, contents, menus, worlds;
+
+    base_url = RUR._BASE_URL + '/src/worlds/tutorial_en/';
+    base_url2 = RUR._BASE_URL + '/src/worlds/tutorial_fr/';
+
+    menus = RUR._BASE_URL + '/src/worlds/menus/';
+    worlds = RUR._BASE_URL + '/src/worlds/';
+
+    contents = [
+        ['src/worlds/seul.json', 'Seul'],
+        ['src/worlds/empty.json', 'Vide'],
+        [base_url2 + 'around1.json', 'Autour 1'],
+        [base_url2 + 'around2.json', 'Autour 2'],
+        [base_url2 + 'around3.json', 'Autour 3'],
+        [base_url2 + 'around4.json', 'Autour 4'],
+        [base_url + 'home1.json', 'But 1'],
+        [base_url + 'home2.json', 'But 2'],
+        [base_url + 'home3.json', 'But 3'],
+        [base_url + 'center1.json', 'Centrer 1'],
+        [base_url + 'center2.json', 'Centrer 2'],
+        [base_url + 'center3.json', 'Centrer 3'],
+        [base_url + 'hurdle1.json', 'Haies 1'],
+        [base_url + 'hurdle2.json', 'Haies 2'],
+        [base_url + 'hurdle3.json', 'Haies 3'],
+        [base_url + 'hurdle4.json', 'Haies 4'],
+        [base_url + 'tokens1.json', 'Jetons 1'],
+        [base_url + 'tokens2.json', 'Jetons 2'],
+        [base_url + 'tokens3.json', 'Jetons 3'],
+        [base_url + 'tokens4.json', 'Jetons 4'],
+        [base_url + 'tokens5.json', 'Jetons 5'],
+        [base_url + 'tokens6.json', 'Jetons 6'],
+        [base_url + 'newspaper0.json', 'Journal 0'],
+        [base_url + 'newspaper1.json', 'Journal 1'],
+        [base_url + 'newspaper2.json', 'Journal 2'],
+        [base_url + 'maze1.json', 'Labyrinthe 1'],
+        [base_url + 'maze2.json', 'Labyrinthe 2'],
+        [base_url + 'rain1.json', 'Pluie 1'],
+        [base_url + 'rain2.json', 'Pluie 2'],
+        [base_url + 'harvest1.json', 'Récolte 1'],
+        [base_url + 'harvest2.json', 'Récolte 2'],
+        [base_url + 'harvest3.json', 'Récolte 3'],
+        [base_url + 'harvest4a.json', 'Récolte 4a'],
+        [base_url + 'harvest4b.json', 'Récolte 4b'],
+        [base_url + 'harvest4c.json', 'Récolte 4c'],
+        [base_url + 'harvest4d.json', 'Récolte 4d'],
+        [base_url + 'storm1.json', 'Tempête 1'],
+        [base_url + 'storm2.json', 'Tempête 2'],
+        [base_url + 'storm3.json', 'Tempête 3'],
+        // [menus + 'default_fr', 'Menu par défaut'],
+        [worlds + 'menus/documentation_fr', 'Documentation (menu anglais)'],
+        [worlds + 'simple_path_fr.json', 'Simple sentier'],
+        [worlds + 'gravel_path.json', 'Sentier de gravier'],
+        [worlds + 'gravel_path_fr',
+                           'Sentier de gravier (solution)'],
+        [worlds + 'slalom.json', 'Slalom'],
+        [RUR._BASE_URL + 'src/worlds/blank.json', 'Canevas graphique'],
+    ];
+
+    RUR.custom_world_select.make(contents);
+};
+
+},{"./../storage.js":54,"./../translator.js":55,"./world_select.js":59}],57:[function(require,module,exports){
 
 require("./../rur.js");
 
@@ -7563,7 +7960,7 @@ exports.toggle = function () {
     }
 };
 
-},{"./../rur.js":49}],55:[function(require,module,exports){
+},{"./../rur.js":51}],58:[function(require,module,exports){
 
 require("./../rur.js");
 
@@ -7579,7 +7976,104 @@ exports.set_ready_to_run = set_ready_to_run = function () {
 
 set_ready_to_run();
 
-},{"./../rur.js":49}],56:[function(require,module,exports){
+},{"./../rur.js":51}],59:[function(require,module,exports){
+
+/*  Purpose of this file: abstract handling of menus so that all jQuery
+    dependencies (and possibly obscure syntax in some cases) can be pulled
+    away from other files.
+
+    The world menu is currently an html select element with
+    id = select-world.  Doing a global search for "#select-world" should
+    only find items in this file.
+*/
+
+RUR.world_select = {};
+
+RUR.world_select.empty_menu = function () {
+    $("#select-world").html('');
+};
+
+RUR.world_select.set_default = function () {
+    document.getElementById("select-world").selectedIndex = 0;
+    $("#select-world").change();
+};
+
+RUR.world_select.set_url = function (url) {
+    $('#select-world').val(url);
+    $("#select-world").change();
+};
+
+RUR.world_select.get_selected = function () {
+    "use strict";
+    var select, index, url, shortname;
+    select = document.getElementById("select-world");
+    index = select.selectedIndex;
+    try {
+        url = select.options[index].value;
+        shortname = select.options[index].text;
+    } catch (e) {
+        url = select.options[0].value;
+        shortname = select.options[0].text;
+    }
+    return {url:url, shortname:shortname};
+};
+
+RUR.world_select.url_from_shortname = function (shortname) {
+    // if exists, returns the corresponding url
+    "use strict";
+    var i, select;
+    select = document.getElementById("select-world");
+    shortname = shortname.toLowerCase();
+
+    for (i=0; i < select.options.length; i++){
+        if (select.options[i].text.toLowerCase() === shortname) {
+            return select.options[i].value;
+        }
+    }
+    return undefined;
+};
+
+RUR.world_select.replace_shortname = function (url, shortname) {
+    "use strict";
+    var i, select;
+    select = document.getElementById("select-world");
+    url = url.toLowerCase();
+
+    for (i=0; i < select.options.length; i++){
+        if (select.options[i].value.toLowerCase() === url) {
+            select.options[i].text = shortname;
+            return true;
+        }
+    }
+    return false;
+};
+
+RUR.world_select.append_world = function (arg) {
+    "use strict";
+    var option_elt, url, shortname;
+    url = arg.url;
+
+    if (arg.shortname !== undefined) {
+        shortname = arg.shortname;
+    } else {
+        shortname = url;
+    }
+
+    // allow for special styling of any url containing the string "menu".
+    if (url.indexOf('menu') != -1) {
+        option_elt = '<option class="select-menu"></option>';
+    } else if (arg.local_storage !== undefined){
+        option_elt = '<option class="select-local-storage"></option>';
+    } else {
+        option_elt = '<option></option>';
+    }
+    // Append only if new world.
+    if (!RUR.world_select.replace_shortname(url, shortname)) {
+        $('#select-world').append( $(option_elt).val(url).html(shortname));
+    }
+};
+
+},{}],60:[function(require,module,exports){
 ;
 // from http://stackoverflow.com/questions/15005500/loading-cross-domain-html-page-with-jquery-ajax
 
@@ -7591,7 +8085,7 @@ $.ajaxPrefilter( function (options) {
   }
 });
 
-},{}],57:[function(require,module,exports){
+},{}],61:[function(require,module,exports){
 /*
     Original script title: "Object.identical.js"; version 1.12
     Copyright (c) 2011, Chris O'Brien, prettycode.org
@@ -7629,7 +8123,7 @@ exports.identical = identical = function (a, b) {
 
 RUR.object_identical = identical; // for automated testing.
 
-},{}],58:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 require("./utils_namespace.js");
 /* short function to make the rest of the code easier
    to read */
@@ -7640,7 +8134,7 @@ RUR.utils.ensure_key_exists = function(obj, key){
     }
 };
 
-},{"./utils_namespace.js":61}],59:[function(require,module,exports){
+},{"./utils_namespace.js":65}],63:[function(require,module,exports){
 // parseUri 1.2.2
 // (c) Steven Levithan <stevenlevithan.com>
 // MIT License
@@ -7692,7 +8186,7 @@ exports.update_url = update_url = function () {
     window.history.pushState("dummy", "dummy", permalink);
 };
 
-},{}],60:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 // adapted from http://javascript.crockford.com/remedial.html
 
 // will modify a global object - no need to export anything.
@@ -7707,7 +8201,7 @@ String.prototype.supplant = function (o) {
     );
 };
 
-},{}],61:[function(require,module,exports){
+},{}],65:[function(require,module,exports){
 require("./../rur.js");
 /** @namespace utils
  * @memberof RUR
@@ -7715,10 +8209,10 @@ require("./../rur.js");
  */
 RUR.utils = {};
 
-},{"./../rur.js":49}],62:[function(require,module,exports){
+},{"./../rur.js":51}],66:[function(require,module,exports){
 
 require("./../rur.js");
-require("./../exceptions.js");
+require("./../programming_ui/exceptions.js");
 require("./utils_namespace.js");
 
 _is_integer = function(n) {
@@ -7751,7 +8245,7 @@ RUR.utils.filterInt = function (value) {
   return undefined;
 };
 
-},{"./../exceptions.js":14,"./../rur.js":49,"./utils_namespace.js":61}],63:[function(require,module,exports){
+},{"./../programming_ui/exceptions.js":42,"./../rur.js":51,"./utils_namespace.js":65}],67:[function(require,module,exports){
 
 require("./rur.js");
 var get_world = require("./world_get/world.js").get_world;
@@ -8047,7 +8541,7 @@ RUR.vis_robot.new_robot_images = function (images) {
     RUR.select_default_robot_model(model);
 };
 
-},{"./rur.js":49,"./world_get/world.js":71}],64:[function(require,module,exports){
+},{"./rur.js":51,"./world_get/world.js":75}],68:[function(require,module,exports){
 require("./translator.js");
 require("./rur.js");
 require("./world_enhance/add_tile_type.js");
@@ -8706,11 +9200,11 @@ draw_info = function() {
     }
 };
 
-},{"./rur.js":49,"./translator.js":53,"./world_enhance/add_tile_type.js":65,"./world_get/world.js":71}],65:[function(require,module,exports){
+},{"./rur.js":51,"./translator.js":55,"./world_enhance/add_tile_type.js":69,"./world_get/world.js":75}],69:[function(require,module,exports){
 require("./../rur.js");
 require("./enhance_namespace.js");
 require("./animated_images.js");
-require("./../exceptions.js");
+require("./../programming_ui/exceptions.js");
 //require("./../default_tiles/images_onload.js");
 
 /** @function new_tile_type
@@ -8833,7 +9327,7 @@ RUR.add_new_object_type = function (name, url, url_goal) {
  */
 RUR.add_object_image = RUR.add_new_object_type; // Vincent Maille's book.
 
-},{"./../exceptions.js":14,"./../rur.js":49,"./animated_images.js":66,"./enhance_namespace.js":67}],66:[function(require,module,exports){
+},{"./../programming_ui/exceptions.js":42,"./../rur.js":51,"./animated_images.js":70,"./enhance_namespace.js":71}],70:[function(require,module,exports){
 require("./../rur.js");
 
 var _ORDERED, _SYNC, _SYNC_VALUE;
@@ -8924,7 +9418,7 @@ RUR._sync = function (obj, nb, coords) {
     return obj["image" + _SYNC_VALUE[obj.name]];
 };
 
-},{"./../rur.js":49}],67:[function(require,module,exports){
+},{"./../rur.js":51}],71:[function(require,module,exports){
 require("./../rur.js");
 /** @namespace enhance
  * @memberof RUR
@@ -8933,13 +9427,13 @@ require("./../rur.js");
  */
 RUR.enhance = {};
 
-},{"./../rur.js":49}],68:[function(require,module,exports){
+},{"./../rur.js":51}],72:[function(require,module,exports){
 /* Obtain specific information about the world, either at a given
    position, or for the world in general.
 */
 
 require("./rur.js");
-require("./exceptions.js");
+require("./programming_ui/exceptions.js");
 require("./default_tiles/tiles.js");
 require("./dialogs/create.js");
 require("./listeners/canvas.js");
@@ -9230,7 +9724,7 @@ RUR.world_get.world_info = function (no_grid) {
 RUR.create_and_activate_dialogs( $("#world-info-button"), $("#World-info"),
                                  {height:300, width:600}, RUR.world_get.world_info);
 
-},{"./default_tiles/tiles.js":5,"./dialogs/create.js":7,"./exceptions.js":14,"./listeners/canvas.js":21,"./rur.js":49,"./utils/supplant.js":60}],69:[function(require,module,exports){
+},{"./default_tiles/tiles.js":1,"./dialogs/create.js":3,"./listeners/canvas.js":16,"./programming_ui/exceptions.js":42,"./rur.js":51,"./utils/supplant.js":64}],73:[function(require,module,exports){
 require("./../rur.js");
 /** @namespace get
  * @memberof RUR
@@ -9240,7 +9734,7 @@ require("./../rur.js");
 RUR.get = {};
 
 
-},{"./../rur.js":49}],70:[function(require,module,exports){
+},{"./../rur.js":51}],74:[function(require,module,exports){
 require("./get_namespace.js");
 get_world = require("./world.js").get_world;
 
@@ -9404,7 +9898,7 @@ function __is_wall_at (coords, orientation, walls) {
     return false;
 }
 
-},{"./get_namespace.js":69,"./world.js":71}],71:[function(require,module,exports){
+},{"./get_namespace.js":73,"./world.js":75}],75:[function(require,module,exports){
 require("./get_namespace.js");
 
 exports.get_world = get_world = function () {
@@ -9427,226 +9921,12 @@ exports.get_world = get_world = function () {
  */
 RUR.get.world = get_world;
 
-},{"./get_namespace.js":69}],72:[function(require,module,exports){
-
-require("./visible_world.js");
-require("./rur.js");
-
-RUR.world_init = {};
-
-// Returns a random integer between min and max (both included)
-randint = function (min, max, previous) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
-
-// assigns initial values
-RUR.world_init.set = function () {
-    "use strict";
-    var coords, obj, objects, objects_here, nb, range, robot;
-    var position, goal, total_nb_objects = {};
-
-   // First, deal with objects
-
-    if (RUR.CURRENT_WORLD.objects !== undefined){
-        objects = RUR.CURRENT_WORLD.objects;
-        for (coords in objects){
-            if (objects.hasOwnProperty(coords)){
-                objects_here = objects[coords];
-                for (obj in objects_here){
-                    if (objects_here.hasOwnProperty(obj)){
-                        nb = objects_here[obj];
-                        if (nb.toString().indexOf("-") != -1){
-                            range = nb.split("-");
-                            nb = randint(parseInt(range[0], 10), parseInt(range[1], 10));
-                            if (nb !== 0){
-                                objects_here[obj] = nb;
-                            } else {
-                                delete objects_here[obj];
-                            }
-                        }
-                        if (total_nb_objects[obj] === undefined){
-                            if (parseInt(nb, 10) !== 0) {
-                                total_nb_objects[obj] = parseInt(nb, 10);
-                            }
-                        } else {
-                            total_nb_objects[obj] += parseInt(nb, 10);
-                        }
-                    }
-                }
-                if (Object.keys(RUR.CURRENT_WORLD.objects[coords]).length === 0){
-                    delete RUR.CURRENT_WORLD.objects[coords];
-                }
-            }
-        }
-    }
-
-    // then look for "goals" with "all" as value;
-
-    if (RUR.CURRENT_WORLD.goal !== undefined &&
-        RUR.CURRENT_WORLD.goal.objects !== undefined){
-        objects = RUR.CURRENT_WORLD.goal.objects;
-        for (coords in objects){
-            if (objects.hasOwnProperty(coords)){
-                objects_here = objects[coords];
-                for (obj in objects_here){
-                    if (objects_here.hasOwnProperty(obj)){
-                        nb = objects_here[obj];
-                        if (nb == "all") {
-                            try {
-                                if (total_nb_objects[obj] !== undefined) {
-                                    objects_here[obj] = total_nb_objects[obj];
-                                } else {
-                                    delete objects[coords][obj];
-                                }
-                            } catch (e) {
-                                $("#world-info-button").click();
-                                $("#World-info").html("<b>Warning</b> Trying to assign a goal when no corresponding objects are found in the world.");
-                            }
-                        }
-                    }
-                }
-                if (Object.keys(RUR.CURRENT_WORLD.goal.objects[coords]).length === 0){
-                    delete RUR.CURRENT_WORLD.goal.objects[coords];
-                }
-            }
-        }
-    }
-
-    // next, initial position for robot
-    if (RUR.CURRENT_WORLD.robots !== undefined && RUR.CURRENT_WORLD.robots.length == 1){
-        robot = RUR.CURRENT_WORLD.robots[0];
-        if (robot.start_positions !== undefined) {
-            position = robot.start_positions[randint(0, robot.start_positions.length-1)];
-            robot.x = position[0];
-            robot.y = position[1];
-            robot._prev_x = robot.x;
-            robot._prev_y = robot.y;
-            delete robot.start_positions;
-        }
-        if (robot._orientation == -1){
-            RUR.CURRENT_WORLD.robots[0]._orientation = randint(0, 3);
-            RUR.CURRENT_WORLD.robots[0]._prev_orientation = RUR.CURRENT_WORLD.robots[0]._orientation;
-        }
-    }
-
-    // then final position for robot
-
-    if (RUR.CURRENT_WORLD.goal !== undefined &&
-        RUR.CURRENT_WORLD.goal.possible_positions !== undefined &&
-        RUR.CURRENT_WORLD.goal.possible_positions.length > 1) {
-        goal = RUR.CURRENT_WORLD.goal;
-        position = goal.possible_positions[randint(0, goal.possible_positions.length-1)];
-        goal.position.x = position[0];
-        goal.position.y = position[1];
-        delete goal.possible_positions;
-    }
-    RUR.vis_world.refresh();
-};
-
-},{"./rur.js":49,"./visible_world.js":64}],73:[function(require,module,exports){
-
-/*  Purpose of this file: abstract handling of menus so that all jQuery
-    dependencies (and possibly obscure syntax in some cases) can be pulled
-    away from other files.
-
-    The world menu is currently an html select element with
-    id = select-world.  Doing a global search for "#select-world" should
-    only find items in this file.
-*/
-
-RUR.world_select = {};
-
-RUR.world_select.empty_menu = function () {
-    $("#select-world").html('');
-};
-
-RUR.world_select.set_default = function () {
-    document.getElementById("select-world").selectedIndex = 0;
-    $("#select-world").change();
-};
-
-RUR.world_select.set_url = function (url) {
-    $('#select-world').val(url);
-    $("#select-world").change();
-};
-
-RUR.world_select.get_selected = function () {
-    "use strict";
-    var select, index, url, shortname;
-    select = document.getElementById("select-world");
-    index = select.selectedIndex;
-    try {
-        url = select.options[index].value;
-        shortname = select.options[index].text;
-    } catch (e) {
-        url = select.options[0].value;
-        shortname = select.options[0].text;
-    }
-    return {url:url, shortname:shortname};
-};
-
-RUR.world_select.url_from_shortname = function (shortname) {
-    // if exists, returns the corresponding url
-    "use strict";
-    var i, select;
-    select = document.getElementById("select-world");
-    shortname = shortname.toLowerCase();
-
-    for (i=0; i < select.options.length; i++){
-        if (select.options[i].text.toLowerCase() === shortname) {
-            return select.options[i].value;
-        }
-    }
-    return undefined;
-};
-
-RUR.world_select.replace_shortname = function (url, shortname) {
-    "use strict";
-    var i, select;
-    select = document.getElementById("select-world");
-    url = url.toLowerCase();
-
-    for (i=0; i < select.options.length; i++){
-        if (select.options[i].value.toLowerCase() === url) {
-            select.options[i].text = shortname;
-            return true;
-        }
-    }
-    return false;
-};
-
-RUR.world_select.append_world = function (arg) {
-    "use strict";
-    var option_elt, url, shortname;
-    url = arg.url;
-
-    if (arg.shortname !== undefined) {
-        shortname = arg.shortname;
-    } else {
-        shortname = url;
-    }
-
-    // allow for special styling of any url containing the string "menu".
-    if (url.indexOf('menu') != -1) {
-        option_elt = '<option class="select-menu"></option>';
-    } else if (arg.local_storage !== undefined){
-        option_elt = '<option class="select-local-storage"></option>';
-    } else {
-        option_elt = '<option></option>';
-    }
-    // Append only if new world.
-    if (!RUR.world_select.replace_shortname(url, shortname)) {
-        $('#select-world').append( $(option_elt).val(url).html(shortname));
-    }
-};
-
-},{}],74:[function(require,module,exports){
+},{"./get_namespace.js":73}],76:[function(require,module,exports){
 /* In some ways, this is the counterpart of world_get.js
 */
 require("./rur.js");
 require("./default_tiles/tiles.js");
-require("./exceptions.js");
+require("./programming_ui/exceptions.js");
 require("./visible_world.js");
 require("./recorder.js"); // TODO: investigate if needed.
 require("./utils/key_exist.js");
@@ -9795,7 +10075,7 @@ set_dimension_form = RUR.world_set.dialog_set_dimensions.find("form").on("submit
     set_dimension();
 });
 
-},{"./../lang/msg.js":91,"./default_tiles/tiles.js":5,"./exceptions.js":14,"./recorder.js":44,"./rur.js":49,"./utils/key_exist.js":58,"./visible_world.js":64}],75:[function(require,module,exports){
+},{"./../lang/msg.js":93,"./default_tiles/tiles.js":1,"./programming_ui/exceptions.js":42,"./recorder.js":45,"./rur.js":51,"./utils/key_exist.js":62,"./visible_world.js":68}],77:[function(require,module,exports){
 require("./../recorder/record_frame.js");
 
 
@@ -9807,8 +10087,8 @@ RUR._add_robot = function (robot) {
     RUR.record_frame();
 };
 
-},{"./../recorder/record_frame.js":45}],76:[function(require,module,exports){
-require("./../exceptions.js");
+},{"./../recorder/record_frame.js":46}],78:[function(require,module,exports){
+require("./../programming_ui/exceptions.js");
 require("./../translator.js");
 require("./../utils/key_exist.js");
 require("./../utils/supplant.js");
@@ -9856,8 +10136,8 @@ RUR.toggle_decorative_object_at_position = function (specific_object, x, y){
     }
 };
 
-},{"./../exceptions.js":14,"./../translator.js":53,"./../utils/key_exist.js":58,"./../utils/supplant.js":60,"./../world_get/world.js":71}],77:[function(require,module,exports){
-require("./../exceptions.js");
+},{"./../programming_ui/exceptions.js":42,"./../translator.js":55,"./../utils/key_exist.js":62,"./../utils/supplant.js":64,"./../world_get/world.js":75}],79:[function(require,module,exports){
+require("./../programming_ui/exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
 require("./../utils/validator.js");
@@ -9909,8 +10189,8 @@ RUR.give_object_to_robot = function (obj, nb, robot) {
     }
 };
 
-},{"./../exceptions.js":14,"./../translator.js":53,"./../utils/key_exist.js":58,"./../utils/validator.js":62,"./../world_get/world.js":71}],78:[function(require,module,exports){
-require("./../exceptions.js");
+},{"./../programming_ui/exceptions.js":42,"./../translator.js":55,"./../utils/key_exist.js":62,"./../utils/validator.js":66,"./../world_get/world.js":75}],80:[function(require,module,exports){
+require("./../programming_ui/exceptions.js");
 require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
@@ -9998,8 +10278,8 @@ RUR.set_nb_goal_object_at_position = function (specific_object, x, y, nb){
  * @deprecated Use {@link RUR#set_nb_goal_object_at_position} instead.
  */
 RUR.add_goal_object_at_position = RUR.set_nb_goal_object_at_position;
-},{"./../exceptions.js":14,"./../translator.js":53,"./../utils/key_exist.js":58,"./../utils/supplant.js":60,"./../utils/validator.js":62}],79:[function(require,module,exports){
-require("./../exceptions.js");
+},{"./../programming_ui/exceptions.js":42,"./../translator.js":55,"./../utils/key_exist.js":62,"./../utils/supplant.js":64,"./../utils/validator.js":66}],81:[function(require,module,exports){
+require("./../programming_ui/exceptions.js");
 require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
@@ -10079,8 +10359,8 @@ RUR.set_nb_object_at_position = function (specific_object, x, y, nb){
  */
 RUR.add_object_at_position = RUR.set_nb_object_at_position;
 
-},{"./../exceptions.js":14,"./../recorder/record_frame.js":45,"./../translator.js":53,"./../utils/key_exist.js":58,"./../utils/supplant.js":60,"./../utils/validator.js":62,"./../world_get/world.js":71}],80:[function(require,module,exports){
-require("./../exceptions.js");
+},{"./../programming_ui/exceptions.js":42,"./../recorder/record_frame.js":46,"./../translator.js":55,"./../utils/key_exist.js":62,"./../utils/supplant.js":64,"./../utils/validator.js":66,"./../world_get/world.js":75}],82:[function(require,module,exports){
+require("./../programming_ui/exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
 require("./../utils/supplant.js");
@@ -10208,7 +10488,7 @@ RUR.remove_obstacle_at_position = function (specific_object, x, y){
     }
 };
 
-},{"./../exceptions.js":14,"./../translator.js":53,"./../utils/key_exist.js":58,"./../utils/supplant.js":60,"./../world_get/world.js":71}],81:[function(require,module,exports){
+},{"./../programming_ui/exceptions.js":42,"./../translator.js":55,"./../utils/key_exist.js":62,"./../utils/supplant.js":64,"./../world_get/world.js":75}],83:[function(require,module,exports){
 require("./../visible_robot.js");
 require("./../visible_world.js");
 var clone_world = require("./../world_utils/clone_world.js").clone_world;
@@ -10243,7 +10523,7 @@ exports.reset_world = reset_world = function () {
 
 reset_world();
 
-},{"./../visible_robot.js":63,"./../visible_world.js":64,"./../world_utils/clone_world.js":85}],82:[function(require,module,exports){
+},{"./../visible_robot.js":67,"./../visible_world.js":68,"./../world_utils/clone_world.js":87}],84:[function(require,module,exports){
 require("./../rur.js");
 /** @namespace set
  * @memberof RUR
@@ -10252,7 +10532,7 @@ require("./../rur.js");
  */
 RUR.set = {};
 
-},{"./../rur.js":49}],83:[function(require,module,exports){
+},{"./../rur.js":51}],85:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../recorder/record_frame.js");
@@ -10292,7 +10572,7 @@ RUR.set_tile_at_position = function (tile, x, y) {
     RUR.record_frame("debug", "set_tile_at_position");
 };
 
-},{"./../recorder/record_frame.js":45,"./../rur.js":49,"./../utils/key_exist.js":58,"./../world_get/world.js":71}],84:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":51,"./../utils/key_exist.js":62,"./../world_get/world.js":75}],86:[function(require,module,exports){
 require("./set_namespace.js");
 require("./../recorder/record_frame.js");
 require("./../world_get/wall.js");
@@ -10463,7 +10743,7 @@ function __remove_wall_from(coords, orientation, goal) {
         }
     }
 }
-},{"./../recorder/record_frame.js":45,"./../utils/key_exist.js":58,"./../world_get/wall.js":70,"./../world_get/world.js":71,"./set_namespace.js":82}],85:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../utils/key_exist.js":62,"./../world_get/wall.js":74,"./../world_get/world.js":75,"./set_namespace.js":84}],87:[function(require,module,exports){
 
 exports.clone_world = clone_world = function (world) {
     if (world === undefined) {
@@ -10474,7 +10754,7 @@ exports.clone_world = clone_world = function (world) {
 };
 RUR.clone_world = clone_world; // for automated testing
 
-},{}],86:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
 require("./../rur.js");
 /* The following is used in a few places, including in unit and 
    functional tests. It is not documented with JSdoc as it should not
@@ -10497,18 +10777,18 @@ RUR.create_empty_world = function (blank_canvas) {
     return world;
 };
 RUR.CURRENT_WORLD = RUR.create_empty_world();
-},{"./../rur.js":49}],87:[function(require,module,exports){
+},{"./../rur.js":51}],89:[function(require,module,exports){
 
 exports.export_world = function () {
     return JSON.stringify(RUR.CURRENT_WORLD, null, 2);
 };
 
-},{}],88:[function(require,module,exports){
+},{}],90:[function(require,module,exports){
 require("./../translator.js");
 require("./../rur.js");
 require("./../robot.js");
 require("./../visible_world.js");
-require("./../exceptions.js");
+require("./../programming_ui/exceptions.js");
 require("./../editors/create.js");
 require("./create_empty_world.js");
 var images_init = require("./../world_enhance/animated_images.js").images_init;
@@ -10612,7 +10892,7 @@ eval_onload = function () {
     RUR.vis_world.draw_all();
 };
 
-},{"./../editors/create.js":12,"./../exceptions.js":14,"./../robot.js":47,"./../rur.js":49,"./../translator.js":53,"./../ui/edit_robot_menu.js":54,"./../visible_world.js":64,"./../world_enhance/animated_images.js":66,"./clone_world.js":85,"./create_empty_world.js":86}],89:[function(require,module,exports){
+},{"./../editors/create.js":8,"./../programming_ui/exceptions.js":42,"./../robot.js":48,"./../rur.js":51,"./../translator.js":55,"./../ui/edit_robot_menu.js":57,"./../visible_world.js":68,"./../world_enhance/animated_images.js":70,"./clone_world.js":87,"./create_empty_world.js":88}],91:[function(require,module,exports){
 // Only create a new version of this file for a target language
 // if the corresponding functions are
 // defined in reeborg_xx.js and reeborg_xx.py
@@ -10646,7 +10926,7 @@ RUR.en["write"] = "write";
 
 RUR.en["from library import ?"] = "from library import ?";
 
-},{}],90:[function(require,module,exports){
+},{}],92:[function(require,module,exports){
 // Only create a new version of this file for a target language
 // if the corresponding functions are
 // defined in reeborg_xx.js and reeborg_xx.py
@@ -10685,7 +10965,7 @@ RUR.fr["write"] = "ecrit";
 
 RUR.fr["from library import ?"] = "from biblio import ?";
 
-},{}],91:[function(require,module,exports){
+},{}],93:[function(require,module,exports){
 var _recorded_ids = [];
 var _text_elements = [];
 var _elements_names = [];
@@ -10845,288 +11125,6 @@ record_title("ui-dialog-title-Reeborg-watches", "Reeborg watches some variables!
 record_title("ui-dialog-title-World-info", "Click on the world to get some additional information.");
 
 record_id("kbd-repeat-not-keyword", "<code>repeat</code> is not a true Python keyword.");
-
-},{}],92:[function(require,module,exports){
-// TODO: add proper dependencies
-
-
-/* Since Javascript is a dynamic language, a user or world creator could
-    (possibly accidently) redefine a basic function, which could lead to some
-    apparent bugs.  For this reason, we include a function whose role is to
-    make it possible to reset the basic functions to their desired values.
-
-    These functions have to be known globally; the standard way would be to do:
-
-        var fn_name;
-        RUR.reset_definitions = function () {
-            fn_name = ...;
-            ...
-            UsedRobot.prototype.fn_name = ...
-        }
-
-    Instead we use the pattern following pattern which does not require to write
-    a separate declaration.
-
-        RUR.reset_definitions = function () {
-            window.fn_name = ...;
-            ...
-            UsedRobot.prototype.fn_name = ...
-        }
-**/
-
-window.RUR = RUR || {};
-
-RUR.reset_definitions_en = function () {
-
-    window.at_goal = RUR._at_goal_;
-    window.build_wall = RUR._build_wall_;
-    window.carries_object = RUR._carries_object_;
-    window.default_robot = function () {
-        var r = Object.create(UsedRobot.prototype);
-        r.body = RUR._default_robot_body_();
-        return r;
-    };
-    window.dir_js = RUR._dir_js_;
-    window.done = RUR._done_;
-    window.front_is_clear = RUR._front_is_clear_;
-    window.is_facing_north = RUR._is_facing_north_;
-    window.move = RUR._move_;
-    window.new_robot_images = RUR._new_robot_images_;
-    window.object_here = RUR._object_here_;
-    window.pause = RUR._pause_;
-    window.print_html = RUR._print_html_;
-    window.put = RUR._put_;
-    window.recording = RUR._recording_;
-    window.remove_robots = RUR._remove_robots_;
-    window.right_is_clear = RUR._right_is_clear_;
-    window.set_max_steps = RUR._set_max_steps_;
-    window.sound = RUR._sound_;
-    window.take = RUR._take_;
-    window.think = RUR._think_;
-    window.turn_left = RUR._turn_left_;
-    window.view_source_js = RUR._view_source_js_;
-    window.wall_in_front = RUR._wall_in_front_;
-    window.wall_on_right = RUR._wall_on_right_;
-    window.write = RUR._write_;
-    window._write = RUR.__write_;
-    window.MakeCustomMenu = RUR._MakeCustomMenu_;
-    window.World = RUR._World_;
-
-
-    var UsedRobot = window.UsedRobot = function (x, y, orientation, tokens)  {
-        this.body = RUR.robot.create_robot(x, y, orientation, tokens);
-        RUR._add_robot(this.body);
-    };
-
-    UsedRobot.prototype.at_goal = function () {
-        RUR._UR.at_goal_(this.body);
-    };
-
-    UsedRobot.prototype.build_wall = function () {
-        RUR._UR.build_wall_(this.body);
-    };
-
-    UsedRobot.prototype.carries_object = function () {
-        RUR._UR.carries_object_(this.body);
-    };
-
-    UsedRobot.prototype.front_is_clear = function () {
-        RUR._UR.front_is_clear_(this.body);
-    };
-
-    UsedRobot.prototype.is_facing_north = function () {
-        RUR._UR.is_facing_north_(this.body);
-    };
-
-    UsedRobot.prototype.move = function () {
-        RUR._UR.move_(this.body);
-    };
-
-    UsedRobot.prototype.object_here = function (obj) {
-        RUR._UR.object_here_(this.body, obj);
-    };
-
-    UsedRobot.prototype.put = function () {
-        RUR._UR.put_(this.body);
-    };
-
-    UsedRobot.prototype.right_is_clear = function () {
-        RUR._UR.right_is_clear_(this.body);
-    };
-
-    UsedRobot.prototype.set_model = function(model) {
-        RUR._UR.set_model_(this.body, model);
-    };
-
-    UsedRobot.prototype.set_trace_color_ = function (robot, color) {
-        RUR._UR.set_trace_color_(robot, color);
-    };
-
-    UsedRobot.prototype.set_trace_style_ = function (robot, style) {
-        RUR._UR.set_trace_style_(robot, style);
-    };
-
-    UsedRobot.prototype.take = function () {
-        RUR._UR.take_(this.body);
-    };
-
-
-    UsedRobot.prototype.turn_left = function () {
-        RUR._UR.turn_left_(this.body);
-    };
-
-    UsedRobot.prototype.wall_in_front = function () {
-        RUR._UR.wall_in_front_(this.body);
-    };
-
-    UsedRobot.prototype.wall_on_right = function () {
-        RUR._UR.wall_on_right_(this.body);
-    };
-
-    // English specific and only for compatibility with rur-ple
-    // do not translate the following
-    window.put_beeper = put;
-    window.pick_beeper = take;
-    window.turn_off = done;
-    window.on_beeper = object_here;
-    window.next_to_a_beeper = object_here;
-    window.carries_beepers = carries_object;
-    window.set_delay = think;
-    window.facing_north = is_facing_north;
-};
-
-},{}],93:[function(require,module,exports){
-/* See reeborg_en.js */
-window.RUR = RUR || {};
-
-// TODO: add proper dependencies
-
-RUR.reset_definitions_fr = function () {
-
-    window.au_but = RUR._at_goal_;
-    window.construit_un_mur = RUR._build_wall_;
-    window.transporte = RUR._carries_object_;
-    window.robot_par_defaut = function () {
-        var r = Object.create(RobotUsage.prototype);
-        r.body = RUR._default_robot_body_();
-        return r;
-    };
-    window.dir_js = RUR._dir_js_;
-    window.termine = RUR._done_;
-    window.rien_devant = RUR._front_is_clear_;
-    window.est_face_au_nord = RUR._is_facing_north_;
-    window.avance = RUR._move_;
-
-    window.mur_devant = RUR._wall_in_front_;
-    window.nouvelles_images_de_robot = function (images) {
-        if (images.est !== undefined) {
-            images.east = images.est;
-        }
-        if (images.ouest !== undefined) {
-            images.west = images.ouest;
-        }
-        if (images.sud !== undefined) {
-            images.south = images.sud;
-        }
-        if (images.nord !== undefined) {
-            images.north = images.nord;
-        }
-        RUR._new_robot_images_(images);
-    };
-    window.objet_ici = RUR._object_here_;
-    window.pause = RUR._pause_;
-    window.print_html = RUR._print_html_;
-    window.depose = RUR._put_;
-    window.enregistrement = RUR._recording_;
-    window.plus_de_robots = RUR._remove_robots_;
-    window.rien_a_droite = RUR._right_is_clear_;
-    window.nombre_d_instructions = RUR._set_max_steps_;
-    window.son = RUR._sound_;
-    window.prend = RUR._take_;
-    window.pense = RUR._think_;
-    window.tourne_a_gauche = RUR._turn_left_;
-    window.voir_source_js = RUR._view_source_js_;
-    window.mur_devant = RUR._wall_in_front_;
-    window.mur_a_droite = RUR._wall_on_right_;
-    window.ecrit = RUR._write_;
-    window._write = RUR.__write_;
-    window.MenuPersonalise = RUR._MakeCustomMenu_;
-    window.Monde = RUR._World_;
-
-    // The following are for OOP programming in Javascript
-    var RobotUsage = window.RobotUsage = function (x, y, orientation, tokens)  {
-        this.body = RUR.robot.create_robot(x, y, orientation, tokens);
-        RUR._add_robot(this.body);
-    };
-    RobotUsage.prototype.au_but = function () {
-        RUR._UR.at_goal_(this.body);
-    };
-
-    RobotUsage.prototype.construit_un_mur = function () {
-        RUR._UR.build_wall_(this.body);
-    };
-
-    RobotUsage.prototype.transporte = function () {
-        RUR._UR.carries_object_(this.body);
-    };
-
-    RobotUsage.prototype.rien_devant = function () {
-        RUR._UR.front_is_clear_(this.body);
-    };
-
-    RobotUsage.prototype.est_face_au_nord = function () {
-        RUR._UR.is_facing_north_(this.body);
-    };
-
-    RobotUsage.prototype.avance = function () {
-        RUR._UR.move_(this.body);
-    };
-
-    RobotUsage.prototype.objet_ici = function (obj) {
-        RUR._UR.object_here_(this.body, obj);
-    };
-
-    RobotUsage.prototype.depose = function () {
-        RUR._UR.put_(this.body);
-    };
-
-    RobotUsage.prototype.rien_a_droite = function () {
-        RUR._UR.right_is_clear_(this.body);
-    };
-
-    RobotUsage.prototype.modele = function(model) {
-        RUR._UR.set_model_(this.body, model);
-    };
-
-    RobotUsage.prototype.mur_devant = function () {
-        RUR.control.wall_in_front(this.body); //TODO: remove control
-    };
-
-    RobotUsage.prototype.couleur_de_trace = function (robot, color) {
-        RUR._UR.set_trace_color_(robot, color);
-    };
-
-    RobotUsage.prototype.style_de_trace = function (robot, style) {
-        RUR._UR.set_trace_style_(robot, style);
-    };
-
-    RobotUsage.prototype.prend = function () {
-        RUR._UR.take_(this.body);
-    };
-
-    RobotUsage.prototype.tourne_a_gauche = function () {
-        RUR._UR.turn_left_(this.body);
-    };
-
-    RobotUsage.prototype.mur_devant = function () {
-        RUR._UR.wall_in_front_(this.body);
-    };
-
-    RobotUsage.prototype.mur_a_droite = function () {
-        RUR._UR.wall_on_right_(this.body);
-    };
-
-};
 
 },{}],94:[function(require,module,exports){
 var mac_user_save_files_en = " <b>Mac users:</b> please see <a href='https://github.com/aroberge/reeborg/blob/master/known_problems.md' target='_blank'>Known problems</a>.";
@@ -12189,4 +12187,4 @@ RUR.ui_ko["UPDATE BLOCKLY CONTENT"] = "This world has some default content for t
 RUR.ui_ko["UPDATE BLOCKLY BUTTON"] = "Replace existing blocks";
 RUR.ui_ko["Contents from World"] = "Contents from World";
 
-},{}]},{},[18]);
+},{}]},{},[13]);

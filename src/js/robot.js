@@ -1,7 +1,7 @@
 
 require("./rur.js");
 require("./translator.js");
-require("./exceptions.js");
+require("./programming_ui/exceptions.js");
 require("./utils/validator.js");
 
 RUR.robot = {};

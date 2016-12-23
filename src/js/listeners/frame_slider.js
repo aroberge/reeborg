@@ -1,6 +1,6 @@
 require("./../rur.js");
 require("./reload.js");
-require("./../runner.js");
+require("./../runner/runner.js");
 
 RUR.update_frame_nb_info = function() {
     var frame_no=0;

@@ -1,5 +1,5 @@
 require("./../rur.js");
-require("./../exceptions.js");
+require("./../programming_ui/exceptions.js");
 
 RUR.utils.require_positive_integer = function(n, info){
     "use strict";

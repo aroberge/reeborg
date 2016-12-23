@@ -1,6 +1,6 @@
 
 require("./../visible_world.js");
-require("./../exceptions.js");
+require("./../programming_ui/exceptions.js");
 /* if the REPL is active, we do not record anything, and show immediately
    the updated world */
 

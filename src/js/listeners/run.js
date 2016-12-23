@@ -1,7 +1,7 @@
 
 require("./../rur.js");
 require("./reload.js");
-require("./../runner.js");
+require("./../runner/runner.js");
 require("./../playback/play.js");
 var record_id = require("./../../lang/msg.js").record_id;
 
