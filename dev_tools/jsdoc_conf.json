@@ -13,7 +13,7 @@
     "opts": {
         "destination": "./api_docs/advanced_world_creation/",
         "recurse": true,
-        "readme": "src/js/README.md",
+        "readme": "./api_docs/readme.md",
         "template": "../node_modules/ink-docstrap/template",
         "tutorials": "./api_docs/hand_written/"
     },

@@ -5,7 +5,7 @@ require("./../translator.js");
 require("./../editors/update.js");
 require("./../rur.js");
 require("./../editors/create.js");
-require("./../programming_ui/blockly.js");
+require("./../programming_api/blockly.js");
 
 var export_world = require("./../world_utils/export_world.js").export_world;
 var record_id = require("./../../lang/msg.js").record_id;

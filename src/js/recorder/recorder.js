@@ -1,17 +1,17 @@
 
-require("./rur.js");
-require("./visible_world.js");
-require("./world_get.js");
-require("./translator.js");
-require("./programming_ui/exceptions.js");
-require("./listeners/pause.js");
-require("./listeners/stop.js");
-require("./playback/play_sound.js");
-require("./editors/create.js");
-require("./recorder/record_frame.js");
+require("./../rur.js");
+require("./../drawing/visible_world.js");
+require("./../world_get/world_get.js");
+require("./../translator.js");
+require("./../programming_api/exceptions.js");
+require("./../listeners/pause.js");
+require("./../listeners/stop.js");
+require("./../playback/play_sound.js");
+require("./../editors/create.js");
+require("./../recorder/record_frame.js");
 
-var identical = require("./utils/identical.js").identical;
-var clone_world = require("./world_utils/clone_world.js").clone_world;
+var identical = require("./../utils/identical.js").identical;
+var clone_world = require("./../world_utils/clone_world.js").clone_world;
 
 RUR.rec = {};
 

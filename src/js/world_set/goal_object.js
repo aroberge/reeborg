@@ -1,4 +1,4 @@
-require("./../programming_ui/exceptions.js");
+require("./../programming_api/exceptions.js");
 require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");

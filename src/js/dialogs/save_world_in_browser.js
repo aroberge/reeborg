@@ -1,4 +1,4 @@
-require("./../storage.js");
+require("./../storage/storage.js");
 var clone_world = require("./../world_utils/clone_world.js").clone_world;
 var msg = require("./../../lang/msg.js");
 

@@ -1,6 +1,6 @@
 require("./rur.js");
-require("./visible_world.js");
-require("./visible_robot.js");
+require("./drawing/visible_world.js");
+require("./drawing/visible_robot.js");
 
 
 function everything_loaded () {

@@ -1,5 +1,5 @@
-require("./../file_io.js");
-require("./../storage.js");
+require("./../file_io/file_io.js");
+require("./../storage/storage.js");
 
 var record_id = require("./../../lang/msg.js").record_id;
 record_id("select-world");

@@ -1,6 +1,6 @@
 
 require("./../rur.js");
-require("./../programming_ui/exceptions.js");
+require("./../programming_api/exceptions.js");
 require("./utils_namespace.js");
 
 _is_integer = function(n) {

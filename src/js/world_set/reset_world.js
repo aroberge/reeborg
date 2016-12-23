@@ -1,5 +1,5 @@
-require("./../visible_robot.js");
-require("./../visible_world.js");
+require("./../drawing/visible_robot.js");
+require("./../drawing/visible_world.js");
 var clone_world = require("./../world_utils/clone_world.js").clone_world;
 
 //TODO: code for evaluating onload is essentially repeated in two different

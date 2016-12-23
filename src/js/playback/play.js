@@ -3,7 +3,7 @@ require("./../listeners/stop.js");
 
 RUR.play = function () {
     "use strict";
-    if (RUR.state.playback){            // RUR.visible_world.running
+    if (RUR.state.playback){            // RUR.drawing/visible_world.running
         RUR.state.playback = false;
         return;
     }

@@ -1,6 +1,6 @@
 require("./../rur.js");
-require("./../programming_ui/reeborg_en.js");
-require("./../programming_ui/reeborg_fr.js");
+require("./../programming_api/reeborg_en.js");
+require("./../programming_api/reeborg_fr.js");
 require("./../ui/custom_world_select.js");
 
 var msg = require("./../../lang/msg.js");

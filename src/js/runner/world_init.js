@@ -1,5 +1,5 @@
 
-require("./../visible_world.js");
+require("./../drawing/visible_world.js");
 require("./../rur.js");
 
 RUR.world_init = {};

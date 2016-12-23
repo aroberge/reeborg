@@ -1,4 +1,4 @@
-require("./../visible_world.js");
+require("./../drawing/visible_world.js");
 require("./../world_set/give_object_to_robot.js");
 require("./../rur.js");
 

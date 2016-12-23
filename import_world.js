@@ -1,6 +1,6 @@
 require("./../translator.js");
 require("./../rur.js");
-require("./../robot/robot.js");
+require("./../robot.js");
 require("./../drawing/visible_world.js");
 require("./../programming_api/exceptions.js");
 require("./../editors/create.js");

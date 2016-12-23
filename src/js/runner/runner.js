@@ -1,10 +1,10 @@
 
 require("./../rur.js");
 require("./../translator.js");
-require("./../visible_world.js");
+require("./../drawing/visible_world.js");
 require("./../editors/update.js");
-require("./../programming_ui/blockly.js");
-require("./../recorder.js");
+require("./../programming_api/blockly.js");
+require("./../recorder/recorder.js");
 require("./world_init.js");
 require("./../editors/create.js");
 require("./../utils/supplant.js");

@@ -1,11 +1,11 @@
 
-require("./rur.js");
-require("./translator.js");
-require("./ui/world_select.js");
+require("./../rur.js");
+require("./../translator.js");
+require("./../ui/world_select.js");
 
 
-var export_world = require("./world_utils/export_world.js").export_world;
-var clone_world = require("./world_utils/clone_world.js").clone_world;
+var export_world = require("./../world_utils/export_world.js").export_world;
+var clone_world = require("./../world_utils/clone_world.js").clone_world;
 
 
 RUR.storage = {};

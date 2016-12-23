@@ -1,14 +1,14 @@
 
-require("./rur.js");
-require("./storage.js");
-require("./editors/update.js");
-require("./translator.js");
-require("./listeners/programming_mode.js");
-require("./utils/parseuri.js");
-require("./editors/create.js");
+require("./../rur.js");
+require("./../storage/storage.js");
+require("./../editors/update.js");
+require("./../translator.js");
+require("./../listeners/programming_mode.js");
+require("./../utils/parseuri.js");
+require("./../editors/create.js");
 
-var export_world = require("./world_utils/export_world.js").export_world;
-var record_id = require("./../lang/msg.js").record_id;
+var export_world = require("./../world_utils/export_world.js").export_world;
+var record_id = require("./../../lang/msg.js").record_id;
 
 record_id("save-permalink", "Save");
 record_id("save-permalink-text", "Save permalink explanation");

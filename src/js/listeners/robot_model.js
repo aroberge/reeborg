@@ -1,4 +1,4 @@
-require("./../visible_robot.js");
+require("./../drawing/visible_robot.js");
 
 require("./../rur.js");
 var record_id = require("./../../lang/msg.js").record_id;

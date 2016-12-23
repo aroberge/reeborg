@@ -5,12 +5,12 @@ require("./../translator.js");
 require("./../rur.js");
 require("./../default_tiles/tiles.js");
 
-require("./../robot.js");
+require("./../robot/robot.js");
 require("./../editors/update.js");
-require("./../visible_world.js");
-require("./../programming_ui/exceptions.js");
-require("./../world_get.js");
-require("./../world_set.js");
+require("./../drawing/visible_world.js");
+require("./../programming_api/exceptions.js");
+require("./../world_get/world_get.js");
+require("./../world_set/world_set.js");
 require("./../dialogs/create.js");
 require("./../listeners/canvas.js");
 require("./../editors/create.js");

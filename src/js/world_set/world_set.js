@@ -1,13 +1,13 @@
-/* In some ways, this is the counterpart of world_get.js
+/* In some ways, this is the counterpart of world_get/world_get.js
 */
-require("./rur.js");
-require("./default_tiles/tiles.js");
-require("./programming_ui/exceptions.js");
-require("./visible_world.js");
-require("./recorder.js"); // TODO: investigate if needed.
-require("./utils/key_exist.js");
+require("./../rur.js");
+require("./../default_tiles/tiles.js");
+require("./../programming_api/exceptions.js");
+require("./../drawing/visible_world.js");
+require("./../recorder/recorder.js"); // TODO: investigate if needed.
+require("./../utils/key_exist.js");
 
-var msg = require("./../lang/msg.js");
+var msg = require("./../../lang/msg.js");
 
 RUR.world_set = {};
 

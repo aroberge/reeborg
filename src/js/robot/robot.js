@@ -1,8 +1,8 @@
 
-require("./rur.js");
-require("./translator.js");
-require("./programming_ui/exceptions.js");
-require("./utils/validator.js");
+require("./../rur.js");
+require("./../translator.js");
+require("./../programming_api/exceptions.js");
+require("./../utils/validator.js");
 
 RUR.robot = {};
 

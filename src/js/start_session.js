@@ -9,9 +9,9 @@ require("./default_tiles/tiles.js");
 
 require("./utils/parseuri.js");
 require("./world_utils/import_world.js");
-require("./storage.js");
+require("./storage/storage.js");
 
-require("./permalink.js");
+require("./permalink/permalink.js");
 require("./editors/create.js");
 
 brython({debug:1, pythonpath:[RUR._BASE_URL + '/src/python']});

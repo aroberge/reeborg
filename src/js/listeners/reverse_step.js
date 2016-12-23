@@ -1,5 +1,5 @@
 require("./../rur.js");
-require("./../recorder.js");
+require("./../recorder/recorder.js");
 
 var record_id = require("./../../lang/msg.js").record_id;
 record_id("reverse-step");

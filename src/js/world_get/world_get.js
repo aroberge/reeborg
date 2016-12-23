@@ -2,12 +2,12 @@
    position, or for the world in general.
 */
 
-require("./rur.js");
-require("./programming_ui/exceptions.js");
-require("./default_tiles/tiles.js");
-require("./dialogs/create.js");
-require("./listeners/canvas.js");
-require("./utils/supplant.js");
+require("./../rur.js");
+require("./../programming_api/exceptions.js");
+require("./../default_tiles/tiles.js");
+require("./../dialogs/create.js");
+require("./../listeners/canvas.js");
+require("./../utils/supplant.js");
 
 RUR.world_get = {};
 

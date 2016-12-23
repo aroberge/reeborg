@@ -1,14 +1,14 @@
 
-require("./output.js");
-require("./recorder.js");
-require("./editors/update.js");
-require("./world_utils/import_world.js");
-require("./ui/world_select.js");
-require("./permalink.js");
-require("./translator.js");
-require("./programming_ui/exceptions.js");
-require("./listeners/stop.js");
-require("./utils/supplant.js");
+require("./../programming_api/output.js");
+require("./../recorder/recorder.js");
+require("./../editors/update.js");
+require("./../world_utils/import_world.js");
+require("./../ui/world_select.js");
+require("./../permalink/permalink.js");
+require("./../translator.js");
+require("./../programming_api/exceptions.js");
+require("./../listeners/stop.js");
+require("./../utils/supplant.js");
 
 RUR.file_io = {};
 
@@ -39,6 +39,8 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     var selected, possible_url, new_world=false, new_selection=false;
     RUR.file_io.status = undefined;
 
+    //TODO: see if we can replace this by an exception, and get rid of
+    //the RUR.output dependency.
     if (url === undefined) {
         RUR.output.write(RUR.translate("World() needs an argument."));
         return;
@@ -154,7 +156,10 @@ function loadFile (sURL, fCallback) {
   oReq.callback = fCallback;
   oReq.onload = xhrSuccess;
   oReq.onerror = xhrError;
-  sURL = 'http://cors-anywhere.herokuapp.com/' + sURL;
+
+  if (sURL.startsWith("http")){  // TODO: test this...
+    sURL = 'http://cors-anywhere.herokuapp.com/' + sURL;
+  }
   oReq.open("get", sURL, true);
   oReq.send(null);
 }

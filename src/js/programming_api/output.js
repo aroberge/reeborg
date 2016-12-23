@@ -1,6 +1,6 @@
 
-require("./rur.js");
-require("./recorder/record_frame.js");
+require("./../rur.js");
+require("./../recorder/record_frame.js");
 
 RUR.output = {};
 

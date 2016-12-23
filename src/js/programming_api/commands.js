@@ -14,11 +14,11 @@ require("./../rur.js");
 require("./../translator.js");
 require("./control.js");
 require("./../ui/custom_world_select.js");
-require("./../file_io.js");
-require("./../output.js");
-require("./../visible_robot.js");
+require("./../file_io/file_io.js");
+require("./output.js");
+require("./../drawing/visible_robot.js");
 require("./../editors/update.js");
-require("./../world_set.js");
+require("./../world_set/world_set.js");
 require("./../world_set/set_tile.js");
 var get_world = require("./../world_get/world.js").get_world;
 

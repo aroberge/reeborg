@@ -190,13 +190,13 @@ RUR.TILES.fence_vertical.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_vertical.info = RUR.TILES.fence_right.info;
 RUR.TILES.fence7 = RUR.TILES.fence_vertical;  // compatibility with old worlds
 
-},{"./../rur.js":51,"./../world_enhance/add_tile_type.js":69}],2:[function(require,module,exports){
+},{"./../rur.js":53,"./../world_enhance/add_tile_type.js":69}],2:[function(require,module,exports){
 /* Dialog used by the Interactive world editor to add objects to the world.
 */
 
 require("./../rur.js");
 require("./../world_set/object.js");
-require("./../visible_world.js");
+require("./../drawing/visible_world.js");
 var msg = require("./../../lang/msg.js");
 
 msg.record_id("number-of-objects", "Number of objects:");
@@ -246,7 +246,7 @@ add_object_form = dialog_add_object.find("form").on("submit", function( event ) 
     add_object();
 });
 
-},{"./../../lang/msg.js":93,"./../rur.js":51,"./../visible_world.js":68,"./../world_set/object.js":81}],3:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../drawing/visible_world.js":9,"./../rur.js":53,"./../world_set/object.js":80}],3:[function(require,module,exports){
 
 require("./../libs/jquery.ui.dialog.minmax.js");
 require("./../rur.js");
@@ -305,10 +305,10 @@ $("#Reeborg-proclaims").dialog({minimize: false, maximize: false, autoOpen:false
 $("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:400, dialogClass: "watches",
                                 position:{my: "bottom", at: "bottom-140", of: window}});
 
-},{"./../../lang/msg.js":93,"./../libs/jquery.ui.dialog.minmax.js":14,"./../rur.js":51}],4:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../libs/jquery.ui.dialog.minmax.js":16,"./../rur.js":53}],4:[function(require,module,exports){
 
-require("./../world_set.js");
-require("./../visible_world.js");
+require("./../world_set/world_set.js");
+require("./../drawing/visible_world.js");
 require("./../world_set/give_object_to_robot.js");
 require("./../rur.js");
 var msg = require("./../../lang/msg.js");
@@ -358,8 +358,8 @@ give_object_form = dialog_give_object.find("form").on("submit", function( event 
     give_object();
 });
 
-},{"./../../lang/msg.js":93,"./../rur.js":51,"./../visible_world.js":68,"./../world_set.js":76,"./../world_set/give_object_to_robot.js":79}],5:[function(require,module,exports){
-require("./../visible_world.js");
+},{"./../../lang/msg.js":93,"./../drawing/visible_world.js":9,"./../rur.js":53,"./../world_set/give_object_to_robot.js":78,"./../world_set/world_set.js":86}],5:[function(require,module,exports){
+require("./../drawing/visible_world.js");
 require("./../world_set/give_object_to_robot.js");
 require("./../rur.js");
 
@@ -408,8 +408,8 @@ goal_objects_form = dialog_goal_object.find("form").on("submit", function( event
     goal_objects();
 });
 
-},{"./../../lang/msg.js":93,"./../rur.js":51,"./../visible_world.js":68,"./../world_set/give_object_to_robot.js":79}],6:[function(require,module,exports){
-require("./../visible_world.js");
+},{"./../../lang/msg.js":93,"./../drawing/visible_world.js":9,"./../rur.js":53,"./../world_set/give_object_to_robot.js":78}],6:[function(require,module,exports){
+require("./../drawing/visible_world.js");
 var msg = require("./../../lang/msg.js");
 
 msg.record_id("color-selection-text", "Colour:");
@@ -447,8 +447,8 @@ select_colour = function () {
     RUR.vis_world.draw_all();
 };
 
-},{"./../../lang/msg.js":93,"./../visible_world.js":68}],7:[function(require,module,exports){
-require("./../visible_world.js");
+},{"./../../lang/msg.js":93,"./../drawing/visible_world.js":9}],7:[function(require,module,exports){
+require("./../drawing/visible_world.js");
 var msg = require("./../../lang/msg.js");
 var dialog;
 
@@ -485,7 +485,962 @@ set_background_image = function () {
     dialog.dialog("close");
 };
 
-},{"./../../lang/msg.js":93,"./../visible_world.js":68}],8:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../drawing/visible_world.js":9}],8:[function(require,module,exports){
+
+require("./../rur.js");
+var get_world = require("./../world_get/world.js").get_world;
+// TODO: RUR._BASE_URL -> need to change it to state...
+
+RUR.vis_robot = {};
+RUR.vis_robot.images = [{}, {}, {}, {}];
+
+// we will keep track if we have loaded all images
+RUR.vis_robot.loaded_images = 0;
+RUR.vis_robot.nb_images = 0;
+
+RUR._BASE_URL = RUR._BASE_URL || '';  // enable changing defaults for unit tests
+
+RUR.reset_default_robot_images = function () {
+
+    // classic
+    RUR.vis_robot.images[0].robot_e_img = new Image();
+    RUR.vis_robot.images[0].robot_e_img.src = RUR._BASE_URL + '/src/images/robot_e.png';
+    RUR.vis_robot.images[0].robot_n_img = new Image();
+    RUR.vis_robot.images[0].robot_n_img.src = RUR._BASE_URL + '/src/images/robot_n.png';
+    RUR.vis_robot.images[0].robot_w_img = new Image();
+    RUR.vis_robot.images[0].robot_w_img.src = RUR._BASE_URL + '/src/images/robot_w.png';
+    RUR.vis_robot.images[0].robot_s_img = new Image();
+    RUR.vis_robot.images[0].robot_s_img.src = RUR._BASE_URL + '/src/images/robot_s.png';
+    RUR.vis_robot.images[0].robot_random_img = new Image();
+    RUR.vis_robot.images[0].robot_random_img.src = RUR._BASE_URL + '/src/images/robot_random.png';
+    // rover type
+    RUR.vis_robot.images[1].robot_e_img = new Image();
+    RUR.vis_robot.images[1].robot_e_img.src = RUR._BASE_URL + '/src/images/rover_e.png';
+    RUR.vis_robot.images[1].robot_n_img = new Image();
+    RUR.vis_robot.images[1].robot_n_img.src = RUR._BASE_URL + '/src/images/rover_n.png';
+    RUR.vis_robot.images[1].robot_w_img = new Image();
+    RUR.vis_robot.images[1].robot_w_img.src = RUR._BASE_URL + '/src/images/rover_w.png';
+    RUR.vis_robot.images[1].robot_s_img = new Image();
+    RUR.vis_robot.images[1].robot_s_img.src = RUR._BASE_URL + '/src/images/rover_s.png';
+    RUR.vis_robot.images[1].robot_random_img = new Image();
+    RUR.vis_robot.images[1].robot_random_img.src = RUR._BASE_URL + '/src/images/rover_random.png';
+
+    // 3d red type
+    RUR.vis_robot.images[2].robot_e_img = new Image();
+    RUR.vis_robot.images[2].robot_e_img.src = RUR._BASE_URL + '/src/images/plain_e.png';
+    RUR.vis_robot.images[2].robot_n_img = new Image();
+    RUR.vis_robot.images[2].robot_n_img.src = RUR._BASE_URL + '/src/images/plain_n.png';
+    RUR.vis_robot.images[2].robot_w_img = new Image();
+    RUR.vis_robot.images[2].robot_w_img.src = RUR._BASE_URL + '/src/images/plain_w.png';
+    RUR.vis_robot.images[2].robot_s_img = new Image();
+    RUR.vis_robot.images[2].robot_s_img.src = RUR._BASE_URL + '/src/images/plain_s.png';
+    RUR.vis_robot.images[2].robot_random_img = new Image();
+    RUR.vis_robot.images[2].robot_random_img.src = RUR._BASE_URL + '/src/images/robot_random.png';
+
+    // solar panel type
+    RUR.vis_robot.images[3].robot_e_img = new Image();
+    RUR.vis_robot.images[3].robot_e_img.src = RUR._BASE_URL + '/src/images/sp_e.png';
+    RUR.vis_robot.images[3].robot_n_img = new Image();
+    RUR.vis_robot.images[3].robot_n_img.src = RUR._BASE_URL + '/src/images/sp_n.png';
+    RUR.vis_robot.images[3].robot_w_img = new Image();
+    RUR.vis_robot.images[3].robot_w_img.src = RUR._BASE_URL + '/src/images/sp_w.png';
+    RUR.vis_robot.images[3].robot_s_img = new Image();
+    RUR.vis_robot.images[3].robot_s_img.src = RUR._BASE_URL + '/src/images/sp_s.png';
+    RUR.vis_robot.images[3].robot_random_img = new Image();
+    RUR.vis_robot.images[3].robot_random_img.src = RUR._BASE_URL + '/src/images/robot_random.png';
+
+    $("#robot0 img").attr("src", RUR.vis_robot.images[0].robot_e_img.src);
+    $("#robot1 img").attr("src", RUR.vis_robot.images[1].robot_e_img.src);
+    $("#robot2 img").attr("src", RUR.vis_robot.images[2].robot_e_img.src);
+    $("#robot3 img").attr("src", RUR.vis_robot.images[3].robot_e_img.src);
+    RUR.select_default_robot_model(localStorage.getItem("robot_default_model"));
+};
+
+RUR.vis_robot.style = 0;
+
+RUR.select_default_robot_model = function (arg) {
+    var style;
+    style = parseInt(arg, 10);
+    if ( !(style ===0 || style==1 || style==2 || style==3)){
+        style = 0;
+    }
+    RUR.vis_robot.style = style;
+    RUR.vis_robot.e_img = RUR.vis_robot.images[style].robot_e_img;
+    RUR.vis_robot.n_img = RUR.vis_robot.images[style].robot_n_img;
+    RUR.vis_robot.w_img = RUR.vis_robot.images[style].robot_w_img;
+    RUR.vis_robot.s_img = RUR.vis_robot.images[style].robot_s_img;
+    RUR.vis_robot.random_img = RUR.vis_robot.images[style].robot_random_img;
+    if (RUR.vis_world !== undefined) {
+        RUR.vis_world.refresh();
+    }
+
+    localStorage.setItem("robot_default_model", style);
+};
+RUR.reset_default_robot_images();
+// the following is to try to ensure that the images are loaded before the "final"
+// original drawing is made
+
+RUR.vis_robot.e_img.onload = function () {
+    RUR.vis_robot.loaded_images += 1;
+};
+RUR.vis_robot.nb_images += 1;
+RUR.vis_robot.w_img.onload = function () {
+    RUR.vis_robot.loaded_images += 1;
+};
+RUR.vis_robot.nb_images += 1;
+RUR.vis_robot.n_img.onload = function () {
+    RUR.vis_robot.loaded_images += 1;
+};
+RUR.vis_robot.nb_images += 1;
+RUR.vis_robot.s_img.onload = function () {
+    RUR.vis_robot.loaded_images += 1;
+};
+RUR.vis_robot.nb_images += 1;
+RUR.vis_robot.random_img.onload = function () {
+    RUR.vis_robot.loaded_images += 1;
+};
+RUR.vis_robot.nb_images += 1;
+
+RUR.vis_robot.draw = function (robot) {
+    "use strict";
+    var x, y, width, height, image;
+    // handling legacy Code
+    if (robot.orientation !== undefined) {
+        robot._orientation = robot.orientation;
+        robot.orientation = null;
+    }
+    if (!robot) {
+        return;
+    }
+    if (robot.x > RUR.MAX_X || robot.y > RUR.MAX_Y) {
+        return;
+    }
+
+    // all images are taken to be centered on a tile 40x40, which are scaled
+    //  appropriately
+    width = RUR.TILE_SIZE * RUR.SCALE;
+    height = RUR.TILE_SIZE * RUR.SCALE;
+
+    x = robot.x*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
+    y = RUR.HEIGHT - (robot.y+1)*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
+
+    switch(robot._orientation){
+        case RUR.EAST:
+            if (robot.model !== undefined){
+                image = RUR.vis_robot.images[robot.model].robot_e_img;
+            } else {
+                image = RUR.vis_robot.e_img;
+            }
+            break;
+        case RUR.NORTH:
+            if (robot.model !== undefined){
+                image = RUR.vis_robot.images[robot.model].robot_n_img;
+            } else {
+                image = RUR.vis_robot.n_img;
+            }
+            break;
+        case RUR.WEST:
+            if (robot.model !== undefined){
+                image = RUR.vis_robot.images[robot.model].robot_w_img;
+            } else {
+                image = RUR.vis_robot.w_img;
+            }
+            break;
+        case RUR.SOUTH:
+            if (robot.model !== undefined){
+                image = RUR.vis_robot.images[robot.model].robot_s_img;
+            } else {
+                image = RUR.vis_robot.s_img;
+            }
+            break;
+        case -1:
+            if (robot.model !== undefined){
+                image = RUR.vis_robot.images[robot.model].robot_random_img;
+            } else {
+                image = RUR.vis_robot.random_img;
+            }
+            break;
+        default:
+            image = RUR.vis_robot.e_img;
+        }
+    RUR.ROBOT_CTX.drawImage(image, x, y, width, height);
+    if (RUR.state.editing_world){
+        return;
+    }
+    RUR.vis_robot.draw_trace_history(robot);
+};
+
+
+// TODO: extract to its own file, to reduce dependencies
+RUR.vis_robot.update_trace_history = function (robot) {
+    var offset, prev_offset, trace_segment={};
+    if (robot._prev_x == robot.x &&
+        robot._prev_y == robot.y &&
+        robot._prev_orientation == robot._orientation) {
+            return;
+        }
+
+    if (robot._trace_style == "invisible" || !robot._is_leaky) {
+        trace_segment["color"] = "rgba(0,0,0,0)";
+    } else {
+        trace_segment["color"] = robot._trace_color;
+    }
+
+    offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
+
+    if(get_world().small_tiles) {
+        offset = [[12, 12], [12, 12], [12, 12], [12, 12]];
+        trace_segment["thickness"] = 2;
+    } else if (robot._trace_style === "thick") {
+        offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
+        trace_segment["thickness"] = 4;
+    }  else if (robot._trace_style === "default") {
+        trace_segment["thickness"] = 1;
+    } // else, invisible and we do not care.
+
+    prev_offset = offset[robot._prev_orientation%4];
+    offset = offset[robot._orientation%4];
+
+    trace_segment["prev_x"] = robot._prev_x * RUR.WALL_LENGTH + prev_offset[0];
+    trace_segment["x"] = robot.x * RUR.WALL_LENGTH + offset[0];
+    trace_segment["prev_y"] = RUR.HEIGHT - (robot._prev_y+1) * RUR.WALL_LENGTH + prev_offset[1];
+    trace_segment["y"] = RUR.HEIGHT - (robot.y+1) * RUR.WALL_LENGTH + offset[1];
+
+    robot._trace_history.push(trace_segment);
+};
+
+RUR.vis_robot.draw_trace_history  = function(robot) {
+    var segment;
+    for (segment of robot._trace_history) { //jshint ignore:line
+        RUR.vis_robot.draw_trace_segment(segment);
+    }
+};
+
+RUR.vis_robot.draw_trace_segment = function (segment) {
+    "use strict";
+    var ctx = RUR.TRACE_CTX;
+    ctx.strokeStyle = segment["color"];
+    ctx.lineWidth = segment["thickness"];
+    ctx.lineCap = "round";
+
+    ctx.beginPath();
+    ctx.moveTo(segment["prev_x"], segment["prev_y"]);
+    ctx.lineTo(segment["x"], segment["y"]);
+    ctx.stroke();
+};
+
+RUR.vis_robot.new_robot_images = function (images) {
+    var model;
+    if (images.model !== undefined) {
+        switch (images.model) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+                model = images.model;
+                break;
+            default:
+                model = 0;
+        }
+    } else {
+        model = 0;
+    }
+
+    if (images.east !== undefined) {
+        RUR.vis_robot.images[model].robot_e_img.src = images.east;
+    }
+    if (images.west !== undefined) {
+        RUR.vis_robot.images[model].robot_w_img.src = images.west;
+    }
+    if (images.north !== undefined) {
+        RUR.vis_robot.images[model].robot_n_img.src = images.north;
+    }
+    if (images.south !== undefined) {
+        RUR.vis_robot.images[model].robot_s_img.src = images.south;
+    }
+    if (images.random !== undefined) {
+        RUR.vis_robot.images[model].robot_random_img.src = images.random;
+    }
+
+    // change the image displayed in the html file.
+    switch (model) {
+        case 0:
+            $("#robot0 img").attr("src", images.east);
+            break;
+        case 1:
+            $("#robot1 img").attr("src", images.east);
+            break;
+        case 2:
+            $("#robot2 img").attr("src", images.east);
+            break;
+        case 3:
+            $("#robot3 img").attr("src", images.east);
+            break;
+    }
+
+    RUR.select_default_robot_model(model);
+};
+
+},{"./../rur.js":53,"./../world_get/world.js":74}],9:[function(require,module,exports){
+require("./../translator.js");
+require("./../rur.js");
+require("./../world_enhance/add_tile_type.js");
+var get_world = require("./../world_get/world.js").get_world;
+//TODO add overlay object (like sensor) on robot canvas.
+
+RUR.vis_world = {};
+
+RUR.vis_world.refresh_world_edited = function () {
+    RUR.vis_world.draw_all();
+    RUR.world_get.world_info();
+};
+
+RUR.vis_world.compute_world_geometry = function (cols, rows) {
+    "use strict";
+    var height, width, canvas;
+    if (get_world().small_tiles) {
+        RUR.WALL_LENGTH = 20;
+        RUR.WALL_THICKNESS = 2;
+        RUR.SCALE = 0.5;
+        RUR.BACKGROUND_CTX.font = "8px sans-serif";
+    } else {
+        RUR.WALL_LENGTH = 40;
+        RUR.WALL_THICKNESS = 4;
+        RUR.SCALE = 1;
+        RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
+    }
+
+    if (cols !== undefined && rows !== undefined) {
+        height = (rows + 1.5) * RUR.WALL_LENGTH;
+        width = (cols + 1.5) * RUR.WALL_LENGTH;
+        RUR.MAX_Y = rows;
+        RUR.MAX_X = cols;
+    } else {
+        height = (RUR.MAX_Y + 1.5) * RUR.WALL_LENGTH;
+        width = (RUR.MAX_X + 1.5) * RUR.WALL_LENGTH;
+    }
+    get_world().rows = RUR.MAX_Y;
+    get_world().cols = RUR.MAX_X;
+
+    if (height !== RUR.HEIGHT || width !== RUR.WIDTH) {
+        for (canvas of RUR.CANVASES) { //jshint ignore:line
+            canvas.width = width;
+            canvas.height = height;
+        }
+        RUR.HEIGHT = height;
+        RUR.WIDTH = width;
+    }
+
+    RUR.vis_world.draw_all();
+};
+
+RUR.vis_world.draw_all = function () {
+    "use strict";
+
+    if (get_world().blank_canvas) {
+        if (RUR.state.editing_world) {
+            RUR.show_feedback("#Reeborg-shouts",
+                                RUR.translate("Editing of blank canvas is not supported."));
+            return;
+         }
+        clearTimeout(RUR.ANIMATION_FRAME_ID);
+        RUR.ANIMATION_FRAME_ID = undefined;
+        RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.TILES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.OBSTACLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+//        RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
+        RUR.OBJECTS_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.TILES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
+        return;
+    }
+
+    RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    draw_grid_walls(RUR.BACKGROUND_CTX);
+    if (get_world().background_image !== undefined) {
+        draw_background_image(RUR.BACKGROUND_IMAGE);
+    }
+    draw_coordinates(); // on BACKGROUND_CTX
+    RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.animated_images = false;
+    RUR.vis_world.refresh();
+};
+
+
+RUR.vis_world.refresh = function () {
+    "use strict";
+    var current = get_world();
+    RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
+    // meant to be called at each step
+    // does not draw background (i.e. coordinates, grid walls and possibly image)
+    // does not clear trace // TODO is this still relevant?
+
+    // start by clearing all the relevant contexts first.
+    // some objects are drown on their own contexts.
+    RUR.OBSTACLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.TILES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
+    if (RUR.state.editing_world) {
+        // make them appear above background and tiles but below foreground walls.
+        draw_grid_walls(RUR.GOAL_CTX);
+    }
+
+    // animated images are redrawn according to their own schedule
+    if (!RUR.animated_images) {
+        draw_animated_images();
+    }
+
+    draw_goal();  // on GOAL_CTX
+    draw_tiles(current.tiles); // on TILES_CTX
+    draw_foreground_walls(current.walls); // on OBJECTS_CTX
+    draw_all_objects(current.decorative_objects);
+    draw_all_objects(current.objects);  // on OBJECTS_CTX
+        // draw_all_objects also called by draw_goal, and draws on GOAL_CTX
+        // and, draws some objects on ROBOT_CTX
+
+    // objects: goal is false, tile is true
+    draw_all_objects(current.obstacles, false, true); // likely on RUR.OBSTACLES_CTX
+
+    draw_robots(current.robots);  // on ROBOT_CTX
+    compile_info();  // on ROBOT_CTX
+    draw_info();     // on ROBOT_CTX
+};
+
+draw_coordinates = function() {
+    "use strict";
+    var x, y, ctx = RUR.BACKGROUND_CTX, size=RUR.WALL_LENGTH;
+
+    ctx.fillStyle = RUR.COORDINATES_COLOR;
+    y = RUR.HEIGHT + 5 - size/2;
+    for(x=1; x <= RUR.MAX_X; x++){
+        ctx.fillText(x, (x+0.5)*size, y);
+    }
+    x = size/2 -5;
+    for(y=1; y <= RUR.MAX_Y; y++){
+        ctx.fillText(y, x, RUR.HEIGHT - (y+0.3)*size);
+    }
+
+    ctx.fillStyle = RUR.AXIS_LABEL_COLOR;
+    ctx.fillText("x", RUR.WIDTH/2, RUR.HEIGHT - 10);
+    ctx.fillText("y", 5, RUR.HEIGHT/2 );
+};
+
+draw_grid_walls = function(ctx){
+    var i, j;
+
+    ctx.fillStyle = RUR.SHADOW_WALL_COLOR;
+    for (i = 1; i <= RUR.MAX_X; i++) {
+        for (j = 1; j <= RUR.MAX_Y; j++) {
+            draw_north_wall(ctx, i, j);
+            draw_east_wall(ctx, i, j);
+        }
+    }
+};
+
+draw_foreground_walls = function (walls) {
+    "use strict";
+    var keys, key, i, j, k, ctx = RUR.OBJECTS_CTX;
+
+
+    // border walls (x and y axis)
+    ctx.fillStyle = RUR.WALL_COLOR;
+    for (j = 1; j <= RUR.MAX_Y; j++) {
+        draw_east_wall(ctx, 0, j);
+    }
+    for (i = 1; i <= RUR.MAX_X; i++) {
+        draw_north_wall(ctx, i, 0);
+    }
+    for (j = 1; j <= RUR.MAX_Y; j++) {
+        draw_east_wall(ctx, RUR.MAX_X, j);
+    }
+    for (i = 1; i <= RUR.MAX_X; i++) {
+        draw_north_wall(ctx, i, RUR.MAX_Y);
+    }
+
+
+    if (walls === undefined || walls == {}) {
+        return;
+    }
+
+    // other walls
+    keys = Object.keys(walls);
+    for (key=0; key < keys.length; key++){
+        k = keys[key].split(",");
+        i = parseInt(k[0], 10);
+        j = parseInt(k[1], 10);
+        if ( walls[keys[key]].indexOf("north") !== -1 &&
+            i <= RUR.MAX_X && j <= RUR.MAX_Y) {
+            draw_north_wall(ctx, i, j);
+        }
+        if (walls[keys[key]].indexOf("east") !== -1 &&
+            i <= RUR.MAX_X && j <= RUR.MAX_Y) {
+            draw_east_wall(ctx, i, j);
+        }
+    }
+};
+
+draw_north_wall = function(ctx, i, j, goal) {
+    "use strict";
+    var length=RUR.WALL_LENGTH, thick=RUR.WALL_THICKNESS;
+    if (goal){
+        ctx.strokeStyle = RUR.GOAL_WALL_COLOR;
+        ctx.beginPath();
+        ctx.rect(i*length, RUR.HEIGHT - (j+1)*length, length + thick, thick);
+        ctx.stroke();
+        return;
+    }
+    ctx.fillRect(i*length, RUR.HEIGHT - (j+1)*length, length + thick, thick);
+};
+
+draw_east_wall = function(ctx, i, j, goal) {
+    "use strict";
+    var length=RUR.WALL_LENGTH, thick=RUR.WALL_THICKNESS;
+    if (goal){
+        ctx.strokeStyle = RUR.GOAL_WALL_COLOR;
+        ctx.beginPath();
+        ctx.rect((i+1)*length, RUR.HEIGHT - (j+1)*length, thick, length + thick);
+        ctx.stroke();
+        return;
+    }
+    ctx.fillRect((i+1)*length, RUR.HEIGHT - (j+1)*length, thick, length + thick);
+};
+
+draw_robots = function (robots) {
+    "use strict";
+    var robot;
+    if (!robots || robots[0] === undefined) {
+        return;
+    }
+    for (robot=0; robot < robots.length; robot++){
+        if (robots[robot].start_positions !== undefined && robots[robot].start_positions.length > 1){
+            draw_robot_clones(robots[robot]);
+        } else {
+            RUR.vis_robot.draw(robots[robot]); // draws trace automatically
+        }
+    }
+};
+
+draw_robot_clones = function(robot){
+    "use strict";
+    var i, clone;
+    RUR.ROBOT_CTX.save();
+    RUR.ROBOT_CTX.globalAlpha = 0.4;
+    for (i=0; i < robot.start_positions.length; i++){
+            clone = JSON.parse(JSON.stringify(robot));
+            clone.x = robot.start_positions[i][0];
+            clone.y = robot.start_positions[i][1];
+            clone._prev_x = clone.x;
+            clone._prev_y = clone.y;
+            RUR.vis_robot.draw(clone);
+    }
+    RUR.ROBOT_CTX.restore();
+};
+
+draw_goal = function () {
+    "use strict";
+    var goal, ctx = RUR.GOAL_CTX;
+
+    if (get_world().goal === undefined) {
+        return;
+    }
+
+    goal = get_world().goal;
+    if (goal.position !== undefined) {
+        draw_goal_position(goal, ctx);
+    }
+    if (goal.objects !== undefined){
+        draw_all_objects(goal.objects, true);
+    }
+
+    if (goal.walls !== undefined){
+        draw_goal_walls(goal, ctx);
+    }
+};
+
+draw_goal_position = function (goal, ctx) {
+    "use strict";
+    var image, i, g;
+
+    if (goal.position.image !== undefined &&
+        typeof goal.position.image === 'string' &&
+        RUR.TILES[goal.position.image] !== undefined){
+        image = RUR.TILES[goal.position.image].image;
+    } else {    // For anyone wondering, this step might be needed only when using older world
+                // files that were created when there was not a choice
+                // of image for indicating the home position.
+        image = RUR.TILES["green_home_tile"].image;
+    }
+    if (goal.possible_positions !== undefined && goal.possible_positions.length > 1){
+            ctx.save();
+            ctx.globalAlpha = 0.5;
+            for (i=0; i < goal.possible_positions.length; i++){
+                    g = goal.possible_positions[i];
+                    draw_single_object(image, g[0], g[1], ctx);
+            }
+            ctx.restore();
+    } else {
+        draw_single_object(image, goal.position.x, goal.position.y, ctx);
+    }
+};
+
+draw_goal_walls = function (goal, ctx) {
+    "use strict";
+    var key, keys, i, j, k;
+    ctx.fillStyle = RUR.WALL_COLOR;
+    keys = Object.keys(goal.walls);
+    for (key=0; key < keys.length; key++){
+        k = keys[key].split(",");
+        i = parseInt(k[0], 10);
+        j = parseInt(k[1], 10);
+        if ( goal.walls[keys[key]].indexOf("north") !== -1 &&
+            i <= RUR.MAX_X && j <= RUR.MAX_Y) {
+            draw_north_wall(ctx, i, j, true);
+        }
+        if (goal.walls[keys[key]].indexOf("east") !== -1 &&
+            i <= RUR.MAX_X && j <= RUR.MAX_Y) {
+            draw_east_wall(ctx, i, j, true);
+        }
+    }
+};
+
+draw_tiles = function (tiles){
+    "use strict";
+    var i, j, k, keys, key, image, tile, colour;
+    if (tiles === undefined) {
+        return;
+    }
+    keys = Object.keys(tiles);
+    for (key=0; key < keys.length; key++){
+        k = keys[key].split(",");
+        i = parseInt(k[0], 10);
+        j = parseInt(k[1], 10);
+        if (tiles[keys[key]] !== undefined) {
+            tile = RUR.TILES[tiles[keys[key]]];
+            if (tile === undefined) {
+                colour = tiles[keys[key]];
+                draw_coloured_tile(colour, i, j, RUR.TILES_CTX);
+                continue;
+            }
+        }
+
+        if (tile.choose_image === undefined){
+            image = tile.image;
+            if (image === undefined){
+                console.log("problem in draw_tiles; tile =", tile);
+                throw new ReeborgError("Problem in draw_tiles.");
+            }
+            draw_single_object(image, i, j, RUR.TILES_CTX);
+        }
+    }
+};
+
+draw_animated_images = function (){
+    "use strict";
+    var objects;
+
+    RUR.OBJECTS_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.TILES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
+    RUR.animated_images = false;
+    objects = get_world().tiles;
+    RUR.animated_images = __draw_animated_images(objects,
+                                RUR.animated_images, RUR.TILES, RUR.TILES_ANIM_CTX);
+    objects = get_world().objects;
+    RUR.animated_images = __draw_animated_images(objects,
+                                RUR.animated_images, RUR.TILES, RUR.OBJECTS_ANIM_CTX);
+    if (RUR.animated_images) {
+        clearTimeout(RUR.ANIMATION_FRAME_ID);
+        RUR.ANIMATION_FRAME_ID = setTimeout(draw_animated_images,
+            RUR.ANIMATION_TIME);
+    }
+};
+
+function __draw_animated_images (objects, flag, obj_ref, ctx) {
+    "use strict";
+    var i, j, i_j, coords, k, image, obj, obj_here, elem;
+    if (objects === undefined) {
+        return flag;
+    }
+    coords = Object.keys(objects);
+    for (k=0; k < coords.length; k++){
+        i_j = coords[k].split(",");
+        i = parseInt(i_j[0], 10);
+        j = parseInt(i_j[1], 10);
+
+        obj_here = objects[coords[k]];
+        if (typeof obj_here == "string") {  // e.g. tiles: single object at position
+            obj = obj_ref[obj_here];
+            if (obj === undefined) {
+                continue;
+            } else if (obj.choose_image !== undefined){
+                _draw_single_animated(obj, coords[k], i, j, ctx);
+                flag = true;
+            }
+        } else if (typeof obj_here == "object") { // e.g. objects: many at position
+            for (elem in obj_here) {
+                obj = obj_ref[elem];
+                if (obj === undefined) {
+                    continue;
+                } else if (obj.choose_image !== undefined){
+                    clear_single_cell(i, j, ctx);
+                    _draw_single_animated(obj, coords[k], i, j, ctx);
+                    flag = true;
+                }
+            }
+        } else {
+            console.log("Problem: unknown type in __draw_animated_images");
+        }
+    }
+    return flag;
+}
+
+function _draw_single_animated (obj, coords, i, j, ctx){
+    var image;
+    image = obj.choose_image(coords);
+    if (image === undefined){
+        console.log("problem in _draw_single_animated; obj =", obj);
+        throw new ReeborgError("Problem in _draw_single_animated at" + coords);
+    }
+    draw_single_object(image, i, j, ctx);
+}
+
+draw_coloured_tile = function (colour, i, j, ctx) {
+    var thick = RUR.WALL_THICKNESS, size = RUR.WALL_LENGTH;
+    var x, y;
+    if (i > RUR.MAX_X || j > RUR.MAX_Y){
+        return;
+    }
+    x = i*size + thick/2;
+    y = RUR.HEIGHT - (j+1)*size + thick/2;
+    ctx.fillStyle = colour;
+    ctx.fillRect(x, y, size, size);
+};
+
+draw_all_objects = function (objects, goal, tile){
+    "use strict";
+    var i, j, image, ctx, coords, specific_object, objects_here, obj_name, grid_pos;
+    if (objects === undefined) {
+        return;
+    }
+
+    for (coords in objects){
+        if (objects.hasOwnProperty(coords)){
+            objects_here = objects[coords];
+            grid_pos = coords.split(",");
+            i = parseInt(grid_pos[0], 10);
+            j = parseInt(grid_pos[1], 10);
+            if (i <= RUR.MAX_X && j <= RUR.MAX_Y) {
+                for (obj_name in objects_here){
+                    if (objects_here.hasOwnProperty(obj_name)){
+                        specific_object = RUR.TILES[obj_name];
+                        if (goal) {
+                            ctx = RUR.GOAL_CTX;
+                            image = specific_object.goal.image;
+                        } else if (specific_object === undefined){
+                            console.warn("problem: specific_object is undefined");
+                            console.warn("    obj_name = ", obj_name, "  tile = ", tile);
+                            image = undefined;
+                        } else if (specific_object.ctx !== undefined){
+                            ctx = specific_object.ctx;
+                            image = specific_object.image;
+                        } else {
+                            ctx = RUR.OBJECTS_CTX;
+                            image = specific_object.image;
+                        }
+
+                        if (goal) {
+                            draw_single_object(image, i, j, ctx);
+                        } else if (specific_object.choose_image === undefined){
+                            if (image === undefined){
+                                console.warn("problem in draw_all_objects; obj =", specific_object);
+                            }
+                            draw_single_object(image, i, j, ctx);
+                        }
+                    }
+                }
+            }
+        }
+    }
+};
+
+draw_single_object = function (image, i, j, ctx) {
+    var thick=RUR.WALL_THICKNESS/2, size=RUR.WALL_LENGTH;
+    var x, y;
+    if (i > RUR.MAX_X || j > RUR.MAX_Y){
+        return;
+    }
+    x = i*size + thick;
+    y = RUR.HEIGHT - (j+1)*size + thick;
+    try{
+       ctx.drawImage(image, x, y, size, size);
+   } catch (e) {
+       console.log("problem in draw_single_object", image, ctx, e);
+   }
+};
+
+
+draw_background_image = function (image) {
+    // we draw the image so that it fills the entire world
+    var thick=RUR.WALL_THICKNESS/2, size=RUR.WALL_LENGTH,
+        image_width, image_height, world_width, world_height,
+        x, y, ctx=RUR.BACKGROUND_CTX;
+
+    world_width = RUR.MAX_X*size;  // space to
+    world_height = RUR.MAX_Y*size; // be filled
+
+    image_width = image.width;
+    image_height = image.height;
+
+    if (image_width > world_width) {
+        image_width = world_width;  // crop
+    }
+    if (image_height > world_height) {
+        image_height = world_height;
+    }
+
+    y = RUR.HEIGHT - (RUR.MAX_Y+1)*size + thick; // location of top ...
+    x = size + thick;                            // ... left corner
+    
+    try{
+        ctx.drawImage(image, 0, 0, image_width, image_height, 
+                             x, y, world_width, world_height);
+    } catch (e) {
+        console.log("problem in draw_background_image", image, ctx, e);
+    }
+};
+
+
+clear_single_cell = function (i, j, ctx) {
+    var x, y, thick=RUR.WALL_THICKNESS/2, size=RUR.WALL_LENGTH;
+    x = i*size + thick;
+    y = RUR.HEIGHT - (j+1)*size + thick;
+    ctx.clearRect(x, y, size, size);
+};
+
+compile_info = function() {
+    // compiles the information about objects and goal found at each
+    // grid location, so that we can determine what should be
+    // drown - if anything.
+    var coords, obj, quantity;
+    RUR.vis_world.information = {};
+    RUR.vis_world.goal_information = {};
+    RUR.vis_world.goal_present = false;
+    if (get_world().goal !== undefined &&
+        get_world().goal.objects !== undefined) {
+        compile_partial_info(get_world().goal.objects,
+            RUR.vis_world.goal_information, 'goal');
+            RUR.vis_world.goal_present = true;
+    }
+
+
+    if (get_world().objects !== undefined) {
+        compile_partial_info(get_world().objects,
+            RUR.vis_world.information, 'objects');
+    }
+};
+
+compile_partial_info = function(objects, information, type){
+    "use strict";
+    var coords, obj, quantity, color, goal_information;
+    if (type=="objects") {
+        color = "black";
+        goal_information = RUR.vis_world.goal_information;
+    } else {
+        color = "blue";
+    }
+
+    for (coords in objects) {
+        if (objects.hasOwnProperty(coords)){
+            // objects found here
+            for(obj in objects[coords]){
+                if (objects[coords].hasOwnProperty(obj)){
+                    if (information[coords] !== undefined){
+                        // already at least one other object there
+                        information[coords] = [undefined, "?"];  // assign impossible object
+                    } else {
+                        quantity = objects[coords][obj];
+                        if (quantity.toString().indexOf("-") != -1) {
+                            quantity = "?";
+                        } else if (quantity == "all") {
+                            quantity = "?";
+                        } else {
+                            try{
+                                quantity = parseInt(quantity, 10);
+                            } catch (e) {
+                                quantity = "?";
+                                console.log("WARNING: this should not happen in compile_info");
+                            }
+                        }
+                        if (RUR.vis_world.goal_present && typeof quantity == 'number' && goal_information !== undefined) {
+                            if ( goal_information[coords] !== undefined &&  goal_information[coords][1] == objects[coords][obj]) {
+                            information[coords] = [obj, objects[coords][obj], 'green'];
+                            } else {
+                                information[coords] = [obj, objects[coords][obj], 'red'];
+                            }
+                        } else {
+                            information[coords] = [obj, quantity, color];
+                        }
+                    }
+                }
+            }
+        }
+    }
+};
+
+draw_info = function() {
+    var i, j, coords, keys, key, info, ctx;
+    var scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT, text_width;
+    if (RUR.vis_world.information === undefined &&
+        RUR.vis_world.goal_information === undefined) {
+        return;
+    }
+    // make sure it appears on top of everything (except possibly robots)
+    ctx = RUR.ROBOT_CTX;
+
+    if (RUR.vis_world.information !== undefined) {
+        keys = Object.keys(RUR.vis_world.information);
+        for (key=0; key < keys.length; key++){
+            coords = keys[key].split(",");
+            i = parseInt(coords[0], 10);
+            j = parseInt(coords[1], 10);
+            info = RUR.vis_world.information[coords][1];
+            if (i <= RUR.MAX_X && j <= RUR.MAX_Y){
+                text_width = ctx.measureText(info).width/2;
+                ctx.font = RUR.BACKGROUND_CTX.font;
+                ctx.fillStyle = RUR.vis_world.information[coords][2];
+                // information drawn to left side of object
+                ctx.fillText(info, (i+0.2)*scale, Y - (j)*scale);
+            }
+        }
+    }
+
+    if (RUR.vis_world.goal_information !== undefined) {
+        keys = Object.keys(RUR.vis_world.goal_information);
+        for (key=0; key < keys.length; key++){
+            coords = keys[key].split(",");
+            i = parseInt(coords[0], 10);
+            j = parseInt(coords[1], 10);
+            info = RUR.vis_world.goal_information[coords][1];
+            if (i <= RUR.MAX_X && j <= RUR.MAX_Y){
+                text_width = ctx.measureText(info).width/2;
+                ctx.font = RUR.BACKGROUND_CTX.font;
+                ctx.fillStyle = RUR.vis_world.goal_information[coords][2];
+                // information drawn to right side of object
+                ctx.fillText(info, (i+0.8)*scale, Y - (j)*scale);
+            }
+        }
+    }
+};
+
+},{"./../rur.js":53,"./../translator.js":57,"./../world_enhance/add_tile_type.js":69,"./../world_get/world.js":74}],10:[function(require,module,exports){
 function betterTab(cm) {
   if (cm.somethingSelected()) {
     cm.indentSelection("add");
@@ -592,7 +1547,7 @@ onload_editor.setOption("extraKeys", {
   "Shift-Tab": shiftTab
 });
 
-},{}],9:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 
 require("./../rur.js");
 require("./create.js");
@@ -726,18 +1681,18 @@ $("#update-library-content-btn").on("click", function(evt) {
     }
 });
 
-},{"./../../lang/msg.js":93,"./../rur.js":51,"./create.js":8}],10:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../rur.js":53,"./create.js":10}],12:[function(require,module,exports){
 
-require("./output.js");
-require("./recorder.js");
-require("./editors/update.js");
-require("./world_utils/import_world.js");
-require("./ui/world_select.js");
-require("./permalink.js");
-require("./translator.js");
-require("./programming_ui/exceptions.js");
-require("./listeners/stop.js");
-require("./utils/supplant.js");
+require("./../programming_api/output.js");
+require("./../recorder/recorder.js");
+require("./../editors/update.js");
+require("./../world_utils/import_world.js");
+require("./../ui/world_select.js");
+require("./../permalink/permalink.js");
+require("./../translator.js");
+require("./../programming_api/exceptions.js");
+require("./../listeners/stop.js");
+require("./../utils/supplant.js");
 
 RUR.file_io = {};
 
@@ -768,6 +1723,8 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     var selected, possible_url, new_world=false, new_selection=false;
     RUR.file_io.status = undefined;
 
+    //TODO: see if we can replace this by an exception, and get rid of
+    //the RUR.output dependency.
     if (url === undefined) {
         RUR.output.write(RUR.translate("World() needs an argument."));
         return;
@@ -883,7 +1840,10 @@ function loadFile (sURL, fCallback) {
   oReq.callback = fCallback;
   oReq.onload = xhrSuccess;
   oReq.onerror = xhrError;
-  sURL = 'http://cors-anywhere.herokuapp.com/' + sURL;
+
+  if (sURL.startsWith("http")){  // TODO: test this...
+    sURL = 'http://cors-anywhere.herokuapp.com/' + sURL;
+  }
   oReq.open("get", sURL, true);
   oReq.send(null);
 }
@@ -902,7 +1862,7 @@ window.get_extra_content = function () {
     return $("#extra").html();
 };
 
-},{"./editors/update.js":9,"./listeners/stop.js":31,"./output.js":34,"./permalink.js":35,"./programming_ui/exceptions.js":42,"./recorder.js":45,"./translator.js":55,"./ui/world_select.js":59,"./utils/supplant.js":64,"./world_utils/import_world.js":90}],11:[function(require,module,exports){
+},{"./../editors/update.js":11,"./../listeners/stop.js":33,"./../permalink/permalink.js":36,"./../programming_api/exceptions.js":43,"./../programming_api/output.js":44,"./../recorder/recorder.js":48,"./../translator.js":57,"./../ui/world_select.js":61,"./../utils/supplant.js":66,"./../world_utils/import_world.js":90}],13:[function(require,module,exports){
 /*  Handler of special on-screen keyboard
 */
 
@@ -1332,7 +2292,7 @@ function add_onclick(id, fn, arg, record, enter) {
     }
 }
 
-},{"./../../lang/msg.js":93,"./../dialogs/create.js":3,"./../listeners/editors_tabs.js":17,"./../rur.js":51,"./../translator.js":55}],12:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../dialogs/create.js":3,"./../listeners/editors_tabs.js":19,"./../rur.js":53,"./../translator.js":57}],14:[function(require,module,exports){
 /* Menu driven world editor */
 
 
@@ -1340,12 +2300,12 @@ require("./../translator.js");
 require("./../rur.js");
 require("./../default_tiles/tiles.js");
 
-require("./../robot.js");
+require("./../robot/robot.js");
 require("./../editors/update.js");
-require("./../visible_world.js");
-require("./../programming_ui/exceptions.js");
-require("./../world_get.js");
-require("./../world_set.js");
+require("./../drawing/visible_world.js");
+require("./../programming_api/exceptions.js");
+require("./../world_get/world_get.js");
+require("./../world_set/world_set.js");
 require("./../dialogs/create.js");
 require("./../listeners/canvas.js");
 require("./../editors/create.js");
@@ -2002,11 +2962,11 @@ $("#robot-canvas").on("click", function (evt) {
     RUR.world_get.world_info();
 });
 
-},{"./../default_tiles/tiles.js":1,"./../dialogs/add_object.js":2,"./../dialogs/create.js":3,"./../dialogs/give_object.js":4,"./../dialogs/goal_object.js":5,"./../dialogs/select_colour.js":6,"./../dialogs/set_background_image.js":7,"./../editors/create.js":8,"./../editors/update.js":9,"./../listeners/canvas.js":16,"./../programming_ui/exceptions.js":42,"./../robot.js":48,"./../rur.js":51,"./../translator.js":55,"./../ui/edit_robot_menu.js":57,"./../utils/identical.js":61,"./../utils/key_exist.js":62,"./../utils/supplant.js":64,"./../visible_world.js":68,"./../world_get.js":72,"./../world_get/wall.js":74,"./../world_set.js":76,"./../world_set/add_robot.js":77,"./../world_set/decorative_object.js":78,"./../world_set/give_object_to_robot.js":79,"./../world_set/goal_object.js":80,"./../world_set/object.js":81,"./../world_set/obstacle.js":82,"./../world_set/wall.js":86}],13:[function(require,module,exports){
+},{"./../default_tiles/tiles.js":1,"./../dialogs/add_object.js":2,"./../dialogs/create.js":3,"./../dialogs/give_object.js":4,"./../dialogs/goal_object.js":5,"./../dialogs/select_colour.js":6,"./../dialogs/set_background_image.js":7,"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../editors/update.js":11,"./../listeners/canvas.js":18,"./../programming_api/exceptions.js":43,"./../robot/robot.js":50,"./../rur.js":53,"./../translator.js":57,"./../ui/edit_robot_menu.js":59,"./../utils/identical.js":63,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../world_get/wall.js":73,"./../world_get/world_get.js":75,"./../world_set/add_robot.js":76,"./../world_set/decorative_object.js":77,"./../world_set/give_object_to_robot.js":78,"./../world_set/goal_object.js":79,"./../world_set/object.js":80,"./../world_set/obstacle.js":81,"./../world_set/wall.js":85,"./../world_set/world_set.js":86}],15:[function(require,module,exports){
 /* require this module that will automatically modify a global object*/
 require("./utils/cors.js");
 
-require("./programming_ui/commands.js"); // to control Reeborg's actions
+require("./programming_api/commands.js"); // to control Reeborg's actions
 require("./gui_tools/world_editor.js"); // the world editor is not required by other modules
 require("./start_session.js");
 
@@ -2016,7 +2976,7 @@ require("./start_session.js");
 // TODO: add turtle mode (see blockly for comparing with expected solution); ensure a blockly counterpart
 // TODO: implement paint() and colour_here() in Blockly
 
-},{"./gui_tools/world_editor.js":12,"./programming_ui/commands.js":40,"./start_session.js":53,"./utils/cors.js":60}],14:[function(require,module,exports){
+},{"./gui_tools/world_editor.js":14,"./programming_api/commands.js":41,"./start_session.js":55,"./utils/cors.js":62}],16:[function(require,module,exports){
 /*
  * jQuery UI Dialog 1.8.16
  * w/ Minimize & Maximize Support
@@ -3038,7 +3998,7 @@ $.extend($.ui.dialog.overlay.prototype, {
 });
 
 }(jQuery));
-},{}],15:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 require("./canvas.js");
 require("./editors_tabs.js");
 require("./erase_trace.js");
@@ -3058,7 +4018,7 @@ require("./stop.js");
 require("./toggle_highlight.js");
 require("./toggle_watch.js");
 
-},{"./canvas.js":16,"./editors_tabs.js":17,"./erase_trace.js":18,"./frame_slider.js":19,"./human_language.js":20,"./memorize_world.js":21,"./onclick.js":22,"./pause.js":23,"./programming_mode.js":24,"./reload.js":25,"./reverse_step.js":26,"./robot_model.js":27,"./run.js":28,"./select_world_change.js":29,"./step.js":30,"./stop.js":31,"./toggle_highlight.js":32,"./toggle_watch.js":33}],16:[function(require,module,exports){
+},{"./canvas.js":18,"./editors_tabs.js":19,"./erase_trace.js":20,"./frame_slider.js":21,"./human_language.js":22,"./memorize_world.js":23,"./onclick.js":24,"./pause.js":25,"./programming_mode.js":26,"./reload.js":27,"./reverse_step.js":28,"./robot_model.js":29,"./run.js":30,"./select_world_change.js":31,"./step.js":32,"./stop.js":33,"./toggle_highlight.js":34,"./toggle_watch.js":35}],18:[function(require,module,exports){
 require("./../rur.js");
 
 $("#robot-canvas").mousemove(function (evt) {
@@ -3168,7 +4128,7 @@ RUR.calculate_grid_position = function () {
     return [x, y];
 };
 
-},{"./../rur.js":51}],17:[function(require,module,exports){
+},{"./../rur.js":53}],19:[function(require,module,exports){
 require("./../editors/create.js");
 var record_id = require("./../../lang/msg.js").record_id;
 
@@ -3222,7 +4182,7 @@ $("#library-tab").on("click", function (evt) {
     $("#watch-variables-btn").hide();
 });
 
-},{"./../../lang/msg.js":93,"./../editors/create.js":8}],18:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../editors/create.js":10}],20:[function(require,module,exports){
 require("./../rur.js");
 
 var record_id = require("./../../lang/msg.js").record_id;
@@ -3234,37 +4194,39 @@ RUR.erase_trace = function(){
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 };
 
-},{"./../../lang/msg.js":93,"./../rur.js":51}],19:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../rur.js":53}],21:[function(require,module,exports){
 require("./../rur.js");
 require("./reload.js");
 require("./../runner/runner.js");
+
+var frame_selector = document.getElementById("frame-selector"),
+    frame_id_info = document.getElementById("frame-id");
 
 RUR.update_frame_nb_info = function() {
     var frame_no=0;
     try {  // termporarily keeping the "old" version compatible
         if (RUR.nb_frames === 0) {
-            RUR.frame_id_info.innerHTML = "0/0";
-            RUR.frame_selector.value = 0;
-            RUR.frame_selector.min = 0;
-            RUR.frame_selector.max = 0;
+            frame_id_info.innerHTML = "0/0";
+            frame_selector.value = 0;
+            frame_selector.min = 0;
+            frame_selector.max = 0;
         } else {
-            RUR.frame_selector.max = RUR.nb_frames;
-            RUR.frame_selector.value = RUR.current_frame_no;
+            frame_selector.max = RUR.nb_frames;
+            frame_selector.value = RUR.current_frame_no;
             // do not display zero-based index as this would confuse
             // beginners ... especially without no additional explanation.
             frame_no = Math.min(RUR.current_frame_no+1, RUR.nb_frames+1);
-            RUR.frame_id_info.innerHTML = frame_no + "/" + (RUR.nb_frames+1);
+            frame_id_info.innerHTML = frame_no + "/" + (RUR.nb_frames+1);
         }
     } catch (e) {}
 };
-RUR.frame_selector = document.getElementById("frame-selector");
-RUR.frame_id_info = document.getElementById("frame-id");
+
 
 $("#frame-selector").on("input change", function() {
     if (RUR.state.playback) {
         return;
     }
-    RUR.current_frame_no = parseInt(RUR.frame_selector.value, 10);
+    RUR.current_frame_no = parseInt(frame_selector.value, 10);
     if (RUR.current_frame_no <= 0){
         $("#reverse-step").attr("disabled", "true");
     } else if ($("#reverse-step").attr("disabled")) {
@@ -3277,13 +4239,14 @@ $("#frame-selector").on("input change", function() {
         $("#step").removeAttr("disabled");
     }
     RUR.update_frame_nb_info();
+    // TODO: see if dependency needs to be set properly
     RUR.rec.display_frame();
 });
 
-},{"./../runner/runner.js":49,"./../rur.js":51,"./reload.js":25}],20:[function(require,module,exports){
+},{"./../runner/runner.js":51,"./../rur.js":53,"./reload.js":27}],22:[function(require,module,exports){
 require("./../rur.js");
-require("./../programming_ui/reeborg_en.js");
-require("./../programming_ui/reeborg_fr.js");
+require("./../programming_api/reeborg_en.js");
+require("./../programming_api/reeborg_fr.js");
 require("./../ui/custom_world_select.js");
 
 var msg = require("./../../lang/msg.js");
@@ -3412,10 +4375,10 @@ $("#human-language").change(function() {
     update_url();
 });
 
-},{"./../../lang/msg.js":93,"./../programming_ui/reeborg_en.js":43,"./../programming_ui/reeborg_fr.js":44,"./../rur.js":51,"./../ui/custom_world_select.js":56,"./../utils/parseuri.js":63}],21:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../programming_api/reeborg_en.js":45,"./../programming_api/reeborg_fr.js":46,"./../rur.js":53,"./../ui/custom_world_select.js":58,"./../utils/parseuri.js":65}],23:[function(require,module,exports){
 
 require("./../rur.js");
-require("./../storage.js");
+require("./../storage/storage.js");
 var record_id = require("./../../lang/msg.js").record_id;
 var clone_world = require("./../world_utils/clone_world.js").clone_world;
 
@@ -3472,7 +4435,7 @@ save_world = function () {
     $('#delete-world').show();
 };
 
-},{"./../../lang/msg.js":93,"./../rur.js":51,"./../storage.js":54,"./../world_utils/clone_world.js":87}],22:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../rur.js":53,"./../storage/storage.js":56,"./../world_utils/clone_world.js":87}],24:[function(require,module,exports){
 /* Sets up what happens when the user clicks on various html elements.
 */
 
@@ -3480,7 +4443,7 @@ require("./../translator.js");
 require("./../editors/update.js");
 require("./../rur.js");
 require("./../editors/create.js");
-require("./../programming_ui/blockly.js");
+require("./../programming_api/blockly.js");
 
 var export_world = require("./../world_utils/export_world.js").export_world;
 var record_id = require("./../../lang/msg.js").record_id;
@@ -3653,7 +4616,7 @@ toggle_content("description", description_editor);
 record_id("add-onload-text", "ADD ONLOAD TEXT");
 toggle_content("onload", onload_editor);
 
-},{"./../../lang/msg.js":93,"./../editors/create.js":8,"./../editors/update.js":9,"./../programming_ui/blockly.js":39,"./../rur.js":51,"./../translator.js":55,"./../world_utils/export_world.js":89}],23:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../editors/create.js":10,"./../editors/update.js":11,"./../programming_api/blockly.js":40,"./../rur.js":53,"./../translator.js":57,"./../world_utils/export_world.js":89}],25:[function(require,module,exports){
 require("./../rur.js");
 require("./../playback/play.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -3687,7 +4650,7 @@ pause = function () {
 
 pause_button.addEventListener("click", pause, false);
 
-},{"./../../lang/msg.js":93,"./../playback/play.js":36,"./../rur.js":51}],24:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../playback/play.js":37,"./../rur.js":53}],26:[function(require,module,exports){
 require("./../rur.js");
 require("./../listeners/reload.js");
 require("./../gui_tools/special_keyboard.js");
@@ -3986,7 +4949,7 @@ function hide_console() {
 show_editor("python");
 // see start_session.js for initialization.
 
-},{"./../../lang/msg.js":93,"./../editors/create.js":8,"./../gui_tools/special_keyboard.js":11,"./../listeners/reload.js":25,"./../rur.js":51,"./../utils/parseuri.js":63}],25:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../editors/create.js":10,"./../gui_tools/special_keyboard.js":13,"./../listeners/reload.js":27,"./../rur.js":53,"./../utils/parseuri.js":65}],27:[function(require,module,exports){
 
 require("./../rur.js");
 var set_ready_to_run = require("./../ui/set_ready_to_run.js").set_ready_to_run;
@@ -4032,9 +4995,9 @@ RUR.reload2 = function() {
 reload_button.addEventListener("click", RUR.reload, false);
 reload2_button.addEventListener("click", RUR.reload2, false);
 
-},{"./../../lang/msg.js":93,"./../recorder/reset.js":47,"./../rur.js":51,"./../ui/set_ready_to_run.js":58,"./../world_set/reset_world.js":83}],26:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../recorder/reset.js":49,"./../rur.js":53,"./../ui/set_ready_to_run.js":60,"./../world_set/reset_world.js":82}],28:[function(require,module,exports){
 require("./../rur.js");
-require("./../recorder.js");
+require("./../recorder/recorder.js");
 
 var record_id = require("./../../lang/msg.js").record_id;
 record_id("reverse-step");
@@ -4055,8 +5018,8 @@ reverse_step = function () {
     clearTimeout(RUR._TIMER);
 };
 
-},{"./../../lang/msg.js":93,"./../recorder.js":45,"./../rur.js":51}],27:[function(require,module,exports){
-require("./../visible_robot.js");
+},{"./../../lang/msg.js":93,"./../recorder/recorder.js":48,"./../rur.js":53}],29:[function(require,module,exports){
+require("./../drawing/visible_robot.js");
 
 require("./../rur.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -4082,7 +5045,7 @@ $("#robot3").on("click", function (evt) {
     RUR.select_default_robot_model(3);
 });
 
-},{"./../../lang/msg.js":93,"./../rur.js":51,"./../visible_robot.js":67}],28:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../drawing/visible_robot.js":8,"./../rur.js":53}],30:[function(require,module,exports){
 
 require("./../rur.js");
 require("./reload.js");
@@ -4111,9 +5074,9 @@ function run () {
 }
 run_button.addEventListener("click", run, false);
 
-},{"./../../lang/msg.js":93,"./../playback/play.js":36,"./../runner/runner.js":49,"./../rur.js":51,"./reload.js":25}],29:[function(require,module,exports){
-require("./../file_io.js");
-require("./../storage.js");
+},{"./../../lang/msg.js":93,"./../playback/play.js":37,"./../runner/runner.js":51,"./../rur.js":53,"./reload.js":27}],31:[function(require,module,exports){
+require("./../file_io/file_io.js");
+require("./../storage/storage.js");
 
 var record_id = require("./../../lang/msg.js").record_id;
 record_id("select-world");
@@ -4130,7 +5093,7 @@ $("#select-world").change(function() {
     } catch (e) {}
 });
 
-},{"./../../lang/msg.js":93,"./../file_io.js":10,"./../storage.js":54}],30:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../file_io/file_io.js":12,"./../storage/storage.js":56}],32:[function(require,module,exports){
 
 require("./../rur.js");
 require("./reload.js");
@@ -4151,7 +5114,7 @@ step = function () {
 };
 step_button.addEventListener("click", step, false);
 
-},{"./../../lang/msg.js":93,"./../playback/play.js":36,"./../runner/runner.js":49,"./../rur.js":51,"./reload.js":25}],31:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../playback/play.js":37,"./../runner/runner.js":51,"./../rur.js":53,"./reload.js":27}],33:[function(require,module,exports){
 
 require("./../rur.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -4171,7 +5134,7 @@ RUR.stop = function () {
 };
 stop_button.addEventListener("click", RUR.stop, false);
 
-},{"./../../lang/msg.js":93,"./../rur.js":51}],32:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../rur.js":53}],34:[function(require,module,exports){
 ;
 require("./../rur.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -4192,7 +5155,7 @@ RUR.toggle_highlight = function () {  // keep part of RUR for Python
 };
 highlight_button.addEventListener("click", RUR.toggle_highlight, false);
 
-},{"./../../lang/msg.js":93,"./../rur.js":51}],33:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../rur.js":53}],35:[function(require,module,exports){
 ;
 require("./../rur.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -4217,84 +5180,18 @@ toggle_watch_variables = function () {
 };
 watch_button.addEventListener("click", toggle_watch_variables, false);
 
-},{"./../../lang/msg.js":93,"./../rur.js":51}],34:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../rur.js":53}],36:[function(require,module,exports){
 
-require("./rur.js");
-require("./recorder/record_frame.js");
+require("./../rur.js");
+require("./../storage/storage.js");
+require("./../editors/update.js");
+require("./../translator.js");
+require("./../listeners/programming_mode.js");
+require("./../utils/parseuri.js");
+require("./../editors/create.js");
 
-RUR.output = {};
-
-RUR.output.write = function () {
-    var output_string = '';
-    RUR.state.sound_id = "#write-sound";
-    for (var i = 0; i < arguments.length; i++) {
-        if (typeof arguments[i] == "string") {
-            output_string += arguments[i];
-        } else {
-            output_string += JSON.stringify(arguments[i]);
-        }
-    }
-    output_string = output_string.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-    RUR.record_frame("stdout", {"element": "#stdout", "message": output_string});
-};
-
-RUR.output._write = function () {
-    var output_string = '';
-    for (var i = 0; i < arguments.length; i++) {
-        if (typeof arguments[i] == "string") {
-            output_string += arguments[i];
-        } else {
-            output_string += JSON.stringify(arguments[i]);
-        }
-    }
-    RUR.record_frame("stdout", {"element": "#stdout", "message": output_string});
-};
-
-RUR.output.clear_print = function () {
-    RUR.record_frame("stdout", {"element": "#stdout", "clear": true});
-};
-
-RUR.output.print_html = function (arg, replace) {
-    if (replace) {
-        RUR.record_frame("print_html", {"element": "#print-html", "message": arg});
-    } else {
-        RUR.record_frame("print_html", {"element": "#print-html", "message": arg, "append": true});
-    }
-};
-
-RUR.output.watch_variables = function (arg) {
-    RUR.record_frame("watch_variables", {"element": "#watch-variables", "message": arg});
-};
-
-
-RUR.output.view_source_js = function(fn) {
-    $("#Reeborg-explores").dialog("open");
-    RUR.show_feedback("#Reeborg-explores", "<pre class='view_source'>" + fn + "</pre>" );
-    $('.view_source').each(function() {
-        var $this = $(this), $code = $this.text();
-        $this.empty();
-        var myCodeMirror = CodeMirror(this, {
-            value: $code,
-            mode: 'javascript',
-            lineNumbers: !$this.is('.inline'),
-            readOnly: true,
-            theme: 'reeborg-readonly'
-        });
-    });
-};
-
-},{"./recorder/record_frame.js":46,"./rur.js":51}],35:[function(require,module,exports){
-
-require("./rur.js");
-require("./storage.js");
-require("./editors/update.js");
-require("./translator.js");
-require("./listeners/programming_mode.js");
-require("./utils/parseuri.js");
-require("./editors/create.js");
-
-var export_world = require("./world_utils/export_world.js").export_world;
-var record_id = require("./../lang/msg.js").record_id;
+var export_world = require("./../world_utils/export_world.js").export_world;
+var record_id = require("./../../lang/msg.js").record_id;
 
 record_id("save-permalink", "Save");
 record_id("save-permalink-text", "Save permalink explanation");
@@ -4425,13 +5322,13 @@ function receiveMessage(event){
     RUR.permalink.update(event.data);
 }
 
-},{"./../lang/msg.js":93,"./editors/create.js":8,"./editors/update.js":9,"./listeners/programming_mode.js":24,"./rur.js":51,"./storage.js":54,"./translator.js":55,"./utils/parseuri.js":63,"./world_utils/export_world.js":89}],36:[function(require,module,exports){
+},{"./../../lang/msg.js":93,"./../editors/create.js":10,"./../editors/update.js":11,"./../listeners/programming_mode.js":26,"./../rur.js":53,"./../storage/storage.js":56,"./../translator.js":57,"./../utils/parseuri.js":65,"./../world_utils/export_world.js":89}],37:[function(require,module,exports){
 require("./../rur.js");
 require("./../listeners/stop.js");
 
 RUR.play = function () {
     "use strict";
-    if (RUR.state.playback){            // RUR.visible_world.running
+    if (RUR.state.playback){            // RUR.drawing/visible_world.running
         RUR.state.playback = false;
         return;
     }
@@ -4457,7 +5354,7 @@ function loop () {
     RUR._TIMER = setTimeout(loop, RUR.playback_delay);
 }
 
-},{"./../listeners/stop.js":31,"./../rur.js":51}],37:[function(require,module,exports){
+},{"./../listeners/stop.js":33,"./../rur.js":53}],38:[function(require,module,exports){
 
 RUR._play_sound = function (sound_id) {
     "use strict";
@@ -4470,10 +5367,10 @@ RUR._play_sound = function (sound_id) {
     //the minimum time limit for the sound.
 };
 
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 
-require("./../visible_world.js");
-require("./../programming_ui/exceptions.js");
+require("./../drawing/visible_world.js");
+require("./../programming_api/exceptions.js");
 /* if the REPL is active, we do not record anything, and show immediately
    the updated world */
 
@@ -4490,7 +5387,7 @@ RUR._show_immediate = function (name, obj) {
     }
 };
 
-},{"./../programming_ui/exceptions.js":42,"./../visible_world.js":68}],39:[function(require,module,exports){
+},{"./../drawing/visible_world.js":9,"./../programming_api/exceptions.js":43}],40:[function(require,module,exports){
 /* jshint -W069 */
 require("./../rur.js");
 require("./../translator.js");
@@ -5241,7 +6138,7 @@ RUR.blockly.setValue = function (xml_text) {
     Blockly.Xml.domToWorkspace(RUR.blockly.workspace, xml);
 };
 
-},{"./../rur.js":51,"./../translator.js":55}],40:[function(require,module,exports){
+},{"./../rur.js":53,"./../translator.js":57}],41:[function(require,module,exports){
 /*  The purpose of this module is to act as an intermediary between end user
 modules in various languages (e.g. reeborg_en.py or reeborg_fr.js) and
 the other modules.  This way, in theory, (most) refactoring can take place in the
@@ -5258,11 +6155,11 @@ require("./../rur.js");
 require("./../translator.js");
 require("./control.js");
 require("./../ui/custom_world_select.js");
-require("./../file_io.js");
-require("./../output.js");
-require("./../visible_robot.js");
+require("./../file_io/file_io.js");
+require("./output.js");
+require("./../drawing/visible_robot.js");
 require("./../editors/update.js");
-require("./../world_set.js");
+require("./../world_set/world_set.js");
 require("./../world_set/set_tile.js");
 var get_world = require("./../world_get/world.js").get_world;
 
@@ -5474,16 +6371,16 @@ RUR._UR.wall_on_right_ = function (robot) {
     return RUR.control.wall_on_right(robot);
 };
 
-},{"./../editors/update.js":9,"./../file_io.js":10,"./../output.js":34,"./../rur.js":51,"./../translator.js":55,"./../ui/custom_world_select.js":56,"./../visible_robot.js":67,"./../world_get/world.js":75,"./../world_set.js":76,"./../world_set/set_tile.js":85,"./control.js":41}],41:[function(require,module,exports){
+},{"./../drawing/visible_robot.js":8,"./../editors/update.js":11,"./../file_io/file_io.js":12,"./../rur.js":53,"./../translator.js":57,"./../ui/custom_world_select.js":58,"./../world_get/world.js":74,"./../world_set/set_tile.js":84,"./../world_set/world_set.js":86,"./control.js":42,"./output.js":44}],42:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../translator.js");
 require("./../default_tiles/tiles.js");
-require("./../output.js");
+require("./output.js");
 require("./../recorder/record_frame.js");
 require("./exceptions.js");
-require("./../world_get.js");
-require("./../world_set.js");
+require("./../world_get/world_get.js");
+require("./../world_set/world_set.js");
 require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
 var get_world = require("./../world_get/world.js").get_world;
@@ -6094,7 +6991,7 @@ RUR.control.get_colour_at_position = function (x, y) {
 };
 RUR.control.get_color_at_position = RUR.control.get_colour_at_position;
 
-},{"./../default_tiles/tiles.js":1,"./../output.js":34,"./../recorder/record_frame.js":46,"./../rur.js":51,"./../translator.js":55,"./../utils/key_exist.js":62,"./../utils/supplant.js":64,"./../world_get.js":72,"./../world_get/world.js":75,"./../world_set.js":76,"./exceptions.js":42}],42:[function(require,module,exports){
+},{"./../default_tiles/tiles.js":1,"./../recorder/record_frame.js":47,"./../rur.js":53,"./../translator.js":57,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../world_get/world.js":74,"./../world_get/world_get.js":75,"./../world_set/world_set.js":86,"./exceptions.js":43,"./output.js":44}],43:[function(require,module,exports){
 
 require("./../rur.js");
 
@@ -6137,7 +7034,73 @@ RUR.WallCollisionError = function (message) {
 
 
 
-},{"./../rur.js":51}],43:[function(require,module,exports){
+},{"./../rur.js":53}],44:[function(require,module,exports){
+
+require("./../rur.js");
+require("./../recorder/record_frame.js");
+
+RUR.output = {};
+
+RUR.output.write = function () {
+    var output_string = '';
+    RUR.state.sound_id = "#write-sound";
+    for (var i = 0; i < arguments.length; i++) {
+        if (typeof arguments[i] == "string") {
+            output_string += arguments[i];
+        } else {
+            output_string += JSON.stringify(arguments[i]);
+        }
+    }
+    output_string = output_string.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    RUR.record_frame("stdout", {"element": "#stdout", "message": output_string});
+};
+
+RUR.output._write = function () {
+    var output_string = '';
+    for (var i = 0; i < arguments.length; i++) {
+        if (typeof arguments[i] == "string") {
+            output_string += arguments[i];
+        } else {
+            output_string += JSON.stringify(arguments[i]);
+        }
+    }
+    RUR.record_frame("stdout", {"element": "#stdout", "message": output_string});
+};
+
+RUR.output.clear_print = function () {
+    RUR.record_frame("stdout", {"element": "#stdout", "clear": true});
+};
+
+RUR.output.print_html = function (arg, replace) {
+    if (replace) {
+        RUR.record_frame("print_html", {"element": "#print-html", "message": arg});
+    } else {
+        RUR.record_frame("print_html", {"element": "#print-html", "message": arg, "append": true});
+    }
+};
+
+RUR.output.watch_variables = function (arg) {
+    RUR.record_frame("watch_variables", {"element": "#watch-variables", "message": arg});
+};
+
+
+RUR.output.view_source_js = function(fn) {
+    $("#Reeborg-explores").dialog("open");
+    RUR.show_feedback("#Reeborg-explores", "<pre class='view_source'>" + fn + "</pre>" );
+    $('.view_source').each(function() {
+        var $this = $(this), $code = $this.text();
+        $this.empty();
+        var myCodeMirror = CodeMirror(this, {
+            value: $code,
+            mode: 'javascript',
+            lineNumbers: !$this.is('.inline'),
+            readOnly: true,
+            theme: 'reeborg-readonly'
+        });
+    });
+};
+
+},{"./../recorder/record_frame.js":47,"./../rur.js":53}],45:[function(require,module,exports){
 require("./../rur.js");
 require("./commands.js");
 
@@ -6285,7 +7248,7 @@ RUR.reset_definitions_en = function () {
     window.facing_north = is_facing_north;
 };
 
-},{"./../rur.js":51,"./commands.js":40}],44:[function(require,module,exports){
+},{"./../rur.js":53,"./commands.js":41}],46:[function(require,module,exports){
 require("./../rur.js");
 require("./commands.js");
 
@@ -6418,21 +7381,136 @@ RUR.reset_definitions_fr = function () {
 
 };
 
-},{"./../rur.js":51,"./commands.js":40}],45:[function(require,module,exports){
+},{"./../rur.js":53,"./commands.js":41}],47:[function(require,module,exports){
 
-require("./rur.js");
-require("./visible_world.js");
-require("./world_get.js");
-require("./translator.js");
-require("./programming_ui/exceptions.js");
-require("./listeners/pause.js");
-require("./listeners/stop.js");
-require("./playback/play_sound.js");
-require("./editors/create.js");
-require("./recorder/record_frame.js");
+require("./../rur.js");
+require("./reset.js");
+require("./../programming_api/exceptions.js");
+require("./../world_get/world_get.js");
+require("./../playback/show_immediate.js");
+require("./../utils/supplant.js");
+var clone_world = require("./../world_utils/clone_world.js").clone_world;
 
-var identical = require("./utils/identical.js").identical;
-var clone_world = require("./world_utils/clone_world.js").clone_world;
+RUR.record_frame = function (name, obj) {
+    "use strict";
+    var frame = {}, robot;
+
+    /* There are a number of conditions that would prevent the recording
+       of a frame; they are as follows. */
+
+// TODO: document a test that would fail if we were to remove the condition
+// name!="error" below -- this addition was done by 
+// 1. turning off recording
+// 2. doing stuff ... including something that should have raised an error
+// 3. resuming recording.
+// The program stopped, but no error was shown.
+
+    if ((RUR.state.do_not_record || RUR.state.prevent_playback) && name != "error") {
+        // Prevent sneaky attempt to safely move on otherwise fatal tile
+        frame.world = clone_world();
+        check_robots_on_tiles(frame);
+        return;
+    } else if (RUR.state.input_method==="py-repl") {
+        /* if the REPL is active, we do not record anything, and show 
+           immediately the updated world.
+           However do not perform check_robots_on_tiles in this mode; allow for
+           casual exploration of the world. */
+        return RUR._show_immediate(name, obj);
+    } else if (name == "watch_variables" && RUR.nb_frames >= 1) {
+        /* Watched variables are appended to previous frame so as to avoid
+          generating too many extra frames. */
+        RUR.frames[RUR.nb_frames-1]["watch_variables"] = obj;
+        return;
+    } else if (name=="highlight" &&
+          RUR.current_line_no == RUR.rec_line_numbers [RUR.nb_frames-1]) {
+        // no highlighting change: do not include any extra frame
+        return;
+    } 
+
+    for (robot of RUR.CURRENT_WORLD.robots) { // jshint ignore:line
+        RUR.vis_robot.update_trace_history(robot);
+    }
+    frame.world = clone_world();
+
+
+    if (name !== undefined && obj !== undefined) {
+        frame[name] = obj;
+    }
+
+    frame.delay = RUR.playback_delay;
+    if (RUR.state.sound_id && RUR.state.sound_on && frame.delay >= RUR.MIN_TIME_SOUND) {
+        frame.sound_id = RUR.state.sound_id;
+    }
+
+
+    if (RUR.state.programming_language === "python" && RUR.state.highlight) {
+        if (RUR.current_line_no !== undefined) {
+            RUR.rec_line_numbers [RUR.nb_frames] = RUR.current_line_no;
+        } else{
+            RUR.rec_line_numbers [RUR.nb_frames] = [0];
+        }
+    }
+    //RUR.previous_lineno = RUR.current_line_no;
+
+    if (RUR.state.highlight && name !== "highlight" &&
+               RUR.state.programming_language === "python") {
+        // this is a frame recording triggered normally, so 
+        // we need to replace the supplementary frame recorded previously.
+        RUR.nb_frames -= 1;
+    }
+
+    RUR.frames[RUR.nb_frames] = frame;
+    RUR.nb_frames++;
+
+    RUR.state.sound_id = undefined;
+    if (name === "error"){
+        return;
+    }
+
+    check_robots_on_tiles(frame);
+    if (RUR.nb_frames > RUR.MAX_STEPS) {
+        throw new RUR.ReeborgError(RUR.translate("Too many steps:").supplant({max_steps: RUR.MAX_STEPS}));
+    }
+};
+
+
+// TODO: create test for this.
+// This function checks to see if any robot is found on a fatal tile
+// We do not add it to the RUR namespace so that it cannot be redefined
+// by a sneaky programmer.
+// 
+// Note: one way to defeat this is to change the tile property!
+check_robots_on_tiles = function(frame){
+    var tile, robots, robot, coords;
+    if (frame.world.robots === undefined){
+        return;
+    }
+    for (robot=0; robot < frame.world.robots.length; robot++){
+        tile = RUR.world_get.tile_at_position(frame.world.robots[robot]);
+        if (tile) {
+            if (tile.fatal){
+                throw new RUR.ReeborgError(RUR.translate(tile.message));
+            }
+        }
+    }
+};
+
+
+},{"./../playback/show_immediate.js":39,"./../programming_api/exceptions.js":43,"./../rur.js":53,"./../utils/supplant.js":66,"./../world_get/world_get.js":75,"./../world_utils/clone_world.js":87,"./reset.js":49}],48:[function(require,module,exports){
+
+require("./../rur.js");
+require("./../drawing/visible_world.js");
+require("./../world_get/world_get.js");
+require("./../translator.js");
+require("./../programming_api/exceptions.js");
+require("./../listeners/pause.js");
+require("./../listeners/stop.js");
+require("./../playback/play_sound.js");
+require("./../editors/create.js");
+require("./../recorder/record_frame.js");
+
+var identical = require("./../utils/identical.js").identical;
+var clone_world = require("./../world_utils/clone_world.js").clone_world;
 
 RUR.rec = {};
 
@@ -6683,122 +7761,7 @@ RUR.rec.check_goal = function (frame) {
     return goal_status;
 };
 
-},{"./editors/create.js":8,"./listeners/pause.js":23,"./listeners/stop.js":31,"./playback/play_sound.js":37,"./programming_ui/exceptions.js":42,"./recorder/record_frame.js":46,"./rur.js":51,"./translator.js":55,"./utils/identical.js":61,"./visible_world.js":68,"./world_get.js":72,"./world_utils/clone_world.js":87}],46:[function(require,module,exports){
-
-require("./../rur.js");
-require("./reset.js");
-require("./../programming_ui/exceptions.js");
-require("./../world_get.js");
-require("./../playback/show_immediate.js");
-require("./../utils/supplant.js");
-var clone_world = require("./../world_utils/clone_world.js").clone_world;
-
-RUR.record_frame = function (name, obj) {
-    "use strict";
-    var frame = {}, robot;
-
-    /* There are a number of conditions that would prevent the recording
-       of a frame; they are as follows. */
-
-// TODO: document a test that would fail if we were to remove the condition
-// name!="error" below -- this addition was done by 
-// 1. turning off recording
-// 2. doing stuff ... including something that should have raised an error
-// 3. resuming recording.
-// The program stopped, but no error was shown.
-
-    if ((RUR.state.do_not_record || RUR.state.prevent_playback) && name != "error") {
-        // Prevent sneaky attempt to safely move on otherwise fatal tile
-        frame.world = clone_world();
-        check_robots_on_tiles(frame);
-        return;
-    } else if (RUR.state.input_method==="py-repl") {
-        /* if the REPL is active, we do not record anything, and show 
-           immediately the updated world.
-           However do not perform check_robots_on_tiles in this mode; allow for
-           casual exploration of the world. */
-        return RUR._show_immediate(name, obj);
-    } else if (name == "watch_variables" && RUR.nb_frames >= 1) {
-        /* Watched variables are appended to previous frame so as to avoid
-          generating too many extra frames. */
-        RUR.frames[RUR.nb_frames-1]["watch_variables"] = obj;
-        return;
-    } else if (name=="highlight" &&
-          RUR.current_line_no == RUR.rec_line_numbers [RUR.nb_frames-1]) {
-        // no highlighting change: do not include any extra frame
-        return;
-    } 
-
-    for (robot of RUR.CURRENT_WORLD.robots) { // jshint ignore:line
-        RUR.vis_robot.update_trace_history(robot);
-    }
-    frame.world = clone_world();
-
-
-    if (name !== undefined && obj !== undefined) {
-        frame[name] = obj;
-    }
-
-    frame.delay = RUR.playback_delay;
-    if (RUR.state.sound_id && RUR.state.sound_on && frame.delay >= RUR.MIN_TIME_SOUND) {
-        frame.sound_id = RUR.state.sound_id;
-    }
-
-
-    if (RUR.state.programming_language === "python" && RUR.state.highlight) {
-        if (RUR.current_line_no !== undefined) {
-            RUR.rec_line_numbers [RUR.nb_frames] = RUR.current_line_no;
-        } else{
-            RUR.rec_line_numbers [RUR.nb_frames] = [0];
-        }
-    }
-    //RUR.previous_lineno = RUR.current_line_no;
-
-    if (RUR.state.highlight && name !== "highlight" &&
-               RUR.state.programming_language === "python") {
-        // this is a frame recording triggered normally, so 
-        // we need to replace the supplementary frame recorded previously.
-        RUR.nb_frames -= 1;
-    }
-
-    RUR.frames[RUR.nb_frames] = frame;
-    RUR.nb_frames++;
-
-    RUR.state.sound_id = undefined;
-    if (name === "error"){
-        return;
-    }
-
-    check_robots_on_tiles(frame);
-    if (RUR.nb_frames > RUR.MAX_STEPS) {
-        throw new RUR.ReeborgError(RUR.translate("Too many steps:").supplant({max_steps: RUR.MAX_STEPS}));
-    }
-};
-
-
-// TODO: create test for this.
-// This function checks to see if any robot is found on a fatal tile
-// We do not add it to the RUR namespace so that it cannot be redefined
-// by a sneaky programmer.
-// 
-// Note: one way to defeat this is to change the tile property!
-check_robots_on_tiles = function(frame){
-    var tile, robots, robot, coords;
-    if (frame.world.robots === undefined){
-        return;
-    }
-    for (robot=0; robot < frame.world.robots.length; robot++){
-        tile = RUR.world_get.tile_at_position(frame.world.robots[robot]);
-        if (tile) {
-            if (tile.fatal){
-                throw new RUR.ReeborgError(RUR.translate(tile.message));
-            }
-        }
-    }
-};
-
-
-},{"./../playback/show_immediate.js":38,"./../programming_ui/exceptions.js":42,"./../rur.js":51,"./../utils/supplant.js":64,"./../world_get.js":72,"./../world_utils/clone_world.js":87,"./reset.js":47}],47:[function(require,module,exports){
+},{"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../listeners/pause.js":25,"./../listeners/stop.js":33,"./../playback/play_sound.js":38,"./../programming_api/exceptions.js":43,"./../recorder/record_frame.js":47,"./../rur.js":53,"./../translator.js":57,"./../utils/identical.js":63,"./../world_get/world_get.js":75,"./../world_utils/clone_world.js":87}],49:[function(require,module,exports){
 require("./../rur.js");
 require("./../editors/create.js");
 
@@ -6832,12 +7795,12 @@ exports.reset = reset = function() {
 reset();
 RUR._reset = reset; // for automated testing
 
-},{"./../editors/create.js":8,"./../rur.js":51}],48:[function(require,module,exports){
+},{"./../editors/create.js":10,"./../rur.js":53}],50:[function(require,module,exports){
 
-require("./rur.js");
-require("./translator.js");
-require("./programming_ui/exceptions.js");
-require("./utils/validator.js");
+require("./../rur.js");
+require("./../translator.js");
+require("./../programming_api/exceptions.js");
+require("./../utils/validator.js");
 
 RUR.robot = {};
 
@@ -6932,14 +7895,14 @@ RUR.robot.assign_id = function (robot) {
     RUR.robot.__ID += 1;
 };
 
-},{"./programming_ui/exceptions.js":42,"./rur.js":51,"./translator.js":55,"./utils/validator.js":66}],49:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":43,"./../rur.js":53,"./../translator.js":57,"./../utils/validator.js":68}],51:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../translator.js");
-require("./../visible_world.js");
+require("./../drawing/visible_world.js");
 require("./../editors/update.js");
-require("./../programming_ui/blockly.js");
-require("./../recorder.js");
+require("./../programming_api/blockly.js");
+require("./../recorder/recorder.js");
 require("./world_init.js");
 require("./../editors/create.js");
 require("./../utils/supplant.js");
@@ -7220,9 +8183,9 @@ RUR.runner.check_func_parentheses = function(line_of_code) {
     return false;  // no missing parentheses
 };
 
-},{"./../editors/create.js":8,"./../editors/update.js":9,"./../programming_ui/blockly.js":39,"./../recorder.js":45,"./../rur.js":51,"./../translator.js":55,"./../utils/supplant.js":64,"./../visible_world.js":68,"./../world_utils/clone_world.js":87,"./world_init.js":50}],50:[function(require,module,exports){
+},{"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../editors/update.js":11,"./../programming_api/blockly.js":40,"./../recorder/recorder.js":48,"./../rur.js":53,"./../translator.js":57,"./../utils/supplant.js":66,"./../world_utils/clone_world.js":87,"./world_init.js":52}],52:[function(require,module,exports){
 
-require("./../visible_world.js");
+require("./../drawing/visible_world.js");
 require("./../rur.js");
 
 RUR.world_init = {};
@@ -7337,7 +8300,7 @@ RUR.world_init.set = function () {
     RUR.vis_world.refresh();
 };
 
-},{"./../rur.js":51,"./../visible_world.js":68}],51:[function(require,module,exports){
+},{"./../drawing/visible_world.js":9,"./../rur.js":53}],53:[function(require,module,exports){
 /** @namespace RUR 
  * @desc The namespace reserved for all the core Reeborg World methods.
  *
@@ -7543,10 +8506,10 @@ RUR.CURRENT_WORLD = null; // needs to be created explicitly
 RUR.show_feedback = function (element, content) {
     $(element).html(content).dialog("open");
 };
-},{}],52:[function(require,module,exports){
+},{}],54:[function(require,module,exports){
 require("./rur.js");
-require("./visible_world.js");
-require("./visible_robot.js");
+require("./drawing/visible_world.js");
+require("./drawing/visible_robot.js");
 
 
 function everything_loaded () {
@@ -7565,7 +8528,7 @@ function everything_loaded () {
 }
 everything_loaded();
 
-},{"./rur.js":51,"./visible_robot.js":67,"./visible_world.js":68}],53:[function(require,module,exports){
+},{"./drawing/visible_robot.js":8,"./drawing/visible_world.js":9,"./rur.js":53}],55:[function(require,module,exports){
 
 require("./rur.js");
 /* Requiring the following just to get things started */
@@ -7577,9 +8540,9 @@ require("./default_tiles/tiles.js");
 
 require("./utils/parseuri.js");
 require("./world_utils/import_world.js");
-require("./storage.js");
+require("./storage/storage.js");
 
-require("./permalink.js");
+require("./permalink/permalink.js");
 require("./editors/create.js");
 
 brython({debug:1, pythonpath:[RUR._BASE_URL + '/src/python']});
@@ -7653,15 +8616,15 @@ function set_world(url_query) {
     }
 }
 
-},{"./default_tiles/tiles.js":1,"./editors/create.js":8,"./listeners/add_listeners.js":15,"./permalink.js":35,"./rur.js":51,"./splash_screen.js":52,"./storage.js":54,"./utils/parseuri.js":63,"./world_utils/import_world.js":90}],54:[function(require,module,exports){
+},{"./default_tiles/tiles.js":1,"./editors/create.js":10,"./listeners/add_listeners.js":17,"./permalink/permalink.js":36,"./rur.js":53,"./splash_screen.js":54,"./storage/storage.js":56,"./utils/parseuri.js":65,"./world_utils/import_world.js":90}],56:[function(require,module,exports){
 
-require("./rur.js");
-require("./translator.js");
-require("./ui/world_select.js");
+require("./../rur.js");
+require("./../translator.js");
+require("./../ui/world_select.js");
 
 
-var export_world = require("./world_utils/export_world.js").export_world;
-var clone_world = require("./world_utils/clone_world.js").clone_world;
+var export_world = require("./../world_utils/export_world.js").export_world;
+var clone_world = require("./../world_utils/clone_world.js").clone_world;
 
 
 RUR.storage = {};
@@ -7724,7 +8687,7 @@ RUR.storage.delete_world = function (name){
     $('#delete-world').hide();
 };
 
-},{"./rur.js":51,"./translator.js":55,"./ui/world_select.js":59,"./world_utils/clone_world.js":87,"./world_utils/export_world.js":89}],55:[function(require,module,exports){
+},{"./../rur.js":53,"./../translator.js":57,"./../ui/world_select.js":61,"./../world_utils/clone_world.js":87,"./../world_utils/export_world.js":89}],57:[function(require,module,exports){
 require("./rur.js");
 require("./../lang/ui_en.js");
 require("./../lang/ui_fr.js");
@@ -7759,12 +8722,12 @@ RUR.translate_to_english = function (s) {
     }
 };
 
-},{"./../lang/en.js":91,"./../lang/fr.js":92,"./../lang/ui_en.js":94,"./../lang/ui_fr.js":95,"./../lang/ui_ko.js":96,"./rur.js":51}],56:[function(require,module,exports){
+},{"./../lang/en.js":91,"./../lang/fr.js":92,"./../lang/ui_en.js":94,"./../lang/ui_fr.js":95,"./../lang/ui_ko.js":96,"./rur.js":53}],58:[function(require,module,exports){
 /* In this module, we make it possible for a user to define their
    own world menu selection. We also include some default world menus. */
 require("./../translator.js");
 require("./world_select.js");
-require("./../storage.js");
+require("./../storage/storage.js");
 
 RUR.custom_world_select = {};
 
@@ -7945,7 +8908,7 @@ RUR.make_default_menu_fr = function () {
     RUR.custom_world_select.make(contents);
 };
 
-},{"./../storage.js":54,"./../translator.js":55,"./world_select.js":59}],57:[function(require,module,exports){
+},{"./../storage/storage.js":56,"./../translator.js":57,"./world_select.js":61}],59:[function(require,module,exports){
 
 require("./../rur.js");
 
@@ -7960,7 +8923,7 @@ exports.toggle = function () {
     }
 };
 
-},{"./../rur.js":51}],58:[function(require,module,exports){
+},{"./../rur.js":53}],60:[function(require,module,exports){
 
 require("./../rur.js");
 
@@ -7976,7 +8939,7 @@ exports.set_ready_to_run = set_ready_to_run = function () {
 
 set_ready_to_run();
 
-},{"./../rur.js":51}],59:[function(require,module,exports){
+},{"./../rur.js":53}],61:[function(require,module,exports){
 
 /*  Purpose of this file: abstract handling of menus so that all jQuery
     dependencies (and possibly obscure syntax in some cases) can be pulled
@@ -8073,7 +9036,7 @@ RUR.world_select.append_world = function (arg) {
     }
 };
 
-},{}],60:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 ;
 // from http://stackoverflow.com/questions/15005500/loading-cross-domain-html-page-with-jquery-ajax
 
@@ -8085,7 +9048,7 @@ $.ajaxPrefilter( function (options) {
   }
 });
 
-},{}],61:[function(require,module,exports){
+},{}],63:[function(require,module,exports){
 /*
     Original script title: "Object.identical.js"; version 1.12
     Copyright (c) 2011, Chris O'Brien, prettycode.org
@@ -8123,7 +9086,7 @@ exports.identical = identical = function (a, b) {
 
 RUR.object_identical = identical; // for automated testing.
 
-},{}],62:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 require("./utils_namespace.js");
 /* short function to make the rest of the code easier
    to read */
@@ -8134,7 +9097,7 @@ RUR.utils.ensure_key_exists = function(obj, key){
     }
 };
 
-},{"./utils_namespace.js":65}],63:[function(require,module,exports){
+},{"./utils_namespace.js":67}],65:[function(require,module,exports){
 // parseUri 1.2.2
 // (c) Steven Levithan <stevenlevithan.com>
 // MIT License
@@ -8186,7 +9149,7 @@ exports.update_url = update_url = function () {
     window.history.pushState("dummy", "dummy", permalink);
 };
 
-},{}],64:[function(require,module,exports){
+},{}],66:[function(require,module,exports){
 // adapted from http://javascript.crockford.com/remedial.html
 
 // will modify a global object - no need to export anything.
@@ -8201,7 +9164,7 @@ String.prototype.supplant = function (o) {
     );
 };
 
-},{}],65:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 require("./../rur.js");
 /** @namespace utils
  * @memberof RUR
@@ -8209,10 +9172,10 @@ require("./../rur.js");
  */
 RUR.utils = {};
 
-},{"./../rur.js":51}],66:[function(require,module,exports){
+},{"./../rur.js":53}],68:[function(require,module,exports){
 
 require("./../rur.js");
-require("./../programming_ui/exceptions.js");
+require("./../programming_api/exceptions.js");
 require("./utils_namespace.js");
 
 _is_integer = function(n) {
@@ -8245,966 +9208,11 @@ RUR.utils.filterInt = function (value) {
   return undefined;
 };
 
-},{"./../programming_ui/exceptions.js":42,"./../rur.js":51,"./utils_namespace.js":65}],67:[function(require,module,exports){
-
-require("./rur.js");
-var get_world = require("./world_get/world.js").get_world;
-// TODO: RUR._BASE_URL -> need to change it to state...
-
-RUR.vis_robot = {};
-RUR.vis_robot.images = [{}, {}, {}, {}];
-
-// we will keep track if we have loaded all images
-RUR.vis_robot.loaded_images = 0;
-RUR.vis_robot.nb_images = 0;
-
-RUR._BASE_URL = RUR._BASE_URL || '';  // enable changing defaults for unit tests
-
-RUR.reset_default_robot_images = function () {
-
-    // classic
-    RUR.vis_robot.images[0].robot_e_img = new Image();
-    RUR.vis_robot.images[0].robot_e_img.src = RUR._BASE_URL + '/src/images/robot_e.png';
-    RUR.vis_robot.images[0].robot_n_img = new Image();
-    RUR.vis_robot.images[0].robot_n_img.src = RUR._BASE_URL + '/src/images/robot_n.png';
-    RUR.vis_robot.images[0].robot_w_img = new Image();
-    RUR.vis_robot.images[0].robot_w_img.src = RUR._BASE_URL + '/src/images/robot_w.png';
-    RUR.vis_robot.images[0].robot_s_img = new Image();
-    RUR.vis_robot.images[0].robot_s_img.src = RUR._BASE_URL + '/src/images/robot_s.png';
-    RUR.vis_robot.images[0].robot_random_img = new Image();
-    RUR.vis_robot.images[0].robot_random_img.src = RUR._BASE_URL + '/src/images/robot_random.png';
-    // rover type
-    RUR.vis_robot.images[1].robot_e_img = new Image();
-    RUR.vis_robot.images[1].robot_e_img.src = RUR._BASE_URL + '/src/images/rover_e.png';
-    RUR.vis_robot.images[1].robot_n_img = new Image();
-    RUR.vis_robot.images[1].robot_n_img.src = RUR._BASE_URL + '/src/images/rover_n.png';
-    RUR.vis_robot.images[1].robot_w_img = new Image();
-    RUR.vis_robot.images[1].robot_w_img.src = RUR._BASE_URL + '/src/images/rover_w.png';
-    RUR.vis_robot.images[1].robot_s_img = new Image();
-    RUR.vis_robot.images[1].robot_s_img.src = RUR._BASE_URL + '/src/images/rover_s.png';
-    RUR.vis_robot.images[1].robot_random_img = new Image();
-    RUR.vis_robot.images[1].robot_random_img.src = RUR._BASE_URL + '/src/images/rover_random.png';
-
-    // 3d red type
-    RUR.vis_robot.images[2].robot_e_img = new Image();
-    RUR.vis_robot.images[2].robot_e_img.src = RUR._BASE_URL + '/src/images/plain_e.png';
-    RUR.vis_robot.images[2].robot_n_img = new Image();
-    RUR.vis_robot.images[2].robot_n_img.src = RUR._BASE_URL + '/src/images/plain_n.png';
-    RUR.vis_robot.images[2].robot_w_img = new Image();
-    RUR.vis_robot.images[2].robot_w_img.src = RUR._BASE_URL + '/src/images/plain_w.png';
-    RUR.vis_robot.images[2].robot_s_img = new Image();
-    RUR.vis_robot.images[2].robot_s_img.src = RUR._BASE_URL + '/src/images/plain_s.png';
-    RUR.vis_robot.images[2].robot_random_img = new Image();
-    RUR.vis_robot.images[2].robot_random_img.src = RUR._BASE_URL + '/src/images/robot_random.png';
-
-    // solar panel type
-    RUR.vis_robot.images[3].robot_e_img = new Image();
-    RUR.vis_robot.images[3].robot_e_img.src = RUR._BASE_URL + '/src/images/sp_e.png';
-    RUR.vis_robot.images[3].robot_n_img = new Image();
-    RUR.vis_robot.images[3].robot_n_img.src = RUR._BASE_URL + '/src/images/sp_n.png';
-    RUR.vis_robot.images[3].robot_w_img = new Image();
-    RUR.vis_robot.images[3].robot_w_img.src = RUR._BASE_URL + '/src/images/sp_w.png';
-    RUR.vis_robot.images[3].robot_s_img = new Image();
-    RUR.vis_robot.images[3].robot_s_img.src = RUR._BASE_URL + '/src/images/sp_s.png';
-    RUR.vis_robot.images[3].robot_random_img = new Image();
-    RUR.vis_robot.images[3].robot_random_img.src = RUR._BASE_URL + '/src/images/robot_random.png';
-
-    $("#robot0 img").attr("src", RUR.vis_robot.images[0].robot_e_img.src);
-    $("#robot1 img").attr("src", RUR.vis_robot.images[1].robot_e_img.src);
-    $("#robot2 img").attr("src", RUR.vis_robot.images[2].robot_e_img.src);
-    $("#robot3 img").attr("src", RUR.vis_robot.images[3].robot_e_img.src);
-    RUR.select_default_robot_model(localStorage.getItem("robot_default_model"));
-};
-
-RUR.vis_robot.style = 0;
-
-RUR.select_default_robot_model = function (arg) {
-    var style;
-    style = parseInt(arg, 10);
-    if ( !(style ===0 || style==1 || style==2 || style==3)){
-        style = 0;
-    }
-    RUR.vis_robot.style = style;
-    RUR.vis_robot.e_img = RUR.vis_robot.images[style].robot_e_img;
-    RUR.vis_robot.n_img = RUR.vis_robot.images[style].robot_n_img;
-    RUR.vis_robot.w_img = RUR.vis_robot.images[style].robot_w_img;
-    RUR.vis_robot.s_img = RUR.vis_robot.images[style].robot_s_img;
-    RUR.vis_robot.random_img = RUR.vis_robot.images[style].robot_random_img;
-    if (RUR.vis_world !== undefined) {
-        RUR.vis_world.refresh();
-    }
-
-    localStorage.setItem("robot_default_model", style);
-};
-RUR.reset_default_robot_images();
-// the following is to try to ensure that the images are loaded before the "final"
-// original drawing is made
-
-RUR.vis_robot.e_img.onload = function () {
-    RUR.vis_robot.loaded_images += 1;
-};
-RUR.vis_robot.nb_images += 1;
-RUR.vis_robot.w_img.onload = function () {
-    RUR.vis_robot.loaded_images += 1;
-};
-RUR.vis_robot.nb_images += 1;
-RUR.vis_robot.n_img.onload = function () {
-    RUR.vis_robot.loaded_images += 1;
-};
-RUR.vis_robot.nb_images += 1;
-RUR.vis_robot.s_img.onload = function () {
-    RUR.vis_robot.loaded_images += 1;
-};
-RUR.vis_robot.nb_images += 1;
-RUR.vis_robot.random_img.onload = function () {
-    RUR.vis_robot.loaded_images += 1;
-};
-RUR.vis_robot.nb_images += 1;
-
-RUR.vis_robot.draw = function (robot) {
-    "use strict";
-    var x, y, width, height, image;
-    // handling legacy Code
-    if (robot.orientation !== undefined) {
-        robot._orientation = robot.orientation;
-        robot.orientation = null;
-    }
-    if (!robot) {
-        return;
-    }
-    if (robot.x > RUR.MAX_X || robot.y > RUR.MAX_Y) {
-        return;
-    }
-
-    // all images are taken to be centered on a tile 40x40, which are scaled
-    //  appropriately
-    width = RUR.TILE_SIZE * RUR.SCALE;
-    height = RUR.TILE_SIZE * RUR.SCALE;
-
-    x = robot.x*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
-    y = RUR.HEIGHT - (robot.y+1)*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
-
-    switch(robot._orientation){
-        case RUR.EAST:
-            if (robot.model !== undefined){
-                image = RUR.vis_robot.images[robot.model].robot_e_img;
-            } else {
-                image = RUR.vis_robot.e_img;
-            }
-            break;
-        case RUR.NORTH:
-            if (robot.model !== undefined){
-                image = RUR.vis_robot.images[robot.model].robot_n_img;
-            } else {
-                image = RUR.vis_robot.n_img;
-            }
-            break;
-        case RUR.WEST:
-            if (robot.model !== undefined){
-                image = RUR.vis_robot.images[robot.model].robot_w_img;
-            } else {
-                image = RUR.vis_robot.w_img;
-            }
-            break;
-        case RUR.SOUTH:
-            if (robot.model !== undefined){
-                image = RUR.vis_robot.images[robot.model].robot_s_img;
-            } else {
-                image = RUR.vis_robot.s_img;
-            }
-            break;
-        case -1:
-            if (robot.model !== undefined){
-                image = RUR.vis_robot.images[robot.model].robot_random_img;
-            } else {
-                image = RUR.vis_robot.random_img;
-            }
-            break;
-        default:
-            image = RUR.vis_robot.e_img;
-        }
-    RUR.ROBOT_CTX.drawImage(image, x, y, width, height);
-    if (RUR.state.editing_world){
-        return;
-    }
-    RUR.vis_robot.draw_trace_history(robot);
-};
-
-
-// TODO: extract to its own file, to reduce dependencies
-RUR.vis_robot.update_trace_history = function (robot) {
-    var offset, prev_offset, trace_segment={};
-    if (robot._prev_x == robot.x &&
-        robot._prev_y == robot.y &&
-        robot._prev_orientation == robot._orientation) {
-            return;
-        }
-
-    if (robot._trace_style == "invisible" || !robot._is_leaky) {
-        trace_segment["color"] = "rgba(0,0,0,0)";
-    } else {
-        trace_segment["color"] = robot._trace_color;
-    }
-
-    offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
-
-    if(get_world().small_tiles) {
-        offset = [[12, 12], [12, 12], [12, 12], [12, 12]];
-        trace_segment["thickness"] = 2;
-    } else if (robot._trace_style === "thick") {
-        offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
-        trace_segment["thickness"] = 4;
-    }  else if (robot._trace_style === "default") {
-        trace_segment["thickness"] = 1;
-    } // else, invisible and we do not care.
-
-    prev_offset = offset[robot._prev_orientation%4];
-    offset = offset[robot._orientation%4];
-
-    trace_segment["prev_x"] = robot._prev_x * RUR.WALL_LENGTH + prev_offset[0];
-    trace_segment["x"] = robot.x * RUR.WALL_LENGTH + offset[0];
-    trace_segment["prev_y"] = RUR.HEIGHT - (robot._prev_y+1) * RUR.WALL_LENGTH + prev_offset[1];
-    trace_segment["y"] = RUR.HEIGHT - (robot.y+1) * RUR.WALL_LENGTH + offset[1];
-
-    robot._trace_history.push(trace_segment);
-};
-
-RUR.vis_robot.draw_trace_history  = function(robot) {
-    var segment;
-    for (segment of robot._trace_history) { //jshint ignore:line
-        RUR.vis_robot.draw_trace_segment(segment);
-    }
-};
-
-RUR.vis_robot.draw_trace_segment = function (segment) {
-    "use strict";
-    var ctx = RUR.TRACE_CTX;
-    ctx.strokeStyle = segment["color"];
-    ctx.lineWidth = segment["thickness"];
-    ctx.lineCap = "round";
-
-    ctx.beginPath();
-    ctx.moveTo(segment["prev_x"], segment["prev_y"]);
-    ctx.lineTo(segment["x"], segment["y"]);
-    ctx.stroke();
-};
-
-RUR.vis_robot.new_robot_images = function (images) {
-    var model;
-    if (images.model !== undefined) {
-        switch (images.model) {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-                model = images.model;
-                break;
-            default:
-                model = 0;
-        }
-    } else {
-        model = 0;
-    }
-
-    if (images.east !== undefined) {
-        RUR.vis_robot.images[model].robot_e_img.src = images.east;
-    }
-    if (images.west !== undefined) {
-        RUR.vis_robot.images[model].robot_w_img.src = images.west;
-    }
-    if (images.north !== undefined) {
-        RUR.vis_robot.images[model].robot_n_img.src = images.north;
-    }
-    if (images.south !== undefined) {
-        RUR.vis_robot.images[model].robot_s_img.src = images.south;
-    }
-    if (images.random !== undefined) {
-        RUR.vis_robot.images[model].robot_random_img.src = images.random;
-    }
-
-    // change the image displayed in the html file.
-    switch (model) {
-        case 0:
-            $("#robot0 img").attr("src", images.east);
-            break;
-        case 1:
-            $("#robot1 img").attr("src", images.east);
-            break;
-        case 2:
-            $("#robot2 img").attr("src", images.east);
-            break;
-        case 3:
-            $("#robot3 img").attr("src", images.east);
-            break;
-    }
-
-    RUR.select_default_robot_model(model);
-};
-
-},{"./rur.js":51,"./world_get/world.js":75}],68:[function(require,module,exports){
-require("./translator.js");
-require("./rur.js");
-require("./world_enhance/add_tile_type.js");
-var get_world = require("./world_get/world.js").get_world;
-//TODO add overlay object (like sensor) on robot canvas.
-
-RUR.vis_world = {};
-
-RUR.vis_world.refresh_world_edited = function () {
-    RUR.vis_world.draw_all();
-    RUR.world_get.world_info();
-};
-
-RUR.vis_world.compute_world_geometry = function (cols, rows) {
-    "use strict";
-    var height, width, canvas;
-    if (get_world().small_tiles) {
-        RUR.WALL_LENGTH = 20;
-        RUR.WALL_THICKNESS = 2;
-        RUR.SCALE = 0.5;
-        RUR.BACKGROUND_CTX.font = "8px sans-serif";
-    } else {
-        RUR.WALL_LENGTH = 40;
-        RUR.WALL_THICKNESS = 4;
-        RUR.SCALE = 1;
-        RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
-    }
-
-    if (cols !== undefined && rows !== undefined) {
-        height = (rows + 1.5) * RUR.WALL_LENGTH;
-        width = (cols + 1.5) * RUR.WALL_LENGTH;
-        RUR.MAX_Y = rows;
-        RUR.MAX_X = cols;
-    } else {
-        height = (RUR.MAX_Y + 1.5) * RUR.WALL_LENGTH;
-        width = (RUR.MAX_X + 1.5) * RUR.WALL_LENGTH;
-    }
-    get_world().rows = RUR.MAX_Y;
-    get_world().cols = RUR.MAX_X;
-
-    if (height !== RUR.HEIGHT || width !== RUR.WIDTH) {
-        for (canvas of RUR.CANVASES) { //jshint ignore:line
-            canvas.width = width;
-            canvas.height = height;
-        }
-        RUR.HEIGHT = height;
-        RUR.WIDTH = width;
-    }
-
-    RUR.vis_world.draw_all();
-};
-
-RUR.vis_world.draw_all = function () {
-    "use strict";
-
-    if (get_world().blank_canvas) {
-        if (RUR.state.editing_world) {
-            RUR.show_feedback("#Reeborg-shouts",
-                                RUR.translate("Editing of blank canvas is not supported."));
-            return;
-         }
-        clearTimeout(RUR.ANIMATION_FRAME_ID);
-        RUR.ANIMATION_FRAME_ID = undefined;
-        RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-        RUR.TILES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-        RUR.OBSTACLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-        RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-        RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-//        RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-        RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-
-        RUR.OBJECTS_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-        RUR.TILES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-
-        return;
-    }
-
-    RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    draw_grid_walls(RUR.BACKGROUND_CTX);
-    if (get_world().background_image !== undefined) {
-        draw_background_image(RUR.BACKGROUND_IMAGE);
-    }
-    draw_coordinates(); // on BACKGROUND_CTX
-    RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.animated_images = false;
-    RUR.vis_world.refresh();
-};
-
-
-RUR.vis_world.refresh = function () {
-    "use strict";
-    var current = get_world();
-    RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-
-    // meant to be called at each step
-    // does not draw background (i.e. coordinates, grid walls and possibly image)
-    // does not clear trace // TODO is this still relevant?
-
-    // start by clearing all the relevant contexts first.
-    // some objects are drown on their own contexts.
-    RUR.OBSTACLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.TILES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-
-    if (RUR.state.editing_world) {
-        // make them appear above background and tiles but below foreground walls.
-        draw_grid_walls(RUR.GOAL_CTX);
-    }
-
-    // animated images are redrawn according to their own schedule
-    if (!RUR.animated_images) {
-        draw_animated_images();
-    }
-
-    draw_goal();  // on GOAL_CTX
-    draw_tiles(current.tiles); // on TILES_CTX
-    draw_foreground_walls(current.walls); // on OBJECTS_CTX
-    draw_all_objects(current.decorative_objects);
-    draw_all_objects(current.objects);  // on OBJECTS_CTX
-        // draw_all_objects also called by draw_goal, and draws on GOAL_CTX
-        // and, draws some objects on ROBOT_CTX
-
-    // objects: goal is false, tile is true
-    draw_all_objects(current.obstacles, false, true); // likely on RUR.OBSTACLES_CTX
-
-    draw_robots(current.robots);  // on ROBOT_CTX
-    compile_info();  // on ROBOT_CTX
-    draw_info();     // on ROBOT_CTX
-};
-
-draw_coordinates = function() {
-    "use strict";
-    var x, y, ctx = RUR.BACKGROUND_CTX, size=RUR.WALL_LENGTH;
-
-    ctx.fillStyle = RUR.COORDINATES_COLOR;
-    y = RUR.HEIGHT + 5 - size/2;
-    for(x=1; x <= RUR.MAX_X; x++){
-        ctx.fillText(x, (x+0.5)*size, y);
-    }
-    x = size/2 -5;
-    for(y=1; y <= RUR.MAX_Y; y++){
-        ctx.fillText(y, x, RUR.HEIGHT - (y+0.3)*size);
-    }
-
-    ctx.fillStyle = RUR.AXIS_LABEL_COLOR;
-    ctx.fillText("x", RUR.WIDTH/2, RUR.HEIGHT - 10);
-    ctx.fillText("y", 5, RUR.HEIGHT/2 );
-};
-
-draw_grid_walls = function(ctx){
-    var i, j;
-
-    ctx.fillStyle = RUR.SHADOW_WALL_COLOR;
-    for (i = 1; i <= RUR.MAX_X; i++) {
-        for (j = 1; j <= RUR.MAX_Y; j++) {
-            draw_north_wall(ctx, i, j);
-            draw_east_wall(ctx, i, j);
-        }
-    }
-};
-
-draw_foreground_walls = function (walls) {
-    "use strict";
-    var keys, key, i, j, k, ctx = RUR.OBJECTS_CTX;
-
-
-    // border walls (x and y axis)
-    ctx.fillStyle = RUR.WALL_COLOR;
-    for (j = 1; j <= RUR.MAX_Y; j++) {
-        draw_east_wall(ctx, 0, j);
-    }
-    for (i = 1; i <= RUR.MAX_X; i++) {
-        draw_north_wall(ctx, i, 0);
-    }
-    for (j = 1; j <= RUR.MAX_Y; j++) {
-        draw_east_wall(ctx, RUR.MAX_X, j);
-    }
-    for (i = 1; i <= RUR.MAX_X; i++) {
-        draw_north_wall(ctx, i, RUR.MAX_Y);
-    }
-
-
-    if (walls === undefined || walls == {}) {
-        return;
-    }
-
-    // other walls
-    keys = Object.keys(walls);
-    for (key=0; key < keys.length; key++){
-        k = keys[key].split(",");
-        i = parseInt(k[0], 10);
-        j = parseInt(k[1], 10);
-        if ( walls[keys[key]].indexOf("north") !== -1 &&
-            i <= RUR.MAX_X && j <= RUR.MAX_Y) {
-            draw_north_wall(ctx, i, j);
-        }
-        if (walls[keys[key]].indexOf("east") !== -1 &&
-            i <= RUR.MAX_X && j <= RUR.MAX_Y) {
-            draw_east_wall(ctx, i, j);
-        }
-    }
-};
-
-draw_north_wall = function(ctx, i, j, goal) {
-    "use strict";
-    var length=RUR.WALL_LENGTH, thick=RUR.WALL_THICKNESS;
-    if (goal){
-        ctx.strokeStyle = RUR.GOAL_WALL_COLOR;
-        ctx.beginPath();
-        ctx.rect(i*length, RUR.HEIGHT - (j+1)*length, length + thick, thick);
-        ctx.stroke();
-        return;
-    }
-    ctx.fillRect(i*length, RUR.HEIGHT - (j+1)*length, length + thick, thick);
-};
-
-draw_east_wall = function(ctx, i, j, goal) {
-    "use strict";
-    var length=RUR.WALL_LENGTH, thick=RUR.WALL_THICKNESS;
-    if (goal){
-        ctx.strokeStyle = RUR.GOAL_WALL_COLOR;
-        ctx.beginPath();
-        ctx.rect((i+1)*length, RUR.HEIGHT - (j+1)*length, thick, length + thick);
-        ctx.stroke();
-        return;
-    }
-    ctx.fillRect((i+1)*length, RUR.HEIGHT - (j+1)*length, thick, length + thick);
-};
-
-draw_robots = function (robots) {
-    "use strict";
-    var robot;
-    if (!robots || robots[0] === undefined) {
-        return;
-    }
-    for (robot=0; robot < robots.length; robot++){
-        if (robots[robot].start_positions !== undefined && robots[robot].start_positions.length > 1){
-            draw_robot_clones(robots[robot]);
-        } else {
-            RUR.vis_robot.draw(robots[robot]); // draws trace automatically
-        }
-    }
-};
-
-draw_robot_clones = function(robot){
-    "use strict";
-    var i, clone;
-    RUR.ROBOT_CTX.save();
-    RUR.ROBOT_CTX.globalAlpha = 0.4;
-    for (i=0; i < robot.start_positions.length; i++){
-            clone = JSON.parse(JSON.stringify(robot));
-            clone.x = robot.start_positions[i][0];
-            clone.y = robot.start_positions[i][1];
-            clone._prev_x = clone.x;
-            clone._prev_y = clone.y;
-            RUR.vis_robot.draw(clone);
-    }
-    RUR.ROBOT_CTX.restore();
-};
-
-draw_goal = function () {
-    "use strict";
-    var goal, ctx = RUR.GOAL_CTX;
-
-    if (get_world().goal === undefined) {
-        return;
-    }
-
-    goal = get_world().goal;
-    if (goal.position !== undefined) {
-        draw_goal_position(goal, ctx);
-    }
-    if (goal.objects !== undefined){
-        draw_all_objects(goal.objects, true);
-    }
-
-    if (goal.walls !== undefined){
-        draw_goal_walls(goal, ctx);
-    }
-};
-
-draw_goal_position = function (goal, ctx) {
-    "use strict";
-    var image, i, g;
-
-    if (goal.position.image !== undefined &&
-        typeof goal.position.image === 'string' &&
-        RUR.TILES[goal.position.image] !== undefined){
-        image = RUR.TILES[goal.position.image].image;
-    } else {    // For anyone wondering, this step might be needed only when using older world
-                // files that were created when there was not a choice
-                // of image for indicating the home position.
-        image = RUR.TILES["green_home_tile"].image;
-    }
-    if (goal.possible_positions !== undefined && goal.possible_positions.length > 1){
-            ctx.save();
-            ctx.globalAlpha = 0.5;
-            for (i=0; i < goal.possible_positions.length; i++){
-                    g = goal.possible_positions[i];
-                    draw_single_object(image, g[0], g[1], ctx);
-            }
-            ctx.restore();
-    } else {
-        draw_single_object(image, goal.position.x, goal.position.y, ctx);
-    }
-};
-
-draw_goal_walls = function (goal, ctx) {
-    "use strict";
-    var key, keys, i, j, k;
-    ctx.fillStyle = RUR.WALL_COLOR;
-    keys = Object.keys(goal.walls);
-    for (key=0; key < keys.length; key++){
-        k = keys[key].split(",");
-        i = parseInt(k[0], 10);
-        j = parseInt(k[1], 10);
-        if ( goal.walls[keys[key]].indexOf("north") !== -1 &&
-            i <= RUR.MAX_X && j <= RUR.MAX_Y) {
-            draw_north_wall(ctx, i, j, true);
-        }
-        if (goal.walls[keys[key]].indexOf("east") !== -1 &&
-            i <= RUR.MAX_X && j <= RUR.MAX_Y) {
-            draw_east_wall(ctx, i, j, true);
-        }
-    }
-};
-
-draw_tiles = function (tiles){
-    "use strict";
-    var i, j, k, keys, key, image, tile, colour;
-    if (tiles === undefined) {
-        return;
-    }
-    keys = Object.keys(tiles);
-    for (key=0; key < keys.length; key++){
-        k = keys[key].split(",");
-        i = parseInt(k[0], 10);
-        j = parseInt(k[1], 10);
-        if (tiles[keys[key]] !== undefined) {
-            tile = RUR.TILES[tiles[keys[key]]];
-            if (tile === undefined) {
-                colour = tiles[keys[key]];
-                draw_coloured_tile(colour, i, j, RUR.TILES_CTX);
-                continue;
-            }
-        }
-
-        if (tile.choose_image === undefined){
-            image = tile.image;
-            if (image === undefined){
-                console.log("problem in draw_tiles; tile =", tile);
-                throw new ReeborgError("Problem in draw_tiles.");
-            }
-            draw_single_object(image, i, j, RUR.TILES_CTX);
-        }
-    }
-};
-
-draw_animated_images = function (){
-    "use strict";
-    var objects;
-
-    RUR.OBJECTS_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.TILES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-
-    RUR.animated_images = false;
-    objects = get_world().tiles;
-    RUR.animated_images = __draw_animated_images(objects,
-                                RUR.animated_images, RUR.TILES, RUR.TILES_ANIM_CTX);
-    objects = get_world().objects;
-    RUR.animated_images = __draw_animated_images(objects,
-                                RUR.animated_images, RUR.TILES, RUR.OBJECTS_ANIM_CTX);
-    if (RUR.animated_images) {
-        clearTimeout(RUR.ANIMATION_FRAME_ID);
-        RUR.ANIMATION_FRAME_ID = setTimeout(draw_animated_images,
-            RUR.ANIMATION_TIME);
-    }
-};
-
-function __draw_animated_images (objects, flag, obj_ref, ctx) {
-    "use strict";
-    var i, j, i_j, coords, k, image, obj, obj_here, elem;
-    if (objects === undefined) {
-        return flag;
-    }
-    coords = Object.keys(objects);
-    for (k=0; k < coords.length; k++){
-        i_j = coords[k].split(",");
-        i = parseInt(i_j[0], 10);
-        j = parseInt(i_j[1], 10);
-
-        obj_here = objects[coords[k]];
-        if (typeof obj_here == "string") {  // e.g. tiles: single object at position
-            obj = obj_ref[obj_here];
-            if (obj === undefined) {
-                continue;
-            } else if (obj.choose_image !== undefined){
-                _draw_single_animated(obj, coords[k], i, j, ctx);
-                flag = true;
-            }
-        } else if (typeof obj_here == "object") { // e.g. objects: many at position
-            for (elem in obj_here) {
-                obj = obj_ref[elem];
-                if (obj === undefined) {
-                    continue;
-                } else if (obj.choose_image !== undefined){
-                    clear_single_cell(i, j, ctx);
-                    _draw_single_animated(obj, coords[k], i, j, ctx);
-                    flag = true;
-                }
-            }
-        } else {
-            console.log("Problem: unknown type in __draw_animated_images");
-        }
-    }
-    return flag;
-}
-
-function _draw_single_animated (obj, coords, i, j, ctx){
-    var image;
-    image = obj.choose_image(coords);
-    if (image === undefined){
-        console.log("problem in _draw_single_animated; obj =", obj);
-        throw new ReeborgError("Problem in _draw_single_animated at" + coords);
-    }
-    draw_single_object(image, i, j, ctx);
-}
-
-draw_coloured_tile = function (colour, i, j, ctx) {
-    var thick = RUR.WALL_THICKNESS, size = RUR.WALL_LENGTH;
-    var x, y;
-    if (i > RUR.MAX_X || j > RUR.MAX_Y){
-        return;
-    }
-    x = i*size + thick/2;
-    y = RUR.HEIGHT - (j+1)*size + thick/2;
-    ctx.fillStyle = colour;
-    ctx.fillRect(x, y, size, size);
-};
-
-draw_all_objects = function (objects, goal, tile){
-    "use strict";
-    var i, j, image, ctx, coords, specific_object, objects_here, obj_name, grid_pos;
-    if (objects === undefined) {
-        return;
-    }
-
-    for (coords in objects){
-        if (objects.hasOwnProperty(coords)){
-            objects_here = objects[coords];
-            grid_pos = coords.split(",");
-            i = parseInt(grid_pos[0], 10);
-            j = parseInt(grid_pos[1], 10);
-            if (i <= RUR.MAX_X && j <= RUR.MAX_Y) {
-                for (obj_name in objects_here){
-                    if (objects_here.hasOwnProperty(obj_name)){
-                        specific_object = RUR.TILES[obj_name];
-                        if (goal) {
-                            ctx = RUR.GOAL_CTX;
-                            image = specific_object.goal.image;
-                        } else if (specific_object === undefined){
-                            console.warn("problem: specific_object is undefined");
-                            console.warn("    obj_name = ", obj_name, "  tile = ", tile);
-                            image = undefined;
-                        } else if (specific_object.ctx !== undefined){
-                            ctx = specific_object.ctx;
-                            image = specific_object.image;
-                        } else {
-                            ctx = RUR.OBJECTS_CTX;
-                            image = specific_object.image;
-                        }
-
-                        if (goal) {
-                            draw_single_object(image, i, j, ctx);
-                        } else if (specific_object.choose_image === undefined){
-                            if (image === undefined){
-                                console.warn("problem in draw_all_objects; obj =", specific_object);
-                            }
-                            draw_single_object(image, i, j, ctx);
-                        }
-                    }
-                }
-            }
-        }
-    }
-};
-
-draw_single_object = function (image, i, j, ctx) {
-    var thick=RUR.WALL_THICKNESS/2, size=RUR.WALL_LENGTH;
-    var x, y;
-    if (i > RUR.MAX_X || j > RUR.MAX_Y){
-        return;
-    }
-    x = i*size + thick;
-    y = RUR.HEIGHT - (j+1)*size + thick;
-    try{
-       ctx.drawImage(image, x, y, size, size);
-   } catch (e) {
-       console.log("problem in draw_single_object", image, ctx, e);
-   }
-};
-
-
-draw_background_image = function (image) {
-    // we draw the image so that it fills the entire world
-    var thick=RUR.WALL_THICKNESS/2, size=RUR.WALL_LENGTH,
-        image_width, image_height, world_width, world_height,
-        x, y, ctx=RUR.BACKGROUND_CTX;
-
-    world_width = RUR.MAX_X*size;  // space to
-    world_height = RUR.MAX_Y*size; // be filled
-
-    image_width = image.width;
-    image_height = image.height;
-
-    if (image_width > world_width) {
-        image_width = world_width;  // crop
-    }
-    if (image_height > world_height) {
-        image_height = world_height;
-    }
-
-    y = RUR.HEIGHT - (RUR.MAX_Y+1)*size + thick; // location of top ...
-    x = size + thick;                            // ... left corner
-    
-    try{
-        ctx.drawImage(image, 0, 0, image_width, image_height, 
-                             x, y, world_width, world_height);
-    } catch (e) {
-        console.log("problem in draw_background_image", image, ctx, e);
-    }
-};
-
-
-clear_single_cell = function (i, j, ctx) {
-    var x, y, thick=RUR.WALL_THICKNESS/2, size=RUR.WALL_LENGTH;
-    x = i*size + thick;
-    y = RUR.HEIGHT - (j+1)*size + thick;
-    ctx.clearRect(x, y, size, size);
-};
-
-compile_info = function() {
-    // compiles the information about objects and goal found at each
-    // grid location, so that we can determine what should be
-    // drown - if anything.
-    var coords, obj, quantity;
-    RUR.vis_world.information = {};
-    RUR.vis_world.goal_information = {};
-    RUR.vis_world.goal_present = false;
-    if (get_world().goal !== undefined &&
-        get_world().goal.objects !== undefined) {
-        compile_partial_info(get_world().goal.objects,
-            RUR.vis_world.goal_information, 'goal');
-            RUR.vis_world.goal_present = true;
-    }
-
-
-    if (get_world().objects !== undefined) {
-        compile_partial_info(get_world().objects,
-            RUR.vis_world.information, 'objects');
-    }
-};
-
-compile_partial_info = function(objects, information, type){
-    "use strict";
-    var coords, obj, quantity, color, goal_information;
-    if (type=="objects") {
-        color = "black";
-        goal_information = RUR.vis_world.goal_information;
-    } else {
-        color = "blue";
-    }
-
-    for (coords in objects) {
-        if (objects.hasOwnProperty(coords)){
-            // objects found here
-            for(obj in objects[coords]){
-                if (objects[coords].hasOwnProperty(obj)){
-                    if (information[coords] !== undefined){
-                        // already at least one other object there
-                        information[coords] = [undefined, "?"];  // assign impossible object
-                    } else {
-                        quantity = objects[coords][obj];
-                        if (quantity.toString().indexOf("-") != -1) {
-                            quantity = "?";
-                        } else if (quantity == "all") {
-                            quantity = "?";
-                        } else {
-                            try{
-                                quantity = parseInt(quantity, 10);
-                            } catch (e) {
-                                quantity = "?";
-                                console.log("WARNING: this should not happen in compile_info");
-                            }
-                        }
-                        if (RUR.vis_world.goal_present && typeof quantity == 'number' && goal_information !== undefined) {
-                            if ( goal_information[coords] !== undefined &&  goal_information[coords][1] == objects[coords][obj]) {
-                            information[coords] = [obj, objects[coords][obj], 'green'];
-                            } else {
-                                information[coords] = [obj, objects[coords][obj], 'red'];
-                            }
-                        } else {
-                            information[coords] = [obj, quantity, color];
-                        }
-                    }
-                }
-            }
-        }
-    }
-};
-
-draw_info = function() {
-    var i, j, coords, keys, key, info, ctx;
-    var scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT, text_width;
-    if (RUR.vis_world.information === undefined &&
-        RUR.vis_world.goal_information === undefined) {
-        return;
-    }
-    // make sure it appears on top of everything (except possibly robots)
-    ctx = RUR.ROBOT_CTX;
-
-    if (RUR.vis_world.information !== undefined) {
-        keys = Object.keys(RUR.vis_world.information);
-        for (key=0; key < keys.length; key++){
-            coords = keys[key].split(",");
-            i = parseInt(coords[0], 10);
-            j = parseInt(coords[1], 10);
-            info = RUR.vis_world.information[coords][1];
-            if (i <= RUR.MAX_X && j <= RUR.MAX_Y){
-                text_width = ctx.measureText(info).width/2;
-                ctx.font = RUR.BACKGROUND_CTX.font;
-                ctx.fillStyle = RUR.vis_world.information[coords][2];
-                // information drawn to left side of object
-                ctx.fillText(info, (i+0.2)*scale, Y - (j)*scale);
-            }
-        }
-    }
-
-    if (RUR.vis_world.goal_information !== undefined) {
-        keys = Object.keys(RUR.vis_world.goal_information);
-        for (key=0; key < keys.length; key++){
-            coords = keys[key].split(",");
-            i = parseInt(coords[0], 10);
-            j = parseInt(coords[1], 10);
-            info = RUR.vis_world.goal_information[coords][1];
-            if (i <= RUR.MAX_X && j <= RUR.MAX_Y){
-                text_width = ctx.measureText(info).width/2;
-                ctx.font = RUR.BACKGROUND_CTX.font;
-                ctx.fillStyle = RUR.vis_world.goal_information[coords][2];
-                // information drawn to right side of object
-                ctx.fillText(info, (i+0.8)*scale, Y - (j)*scale);
-            }
-        }
-    }
-};
-
-},{"./rur.js":51,"./translator.js":55,"./world_enhance/add_tile_type.js":69,"./world_get/world.js":75}],69:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":43,"./../rur.js":53,"./utils_namespace.js":67}],69:[function(require,module,exports){
 require("./../rur.js");
 require("./enhance_namespace.js");
 require("./animated_images.js");
-require("./../programming_ui/exceptions.js");
+require("./../programming_api/exceptions.js");
 //require("./../default_tiles/images_onload.js");
 
 /** @function new_tile_type
@@ -9327,7 +9335,7 @@ RUR.add_new_object_type = function (name, url, url_goal) {
  */
 RUR.add_object_image = RUR.add_new_object_type; // Vincent Maille's book.
 
-},{"./../programming_ui/exceptions.js":42,"./../rur.js":51,"./animated_images.js":70,"./enhance_namespace.js":71}],70:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":43,"./../rur.js":53,"./animated_images.js":70,"./enhance_namespace.js":71}],70:[function(require,module,exports){
 require("./../rur.js");
 
 var _ORDERED, _SYNC, _SYNC_VALUE;
@@ -9418,7 +9426,7 @@ RUR._sync = function (obj, nb, coords) {
     return obj["image" + _SYNC_VALUE[obj.name]];
 };
 
-},{"./../rur.js":51}],71:[function(require,module,exports){
+},{"./../rur.js":53}],71:[function(require,module,exports){
 require("./../rur.js");
 /** @namespace enhance
  * @memberof RUR
@@ -9427,17 +9435,214 @@ require("./../rur.js");
  */
 RUR.enhance = {};
 
-},{"./../rur.js":51}],72:[function(require,module,exports){
+},{"./../rur.js":53}],72:[function(require,module,exports){
+require("./../rur.js");
+/** @namespace get
+ * @memberof RUR
+ * @desc RUR.get is the name space used to group all methods that
+ * gather information from Reeborg's World
+ */
+RUR.get = {};
+
+
+},{"./../rur.js":53}],73:[function(require,module,exports){
+require("./get_namespace.js");
+get_world = require("./world.js").get_world;
+
+/*=========================================
+walls data structure
+
+Worlds are defined such that walls are listed only to the East or to the
+North of a given position. However, this is an implementation detail
+which could be changed without affecting what information is
+given to the user.
+
+Also, worlds are defined so that they are rectangular with walls on
+all sides. However, these walls are not included in the data structure
+that lists the walls, and must be handled separately.
+*/
+
+/** @function list_walls_at_position
+ * @memberof RUR.get
+ * @instance
+ * @summary This function returns a list of walls at a location from within
+ * the boundaries of a normal (rectangular) world.
+ *
+ *
+ * @param {integer} x  Position: `1 <= x <= max_x`  
+ * @param {integer} y  Position: `1 <= y <= max_y`
+ * @param {bool} [goal] If `true`, get information about goal walls.
+ *
+ * @throws Will throw an error if `x` or `y` is outside the world boundary
+ * @throws more to add; do this in is_wall_at()
+ *
+ * @todo add tests
+ * @todo add example
+ *
+ */
+RUR.get.list_walls_at_position = function(x, y, goal) {
+    var world = get_world();
+    if (goal) {
+        if (world.goal === undefined || world.goal.walls === undefined) {
+            return [];
+        }
+        return list_walls_at(x, y, world.goal.walls);
+    } else {
+        return list_walls_at(x, y, get_world().walls);
+    }    
+};
+
+
+/** @function is_wall_at
+ * @memberof RUR.get
+ * @instance
+ * @summary This function returns `true` if a wall is found at the
+ * stated position and orientation, and `false` otherwise.
+ *
+ * @param {integer} x  Position: `1 <= x <= max_x`  
+ * @param {integer} y  Position: `1 <= y <= max_y`
+ * @param {string} orientation  One of `"east", "west", "north", "south"`.
+ * @param {bool} [goal] If `true`, get information about goal walls.
+ *
+ * @throws Will throw an error if `x` or `y` is not a positive integer.
+ * @throws more to add; do this in is_wall_at()
+ *
+ * @todo add tests
+ * @todo add example
+ *
+ */
+RUR.get.is_wall_at = function(x, y, orientation, goal) {
+    var world = get_world();
+    orientation = orientation.toLowerCase();
+    if (goal) {
+        if (world.goal === undefined || world.goal.walls === undefined) {
+            return false;
+        }
+        return is_wall_at(x, y, orientation, world.goal.walls);
+    } else {
+        return is_wall_at(x, y, orientation, world.walls);
+    }      
+};
+
+
+// private helper function
+// perform argument checks and returns
+// a list of walls found at a given location
+function list_walls_at (x, y, walls) {
+    var result, orientations, index, orient;
+    result = [];
+    orientations = ["east", "north", "west", "south"];
+    for (index in orientations) {
+        orient = orientations[index];
+        if (is_wall_at(x, y, orient, walls)) {
+            result.push(orient);
+        }
+    }
+    return result;
+}
+
+
+// private helper function
+// perform argument checks and returns
+// true if a wall of a specified orientation is found at a given
+// location and false otherwise
+// TODO: add check for valid values here
+function is_wall_at(x, y, orientation, walls) {
+    var coords;
+    switch (orientation){
+    case "east":
+        coords = x + "," + y;
+        if (x === RUR.MAX_X){
+            return true;
+        }
+        if (__is_wall_at(coords, "east", walls)) {
+            return true;
+        }
+        break;
+    case "north":
+        coords = x + "," + y;
+        if (y === RUR.MAX_Y){
+            return true;
+        }
+        if (__is_wall_at(coords, "north", walls)) {
+            return true;
+        }
+        break;
+    case "west":
+        if (x===1){
+            return true;
+        } else {
+            coords = (x-1) + "," + y; // do math first before building strings
+            if (__is_wall_at(coords, "east", walls)) {
+                return true;
+            }
+        }
+        break;
+    case "south":
+        if (y===1){
+            return true;
+        } else {
+            coords = x + "," + (y-1);  // do math first before building strings
+            if (__is_wall_at(coords, "north", walls)) {
+                return true;
+            }
+        }
+        break;
+    default:
+        throw new RUR.ReeborgError("Should not happen: unhandled case in is_wall_at().");
+    }
+    return false;
+}
+
+// private helper function
+// returns true if a wall of a specified orientation is found at a
+// given coordinate
+function __is_wall_at (coords, orientation, walls) {
+    if (walls === undefined) {
+        return false;
+    }
+    if (walls[coords] !== undefined){
+        if (walls[coords].indexOf(orientation) !== -1) {
+            return true;
+        }
+    }
+    return false;
+}
+
+},{"./get_namespace.js":72,"./world.js":74}],74:[function(require,module,exports){
+require("./get_namespace.js");
+
+exports.get_world = get_world = function () {
+    return RUR.CURRENT_WORLD;
+};
+
+
+/** @function world
+ * @memberof RUR.get
+ * @instance
+ * @summary This function returns a World as a json object. Since the
+ *          internal structure of worlds is subject to change, it is
+ *          not advised to make use of this function inside a world definition. 
+ *          
+ *          However, it can be useful as a means to explore the
+ *          world structure, or assign advanced students to write their own 
+ *          functions based on the world structure (for example: find
+ *          the shortest path in a maze using various search algorithms.)
+ *
+ */
+RUR.get.world = get_world;
+
+},{"./get_namespace.js":72}],75:[function(require,module,exports){
 /* Obtain specific information about the world, either at a given
    position, or for the world in general.
 */
 
-require("./rur.js");
-require("./programming_ui/exceptions.js");
-require("./default_tiles/tiles.js");
-require("./dialogs/create.js");
-require("./listeners/canvas.js");
-require("./utils/supplant.js");
+require("./../rur.js");
+require("./../programming_api/exceptions.js");
+require("./../default_tiles/tiles.js");
+require("./../dialogs/create.js");
+require("./../listeners/canvas.js");
+require("./../utils/supplant.js");
 
 RUR.world_get = {};
 
@@ -9724,358 +9929,7 @@ RUR.world_get.world_info = function (no_grid) {
 RUR.create_and_activate_dialogs( $("#world-info-button"), $("#World-info"),
                                  {height:300, width:600}, RUR.world_get.world_info);
 
-},{"./default_tiles/tiles.js":1,"./dialogs/create.js":3,"./listeners/canvas.js":16,"./programming_ui/exceptions.js":42,"./rur.js":51,"./utils/supplant.js":64}],73:[function(require,module,exports){
-require("./../rur.js");
-/** @namespace get
- * @memberof RUR
- * @desc RUR.get is the name space used to group all methods that
- * gather information from Reeborg's World
- */
-RUR.get = {};
-
-
-},{"./../rur.js":51}],74:[function(require,module,exports){
-require("./get_namespace.js");
-get_world = require("./world.js").get_world;
-
-/*=========================================
-walls data structure
-
-Worlds are defined such that walls are listed only to the East or to the
-North of a given position. However, this is an implementation detail
-which could be changed without affecting what information is
-given to the user.
-
-Also, worlds are defined so that they are rectangular with walls on
-all sides. However, these walls are not included in the data structure
-that lists the walls, and must be handled separately.
-*/
-
-/** @function list_walls_at_position
- * @memberof RUR.get
- * @instance
- * @summary This function returns a list of walls at a location from within
- * the boundaries of a normal (rectangular) world.
- *
- *
- * @param {integer} x  Position: `1 <= x <= max_x`  
- * @param {integer} y  Position: `1 <= y <= max_y`
- * @param {bool} [goal] If `true`, get information about goal walls.
- *
- * @throws Will throw an error if `x` or `y` is outside the world boundary
- * @throws more to add; do this in is_wall_at()
- *
- * @todo add tests
- * @todo add example
- *
- */
-RUR.get.list_walls_at_position = function(x, y, goal) {
-    var world = get_world();
-    if (goal) {
-        if (world.goal === undefined || world.goal.walls === undefined) {
-            return [];
-        }
-        return list_walls_at(x, y, world.goal.walls);
-    } else {
-        return list_walls_at(x, y, get_world().walls);
-    }    
-};
-
-
-/** @function is_wall_at
- * @memberof RUR.get
- * @instance
- * @summary This function returns `true` if a wall is found at the
- * stated position and orientation, and `false` otherwise.
- *
- * @param {integer} x  Position: `1 <= x <= max_x`  
- * @param {integer} y  Position: `1 <= y <= max_y`
- * @param {string} orientation  One of `"east", "west", "north", "south"`.
- * @param {bool} [goal] If `true`, get information about goal walls.
- *
- * @throws Will throw an error if `x` or `y` is not a positive integer.
- * @throws more to add; do this in is_wall_at()
- *
- * @todo add tests
- * @todo add example
- *
- */
-RUR.get.is_wall_at = function(x, y, orientation, goal) {
-    var world = get_world();
-    orientation = orientation.toLowerCase();
-    if (goal) {
-        if (world.goal === undefined || world.goal.walls === undefined) {
-            return false;
-        }
-        return is_wall_at(x, y, orientation, world.goal.walls);
-    } else {
-        return is_wall_at(x, y, orientation, world.walls);
-    }      
-};
-
-
-// private helper function
-// perform argument checks and returns
-// a list of walls found at a given location
-function list_walls_at (x, y, walls) {
-    var result, orientations, index, orient;
-    result = [];
-    orientations = ["east", "north", "west", "south"];
-    for (index in orientations) {
-        orient = orientations[index];
-        if (is_wall_at(x, y, orient, walls)) {
-            result.push(orient);
-        }
-    }
-    return result;
-}
-
-
-// private helper function
-// perform argument checks and returns
-// true if a wall of a specified orientation is found at a given
-// location and false otherwise
-// TODO: add check for valid values here
-function is_wall_at(x, y, orientation, walls) {
-    var coords;
-    switch (orientation){
-    case "east":
-        coords = x + "," + y;
-        if (x === RUR.MAX_X){
-            return true;
-        }
-        if (__is_wall_at(coords, "east", walls)) {
-            return true;
-        }
-        break;
-    case "north":
-        coords = x + "," + y;
-        if (y === RUR.MAX_Y){
-            return true;
-        }
-        if (__is_wall_at(coords, "north", walls)) {
-            return true;
-        }
-        break;
-    case "west":
-        if (x===1){
-            return true;
-        } else {
-            coords = (x-1) + "," + y; // do math first before building strings
-            if (__is_wall_at(coords, "east", walls)) {
-                return true;
-            }
-        }
-        break;
-    case "south":
-        if (y===1){
-            return true;
-        } else {
-            coords = x + "," + (y-1);  // do math first before building strings
-            if (__is_wall_at(coords, "north", walls)) {
-                return true;
-            }
-        }
-        break;
-    default:
-        throw new RUR.ReeborgError("Should not happen: unhandled case in is_wall_at().");
-    }
-    return false;
-}
-
-// private helper function
-// returns true if a wall of a specified orientation is found at a
-// given coordinate
-function __is_wall_at (coords, orientation, walls) {
-    if (walls === undefined) {
-        return false;
-    }
-    if (walls[coords] !== undefined){
-        if (walls[coords].indexOf(orientation) !== -1) {
-            return true;
-        }
-    }
-    return false;
-}
-
-},{"./get_namespace.js":73,"./world.js":75}],75:[function(require,module,exports){
-require("./get_namespace.js");
-
-exports.get_world = get_world = function () {
-    return RUR.CURRENT_WORLD;
-};
-
-
-/** @function world
- * @memberof RUR.get
- * @instance
- * @summary This function returns a World as a json object. Since the
- *          internal structure of worlds is subject to change, it is
- *          not advised to make use of this function inside a world definition. 
- *          
- *          However, it can be useful as a means to explore the
- *          world structure, or assign advanced students to write their own 
- *          functions based on the world structure (for example: find
- *          the shortest path in a maze using various search algorithms.)
- *
- */
-RUR.get.world = get_world;
-
-},{"./get_namespace.js":73}],76:[function(require,module,exports){
-/* In some ways, this is the counterpart of world_get.js
-*/
-require("./rur.js");
-require("./default_tiles/tiles.js");
-require("./programming_ui/exceptions.js");
-require("./visible_world.js");
-require("./recorder.js"); // TODO: investigate if needed.
-require("./utils/key_exist.js");
-
-var msg = require("./../lang/msg.js");
-
-RUR.world_set = {};
-
-var set_dimension_form;
-
-//TODO: move add_solid_object to world_set folder
-RUR.world_set.add_solid_object = function (specific_object, x, y, nb){
-    "use strict";
-    var coords, tmp;
-
-    coords = x + "," + y;
-    RUR.utils.ensure_key_exists(RUR.CURRENT_WORLD, "obstacles");
-    RUR.utils.ensure_key_exists(RUR.CURRENT_WORLD.obstacles, coords);
-
-    try {
-        tmp = parseInt(nb, 10);
-        nb = tmp;
-    } catch (e) {}
-
-    if (nb === 0) {
-        delete RUR.CURRENT_WORLD.obstacles[coords][specific_object];
-        if (Object.keys(RUR.CURRENT_WORLD.obstacles[coords]).length === 0){
-            delete RUR.CURRENT_WORLD.obstacles[coords];
-        }
-        if (Object.keys(RUR.CURRENT_WORLD.obstacles).length === 0){
-            delete RUR.CURRENT_WORLD.obstacles;
-        }
-    } else {
-        RUR.CURRENT_WORLD.obstacles[coords][specific_object] = nb;
-    }
-};
-
-
-
-RUR.world_set.remove_all = function () {
-    RUR.CURRENT_WORLD.robots = [];
-    trim_world(0,0, RUR.MAX_X, RUR.MAX_Y);
-};
-
-function trim_world (min_x, min_y, max_x, max_y) {
-    var x, y, coords;
-
-    for (x = min_x+1; x <= max_x; x++) {
-        for (y = 1; y <= max_y; y++) {
-            coords = x + "," + y;
-            remove_all_at_location(coords);
-        }
-    }
-    for (x = 1; x <= max_x; x++) {
-        for (y = min_y+1; y <= max_y; y++) {
-            coords = x + "," + y;
-            remove_all_at_location(coords);
-        }
-    }
-    if (RUR.CURRENT_WORLD.goal !== undefined) {
-        if (RUR.CURRENT_WORLD.goal.possible_positions !== undefined) {
-            delete RUR.CURRENT_WORLD.goal.possible_positions;
-            delete RUR.CURRENT_WORLD.goal.position;
-            RUR.show_feedback("#Reeborg-shouts",
-                                 RUR.translate("WARNING: deleted final positions choices while resizing world!"));
-        }
-    }
-}
-
-function remove_all_at_location (coords) {
-    // trading efficiency for clarity
-    if (RUR.CURRENT_WORLD.tiles !== undefined) {
-        if (RUR.CURRENT_WORLD.tiles[coords] !== undefined){
-            delete RUR.CURRENT_WORLD.tiles[coords];
-        }
-    }
-    if (RUR.CURRENT_WORLD.obstacles !== undefined) {
-        if (RUR.CURRENT_WORLD.obstacles[coords] !== undefined){
-            delete RUR.CURRENT_WORLD.obstacles[coords];
-        }
-    }
-    if (RUR.CURRENT_WORLD.objects !== undefined) {
-        if (RUR.CURRENT_WORLD.objects[coords] !== undefined){
-            delete RUR.CURRENT_WORLD.objects[coords];
-        }
-    }
-    if (RUR.CURRENT_WORLD.walls !== undefined) {
-        if (RUR.CURRENT_WORLD.walls[coords] !== undefined){
-            delete RUR.CURRENT_WORLD.walls[coords];
-        }
-    }
-    if (RUR.CURRENT_WORLD.goal !== undefined) {
-        if (RUR.CURRENT_WORLD.goal.objects !== undefined) {
-            if (RUR.CURRENT_WORLD.goal.objects[coords] !== undefined){
-                delete RUR.CURRENT_WORLD.goal.objects[coords];
-            }
-        }
-    }
-    if (RUR.CURRENT_WORLD.goal !== undefined) {
-        if (RUR.CURRENT_WORLD.goal.walls !== undefined) {
-            if (RUR.CURRENT_WORLD.goal.walls[coords] !== undefined){
-                delete RUR.CURRENT_WORLD.goal.walls[coords];
-            }
-        }
-    }
-}
-
-msg.record_id("dialog-set-dimensions");
-msg.record_title("ui-dialog-title-dialog-set-dimensions", "Set the world's dimensions");
-msg.record_id("set-dimensions-explain", "set-dimensions-explain");
-msg.record_id("input-max-x-text", "Maximum x value:");
-msg.record_id("input-max-y-text", "Maximum y value:");
-msg.record_id("use-small-tiles-text", "Use small tiles");
-
-RUR.world_set.dialog_set_dimensions = $("#dialog-set-dimensions").dialog({
-    autoOpen: false,
-    height: 400,
-    width: 500,
-    modal: true,
-    buttons: {
-        OK: function () {
-            set_dimension();
-        },
-        Cancel: function() {
-            RUR.world_set.dialog_set_dimensions.dialog("close");
-        }
-    },
-    close: function() {
-        set_dimension_form[0].reset();
-    }
-});
-function set_dimension () {
-    "use strict";
-    var max_x, max_y;
-    max_x = parseInt($("#input-max-x").val(), 10);
-    max_y = parseInt($("#input-max-y").val(), 10);
-    RUR.CURRENT_WORLD.small_tiles = $("#use-small-tiles").prop("checked");
-
-    trim_world(max_x, max_y, RUR.MAX_X, RUR.MAX_Y);   // remove extra objects
-    RUR.vis_world.compute_world_geometry(max_x, max_y);
-    RUR.world_set.dialog_set_dimensions.dialog("close");
-    return true;
-}
-set_dimension_form = RUR.world_set.dialog_set_dimensions.find("form").on("submit", function( event ) {
-    event.preventDefault();
-    set_dimension();
-});
-
-},{"./../lang/msg.js":93,"./default_tiles/tiles.js":1,"./programming_ui/exceptions.js":42,"./recorder.js":45,"./rur.js":51,"./utils/key_exist.js":62,"./visible_world.js":68}],77:[function(require,module,exports){
+},{"./../default_tiles/tiles.js":1,"./../dialogs/create.js":3,"./../listeners/canvas.js":18,"./../programming_api/exceptions.js":43,"./../rur.js":53,"./../utils/supplant.js":66}],76:[function(require,module,exports){
 require("./../recorder/record_frame.js");
 
 
@@ -10087,8 +9941,8 @@ RUR._add_robot = function (robot) {
     RUR.record_frame();
 };
 
-},{"./../recorder/record_frame.js":46}],78:[function(require,module,exports){
-require("./../programming_ui/exceptions.js");
+},{"./../recorder/record_frame.js":47}],77:[function(require,module,exports){
+require("./../programming_api/exceptions.js");
 require("./../translator.js");
 require("./../utils/key_exist.js");
 require("./../utils/supplant.js");
@@ -10136,8 +9990,8 @@ RUR.toggle_decorative_object_at_position = function (specific_object, x, y){
     }
 };
 
-},{"./../programming_ui/exceptions.js":42,"./../translator.js":55,"./../utils/key_exist.js":62,"./../utils/supplant.js":64,"./../world_get/world.js":75}],79:[function(require,module,exports){
-require("./../programming_ui/exceptions.js");
+},{"./../programming_api/exceptions.js":43,"./../translator.js":57,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../world_get/world.js":74}],78:[function(require,module,exports){
+require("./../programming_api/exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
 require("./../utils/validator.js");
@@ -10189,8 +10043,8 @@ RUR.give_object_to_robot = function (obj, nb, robot) {
     }
 };
 
-},{"./../programming_ui/exceptions.js":42,"./../translator.js":55,"./../utils/key_exist.js":62,"./../utils/validator.js":66,"./../world_get/world.js":75}],80:[function(require,module,exports){
-require("./../programming_ui/exceptions.js");
+},{"./../programming_api/exceptions.js":43,"./../translator.js":57,"./../utils/key_exist.js":64,"./../utils/validator.js":68,"./../world_get/world.js":74}],79:[function(require,module,exports){
+require("./../programming_api/exceptions.js");
 require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
@@ -10278,8 +10132,8 @@ RUR.set_nb_goal_object_at_position = function (specific_object, x, y, nb){
  * @deprecated Use {@link RUR#set_nb_goal_object_at_position} instead.
  */
 RUR.add_goal_object_at_position = RUR.set_nb_goal_object_at_position;
-},{"./../programming_ui/exceptions.js":42,"./../translator.js":55,"./../utils/key_exist.js":62,"./../utils/supplant.js":64,"./../utils/validator.js":66}],81:[function(require,module,exports){
-require("./../programming_ui/exceptions.js");
+},{"./../programming_api/exceptions.js":43,"./../translator.js":57,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../utils/validator.js":68}],80:[function(require,module,exports){
+require("./../programming_api/exceptions.js");
 require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
@@ -10359,8 +10213,8 @@ RUR.set_nb_object_at_position = function (specific_object, x, y, nb){
  */
 RUR.add_object_at_position = RUR.set_nb_object_at_position;
 
-},{"./../programming_ui/exceptions.js":42,"./../recorder/record_frame.js":46,"./../translator.js":55,"./../utils/key_exist.js":62,"./../utils/supplant.js":64,"./../utils/validator.js":66,"./../world_get/world.js":75}],82:[function(require,module,exports){
-require("./../programming_ui/exceptions.js");
+},{"./../programming_api/exceptions.js":43,"./../recorder/record_frame.js":47,"./../translator.js":57,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../utils/validator.js":68,"./../world_get/world.js":74}],81:[function(require,module,exports){
+require("./../programming_api/exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
 require("./../utils/supplant.js");
@@ -10488,9 +10342,9 @@ RUR.remove_obstacle_at_position = function (specific_object, x, y){
     }
 };
 
-},{"./../programming_ui/exceptions.js":42,"./../translator.js":55,"./../utils/key_exist.js":62,"./../utils/supplant.js":64,"./../world_get/world.js":75}],83:[function(require,module,exports){
-require("./../visible_robot.js");
-require("./../visible_world.js");
+},{"./../programming_api/exceptions.js":43,"./../translator.js":57,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../world_get/world.js":74}],82:[function(require,module,exports){
+require("./../drawing/visible_robot.js");
+require("./../drawing/visible_world.js");
 var clone_world = require("./../world_utils/clone_world.js").clone_world;
 
 //TODO: code for evaluating onload is essentially repeated in two different
@@ -10523,7 +10377,7 @@ exports.reset_world = reset_world = function () {
 
 reset_world();
 
-},{"./../visible_robot.js":67,"./../visible_world.js":68,"./../world_utils/clone_world.js":87}],84:[function(require,module,exports){
+},{"./../drawing/visible_robot.js":8,"./../drawing/visible_world.js":9,"./../world_utils/clone_world.js":87}],83:[function(require,module,exports){
 require("./../rur.js");
 /** @namespace set
  * @memberof RUR
@@ -10532,7 +10386,7 @@ require("./../rur.js");
  */
 RUR.set = {};
 
-},{"./../rur.js":51}],85:[function(require,module,exports){
+},{"./../rur.js":53}],84:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../recorder/record_frame.js");
@@ -10572,7 +10426,7 @@ RUR.set_tile_at_position = function (tile, x, y) {
     RUR.record_frame("debug", "set_tile_at_position");
 };
 
-},{"./../recorder/record_frame.js":46,"./../rur.js":51,"./../utils/key_exist.js":62,"./../world_get/world.js":75}],86:[function(require,module,exports){
+},{"./../recorder/record_frame.js":47,"./../rur.js":53,"./../utils/key_exist.js":64,"./../world_get/world.js":74}],85:[function(require,module,exports){
 require("./set_namespace.js");
 require("./../recorder/record_frame.js");
 require("./../world_get/wall.js");
@@ -10743,7 +10597,161 @@ function __remove_wall_from(coords, orientation, goal) {
         }
     }
 }
-},{"./../recorder/record_frame.js":46,"./../utils/key_exist.js":62,"./../world_get/wall.js":74,"./../world_get/world.js":75,"./set_namespace.js":84}],87:[function(require,module,exports){
+},{"./../recorder/record_frame.js":47,"./../utils/key_exist.js":64,"./../world_get/wall.js":73,"./../world_get/world.js":74,"./set_namespace.js":83}],86:[function(require,module,exports){
+/* In some ways, this is the counterpart of world_get/world_get.js
+*/
+require("./../rur.js");
+require("./../default_tiles/tiles.js");
+require("./../programming_api/exceptions.js");
+require("./../drawing/visible_world.js");
+require("./../recorder/recorder.js"); // TODO: investigate if needed.
+require("./../utils/key_exist.js");
+
+var msg = require("./../../lang/msg.js");
+
+RUR.world_set = {};
+
+var set_dimension_form;
+
+//TODO: move add_solid_object to world_set folder
+RUR.world_set.add_solid_object = function (specific_object, x, y, nb){
+    "use strict";
+    var coords, tmp;
+
+    coords = x + "," + y;
+    RUR.utils.ensure_key_exists(RUR.CURRENT_WORLD, "obstacles");
+    RUR.utils.ensure_key_exists(RUR.CURRENT_WORLD.obstacles, coords);
+
+    try {
+        tmp = parseInt(nb, 10);
+        nb = tmp;
+    } catch (e) {}
+
+    if (nb === 0) {
+        delete RUR.CURRENT_WORLD.obstacles[coords][specific_object];
+        if (Object.keys(RUR.CURRENT_WORLD.obstacles[coords]).length === 0){
+            delete RUR.CURRENT_WORLD.obstacles[coords];
+        }
+        if (Object.keys(RUR.CURRENT_WORLD.obstacles).length === 0){
+            delete RUR.CURRENT_WORLD.obstacles;
+        }
+    } else {
+        RUR.CURRENT_WORLD.obstacles[coords][specific_object] = nb;
+    }
+};
+
+
+
+RUR.world_set.remove_all = function () {
+    RUR.CURRENT_WORLD.robots = [];
+    trim_world(0,0, RUR.MAX_X, RUR.MAX_Y);
+};
+
+function trim_world (min_x, min_y, max_x, max_y) {
+    var x, y, coords;
+
+    for (x = min_x+1; x <= max_x; x++) {
+        for (y = 1; y <= max_y; y++) {
+            coords = x + "," + y;
+            remove_all_at_location(coords);
+        }
+    }
+    for (x = 1; x <= max_x; x++) {
+        for (y = min_y+1; y <= max_y; y++) {
+            coords = x + "," + y;
+            remove_all_at_location(coords);
+        }
+    }
+    if (RUR.CURRENT_WORLD.goal !== undefined) {
+        if (RUR.CURRENT_WORLD.goal.possible_positions !== undefined) {
+            delete RUR.CURRENT_WORLD.goal.possible_positions;
+            delete RUR.CURRENT_WORLD.goal.position;
+            RUR.show_feedback("#Reeborg-shouts",
+                                 RUR.translate("WARNING: deleted final positions choices while resizing world!"));
+        }
+    }
+}
+
+function remove_all_at_location (coords) {
+    // trading efficiency for clarity
+    if (RUR.CURRENT_WORLD.tiles !== undefined) {
+        if (RUR.CURRENT_WORLD.tiles[coords] !== undefined){
+            delete RUR.CURRENT_WORLD.tiles[coords];
+        }
+    }
+    if (RUR.CURRENT_WORLD.obstacles !== undefined) {
+        if (RUR.CURRENT_WORLD.obstacles[coords] !== undefined){
+            delete RUR.CURRENT_WORLD.obstacles[coords];
+        }
+    }
+    if (RUR.CURRENT_WORLD.objects !== undefined) {
+        if (RUR.CURRENT_WORLD.objects[coords] !== undefined){
+            delete RUR.CURRENT_WORLD.objects[coords];
+        }
+    }
+    if (RUR.CURRENT_WORLD.walls !== undefined) {
+        if (RUR.CURRENT_WORLD.walls[coords] !== undefined){
+            delete RUR.CURRENT_WORLD.walls[coords];
+        }
+    }
+    if (RUR.CURRENT_WORLD.goal !== undefined) {
+        if (RUR.CURRENT_WORLD.goal.objects !== undefined) {
+            if (RUR.CURRENT_WORLD.goal.objects[coords] !== undefined){
+                delete RUR.CURRENT_WORLD.goal.objects[coords];
+            }
+        }
+    }
+    if (RUR.CURRENT_WORLD.goal !== undefined) {
+        if (RUR.CURRENT_WORLD.goal.walls !== undefined) {
+            if (RUR.CURRENT_WORLD.goal.walls[coords] !== undefined){
+                delete RUR.CURRENT_WORLD.goal.walls[coords];
+            }
+        }
+    }
+}
+
+msg.record_id("dialog-set-dimensions");
+msg.record_title("ui-dialog-title-dialog-set-dimensions", "Set the world's dimensions");
+msg.record_id("set-dimensions-explain", "set-dimensions-explain");
+msg.record_id("input-max-x-text", "Maximum x value:");
+msg.record_id("input-max-y-text", "Maximum y value:");
+msg.record_id("use-small-tiles-text", "Use small tiles");
+
+RUR.world_set.dialog_set_dimensions = $("#dialog-set-dimensions").dialog({
+    autoOpen: false,
+    height: 400,
+    width: 500,
+    modal: true,
+    buttons: {
+        OK: function () {
+            set_dimension();
+        },
+        Cancel: function() {
+            RUR.world_set.dialog_set_dimensions.dialog("close");
+        }
+    },
+    close: function() {
+        set_dimension_form[0].reset();
+    }
+});
+function set_dimension () {
+    "use strict";
+    var max_x, max_y;
+    max_x = parseInt($("#input-max-x").val(), 10);
+    max_y = parseInt($("#input-max-y").val(), 10);
+    RUR.CURRENT_WORLD.small_tiles = $("#use-small-tiles").prop("checked");
+
+    trim_world(max_x, max_y, RUR.MAX_X, RUR.MAX_Y);   // remove extra objects
+    RUR.vis_world.compute_world_geometry(max_x, max_y);
+    RUR.world_set.dialog_set_dimensions.dialog("close");
+    return true;
+}
+set_dimension_form = RUR.world_set.dialog_set_dimensions.find("form").on("submit", function( event ) {
+    event.preventDefault();
+    set_dimension();
+});
+
+},{"./../../lang/msg.js":93,"./../default_tiles/tiles.js":1,"./../drawing/visible_world.js":9,"./../programming_api/exceptions.js":43,"./../recorder/recorder.js":48,"./../rur.js":53,"./../utils/key_exist.js":64}],87:[function(require,module,exports){
 
 exports.clone_world = clone_world = function (world) {
     if (world === undefined) {
@@ -10777,7 +10785,7 @@ RUR.create_empty_world = function (blank_canvas) {
     return world;
 };
 RUR.CURRENT_WORLD = RUR.create_empty_world();
-},{"./../rur.js":51}],89:[function(require,module,exports){
+},{"./../rur.js":53}],89:[function(require,module,exports){
 
 exports.export_world = function () {
     return JSON.stringify(RUR.CURRENT_WORLD, null, 2);
@@ -10786,9 +10794,9 @@ exports.export_world = function () {
 },{}],90:[function(require,module,exports){
 require("./../translator.js");
 require("./../rur.js");
-require("./../robot.js");
-require("./../visible_world.js");
-require("./../programming_ui/exceptions.js");
+require("./../robot/robot.js");
+require("./../drawing/visible_world.js");
+require("./../programming_api/exceptions.js");
 require("./../editors/create.js");
 require("./create_empty_world.js");
 var images_init = require("./../world_enhance/animated_images.js").images_init;
@@ -10892,7 +10900,7 @@ eval_onload = function () {
     RUR.vis_world.draw_all();
 };
 
-},{"./../editors/create.js":8,"./../programming_ui/exceptions.js":42,"./../robot.js":48,"./../rur.js":51,"./../translator.js":55,"./../ui/edit_robot_menu.js":57,"./../visible_world.js":68,"./../world_enhance/animated_images.js":70,"./clone_world.js":87,"./create_empty_world.js":88}],91:[function(require,module,exports){
+},{"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../programming_api/exceptions.js":43,"./../robot/robot.js":50,"./../rur.js":53,"./../translator.js":57,"./../ui/edit_robot_menu.js":59,"./../world_enhance/animated_images.js":70,"./clone_world.js":87,"./create_empty_world.js":88}],91:[function(require,module,exports){
 // Only create a new version of this file for a target language
 // if the corresponding functions are
 // defined in reeborg_xx.js and reeborg_xx.py
@@ -12187,4 +12195,4 @@ RUR.ui_ko["UPDATE BLOCKLY CONTENT"] = "This world has some default content for t
 RUR.ui_ko["UPDATE BLOCKLY BUTTON"] = "Replace existing blocks";
 RUR.ui_ko["Contents from World"] = "Contents from World";
 
-},{}]},{},[13]);
+},{}]},{},[15]);

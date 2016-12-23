@@ -1,7 +1,7 @@
 require("./../rur.js");
 require("./enhance_namespace.js");
 require("./animated_images.js");
-require("./../programming_ui/exceptions.js");
+require("./../programming_api/exceptions.js");
 //require("./../default_tiles/images_onload.js");
 
 /** @function new_tile_type

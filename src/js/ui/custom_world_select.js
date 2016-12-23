@@ -2,7 +2,7 @@
    own world menu selection. We also include some default world menus. */
 require("./../translator.js");
 require("./world_select.js");
-require("./../storage.js");
+require("./../storage/storage.js");
 
 RUR.custom_world_select = {};
 
