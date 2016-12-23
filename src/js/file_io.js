@@ -2,7 +2,7 @@
 require("./output.js");
 require("./recorder.js");
 require("./editors/update.js");
-require("./world/import_world.js");
+require("./world_utils/import_world.js");
 require("./world_select.js");
 require("./permalink.js");
 require("./translator.js");

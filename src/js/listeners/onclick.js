@@ -7,7 +7,7 @@ require("./../rur.js");
 require("./../editors/create.js");
 require("./../blockly.js");
 
-var export_world = require("./../world/export_world.js").export_world;
+var export_world = require("./../world_utils/export_world.js").export_world;
 var record_id = require("./../../lang/msg.js").record_id;
 var record_value = require("./../../lang/msg.js").record_value;
 

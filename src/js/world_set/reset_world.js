@@ -1,6 +1,6 @@
 require("./../visible_robot.js");
 require("./../visible_world.js");
-var clone_world = require("./../world/clone_world.js").clone_world;
+var clone_world = require("./../world_utils/clone_world.js").clone_world;
 
 //TODO: code for evaluating onload is essentially repeated in two different
 //files; it should be refactored.

@@ -7,7 +7,7 @@ require("./listeners/programming_mode.js");
 require("./utils/parseuri.js");
 require("./editors/create.js");
 
-var export_world = require("./world/export_world.js").export_world;
+var export_world = require("./world_utils/export_world.js").export_world;
 var record_id = require("./../lang/msg.js").record_id;
 
 record_id("save-permalink", "Save");

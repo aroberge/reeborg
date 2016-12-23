@@ -11,7 +11,7 @@ require("./editors/create.js");
 require("./recorder/record_frame.js");
 
 var identical = require("./utils/identical.js").identical;
-var clone_world = require("./world/clone_world.js").clone_world;
+var clone_world = require("./world_utils/clone_world.js").clone_world;
 
 RUR.rec = {};
 

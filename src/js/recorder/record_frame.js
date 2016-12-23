@@ -5,7 +5,7 @@ require("./../exceptions.js");
 require("./../world_get.js");
 require("./../playback/show_immediate.js");
 require("./../utils/supplant.js");
-var clone_world = require("./../world/clone_world.js").clone_world;
+var clone_world = require("./../world_utils/clone_world.js").clone_world;
 
 RUR.record_frame = function (name, obj) {
     "use strict";

@@ -8,7 +8,7 @@ require("./splash_screen.js");
 require("./default_tiles/tiles.js");
 
 require("./utils/parseuri.js");
-require("./world/import_world.js");
+require("./world_utils/import_world.js");
 require("./storage.js");
 
 require("./permalink.js");

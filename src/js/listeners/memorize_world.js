@@ -2,7 +2,7 @@
 require("./../rur.js");
 require("./../storage.js");
 var record_id = require("./../../lang/msg.js").record_id;
-var clone_world = require("./../world/clone_world.js").clone_world;
+var clone_world = require("./../world_utils/clone_world.js").clone_world;
 
 var memorize_button = document.getElementById("memorize-world");
 record_id("memorize-world", "Save world in browser");
