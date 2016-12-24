@@ -72,6 +72,9 @@ RUR.ui_fr.west = "ouest";
 RUR.ui_fr.south = "sud";
 RUR.ui_fr["Unknown orientation for robot."] = "Orientation inconnue.";
 
+RUR.ui_en["Invalid position."] = "{pos} n'est pas une position valide.";
+RUR.ui_en["Invalid orientation."] = "'{orient}' est une orientation inconnue.";
+
 RUR.ui_fr["World selected"] = "Monde {world} choisi";
 RUR.ui_fr["Could not find world"] = "Je ne peux pas trouver {world}";
 RUR.ui_fr["Object names"] = " biblio, jeton, étoile, triangle, carré, etc.";

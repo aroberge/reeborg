@@ -75,6 +75,9 @@ RUR.ui_en.west = "west";
 RUR.ui_en.south = "south";
 RUR.ui_en["Unknown orientation for robot."] = "Unknown orientation for robot.";
 
+RUR.ui_en["Invalid position."] = "{pos} is an invalid position.";
+RUR.ui_en["Invalid orientation."] = "'{orient}' is an unknown orientation.";
+
 RUR.ui_en["World selected"] = "World {world} selected";
 RUR.ui_en["Could not find world"] = "Could not find world {world}";
 RUR.ui_en["Object names"] = " library, token, star, triangle, square, etc.";

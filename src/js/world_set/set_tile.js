@@ -1,5 +1,6 @@
 require("./../rur.js");
 require("./../utils/key_exist.js");
+require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
 var get_world = require("./../world_get/world.js").get_world;
 
@@ -14,7 +15,7 @@ var get_world = require("./../world_get/world.js").get_world;
  * @param {integer} x  Position of the tile.
  * @param {integer} y  Position of the tile.
  *
- * @throws Will throw an error if `x` or `y` is not a positive integer.
+ * @throws Will throw an error if `(x, y)` is not a valid location..
  *
  * @todo add test - at least for throws if others are present.
  *
@@ -31,8 +32,9 @@ RUR.set_tile_at_position = function (tile, x, y) {
     var world = get_world(), info;
     info = "RUR.set_tile_at_position(tile, x, y): ";
     RUR.utils.ensure_key_exists(world, "tiles");
-    RUR.utils.require_positive_integer(x, my_name+"x");
-    RUR.utils.require_positive_integer(y, my_name+"y");
+    if (!RUR.utils.is_valid_position(x, y)) {
+        throw new ReeborgError(RUR.translate("Invalid position."));
+    }
     world.tiles[x + "," + y] = tile;
     RUR.record_frame("debug", "set_tile_at_position");
 };

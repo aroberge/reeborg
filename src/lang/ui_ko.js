@@ -76,6 +76,9 @@ RUR.ui_ko.west = "서쪽";
 RUR.ui_ko.south = "남쪽";
 RUR.ui_ko["Unknown orientation for robot."] = "로봇의 방향을 알 수 없습니다.";
 
+RUR.ui_en["Invalid position."] = "{pos} is an invalid position.";
+RUR.ui_en["Invalid orientation."] = "'{orient}' is an unknown orientation.";
+
 RUR.ui_ko["World selected"] = "월드 {world} 가 선택되었습니다";
 RUR.ui_ko["Could not find world"] = "월드를 찾을 수 없습니다. {world}";
 RUR.ui_ko["Object names"] = " 라이브러리, 토큰, 별, 삼각형, 사각형, 등.";
