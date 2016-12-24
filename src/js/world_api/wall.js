@@ -20,8 +20,8 @@ all sides. However, these walls are not included in the data structure
 that lists the walls, and must be handled separately.
 */
 
-// Helper functions - not documented
 function ensure_valid_position(x, y) {
+    // ensures that the position is within the world boundaries
     var position = "(" + x + ", " + y + ")";
     if (!RUR.utils.is_valid_position(x, y)) {
         throw new RUR.ReeborgError(
@@ -50,10 +50,9 @@ function ensure_valid_orientation(arg){
  * @param {bool} [goal] If `true`, list the goal walls found at that position
  *                      instead of regular walls.
  *
- * @throws Will throw an error if `x` or `y` is outside the world boundary
- * @throws more to add; do this in is_wall_at()
+ * @throws Will throw an error if `x` or `y` is outside the world boundary.
  *
- * @todo add tests
+ * @see {@link UnitTest#test_walls} for unit tests.
  * @todo add example
  *
  */
@@ -84,10 +83,10 @@ RUR.list_walls_at_position = function(x, y, goal) {
  *                      instead of regular walls.
  *
  * 
- * @throws Will throw an error if `x` or `y` is not a positive integer.
- * @throws more to add; do this in is_wall_at()
+ * @throws Will throw an error if `x` or `y` is outside the world boundary.
+ * @throws Will throw an error if `orientation` is not a valid choice.
  *
- * @todo add tests
+ * @see {@link UnitTest#test_walls} for unit tests.
  * @todo add example
  *
  */
@@ -205,10 +204,11 @@ function __is_wall (coords, orientation, walls) {
  * @param {string} orientation  One of `"east", "west", "north", "south"`.
  * @param {bool} [goal] If `true`, get information about goal walls.
  *
- * @throws Will throw an error if `x` or `y` is not a positive integer.
- * @throws more to add; do this in is_wall_at()
+ * @throws Will throw an error if `x` or `y` is outside the world boundary.
+ * @throws Will throw an error if `orientation` is not a valid choice.
+ * @throws Will throw an error if there is already a wall there.
  *
- * @todo add tests
+ * @see {@link UnitTest#test_walls} for unit tests.
  * @todo add example
  *
  */
@@ -244,10 +244,11 @@ RUR.add_wall = function(orientation, x, y, goal) {
  * @param {string} orientation  One of `"east", "west", "north", "south"`.
  * @param {bool} [goal] If `true`, get information about goal walls.
  *
- * @throws Will throw an error if `x` or `y` is not a positive integer.
- * @throws more to add; do this in is_wall_at()
+ * @throws Will throw an error if `x` or `y` is outside the world boundary.
+ * @throws Will throw an error if `orientation` is not a valid choice.
+ * @throws Will throw an error if there is no wall to remove.
  *
- * @todo add tests
+ * @see {@link UnitTest#test_walls} for unit tests.
  * @todo add example
  *
  */
@@ -256,7 +257,7 @@ RUR.remove_wall = function(orientation, x, y, goal) {
     // the following function call will raise an exception if
     // the orientation or the position is not valid
     wall_here = RUR.is_wall_at_position(orientation, x, y, goal);
-    if (wall_here){
+    if (!wall_here){
         throw new RUR.ReeborgError(RUR.translate("There is no wall to remove!"));
     }
     orientation = orientation.toLowerCase();

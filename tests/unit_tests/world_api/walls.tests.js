@@ -3,7 +3,7 @@
  * @instance
 *
 * @desc The file listed below as the source contains unit tests for 
-* {@link RUR#set_nb_object_at_position}.
+* all "walls" related methods.
 *
 */
 
@@ -52,6 +52,7 @@ test('is_wall_at_position: invalid position', function (assert) {
 
 
 test('is_wall_at_position: invalid orientation', function (assert) {  
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
     assert.plan(3);  
     try {
         RUR.is_wall_at_position("n", 1, 2);
@@ -102,6 +103,7 @@ test('remove_wall: invalid position', function (assert) {
 });
 
 test('remove_wall: invalid orientation', function (assert) {  
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
     assert.plan(3);  
     try {
         RUR.remove_wall("n", 1, 2);
@@ -113,15 +115,39 @@ test('remove_wall: invalid orientation', function (assert) {
     assert.end();
 });
 
-//
-//
-//
-// Need to add test when attempting to remove missing wall or adding
-// wall where there is one already
-/* ========================================================================= */
+test('add_wall: twice at the same location', function (assert) {  
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    assert.plan(3);  
+    try {
+        RUR.add_wall("north", 1, 2);
+        RUR.add_wall("north", 1, 2);
+    } catch (e) {
+        assert.equal(e.message, "There is already a wall here!", "error message");
+        assert.equal(e.reeborg_shouts, "There is already a wall here!", "reeborg_shouts");
+        assert.equal(e.name, "ReeborgError", "error name ok");
+    }
+    assert.end();
+});
+
+test('remove_wall: removing missing wall', function (assert) {  
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    assert.plan(3);  
+    try {
+        RUR.remove_wall("north", 1, 2);
+    } catch (e) {
+        assert.equal(e.message, "There is no wall to remove!", "error message");
+        assert.equal(e.reeborg_shouts, "There is no wall to remove!", "reeborg_shouts");
+        assert.equal(e.name, "ReeborgError", "error name ok");
+    }
+    assert.end();
+});
+
+
+/*=========================================
+ end of testing cases that raise exceptions
+ ========================================== */
 
 test('list empty walls', function (assert) {    
-    require("../../../src/js/world_api/wall.js");
     RUR.CURRENT_WORLD = RUR.create_empty_world();
     assert.deepEqual(RUR.list_walls_at_position(3, 3), [], "No walls present");
     assert.end();
@@ -129,7 +155,6 @@ test('list empty walls', function (assert) {
 
 
 test('Add and list walls', function (assert) {    
-    require("../../../src/js/world_api/wall.js");
     RUR.CURRENT_WORLD = RUR.create_empty_world();
     RUR.add_wall("east", 3, 3);
     assert.deepEqual(RUR.list_walls_at_position(3, 3), ["east"], "east wall");
@@ -149,7 +174,6 @@ test('Add and list walls', function (assert) {
 });
 
 test('Add and get wall at', function (assert) {    
-    require("../../../src/js/world_api/wall.js");
     RUR.CURRENT_WORLD = RUR.create_empty_world();
     RUR.add_wall("east", 3, 3);  // west of (4, 3)
     RUR.add_wall("north", 3, 3);  // south of (3, 4)
@@ -165,7 +189,6 @@ test('Add and get wall at', function (assert) {
 
 
 test('Add and list goal walls', function (assert) {    
-    require("../../../src/js/world_api/wall.js");
     var goal = true;
     RUR.CURRENT_WORLD = RUR.create_empty_world();
     RUR.add_wall("east", 3, 3, goal);
@@ -182,5 +205,14 @@ test('Add and list goal walls', function (assert) {
     assert.deepEqual(RUR.list_walls_at_position(2, 3, goal), ["east"], "east wall");
     assert.deepEqual(RUR.list_walls_at_position(3, 2, goal), ["north"], "north wall");
     assert.deepEqual(RUR.list_walls_at_position(3, 4, goal), ["south"], "south wall");
+    assert.end();
+});
+
+test('Add two walls, remove one and list walls', function (assert) {    
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.add_wall("east", 3, 3);
+    RUR.add_wall("west", 3, 3);
+    RUR.remove_wall("east", 3, 3);
+    assert.deepEqual(RUR.list_walls_at_position(3, 3), ["west"], "one wall remaining");
     assert.end();
 });
