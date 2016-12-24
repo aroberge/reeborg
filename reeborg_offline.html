@@ -9,8 +9,8 @@
   <meta name="license" content="CC BY-NC-SA 3.0">
   <link rel="shortcut icon" href="src/images/favicon.ico" type="image/icon">
   <link rel="icon" href="src/images/favicon.ico" type="image/icon">
-  <link href="src/css/jquery-ui.custom.min.css" rel="stylesheet">
-  <!--online<link href='http://fonts.googleapis.com/css?family=Roboto+Mono:700' rel='stylesheet' type='text/css'>/online-->
+  <link defer href="src/css/jquery-ui.custom.min.css" rel="stylesheet">
+  <!--online<link defer href='http://fonts.googleapis.com/css?family=Roboto+Mono:700' rel='stylesheet' type='text/css'>/online-->
 
    <!--offline--> <style>
   @font-face {
@@ -30,11 +30,9 @@
 
   <!--offline--> <link rel="stylesheet" href="offline/codemirror-5.8.0/lib/codemirror.css"> <!--/offline-->
   <!--online<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.css">/online-->
-  <link rel="stylesheet" href="src/css/reeborg_world2.css">
+  <link defer rel="stylesheet" href="src/css/reeborg_world2.css">
   <!-- load after codemirror.css -->
   <title>Reeborg's World</title>
-  <!--online<script type="text/javascript" src="http://cdn.rawgit.com/brython-dev/brython/3.2.7/www/src/brython.js"></script>/online-->
-  <!--offline--> <script type="text/javascript" src="offline/brython/brython.js"></script> <!--/offline-->
 
 </head>
 <body>
@@ -56,7 +54,7 @@
   </div>
   <header class="blue-gradient green-border">
     <a id="logo" href="index_en.html" class="fake_button">
-      <img src="src/images/robot_e.png">
+      <img src="src/images/robot_e.png" alt="logo">
       <span id="site-name"></span>
     </a>
     <div id="header-child">
@@ -227,10 +225,10 @@
     </div>
     <div id="World-info" title="Click on the world to get some additional information." style="display:none"></div>
     <div id="image-choice-buttons-small">
-      <button id="robot0"><img></button>
-      <button id="robot1"><img></button>
-      <button id="robot2"><img></button>
-      <button id="robot3"><img></button>
+      <button id="robot0" alt="classic robot"><img></button>
+      <button id="robot1" alt="rover type robot"><img></button>
+      <button id="robot2" alt="plain robot"><img></button>
+      <button id="robot3" alt="solar panel robot"><img></button>
     </div>
   </div>
 
@@ -575,6 +573,9 @@
       </li>
     </ul>
   </div>
+    <!--online<script type="text/javascript" src="http://cdn.rawgit.com/brython-dev/brython/3.2.7/www/src/brython.js"></script>/online-->
+  <!--offline--> <script type="text/javascript" src="offline/brython/brython.js"></script> <!--/offline-->
+
   <!--offline--> <script type="text/javascript" src="offline/jquery-2.1.0/jquery.min.js"></script> <!--/offline-->
   <!--online<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>/online-->
 

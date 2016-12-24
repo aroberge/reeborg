@@ -1,4 +1,4 @@
-var mac_user_save_files_en = " <b>Mac users:</b> please see <a href='https://github.com/aroberge/reeborg/blob/master/known_problems.md' target='_blank'>Known problems</a>.";
+var mac_user_save_files_en = ' <b>Mac users:</b> please see <a href="https://github.com/aroberge/reeborg/blob/master/known_problems.md" target="_blank" rel="noopener">Known problems</a>.';
 
 RUR.ui_en = {};
 RUR.en_to_en = {};
@@ -263,7 +263,7 @@ RUR.ui_en["CONTACT"] = "(English/French only) Email:";
 RUR.ui_en["ISSUES"] = "Bug reports, suggestions, other issues, etc. (English/French only)";
 RUR.ui_en["FORUM"] = "Discussion forum (English/French only)";
 RUR.ui_en["HELP"] = "Help";
-RUR.ui_en["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/en" target="_blank">Documentation</a>';
+RUR.ui_en["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/en" target="_blank" rel="noopener">Documentation</a>';
 RUR.ui_en["PYTHON HELP"] = "Using Python, execute a program with <code>help()</code> to get a list of commands or <code>help(move)</code> to get help on the <code>move()</code> function, etc.";
 RUR.ui_en["KEYBOARD HELP"] = "Click on Reeborg keyboard to see a list of available commands, Python keywords, etc.";
 

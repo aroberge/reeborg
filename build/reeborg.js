@@ -9180,8 +9180,12 @@ _is_integer = function(n) {
     return typeof n==='number' && (n%1)===0;
 };
 
-RUR.utils.is_integer = _is_integer;
+_is_non_negative_integer = function (n) {
+    return typeof n==='number' && (n%1)===0 && n>=0;
+};
 
+RUR.utils.is_integer = _is_integer;
+RUR.utils.is_non_negative_integer = _is_non_negative_integer;
 
 RUR.utils.is_valid_position = function(x, y) {
     return (_is_integer(x) && _is_integer(y) && 
@@ -9208,8 +9212,11 @@ RUR.utils.filterInt = function (value) {
 
 },{"./../programming_api/exceptions.js":43,"./../rur.js":53,"./utils_namespace.js":67}],69:[function(require,module,exports){
 require("./../rur.js");
+require("./../translator.js");
 require("./../programming_api/exceptions.js");
 require("./../utils/key_exist.js");
+require("./../utils/validator.js");
+require("./../utils/supplant.js");
 require("./../recorder/record_frame.js");
 get_world = require("./../world_get/world.js").get_world;
 
@@ -9226,16 +9233,35 @@ all sides. However, these walls are not included in the data structure
 that lists the walls, and must be handled separately.
 */
 
+// Helper functions - not documented
+function ensure_valid_position(x, y) {
+    var position = "(" + x + ", " + y + ")";
+    if (!RUR.utils.is_valid_position(x, y)) {
+        throw new RUR.ReeborgError(
+            RUR.translate("Invalid position.").supplant({pos:position}));
+    }
+}
+
+function ensure_valid_orientation(arg){
+    var orientation = arg.toLowerCase();
+    if (["east", "north", "west", "south"].indexOf(orientation) === -1) {
+        throw new RUR.ReeborgError(
+            RUR.translate("Invalid orientation.").supplant({orient:arg}));
+    }
+}
+
+
 /** @function list_walls_at_position
  * @memberof RUR
  * @instance
  * @summary This function returns a list of walls at a location from within
- * the boundaries of a normal (rectangular) world.
- *
+ * the boundaries of a normal (rectangular) world. The order they are listed,
+ * if present, are `"east"`, `"north"`, `"west"`, `"south"`.
  *
  * @param {integer} x  Position: `1 <= x <= max_x`  
  * @param {integer} y  Position: `1 <= y <= max_y`
- * @param {bool} [goal] If `true`, get information about goal walls.
+ * @param {bool} [goal] If `true`, list the goal walls found at that position
+ *                      instead of regular walls.
  *
  * @throws Will throw an error if `x` or `y` is outside the world boundary
  * @throws more to add; do this in is_wall_at()
@@ -9246,18 +9272,19 @@ that lists the walls, and must be handled separately.
  */
 RUR.list_walls_at_position = function(x, y, goal) {
     var world = get_world();
+    ensure_valid_position(x, y);
     if (goal) {
         if (world.goal === undefined || world.goal.walls === undefined) {
             return [];
         }
-        return list_walls_at(x, y, world.goal.walls);
+        return _list_walls_at(x, y, world.goal.walls);
     } else {
-        return list_walls_at(x, y, get_world().walls);
+        return _list_walls_at(x, y, world.walls);
     }    
 };
 
 
-/** @function is_wall_at
+/** @function is_wall_at_position
  * @memberof RUR
  * @instance
  * @summary This function returns `true` if a wall is found at the
@@ -9266,8 +9293,10 @@ RUR.list_walls_at_position = function(x, y, goal) {
  * @param {integer} x  Position: `1 <= x <= max_x`  
  * @param {integer} y  Position: `1 <= y <= max_y`
  * @param {string} orientation  One of `"east", "west", "north", "south"`.
- * @param {bool} [goal] If `true`, get information about goal walls.
+ * @param {bool} [goal] If `true`, get information about goal walls
+ *                      instead of regular walls.
  *
+ * 
  * @throws Will throw an error if `x` or `y` is not a positive integer.
  * @throws more to add; do this in is_wall_at()
  *
@@ -9275,16 +9304,19 @@ RUR.list_walls_at_position = function(x, y, goal) {
  * @todo add example
  *
  */
-RUR.is_wall_at = function(x, y, orientation, goal) {
+RUR.is_wall_at_position = function(orientation, x, y, goal) {
     var world = get_world();
+    ensure_valid_orientation(orientation);
+    ensure_valid_position(x, y);
+    // convert to lower case only after running the above validity test.
     orientation = orientation.toLowerCase();
     if (goal) {
         if (world.goal === undefined || world.goal.walls === undefined) {
             return false;
         }
-        return is_wall_at(x, y, orientation, world.goal.walls);
+        return _is_wall_at(orientation, x, y, world.goal.walls);
     } else {
-        return is_wall_at(x, y, orientation, world.walls);
+        return _is_wall_at(orientation, x, y, world.walls);
     }      
 };
 
@@ -9292,13 +9324,13 @@ RUR.is_wall_at = function(x, y, orientation, goal) {
 // private helper function
 // perform argument checks and returns
 // a list of walls found at a given location
-function list_walls_at (x, y, walls) {
+function _list_walls_at (x, y, walls) {
     var result, orientations, index, orient;
     result = [];
     orientations = ["east", "north", "west", "south"];
     for (index in orientations) {
         orient = orientations[index];
-        if (is_wall_at(x, y, orient, walls)) {
+        if (_is_wall_at(orient, x, y, walls)) {
             result.push(orient);
         }
     }
@@ -9311,7 +9343,7 @@ function list_walls_at (x, y, walls) {
 // true if a wall of a specified orientation is found at a given
 // location and false otherwise
 // TODO: add check for valid values here
-function is_wall_at(x, y, orientation, walls) {
+function _is_wall_at(orientation, x, y, walls) {
     var coords;
     switch (orientation){
     case "east":
@@ -9319,7 +9351,7 @@ function is_wall_at(x, y, orientation, walls) {
         if (x === RUR.MAX_X){
             return true;
         }
-        if (__is_wall_at(coords, "east", walls)) {
+        if (__is_wall(coords, "east", walls)) {
             return true;
         }
         break;
@@ -9328,7 +9360,7 @@ function is_wall_at(x, y, orientation, walls) {
         if (y === RUR.MAX_Y){
             return true;
         }
-        if (__is_wall_at(coords, "north", walls)) {
+        if (__is_wall(coords, "north", walls)) {
             return true;
         }
         break;
@@ -9337,7 +9369,7 @@ function is_wall_at(x, y, orientation, walls) {
             return true;
         } else {
             coords = (x-1) + "," + y; // do math first before building strings
-            if (__is_wall_at(coords, "east", walls)) {
+            if (__is_wall(coords, "east", walls)) {
                 return true;
             }
         }
@@ -9347,7 +9379,7 @@ function is_wall_at(x, y, orientation, walls) {
             return true;
         } else {
             coords = x + "," + (y-1);  // do math first before building strings
-            if (__is_wall_at(coords, "north", walls)) {
+            if (__is_wall(coords, "north", walls)) {
                 return true;
             }
         }
@@ -9361,7 +9393,7 @@ function is_wall_at(x, y, orientation, walls) {
 // private helper function
 // returns true if a wall of a specified orientation is found at a
 // given coordinate
-function __is_wall_at (coords, orientation, walls) {
+function __is_wall (coords, orientation, walls) {
     if (walls === undefined) {
         return false;
     }
@@ -9393,19 +9425,22 @@ function __is_wall_at (coords, orientation, walls) {
  * @todo add example
  *
  */
-RUR.add_wall = function(x, y, orientation, goal) {
-    var world = get_world();
-    if (RUR.is_wall_at(x, y, orientation, goal)){
-        throw new RUR.ReeborgError("There is already such a wall there.");
+RUR.add_wall = function(orientation, x, y, goal) {
+    var world = get_world(), wall_here;
+    // the following function call will raise an exception if
+    // the orientation or the position is not valid
+    wall_here = RUR.is_wall_at_position(orientation, x, y, goal);
+    if (wall_here){
+        throw new RUR.ReeborgError(RUR.translate("There is already a wall here!"));
     }
     orientation = orientation.toLowerCase();
     if (goal) {
         RUR.utils.ensure_key_exists(world, "goal");
         RUR.utils.ensure_key_exists(world.goal, "walls");
-        add_wall(x, y, orientation, world.goal.walls);
+        _add_wall(orientation, x, y, world.goal.walls);
     } else {
         RUR.utils.ensure_key_exists(world, "walls");
-        add_wall(x, y, orientation, world.walls);
+        _add_wall(orientation, x, y, world.walls);
     }   
     RUR.record_frame();   
 };
@@ -9429,12 +9464,16 @@ RUR.add_wall = function(x, y, orientation, goal) {
  * @todo add example
  *
  */
-RUR.remove_wall = function(x, y, orientation, goal) {
-    if (!RUR.is_wall_at(x, y, orientation, goal)){
-        throw new RUR.ReeborgError("There is no wall to remove.");
+RUR.remove_wall = function(orientation, x, y, goal) {
+    var wall_here;
+    // the following function call will raise an exception if
+    // the orientation or the position is not valid
+    wall_here = RUR.is_wall_at_position(orientation, x, y, goal);
+    if (wall_here){
+        throw new RUR.ReeborgError(RUR.translate("There is no wall to remove!"));
     }
     orientation = orientation.toLowerCase();
-    remove_wall(x, y, orientation, goal);   
+    _remove_wall(orientation, x, y, goal);   
     RUR.record_frame();   
 };
 
@@ -9444,7 +9483,7 @@ RUR.remove_wall = function(x, y, orientation, goal) {
 // true if a wall of a specified orientation is found at a given
 // location and false otherwise
 // TODO: add check for valid values here
-function add_wall(x, y, orientation, walls) {
+function _add_wall(orientation, x, y, walls) {
     var coords;
     switch (orientation){
     case "east":
@@ -9481,7 +9520,7 @@ function __add_wall(coords, orientation, walls) {
 // true if a wall of a specified orientation is found at a given
 // location and false otherwise
 // TODO: add check for valid values here
-function remove_wall(x, y, orientation, goal) {
+function _remove_wall(orientation, x, y, goal) {
     var coords;
     switch (orientation){
     case "east":
@@ -9526,7 +9565,7 @@ function __remove_wall(coords, orientation, goal) {
     }
 }
 
-},{"./../programming_api/exceptions.js":43,"./../recorder/record_frame.js":47,"./../rur.js":53,"./../utils/key_exist.js":64,"./../world_get/world.js":74}],70:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":43,"./../recorder/record_frame.js":47,"./../rur.js":53,"./../translator.js":57,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../utils/validator.js":68,"./../world_get/world.js":74}],70:[function(require,module,exports){
 require("./../rur.js");
 require("./enhance_namespace.js");
 require("./animated_images.js");
@@ -10534,6 +10573,7 @@ reset_world();
 },{"./../drawing/visible_robot.js":8,"./../drawing/visible_world.js":9,"./../world_utils/clone_world.js":85}],83:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
+require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
 var get_world = require("./../world_get/world.js").get_world;
 
@@ -10548,7 +10588,7 @@ var get_world = require("./../world_get/world.js").get_world;
  * @param {integer} x  Position of the tile.
  * @param {integer} y  Position of the tile.
  *
- * @throws Will throw an error if `x` or `y` is not a positive integer.
+ * @throws Will throw an error if `(x, y)` is not a valid location..
  *
  * @todo add test - at least for throws if others are present.
  *
@@ -10565,13 +10605,14 @@ RUR.set_tile_at_position = function (tile, x, y) {
     var world = get_world(), info;
     info = "RUR.set_tile_at_position(tile, x, y): ";
     RUR.utils.ensure_key_exists(world, "tiles");
-    RUR.utils.require_positive_integer(x, my_name+"x");
-    RUR.utils.require_positive_integer(y, my_name+"y");
+    if (!RUR.utils.is_valid_position(x, y)) {
+        throw new ReeborgError(RUR.translate("Invalid position."));
+    }
     world.tiles[x + "," + y] = tile;
     RUR.record_frame("debug", "set_tile_at_position");
 };
 
-},{"./../recorder/record_frame.js":47,"./../rur.js":53,"./../utils/key_exist.js":64,"./../world_get/world.js":74}],84:[function(require,module,exports){
+},{"./../recorder/record_frame.js":47,"./../rur.js":53,"./../utils/key_exist.js":64,"./../utils/validator.js":68,"./../world_get/world.js":74}],84:[function(require,module,exports){
 /* In some ways, this is the counterpart of world_get/world_get.js
 */
 require("./../rur.js");
@@ -11109,7 +11150,7 @@ record_title("ui-dialog-title-World-info", "Click on the world to get some addit
 record_id("kbd-repeat-not-keyword", "<code>repeat</code> is not a true Python keyword.");
 
 },{}],92:[function(require,module,exports){
-var mac_user_save_files_en = " <b>Mac users:</b> please see <a href='https://github.com/aroberge/reeborg/blob/master/known_problems.md' target='_blank'>Known problems</a>.";
+var mac_user_save_files_en = ' <b>Mac users:</b> please see <a href="https://github.com/aroberge/reeborg/blob/master/known_problems.md" target="_blank" rel="noopener">Known problems</a>.';
 
 RUR.ui_en = {};
 RUR.en_to_en = {};
@@ -11185,6 +11226,9 @@ RUR.ui_en.north = "north";
 RUR.ui_en.west = "west";
 RUR.ui_en.south = "south";
 RUR.ui_en["Unknown orientation for robot."] = "Unknown orientation for robot.";
+
+RUR.ui_en["Invalid position."] = "{pos} is an invalid position.";
+RUR.ui_en["Invalid orientation."] = "'{orient}' is an unknown orientation.";
 
 RUR.ui_en["World selected"] = "World {world} selected";
 RUR.ui_en["Could not find world"] = "Could not find world {world}";
@@ -11371,7 +11415,7 @@ RUR.ui_en["CONTACT"] = "(English/French only) Email:";
 RUR.ui_en["ISSUES"] = "Bug reports, suggestions, other issues, etc. (English/French only)";
 RUR.ui_en["FORUM"] = "Discussion forum (English/French only)";
 RUR.ui_en["HELP"] = "Help";
-RUR.ui_en["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/en" target="_blank">Documentation</a>';
+RUR.ui_en["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/en" target="_blank" rel="noopener">Documentation</a>';
 RUR.ui_en["PYTHON HELP"] = "Using Python, execute a program with <code>help()</code> to get a list of commands or <code>help(move)</code> to get help on the <code>move()</code> function, etc.";
 RUR.ui_en["KEYBOARD HELP"] = "Click on Reeborg keyboard to see a list of available commands, Python keywords, etc.";
 
@@ -11461,7 +11505,7 @@ RUR.ui_en["UPDATE BLOCKLY BUTTON"] = "Replace existing blocks";
 RUR.ui_en["Contents from World"] = "Contents from World";
 
 },{}],93:[function(require,module,exports){
-var mac_user_save_files_fr = " <b>Utilisateurs Mac:</b> consultez <a href='https://github.com/aroberge/reeborg/blob/master/known_problems.md' target='_blank'>Problèmes connus</a>.";
+var mac_user_save_files_fr = ' <b>Utilisateurs Mac:</b> consultez <a href="https://github.com/aroberge/reeborg/blob/master/known_problems.md" target="_blank" rel="noopener">Problèmes connus</a>.';
 
 RUR.ui_fr = {};
 RUR.fr_to_en = {};
@@ -11534,6 +11578,9 @@ RUR.ui_fr.north = "nord";
 RUR.ui_fr.west = "ouest";
 RUR.ui_fr.south = "sud";
 RUR.ui_fr["Unknown orientation for robot."] = "Orientation inconnue.";
+
+RUR.ui_en["Invalid position."] = "{pos} n'est pas une position valide.";
+RUR.ui_en["Invalid orientation."] = "'{orient}' est une orientation inconnue.";
 
 RUR.ui_fr["World selected"] = "Monde {world} choisi";
 RUR.ui_fr["Could not find world"] = "Je ne peux pas trouver {world}";
@@ -11723,7 +11770,7 @@ RUR.ui_fr["CONTACT"] = "Courriel :";
 RUR.ui_fr["ISSUES"] = "Rapports de bogues, suggestions, autres problèmes, etc. (en anglais ou en français seulement).";
 RUR.ui_fr["FORUM"] = "Forum de discussions (en anglais ou en français seulement).";
 RUR.ui_fr["HELP"] = "Aide";
-RUR.ui_fr["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/fr" target="_blank">Documentation</a>';
+RUR.ui_fr["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/fr" target="_blank" rel="noopener">Documentation</a>';
 RUR.ui_fr["PYTHON HELP"] = "En utilisant Python, executez un programme avec <code>help()</code> pour obtenir une liste de commandes ou <code>help(avance)</code> pour obtenir de l'aide sur la fonction <code>avance()</code>, etc.";
 RUR.ui_fr["KEYBOARD HELP"] = "Cliquez sur le clavier de Reeborg keyboard pour voir une liste des commandes, la syntaxe Python, etc.";
 
@@ -11814,7 +11861,7 @@ RUR.ui_fr["UPDATE BLOCKLY BUTTON"] = "Remplacer les blocs";
 RUR.ui_fr["Contents from World"] = "Remplacement de contenus";
 
 },{}],94:[function(require,module,exports){
-var mac_user_save_files_ko = " <b>Mac users:</b> please see <a href='https://github.com/aroberge/reeborg/blob/master/known_problems.md' target='_blank'>Known problems</a>.";
+var mac_user_save_files_ko = ' <b>Mac users:</b> please see <a href="https://github.com/aroberge/reeborg/blob/master/known_problems.md" target="_blank" rel="noopener">Known problems</a>.';
 
 RUR.ui_ko = {};
 RUR.ko_to_en = {};
@@ -11891,6 +11938,9 @@ RUR.ui_ko.north = "북쪽";
 RUR.ui_ko.west = "서쪽";
 RUR.ui_ko.south = "남쪽";
 RUR.ui_ko["Unknown orientation for robot."] = "로봇의 방향을 알 수 없습니다.";
+
+RUR.ui_en["Invalid position."] = "{pos} is an invalid position.";
+RUR.ui_en["Invalid orientation."] = "'{orient}' is an unknown orientation.";
 
 RUR.ui_ko["World selected"] = "월드 {world} 가 선택되었습니다";
 RUR.ui_ko["Could not find world"] = "월드를 찾을 수 없습니다. {world}";
@@ -12079,7 +12129,7 @@ RUR.ui_ko["CONTACT"] = "(English/French only) 이메일:";
 RUR.ui_ko["ISSUES"] = "버그 제보, 건의 그외 문제 등. (영어/프랑스어만 됨)";
 RUR.ui_ko["FORUM"] = "토론 포럼 (영어/프랑스어만 됨";
 RUR.ui_ko["HELP"] = "도움말";
-RUR.ui_ko["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/ko" target="_blank">Documentation (참고 문서)</a>';
+RUR.ui_ko["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/ko" target="_blank" rel="noopener">Documentation (참고 문서)</a>';
 RUR.ui_ko["PYTHON HELP"] = "파이썬을 사용해서, <code>help()</code>를 실행해서 명령어의 목록을 얻으세요 또는 <code>help(함수명)</code>으로 해당 <code>함수명()</code>의 정보를 확인할 수 있습니다. 예를 들어, <code>help(move)</code>로 <code>move</code>함수의 정보를 얻을 수 있습니다.";
 RUR.ui_ko["KEYBOARD HELP"] = "리보그의 키보드를 클릭해서 파이썬 키워드 등, 사용할수 있는 명령어의 목록을 보세요.";
 

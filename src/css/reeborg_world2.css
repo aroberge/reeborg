@@ -285,7 +285,7 @@ button {
 }
 
 a.left-link, a.right-link, button, a.fake_button {
-    font-size: .8em;
+    font-size: 12pt;
     padding: 5px;
     text-decoration: none;
     color: white;
@@ -369,6 +369,7 @@ legend {
 }
 
 input.blue-gradient {
+  font-size: 12pt;
     font-weight: bold;
     position: relative;
     height: 37px;
@@ -376,7 +377,9 @@ input.blue-gradient {
     background-color: #124;
     color: white;
 }
-
+button.blue-gradient {
+  font-size: 12pt;
+}
 .ui-tabs .ui-tabs-nav li, .ui-tabs .ui-tabs-nav li.ui-tabs-active:hover {
     top: 3px;
     border-bottom: 3px solid #75a110;
@@ -388,6 +391,7 @@ input.blue-gradient {
 
 .ui-tabs .ui-tabs-nav li a {
     color: white;
+    font-size: 12pt;
 }
 
 .ui-tabs .ui-tabs-nav li.ui-tabs-active {
@@ -870,6 +874,7 @@ li.failure:after {
 #edit-world-nav li.a-like {
     width: 150px;
     padding: .5em;
+    font-size: 12pt;
 }
 
 #edit-world-nav li a,

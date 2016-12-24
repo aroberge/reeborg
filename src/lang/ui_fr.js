@@ -1,4 +1,4 @@
-var mac_user_save_files_fr = " <b>Utilisateurs Mac:</b> consultez <a href='https://github.com/aroberge/reeborg/blob/master/known_problems.md' target='_blank'>Problèmes connus</a>.";
+var mac_user_save_files_fr = ' <b>Utilisateurs Mac:</b> consultez <a href="https://github.com/aroberge/reeborg/blob/master/known_problems.md" target="_blank" rel="noopener">Problèmes connus</a>.';
 
 RUR.ui_fr = {};
 RUR.fr_to_en = {};
@@ -263,7 +263,7 @@ RUR.ui_fr["CONTACT"] = "Courriel :";
 RUR.ui_fr["ISSUES"] = "Rapports de bogues, suggestions, autres problèmes, etc. (en anglais ou en français seulement).";
 RUR.ui_fr["FORUM"] = "Forum de discussions (en anglais ou en français seulement).";
 RUR.ui_fr["HELP"] = "Aide";
-RUR.ui_fr["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/fr" target="_blank">Documentation</a>';
+RUR.ui_fr["DOCUMENTATION"] = '<a href="http://reeborg.ca/docs/fr" target="_blank" rel="noopener">Documentation</a>';
 RUR.ui_fr["PYTHON HELP"] = "En utilisant Python, executez un programme avec <code>help()</code> pour obtenir une liste de commandes ou <code>help(avance)</code> pour obtenir de l'aide sur la fonction <code>avance()</code>, etc.";
 RUR.ui_fr["KEYBOARD HELP"] = "Cliquez sur le clavier de Reeborg keyboard pour voir une liste des commandes, la syntaxe Python, etc.";
 
