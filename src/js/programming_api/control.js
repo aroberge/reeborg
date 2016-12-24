@@ -9,6 +9,8 @@ require("./../world_get/world_get.js");
 require("./../world_set/world_set.js");
 require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
+
+require("./../world_api/wall.js");
 var get_world = require("./../world_get/world.js").get_world;
 
 RUR.control = {};
@@ -126,7 +128,6 @@ RUR.control.move_object = function(obj, x, y, to_x, to_y){
     if (RUR.world_get.obstacles_at_position(to_x, to_y).bridge !== undefined){
         bridge_already_there = true;
     }
-
 
     RUR.set_nb_object_at_position(obj, x, y, 0);
     if (RUR.TILES[obj].in_water &&
@@ -307,100 +308,39 @@ RUR.control._take_object_and_give_to_robot = function (robot, obj) {
 
 
 RUR.control.build_wall = function (robot){
-    var coords, orientation, x, y, walls;
-    if (RUR.control.wall_in_front(robot)){
-        throw new RUR.WallCollisionError(RUR.translate("There is already a wall here!"));
-    }
-
+    RUR.state.sound_id = "#build-sound";
     switch (robot._orientation){
     case RUR.EAST:
-        coords = robot.x + "," + robot.y;
-        orientation = "east";
-        x = robot.x;
-        y = robot.y;
+        RUR.add_wall("east", robot.x, robot.y); // records automatically
         break;
     case RUR.NORTH:
-        coords = robot.x + "," + robot.y;
-        orientation = "north";
-        x = robot.x;
-        y = robot.y;
+        RUR.add_wall("north", robot.x, robot.y);
         break;
     case RUR.WEST:
-        orientation = "east";
-        x = robot.x-1;
-        y = robot.y;
+        RUR.add_wall("west", robot.x, robot.y);
         break;
     case RUR.SOUTH:
-        orientation = "north";
-        x = robot.x;
-        y = robot.y-1;
+        RUR.add_wall("south", robot.x, robot.y);
         break;
     default:
         throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.build_wall().");
     }
-
-    coords = x + "," + y;
-    walls = get_world().walls;
-    if (walls === undefined){
-        walls = {};
-        get_world().walls = walls;
-    }
-
-    if (walls[coords] === undefined){
-        walls[coords] = [orientation];
-    } else {
-        walls[coords].push(orientation);
-    }
-    RUR.state.sound_id = "#build-sound";
-    RUR.record_frame("debug", "RUR.control.build_wall");
 };
 
 
 RUR.control.wall_in_front = function (robot) {
-    var coords;
     switch (robot._orientation){
     case RUR.EAST:
-        coords = robot.x + "," + robot.y;
-        if (robot.x == RUR.MAX_X){
-            return true;
-        }
-        if (RUR.world_get.is_wall_at(coords, "east")) {
-            return true;
-        }
-        break;
+        return RUR.is_wall_at_position("east", robot.x, robot.y);
     case RUR.NORTH:
-        coords = robot.x + "," + robot.y;
-        if (robot.y == RUR.MAX_Y){
-            return true;
-        }
-        if (RUR.world_get.is_wall_at(coords, "north")) {
-            return true;
-        }
-        break;
+        return RUR.is_wall_at_position("north", robot.x, robot.y);
     case RUR.WEST:
-        if (robot.x===1){
-            return true;
-        } else {
-            coords = (robot.x-1) + "," + robot.y; // do math first before building strings
-            if (RUR.world_get.is_wall_at(coords, "east")) {
-                return true;
-            }
-        }
-        break;
+        return RUR.is_wall_at_position("west", robot.x, robot.y);
     case RUR.SOUTH:
-        if (robot.y===1){
-            return true;
-        } else {
-            coords = robot.x + "," + (robot.y-1);  // do math first before building strings
-            if (RUR.world_get.is_wall_at(coords, "north")) {
-                return true;
-            }
-        }
-        break;
+        return RUR.is_wall_at_position("south", robot.x, robot.y);
     default:
         throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.wall_in_front().");
     }
-    return false;
 };
 
 RUR.control.wall_on_right = function (robot) {

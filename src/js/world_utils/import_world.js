@@ -42,8 +42,9 @@ RUR.import_world = function (json_string) {
     }
 
     // Backward compatibility following change done on Jan 5, 2016
-    // top_tiles has been renamed obstacles; to ensure compatibility of
-    // worlds created prior to using solid_objects, we change the old name
+    // top_tiles has been renamed obstacles (and prior to that [or after?], 
+    // they were known as solid_objects); to ensure compatibility of
+    // worlds created before, we change the old name
     // following http://stackoverflow.com/a/14592469/558799
     // thus ensuring that if a new world is created from an old one,
     // it will have the new syntax.
@@ -51,6 +52,10 @@ RUR.import_world = function (json_string) {
         Object.defineProperty(RUR.CURRENT_WORLD, "obstacles",
             Object.getOwnPropertyDescriptor(RUR.CURRENT_WORLD, "top_tiles"));
         delete RUR.CURRENT_WORLD.top_tiles;
+    } else if (RUR.CURRENT_WORLD.solid_objects !== undefined) {
+        Object.defineProperty(RUR.CURRENT_WORLD, "obstacles",
+            Object.getOwnPropertyDescriptor(RUR.CURRENT_WORLD, "solid_objects"));
+        delete RUR.CURRENT_WORLD.solid_objects;
     }
 
     // Backward compatibility change done on March 28, 2016, where

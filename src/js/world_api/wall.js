@@ -229,7 +229,7 @@ RUR.add_wall = function(orientation, x, y, goal) {
         RUR.utils.ensure_key_exists(world, "walls");
         _add_wall(orientation, x, y, world.walls);
     }   
-    RUR.record_frame();   
+    RUR.record_frame("debug", "add_wall");   
 };
 
 /** @function remove_wall
@@ -262,7 +262,7 @@ RUR.remove_wall = function(orientation, x, y, goal) {
     }
     orientation = orientation.toLowerCase();
     _remove_wall(orientation, x, y, goal);   
-    RUR.record_frame();   
+    RUR.record_frame("debug", "remove_wall");   
 };
 
 

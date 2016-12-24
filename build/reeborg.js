@@ -2319,9 +2319,7 @@ require("./../world_set/decorative_object.js");
 require("./../world_set/obstacle.js");
 require("./../world_set/give_object_to_robot.js");
 
-
-require("./../world_api/wall.js"); //new - unused for now
-
+require("./../world_api/wall.js"); 
 
 var edit_robot_menu = require("./../ui/edit_robot_menu.js");
 var dialog_add_object = require("./../dialogs/add_object.js").dialog_add_object;
@@ -2369,7 +2367,7 @@ RUR.we.edit_world = function  () {
             break;
         case "world":
             if (value == "walls") {
-                RUR.we._toggle_wall();
+                RUR.we.toggle_wall();
             }
             break;
         case "position":
@@ -2687,84 +2685,32 @@ RUR.we.calculate_wall_position = function () {
     return [x, y, orientation];
 };
 
-RUR.we._toggle_wall = function () {
+RUR.we.toggle_wall = function () {
     var position, x, y, orientation;
     position = RUR.we.calculate_wall_position();
     x = position[0];
     y = position[1];
     orientation = position[2];
-    RUR.we.toggle_wall(x, y, orientation);
-};
-
-/** @function toggle_wall
- * @memberof RUR
- * @instance
- * @summary TODO  This needs to be documented
- *
- * @desc Ceci doit être documenté
- *
- */
-
-RUR.we.toggle_wall = function (x, y, orientation) {
-    var coords, index;
-    coords = x + "," + y;
-
-    RUR.utils.ensure_key_exists(RUR.CURRENT_WORLD, "walls");
-    if (RUR.CURRENT_WORLD.walls[coords] === undefined){
-        RUR.CURRENT_WORLD.walls[coords] = [orientation];
+    if (RUR.is_wall_at_position(orientation, x, y)){
+        RUR.remove_wall(orientation, x, y);
     } else {
-        index = RUR.CURRENT_WORLD.walls[coords].indexOf(orientation);
-        if (index === -1) {
-            RUR.CURRENT_WORLD.walls[coords].push(orientation);
-        } else {
-            RUR.CURRENT_WORLD.walls[coords].splice(index, 1);
-            if (RUR.CURRENT_WORLD.walls[coords].length === 0){
-                delete RUR.CURRENT_WORLD.walls[coords];
-            }
-        }
-    }
+        RUR.add_wall(orientation, x, y);
+    }    
 };
-
-
-/** @function toggle_goal_wall
- * @memberof RUR
- * @instance
- * @summary TODO This needs to be refactored and documented
- *
- * @desc Ceci doit être documenté
- *
- */
-
 
 RUR.we.toggle_goal_wall = function () {
-    var position, response, x, y, orientation, coords, index;
+    "use strict";
+    var position, x, y, orientation, goal=true;
     position = RUR.we.calculate_wall_position();
     x = position[0];
     y = position[1];
     orientation = position[2];
-    coords = x + "," + y;
 
-    RUR.utils.ensure_key_exists(RUR.CURRENT_WORLD, "goal");
-    RUR.utils.ensure_key_exists(RUR.CURRENT_WORLD.goal, "walls");
-    if (RUR.CURRENT_WORLD.goal.walls[coords] === undefined){
-        RUR.CURRENT_WORLD.goal.walls[coords] = [orientation];
+    if (RUR.is_wall_at_position(orientation, x, y, goal)){
+        RUR.remove_wall(orientation, x, y, goal);
     } else {
-        index = RUR.CURRENT_WORLD.goal.walls[coords].indexOf(orientation);
-        if (index === -1) {
-            RUR.CURRENT_WORLD.goal.walls[coords].push(orientation);
-        } else {
-            RUR.CURRENT_WORLD.goal.walls[coords].splice(index, 1);
-            if (Object.keys(RUR.CURRENT_WORLD.goal.walls[coords]).length === 0){
-                delete RUR.CURRENT_WORLD.goal.walls[coords];
-                if (Object.keys(RUR.CURRENT_WORLD.goal.walls).length === 0) {
-                    delete RUR.CURRENT_WORLD.goal.walls;
-                    if (Object.keys(RUR.CURRENT_WORLD.goal).length === 0) {
-                        delete RUR.CURRENT_WORLD.goal;
-                    }
-                }
-            }
-        }
-    }
+        RUR.add_wall(orientation, x, y, goal);
+    }  
 };
 
 RUR.we._add_object = function (specific_object){
@@ -6381,6 +6327,8 @@ require("./../world_get/world_get.js");
 require("./../world_set/world_set.js");
 require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
+
+require("./../world_api/wall.js");
 var get_world = require("./../world_get/world.js").get_world;
 
 RUR.control = {};
@@ -6498,7 +6446,6 @@ RUR.control.move_object = function(obj, x, y, to_x, to_y){
     if (RUR.world_get.obstacles_at_position(to_x, to_y).bridge !== undefined){
         bridge_already_there = true;
     }
-
 
     RUR.set_nb_object_at_position(obj, x, y, 0);
     if (RUR.TILES[obj].in_water &&
@@ -6679,100 +6626,39 @@ RUR.control._take_object_and_give_to_robot = function (robot, obj) {
 
 
 RUR.control.build_wall = function (robot){
-    var coords, orientation, x, y, walls;
-    if (RUR.control.wall_in_front(robot)){
-        throw new RUR.WallCollisionError(RUR.translate("There is already a wall here!"));
-    }
-
+    RUR.state.sound_id = "#build-sound";
     switch (robot._orientation){
     case RUR.EAST:
-        coords = robot.x + "," + robot.y;
-        orientation = "east";
-        x = robot.x;
-        y = robot.y;
+        RUR.add_wall("east", robot.x, robot.y); // records automatically
         break;
     case RUR.NORTH:
-        coords = robot.x + "," + robot.y;
-        orientation = "north";
-        x = robot.x;
-        y = robot.y;
+        RUR.add_wall("north", robot.x, robot.y);
         break;
     case RUR.WEST:
-        orientation = "east";
-        x = robot.x-1;
-        y = robot.y;
+        RUR.add_wall("west", robot.x, robot.y);
         break;
     case RUR.SOUTH:
-        orientation = "north";
-        x = robot.x;
-        y = robot.y-1;
+        RUR.add_wall("south", robot.x, robot.y);
         break;
     default:
         throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.build_wall().");
     }
-
-    coords = x + "," + y;
-    walls = get_world().walls;
-    if (walls === undefined){
-        walls = {};
-        get_world().walls = walls;
-    }
-
-    if (walls[coords] === undefined){
-        walls[coords] = [orientation];
-    } else {
-        walls[coords].push(orientation);
-    }
-    RUR.state.sound_id = "#build-sound";
-    RUR.record_frame("debug", "RUR.control.build_wall");
 };
 
 
 RUR.control.wall_in_front = function (robot) {
-    var coords;
     switch (robot._orientation){
     case RUR.EAST:
-        coords = robot.x + "," + robot.y;
-        if (robot.x == RUR.MAX_X){
-            return true;
-        }
-        if (RUR.world_get.is_wall_at(coords, "east")) {
-            return true;
-        }
-        break;
+        return RUR.is_wall_at_position("east", robot.x, robot.y);
     case RUR.NORTH:
-        coords = robot.x + "," + robot.y;
-        if (robot.y == RUR.MAX_Y){
-            return true;
-        }
-        if (RUR.world_get.is_wall_at(coords, "north")) {
-            return true;
-        }
-        break;
+        return RUR.is_wall_at_position("north", robot.x, robot.y);
     case RUR.WEST:
-        if (robot.x===1){
-            return true;
-        } else {
-            coords = (robot.x-1) + "," + robot.y; // do math first before building strings
-            if (RUR.world_get.is_wall_at(coords, "east")) {
-                return true;
-            }
-        }
-        break;
+        return RUR.is_wall_at_position("west", robot.x, robot.y);
     case RUR.SOUTH:
-        if (robot.y===1){
-            return true;
-        } else {
-            coords = robot.x + "," + (robot.y-1);  // do math first before building strings
-            if (RUR.world_get.is_wall_at(coords, "north")) {
-                return true;
-            }
-        }
-        break;
+        return RUR.is_wall_at_position("south", robot.x, robot.y);
     default:
         throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.wall_in_front().");
     }
-    return false;
 };
 
 RUR.control.wall_on_right = function (robot) {
@@ -6989,7 +6875,7 @@ RUR.control.get_colour_at_position = function (x, y) {
 };
 RUR.control.get_color_at_position = RUR.control.get_colour_at_position;
 
-},{"./../default_tiles/tiles.js":1,"./../recorder/record_frame.js":47,"./../rur.js":53,"./../translator.js":57,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../world_get/world.js":74,"./../world_get/world_get.js":75,"./../world_set/world_set.js":84,"./exceptions.js":43,"./output.js":44}],43:[function(require,module,exports){
+},{"./../default_tiles/tiles.js":1,"./../recorder/record_frame.js":47,"./../rur.js":53,"./../translator.js":57,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../world_api/wall.js":69,"./../world_get/world.js":74,"./../world_get/world_get.js":75,"./../world_set/world_set.js":84,"./exceptions.js":43,"./output.js":44}],43:[function(require,module,exports){
 
 require("./../rur.js");
 
@@ -9233,8 +9119,8 @@ all sides. However, these walls are not included in the data structure
 that lists the walls, and must be handled separately.
 */
 
-// Helper functions - not documented
 function ensure_valid_position(x, y) {
+    // ensures that the position is within the world boundaries
     var position = "(" + x + ", " + y + ")";
     if (!RUR.utils.is_valid_position(x, y)) {
         throw new RUR.ReeborgError(
@@ -9263,10 +9149,9 @@ function ensure_valid_orientation(arg){
  * @param {bool} [goal] If `true`, list the goal walls found at that position
  *                      instead of regular walls.
  *
- * @throws Will throw an error if `x` or `y` is outside the world boundary
- * @throws more to add; do this in is_wall_at()
+ * @throws Will throw an error if `x` or `y` is outside the world boundary.
  *
- * @todo add tests
+ * @see {@link UnitTest#test_walls} for unit tests.
  * @todo add example
  *
  */
@@ -9297,10 +9182,10 @@ RUR.list_walls_at_position = function(x, y, goal) {
  *                      instead of regular walls.
  *
  * 
- * @throws Will throw an error if `x` or `y` is not a positive integer.
- * @throws more to add; do this in is_wall_at()
+ * @throws Will throw an error if `x` or `y` is outside the world boundary.
+ * @throws Will throw an error if `orientation` is not a valid choice.
  *
- * @todo add tests
+ * @see {@link UnitTest#test_walls} for unit tests.
  * @todo add example
  *
  */
@@ -9418,10 +9303,11 @@ function __is_wall (coords, orientation, walls) {
  * @param {string} orientation  One of `"east", "west", "north", "south"`.
  * @param {bool} [goal] If `true`, get information about goal walls.
  *
- * @throws Will throw an error if `x` or `y` is not a positive integer.
- * @throws more to add; do this in is_wall_at()
+ * @throws Will throw an error if `x` or `y` is outside the world boundary.
+ * @throws Will throw an error if `orientation` is not a valid choice.
+ * @throws Will throw an error if there is already a wall there.
  *
- * @todo add tests
+ * @see {@link UnitTest#test_walls} for unit tests.
  * @todo add example
  *
  */
@@ -9442,7 +9328,7 @@ RUR.add_wall = function(orientation, x, y, goal) {
         RUR.utils.ensure_key_exists(world, "walls");
         _add_wall(orientation, x, y, world.walls);
     }   
-    RUR.record_frame();   
+    RUR.record_frame("debug", "add_wall");   
 };
 
 /** @function remove_wall
@@ -9457,10 +9343,11 @@ RUR.add_wall = function(orientation, x, y, goal) {
  * @param {string} orientation  One of `"east", "west", "north", "south"`.
  * @param {bool} [goal] If `true`, get information about goal walls.
  *
- * @throws Will throw an error if `x` or `y` is not a positive integer.
- * @throws more to add; do this in is_wall_at()
+ * @throws Will throw an error if `x` or `y` is outside the world boundary.
+ * @throws Will throw an error if `orientation` is not a valid choice.
+ * @throws Will throw an error if there is no wall to remove.
  *
- * @todo add tests
+ * @see {@link UnitTest#test_walls} for unit tests.
  * @todo add example
  *
  */
@@ -9469,12 +9356,12 @@ RUR.remove_wall = function(orientation, x, y, goal) {
     // the following function call will raise an exception if
     // the orientation or the position is not valid
     wall_here = RUR.is_wall_at_position(orientation, x, y, goal);
-    if (wall_here){
+    if (!wall_here){
         throw new RUR.ReeborgError(RUR.translate("There is no wall to remove!"));
     }
     orientation = orientation.toLowerCase();
     _remove_wall(orientation, x, y, goal);   
-    RUR.record_frame();   
+    RUR.record_frame("debug", "remove_wall");   
 };
 
 
@@ -9862,17 +9749,17 @@ RUR.world_get.show_all_tiles = function () {
     RUR._print_html_(info);
 };
 
-RUR.world_get.is_wall_at = function (coords, orientation) {
-    if (RUR.CURRENT_WORLD.walls === undefined) {
-        return false;
-    }
-    if (RUR.CURRENT_WORLD.walls[coords] !== undefined){
-        if (RUR.CURRENT_WORLD.walls[coords].indexOf(orientation) !== -1) {
-            return true;
-        }
-    }
-    return false;
-};
+// RUR.world_get.is_wall_at = function (coords, orientation) {
+//     if (RUR.CURRENT_WORLD.walls === undefined) {
+//         return false;
+//     }
+//     if (RUR.CURRENT_WORLD.walls[coords] !== undefined){
+//         if (RUR.CURRENT_WORLD.walls[coords].indexOf(orientation) !== -1) {
+//             return true;
+//         }
+//     }
+//     return false;
+// };
 
 
 RUR.world_get.tile_at_position = function (x, y) {
@@ -10851,8 +10738,9 @@ RUR.import_world = function (json_string) {
     }
 
     // Backward compatibility following change done on Jan 5, 2016
-    // top_tiles has been renamed obstacles; to ensure compatibility of
-    // worlds created prior to using solid_objects, we change the old name
+    // top_tiles has been renamed obstacles (and prior to that [or after?], 
+    // they were known as solid_objects); to ensure compatibility of
+    // worlds created before, we change the old name
     // following http://stackoverflow.com/a/14592469/558799
     // thus ensuring that if a new world is created from an old one,
     // it will have the new syntax.
@@ -10860,6 +10748,10 @@ RUR.import_world = function (json_string) {
         Object.defineProperty(RUR.CURRENT_WORLD, "obstacles",
             Object.getOwnPropertyDescriptor(RUR.CURRENT_WORLD, "top_tiles"));
         delete RUR.CURRENT_WORLD.top_tiles;
+    } else if (RUR.CURRENT_WORLD.solid_objects !== undefined) {
+        Object.defineProperty(RUR.CURRENT_WORLD, "obstacles",
+            Object.getOwnPropertyDescriptor(RUR.CURRENT_WORLD, "solid_objects"));
+        delete RUR.CURRENT_WORLD.solid_objects;
     }
 
     // Backward compatibility change done on March 28, 2016, where

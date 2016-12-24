@@ -34,19 +34,6 @@ RUR.world_get.show_all_tiles = function () {
     RUR._print_html_(info);
 };
 
-RUR.world_get.is_wall_at = function (coords, orientation) {
-    if (RUR.CURRENT_WORLD.walls === undefined) {
-        return false;
-    }
-    if (RUR.CURRENT_WORLD.walls[coords] !== undefined){
-        if (RUR.CURRENT_WORLD.walls[coords].indexOf(orientation) !== -1) {
-            return true;
-        }
-    }
-    return false;
-};
-
-
 RUR.world_get.tile_at_position = function (x, y) {
     "use strict";
     var coords = x + "," + y;

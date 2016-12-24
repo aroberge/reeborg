@@ -108,13 +108,13 @@ QUnit.test("Load world by running Python programs", function(assert) {
                 ["/src/worlds/tutorial_en/home1.json", "Home 1"]];
     RUR.custom_world_select.make(contents);
 
-    test_utils.run_python(null, "/tests/functional_tests/src/select_home1_en.py");
+    test_utils.run_python(null, "/tests/functional_tests/programs/select_home1_en.py");
     //playback should have been prevented, and only the feedback shown.
     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element expected.");
     assert.equal(test_utils.content, "World Home 1 selected");
 
     // second time runs the rest of the program as the correct world is selected
-    test_utils.run_python(null, "/tests/functional_tests/src/select_home1_en.py");
+    test_utils.run_python(null, "/tests/functional_tests/programs/select_home1_en.py");
     RUR.rec.conclude();
     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     assert.equal(test_utils.content,

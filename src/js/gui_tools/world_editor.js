@@ -24,9 +24,7 @@ require("./../world_set/decorative_object.js");
 require("./../world_set/obstacle.js");
 require("./../world_set/give_object_to_robot.js");
 
-
-require("./../world_api/wall.js"); //new - unused for now
-
+require("./../world_api/wall.js"); 
 
 var edit_robot_menu = require("./../ui/edit_robot_menu.js");
 var dialog_add_object = require("./../dialogs/add_object.js").dialog_add_object;
@@ -74,7 +72,7 @@ RUR.we.edit_world = function  () {
             break;
         case "world":
             if (value == "walls") {
-                RUR.we._toggle_wall();
+                RUR.we.toggle_wall();
             }
             break;
         case "position":
@@ -392,84 +390,32 @@ RUR.we.calculate_wall_position = function () {
     return [x, y, orientation];
 };
 
-RUR.we._toggle_wall = function () {
+RUR.we.toggle_wall = function () {
     var position, x, y, orientation;
     position = RUR.we.calculate_wall_position();
     x = position[0];
     y = position[1];
     orientation = position[2];
-    RUR.we.toggle_wall(x, y, orientation);
-};
-
-/** @function toggle_wall
- * @memberof RUR
- * @instance
- * @summary TODO  This needs to be documented
- *
- * @desc Ceci doit être documenté
- *
- */
-
-RUR.we.toggle_wall = function (x, y, orientation) {
-    var coords, index;
-    coords = x + "," + y;
-
-    RUR.utils.ensure_key_exists(RUR.CURRENT_WORLD, "walls");
-    if (RUR.CURRENT_WORLD.walls[coords] === undefined){
-        RUR.CURRENT_WORLD.walls[coords] = [orientation];
+    if (RUR.is_wall_at_position(orientation, x, y)){
+        RUR.remove_wall(orientation, x, y);
     } else {
-        index = RUR.CURRENT_WORLD.walls[coords].indexOf(orientation);
-        if (index === -1) {
-            RUR.CURRENT_WORLD.walls[coords].push(orientation);
-        } else {
-            RUR.CURRENT_WORLD.walls[coords].splice(index, 1);
-            if (RUR.CURRENT_WORLD.walls[coords].length === 0){
-                delete RUR.CURRENT_WORLD.walls[coords];
-            }
-        }
-    }
+        RUR.add_wall(orientation, x, y);
+    }    
 };
-
-
-/** @function toggle_goal_wall
- * @memberof RUR
- * @instance
- * @summary TODO This needs to be refactored and documented
- *
- * @desc Ceci doit être documenté
- *
- */
-
 
 RUR.we.toggle_goal_wall = function () {
-    var position, response, x, y, orientation, coords, index;
+    "use strict";
+    var position, x, y, orientation, goal=true;
     position = RUR.we.calculate_wall_position();
     x = position[0];
     y = position[1];
     orientation = position[2];
-    coords = x + "," + y;
 
-    RUR.utils.ensure_key_exists(RUR.CURRENT_WORLD, "goal");
-    RUR.utils.ensure_key_exists(RUR.CURRENT_WORLD.goal, "walls");
-    if (RUR.CURRENT_WORLD.goal.walls[coords] === undefined){
-        RUR.CURRENT_WORLD.goal.walls[coords] = [orientation];
+    if (RUR.is_wall_at_position(orientation, x, y, goal)){
+        RUR.remove_wall(orientation, x, y, goal);
     } else {
-        index = RUR.CURRENT_WORLD.goal.walls[coords].indexOf(orientation);
-        if (index === -1) {
-            RUR.CURRENT_WORLD.goal.walls[coords].push(orientation);
-        } else {
-            RUR.CURRENT_WORLD.goal.walls[coords].splice(index, 1);
-            if (Object.keys(RUR.CURRENT_WORLD.goal.walls[coords]).length === 0){
-                delete RUR.CURRENT_WORLD.goal.walls[coords];
-                if (Object.keys(RUR.CURRENT_WORLD.goal.walls).length === 0) {
-                    delete RUR.CURRENT_WORLD.goal.walls;
-                    if (Object.keys(RUR.CURRENT_WORLD.goal).length === 0) {
-                        delete RUR.CURRENT_WORLD.goal;
-                    }
-                }
-            }
-        }
-    }
+        RUR.add_wall(orientation, x, y, goal);
+    }  
 };
 
 RUR.we._add_object = function (specific_object){
