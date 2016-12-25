@@ -1,0 +1,31 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "_is_leaky": true,
+      "start_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": "A simple demonstration world for the <code>wall</code> \nrelated methods.",
+  "small_tiles": false,
+  "rows": 10,
+  "cols": 10,
+  "onload": "RUR.onload_set_programming_mode(\"python\")\n",
+  "editor": "# In the Onload editor, we have set the programming\n# mode to Python.\n\n# We ensure that this example works for all human\n# languages\nfrom reeborg_en import (move, turn_left, build_wall,\n                        recording, front_is_clear)\n\n# The following instructions could be done\n# in the Pre editor.\nrecording(False)\norientations = [\"east\", \"north\", \"west\", \"south\"]\ngoal = True\nfor orient in orientations:\n    RUR.add_wall(orient, 3, 3)\n    RUR.add_wall(orient, 3, 5, goal)\nrecording(True)\n\n# We proceed to accomplish the task\ndef turn_right():\n    for i in range(3):\n        turn_left()\n        \nturn_left()\nfor i in range(4):\n    move()\n    \nturn_right()\nmove()\nmove()\n\nfor i in range(4):\n    build_wall()\n    turn_left()\n\nturn_right()\n\n# south wall of (3, 5) is the same as\n# north wall of (3, 4)\nRUR.remove_wall(\"south\", 3, 5)\nRUR.remove_wall(\"north\", 3, 4, goal) \n\nRUR.remove_wall(\"north\", 3, 3)\n\nwhile front_is_clear():\n    move()",
+  "goal": {}
+}

@@ -126,7 +126,7 @@ QUnit.test("Center 1, 2, 3", function(assert) {
     RUR.rec.conclude();
     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     assert.equal(test_utils.content,
-        "<ul><li class='success'>All objects are at the correct location.</li></u>",
+        "<ul><li class='success'>All objects are at the correct location.</li></ul>",
         "Feedback text ok.");
     done();
 });
@@ -144,7 +144,7 @@ QUnit.test("Hurdles 1, 2, 3, 4", function(assert) {
     RUR.rec.conclude();
     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     assert.equal(test_utils.content,
-        "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></u>",
+        "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></ul>",
         "Feedback text ok.");
     done();
 });
@@ -164,7 +164,7 @@ QUnit.test("Maze 1, 2", function(assert) {
     RUR.rec.conclude();
     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     assert.equal(test_utils.content,
-        "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></u>",
+        "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></ul>",
         "Feedback text ok.");
     done();
 });
@@ -181,7 +181,7 @@ QUnit.test("Home 1, 2, 3", function(assert) {
     RUR.rec.conclude();
     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     assert.equal(test_utils.content,
-        "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></u>",
+        "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></ul>",
         "Feedback text ok.");
     done();
 });
@@ -201,7 +201,7 @@ QUnit.test("Harvests", function(assert) {
     RUR.rec.conclude();
     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     assert.equal(test_utils.content,
-        "<ul><li class='success'>All objects are at the correct location.</li></u>",
+        "<ul><li class='success'>All objects are at the correct location.</li></ul>",
         "Feedback text ok.");
 
     world_file = "harvest2.json";
@@ -245,7 +245,7 @@ QUnit.test("Tokens", function(assert) {
     assert.equal(test_utils.content,
         "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
         "<li class='success'>Reeborg is at the correct y position.</li>" +
-        "<li class='success'>All objects are at the correct location.</li></u>",
+        "<li class='success'>All objects are at the correct location.</li></ul>",
         "Feedback text ok.");
 
     world_file = "tokens2.json";
@@ -282,7 +282,7 @@ QUnit.test("Rain", function(assert) {
     assert.equal(test_utils.content,
         "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
         "<li class='success'>Reeborg is at the correct y position.</li>" +
-        "<li class='success'>All walls have been built correctly.</li></u>",
+        "<li class='success'>All walls have been built correctly.</li></ul>",
         "Feedback text ok.");
 
     world_file = "rain2.json";
@@ -308,7 +308,7 @@ QUnit.test("Newspaper", function(assert) {
     assert.equal(test_utils.content,
         "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
         "<li class='success'>Reeborg is at the correct y position.</li>" +
-        "<li class='success'>All objects are at the correct location.</li></u>",
+        "<li class='success'>All objects are at the correct location.</li></ul>",
         "Feedback text ok.");
 
     world_file = "newspaper2.json";
@@ -338,7 +338,7 @@ QUnit.test("Storm 1", function(assert) {
         "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
         "<li class='success'>Reeborg is at the correct y position.</li>" +
         "<li class='success'>All objects are at the correct location.</li>" +
-        "<li class='success'>All walls have been built correctly.</li></u>",
+        "<li class='success'>All walls have been built correctly.</li></ul>",
         "Feedback text ok.");
     done();
 });
@@ -365,7 +365,7 @@ QUnit.test("Storm 2; also tests library", function(assert) {
         "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
         "<li class='success'>Reeborg is at the correct y position.</li>" +
         "<li class='success'>All objects are at the correct location.</li>" +
-        "<li class='success'>All walls have been built correctly.</li></u>",
+        "<li class='success'>All walls have been built correctly.</li></ul>",
         "Feedback text ok.");
     done();
     });
@@ -392,7 +392,7 @@ QUnit.test("Storm 3; also tests library", function(assert) {
         "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
         "<li class='success'>Reeborg is at the correct y position.</li>" +
         "<li class='success'>All objects are at the correct location.</li>" +
-        "<li class='success'>All walls have been built correctly.</li></u>",
+        "<li class='success'>All walls have been built correctly.</li></ul>",
         "Feedback text ok.");
     done();
 });
@@ -469,7 +469,7 @@ QUnit.test("Centre 1, 2, 3", function(assert) {
     RUR.rec.conclude();
     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     assert.equal(test_utils.content,
-        "<ul><li class='success'>Tous les objets sont aux bons endroits.</li></u>",
+        "<ul><li class='success'>Tous les objets sont aux bons endroits.</li></ul>",
         "Feedback text ok.");
     done();
 });
@@ -486,7 +486,7 @@ QUnit.test("Hurdles 1, 2, 3, 4", function(assert) {
     RUR.rec.conclude();
     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     assert.equal(test_utils.content,
-        "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li><li class='success'>Reeborg est à la bonne coordonnée y.</li></u>",
+        "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li><li class='success'>Reeborg est à la bonne coordonnée y.</li></ul>",
         "Feedback text ok.");
     done();
 });
@@ -506,7 +506,7 @@ QUnit.test("Maze 1, 2", function(assert) {
     RUR.rec.conclude();
     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     assert.equal(test_utils.content,
-        "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li><li class='success'>Reeborg est à la bonne coordonnée y.</li></u>",
+        "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li><li class='success'>Reeborg est à la bonne coordonnée y.</li></ul>",
         "Feedback text ok.");
     done();
 });
@@ -523,7 +523,7 @@ QUnit.test("Home 1, 2, 3", function(assert) {
     RUR.rec.conclude();
     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     assert.equal(test_utils.content,
-        "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li><li class='success'>Reeborg est à la bonne coordonnée y.</li></u>",
+        "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li><li class='success'>Reeborg est à la bonne coordonnée y.</li></ul>",
         "Feedback text ok.");
     done();
 });
@@ -543,7 +543,7 @@ QUnit.test("Harvests", function(assert) {
     RUR.rec.conclude();
     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     assert.equal(test_utils.content,
-        "<ul><li class='success'>Tous les objets sont aux bons endroits.</li></u>",
+        "<ul><li class='success'>Tous les objets sont aux bons endroits.</li></ul>",
         "Feedback text ok.");
 
     world_file = "harvest2.json";
@@ -587,7 +587,7 @@ QUnit.test("Tokens", function(assert) {
     assert.equal(test_utils.content,
         "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li>" +
         "<li class='success'>Reeborg est à la bonne coordonnée y.</li>" +
-        "<li class='success'>Tous les objets sont aux bons endroits.</li></u>",
+        "<li class='success'>Tous les objets sont aux bons endroits.</li></ul>",
         "Feedback text ok.");
 
     world_file = "tokens2.json";
@@ -623,7 +623,7 @@ QUnit.test("Rain", function(assert) {
     assert.equal(test_utils.content,
         "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li>" +
         "<li class='success'>Reeborg est à la bonne coordonnée y.</li>" +
-        "<li class='success'>Tous les murs ont été construits correctement.</li></u>",
+        "<li class='success'>Tous les murs ont été construits correctement.</li></ul>",
         "Feedback text ok.");
 
     world_file = "rain2.json";
@@ -652,7 +652,7 @@ QUnit.test("Newspaper", function(assert) {
     assert.equal(test_utils.content,
         "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li>" +
         "<li class='success'>Reeborg est à la bonne coordonnée y.</li>" +
-        "<li class='success'>Tous les objets sont aux bons endroits.</li></u>",
+        "<li class='success'>Tous les objets sont aux bons endroits.</li></ul>",
         "Feedback text ok.");
 
     world_file = "newspaper2.json";
@@ -681,7 +681,7 @@ QUnit.test("Storm 1", function(assert) {
         "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li>" +
         "<li class='success'>Reeborg est à la bonne coordonnée y.</li>" +
         "<li class='success'>Tous les objets sont aux bons endroits.</li>" +
-        "<li class='success'>Tous les murs ont été construits correctement.</li></u>",
+        "<li class='success'>Tous les murs ont été construits correctement.</li></ul>",
         "Feedback text ok.");
     done();
 });
@@ -708,7 +708,7 @@ QUnit.test("Storm 2; also tests library", function(assert) {
         "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li>" +
         "<li class='success'>Reeborg est à la bonne coordonnée y.</li>" +
         "<li class='success'>Tous les objets sont aux bons endroits.</li>" +
-        "<li class='success'>Tous les murs ont été construits correctement.</li></u>",
+        "<li class='success'>Tous les murs ont été construits correctement.</li></ul>",
         "Feedback text ok.");
     done();
 });
@@ -736,7 +736,7 @@ QUnit.test("Storm 3; also tests library", function(assert) {
         "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li>" +
         "<li class='success'>Reeborg est à la bonne coordonnée y.</li>" +
         "<li class='success'>Tous les objets sont aux bons endroits.</li>" +
-        "<li class='success'>Tous les murs ont été construits correctement.</li></u>",
+        "<li class='success'>Tous les murs ont été construits correctement.</li></ul>",
         "Feedback text ok.");
     done();
 });

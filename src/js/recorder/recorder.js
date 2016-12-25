@@ -210,11 +210,19 @@ RUR.rec.check_current_world_status = function() {
 };
 
 RUR.rec.check_goal = function (frame) {
-    var g, world, goal_status = {}, result;
+    var g, world, goal_status = {"success": true}, result;
     g = frame.world.goal;
+    if (g === undefined) { // This is only needed for some 
+        return goal_status;        // functional which call check_goal directly
+    } else if (Object.keys(g).length === 0) { // no real goal to check
+        goal_status.message = "<p class='center'>" +
+                     RUR.translate("Last instruction completed!") +
+                     "</p>";
+        return goal_status;
+    }
+    
     world = frame.world;
     goal_status.message = "<ul>";
-    goal_status.success = true;
     if (g.position !== undefined){
         if (g.position.x === world.robots[0].x){
             goal_status.message += RUR.translate("<li class='success'>Reeborg is at the correct x position.</li>");
@@ -258,6 +266,11 @@ RUR.rec.check_goal = function (frame) {
             goal_status.success = false;
         }
     }
-    goal_status.message += "</u>";
+    goal_status.message += "</ul>";
+    if (goal_status.message == "<ul></ul>") { // there was no goal to check
+        goal_status.message = "<p class='center'>" +
+                             RUR.translate("Last instruction completed!") +
+                             "</p>";
+    }
     return goal_status;
 };

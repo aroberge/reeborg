@@ -23,12 +23,18 @@ try {
 }
 
 
-/** @namespace FUNC_TESTS 
- * @desc Namespace used to hold global reference to functions
- * that are useful to perform some functional tests only.
+/** @namespace FuncTest 
+ * @desc FuncTest is a namespace that can be used to hold global reference 
+ * to functions that are useful to perform some functional tests only, but 
+ * is mostly intended as a helper in creating documentation using jsdoc.
+ *
+ * 
+ * <span class="reeborg-important">The "methods" listed below are not callable
+ *  but simply convenient names used to document the unit tests using jsdoc.
+ *  </span>
  *
  */ 
-window.FUNC_TESTS = {};
+window.FuncTest = {};
 
 
 /** @namespace state

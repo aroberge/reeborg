@@ -27,6 +27,10 @@ code {
 .tag-deprecated {background-color: gold;
 }
 
+p {
+  font-weight: normal;
+}
+
 .description p {
     font-style: normal;
     color: black;

@@ -59,6 +59,7 @@ RUR.ui_fr["No object found here"] = "Pas d'objet '{obj}'' trouvé ici !";
 RUR.ui_fr["object"] = "objet";
 RUR.ui_fr["I don't have any object to put down!"] = "Je n'ai pas de '{obj}'!";
 RUR.ui_fr["There is already a wall here!"] = "Il y a déjà un mur ici !";
+RUR.ui_en["There is no wall to remove!"] = "Il n'y a pas de mur à enlever d'ici !";
 RUR.ui_fr["Ouch! I hit a wall!"] = "Ouch! J'ai frappé un mur!";
 RUR.ui_fr["Done!"] = "Terminé !";
 RUR.ui_fr["There is no position as a goal in this world!"] = "Aucune position n'a été spécifiée comme but dans ce monde!";

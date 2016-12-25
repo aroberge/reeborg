@@ -63,6 +63,7 @@ RUR.ui_ko["No object found here"] = "여기서 {obj} 를 찾을 수 없어요!";
 RUR.ui_ko["object"] = "객체";
 RUR.ui_ko["I don't have any object to put down!"] = "나는 집어넣을 {obj} 가 없어요!";
 RUR.ui_ko["There is already a wall here!"] = "벽이 여기에 이미 있어요!";
+RUR.ui_en["There is no wall to remove!"] = "There is no wall to remove!";
 RUR.ui_ko["Ouch! I hit a wall!"] = "아으, 아파요! 저는 벽을 부딪혔어요!";
 RUR.ui_ko["Done!"] = "끝!";
 RUR.ui_ko["There is no position as a goal in this world!"] = "위치에 대한 목표가 없어요!";

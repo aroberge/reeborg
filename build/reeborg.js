@@ -7311,11 +7311,13 @@ RUR.record_frame = function (name, obj) {
         return;
     } 
 
-    for (robot of RUR.CURRENT_WORLD.robots) { // jshint ignore:line
-        RUR.vis_robot.update_trace_history(robot);
+    if (RUR.CURRENT_WORLD.robots !== undefined){
+        for (robot of RUR.CURRENT_WORLD.robots) { // jshint ignore:line
+            RUR.vis_robot.update_trace_history(robot);
+        }
     }
-    frame.world = clone_world();
 
+    frame.world = clone_world();
 
     if (name !== undefined && obj !== undefined) {
         frame[name] = obj;
@@ -7593,11 +7595,19 @@ RUR.rec.check_current_world_status = function() {
 };
 
 RUR.rec.check_goal = function (frame) {
-    var g, world, goal_status = {}, result;
+    var g, world, goal_status = {"success": true}, result;
     g = frame.world.goal;
+    if (g === undefined) { // This is only needed for some 
+        return goal_status;        // functional which call check_goal directly
+    } else if (Object.keys(g).length === 0) { // no real goal to check
+        goal_status.message = "<p class='center'>" +
+                     RUR.translate("Last instruction completed!") +
+                     "</p>";
+        return goal_status;
+    }
+    
     world = frame.world;
     goal_status.message = "<ul>";
-    goal_status.success = true;
     if (g.position !== undefined){
         if (g.position.x === world.robots[0].x){
             goal_status.message += RUR.translate("<li class='success'>Reeborg is at the correct x position.</li>");
@@ -7641,7 +7651,12 @@ RUR.rec.check_goal = function (frame) {
             goal_status.success = false;
         }
     }
-    goal_status.message += "</u>";
+    goal_status.message += "</ul>";
+    if (goal_status.message == "<ul></ul>") { // there was no goal to check
+        goal_status.message = "<p class='center'>" +
+                             RUR.translate("Last instruction completed!") +
+                             "</p>";
+    }
     return goal_status;
 };
 
@@ -8210,12 +8225,18 @@ try {
 }
 
 
-/** @namespace FUNC_TESTS 
- * @desc Namespace used to hold global reference to functions
- * that are useful to perform some functional tests only.
+/** @namespace FuncTest 
+ * @desc FuncTest is a namespace that can be used to hold global reference 
+ * to functions that are useful to perform some functional tests only, but 
+ * is mostly intended as a helper in creating documentation using jsdoc.
+ *
+ * 
+ * <span class="reeborg-important">The "methods" listed below are not callable
+ *  but simply convenient names used to document the unit tests using jsdoc.
+ *  </span>
  *
  */ 
-window.FUNC_TESTS = {};
+window.FuncTest = {};
 
 
 /** @namespace state
@@ -9107,7 +9128,7 @@ require("./../recorder/record_frame.js");
 get_world = require("./../world_get/world.js").get_world;
 
 /*=========================================
-walls data structure
+Walls data structure
 
 Worlds are defined such that walls are listed only to the East or to the
 North of a given position. However, this is an implementation detail
@@ -9152,6 +9173,7 @@ function ensure_valid_orientation(arg){
  * @throws Will throw an error if `x` or `y` is outside the world boundary.
  *
  * @see {@link UnitTest#test_walls} for unit tests.
+ * @see {@link FuncTest#test_walls} for functional/integration tests.
  * @todo add example
  *
  */
@@ -9175,9 +9197,9 @@ RUR.list_walls_at_position = function(x, y, goal) {
  * @summary This function returns `true` if a wall is found at the
  * stated position and orientation, and `false` otherwise.
  *
+ * @param {string} orientation  One of `"east", "west", "north", "south"`.
  * @param {integer} x  Position: `1 <= x <= max_x`  
  * @param {integer} y  Position: `1 <= y <= max_y`
- * @param {string} orientation  One of `"east", "west", "north", "south"`.
  * @param {bool} [goal] If `true`, get information about goal walls
  *                      instead of regular walls.
  *
@@ -9186,6 +9208,7 @@ RUR.list_walls_at_position = function(x, y, goal) {
  * @throws Will throw an error if `orientation` is not a valid choice.
  *
  * @see {@link UnitTest#test_walls} for unit tests.
+ * @see {@link FuncTest#test_walls} for functional/integration tests.
  * @todo add example
  *
  */
@@ -9298,9 +9321,9 @@ function __is_wall (coords, orientation, walls) {
  * stated position and orientation if there is none already located there;
  * otherwise, it raises an exception.
  *
+ * @param {string} orientation  One of `"east", "west", "north", "south"`.
  * @param {integer} x  Position: `1 <= x <= max_x`  
  * @param {integer} y  Position: `1 <= y <= max_y`
- * @param {string} orientation  One of `"east", "west", "north", "south"`.
  * @param {bool} [goal] If `true`, get information about goal walls.
  *
  * @throws Will throw an error if `x` or `y` is outside the world boundary.
@@ -9308,6 +9331,7 @@ function __is_wall (coords, orientation, walls) {
  * @throws Will throw an error if there is already a wall there.
  *
  * @see {@link UnitTest#test_walls} for unit tests.
+ * @see {@link FuncTest#test_walls} for functional/integration tests.
  * @todo add example
  *
  */
@@ -9338,9 +9362,9 @@ RUR.add_wall = function(orientation, x, y, goal) {
  * stated position and orientation if there there is one already located there;
  * otherwise, it raises an exception.
  *
+ * @param {string} orientation  One of `"east", "west", "north", "south"`.
  * @param {integer} x  Position: `1 <= x <= max_x`  
  * @param {integer} y  Position: `1 <= y <= max_y`
- * @param {string} orientation  One of `"east", "west", "north", "south"`.
  * @param {bool} [goal] If `true`, get information about goal walls.
  *
  * @throws Will throw an error if `x` or `y` is outside the world boundary.
@@ -9348,6 +9372,7 @@ RUR.add_wall = function(orientation, x, y, goal) {
  * @throws Will throw an error if there is no wall to remove.
  *
  * @see {@link UnitTest#test_walls} for unit tests.
+ * @see {@link FuncTest#test_walls} for functional/integration tests.
  * @todo add example
  *
  */
@@ -9430,7 +9455,6 @@ function _remove_wall(orientation, x, y, goal) {
         throw new RUR.ReeborgError("Should not happen: unhandled case in add_wall().");
     }
 }
-
 
 function __remove_wall(coords, orientation, goal) {
     var index, world = get_world();
@@ -9748,19 +9772,6 @@ RUR.world_get.show_all_tiles = function () {
     info += "</table>";
     RUR._print_html_(info);
 };
-
-// RUR.world_get.is_wall_at = function (coords, orientation) {
-//     if (RUR.CURRENT_WORLD.walls === undefined) {
-//         return false;
-//     }
-//     if (RUR.CURRENT_WORLD.walls[coords] !== undefined){
-//         if (RUR.CURRENT_WORLD.walls[coords].indexOf(orientation) !== -1) {
-//             return true;
-//         }
-//     }
-//     return false;
-// };
-
 
 RUR.world_get.tile_at_position = function (x, y) {
     "use strict";

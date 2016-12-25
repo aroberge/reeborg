@@ -62,6 +62,7 @@ RUR.ui_en["No object found here"] = "No {obj} found here!";
 RUR.ui_en["object"] = "object";
 RUR.ui_en["I don't have any object to put down!"] = "I don't have any {obj} to put down!";
 RUR.ui_en["There is already a wall here!"] = "There is already a wall here!";
+RUR.ui_en["There is no wall to remove!"] = "There is no wall to remove!";
 RUR.ui_en["Ouch! I hit a wall!"] = "Ouch! I hit a wall!";
 RUR.ui_en["Done!"] = "Done!";
 RUR.ui_en["There is no position as a goal in this world!"] = "There is no position as a goal in this world!";

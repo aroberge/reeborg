@@ -43,11 +43,13 @@ RUR.record_frame = function (name, obj) {
         return;
     } 
 
-    for (robot of RUR.CURRENT_WORLD.robots) { // jshint ignore:line
-        RUR.vis_robot.update_trace_history(robot);
+    if (RUR.CURRENT_WORLD.robots !== undefined){
+        for (robot of RUR.CURRENT_WORLD.robots) { // jshint ignore:line
+            RUR.vis_robot.update_trace_history(robot);
+        }
     }
-    frame.world = clone_world();
 
+    frame.world = clone_world();
 
     if (name !== undefined && obj !== undefined) {
         frame[name] = obj;

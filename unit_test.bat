@@ -1,6 +1,6 @@
 @echo off
 rem This batch file is used to run each unit test in isolation.
-cd tests
+cd tests/unit_tests
 call :treeProcess
 goto :back
 
@@ -15,5 +15,5 @@ for /D %%d in (*) do (
 exit /b
 
 :back
-cd ..
+cd ../..
 exit /b
