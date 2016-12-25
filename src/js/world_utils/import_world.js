@@ -6,7 +6,7 @@ require("./../programming_api/exceptions.js");
 require("./../editors/create.js");
 require("./create_empty_world.js");
 var images_init = require("./../world_enhance/animated_images.js").images_init;
-var edit_robot_menu = require("./../ui/edit_robot_menu.js").edit_robot_menu;
+var edit_robot_menu = require("./../ui/edit_robot_menu.js");
 var clone_world = require("./clone_world.js").clone_world;
 
 RUR.import_world = function (json_string) {
