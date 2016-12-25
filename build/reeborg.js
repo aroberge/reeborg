@@ -2691,7 +2691,7 @@ RUR.we.toggle_wall = function () {
     x = position[0];
     y = position[1];
     orientation = position[2];
-    if (RUR.is_wall_at_position(orientation, x, y)){
+    if (RUR.is_wall(orientation, x, y)){
         RUR.remove_wall(orientation, x, y);
     } else {
         RUR.add_wall(orientation, x, y);
@@ -2706,7 +2706,7 @@ RUR.we.toggle_goal_wall = function () {
     y = position[1];
     orientation = position[2];
 
-    if (RUR.is_wall_at_position(orientation, x, y, goal)){
+    if (RUR.is_wall(orientation, x, y, goal)){
         RUR.remove_wall(orientation, x, y, goal);
     } else {
         RUR.add_wall(orientation, x, y, goal);
@@ -6636,13 +6636,13 @@ RUR.control.build_wall = function (robot){
 RUR.control.wall_in_front = function (robot) {
     switch (robot._orientation){
     case RUR.EAST:
-        return RUR.is_wall_at_position("east", robot.x, robot.y);
+        return RUR.is_wall("east", robot.x, robot.y);
     case RUR.NORTH:
-        return RUR.is_wall_at_position("north", robot.x, robot.y);
+        return RUR.is_wall("north", robot.x, robot.y);
     case RUR.WEST:
-        return RUR.is_wall_at_position("west", robot.x, robot.y);
+        return RUR.is_wall("west", robot.x, robot.y);
     case RUR.SOUTH:
-        return RUR.is_wall_at_position("south", robot.x, robot.y);
+        return RUR.is_wall("south", robot.x, robot.y);
     default:
         throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.wall_in_front().");
     }
@@ -9145,7 +9145,7 @@ function ensure_valid_orientation(arg){
 }
 
 
-/** @function list_walls_at_position
+/** @function get_walls
  * @memberof RUR
  * @instance
  * @summary This function returns a list of walls at a location from within
@@ -9164,7 +9164,7 @@ function ensure_valid_orientation(arg){
  * @todo add example
  *
  */
-RUR.list_walls_at_position = function(x, y, goal) {
+RUR.get_walls = function(x, y, goal) {
     var world = get_world();
     ensure_valid_position(x, y);
     if (goal) {
@@ -9178,7 +9178,7 @@ RUR.list_walls_at_position = function(x, y, goal) {
 };
 
 
-/** @function is_wall_at_position
+/** @function is_wall
  * @memberof RUR
  * @instance
  * @summary This function returns `true` if a wall is found at the
@@ -9199,7 +9199,7 @@ RUR.list_walls_at_position = function(x, y, goal) {
  * @todo add example
  *
  */
-RUR.is_wall_at_position = function(orientation, x, y, goal) {
+RUR.is_wall = function(orientation, x, y, goal) {
     var world = get_world();
     ensure_valid_orientation(orientation);
     ensure_valid_position(x, y);
@@ -9326,7 +9326,7 @@ RUR.add_wall = function(orientation, x, y, goal) {
     var world = get_world(), wall_here;
     // the following function call will raise an exception if
     // the orientation or the position is not valid
-    wall_here = RUR.is_wall_at_position(orientation, x, y, goal);
+    wall_here = RUR.is_wall(orientation, x, y, goal);
     if (wall_here){
         throw new RUR.ReeborgError(RUR.translate("There is already a wall here!"));
     }
@@ -9367,7 +9367,7 @@ RUR.remove_wall = function(orientation, x, y, goal) {
     var wall_here;
     // the following function call will raise an exception if
     // the orientation or the position is not valid
-    wall_here = RUR.is_wall_at_position(orientation, x, y, goal);
+    wall_here = RUR.is_wall(orientation, x, y, goal);
     if (!wall_here){
         throw new RUR.ReeborgError(RUR.translate("There is no wall to remove!"));
     }

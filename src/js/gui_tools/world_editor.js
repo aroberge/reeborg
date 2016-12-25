@@ -396,7 +396,7 @@ RUR.we.toggle_wall = function () {
     x = position[0];
     y = position[1];
     orientation = position[2];
-    if (RUR.is_wall_at_position(orientation, x, y)){
+    if (RUR.is_wall(orientation, x, y)){
         RUR.remove_wall(orientation, x, y);
     } else {
         RUR.add_wall(orientation, x, y);
@@ -411,7 +411,7 @@ RUR.we.toggle_goal_wall = function () {
     y = position[1];
     orientation = position[2];
 
-    if (RUR.is_wall_at_position(orientation, x, y, goal)){
+    if (RUR.is_wall(orientation, x, y, goal)){
         RUR.remove_wall(orientation, x, y, goal);
     } else {
         RUR.add_wall(orientation, x, y, goal);

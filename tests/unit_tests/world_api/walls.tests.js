@@ -24,11 +24,11 @@ require("../../../src/js/world_api/wall.js");
 
 /* testing exceptions =============================================*/
 
-test('list_walls_at_position: invalid position', function (assert) {  
+test('get_walls: invalid position', function (assert) {  
     assert.plan(3);  
     RUR.CURRENT_WORLD = RUR.create_empty_world();
     try {
-        RUR.list_walls_at_position(0, 0);
+        RUR.get_walls(0, 0);
     } catch (e) {
         assert.equal(e.message, "(0, 0) is an invalid position.", "error message");
         assert.equal(e.reeborg_shouts, "(0, 0) is an invalid position.", "reeborg_shouts");
@@ -37,11 +37,11 @@ test('list_walls_at_position: invalid position', function (assert) {
     assert.end();
 });
 
-test('is_wall_at_position: invalid position', function (assert) {  
+test('is_wall: invalid position', function (assert) {  
     RUR.CURRENT_WORLD = RUR.create_empty_world();
     assert.plan(3);  
     try {
-        RUR.is_wall_at_position("north", 1, 100);
+        RUR.is_wall("north", 1, 100);
     } catch (e) {
         assert.equal(e.message, "(1, 100) is an invalid position.", "error message");
         assert.equal(e.reeborg_shouts, "(1, 100) is an invalid position.", "reeborg_shouts");
@@ -51,11 +51,11 @@ test('is_wall_at_position: invalid position', function (assert) {
 });
 
 
-test('is_wall_at_position: invalid orientation', function (assert) {  
+test('is_wall: invalid orientation', function (assert) {  
     RUR.CURRENT_WORLD = RUR.create_empty_world();
     assert.plan(3);  
     try {
-        RUR.is_wall_at_position("n", 1, 2);
+        RUR.is_wall("n", 1, 2);
     } catch (e) {
         assert.equal(e.message, "'n' is an unknown orientation.", "error message");
         assert.equal(e.reeborg_shouts, "'n' is an unknown orientation.", "reeborg_shouts");
@@ -149,7 +149,7 @@ test('remove_wall: removing missing wall', function (assert) {
 
 test('list empty walls', function (assert) {    
     RUR.CURRENT_WORLD = RUR.create_empty_world();
-    assert.deepEqual(RUR.list_walls_at_position(3, 3), [], "No walls present");
+    assert.deepEqual(RUR.get_walls(3, 3), [], "No walls present");
     assert.end();
 });
 
@@ -157,19 +157,19 @@ test('list empty walls', function (assert) {
 test('Add and list walls', function (assert) {    
     RUR.CURRENT_WORLD = RUR.create_empty_world();
     RUR.add_wall("east", 3, 3);
-    assert.deepEqual(RUR.list_walls_at_position(3, 3), ["east"], "east wall");
+    assert.deepEqual(RUR.get_walls(3, 3), ["east"], "east wall");
     RUR.add_wall("west", 3, 3);
-    assert.deepEqual(RUR.list_walls_at_position(3, 3), ["east", "west"], "two walls");
+    assert.deepEqual(RUR.get_walls(3, 3), ["east", "west"], "two walls");
     RUR.add_wall("north", 3, 3);
     // walls are found by list_walls_at position in order as ["east", "north", "west", "south"]
-    assert.deepEqual(RUR.list_walls_at_position(3, 3), ["east", "north", "west"], "three walls");
+    assert.deepEqual(RUR.get_walls(3, 3), ["east", "north", "west"], "three walls");
     RUR.add_wall("south", 3, 3);
-    assert.deepEqual(RUR.list_walls_at_position(3, 3), ["east", "north", "west", "south"], "four walls");
+    assert.deepEqual(RUR.get_walls(3, 3), ["east", "north", "west", "south"], "four walls");
     // looking from other positions
-    assert.deepEqual(RUR.list_walls_at_position(4, 3), ["west"], "west wall");
-    assert.deepEqual(RUR.list_walls_at_position(2, 3), ["east"], "east wall");
-    assert.deepEqual(RUR.list_walls_at_position(3, 2), ["north"], "north wall");
-    assert.deepEqual(RUR.list_walls_at_position(3, 4), ["south"], "south wall");
+    assert.deepEqual(RUR.get_walls(4, 3), ["west"], "west wall");
+    assert.deepEqual(RUR.get_walls(2, 3), ["east"], "east wall");
+    assert.deepEqual(RUR.get_walls(3, 2), ["north"], "north wall");
+    assert.deepEqual(RUR.get_walls(3, 4), ["south"], "south wall");
     assert.end();
 });
 
@@ -177,13 +177,13 @@ test('Add and get wall at', function (assert) {
     RUR.CURRENT_WORLD = RUR.create_empty_world();
     RUR.add_wall("east", 3, 3);  // west of (4, 3)
     RUR.add_wall("north", 3, 3);  // south of (3, 4)
-    assert.ok(RUR.is_wall_at_position("east", 3, 3), "east wall present");
-    assert.ok(RUR.is_wall_at_position("north", 3, 3), "north wall present");
-    assert.notOk(RUR.is_wall_at_position("south", 3, 3), "south wall not present");
-    assert.notOk(RUR.is_wall_at_position("west", 3, 3), "west wall not present");
+    assert.ok(RUR.is_wall("east", 3, 3), "east wall present");
+    assert.ok(RUR.is_wall("north", 3, 3), "north wall present");
+    assert.notOk(RUR.is_wall("south", 3, 3), "south wall not present");
+    assert.notOk(RUR.is_wall("west", 3, 3), "west wall not present");
     //
-    assert.ok(RUR.is_wall_at_position("west", 4, 3), "west wall present");
-    assert.ok(RUR.is_wall_at_position("south", 3, 4), "south wall present");
+    assert.ok(RUR.is_wall("west", 4, 3), "west wall present");
+    assert.ok(RUR.is_wall("south", 3, 4), "south wall present");
     assert.end();
 });
 
@@ -192,19 +192,19 @@ test('Add and list goal walls', function (assert) {
     var goal = true;
     RUR.CURRENT_WORLD = RUR.create_empty_world();
     RUR.add_wall("east", 3, 3, goal);
-    assert.deepEqual(RUR.list_walls_at_position(3, 3, goal), ["east"], "east wall");
+    assert.deepEqual(RUR.get_walls(3, 3, goal), ["east"], "east wall");
     RUR.add_wall("west", 3, 3, goal);
-    assert.deepEqual(RUR.list_walls_at_position(3, 3, goal), ["east", "west"], "two walls");
+    assert.deepEqual(RUR.get_walls(3, 3, goal), ["east", "west"], "two walls");
     RUR.add_wall("north", 3, 3, goal);
     // walls are found by list_walls_at position in order as ["east", "north", "west", "south"]
-    assert.deepEqual(RUR.list_walls_at_position(3, 3, goal), ["east", "north", "west"], "three walls");
+    assert.deepEqual(RUR.get_walls(3, 3, goal), ["east", "north", "west"], "three walls");
     RUR.add_wall("south", 3, 3, goal);
-    assert.deepEqual(RUR.list_walls_at_position(3, 3, goal), ["east", "north", "west", "south"], "four walls");
+    assert.deepEqual(RUR.get_walls(3, 3, goal), ["east", "north", "west", "south"], "four walls");
     // looking from other positions
-    assert.deepEqual(RUR.list_walls_at_position(4, 3, goal), ["west"], "west wall");
-    assert.deepEqual(RUR.list_walls_at_position(2, 3, goal), ["east"], "east wall");
-    assert.deepEqual(RUR.list_walls_at_position(3, 2, goal), ["north"], "north wall");
-    assert.deepEqual(RUR.list_walls_at_position(3, 4, goal), ["south"], "south wall");
+    assert.deepEqual(RUR.get_walls(4, 3, goal), ["west"], "west wall");
+    assert.deepEqual(RUR.get_walls(2, 3, goal), ["east"], "east wall");
+    assert.deepEqual(RUR.get_walls(3, 2, goal), ["north"], "north wall");
+    assert.deepEqual(RUR.get_walls(3, 4, goal), ["south"], "south wall");
     assert.end();
 });
 
@@ -213,6 +213,6 @@ test('Add two walls, remove one and list walls', function (assert) {
     RUR.add_wall("east", 3, 3);
     RUR.add_wall("west", 3, 3);
     RUR.remove_wall("east", 3, 3);
-    assert.deepEqual(RUR.list_walls_at_position(3, 3), ["west"], "one wall remaining");
+    assert.deepEqual(RUR.get_walls(3, 3), ["west"], "one wall remaining");
     assert.end();
 });

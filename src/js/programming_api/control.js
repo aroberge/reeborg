@@ -331,13 +331,13 @@ RUR.control.build_wall = function (robot){
 RUR.control.wall_in_front = function (robot) {
     switch (robot._orientation){
     case RUR.EAST:
-        return RUR.is_wall_at_position("east", robot.x, robot.y);
+        return RUR.is_wall("east", robot.x, robot.y);
     case RUR.NORTH:
-        return RUR.is_wall_at_position("north", robot.x, robot.y);
+        return RUR.is_wall("north", robot.x, robot.y);
     case RUR.WEST:
-        return RUR.is_wall_at_position("west", robot.x, robot.y);
+        return RUR.is_wall("west", robot.x, robot.y);
     case RUR.SOUTH:
-        return RUR.is_wall_at_position("south", robot.x, robot.y);
+        return RUR.is_wall("south", robot.x, robot.y);
     default:
         throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.wall_in_front().");
     }

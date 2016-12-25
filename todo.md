@@ -4,10 +4,10 @@ Keeping track of advanced editing api
 
 |    artefact    | implement | doc | unittest | functest | example |
 |----------------|-----------|-----|----------|----------|---------|
-| set walls      |           |     |          |          |         |
-| get walls      | yes       | yes |          |          |         |
-| set goal wall  |           |     |          |          |         |
-| get goal wall  | yes       | yes |          |          |         |
+| set walls      | yes       | yes | yes      | yes      |         |
+| get walls      | yes       | yes | yes      | yes      |         |
+| set goal wall  | yes       | yes | yes      | yes      |         |
+| get goal wall  | yes       | yes | yes      | yes      |         |
 | set obj        |           |     |          |          |         |
 | get obj        |           |     |          |          |         |
 | set goal obj   |           |     |          |          |         |
@@ -30,5 +30,5 @@ Keeping track of advanced editing api
 
   * remove existing permalink creation and include replacement
   * See if dirty canvases can be implemented.
-
+  * consider adding set_final_position
 

@@ -1,31 +1,10 @@
 {
-  "robots": [
-    {
-      "x": 1,
-      "y": 1,
-      "_prev_x": 1,
-      "_prev_y": 1,
-      "_prev_orientation": 0,
-      "objects": {},
-      "_orientation": 0,
-      "_trace_history": [],
-      "_trace_style": "default",
-      "_trace_color": "seagreen",
-      "_is_leaky": true,
-      "start_positions": [
-        [
-          1,
-          1
-        ]
-      ]
-    }
-  ],
+  "robots": [],
   "walls": {},
-  "description": "A simple demonstration world for the <code>wall</code> \nrelated methods.",
+  "description": "A simple world demonstrating how to add and remove\nwalls, and get information about the walls\npresent at a given location.",
   "small_tiles": false,
-  "rows": 10,
-  "cols": 10,
+  "rows": 12,
+  "cols": 14,
   "onload": "RUR.onload_set_programming_mode(\"python\")\n",
-  "editor": "# In the Onload editor, we have set the programming\n# mode to Python.\n\n# We ensure that this example works for all human\n# languages\nfrom reeborg_en import (move, turn_left, build_wall,\n                        recording, front_is_clear)\n\n# The following instructions could be done\n# in the Pre editor.\nrecording(False)\norientations = [\"east\", \"north\", \"west\", \"south\"]\ngoal = True\nfor orient in orientations:\n    RUR.add_wall(orient, 3, 3)\n    RUR.add_wall(orient, 3, 5, goal)\nrecording(True)\n\n# We proceed to accomplish the task\ndef turn_right():\n    for i in range(3):\n        turn_left()\n        \nturn_left()\nfor i in range(4):\n    move()\n    \nturn_right()\nmove()\nmove()\n\nfor i in range(4):\n    build_wall()\n    turn_left()\n\nturn_right()\n\n# south wall of (3, 5) is the same as\n# north wall of (3, 4)\nRUR.remove_wall(\"south\", 3, 5)\nRUR.remove_wall(\"north\", 3, 4, goal) \n\nRUR.remove_wall(\"north\", 3, 3)\n\nwhile front_is_clear():\n    move()",
-  "goal": {}
+  "editor": "# In the Onload editor, we have set the programming\n# mode to Python.\n\norientations = [\"east\", \"north\", \"west\", \"south\"]\ngoal = True\nfor orient in orientations:\n    RUR.add_wall(orient, 3, 2, goal)\n\nfor orient in RUR.get_walls(3, 2, goal):\n    RUR.add_wall(orient, 3, 2)\n    \n# North of a tile is same as South of\n# the one above\n    \nif RUR.is_wall(\"north\", 3, 1):\n    RUR.remove_wall(\"south\", 3, 2)\n    \n# Internally, orientation is converted to lower case\n\nif RUR.is_wall(\"NORTH\", 3, 1, goal):\n    RUR.remove_wall(\"South\", 3, 2, goal)"
 }
