@@ -22,25 +22,20 @@ try {
     RUR._BASE_URL = '';
 }
 
-
+// Commenting for jsdoc:
 /** @namespace FuncTest 
  * @desc FuncTest is a namespace that can be used to hold global reference 
  * to functions that are useful to perform some functional tests only, but 
  * is mostly intended as a helper in creating documentation using jsdoc.
  *
- * 
  * <span class="reeborg-important">The "methods" listed below are not callable
  *  but simply convenient names used to document the unit tests using jsdoc.
  *  </span>
- *
  */ 
 window.FuncTest = {};
 
 
-/** @namespace state
- * @memberof RUR
- * 
- * @desc Reeborg's World can be in different states (running a program,
+/* Reeborg's World can be in different states (running a program,
  * editing a world, etc.) and the behaviour of some features can be affected
  * (e.g. enabled or disabled) depending on that state.
  * RUR.state is the name space used to group all constants describing
@@ -193,6 +188,7 @@ RUR.DEFAULT_TRACE_COLOR = "seagreen";
 
 RUR.KNOWN_TILES = [];
 RUR.ANIMATION_TIME = 120;
+RUR.END_CYCLE = "end cycle" // for animated images
 
 RUR.BACKGROUND_IMAGE = new Image();
 RUR.BACKGROUND_IMAGE.src = '';

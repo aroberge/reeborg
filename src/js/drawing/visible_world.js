@@ -1,6 +1,6 @@
 require("./../translator.js");
 require("./../rur.js");
-require("./../world_enhance/add_tile_type.js");
+require("./../world_api/add_tile_type.js");
 var get_world = require("./../world_get/world.js").get_world;
 //TODO add overlay object (like sensor) on robot canvas.
 
@@ -381,7 +381,7 @@ draw_animated_images = function (){
 
 function __draw_animated_images (objects, flag, obj_ref, ctx) {
     "use strict";
-    var i, j, i_j, coords, k, image, obj, obj_here, elem;
+    var i, j, i_j, coords, k, image, obj, obj_here, elem, remove_flag, images_to_remove=[];
     if (objects === undefined) {
         return flag;
     }
@@ -397,7 +397,10 @@ function __draw_animated_images (objects, flag, obj_ref, ctx) {
             if (obj === undefined) {
                 continue;
             } else if (obj.choose_image !== undefined){
-                _draw_single_animated(obj, coords[k], i, j, ctx);
+                remove_flag = _draw_single_animated(obj, coords[k], i, j, ctx);
+                if (remove_flag) {
+                    images_to_remove.push(coords[k]);
+                }
                 flag = true;
             }
         } else if (typeof obj_here == "object") { // e.g. objects: many at position
@@ -415,17 +418,27 @@ function __draw_animated_images (objects, flag, obj_ref, ctx) {
             console.log("Problem: unknown type in __draw_animated_images");
         }
     }
+
+    for (k=0; k < images_to_remove.length; k++){
+        delete objects[images_to_remove[k]];
+    }
+
     return flag;
 }
 
 function _draw_single_animated (obj, coords, i, j, ctx){
     var image;
-    image = obj.choose_image(coords);
+    // each image is uniquely identified by a string made up of its coordinate
+    // and the (html) id of the canvas on which it is drawn
+    image = obj.choose_image(coords + ctx.canvas.id);
     if (image === undefined){
         console.log("problem in _draw_single_animated; obj =", obj);
         throw new ReeborgError("Problem in _draw_single_animated at" + coords);
+    } else if (image == RUR.END_CYCLE) {
+        return RUR.END_CYCLE;
     }
     draw_single_object(image, i, j, ctx);
+    return false;
 }
 
 draw_coloured_tile = function (colour, i, j, ctx) {

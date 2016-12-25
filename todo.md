@@ -31,4 +31,5 @@ Keeping track of advanced editing api
   * remove existing permalink creation and include replacement
   * See if dirty canvases can be implemented.
   * consider adding set_final_position
+  * Need to set no object left in world as goal.
 

@@ -33,4 +33,5 @@ exports.identical = identical = function (a, b) {
     return JSON.stringify(sort(a)) === JSON.stringify(sort(b));
 };
 
-RUR.object_identical = identical; // for automated testing.
+require("./../rur.js");
+window.FuncTest.object_identical = identical; // for automated testing.

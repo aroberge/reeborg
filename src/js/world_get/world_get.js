@@ -11,29 +11,6 @@ require("./../utils/supplant.js");
 
 RUR.world_get = {};
 
-RUR.world_get.show_all_tiles = function () {
-    var i, j, info, images, name;
-    info = "<table border='1'><tr><th>name</th><th>image(s)</th></tr>";
-    for (i=0; i< RUR.KNOWN_TILES.length; i++) {
-        name = RUR.KNOWN_TILES[i];
-        url = RUR.TILES[name].url;
-        images = RUR.TILES[name].images;
-        info += "<tr><td>" +  name + "</td><td>";
-        if (url !== undefined) {
-            info += "<img src = '" + RUR.TILES[name].url + "'>";
-        } else if (images !== undefined) {
-            for(j=0; j<images.length; j++) {
-                info += "<img src = '" + images[j] + "'> - ";
-            }
-        } else {
-            info += "Missing image";
-        } 
-        info += "</td></tr>";
-    }
-    info += "</table>";
-    RUR._print_html_(info);
-};
-
 RUR.world_get.tile_at_position = function (x, y) {
     "use strict";
     var coords = x + "," + y;
