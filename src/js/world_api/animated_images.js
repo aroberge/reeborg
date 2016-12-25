@@ -1,13 +1,11 @@
 require("./../rur.js");
 
-var _ORDERED, _SYNC, _SYNC_VALUE;
-
-exports.images_init = images_init = function () {
-    _ORDERED = {};
-    _SYNC = {};
-    _SYNC_VALUE = {};
-    _CYCLE_STAY = {};
-    _CYCLE_REMOVE = {};
+RUR.animated_images_init = function () {
+    RUR._ORDERED = {};
+    RUR._SYNC = {};
+    RUR._SYNC_VALUE = {};
+    RUR._CYCLE_STAY = {};
+    RUR._CYCLE_REMOVE = {};
     RUR.ANIMATION_TIME = 120;
 };
 
@@ -72,32 +70,32 @@ RUR._random = function (obj, nb) {
 RUR._ordered = function (obj, nb, id) {
     // each animated image is given a random initial value but then goes in order
 
-    if (_ORDERED[obj.name] === undefined) {
-        _ORDERED[obj.name] = {};
-        _ORDERED[obj.name][id] = Math.floor(Math.random() * nb);
-    } else if (Object.keys(_ORDERED[obj.name]).indexOf(id) === -1) {
-        _ORDERED[obj.name][id] = Math.floor(Math.random() * nb);
+    if (RUR._ORDERED[obj.name] === undefined) {
+        RUR._ORDERED[obj.name] = {};
+        RUR._ORDERED[obj.name][id] = Math.floor(Math.random() * nb);
+    } else if (Object.keys(RUR._ORDERED[obj.name]).indexOf(id) === -1) {
+        RUR._ORDERED[obj.name][id] = Math.floor(Math.random() * nb);
     } else {
-        _ORDERED[obj.name][id] += 1;
-        _ORDERED[obj.name][id] %= nb;
+        RUR._ORDERED[obj.name][id] += 1;
+        RUR._ORDERED[obj.name][id] %= nb;
     }
-    return obj["image" + _ORDERED[obj.name][id]];
+    return obj["image" + RUR._ORDERED[obj.name][id]];
 };
 
 RUR._cycle_stay = function (obj, nb, id) {
     // each animated image starts with its first image,
     // cycles through all the values once, displaying the last
     // image as a permanent one.
-    if (_CYCLE_STAY[obj.name] === undefined) {
-        _CYCLE_STAY[obj.name] = {};
-        _CYCLE_STAY[obj.name][id] = 0;
-    } else if (Object.keys(_CYCLE_STAY[obj.name]).indexOf(id) === -1) {
-        _CYCLE_STAY[obj.name][id] = 0;
+    if (RUR._CYCLE_STAY[obj.name] === undefined) {
+        RUR._CYCLE_STAY[obj.name] = {};
+        RUR._CYCLE_STAY[obj.name][id] = 0;
+    } else if (Object.keys(RUR._CYCLE_STAY[obj.name]).indexOf(id) === -1) {
+        RUR._CYCLE_STAY[obj.name][id] = 0;
     } else {
-        _CYCLE_STAY[obj.name][id] += 1;
-        _CYCLE_STAY[obj.name][id] = Math.min(nb-1, _CYCLE_STAY[obj.name][id]);
+        RUR._CYCLE_STAY[obj.name][id] += 1;
+        RUR._CYCLE_STAY[obj.name][id] = Math.min(nb-1, RUR._CYCLE_STAY[obj.name][id]);
     }
-    return obj["image" + _CYCLE_STAY[obj.name][id]];
+    return obj["image" + RUR._CYCLE_STAY[obj.name][id]];
 };
 
 RUR._cycle_remove = function (obj, nb, id) {
@@ -105,31 +103,31 @@ RUR._cycle_remove = function (obj, nb, id) {
     // cycles through all the values once, and, after displaying the last
     // image, returns a "flag" instructing the calling function
     // to remove the object
-    if (_CYCLE_REMOVE[obj.name] === undefined) {
-        _CYCLE_REMOVE[obj.name] = {};
-        _CYCLE_REMOVE[obj.name][id] = 0;
-    } else if (Object.keys(_CYCLE_REMOVE[obj.name]).indexOf(id) === -1) {
-        _CYCLE_REMOVE[obj.name][id] = 0;
+    if (RUR._CYCLE_REMOVE[obj.name] === undefined) {
+        RUR._CYCLE_REMOVE[obj.name] = {};
+        RUR._CYCLE_REMOVE[obj.name][id] = 0;
+    } else if (Object.keys(RUR._CYCLE_REMOVE[obj.name]).indexOf(id) === -1) {
+        RUR._CYCLE_REMOVE[obj.name][id] = 0;
     } else {
-        _CYCLE_REMOVE[obj.name][id] += 1;
+        RUR._CYCLE_REMOVE[obj.name][id] += 1;
     }
-    if (_CYCLE_REMOVE[obj.name][id] >= nb) {
+    if (RUR._CYCLE_REMOVE[obj.name][id] >= nb) {
         return RUR.END_CYCLE;
     }
-    return obj["image" + _CYCLE_REMOVE[obj.name][id]];
+    return obj["image" + RUR._CYCLE_REMOVE[obj.name][id]];
 };
 
 RUR._sync = function (obj, nb, id) {
     // every animated image of this type is kept in sync
-    if (_SYNC[obj.name] === undefined) {
-        _SYNC[obj.name] = [];
-        _SYNC_VALUE[obj.name] = 1;
-    } else if (_SYNC[obj.name].indexOf(id) !== -1) {
+    if (RUR._SYNC[obj.name] === undefined) {
+        RUR._SYNC[obj.name] = [];
+        RUR._SYNC_VALUE[obj.name] = 1;
+    } else if (RUR._SYNC[obj.name].indexOf(id) !== -1) {
         // see an same animated image present: we are starting a new sequence
-        _SYNC[obj.name] = [];
-        _SYNC_VALUE[obj.name] += 1;
-        _SYNC_VALUE[obj.name] %= nb;
+        RUR._SYNC[obj.name] = [];
+        RUR._SYNC_VALUE[obj.name] += 1;
+        RUR._SYNC_VALUE[obj.name] %= nb;
     }
-    _SYNC[obj.name].push(id);
-    return obj["image" + _SYNC_VALUE[obj.name]];
+    RUR._SYNC[obj.name].push(id);
+    return obj["image" + RUR._SYNC_VALUE[obj.name]];
 };

@@ -5,7 +5,7 @@ require("./../drawing/visible_world.js");
 require("./../programming_api/exceptions.js");
 require("./../editors/create.js");
 require("./create_empty_world.js");
-var images_init = require("./../world_api/animated_images.js").images_init;
+require("./../world_api/animated_images.js");
 var edit_robot_menu = require("./../ui/edit_robot_menu.js");
 var clone_world = require("./clone_world.js").clone_world;
 
@@ -16,7 +16,7 @@ RUR.import_world = function (json_string) {
         console.log("Problem: no argument passed to RUR.import_world");
         return {};
     }
-    images_init();
+    RUR.animated_images_init();
     if (typeof json_string == "string"){
         try {
             RUR.CURRENT_WORLD = JSON.parse(json_string) || RUR.create_empty_world();

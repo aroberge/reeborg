@@ -7663,6 +7663,7 @@ RUR.rec.check_goal = function (frame) {
 },{"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../listeners/pause.js":24,"./../listeners/stop.js":32,"./../playback/play_sound.js":37,"./../programming_api/exceptions.js":42,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/identical.js":62,"./../world_get/world_get.js":74,"./../world_utils/clone_world.js":83}],48:[function(require,module,exports){
 require("./../rur.js");
 require("./../editors/create.js");
+require("./../world_api/animated_images.js");
 
 exports.reset = reset = function() {
     RUR.nb_frames = 0;
@@ -7689,12 +7690,13 @@ exports.reset = reset = function() {
     }
     RUR.rec_previous_lines = [];
     RUR._max_lineno_highlighted = 0;
+    RUR.animated_images_init();
 };
 
 reset();
 RUR._reset = reset; // for automated testing
 
-},{"./../editors/create.js":10,"./../rur.js":52}],49:[function(require,module,exports){
+},{"./../editors/create.js":10,"./../rur.js":52,"./../world_api/animated_images.js":69}],49:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../translator.js");
@@ -9148,7 +9150,9 @@ require("./../programming_api/exceptions.js");
  *                            **Either tile.url or tile.images must be specified.**
  *
  * @param {string} [tile.selection_method = "random"]  For animated tiles; choose one of
- *                           "sync", "ordered" or "random"
+ *                           "sync", "ordered", "random", "cycle stay", "cycle remove".
+ *                           If the selection method is not recognized, "random" will
+ *                           be used, and no error will be thrown.
  *
  * @param {object} [tile.goal]  If the tile can be used for an object that can be
  *                            picked up or put down by Reeborg, includes `tile.goal`
@@ -9284,14 +9288,12 @@ RUR.add_object_image = RUR.add_new_object_type; // Vincent Maille's book.
 },{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./animated_images.js":69}],69:[function(require,module,exports){
 require("./../rur.js");
 
-var _ORDERED, _SYNC, _SYNC_VALUE;
-
-exports.images_init = images_init = function () {
-    _ORDERED = {};
-    _SYNC = {};
-    _SYNC_VALUE = {};
-    _CYCLE_STAY = {};
-    _CYCLE_REMOVE = {};
+RUR.animated_images_init = function () {
+    RUR._ORDERED = {};
+    RUR._SYNC = {};
+    RUR._SYNC_VALUE = {};
+    RUR._CYCLE_STAY = {};
+    RUR._CYCLE_REMOVE = {};
     RUR.ANIMATION_TIME = 120;
 };
 
@@ -9356,32 +9358,32 @@ RUR._random = function (obj, nb) {
 RUR._ordered = function (obj, nb, id) {
     // each animated image is given a random initial value but then goes in order
 
-    if (_ORDERED[obj.name] === undefined) {
-        _ORDERED[obj.name] = {};
-        _ORDERED[obj.name][id] = Math.floor(Math.random() * nb);
-    } else if (Object.keys(_ORDERED[obj.name]).indexOf(id) === -1) {
-        _ORDERED[obj.name][id] = Math.floor(Math.random() * nb);
+    if (RUR._ORDERED[obj.name] === undefined) {
+        RUR._ORDERED[obj.name] = {};
+        RUR._ORDERED[obj.name][id] = Math.floor(Math.random() * nb);
+    } else if (Object.keys(RUR._ORDERED[obj.name]).indexOf(id) === -1) {
+        RUR._ORDERED[obj.name][id] = Math.floor(Math.random() * nb);
     } else {
-        _ORDERED[obj.name][id] += 1;
-        _ORDERED[obj.name][id] %= nb;
+        RUR._ORDERED[obj.name][id] += 1;
+        RUR._ORDERED[obj.name][id] %= nb;
     }
-    return obj["image" + _ORDERED[obj.name][id]];
+    return obj["image" + RUR._ORDERED[obj.name][id]];
 };
 
 RUR._cycle_stay = function (obj, nb, id) {
     // each animated image starts with its first image,
     // cycles through all the values once, displaying the last
     // image as a permanent one.
-    if (_CYCLE_STAY[obj.name] === undefined) {
-        _CYCLE_STAY[obj.name] = {};
-        _CYCLE_STAY[obj.name][id] = 0;
-    } else if (Object.keys(_CYCLE_STAY[obj.name]).indexOf(id) === -1) {
-        _CYCLE_STAY[obj.name][id] = 0;
+    if (RUR._CYCLE_STAY[obj.name] === undefined) {
+        RUR._CYCLE_STAY[obj.name] = {};
+        RUR._CYCLE_STAY[obj.name][id] = 0;
+    } else if (Object.keys(RUR._CYCLE_STAY[obj.name]).indexOf(id) === -1) {
+        RUR._CYCLE_STAY[obj.name][id] = 0;
     } else {
-        _CYCLE_STAY[obj.name][id] += 1;
-        _CYCLE_STAY[obj.name][id] = Math.min(nb-1, _CYCLE_STAY[obj.name][id]);
+        RUR._CYCLE_STAY[obj.name][id] += 1;
+        RUR._CYCLE_STAY[obj.name][id] = Math.min(nb-1, RUR._CYCLE_STAY[obj.name][id]);
     }
-    return obj["image" + _CYCLE_STAY[obj.name][id]];
+    return obj["image" + RUR._CYCLE_STAY[obj.name][id]];
 };
 
 RUR._cycle_remove = function (obj, nb, id) {
@@ -9389,33 +9391,33 @@ RUR._cycle_remove = function (obj, nb, id) {
     // cycles through all the values once, and, after displaying the last
     // image, returns a "flag" instructing the calling function
     // to remove the object
-    if (_CYCLE_REMOVE[obj.name] === undefined) {
-        _CYCLE_REMOVE[obj.name] = {};
-        _CYCLE_REMOVE[obj.name][id] = 0;
-    } else if (Object.keys(_CYCLE_REMOVE[obj.name]).indexOf(id) === -1) {
-        _CYCLE_REMOVE[obj.name][id] = 0;
+    if (RUR._CYCLE_REMOVE[obj.name] === undefined) {
+        RUR._CYCLE_REMOVE[obj.name] = {};
+        RUR._CYCLE_REMOVE[obj.name][id] = 0;
+    } else if (Object.keys(RUR._CYCLE_REMOVE[obj.name]).indexOf(id) === -1) {
+        RUR._CYCLE_REMOVE[obj.name][id] = 0;
     } else {
-        _CYCLE_REMOVE[obj.name][id] += 1;
+        RUR._CYCLE_REMOVE[obj.name][id] += 1;
     }
-    if (_CYCLE_REMOVE[obj.name][id] >= nb) {
+    if (RUR._CYCLE_REMOVE[obj.name][id] >= nb) {
         return RUR.END_CYCLE;
     }
-    return obj["image" + _CYCLE_REMOVE[obj.name][id]];
+    return obj["image" + RUR._CYCLE_REMOVE[obj.name][id]];
 };
 
 RUR._sync = function (obj, nb, id) {
     // every animated image of this type is kept in sync
-    if (_SYNC[obj.name] === undefined) {
-        _SYNC[obj.name] = [];
-        _SYNC_VALUE[obj.name] = 1;
-    } else if (_SYNC[obj.name].indexOf(id) !== -1) {
+    if (RUR._SYNC[obj.name] === undefined) {
+        RUR._SYNC[obj.name] = [];
+        RUR._SYNC_VALUE[obj.name] = 1;
+    } else if (RUR._SYNC[obj.name].indexOf(id) !== -1) {
         // see an same animated image present: we are starting a new sequence
-        _SYNC[obj.name] = [];
-        _SYNC_VALUE[obj.name] += 1;
-        _SYNC_VALUE[obj.name] %= nb;
+        RUR._SYNC[obj.name] = [];
+        RUR._SYNC_VALUE[obj.name] += 1;
+        RUR._SYNC_VALUE[obj.name] %= nb;
     }
-    _SYNC[obj.name].push(id);
-    return obj["image" + _SYNC_VALUE[obj.name]];
+    RUR._SYNC[obj.name].push(id);
+    return obj["image" + RUR._SYNC_VALUE[obj.name]];
 };
 
 },{"./../rur.js":52}],70:[function(require,module,exports){
@@ -10845,7 +10847,7 @@ require("./../drawing/visible_world.js");
 require("./../programming_api/exceptions.js");
 require("./../editors/create.js");
 require("./create_empty_world.js");
-var images_init = require("./../world_api/animated_images.js").images_init;
+require("./../world_api/animated_images.js");
 var edit_robot_menu = require("./../ui/edit_robot_menu.js");
 var clone_world = require("./clone_world.js").clone_world;
 
@@ -10856,7 +10858,7 @@ RUR.import_world = function (json_string) {
         console.log("Problem: no argument passed to RUR.import_world");
         return {};
     }
-    images_init();
+    RUR.animated_images_init();
     if (typeof json_string == "string"){
         try {
             RUR.CURRENT_WORLD = JSON.parse(json_string) || RUR.create_empty_world();
