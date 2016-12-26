@@ -196,6 +196,7 @@ RUR.BACKGROUND_IMAGE = new Image();
 RUR.BACKGROUND_IMAGE.src = '';
 
 RUR.CURRENT_WORLD = null; // needs to be created explicitly
+RUR.FRAME_CALLBACK = undefined; // special function available to world creators
 
 RUR.PUBLIC_DICT = {};  // For use by world creators
 

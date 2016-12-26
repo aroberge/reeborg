@@ -13,6 +13,7 @@ RUR.ReeborgOK = function (message) {
             return ReeborgOK(message);
         } catch (e) {}
     }
+    this.name = "ReeborgOK";
     this.reeborg_concludes = message;
     this.message = message;
 };

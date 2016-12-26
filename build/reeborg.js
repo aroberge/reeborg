@@ -7305,9 +7305,9 @@ RUR.record_frame = function (name, obj) {
 // 3. resuming recording.
 // The program stopped, but no error was shown.
 
-    if (RUR.frame_callback !== undefined && !RUR.state.frame_callback_called){
+    if (RUR.FRAME_CALLBACK !== undefined && !RUR.state.frame_callback_called){
         RUR.state.frame_callback_called = true;
-        RUR.frame_callback();
+        RUR.FRAME_CALLBACK(name, obj);
         RUR.state.frame_callback_called = false;
     }
 
@@ -7719,7 +7719,7 @@ exports.reset = reset = function() {
     RUR._max_lineno_highlighted = 0;
     RUR.animated_images_init();
     RUR.state.frame_callback_called = false;
-    RUR.frame_callback = undefined;
+    RUR.FRAME_CALLBACK = undefined;
     RUR.state.error_recorded = false;
 };
 
@@ -8428,6 +8428,7 @@ RUR.BACKGROUND_IMAGE = new Image();
 RUR.BACKGROUND_IMAGE.src = '';
 
 RUR.CURRENT_WORLD = null; // needs to be created explicitly
+RUR.FRAME_CALLBACK = undefined; // special function available to world creators
 
 RUR.PUBLIC_DICT = {};  // For use by world creators
 

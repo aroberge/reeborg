@@ -29,7 +29,7 @@ exports.reset = reset = function() {
     RUR._max_lineno_highlighted = 0;
     RUR.animated_images_init();
     RUR.state.frame_callback_called = false;
-    RUR.frame_callback = undefined;
+    RUR.FRAME_CALLBACK = undefined;
     RUR.state.error_recorded = false;
 };
 
