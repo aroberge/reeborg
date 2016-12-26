@@ -47,8 +47,12 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
         }
     robot.__id = 0;
     }
+    RUR.robot.set_private_defaults(robot);
 
-    // private variables that should not be set directly in user programs.
+    return robot;
+};
+
+RUR.robot.set_private_defaults = function(robot) {
     robot._is_leaky = true;
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
@@ -57,13 +61,18 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     robot._trace_history = [];
     robot._trace_style = "default";
     robot._trace_color = RUR.DEFAULT_TRACE_COLOR;
-
-    return robot;
 };
 
-RUR.robot.cleanup_objects = function (robot) {
+/* Robot definitions in World files has changed as
+   new features were added; we make sure that they are properly
+   updated when needed. This should be called when a world is
+   imported. */
+RUR.robot.modernize = function (robot) {
     "use strict";
     var obj_name, objects_carried = {};
+    // In previous version, worlds were recorded with object nb == 0;
+    // we need to remove such objects with the new notation.
+    // i.e.  {"token": 0} --> {}
     for (obj_name in robot.objects) {
         if (robot.objects.hasOwnProperty(obj_name)){
              if (robot.objects[obj_name] == "infinite" ||
@@ -78,18 +87,7 @@ RUR.robot.cleanup_objects = function (robot) {
         robot._orientation = robot.orientation;
         delete robot.orientation;
     }
-    if (robot._trace_history === undefined) {
-        robot._trace_history = [];
-    }
-    if (robot._trace_style === undefined) {
-        robot._trace_style = "default";
-    }
-    if (robot._trace_color === undefined) {
-        robot._trace_color = RUR.DEFAULT_TRACE_COLOR;
-    }
-    if (robot._is_leaky === undefined) {
-        robot._is_leaky = true;
-    }
+    RUR.robot.set_private_defaults(robot);
 };
 
 RUR.robot.assign_id = function (robot) {

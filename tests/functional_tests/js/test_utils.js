@@ -87,7 +87,13 @@ test_utils.eval_program = function(world_url, program_url, language) {
     }
     RUR.runner.eval(test_utils.program);
     last_frame = RUR.frames[RUR.frames.length - 1];
-    return RUR.rec.check_goal(last_frame);
+    try {
+        return RUR.rec.check_goal(last_frame);
+    } catch(e) {
+        console.log(RUR.frames);
+        console.log(test_utils.program);
+        return false;
+    }
 };
 
 test_utils.run_javascript = function (world_url, program_url) {

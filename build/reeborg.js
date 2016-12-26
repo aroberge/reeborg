@@ -674,6 +674,13 @@ RUR.vis_robot.draw = function (robot) {
 // TODO: extract to its own file, to reduce dependencies
 RUR.vis_robot.update_trace_history = function (robot) {
     var offset, prev_offset, trace_segment={};
+    // if we keep track of the trace during world editing tests,
+    // it can end up saving a world with a trace history
+    // defined.
+    if (RUR.state.editing_world) {
+        robot._trace_history = [];
+        return;
+    }
     if (robot._prev_x == robot.x &&
         robot._prev_y == robot.y &&
         robot._prev_orientation == robot._orientation) {
@@ -7769,8 +7776,12 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
         }
     robot.__id = 0;
     }
+    RUR.robot.set_private_defaults(robot);
 
-    // private variables that should not be set directly in user programs.
+    return robot;
+};
+
+RUR.robot.set_private_defaults = function(robot) {
     robot._is_leaky = true;
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
@@ -7779,13 +7790,18 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     robot._trace_history = [];
     robot._trace_style = "default";
     robot._trace_color = RUR.DEFAULT_TRACE_COLOR;
-
-    return robot;
 };
 
-RUR.robot.cleanup_objects = function (robot) {
+/* Robot definitions in World files has changed as
+   new features were added; we make sure that they are properly
+   updated when needed. This should be called when a world is
+   imported. */
+RUR.robot.modernize = function (robot) {
     "use strict";
     var obj_name, objects_carried = {};
+    // In previous version, worlds were recorded with object nb == 0;
+    // we need to remove such objects with the new notation.
+    // i.e.  {"token": 0} --> {}
     for (obj_name in robot.objects) {
         if (robot.objects.hasOwnProperty(obj_name)){
              if (robot.objects[obj_name] == "infinite" ||
@@ -7800,18 +7816,7 @@ RUR.robot.cleanup_objects = function (robot) {
         robot._orientation = robot.orientation;
         delete robot.orientation;
     }
-    if (robot._trace_history === undefined) {
-        robot._trace_history = [];
-    }
-    if (robot._trace_style === undefined) {
-        robot._trace_style = "default";
-    }
-    if (robot._trace_color === undefined) {
-        robot._trace_color = RUR.DEFAULT_TRACE_COLOR;
-    }
-    if (robot._is_leaky === undefined) {
-        robot._is_leaky = true;
-    }
+    RUR.robot.set_private_defaults(robot);
 };
 
 RUR.robot.assign_id = function (robot) {
@@ -10907,7 +10912,7 @@ RUR.import_world = function (json_string) {
 
     if (RUR.CURRENT_WORLD.robots !== undefined) {
         if (RUR.CURRENT_WORLD.robots[0] !== undefined) {
-            RUR.robot.cleanup_objects(RUR.CURRENT_WORLD.robots[0]);
+            RUR.robot.modernize(RUR.CURRENT_WORLD.robots[0]);
             body = RUR.CURRENT_WORLD.robots[0];
             body._prev_x = body.x;
             body._prev_y = body.y;

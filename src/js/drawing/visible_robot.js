@@ -186,6 +186,13 @@ RUR.vis_robot.draw = function (robot) {
 // TODO: extract to its own file, to reduce dependencies
 RUR.vis_robot.update_trace_history = function (robot) {
     var offset, prev_offset, trace_segment={};
+    // if we keep track of the trace during world editing tests,
+    // it can end up saving a world with a trace history
+    // defined.
+    if (RUR.state.editing_world) {
+        robot._trace_history = [];
+        return;
+    }
     if (robot._prev_x == robot.x &&
         robot._prev_y == robot.y &&
         robot._prev_orientation == robot._orientation) {
