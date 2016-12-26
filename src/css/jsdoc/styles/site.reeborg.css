@@ -27,9 +27,11 @@ code {
 .tag-deprecated {background-color: gold;
 }
 
-p {
+p, ol, ul {
   font-weight: normal;
+  max-width: 55em;
 }
+article ol li {margin-bottom: 0.5em;}
 
 .description p {
     font-style: normal;

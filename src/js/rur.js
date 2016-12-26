@@ -49,7 +49,9 @@ RUR.state.editing_world = false;
 RUR.state.highlight = true;
 RUR.state.human_language = "en";
 RUR.state.input_method = "python";
+RUR.state.error_recorded = false;
 RUR.state.evaluating_onload = false;
+RUR.state.frame_callback_called = false;
 RUR.state.programming_language = "python";
 RUR.state.playback = false;
 RUR.state.prevent_playback = false;
@@ -188,13 +190,14 @@ RUR.DEFAULT_TRACE_COLOR = "seagreen";
 
 RUR.KNOWN_TILES = [];
 RUR.ANIMATION_TIME = 120;
-RUR.END_CYCLE = "end cycle" // for animated images
+RUR.END_CYCLE = "end cycle"; // for animated images
 
 RUR.BACKGROUND_IMAGE = new Image();
 RUR.BACKGROUND_IMAGE.src = '';
 
 RUR.CURRENT_WORLD = null; // needs to be created explicitly
 
+RUR.PUBLIC_DICT = {};  // For use by world creators
 
 //--------------------------------------------------------
 // We communicate information to the user using various

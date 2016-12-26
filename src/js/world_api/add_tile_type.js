@@ -31,10 +31,16 @@ require("./../programming_api/exceptions.js");
  *                               this array (list) contains the various URLs.
  *                            **Either tile.url or tile.images must be specified.**
  *
- * @param {string} [tile.selection_method = "random"]  For animated tiles; choose one of
- *                           "sync", "ordered", "random", "cycle stay", "cycle remove".
- *                           If the selection method is not recognized, "random" will
- *                           be used, and no error will be thrown.
+ * @param {string} [tile.selection_method]  For animated tiles; choose one of
+ * 
+ *  * `"sync"`, 
+ *  * `"ordered"`, 
+ *  * `"random"`, 
+ *  * `"cycle stay"` or
+ *  * `"cycle remove"`.
+ *  
+ *  If the selection method is not recognized, `"random"` will
+ *  be used, and no error will be thrown.
  *
  * @param {object} [tile.goal]  If the tile can be used for an object that can be
  *                            picked up or put down by Reeborg, includes `tile.goal`

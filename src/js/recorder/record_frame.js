@@ -11,6 +11,10 @@ RUR.record_frame = function (name, obj) {
     "use strict";
     var frame = {}, robot;
 
+    if (RUR.__debug) {
+        console.log("from record_frame, name, obj=", name, obj);
+    }
+
     /* There are a number of conditions that would prevent the recording
        of a frame; they are as follows. */
 
@@ -20,6 +24,12 @@ RUR.record_frame = function (name, obj) {
 // 2. doing stuff ... including something that should have raised an error
 // 3. resuming recording.
 // The program stopped, but no error was shown.
+
+    if (RUR.frame_callback !== undefined && !RUR.state.frame_callback_called){
+        RUR.state.frame_callback_called = true;
+        RUR.frame_callback();
+        RUR.state.frame_callback_called = false;
+    }
 
     if ((RUR.state.do_not_record || RUR.state.prevent_playback) && name != "error") {
         // Prevent sneaky attempt to safely move on otherwise fatal tile
@@ -79,11 +89,12 @@ RUR.record_frame = function (name, obj) {
 
     RUR.frames[RUR.nb_frames] = frame;
     RUR.nb_frames++;
-
     RUR.state.sound_id = undefined;
     if (name === "error"){
+        RUR.state.error_recorded = true;
         return;
     }
+
 
     check_robots_on_tiles(frame);
     if (RUR.nb_frames > RUR.MAX_STEPS) {

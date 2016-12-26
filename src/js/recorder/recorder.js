@@ -55,8 +55,12 @@ RUR.rec.display_frame = function () {
     // set current world to frame being played.
     "use strict";
     var frame, goal_status;
+
     if (RUR.current_frame_no >= RUR.nb_frames) {
         RUR.update_frame_nb_info();
+        if (RUR.state.error_recorded) {
+            return;
+        }
         return RUR.rec.conclude();
     }
 

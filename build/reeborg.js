@@ -4147,7 +4147,12 @@ var frame_selector = document.getElementById("frame-selector"),
     frame_id_info = document.getElementById("frame-id");
 
 RUR.update_frame_nb_info = function() {
-    var frame_no=0;
+    var frame_no=0, max_frame_nb;
+    if (RUR.state.error_recorded) {
+        max_frame_nb = RUR.nb_frames-1;
+    } else {
+        max_frame_nb = RUR.nb_frames;
+    }
     try {  // termporarily keeping the "old" version compatible
         if (RUR.nb_frames === 0) {
             frame_id_info.innerHTML = "0/0";
@@ -4155,12 +4160,12 @@ RUR.update_frame_nb_info = function() {
             frame_selector.min = 0;
             frame_selector.max = 0;
         } else {
-            frame_selector.max = RUR.nb_frames;
+            frame_selector.max = max_frame_nb;
             frame_selector.value = RUR.current_frame_no;
             // do not display zero-based index as this would confuse
             // beginners ... especially without no additional explanation.
-            frame_no = Math.min(RUR.current_frame_no+1, RUR.nb_frames+1);
-            frame_id_info.innerHTML = frame_no + "/" + (RUR.nb_frames+1);
+            frame_no = Math.min(RUR.current_frame_no+1, max_frame_nb+1);
+            frame_id_info.innerHTML = frame_no + "/" + (max_frame_nb+1);
         }
     } catch (e) {}
 };
@@ -7279,6 +7284,10 @@ RUR.record_frame = function (name, obj) {
     "use strict";
     var frame = {}, robot;
 
+    if (RUR.__debug) {
+        console.log("from record_frame, name, obj=", name, obj);
+    }
+
     /* There are a number of conditions that would prevent the recording
        of a frame; they are as follows. */
 
@@ -7288,6 +7297,12 @@ RUR.record_frame = function (name, obj) {
 // 2. doing stuff ... including something that should have raised an error
 // 3. resuming recording.
 // The program stopped, but no error was shown.
+
+    if (RUR.frame_callback !== undefined && !RUR.state.frame_callback_called){
+        RUR.state.frame_callback_called = true;
+        RUR.frame_callback();
+        RUR.state.frame_callback_called = false;
+    }
 
     if ((RUR.state.do_not_record || RUR.state.prevent_playback) && name != "error") {
         // Prevent sneaky attempt to safely move on otherwise fatal tile
@@ -7347,11 +7362,12 @@ RUR.record_frame = function (name, obj) {
 
     RUR.frames[RUR.nb_frames] = frame;
     RUR.nb_frames++;
-
     RUR.state.sound_id = undefined;
     if (name === "error"){
+        RUR.state.error_recorded = true;
         return;
     }
+
 
     check_robots_on_tiles(frame);
     if (RUR.nb_frames > RUR.MAX_STEPS) {
@@ -7440,8 +7456,12 @@ RUR.rec.display_frame = function () {
     // set current world to frame being played.
     "use strict";
     var frame, goal_status;
+
     if (RUR.current_frame_no >= RUR.nb_frames) {
         RUR.update_frame_nb_info();
+        if (RUR.state.error_recorded) {
+            return;
+        }
         return RUR.rec.conclude();
     }
 
@@ -7691,6 +7711,9 @@ exports.reset = reset = function() {
     RUR.rec_previous_lines = [];
     RUR._max_lineno_highlighted = 0;
     RUR.animated_images_init();
+    RUR.state.frame_callback_called = false;
+    RUR.frame_callback = undefined;
+    RUR.state.error_recorded = false;
 };
 
 reset();
@@ -8253,7 +8276,9 @@ RUR.state.editing_world = false;
 RUR.state.highlight = true;
 RUR.state.human_language = "en";
 RUR.state.input_method = "python";
+RUR.state.error_recorded = false;
 RUR.state.evaluating_onload = false;
+RUR.state.frame_callback_called = false;
 RUR.state.programming_language = "python";
 RUR.state.playback = false;
 RUR.state.prevent_playback = false;
@@ -8392,13 +8417,14 @@ RUR.DEFAULT_TRACE_COLOR = "seagreen";
 
 RUR.KNOWN_TILES = [];
 RUR.ANIMATION_TIME = 120;
-RUR.END_CYCLE = "end cycle" // for animated images
+RUR.END_CYCLE = "end cycle"; // for animated images
 
 RUR.BACKGROUND_IMAGE = new Image();
 RUR.BACKGROUND_IMAGE.src = '';
 
 RUR.CURRENT_WORLD = null; // needs to be created explicitly
 
+RUR.PUBLIC_DICT = {};  // For use by world creators
 
 //--------------------------------------------------------
 // We communicate information to the user using various
@@ -9149,10 +9175,16 @@ require("./../programming_api/exceptions.js");
  *                               this array (list) contains the various URLs.
  *                            **Either tile.url or tile.images must be specified.**
  *
- * @param {string} [tile.selection_method = "random"]  For animated tiles; choose one of
- *                           "sync", "ordered", "random", "cycle stay", "cycle remove".
- *                           If the selection method is not recognized, "random" will
- *                           be used, and no error will be thrown.
+ * @param {string} [tile.selection_method]  For animated tiles; choose one of
+ * 
+ *  * `"sync"`, 
+ *  * `"ordered"`, 
+ *  * `"random"`, 
+ *  * `"cycle stay"` or
+ *  * `"cycle remove"`.
+ *  
+ *  If the selection method is not recognized, `"random"` will
+ *  be used, and no error will be thrown.
  *
  * @param {object} [tile.goal]  If the tile can be used for an object that can be
  *                            picked up or put down by Reeborg, includes `tile.goal`
