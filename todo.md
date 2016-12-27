@@ -32,4 +32,9 @@ Keeping track of advanced editing api
   * See if dirty canvases can be implemented.
   * consider adding set_final_position
   * Need to set no object left in world as goal.
-
+  * include maze generating algorithm in Javascript.  (Actually, show it as an example of loading a module)
+  * Ask for A* algorithm demonstration.
+  * Ask for depth-first vs breath first algorith demonstration.  (or implement from http://www.redblobgames.com/pathfinding/a-star/introduction.html)
+      - include writable tile 
+  * Add object_type which are fatal to take.
+  * Remind writers that adding an obstacle just means that it is drawn on a given canvas; if its properties are safe. Dangerous tiles are checked either as background tiles or as obtacles.  Unsafe objects to take are only checked when picked up and must be drawn on the object canvas.  Limit nb of objects type on tile, decorative, obstacle and wall to 1 for each type. Allow unlimited number on object canvas.  Define function combine pushable object + tile into new tile with drawing.  Use this for more generic combinations.

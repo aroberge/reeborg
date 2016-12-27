@@ -6,7 +6,8 @@
   "scripts": {
     "test": "tape tests/unit_tests/**/*.js | faucet",
     "tests": "tape tests/unit_tests/**/*.js | faucet",
-    "build": "tape tests/unit_tests/**/*.js | faucet && browserify ./src/js/index.js -o ./build/reeborg.js",
+    "test-raw": "tape tests/unit_tests/**/*.js",
+   "build": "tape tests/unit_tests/**/*.js | faucet && browserify ./src/js/index.js -o ./build/reeborg.js",
     "build2": "tape tests/unit_tests/**/*.js | faucet && browserify ./src/js/index.js -o ./build/reeborg2.js",
     "only-build": "browserify ./src/js/index.js -o ./build/reeborg.js",
     "jsdoc": "jsdoc -c dev_tools/jsdoc_conf.json"
