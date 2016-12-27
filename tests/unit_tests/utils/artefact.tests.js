@@ -38,7 +38,7 @@ require("../../../src/js/utils/artefact.js");
 test('is_artefact: invalid position', function (assert) {  
     var args = {x:0, y:0};
     assert.plan(3);  
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     try {
         RUR.utils.is_artefact(args);
     } catch (e) {
@@ -51,7 +51,7 @@ test('is_artefact: invalid position', function (assert) {
 test('is_artefact: invalid position (missing coordinates)', function (assert) {  
     var args = {};
     assert.plan(1);  
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     try {
         RUR.utils.is_artefact(args);
     } catch (e) {
@@ -62,7 +62,7 @@ test('is_artefact: invalid position (missing coordinates)', function (assert) {
 test('is_artefact: invalid position (non integer values)', function (assert) {  
     var args = {x:1, y:3.5};
     assert.plan(1);  
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     try {
         RUR.utils.is_artefact(args);
     } catch (e) {
@@ -73,7 +73,7 @@ test('is_artefact: invalid position (non integer values)', function (assert) {
 test('add_artefact: invalid position', function (assert) {  
     var args = {x:1, y:100};
     assert.plan(1);  
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     try {
         RUR.utils.add_artefact(args);
     } catch (e) {
@@ -87,7 +87,7 @@ test('add_artefact: invalid position', function (assert) {
 test('is_artefact: invalid name', function (assert) {  
     var args = {x:1, y:1, valid_names: ['a', 'b', 'c'], name: 'd'};
     assert.plan(2);  
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     try {
         RUR.utils.is_artefact(args);
     } catch (e) {
@@ -99,7 +99,7 @@ test('is_artefact: invalid name', function (assert) {
 test('add_artefact: invalid name', function (assert) {  
     var args = {x:2, y:2, valid_names: ['a'], name: 'A'};
     assert.plan(1);  
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     try {
         RUR.utils.add_artefact(args);
     } catch (e) {
@@ -117,7 +117,7 @@ test('is_artefact: confirm missing, unknown type', function (assert) {
     var args = {x:2, y:2, valid_names: ['a'], name: 'a', type:'unknown'};
     assert.plan(1);  
     // create_empty_world does not create world.unknown;
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     assert.notOk(RUR.utils.is_artefact(args));
 });
 
@@ -125,7 +125,7 @@ test('is_artefact: confirm missing, known type', function (assert) {
     var args = {x:2, y:2, valid_names: ['a'], name: 'a', type:'objects'};
     assert.plan(2);  
     // create_empty_world does creates world.objects;
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     assert.deepEqual(RUR.CURRENT_WORLD.objects, {}, 'confirm "objects" exists');
     assert.notOk(RUR.utils.is_artefact(args));
 });
@@ -134,7 +134,7 @@ test('is_artefact: confirm present, added by hand', function (assert) {
     var args = {x:2, y:3, valid_names: ['a'], name: 'a', type:'objects'};
     assert.plan(1);  
     // create_empty_world does creates world.objects;
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.CURRENT_WORLD.objects["2,3"] = {'a': 1};
     assert.ok(RUR.utils.is_artefact(args), 'added by hand');
 });
@@ -142,7 +142,7 @@ test('is_artefact: confirm present, added by hand', function (assert) {
 test('add_artefact: add to known type', function (assert) {  
     var args = {x:2, y:2, valid_names: ['a'], name: 'a', type:'objects'};
     assert.plan(1);  
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.utils.add_artefact(args);
     assert.ok(RUR.utils.is_artefact(args));
 });
@@ -150,7 +150,7 @@ test('add_artefact: add to known type', function (assert) {
 test('add_artefact: add to unknown type', function (assert) {  
     var args = {x:2, y:2, valid_names: ['a'], name: 'a', type:'unknown'};
     assert.plan(1);  
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.utils.add_artefact(args);
     assert.ok(RUR.utils.is_artefact(args));
 });

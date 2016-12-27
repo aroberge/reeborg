@@ -6,26 +6,27 @@ require("./../programming_api/exceptions.js");
 require("./../editors/create.js");
 require("./create_empty_world.js");
 require("./../world_api/animated_images.js");
+require("./world_utils_namespace.js");
 var edit_robot_menu = require("./../ui/edit_robot_menu.js");
 var clone_world = require("./clone_world.js").clone_world;
 
-RUR.import_world = function (json_string) {
+RUR.world_utils.import_world = function (json_string) {
     "use strict";
     var body, editor_content, library_content;
     if (json_string === undefined){
-        console.log("Problem: no argument passed to RUR.import_world");
+        console.log("Problem: no argument passed to RUR.world_utils.import_world");
         return {};
     }
     RUR.animated_images_init();
     if (typeof json_string == "string"){
         try {
-            RUR.CURRENT_WORLD = JSON.parse(json_string) || RUR.create_empty_world();
+            RUR.CURRENT_WORLD = JSON.parse(json_string) || RUR.world_utils.create_empty_world();
         } catch (e) {
             alert("Exception caught in import_world; see console for details.");
             console.warn("Exception caught in import_world.");
             console.log("First 80 characters of json_string = ", json_string.substring(0, 80));
             console.log("Error = ", e);
-            RUR.CURRENT_WORLD = RUR.create_empty_world();
+            RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
         }
     } else {  // already parsed into a Javascript Object
         RUR.CURRENT_WORLD = json_string;

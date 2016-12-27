@@ -11,7 +11,7 @@ require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
 
 require("./../world_api/wall.js");
-var get_world = require("./../world_get/world.js").get_world;
+var get_world = require("./../world_utils/get_world.js").get_world;
 
 RUR.control = {};
 

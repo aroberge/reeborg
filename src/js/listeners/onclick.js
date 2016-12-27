@@ -46,7 +46,7 @@ $("#load-world").on("click", function(evt) {
         var reader = new FileReader();
         reader.onload = function(e) {
             try {
-                RUR.import_world(reader.result);
+                RUR.world_utils.import_world(reader.result);
                 RUR.storage.save_world(file.name);
             } catch (e) {  // jshint ignore:line
                 console.log("invalid world", e);

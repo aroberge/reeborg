@@ -16,7 +16,7 @@ function test(test_name, fn) {
 
 test('adding known goal object', function (assert) {
     require("../../../src/js/world_set/goal_object.js");
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.set_nb_goal_object_at_position('a', 2, 3, 4);
@@ -27,7 +27,7 @@ test('adding known goal object', function (assert) {
 test('adding and removing known goal object', function (assert) {
     var identical = require("../../../src/js/utils/identical.js").identical;
     require("../../../src/js/world_set/goal_object.js");
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.set_nb_goal_object_at_position('a', 2, 3, 4);
@@ -41,7 +41,7 @@ test('adding two and removing one known goal objects', function (assert) {
     require("../../../src/js/world_set/goal_object.js");
     // silencer.reset();
     // silencer.disable('log');
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.KNOWN_TILES = ['a', 'b'];
     RUR.untranslated['a'] = true;
     RUR.untranslated['b'] = true;
@@ -57,7 +57,7 @@ test('adding unknown goal object', function (assert) {
     silencer.reset();
     silencer.disable('warn');
     require("../../../src/js/world_set/goal_object.js");
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.KNOWN_TILES = [];
     RUR.untranslated['a'] = false;
     RUR.translation = {};
@@ -75,7 +75,7 @@ test('invalid x value', function (assert) {
     var mess = "Invalid position in " +
                 "RUR.set_nb_goal_object_at_position(specific_object, x, y, nb)";
     require("../../../src/js/world_set/goal_object.js");
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.record_frame = function () {};
@@ -93,7 +93,7 @@ test('invalid y value', function (assert) {
     var mess = "Invalid position in " +
                 "RUR.set_nb_goal_object_at_position(specific_object, x, y, nb)";
     require("../../../src/js/world_set/goal_object.js");
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.record_frame = function () {};
@@ -111,7 +111,7 @@ test('invalid nb value', function (assert) {
     var mess = "Invalid number of objects in " +
                 "RUR.set_nb_goal_object_at_position(specific_object, x, y, nb)";
     require("../../../src/js/world_set/goal_object.js");
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.record_frame = function () {};

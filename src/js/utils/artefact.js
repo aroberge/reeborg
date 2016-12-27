@@ -7,7 +7,7 @@ require("./../programming_api/exceptions.js");
 require("./key_exist.js");
 require("./validator.js");
 require("./supplant.js");
-get_world = require("./../world_get/world.js").get_world;
+get_world = require("./../world_utils/get_world.js").get_world;
 
 
 // private helper function

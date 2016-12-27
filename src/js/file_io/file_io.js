@@ -105,7 +105,7 @@ RUR.file_io.load_world_file = function (url, shortname) {
             RUR.file_io.status = "no link";
             return;
         }
-        RUR.import_world(data);
+        RUR.world_utils.import_world(data);
         RUR.file_io.status = "success";
         RUR.frames = [];
     } else {
@@ -119,7 +119,7 @@ RUR.file_io.load_world_file = function (url, shortname) {
                     RUR.permalink.update(data, shortname);
                     RUR.reload();
                 } else {
-                    RUR.import_world(data);
+                    RUR.world_utils.import_world(data);
                 }
                 RUR.file_io.status = "success";
             }

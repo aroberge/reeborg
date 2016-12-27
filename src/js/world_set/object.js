@@ -5,7 +5,7 @@ require("./../utils/validator.js");
 require("./../translator.js");
 require("./../recorder/record_frame.js");
 
-var get_world = require("./../world_get/world.js").get_world;
+var get_world = require("./../world_utils/get_world.js").get_world;
 
 /** @function set_nb_object_at_position
  * @memberof RUR

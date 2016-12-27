@@ -2,7 +2,7 @@ require("./../programming_api/exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
 require("./../utils/supplant.js");
-var get_world = require("./../world_get/world.js").get_world;
+var get_world = require("./../world_utils/get_world.js").get_world;
 
 /** @function toggle_obstacle_at_position
  * @memberof RUR

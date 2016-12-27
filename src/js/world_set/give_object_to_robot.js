@@ -2,7 +2,7 @@ require("./../programming_api/exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
 require("./../utils/validator.js");
-var get_world = require("./../world_get/world.js").get_world;
+var get_world = require("./../world_utils/get_world.js").get_world;
 
 /** @function give_object_to_robot
  * @memberof RUR

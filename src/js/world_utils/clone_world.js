@@ -1,3 +1,4 @@
+require("./world_utils_namespace.js");
 
 exports.clone_world = clone_world = function (world) {
     if (world === undefined) {
@@ -6,4 +7,4 @@ exports.clone_world = clone_world = function (world) {
         return JSON.parse(JSON.stringify(world));
     }
 };
-RUR.clone_world = clone_world; // for automated testing
+RUR.world_utils.clone_world = clone_world; // for automated testing

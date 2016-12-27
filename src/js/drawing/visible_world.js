@@ -1,7 +1,7 @@
 require("./../translator.js");
 require("./../rur.js");
 require("./../world_api/add_tile_type.js");
-var get_world = require("./../world_get/world.js").get_world;
+var get_world = require("./../world_utils/get_world.js").get_world;
 //TODO add overlay object (like sensor) on robot canvas.
 
 RUR.vis_world = {};

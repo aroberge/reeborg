@@ -7,7 +7,7 @@ function test(test_name, fn) {
 
 test('adding known decorative object', function (assert) {
     require("../../../src/js/world_set/decorative_object.js");
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.toggle_decorative_object_at_position('a', 2, 3, 4);
@@ -18,19 +18,19 @@ test('adding known decorative object', function (assert) {
 test('adding and removing known decorative object', function (assert) {
     var identical = require("../../../src/js/utils/identical.js").identical;
     require("../../../src/js/world_set/decorative_object.js");
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.KNOWN_TILES = ['a'];
     RUR.untranslated['a'] = true;
     RUR.toggle_decorative_object_at_position('a', 2, 3);
     RUR.toggle_decorative_object_at_position('a', 2, 3);
-    assert.ok(identical(RUR.CURRENT_WORLD, RUR.create_empty_world()), "nb decorative objects left");
+    assert.ok(identical(RUR.CURRENT_WORLD, RUR.world_utils.create_empty_world()), "nb decorative objects left");
     assert.end();
 });
 
 test('adding two and removing one known decorative objects', function (assert) {
     var identical = require("../../../src/js/utils/identical.js").identical;
     require("../../../src/js/world_set/decorative_object.js");
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.KNOWN_TILES = ['a', 'b'];
     RUR.untranslated['a'] = true;
     RUR.untranslated['b'] = true;
@@ -46,7 +46,7 @@ test('adding unknown decorative object', function (assert) {
     silencer.reset();
     silencer.disable();
     require("../../../src/js/world_set/decorative_object.js");
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.KNOWN_TILES = [];
     RUR.translation = {};
     RUR.untranslated['a'] = false;

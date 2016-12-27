@@ -5,7 +5,7 @@ require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../utils/supplant.js");
 require("./../recorder/record_frame.js");
-get_world = require("./../world_get/world.js").get_world;
+get_world = require("./../world_utils/get_world.js").get_world;
 
 /*=========================================
 Walls data structure

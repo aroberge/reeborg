@@ -20,7 +20,7 @@ require("./../drawing/visible_robot.js");
 require("./../editors/update.js");
 require("./../world_set/world_set.js");
 require("./../world_api/background_tile.js");
-var get_world = require("./../world_get/world.js").get_world;
+var get_world = require("./../world_utils/get_world.js").get_world;
 
 RUR.inspect = function (obj){
     var props, result = "";

@@ -26,7 +26,7 @@ require("../../../src/js/world_api/wall.js");
 
 test('get_walls: invalid position', function (assert) {  
     assert.plan(3);  
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     try {
         RUR.get_walls(0, 0);
     } catch (e) {
@@ -38,7 +38,7 @@ test('get_walls: invalid position', function (assert) {
 });
 
 test('is_wall: invalid position', function (assert) {  
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     assert.plan(3);  
     try {
         RUR.is_wall("north", 1, 100);
@@ -52,7 +52,7 @@ test('is_wall: invalid position', function (assert) {
 
 
 test('is_wall: invalid orientation', function (assert) {  
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     assert.plan(3);  
     try {
         RUR.is_wall("n", 1, 2);
@@ -65,7 +65,7 @@ test('is_wall: invalid orientation', function (assert) {
 });
 
 test('add_wall: invalid position', function (assert) {  
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     assert.plan(3);  
     try {
         RUR.add_wall("north", 1, 100, true);  // test for goal wall
@@ -90,7 +90,7 @@ test('add_wall: invalid orientation', function (assert) {
 });
 
 test('remove_wall: invalid position', function (assert) {  
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     assert.plan(3);  
     try {
         RUR.remove_wall("north", 1, 100);
@@ -103,7 +103,7 @@ test('remove_wall: invalid position', function (assert) {
 });
 
 test('remove_wall: invalid orientation', function (assert) {  
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     assert.plan(3);  
     try {
         RUR.remove_wall("n", 1, 2);
@@ -116,7 +116,7 @@ test('remove_wall: invalid orientation', function (assert) {
 });
 
 test('add_wall: twice at the same location', function (assert) {  
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     assert.plan(3);  
     try {
         RUR.add_wall("north", 1, 2);
@@ -130,7 +130,7 @@ test('add_wall: twice at the same location', function (assert) {
 });
 
 test('remove_wall: removing missing wall', function (assert) {  
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     assert.plan(3);  
     try {
         RUR.remove_wall("north", 1, 2);
@@ -148,14 +148,14 @@ test('remove_wall: removing missing wall', function (assert) {
  ========================================== */
 
 test('list empty walls', function (assert) {    
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     assert.deepEqual(RUR.get_walls(3, 3), [], "No walls present");
     assert.end();
 });
 
 
 test('Add and list walls', function (assert) {    
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.add_wall("east", 3, 3);
     assert.deepEqual(RUR.get_walls(3, 3), ["east"], "east wall");
     RUR.add_wall("west", 3, 3);
@@ -174,7 +174,7 @@ test('Add and list walls', function (assert) {
 });
 
 test('Add and get wall at', function (assert) {    
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.add_wall("east", 3, 3);  // west of (4, 3)
     RUR.add_wall("north", 3, 3);  // south of (3, 4)
     assert.ok(RUR.is_wall("east", 3, 3), "east wall present");
@@ -190,7 +190,7 @@ test('Add and get wall at', function (assert) {
 
 test('Add and list goal walls', function (assert) {    
     var goal = true;
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.add_wall("east", 3, 3, goal);
     assert.deepEqual(RUR.get_walls(3, 3, goal), ["east"], "east wall");
     RUR.add_wall("west", 3, 3, goal);
@@ -209,7 +209,7 @@ test('Add and list goal walls', function (assert) {
 });
 
 test('Add two walls, remove one and list walls', function (assert) {    
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.add_wall("east", 3, 3);
     RUR.add_wall("west", 3, 3);
     RUR.remove_wall("east", 3, 3);

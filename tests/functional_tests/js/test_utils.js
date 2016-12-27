@@ -11,7 +11,7 @@ test_utils.set_human_language = function (lang) {
 };
 
 test_utils.reset = function () {
-    RUR.CURRENT_WORLD = RUR.clone_world(test_utils.empty_world);
+    RUR.CURRENT_WORLD = RUR.world_utils.clone_world(test_utils.empty_world);
     RUR._reset();
     RUR.state.highlight = false;
     RUR.state.prevent_playback = false;
@@ -31,7 +31,7 @@ test_utils.load_world_file = function (url) {
             throw new Error("Problem in _load_world_file");
         },
         success: function(data){
-            RUR.import_world(data);
+            RUR.world_utils.import_world(data);
         }
     });
 };
@@ -126,7 +126,7 @@ test_utils.playback = function() {
     return true;
 };
 
-test_utils.initial_world = RUR.create_empty_world();
+test_utils.initial_world = RUR.world_utils.create_empty_world();
 test_utils.empty_world = {robots: [],
         objects: {},
         walls: {},
