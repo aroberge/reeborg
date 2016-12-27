@@ -1,5 +1,9 @@
 require("./../rur.js");
-/* RUR.utils is the name space used to group various helper methods
- * intended for private use.
+/** @namespace utils
+ * @memberof RUR
+ * @desc RUR.utils is a namespace intended for private utility functions. 
+ *   The sparse documentation about these is meant for developers.
+ *   These methods should not be invoked by an end user as they could
+ *   change (or be removed) at any time.
  */
 RUR.utils = {};

@@ -4,9 +4,9 @@
 require("./../rur.js");
 require("./../translator.js");
 require("./../programming_api/exceptions.js");
-require("./../utils/key_exist.js");
-require("./../utils/validator.js");
-require("./../utils/supplant.js");
+require("./key_exist.js");
+require("./validator.js");
+require("./supplant.js");
 get_world = require("./../world_get/world.js").get_world;
 
 
@@ -34,7 +34,7 @@ function ensure_valid_position(args) {
  * are satisfied. 
  **/
 
-RUR.add_artefact = function (args) {
+RUR.utils.add_artefact = function (args) {
     var coords, world = get_world();
     ensure_valid_position(args);
     if (args.valid_names !== undefined) {
@@ -48,7 +48,7 @@ RUR.add_artefact = function (args) {
     world[args.type][coords][args.name] = 1;
 };
 
-RUR.is_artefact = function(args) {
+RUR.utils.is_artefact = function(args) {
     var coords, keys, world = get_world();
     ensure_valid_position(args);
     if (args.valid_names !== undefined) {
