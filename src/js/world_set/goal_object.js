@@ -53,9 +53,9 @@ RUR.set_nb_goal_object_at_position = function (specific_object, x, y, nb){
     coords = x + "," + y;
     cw = RUR.CURRENT_WORLD;
 
-    RUR.utils.ensure_key_exists(cw, "goal");
-    RUR.utils.ensure_key_exists(cw.goal, "objects");
-    RUR.utils.ensure_key_exists(cw.goal.objects, coords);
+    RUR.utils.ensure_key_for_obj_exists(cw, "goal");
+    RUR.utils.ensure_key_for_obj_exists(cw.goal, "objects");
+    RUR.utils.ensure_key_for_obj_exists(cw.goal.objects, coords);
     if (nb === 0) {
         try {
             delete cw.goal.objects[coords][specific_object];

@@ -2,36 +2,33 @@
 // if the corresponding functions are
 // defined in reeborg_xx.js and reeborg_xx.py
 
-RUR.fr = {};
+exports.fr = fr = {};
 
-RUR.ui_fr["fr-en"] = "Mode mixte: interface graphique en français; programmation en anglais.<br>" +
-    "Mixed mode: User Interface in French; programming language in English.<br>";
+fr["at_goal"] = "au_but";
+fr["front_is_clear"] = "rien_devant";
+fr["right_is_clear"] = "rien_a_droite";
+fr["wall_in_front"] = "mur_devant";
+fr["wall_on_right"] = "mur_a_droite";
+fr["object_here"] = "objet_ici";
+fr["carries_object"] = "transporte";
+fr["is_facing_north"] = "est_face_au_nord";
 
-RUR.fr["at_goal"] = "au_but";
-RUR.fr["front_is_clear"] = "rien_devant";
-RUR.fr["right_is_clear"] = "rien_a_droite";
-RUR.fr["wall_in_front"] = "mur_devant";
-RUR.fr["wall_on_right"] = "mur_a_droite";
-RUR.fr["object_here"] = "objet_ici";
-RUR.fr["carries_object"] = "transporte";
-RUR.fr["is_facing_north"] = "est_face_au_nord";
+fr["move"] = "avance";
+fr["turn_left"] = "tourne_a_gauche";
+fr["take"] = "prend";
+fr["put"] = "depose";
+fr["build_wall"] = "construit_un_mur";
+fr["pause"] = "pause";
+fr["done"] = "termine";
+fr["think"] = "pense";
+fr["think(100)"] = "pense(100)";
+fr["sound"] = "son";
+fr["sound(True)"] = "son(True)";
+fr["sound(true)"] = "son(true)";
+fr["World"] = "Monde";
+fr["UsedRobot"] = "RobotUsage";
+fr["new UsedRobot"] = "new RobotUsage";
+fr["no_highlight"] = "pas_de_surlignement";
+fr["write"] = "ecrit";
 
-RUR.fr["move"] = "avance";
-RUR.fr["turn_left"] = "tourne_a_gauche";
-RUR.fr["take"] = "prend";
-RUR.fr["put"] = "depose";
-RUR.fr["build_wall"] = "construit_un_mur";
-RUR.fr["pause"] = "pause";
-RUR.fr["done"] = "termine";
-RUR.fr["think"] = "pense";
-RUR.fr["think(100)"] = "pense(100)";
-RUR.fr["sound"] = "son";
-RUR.fr["sound(True)"] = "son(True)";
-RUR.fr["sound(true)"] = "son(true)";
-RUR.fr["World"] = "Monde";
-RUR.fr["UsedRobot"] = "RobotUsage";
-RUR.fr["new UsedRobot"] = "new RobotUsage";
-RUR.fr["no_highlight"] = "pas_de_surlignement";
-RUR.fr["write"] = "ecrit";
-
-RUR.fr["from library import ?"] = "from biblio import ?";
+fr["from library import ?"] = "from biblio import ?";

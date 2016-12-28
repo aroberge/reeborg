@@ -4,7 +4,7 @@
         "dictionaries": ["jsdoc", "closure"]
     },
     "source": {
-        "include": [ "src/js", "tests"]
+        "include": [ "src/js", "tests", "src/lang"]
     },
     "plugins": ["plugins/markdown"],
     "markdown": {

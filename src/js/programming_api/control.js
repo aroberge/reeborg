@@ -242,9 +242,9 @@ RUR.control._robot_put_down_object = function (robot, obj) {
         delete robot.objects[obj];
     }
 
-    RUR.utils.ensure_key_exists(get_world(), "objects");
+    RUR.utils.ensure_key_for_obj_exists(get_world(), "objects");
     coords = robot.x + "," + robot.y;
-    RUR.utils.ensure_key_exists(get_world().objects, coords);
+    RUR.utils.ensure_key_for_obj_exists(get_world().objects, coords);
     if (get_world().objects[coords][obj] === undefined) {
         get_world().objects[coords][obj] = 1;
     } else {
@@ -295,7 +295,7 @@ RUR.control._take_object_and_give_to_robot = function (robot, obj) {
             delete get_world().objects[coords];
         }
     }
-    RUR.utils.ensure_key_exists(robot, "objects");
+    RUR.utils.ensure_key_for_obj_exists(robot, "objects");
     if (robot.objects[obj] === undefined){
         robot.objects[obj] = 1;
     } else {

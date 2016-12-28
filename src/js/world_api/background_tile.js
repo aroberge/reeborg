@@ -42,7 +42,7 @@ RUR.set_background_tile = function (tile, x, y) {
     if (!tile) {
         remove_background_tile(coords, world);
     }
-    RUR.utils.ensure_key_exists(world, "tiles");
+    RUR.utils.ensure_key_for_obj_exists(world, "tiles");
     world.tiles[coords] = tile;
     RUR.record_frame("debug", "set_background_tile");
 };

@@ -54,8 +54,8 @@ RUR.set_nb_object_at_position = function (specific_object, x, y, nb){
 
     coords = x + "," + y;
     cw = get_world();
-    RUR.utils.ensure_key_exists(cw, "objects");
-    RUR.utils.ensure_key_exists(cw.objects, coords);
+    RUR.utils.ensure_key_for_obj_exists(cw, "objects");
+    RUR.utils.ensure_key_for_obj_exists(cw.objects, coords);
     if (nb !== 0) {
         cw.objects[coords][specific_object] = nb;
     } else {
