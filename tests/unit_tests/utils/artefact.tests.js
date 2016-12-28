@@ -376,3 +376,72 @@ test('get_artefacts: confirm goal present, array type added by function', functi
     assert.deepEqual(RUR.utils.get_artefacts(args_a), ['a', 'b'], 'complete array returned');
     assert.end();
 });
+
+test('remove_artefact: add 2 remove 1 to array type.', function (assert) {  
+    var args_a = {x:2, y:3, name:'a', type:'objects'},
+        args_b = {x:2, y:3, name:'b', type:'objects'};
+    assert.plan(1);  
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
+    RUR.utils.add_artefact(args_a);
+    RUR.utils.add_artefact(args_b);
+    RUR.utils.remove_artefact(args_a);
+    // name:'a'  should be ignored in call to get_artefacts
+    assert.deepEqual(RUR.utils.get_artefacts(args_a), ['b'], 'array with one element returned.');
+    assert.end();
+});
+
+test('remove_artefact: with goal, add 2 remove 1 to array type.', function (assert) {  
+    var args_a = {x:2, y:3, name:'a', type:'objects', goal:true},
+        args_b = {x:2, y:3, name:'b', type:'objects', goal:true};
+    assert.plan(1);  
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
+    RUR.utils.add_artefact(args_a);
+    RUR.utils.add_artefact(args_b);
+    RUR.utils.remove_artefact(args_a);
+    // name:'a'  should be ignored in call to get_artefacts
+    assert.deepEqual(RUR.utils.get_artefacts(args_a), ['b'], 'array with one element returned.');
+    assert.end();
+});
+
+test('remove_artefact: add 1 remove 1 to array type.', function (assert) {  
+    var args_a = {x:2, y:3, name:'a', type:'objects'};
+    assert.plan(1);  
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
+    RUR.utils.add_artefact(args_a);
+    RUR.utils.remove_artefact(args_a);
+    assert.deepEqual(RUR.CURRENT_WORLD.objects, undefined, 'nothing left');
+    assert.end();
+});
+
+test('remove_artefact: add 12 of one kind remove 1 to object type.', function (assert) {  
+    var args_a = {x:2, y:3, name:'a', type:'objects', number:12};
+    assert.plan(1);  
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
+    RUR.utils.set_nb_artefact(args_a);
+    RUR.utils.remove_artefact(args_a);
+    assert.deepEqual(RUR.utils.get_nb_artefact(args_a), 11, '11 returned.');
+    assert.end();
+});
+
+test('remove_artefact: add 12 of one kind remove 1 to object type.', function (assert) {  
+    var args_a = {x:2, y:3, name:'a', type:'objects', number:1},
+        args_b = {x:2, y:3, name:'b', type:'objects', number:3};
+    assert.plan(2);  
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
+    RUR.utils.set_nb_artefact(args_a);
+    RUR.utils.set_nb_artefact(args_b);
+    RUR.utils.remove_artefact(args_a);
+    assert.deepEqual(RUR.utils.get_nb_artefact(args_a), 0, 'None left');
+    assert.deepEqual(RUR.utils.get_nb_artefact(args_b), 3, '3 left untouched.');
+    assert.end();
+});
+
+test('remove_artefact: add 1 remove 1 to object type.', function (assert) {  
+    var args_a = {x:2, y:3, name:'a', type:'objects', number:1};
+    assert.plan(1);  
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
+    RUR.utils.set_nb_artefact(args_a);
+    RUR.utils.remove_artefact(args_a);
+    assert.deepEqual(RUR.CURRENT_WORLD.objects, undefined, 'nothing left');
+    assert.end();
+});

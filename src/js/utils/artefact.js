@@ -349,9 +349,103 @@ RUR.utils.get_artefacts = function(args) {
     } else {
         container = world[args.type][coords];
     }
-
     return container; 
 };
 
 
 
+/** @function remove_artefact
+ * @memberof RUR.utils
+ * @instance
+ * @summary **This function is intended for private use by developers.**
+ * 
+ *    This function removes a specified (named) artefact of a 
+ *    specified type (e.g. object, background tile, wall, etc.) at
+ *    a given location. For artefacts that can have more than 1 instance
+ *    at a given location, it can either remove a single instance or all
+ *    of them.
+ *
+ *    If no artefact of that kind is left at that location, that location is
+ *    pruned (removed). If nothing is left for that kind, it is removed.
+ *    If nothing is left but an empty goal, the goal object is removed
+ *    as well.
+ *    
+ * @param {Object} args A Javascript object (similar to a Python dict) that
+ *                      holds the relevant attribute.
+ *
+ * @param {string} args.name  The name of the object to be found; an error
+ *    will be thrown if it is missing.
+ *
+ * @param {string} args.type  The type of the object to be found; an error
+ *    will be thrown if it is missing.
+ *
+ * @param {integer} args.x The `x` coordinate where the object should be found.
+ *                        If it is missing, or not within the world boundaries,
+ *                        or is not an integer, an error will be thrown.
+ *
+ * @param {integer} args.y The `y` coordinate where the object should be found.
+ *                        If it is missing, or not within the world boundaries,
+ *                        or is not an integer, an error will be thrown.
+ *                        
+ * @param {boolean} [args.goal] If specified, indicates that it is a goal-type
+ *                        object that must be found.
+ *
+ * @param {string} [args.all] If true, all instances of the named artefact
+ *       will be removed; otherwise, their number will simply be reduced by 1..
+ *
+ * @throws Will throw an error if `name` attribute is not specified.
+ * @throws Will throw an error if `type` attribute is not specified.
+ * @throws Will throw an error if a valid position is not specified.
+ * @throws Will throw an error if no such artefact is found at that location.
+ *
+ * @see {@link UnitTest#test_artefact} for unit tests.
+ *  
+ */
+RUR.utils.remove_artefact = function (args) {
+    "use strict";
+    var base, container, coords, index, world = get_world();
+
+    // Calling get_nb_artefact will do all the required validation of arguments
+    if (RUR.utils.get_nb_artefact(args) === 0) {
+        throw new Error("No artefact to remove");
+    }
+
+    base = world;
+    if (args.goal) {
+        base = world.goal;
+    }
+    coords = args.x + "," + args.y;
+    container = base[args.type][coords];
+
+    if (Object.prototype.toString.call(container) == "[object Object]") {
+        container[args.name] -= 1;
+        if (container[args.name] === 0) {
+            delete container[args.name];
+        }
+        if (Object.keys(container).length === 0) { // nothing left at that location
+            delete base[args.type][coords];
+        } else {
+            return;
+        }
+    } else if (Object.prototype.toString.call(container) == "[object Array]"){
+        index = container.indexOf(args.name);
+        container.splice(index, 1);
+        if (container.length === 0){ // nothing left at that location
+            delete base[args.type][coords];
+        } else {
+            return;
+        }
+    } else { // should never happen
+        throw new Error("Unknown container type; need Object or Array");
+    }  
+
+    // remove any empty remaining JS object, up to world.
+    if (Object.keys(base[args.type]).length === 0) {
+        delete base[args.type];
+        if (args.goal) {
+            if (Object.keys(world.goal).length === 0){
+                delete world.goal;
+            }
+        }
+    }
+};
