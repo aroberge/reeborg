@@ -38,3 +38,4 @@ Keeping track of advanced editing api
       - include writable tile 
   * Add object_type which are fatal to take.
   * Remind writers that adding an obstacle just means that it is drawn on a given canvas; if its properties are safe. Dangerous tiles are checked either as background tiles or as obtacles.  Unsafe objects to take are only checked when picked up and must be drawn on the object canvas.  Limit nb of objects type on tile, decorative, obstacle and wall to 1 for each type. Allow unlimited number on object canvas.  Define function combine pushable object + tile into new tile with drawing.  Use this for more generic combinations.
+  * challenge: redraw the world on an isometric tiling ... with adjustable viewing angle instead of the traditional fixed 45^o 
