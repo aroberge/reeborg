@@ -292,7 +292,7 @@ draw_goal_position = function (goal, ctx) {
     } else {    // For anyone wondering, this step might be needed only when using older world
                 // files that were created when there was not a choice
                 // of image for indicating the home position.
-        image = RUR.TILES["green_home_tile"].image;
+        image = RUR.TILES["green home tile"].image;
     }
     if (goal.possible_positions !== undefined && goal.possible_positions.length > 1){
             ctx.save();

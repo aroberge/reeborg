@@ -37,10 +37,9 @@ tile = {name: "grass",
 };
 RUR.add_new_type(tile);
 
-tile = {name: "pale_grass",
+tile = {name: "pale grass",
     url: RUR._BASE_URL + '/src/images/pale_grass.png',
     info: "Grass: usually safe.",
-    public_name: "grass"
 };
 RUR.add_new_type(tile);
 
@@ -65,8 +64,7 @@ tile = {
 };
 RUR.add_new_type(tile);
 
-tile = {name: "bricks",
-    public_name: "brick wall",
+tile = {name: "brick wall",
     url: RUR._BASE_URL + '/src/images/bricks.png',
     info: "brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.",
     message: "Crash!",
@@ -80,9 +78,9 @@ RUR.add_new_type(tile);
 
 home_message = ": Reeborg <b>can</b> detect this tile using at_goal().";
 
-tile = {name: "green_home_tile",
+tile = {name: "green home tile",
     url: RUR._BASE_URL + '/src/images/green_home_tile.png',
-    info: "green_home_tile" + home_message,
+    info: "green home tile" + home_message,
     detectable: true
 };
 RUR.add_new_type(tile);
@@ -141,17 +139,13 @@ obj = {"name": 'beeper',
 };
 RUR.add_new_type(obj);
 
-RUR.add_new_solid_object_type = function (name, url, nickname) {
+RUR.add_new_solid_object_type = function (name, url) {
     var obj = RUR.TILES;
     obj[name] = {};
-    if (nickname === undefined) {
-        obj[name].name = name;
-    } else {
-        obj[name].name = nickname;
-        obj[name].fatal = true;
-        obj[name].solid = true;
-        obj[name].detectable = true;
-    }
+    obj[name].name = name;
+    obj[name].fatal = true;
+    obj[name].solid = true;
+    obj[name].detectable = true;
     obj[name].ctx = RUR.OBSTACLES_CTX;
     obj[name].image = new Image();
     if (url) {
@@ -169,17 +163,17 @@ RUR.add_new_solid_object_type = function (name, url, nickname) {
 RUR.add_new_solid_object_type("bridge");
 RUR.TILES.bridge.info = "Bridge:Reeborg <b>can</b> detect this and will know that it allows safe passage over water.";
 
-RUR.add_new_solid_object_type("fence_right", false, "fence");
+RUR.add_new_solid_object_type("fence_right", false);
 RUR.TILES.fence_right.message = "I hit a fence!";
 RUR.TILES.fence_right.info = "Fence: Reeborg <b>can</b> detect this but will be stopped by it.";
 RUR.TILES.fence4 = RUR.TILES.fence_right;  // compatibility with old worlds
 
-RUR.add_new_solid_object_type("fence_left", false, "fence");
+RUR.add_new_solid_object_type("fence_left", false);
 RUR.TILES.fence_left.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_left.info = RUR.TILES.fence_right.info;
 RUR.TILES.fence5 = RUR.TILES.fence_left;  // compatibility with old worlds
 
-RUR.add_new_solid_object_type("fence_double", false, "fence");
+RUR.add_new_solid_object_type("fence_double", false);
 RUR.TILES.fence_double.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_double.info = RUR.TILES.fence_right.info;
 RUR.TILES.fence6 = RUR.TILES.fence_double;  // compatibility with old worlds

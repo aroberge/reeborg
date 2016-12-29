@@ -38,10 +38,9 @@ tile = {name: "grass",
 };
 RUR.add_new_type(tile);
 
-tile = {name: "pale_grass",
+tile = {name: "pale grass",
     url: RUR._BASE_URL + '/src/images/pale_grass.png',
     info: "Grass: usually safe.",
-    public_name: "grass"
 };
 RUR.add_new_type(tile);
 
@@ -66,8 +65,7 @@ tile = {
 };
 RUR.add_new_type(tile);
 
-tile = {name: "bricks",
-    public_name: "brick wall",
+tile = {name: "brick wall",
     url: RUR._BASE_URL + '/src/images/bricks.png',
     info: "brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.",
     message: "Crash!",
@@ -81,9 +79,9 @@ RUR.add_new_type(tile);
 
 home_message = ": Reeborg <b>can</b> detect this tile using at_goal().";
 
-tile = {name: "green_home_tile",
+tile = {name: "green home tile",
     url: RUR._BASE_URL + '/src/images/green_home_tile.png',
-    info: "green_home_tile" + home_message,
+    info: "green home tile" + home_message,
     detectable: true
 };
 RUR.add_new_type(tile);
@@ -142,17 +140,13 @@ obj = {"name": 'beeper',
 };
 RUR.add_new_type(obj);
 
-RUR.add_new_solid_object_type = function (name, url, nickname) {
+RUR.add_new_solid_object_type = function (name, url) {
     var obj = RUR.TILES;
     obj[name] = {};
-    if (nickname === undefined) {
-        obj[name].name = name;
-    } else {
-        obj[name].name = nickname;
-        obj[name].fatal = true;
-        obj[name].solid = true;
-        obj[name].detectable = true;
-    }
+    obj[name].name = name;
+    obj[name].fatal = true;
+    obj[name].solid = true;
+    obj[name].detectable = true;
     obj[name].ctx = RUR.OBSTACLES_CTX;
     obj[name].image = new Image();
     if (url) {
@@ -170,17 +164,17 @@ RUR.add_new_solid_object_type = function (name, url, nickname) {
 RUR.add_new_solid_object_type("bridge");
 RUR.TILES.bridge.info = "Bridge:Reeborg <b>can</b> detect this and will know that it allows safe passage over water.";
 
-RUR.add_new_solid_object_type("fence_right", false, "fence");
+RUR.add_new_solid_object_type("fence_right", false);
 RUR.TILES.fence_right.message = "I hit a fence!";
 RUR.TILES.fence_right.info = "Fence: Reeborg <b>can</b> detect this but will be stopped by it.";
 RUR.TILES.fence4 = RUR.TILES.fence_right;  // compatibility with old worlds
 
-RUR.add_new_solid_object_type("fence_left", false, "fence");
+RUR.add_new_solid_object_type("fence_left", false);
 RUR.TILES.fence_left.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_left.info = RUR.TILES.fence_right.info;
 RUR.TILES.fence5 = RUR.TILES.fence_left;  // compatibility with old worlds
 
-RUR.add_new_solid_object_type("fence_double", false, "fence");
+RUR.add_new_solid_object_type("fence_double", false);
 RUR.TILES.fence_double.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_double.info = RUR.TILES.fence_right.info;
 RUR.TILES.fence6 = RUR.TILES.fence_double;  // compatibility with old worlds
@@ -1083,7 +1077,7 @@ draw_goal_position = function (goal, ctx) {
     } else {    // For anyone wondering, this step might be needed only when using older world
                 // files that were created when there was not a choice
                 // of image for indicating the home position.
-        image = RUR.TILES["green_home_tile"].image;
+        image = RUR.TILES["green home tile"].image;
     }
     if (goal.possible_positions !== undefined && goal.possible_positions.length > 1){
             ctx.save();
@@ -9223,9 +9217,9 @@ require("./../programming_api/exceptions.js");
  * @param {string} tile.name  The name to be given to the tile; an exception
  *    will be raisd if it is missing.
  *
- * @param {string} [tile.public_name] If various tiles are meant to represent
- *                                    the same type of tile (e.g. different shades of "grass")
- *                                    this attribute can be used to specify that single name.
+ * @param {string} [tile.info] Some information to be displayed about this tile
+ *                          when a user clicks on "World Info" and then on
+ *                          this tile on the world canvas.
  *
  * @param {string} [tile.url] If a single image is used, this indicated the source.
  *                            **Either tile.url or tile.images must be specified.**
@@ -9298,14 +9292,6 @@ RUR.add_new_type = function (tile) {
     }
 
     RUR.TILES[name] = tile;
-    // allow multiple tiles to appear under the same name;
-    // for example, we might want to visually have different types of grass tiles
-    // but referring under the single name "grass" when giving information
-    // while keeping the different tiles distinct using their original name
-    // internally.
-    if (tile.public_name) {
-        tile.name = tile.public_name;
-    }
     create_images(tile);
     // Object goal (not required for decorative objects): either
     // a single url or a list for animated images.
@@ -11415,7 +11401,7 @@ ui_en["Grass: usually safe."] = "Grass: usually safe.";
 ui_en["Gravel: usually safe."] = "Gravel: usually safe.";
 ui_en["I'm in water!"] = "I'm in water!";
 ui_en["Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location."] = "Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location.";
-ui_en["green_home_tile: Reeborg <b>can</b> detect this tile using at_goal()."] = "green_home_tile: Reeborg <b>can</b> detect this tile using at_goal().";
+ui_en["green home tile: Reeborg <b>can</b> detect this tile using at_goal()."] = "green home tile: Reeborg <b>can</b> detect this tile using at_goal().";
 ui_en["Crash!"] = "Crash!";
 ui_en["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it."] = "Brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.";
 ui_en["I hit a fence!"] = "I hit a fence!";
@@ -11768,7 +11754,7 @@ ui_fr["Grass: usually safe."] = "Gazon: habituellement sans problèmes.";
 ui_fr["Gravel: usually safe."] = "Gravier: habituellement sans problèmes.";
 ui_fr["I'm in water!"] = "Je suis dans l'eau!";
 ui_fr["Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location."] = "Eau: Reeborg <b>peut</b> détecter ceci mais il va être endommagé s'il s'y déplace.";
-ui_fr["green_home_tile: Reeborg <b>can</b> detect this tile using at_goal()."] = "tuile verte: Reeborg <b>peut</b> détecter ceci avec au_but().";
+ui_fr["green home tile: Reeborg <b>can</b> detect this tile using at_goal()."] = "tuile verte: Reeborg <b>peut</b> détecter ceci avec au_but().";
 ui_fr["Crash!"] = "Crash!";
 ui_fr["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it."] = "Mur de brique: Reeborg <b>peut</b> détecter ceci mais il se fera mal s'il essaie de passer au travers.";
 ui_fr["I hit a fence!"] = "J'ai frappé une clôture!";
@@ -12127,7 +12113,7 @@ ui_ko["Grass: usually safe."] = "잔디: 보통 안전함.";
 ui_ko["Gravel: usually safe."] = "자갈: 보통 안전함.";
 ui_ko["I'm in water!"] = "난 물 속에 있어요!";
 ui_ko["Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location."] = "물: 리보그는 이것을 탐지 할 수 <b>있지만</b> 이 위치로 이동하는 경우 상처를 입히게 됩니다.";
-ui_ko["green_home_tile: Reeborg <b>can</b> detect this tile using at_goal()."] = "green_home_tile: 리보그는 at_goal 를 사용하면 이 타일을 감지 할 수 <b>있어요<b>.";
+ui_ko["green home tile: Reeborg <b>can</b> detect this tile using at_goal()."] = "green home tile: 리보그는 at_goal 를 사용하면 이 타일을 감지 할 수 <b>있어요<b>.";
 ui_ko["Crash!"] = "Crash!";
 ui_ko["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it."] = "벽돌 벽: 리보그는 이것을 탐지 할 수 있지만 만약 벽돌 벽으로 간다면 자신을 다치게 합니다.";
 ui_ko["I hit a fence!"] = "I hit a fence!";

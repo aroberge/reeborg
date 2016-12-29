@@ -20,9 +20,9 @@ require("./../programming_api/exceptions.js");
  * @param {string} tile.name  The name to be given to the tile; an exception
  *    will be raisd if it is missing.
  *
- * @param {string} [tile.public_name] If various tiles are meant to represent
- *                                    the same type of tile (e.g. different shades of "grass")
- *                                    this attribute can be used to specify that single name.
+ * @param {string} [tile.info] Some information to be displayed about this tile
+ *                          when a user clicks on "World Info" and then on
+ *                          this tile on the world canvas.
  *
  * @param {string} [tile.url] If a single image is used, this indicated the source.
  *                            **Either tile.url or tile.images must be specified.**
@@ -95,14 +95,6 @@ RUR.add_new_type = function (tile) {
     }
 
     RUR.TILES[name] = tile;
-    // allow multiple tiles to appear under the same name;
-    // for example, we might want to visually have different types of grass tiles
-    // but referring under the single name "grass" when giving information
-    // while keeping the different tiles distinct using their original name
-    // internally.
-    if (tile.public_name) {
-        tile.name = tile.public_name;
-    }
     create_images(tile);
     // Object goal (not required for decorative objects): either
     // a single url or a list for animated images.
