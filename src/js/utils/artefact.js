@@ -8,7 +8,7 @@ require("./../programming_api/exceptions.js");
 require("./key_exist.js");
 require("./validator.js");
 require("./supplant.js");
-get_world = require("./../world_utils/get_world.js").get_world;
+require("./../world_utils/get_world.js");
 
 
 // private helper function that
@@ -105,7 +105,7 @@ RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_p
  */
 RUR.utils.set_nb_artefact = function (args) {
     "use strict";
-    var base, coords, world = get_world();
+    var base, coords, world = RUR.get_world();
 
     ensure_common_required_args_present(args);
     if (args.number === undefined) {
@@ -176,7 +176,7 @@ RUR.utils.set_nb_artefact = function (args) {
  */
 RUR.utils.add_artefact = function (args) {
     "use strict";
-    var base, coords, world = get_world();
+    var base, coords, world = RUR.get_world();
 
     ensure_common_required_args_present(args);
 
@@ -249,7 +249,7 @@ RUR.utils.add_artefact = function (args) {
  */
 RUR.utils.get_nb_artefact = function(args) {
     "use strict";
-    var coords, container, world = get_world();
+    var coords, container, world = RUR.get_world();
 
     ensure_common_required_args_present(args);
 
@@ -327,7 +327,7 @@ RUR.utils.get_nb_artefact = function(args) {
  */
 RUR.utils.get_artefacts = function(args) {
     "use strict";
-    var base, coords, container, world = get_world();
+    var base, coords, container, world = RUR.get_world();
 
     ensure_valid_position(args);
     if (args.type === undefined) {
@@ -403,7 +403,7 @@ RUR.utils.get_artefacts = function(args) {
  */
 RUR.utils.remove_artefact = function (args) {
     "use strict";
-    var base, container, coords, index, world = get_world();
+    var base, container, coords, index, world = RUR.get_world();
 
     // Calling get_nb_artefact will do all the required validation of arguments
     if (RUR.utils.get_nb_artefact(args) === 0) {

@@ -2,7 +2,7 @@ require("./../programming_api/exceptions.js");
 require("./../translator.js");
 require("./../utils/key_exist.js");
 require("./../utils/supplant.js");
-var get_world = require("./../world_utils/get_world.js").get_world;
+require("./../world_utils/get_world.js");
 
 /** @function toggle_decorative_object_at_position
  * @memberof RUR
@@ -29,7 +29,7 @@ RUR.toggle_decorative_object_at_position = function (specific_object, x, y){
                                                  {obj: specific_object}));
     }
     coords = x + "," + y;
-    cw = get_world();
+    cw = RUR.get_world();
     RUR.utils.ensure_key_for_obj_exists(cw, "decorative_objects");
     RUR.utils.ensure_key_for_obj_exists(cw.decorative_objects, coords);
 

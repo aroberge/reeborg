@@ -129,6 +129,14 @@ RUR.TILES.box.pushable = true;
 RUR.TILES.box.in_water = "bridge";
 RUR.TILES.box.ctx = RUR.ROBOT_CTX;
 
+tile = {
+    name: "bridge",
+    info: "Bridge:Reeborg <b>can</b> detect this and will know that it allows safe passage over water.",
+    url: RUR._BASE_URL + '/src/images/bridge.png',
+    safe:true
+};
+RUR.add_new_type(tile);
+
 obj = {"name": 'beeper',
     "selection_method": 'ordered',
     "images": [RUR._BASE_URL + '/src/images/beeper0.png',
@@ -160,8 +168,6 @@ RUR.add_new_solid_object_type = function (name, url) {
     RUR.KNOWN_TILES.push(name);
 };
 
-RUR.add_new_solid_object_type("bridge");
-RUR.TILES.bridge.info = "Bridge:Reeborg <b>can</b> detect this and will know that it allows safe passage over water.";
 
 RUR.add_new_solid_object_type("fence_right", false);
 RUR.TILES.fence_right.message = "I hit a fence!";

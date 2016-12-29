@@ -2,7 +2,7 @@ require("./../programming_api/exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
 require("./../utils/supplant.js");
-var get_world = require("./../world_utils/get_world.js").get_world;
+require("./../world_utils/get_world.js");
 
 /** @function toggle_obstacle_at_position
  * @memberof RUR
@@ -28,7 +28,7 @@ RUR.toggle_obstacle_at_position = function (specific_object, x, y){
                                                  {obj: specific_object}));
     }
     coords = x + "," + y;
-    cw = get_world();
+    cw = RUR.get_world();
     RUR.utils.ensure_key_for_obj_exists(cw, "obstacles");
     RUR.utils.ensure_key_for_obj_exists(cw.obstacles, coords);
 
@@ -69,7 +69,7 @@ RUR.add_obstacle_at_position = function (specific_object, x, y){
                                                  {obj: specific_object}));
     }
     coords = x + "," + y;
-    cw = get_world();
+    cw = RUR.get_world();
     RUR.utils.ensure_key_for_obj_exists(cw, "obstacles");
     RUR.utils.ensure_key_for_obj_exists(cw.obstacles, coords);
 
@@ -106,7 +106,7 @@ RUR.remove_obstacle_at_position = function (specific_object, x, y){
                                                  {obj: specific_object}));
     }
     coords = x + "," + y;
-    cw = get_world();
+    cw = RUR.get_world();
     RUR.utils.ensure_key_for_obj_exists(cw, "obstacles");
     RUR.utils.ensure_key_for_obj_exists(cw.obstacles, coords);
 

@@ -1,6 +1,6 @@
 
 require("./../rur.js");
-var get_world = require("./../world_utils/get_world.js").get_world;
+require("./../world_utils/get_world.js");
 // TODO: RUR._BASE_URL -> need to change it to state...
 
 RUR.vis_robot = {};
@@ -207,7 +207,7 @@ RUR.vis_robot.update_trace_history = function (robot) {
 
     offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
 
-    if(get_world().small_tiles) {
+    if(RUR.get_world().small_tiles) {
         offset = [[12, 12], [12, 12], [12, 12], [12, 12]];
         trace_segment["thickness"] = 2;
     } else if (robot._trace_style === "thick") {

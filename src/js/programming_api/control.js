@@ -11,7 +11,7 @@ require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
 
 require("./../world_api/wall.js");
-var get_world = require("./../world_utils/get_world.js").get_world;
+require("./../world_utils/get_world.js");
 
 RUR.control = {};
 
@@ -242,13 +242,13 @@ RUR.control._robot_put_down_object = function (robot, obj) {
         delete robot.objects[obj];
     }
 
-    RUR.utils.ensure_key_for_obj_exists(get_world(), "objects");
+    RUR.utils.ensure_key_for_obj_exists(RUR.get_world(), "objects");
     coords = robot.x + "," + robot.y;
-    RUR.utils.ensure_key_for_obj_exists(get_world().objects, coords);
-    if (get_world().objects[coords][obj] === undefined) {
-        get_world().objects[coords][obj] = 1;
+    RUR.utils.ensure_key_for_obj_exists(RUR.get_world().objects, coords);
+    if (RUR.get_world().objects[coords][obj] === undefined) {
+        RUR.get_world().objects[coords][obj] = 1;
     } else {
-        get_world().objects[coords][obj] += 1;
+        RUR.get_world().objects[coords][obj] += 1;
     }
     RUR.record_frame("debug", "RUR.control._put_object");
 };
@@ -284,15 +284,15 @@ RUR.control._take_object_and_give_to_robot = function (robot, obj) {
     var objects_here, coords;
     obj = RUR.translate_to_english(obj);
     coords = robot.x + "," + robot.y;
-    get_world().objects[coords][obj] -= 1;
+    RUR.get_world().objects[coords][obj] -= 1;
 
-    if (get_world().objects[coords][obj] === 0){
-        delete get_world().objects[coords][obj];
+    if (RUR.get_world().objects[coords][obj] === 0){
+        delete RUR.get_world().objects[coords][obj];
         // WARNING: do not change this silly comparison to false
         // to anything else ... []==false is true  but []==[] is false
         // and ![] is false
         if (RUR.world_get.object_at_robot_position(robot) == false){ // jshint ignore:line
-            delete get_world().objects[coords];
+            delete RUR.get_world().objects[coords];
         }
     }
     RUR.utils.ensure_key_for_obj_exists(robot, "objects");
@@ -453,7 +453,7 @@ RUR.control.think = function (delay) {
 };
 
 RUR.control.at_goal = function (robot) {
-    var goal = get_world().goal;
+    var goal = RUR.get_world().goal;
     if (goal !== undefined){
         if (goal.position !== undefined) {
             return (robot.x === goal.position.x && robot.y === goal.position.y);
@@ -469,12 +469,12 @@ RUR.control.solid_object_here = function (robot, tile) {
     var tile_here, tile_type, all_solid_objects;
     var coords = robot.x + "," + robot.y;
 
-    if (get_world().obstacles === undefined ||
-        get_world().obstacles[coords] === undefined) {
+    if (RUR.get_world().obstacles === undefined ||
+        RUR.get_world().obstacles[coords] === undefined) {
         return false;
     }
 
-    tile_here =  get_world().obstacles[coords];
+    tile_here =  RUR.get_world().obstacles[coords];
 
     for (tile_type in tile_here) {
         if (tile_here.hasOwnProperty(tile_type)) {
@@ -550,7 +550,7 @@ RUR.control.get_colour_at_position = function (x, y) {
     if (RUR.world_get.tile_at_position(x, y)===false) {
         return null;
     } else if (RUR.world_get.tile_at_position(x, y)===undefined){
-        return get_world().tiles[x + "," + y];
+        return RUR.get_world().tiles[x + "," + y];
     } else {
         return null;
     }

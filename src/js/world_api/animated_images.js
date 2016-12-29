@@ -69,7 +69,6 @@ RUR._random = function (obj, nb) {
 
 RUR._ordered = function (obj, nb, id) {
     // each animated image is given a random initial value but then goes in order
-
     if (RUR._ORDERED[obj.name] === undefined) {
         RUR._ORDERED[obj.name] = {};
         RUR._ORDERED[obj.name][id] = Math.floor(Math.random() * nb);

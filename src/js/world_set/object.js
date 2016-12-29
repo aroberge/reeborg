@@ -5,7 +5,7 @@ require("./../utils/validator.js");
 require("./../translator.js");
 require("./../recorder/record_frame.js");
 
-var get_world = require("./../world_utils/get_world.js").get_world;
+require("./../world_utils/get_world.js");
 
 /** @function set_nb_object_at_position
  * @memberof RUR
@@ -53,7 +53,7 @@ RUR.set_nb_object_at_position = function (specific_object, x, y, nb){
     }
 
     coords = x + "," + y;
-    cw = get_world();
+    cw = RUR.get_world();
     RUR.utils.ensure_key_for_obj_exists(cw, "objects");
     RUR.utils.ensure_key_for_obj_exists(cw.objects, coords);
     if (nb !== 0) {

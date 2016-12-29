@@ -1,7 +1,7 @@
 require("./../translator.js");
 require("./../rur.js");
 require("./../world_api/add_tile_type.js");
-var get_world = require("./../world_utils/get_world.js").get_world;
+require("./../world_utils/get_world.js");
 //TODO add overlay object (like sensor) on robot canvas.
 
 RUR.vis_world = {};
@@ -14,7 +14,7 @@ RUR.vis_world.refresh_world_edited = function () {
 RUR.vis_world.compute_world_geometry = function (cols, rows) {
     "use strict";
     var height, width, canvas;
-    if (get_world().small_tiles) {
+    if (RUR.get_world().small_tiles) {
         RUR.WALL_LENGTH = 20;
         RUR.WALL_THICKNESS = 2;
         RUR.SCALE = 0.5;
@@ -35,8 +35,8 @@ RUR.vis_world.compute_world_geometry = function (cols, rows) {
         height = (RUR.MAX_Y + 1.5) * RUR.WALL_LENGTH;
         width = (RUR.MAX_X + 1.5) * RUR.WALL_LENGTH;
     }
-    get_world().rows = RUR.MAX_Y;
-    get_world().cols = RUR.MAX_X;
+    RUR.get_world().rows = RUR.MAX_Y;
+    RUR.get_world().cols = RUR.MAX_X;
 
     if (height !== RUR.HEIGHT || width !== RUR.WIDTH) {
         for (canvas of RUR.CANVASES) { //jshint ignore:line
@@ -53,7 +53,7 @@ RUR.vis_world.compute_world_geometry = function (cols, rows) {
 RUR.vis_world.draw_all = function () {
     "use strict";
 
-    if (get_world().blank_canvas) {
+    if (RUR.get_world().blank_canvas) {
         if (RUR.state.editing_world) {
             RUR.show_feedback("#Reeborg-shouts",
                                 RUR.translate("Editing of blank canvas is not supported."));
@@ -77,7 +77,7 @@ RUR.vis_world.draw_all = function () {
 
     RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     draw_grid_walls(RUR.BACKGROUND_CTX);
-    if (get_world().background_image !== undefined) {
+    if (RUR.get_world().background_image !== undefined) {
         draw_background_image(RUR.BACKGROUND_IMAGE);
     }
     draw_coordinates(); // on BACKGROUND_CTX
@@ -89,7 +89,7 @@ RUR.vis_world.draw_all = function () {
 
 RUR.vis_world.refresh = function () {
     "use strict";
-    var current = get_world();
+    var current = RUR.get_world();
     RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
     // meant to be called at each step
@@ -264,11 +264,11 @@ draw_goal = function () {
     "use strict";
     var goal, ctx = RUR.GOAL_CTX;
 
-    if (get_world().goal === undefined) {
+    if (RUR.get_world().goal === undefined) {
         return;
     }
 
-    goal = get_world().goal;
+    goal = RUR.get_world().goal;
     if (goal.position !== undefined) {
         draw_goal_position(goal, ctx);
     }
@@ -350,7 +350,7 @@ draw_tiles = function (tiles){
         if (tile.choose_image === undefined){
             image = tile.image;
             if (image === undefined){
-                console.log("problem in draw_tiles; tile =", tile);
+                console.warn("problem in draw_tiles; tile =", tile);
                 throw new ReeborgError("Problem in draw_tiles.");
             }
             draw_single_object(image, i, j, RUR.TILES_CTX);
@@ -361,15 +361,14 @@ draw_tiles = function (tiles){
 draw_animated_images = function (){
     "use strict";
     var objects;
-
     RUR.OBJECTS_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.TILES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
     RUR.animated_images = false;
-    objects = get_world().tiles;
+    objects = RUR.get_world().tiles;
     RUR.animated_images = __draw_animated_images(objects,
                                 RUR.animated_images, RUR.TILES, RUR.TILES_ANIM_CTX);
-    objects = get_world().objects;
+    objects = RUR.get_world().objects;
     RUR.animated_images = __draw_animated_images(objects,
                                 RUR.animated_images, RUR.TILES, RUR.OBJECTS_ANIM_CTX);
     if (RUR.animated_images) {
@@ -392,14 +391,17 @@ function __draw_animated_images (objects, flag, obj_ref, ctx) {
         j = parseInt(i_j[1], 10);
 
         obj_here = objects[coords[k]];
-        if (typeof obj_here == "string") {  // e.g. tiles: single object at position
-            obj = obj_ref[obj_here];
+        if (Object.prototype.toString.call(obj_here) == "[object Array]") {
+            //TODO: generalize this for the case where there is more than
+            //one image at a location
+            obj = obj_ref[obj_here[0]];
             if (obj === undefined) {
                 continue;
             } else if (obj.choose_image !== undefined){
                 remove_flag = _draw_single_animated(obj, coords[k], i, j, ctx);
-                if (remove_flag) {
+                if (remove_flag == RUR.END_CYCLE) {
                     images_to_remove.push(coords[k]);
+                    console.log(ctx);
                 }
                 flag = true;
             }
@@ -415,10 +417,15 @@ function __draw_animated_images (objects, flag, obj_ref, ctx) {
                 }
             }
         } else {
-            console.log("Problem: unknown type in __draw_animated_images");
+            console.warn("Problem: unknown type in __draw_animated_images");
         }
     }
 
+        //TODO: generalize this for the case where there is more than
+        //one image at a location
+        // need more than coordinates, but also type of image etc.
+        // So, instead of passing RUR.TILES, which is common,
+        // we should pass the relevant "type".
     for (k=0; k < images_to_remove.length; k++){
         delete objects[images_to_remove[k]];
     }
@@ -432,7 +439,7 @@ function _draw_single_animated (obj, coords, i, j, ctx){
     // and the (html) id of the canvas on which it is drawn
     image = obj.choose_image(coords + ctx.canvas.id);
     if (image === undefined){
-        console.log("problem in _draw_single_animated; obj =", obj);
+        console.warn("problem in _draw_single_animated; obj =", obj);
         throw new ReeborgError("Problem in _draw_single_animated at" + coords);
     } else if (image == RUR.END_CYCLE) {
         return RUR.END_CYCLE;
@@ -511,7 +518,7 @@ draw_single_object = function (image, i, j, ctx) {
     try{
        ctx.drawImage(image, x, y, size, size);
    } catch (e) {
-       console.log("problem in draw_single_object", image, ctx, e);
+       console.warn("problem in draw_single_object", image, ctx, e);
    }
 };
 
@@ -542,7 +549,7 @@ draw_background_image = function (image) {
         ctx.drawImage(image, 0, 0, image_width, image_height, 
                              x, y, world_width, world_height);
     } catch (e) {
-        console.log("problem in draw_background_image", image, ctx, e);
+        console.warn("problem in draw_background_image", image, ctx, e);
     }
 };
 
@@ -562,16 +569,16 @@ compile_info = function() {
     RUR.vis_world.information = {};
     RUR.vis_world.goal_information = {};
     RUR.vis_world.goal_present = false;
-    if (get_world().goal !== undefined &&
-        get_world().goal.objects !== undefined) {
-        compile_partial_info(get_world().goal.objects,
+    if (RUR.get_world().goal !== undefined &&
+        RUR.get_world().goal.objects !== undefined) {
+        compile_partial_info(RUR.get_world().goal.objects,
             RUR.vis_world.goal_information, 'goal');
             RUR.vis_world.goal_present = true;
     }
 
 
-    if (get_world().objects !== undefined) {
-        compile_partial_info(get_world().objects,
+    if (RUR.get_world().objects !== undefined) {
+        compile_partial_info(RUR.get_world().objects,
             RUR.vis_world.information, 'objects');
     }
 };
@@ -605,7 +612,7 @@ compile_partial_info = function(objects, information, type){
                                 quantity = parseInt(quantity, 10);
                             } catch (e) {
                                 quantity = "?";
-                                console.log("WARNING: this should not happen in compile_info");
+                                console.warn("WARNING: this should not happen in compile_info");
                             }
                         }
                         if (RUR.vis_world.goal_present && typeof quantity == 'number' && goal_information !== undefined) {

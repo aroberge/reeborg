@@ -2,21 +2,19 @@ require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
-var get_world = require("./../world_utils/get_world.js").get_world;
+require("./../utils/artefact.js");
+require("./../world_utils/get_world.js");
 
 /** @function set_background_tile
  * @memberof RUR
  * @instance
- * @summary This function sets a given tile type at a location.
+ * @summary This function sets a named tile as background at a location.
  *
- * @param {string} tile The name of a tile **or** a colour recognized by JS/HTML.
+ * @param {string} name The name of a tile **or** a colour recognized by JS/HTML.
  *    No check is performed to ensure that the value given is valid; it the
- *    tile name is not recognized, it is assumed to be a colour.
+ *    tile name is not recognized, it is assumed to be a colour. If a new tile
+ *    is set at that location, it replaces the pre-existing one.
  *
- *    If `tile` evaluates to "false" (like `null` in Javascript, or `None`
- *    in Python, or an empty string in both languages), any existing tile
- *    at that location will be removed, but no error is going to be raised
- *    if no tile is present at that location.
  *
  * @param {integer} x  Position of the tile.
  * @param {integer} y  Position of the tile.
@@ -24,6 +22,7 @@ var get_world = require("./../world_utils/get_world.js").get_world;
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
  * @todo add test
+ * @todo add better examples
  *
  * @example
  * // shows how to set various tiles;
@@ -32,32 +31,43 @@ var get_world = require("./../world_utils/get_world.js").get_world;
  * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
-RUR.set_background_tile = function (tile, x, y) {
+RUR.set_background_tile = function (name, x, y) {
     "use strict";
-    var world = get_world(), coords;
-    if (!RUR.utils.is_valid_position(x, y)) {
-        throw new ReeborgError(RUR.translate("Invalid position."));
-    }
-    coords = x + "," + y;
-    if (!tile) {
-        remove_background_tile(coords, world);
-    }
-    RUR.utils.ensure_key_for_obj_exists(world, "tiles");
-    world.tiles[coords] = tile;
-    RUR.record_frame("debug", "set_background_tile");
+    var args = {name: name, x:x, y:y, type:"tiles", single:true};
+    RUR.utils.add_artefact(args);
+    RUR.record_frame("RUR.set_background_tile", args);
 };
 
-function remove_background_tile (coords, world) {
-    if (world.tiles === undefined || world.tiles[coords] === undefined) {
-        return;
-    } else {
-        delete world.tiles[coords];
-        if (Object.keys(world.tiles).length === 0){
-            delete world.tiles;
-        }
-    }
 
-}
+/** @function remove_background_tile
+ * @memberof RUR
+ * @instance
+ * @summary This function removes a background tile at a location.
+ *
+ *
+ * @param {integer} x  Position of the tile.
+ * @param {integer} y  Position of the tile.
+ *
+ * @throws Will throw an error if `(x, y)` is not a valid location.
+ * @throws Will throw an error if there is no background tile to remove
+ *        at that location
+ *        
+ * @todo add test
+ * @todo add examples
+ *
+ */
+RUR.remove_background_tile = function (x, y) {
+    "use strict";
+    var name, args;
+    name = RUR.get_background_tile(x, y);
+    if (name === null) {
+        throw new ReeborgError("No tile to remove here.");
+    }
+    args= {x:x, y:y, type:"tiles", name:name};
+    RUR.utils.remove_artefact(args);
+    RUR.record_frame("RUR.remove_background_tile", args);
+};
+
 
 /** @function get_background_tile
  * @memberof RUR
@@ -72,6 +82,7 @@ function remove_background_tile (coords, world) {
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
  * @todo add test
+ * @todo add proper examples
  *
  * @example
  * // shows how to set various tiles;
@@ -83,15 +94,11 @@ function remove_background_tile (coords, world) {
 
 RUR.get_background_tile = function (x, y) {
     "use strict";
-    var world = get_world(), coords;
-    if (!RUR.utils.is_valid_position(x, y)) {
-        throw new ReeborgError(RUR.translate("Invalid position."));
-    }
-    coords = x + "," + y;
-
-    if (world.tiles === undefined || world.tiles[coords] === undefined) {
+    var tile, args = {x:x, y:y, type:"tiles"};
+    tile = RUR.utils.get_artefacts(args);
+    if (tile === null) {
         return null;
     } else {
-        return world.tiles[coords];
+        return tile[0];
     }
 };

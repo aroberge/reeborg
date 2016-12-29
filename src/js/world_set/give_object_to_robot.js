@@ -2,7 +2,7 @@ require("./../programming_api/exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
 require("./../utils/validator.js");
-var get_world = require("./../world_utils/get_world.js").get_world;
+require("./../world_utils/get_world.js");
 
 /** @function give_object_to_robot
  * @memberof RUR
@@ -26,7 +26,7 @@ var get_world = require("./../world_utils/get_world.js").get_world;
  */
 
 RUR.give_object_to_robot = function (obj, nb, robot) {
-    var _nb, world=get_world(), translated_arg=RUR.translate_to_english(obj);
+    var _nb, world=RUR.get_world(), translated_arg=RUR.translate_to_english(obj);
 
     if (RUR.KNOWN_TILES.indexOf(translated_arg) == -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: obj}));

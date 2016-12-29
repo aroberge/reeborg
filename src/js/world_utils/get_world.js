@@ -10,7 +10,7 @@ require("./../rur.js");
  *  the shortest path in a maze using various search algorithms.)
  *
  */
-exports.get_world = get_world = function () {
+RUR.get_world = function () {
     return RUR.CURRENT_WORLD;
 };
 

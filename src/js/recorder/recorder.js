@@ -76,10 +76,6 @@ RUR.rec.display_frame = function () {
         return;
     }
 
-    if (RUR.__debug && frame.debug) {
-        console.log("debug: ", frame.debug);
-    }
-
     // many of these are exlusive of others ... but to give more flexibility
     // in adding options (and prevent bugs!!), we do not use an
     // if/else if/... structure, but rather a series of if clauses

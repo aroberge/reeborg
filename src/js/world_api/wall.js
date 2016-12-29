@@ -5,7 +5,7 @@ require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../utils/supplant.js");
 require("./../recorder/record_frame.js");
-get_world = require("./../world_utils/get_world.js").get_world;
+require("./../world_utils/get_world.js");
 
 /*=========================================
 Walls data structure
@@ -65,7 +65,7 @@ function ensure_valid_orientation(arg){
  *
  */
 RUR.get_walls = function(x, y, goal) {
-    var world = get_world();
+    var world = RUR.get_world();
     ensure_valid_position(x, y);
     if (goal) {
         if (world.goal === undefined || world.goal.walls === undefined) {
@@ -107,7 +107,7 @@ RUR.get_walls = function(x, y, goal) {
  *
  */
 RUR.is_wall = function(orientation, x, y, goal) {
-    var world = get_world();
+    var world = RUR.get_world();
     ensure_valid_orientation(orientation);
     ensure_valid_position(x, y);
     // convert to lower case only after running the above validity test.
@@ -236,7 +236,7 @@ function __is_wall (coords, orientation, walls) {
  *
  */
 RUR.add_wall = function(orientation, x, y, goal) {
-    var world = get_world(), wall_here;
+    var world = RUR.get_world(), wall_here;
     // the following function call will raise an exception if
     // the orientation or the position is not valid
     wall_here = RUR.is_wall(orientation, x, y, goal);
@@ -362,7 +362,7 @@ function _remove_wall(orientation, x, y, goal) {
 }
 
 function __remove_wall(coords, orientation, goal) {
-    var index, world = get_world();
+    var index, world = RUR.get_world();
     if (goal) {
         index = world.goal.walls[coords].indexOf(orientation);
         world.goal.walls[coords].splice(index, 1);
