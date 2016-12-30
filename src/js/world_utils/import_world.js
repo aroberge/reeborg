@@ -12,7 +12,7 @@ var clone_world = require("./clone_world.js").clone_world;
 
 RUR.world_utils.import_world = function (json_string) {
     "use strict";
-    var body, editor_content, library_content;
+    var body, editor_content, library_content, i, keys, more_keys, coord;
     if (json_string === undefined){
         console.log("Problem: no argument passed to RUR.world_utils.import_world");
         return {};
@@ -58,6 +58,34 @@ RUR.world_utils.import_world = function (json_string) {
             Object.getOwnPropertyDescriptor(RUR.CURRENT_WORLD, "solid_objects"));
         delete RUR.CURRENT_WORLD.solid_objects;
     }
+
+    // Backward compatibility change done on December 29, 2016. 
+    // tiles were written as e.g. "water"; need to be written as ["water"]
+    if (RUR.CURRENT_WORLD.tiles !== undefined) {
+        keys = Object.keys(RUR.CURRENT_WORLD.tiles);
+        for (i=0; i < keys.length; i++) {
+            coord = keys[i];
+            if (typeof RUR.CURRENT_WORLD.tiles[coord] == "string") {
+                RUR.CURRENT_WORLD.tiles[coord] = [RUR.CURRENT_WORLD.tiles[coord]];
+            } else {
+                break;
+            }
+        }
+    }
+    // and obstacles were written in the form {fence:1} and need to be simply
+    // ["fence"]
+    if (RUR.CURRENT_WORLD.tiles !== undefined) {
+        keys = Object.keys(RUR.CURRENT_WORLD.obstacles);
+        for (i=0; i < keys.length; i++) {
+            coord = keys[i];
+            if (Object.prototype.toString.call(RUR.CURRENT_WORLD.obstacles[coord]) == "[object Object]") {
+                RUR.CURRENT_WORLD.obstacles[coord] = Object.keys(RUR.CURRENT_WORLD.obstacles[coord]);
+            } else {
+                break;
+            }
+        }
+    }
+
 
     // Backward compatibility change done on March 28, 2016, where
     // "pre_code" and "post_code" were simplified to "pre" and "post"

@@ -14,6 +14,10 @@ require("./storage/storage.js");
 require("./permalink/permalink.js");
 require("./editors/create.js");
 
+// ensure that all world_api functions are defined.
+require("./world_api/obstacles.js");
+
+
 brython({debug:1, pythonpath:[RUR._BASE_URL + '/src/python']});
 if (__BRYTHON__.__MAGIC__ != "3.2.7") {
     alert("Expecting Brython version 3.2.7 and got " + __BRYTHON__.__MAGIC__);

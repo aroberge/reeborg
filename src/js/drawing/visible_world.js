@@ -71,6 +71,7 @@ RUR.vis_world.draw_all = function () {
 
         RUR.OBJECTS_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.TILES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.OBSTACLES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
         return;
     }
@@ -89,20 +90,29 @@ RUR.vis_world.draw_all = function () {
 
 RUR.vis_world.refresh = function () {
     "use strict";
-    var current = RUR.get_world();
-    RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    var canvas, canvases, current = RUR.get_world();
+
+    // This is not the most efficient way to do things; ideally, one
+    // would keep track of changes (e.g. addition or deletion of objects)
+    // and only redraw when needed.  However, it is not critical at
+    // the moment
 
     // meant to be called at each step
     // does not draw background (i.e. coordinates, grid walls and possibly image)
-    // does not clear trace // TODO is this still relevant?
-
     // start by clearing all the relevant contexts first.
     // some objects are drown on their own contexts.
-    RUR.OBSTACLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.TILES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    canvases = ["OBSTACLES_CTX", "GOAL_CTX", "OBJECTS_CTX", "ROBOT_CTX", 
+                "TILES_CTX", "TRACE_CTX"];
+    for (canvas of canvases) {
+        RUR[canvas].clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    }
+    // RUR.OBSTACLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    // RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    // RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    // RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    // RUR.TILES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    // RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
 
     if (RUR.state.editing_world) {
         // make them appear above background and tiles but below foreground walls.
@@ -115,7 +125,7 @@ RUR.vis_world.refresh = function () {
     }
 
     draw_goal();  // on GOAL_CTX
-    draw_tiles(current.tiles); // on TILES_CTX
+    draw_tiles(current.tiles, RUR.TILES_CTX);
     draw_foreground_walls(current.walls); // on OBJECTS_CTX
     draw_all_objects(current.decorative_objects);
     draw_all_objects(current.objects);  // on OBJECTS_CTX
@@ -123,7 +133,10 @@ RUR.vis_world.refresh = function () {
         // and, draws some objects on ROBOT_CTX
 
     // objects: goal is false, tile is true
-    draw_all_objects(current.obstacles, false, true); // likely on RUR.OBSTACLES_CTX
+    // draw_all_objects(current.obstacles, false, true); // likely on RUR.OBSTACLES_CTX
+    draw_tiles(current.obstacles, RUR.OBSTACLES_CTX);
+
+
 
     draw_robots(current.robots);  // on ROBOT_CTX
     compile_info();  // on ROBOT_CTX
@@ -327,33 +340,39 @@ draw_goal_walls = function (goal, ctx) {
     }
 };
 
-draw_tiles = function (tiles){
+draw_tiles = function (tiles, ctx){
     "use strict";
-    var i, j, k, keys, key, image, tile, colour;
+    var i, j, k, keys, key, image, tile, colour, t, tile_array;
     if (tiles === undefined) {
         return;
     }
+
     keys = Object.keys(tiles);
     for (key=0; key < keys.length; key++){
         k = keys[key].split(",");
         i = parseInt(k[0], 10);
         j = parseInt(k[1], 10);
         if (tiles[keys[key]] !== undefined) {
-            tile = RUR.TILES[tiles[keys[key]]];
-            if (tile === undefined) {
-                colour = tiles[keys[key]];
-                draw_coloured_tile(colour, i, j, RUR.TILES_CTX);
-                continue;
+            tile_array = tiles[keys[key]];
+            for (t=0; t<tile_array.length; t++) {
+                tile = RUR.TILES[tile_array[t]];
+                if (tile === undefined) {
+                    if (ctx == RUR.TILES_CTX) {
+                        colour = tiles[keys[key]];
+                        draw_coloured_tile(colour, i, j, ctx);
+                        continue;
+                    } else {
+                        console.warn("undefined tile in draw_tiles; name =", keys[key]);
+                    }
+                } else if (tile.choose_image === undefined){
+                    image = tile.image;
+                    if (image === undefined){
+                        console.warn("problem in draw_tiles; tile =", tile, ctx);
+                        throw new ReeborgError("Problem in draw_tiles.");
+                    }
+                    draw_single_object(image, i, j, ctx);
+                }
             }
-        }
-
-        if (tile.choose_image === undefined){
-            image = tile.image;
-            if (image === undefined){
-                console.warn("problem in draw_tiles; tile =", tile);
-                throw new ReeborgError("Problem in draw_tiles.");
-            }
-            draw_single_object(image, i, j, RUR.TILES_CTX);
         }
     }
 };
@@ -363,11 +382,17 @@ draw_animated_images = function (){
     var objects;
     RUR.OBJECTS_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     RUR.TILES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    RUR.OBSTACLES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
     RUR.animated_images = false;
     objects = RUR.get_world().tiles;
     RUR.animated_images = __draw_animated_images(objects,
                                 RUR.animated_images, RUR.TILES, RUR.TILES_ANIM_CTX);
+
+    objects = RUR.get_world().obstacles;
+    RUR.animated_images = __draw_animated_images(objects,
+                                RUR.animated_images, RUR.TILES, RUR.OBSTACLES_ANIM_CTX);
+
     objects = RUR.get_world().objects;
     RUR.animated_images = __draw_animated_images(objects,
                                 RUR.animated_images, RUR.TILES, RUR.OBJECTS_ANIM_CTX);
@@ -400,8 +425,7 @@ function __draw_animated_images (objects, flag, obj_ref, ctx) {
             } else if (obj.choose_image !== undefined){
                 remove_flag = _draw_single_animated(obj, coords[k], i, j, ctx);
                 if (remove_flag == RUR.END_CYCLE) {
-                    images_to_remove.push(coords[k]);
-                    console.log(ctx);
+                    images_to_remove.push([i, j, obj.name, ctx]);
                 }
                 flag = true;
             }
@@ -427,17 +451,35 @@ function __draw_animated_images (objects, flag, obj_ref, ctx) {
         // So, instead of passing RUR.TILES, which is common,
         // we should pass the relevant "type".
     for (k=0; k < images_to_remove.length; k++){
-        delete objects[images_to_remove[k]];
+        __remove_animated_object(images_to_remove[k]);
     }
 
     return flag;
 }
 
+function __remove_animated_object(args) {
+    var x, y, name, ctx;
+    x = args[0];
+    y = args[1];
+    name = args[2];
+    ctx = args[3];
+
+    switch (ctx) {
+        case RUR.TILES_ANIM_CTX:        
+            RUR.remove_background_tile(x, y);
+            break;
+        case RUR.OBSTACLES_ANIM_CTX:    
+            RUR.remove_obstacle(name, x, y);
+            break;
+        default:
+            console.warn("unknown ctx in __remove_animated_object.");
+    }
+}
+
 function _draw_single_animated (obj, coords, i, j, ctx){
-    var image;
-    // each image is uniquely identified by a string made up of its coordinate
-    // and the (html) id of the canvas on which it is drawn
-    image = obj.choose_image(coords + ctx.canvas.id);
+    var image, id = coords + ctx.canvas.id + obj.name;
+    // each image is uniquely identified by its "id".
+    image = obj.choose_image(id);
     if (image === undefined){
         console.warn("problem in _draw_single_animated; obj =", obj);
         throw new ReeborgError("Problem in _draw_single_animated at" + coords);
