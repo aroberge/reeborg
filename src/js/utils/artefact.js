@@ -234,7 +234,7 @@ RUR.utils.add_artefact = function (args) {
  * @param {boolean} [args.goal] If specified, indicates that it is a goal-type
  *                        object that must be found.
  *
- * @param {string} [args.valid_names] A list containing the name of the 
+ * @param {array} [args.valid_names] A list containing the name of the 
  *                        acceptable objects. If this argument is specified, 
  *                        `args.name` must be found in that list, otherwise an
  *                        error will be thrown.

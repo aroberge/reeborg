@@ -20,7 +20,7 @@ require("./../world_utils/get_world.js");
  *
  * @todo add test
  * @todo add better examples
- *
+ * @todo deal with translation
  * @example
  * // shows how to set various tiles;
  * // the mode will be set to Python and the highlighting
@@ -30,7 +30,7 @@ require("./../world_utils/get_world.js");
  */
 RUR.add_obstacle = function (name, x, y) {
     "use strict";
-    var args = {name: name, x:x, y:y, type:"obstacles"};
+    var args = {name: name, x:x, y:y, type:"obstacles", valid_names:Object.keys(RUR.TILES)};
     RUR.utils.add_artefact(args);
     RUR.record_frame("RUR.add_obstacle", args);
 };
@@ -39,7 +39,7 @@ RUR.add_obstacle = function (name, x, y) {
 /** @function remove_obstacle
  * @memberof RUR
  * @instance
- * @summary This function removes a background tile at a location.
+ * @summary This function removes an obstacle at a location.
  *
  *
  * @param {integer} x  Position of the tile.
@@ -51,16 +51,17 @@ RUR.add_obstacle = function (name, x, y) {
  *        
  * @todo add test
  * @todo add examples
+ * @todo deal with translation
  *
  */
 RUR.remove_obstacle = function (name, x, y) {
     "use strict";
     var args, obstacles;
-    obstacles = RUR.get_background_tile(x, y);
+    obstacles = RUR.get_obstacles(x, y);
     if (obstacles === null) {
         throw new ReeborgError("No obstacles to remove here.");
     }
-    args= {x:x, y:y, type:"obstacles", name:name};
+    args= {x:x, y:y, type:"obstacles", name:name, valid_names:Object.keys(RUR.TILES)};
     RUR.utils.remove_artefact(args);
     RUR.record_frame("RUR.remove_obstacle", args);
 };
@@ -80,6 +81,7 @@ RUR.remove_obstacle = function (name, x, y) {
  *
  * @todo add test
  * @todo add proper examples
+ * @todo deal with translation
  *
  * @example
  * // shows how to set various tiles;
@@ -98,4 +100,64 @@ RUR.get_obstacles = function (x, y) {
     } else {
         return tiles;
     }
+};
+
+// TODO: this may not be needed after more general functions written
+// i.e. instead of looking for specific obstacle, look for 
+// obstacle with properties.
+RUR.is_obstacle = function (name, x, y) {
+    "use strict";
+    var args={name:name, x:x, y:y, type:"obstacles"};
+    if (RUR.utils.get_nb_artefact(args) > 0) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+RUR.is_obstacle_solid = function (x, y) {
+    "use strict";
+    var obs, obstacles = RUR.get_obstacles(x, y);
+    if (obstacles === null) {
+        return false;
+    }
+    for (obs of obstacles) {
+        if (RUR.TILES[obs].solid) {
+            return true;
+        }
+    }
+    return false;
+};
+
+RUR.is_obstacle_fatal = function (x, y) {
+    "use strict";
+    var obs, obstacles = RUR.get_obstacles(x, y);
+    if (obstacles === null) {
+        return false;
+    }
+    for (obs of obstacles) {
+        if (RUR.TILES[obs].fatal) {
+            return true;
+        }
+    }
+    return false;
+};
+
+// safe obstacles only protect from fatal background tiles,
+// but not from fatal obstacles
+RUR.is_obstacle_safe = function (x, y) {
+    "use strict";
+    var obs, safe_found = false, obstacles = RUR.get_obstacles(x, y);
+    if (obstacles === null) {
+        return false;
+    }
+    for (obs of obstacles) {
+        if (RUR.TILES[obs].fatal) {
+            return false;
+        }
+        if (RUR.TILES[obs].safe) {
+            safe_found = true;
+        }        
+    }
+    return safe_found;
 };

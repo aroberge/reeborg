@@ -21,7 +21,6 @@ require("./../world_set/object.js");
 require("./../world_set/goal_object.js");
 require("./../world_set/add_robot.js");
 require("./../world_set/decorative_object.js");
-require("./../world_set/obstacle.js");
 require("./../world_set/give_object_to_robot.js");
 
 require("./../world_api/wall.js"); 
@@ -592,14 +591,13 @@ RUR.we.toggle_obstacle = function (obj){
     x = position[0];
     y = position[1];
 
-    RUR.toggle_obstacle_at_position(obj, x, y);
+    //RUR.toggle_obstacle_at_position(obj, x, y);
 
-
-    // if (RUR.world_get.obstacles_at_position(x, y)[obj] !== undefined) {
-    //     RUR.world_set.add_solid_object(obj, x, y, 0);
-    // } else {
-    //     RUR.world_set.add_solid_object(obj, x, y, 1);
-    // }
+    if (RUR.is_obstacle(obj, x, y) === 0) {
+        RUR.add_obstacle(obj, x, y);
+    } else {
+        RUR.remove_obstacle(obj, x, y);
+    }
 };
 
 

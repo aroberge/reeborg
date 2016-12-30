@@ -13,6 +13,42 @@ require("./../utils/key_exist.js");
 require("./../world_api/wall.js");
 require("./../world_utils/get_world.js");
 
+/* First, some utility functions */
+
+function get_next_positions (robot) {
+    "use strict";
+    var next_x, next_y, x_beyond, y_beyond;
+
+    switch (robot._orientation){
+    case RUR.EAST:
+        next_x = robot.x + 1;
+        x_beyond = robot.x + 2;
+        next_y = y_beyond = robot.y;
+        break;
+    case RUR.NORTH:
+        next_y = robot.y + 1;
+        y_beyond = robot.y + 2;
+        next_x = x_beyond = robot.x;
+        break;
+    case RUR.WEST:
+        next_x = robot.x - 1;
+        x_beyond = robot.x - 2;
+        next_y = y_beyond = robot.y;
+        break;
+    case RUR.SOUTH:
+        next_y = robot.y - 1;
+        y_beyond = robot.y - 2;
+        next_x = x_beyond = robot.x;
+        break;
+    default:
+        throw new Error("Should not happen: unhandled case in RUR.control.move().");
+    }
+    return {x: robot.x, y: robot.y, next_x:next_x, next_y:next_y,
+                 x_beyond:x_beyond, y_beyond:y_beyond};
+}
+
+
+/* Next, our namespace and its methods, for use in other modules */
 RUR.control = {};
 
 RUR.control.move = function (robot) {
@@ -69,10 +105,10 @@ RUR.control.move = function (robot) {
             solid_tile_beyond = false;
         }
 
-        solids_beyond = RUR.world_get.obstacles_at_position(x_beyond, y_beyond);
+        solids_beyond = RUR.get_obstacles(x_beyond, y_beyond);
         solid_object_beyond = false;
         if (solids_beyond) {
-            for (name in solids_beyond) {
+            for (name of solids_beyond) {
                 if (RUR.TILES[name] !== undefined && RUR.TILES[name].solid) {
                     solid_object_beyond = true;
                     break;
@@ -91,11 +127,11 @@ RUR.control.move = function (robot) {
     }
 
     RUR.state.sound_id = "#move-sound";
-    RUR.record_frame("debug", "RUR.control.move");
+    RUR.record_frame("RUR.control.move", robot);
     tile = RUR.world_get.tile_at_position(robot.x, robot.y);
     if (tile) {
         if (tile.fatal){
-            if (!(tile == RUR.TILES.water && RUR.control.solid_object_here(robot, RUR.translate("bridge"))) ){
+            if (!(tile == RUR.TILES.water && RUR.is_obstacle(RUR.translate("bridge"), robot.x, robot.y)) ){
                 throw new RUR.ReeborgError(RUR.translate(tile.message));
             }
         }
@@ -105,12 +141,12 @@ RUR.control.move = function (robot) {
         }
     }
 
-    objects = RUR.world_get.obstacles_at_position(robot.x, robot.y);
+    objects = RUR.get_obstacles(robot.x, robot.y);
     if (objects) {
-        for (name in objects) {
+        for (name of objects) {
             if (RUR.TILES[name] !== undefined && RUR.TILES[name].fatal) {
-                robot.x = robot._prev_x;
-                robot.y = robot._prev_y;
+                // robot.x = robot._prev_x;
+                // robot.y = robot._prev_y;
                 throw new RUR.ReeborgError(RUR.TILES[name].message);
             }
         }
@@ -125,16 +161,17 @@ RUR.control.move = function (robot) {
 RUR.control.move_object = function(obj, x, y, to_x, to_y){
     "use strict";
     var bridge_already_there = false;
-    if (RUR.world_get.obstacles_at_position(to_x, to_y).bridge !== undefined){
+    if (RUR.is_obstacle("bridge", to_x, to_y)){
         bridge_already_there = true;
     }
+    console.log("bridge there: ", bridge_already_there, "   obj = ", obj);
 
     RUR.set_nb_object_at_position(obj, x, y, 0);
     if (RUR.TILES[obj].in_water &&
-        RUR.world_get.tile_at_position(to_x, to_y) == RUR.TILES.water &&
+        RUR.get_background_tile(to_x, to_y) == "water" &&
         !bridge_already_there){
             // TODO: fix this
-        RUR.world_set.add_solid_object(RUR.TILES[obj].in_water, to_x, to_y, 1);
+        RUR.add_obstacle(RUR.TILES[obj].in_water, to_x, to_y);
     } else {
         RUR.set_nb_object_at_position(obj, to_x, to_y, 1);
     }
@@ -374,13 +411,13 @@ RUR.control.obstacles_in_front = function (robot) {
     // returns list of tiles
     switch (robot._orientation){
     case RUR.EAST:
-        return RUR.world_get.obstacles_at_position(robot.x+1, robot.y);
+        return RUR.get_obstacles(robot.x+1, robot.y);
     case RUR.NORTH:
-        return RUR.world_get.obstacles_at_position(robot.x, robot.y+1);
+        return RUR.get_obstacles(robot.x, robot.y+1);
     case RUR.WEST:
-        return RUR.world_get.obstacles_at_position(robot.x-1, robot.y);
+        return RUR.get_obstacles(robot.x-1, robot.y);
     case RUR.SOUTH:
-        return RUR.world_get.obstacles_at_position(robot.x, robot.y-1);
+        return RUR.get_obstacles(robot.x, robot.y-1);
     default:
         throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.obstacles_in_front().");
     }
@@ -396,7 +433,8 @@ RUR.control.front_is_clear = function(robot){
     if (tile) {
         if (tile.detectable && tile.fatal){
                 if (tile == RUR.TILES.water) {
-                    if (!RUR.control._bridge_present(robot)){
+                    // if (!RUR.control._bridge_present(robot)){
+                    if (!RUR.is_obstacle("bridge", robot.x, robot.y)){
                         return false;
                     }
                 } else {
@@ -407,7 +445,7 @@ RUR.control.front_is_clear = function(robot){
 
     solid = RUR.control.obstacles_in_front(robot);
     if (solid) {
-        for (name in solid) {
+        for (name of solid) {
             if (RUR.TILES[name] !== undefined &&
                 RUR.TILES[name].detectable &&
                 RUR.TILES[name].fatal) {
@@ -420,18 +458,18 @@ RUR.control.front_is_clear = function(robot){
 };
 
 
-RUR.control._bridge_present = function(robot) {
-    var solid, name;
-        solid = RUR.control.obstacles_in_front(robot);
-    if (solid) {
-        for (name in solid) {
-            if (name == "bridge") {
-                return true;
-            }
-        }
-    }
-    return false;
-};
+// RUR.control._bridge_present = function(robot) {
+//     var solid, name;
+//         solid = RUR.control.obstacles_in_front(robot);
+//     if (solid) {
+//         for (name of solid) {
+//             if (name == "bridge") {
+//                 return true;
+//             }
+//         }
+//     }
+//     return false;
+// };
 
 
 RUR.control.right_is_clear = function(robot){

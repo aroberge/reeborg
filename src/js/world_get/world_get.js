@@ -125,9 +125,9 @@ RUR.world_get.world_info = function (no_grid) {
         }
     }
 
-    tiles = RUR.world_get.obstacles_at_position(x, y);
+    tiles = RUR.get_obstacles(x, y);
     if (tiles) {
-        for (tilename in tiles) {
+        for (tilename of tiles) {
             tile = RUR.TILES[tilename];
             if (RUR.translate(tile.info)){
                 if (topic){

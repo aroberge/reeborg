@@ -19,8 +19,10 @@ header                 {z-index: 100;}
 #objects-canvas        {z-index: 40;}
 #objects-canvas-anim   {z-index: 41;}
 #trace-canvas          {z-index: 50;}
-#robot-canvas          {z-index: 60;}
-#tooltip               {z-index: 70;}
+#pushables-canvas      {z-index: 60;}
+#pushables-canvas-anim {z-index: 61;}
+#robot-canvas          {z-index: 70;}
+#tooltip               {z-index: 90;}
 #Reeborg-writes        {z-index: 210;}
 #Reeborg-concludes     {z-index: 211;}
 #Reeborg-shouts        {z-index: 211;}
@@ -32,7 +34,7 @@ header                 {z-index: 100;}
 
 /** splash screen displayed first */
 #splash-screen {
-    background: rgba(0, 0, 100, 0.7);
+    background: rgba(0, 0, 100, 0.5);
     position: fixed;
     top:0;
     left:0;

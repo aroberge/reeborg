@@ -154,6 +154,14 @@ function set_canvases () {
     RUR.TRACE_CTX = RUR.TRACE_CANVAS.getContext("2d");
     RUR.CANVASES.push(RUR.TRACE_CANVAS);
 
+    RUR.PUSHABLES_CANVAS = document.getElementById("pushables-canvas");
+    RUR.PUSHABLES_CTX = RUR.PUSHABLES_CANVAS.getContext("2d");
+    RUR.CANVASES.push(RUR.PUSHABLES_CANVAS);
+
+    RUR.PUSHABLES_CANVAS_ANIM = document.getElementById("pushables-canvas-anim");
+    RUR.PUSHABLES_ANIM_CTX = RUR.PUSHABLES_CANVAS_ANIM.getContext("2d");
+    RUR.CANVASES.push(RUR.PUSHABLES_CANVAS_ANIM);    
+
     RUR.ROBOT_CANVAS = document.getElementById("robot-canvas");
     RUR.ROBOT_CTX = RUR.ROBOT_CANVAS.getContext("2d");
     RUR.CANVASES.push(RUR.ROBOT_CANVAS);

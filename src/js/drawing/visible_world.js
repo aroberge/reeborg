@@ -66,12 +66,13 @@ RUR.vis_world.draw_all = function () {
         RUR.OBSTACLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-//        RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.PUSHABLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
         RUR.OBJECTS_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.TILES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.OBSTACLES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.PUSHABLES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
         return;
     }
@@ -102,17 +103,10 @@ RUR.vis_world.refresh = function () {
     // start by clearing all the relevant contexts first.
     // some objects are drown on their own contexts.
     canvases = ["OBSTACLES_CTX", "GOAL_CTX", "OBJECTS_CTX", "ROBOT_CTX", 
-                "TILES_CTX", "TRACE_CTX"];
+                "TILES_CTX", "TRACE_CTX", "PUSHABLES_CTX"];
     for (canvas of canvases) {
         RUR[canvas].clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     }
-    // RUR.OBSTACLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    // RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    // RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    // RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    // RUR.TILES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    // RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-
 
     if (RUR.state.editing_world) {
         // make them appear above background and tiles but below foreground walls.
@@ -362,7 +356,7 @@ draw_tiles = function (tiles, ctx){
                         draw_coloured_tile(colour, i, j, ctx);
                         continue;
                     } else {
-                        console.warn("undefined tile in draw_tiles; name =", keys[key]);
+                        console.warn("undefined tile in draw_tiles; name =", tile_array[t]);
                     }
                 } else if (tile.choose_image === undefined){
                     image = tile.image;

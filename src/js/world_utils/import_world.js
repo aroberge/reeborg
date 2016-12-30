@@ -12,7 +12,7 @@ var clone_world = require("./clone_world.js").clone_world;
 
 RUR.world_utils.import_world = function (json_string) {
     "use strict";
-    var body, editor_content, library_content, i, keys, more_keys, coord;
+    var body, editor_content, library_content, i, keys, more_keys, coord, index, obstacles;
     if (json_string === undefined){
         console.log("Problem: no argument passed to RUR.world_utils.import_world");
         return {};
@@ -74,12 +74,30 @@ RUR.world_utils.import_world = function (json_string) {
     }
     // and obstacles were written in the form {fence:1} and need to be simply
     // ["fence"]
-    if (RUR.CURRENT_WORLD.tiles !== undefined) {
+    if (RUR.CURRENT_WORLD.obstacles !== undefined) {
         keys = Object.keys(RUR.CURRENT_WORLD.obstacles);
         for (i=0; i < keys.length; i++) {
             coord = keys[i];
             if (Object.prototype.toString.call(RUR.CURRENT_WORLD.obstacles[coord]) == "[object Object]") {
-                RUR.CURRENT_WORLD.obstacles[coord] = Object.keys(RUR.CURRENT_WORLD.obstacles[coord]);
+                obstacles = Object.keys(RUR.CURRENT_WORLD.obstacles[coord]);
+                // also convert from the old names to the new ones
+                index = obstacles.indexOf("fence4");
+                if (index !== -1) {
+                    obstacles[index] = "fence_right";
+                }
+                index = obstacles.indexOf("fence5");
+                if (index !== -1) {
+                    obstacles[index] = "fence_left";
+                }
+                index = obstacles.indexOf("fence6");
+                if (index !== -1) {
+                    obstacles[index] = "fence_double";
+                }                
+                index = obstacles.indexOf("fence7");
+                if (index !== -1) {
+                    obstacles[index] = "fence_vertical";
+                }
+                RUR.CURRENT_WORLD.obstacles[coord] = obstacles;
             } else {
                 break;
             }

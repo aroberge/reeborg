@@ -8,8 +8,7 @@
   to create worlds that could be more visually appealing.  
 
   Eventually, all custom canvas drawings were replaced by square images for
-  simplicity and consistency.  However, we do (for now) have two separate
-  files for adding default "objects" and "tiles" */
+  simplicity and consistency. */
 
 require("./../rur.js");
 require("./../world_api/add_tile_type.js");
@@ -65,13 +64,24 @@ tile = {
 };
 RUR.add_new_type(tile);
 
-tile = {name: "brick wall",
+tile = {name: "bricks",
     url: RUR._BASE_URL + '/src/images/bricks.png',
     info: "brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.",
     message: "Crash!",
     detectable: true,
     fatal: true,
     solid: true
+};
+RUR.add_new_type(tile);
+
+
+// fire adapted from https://commons.wikimedia.org/wiki/File:Icon-Campfire.svg
+tile = {name: "fire",
+    url: RUR._BASE_URL + '/src/images/fire.png',
+    info: "fire: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.",
+    message: "My joints are melting!",
+    detectable: true,
+    fatal: true
 };
 RUR.add_new_type(tile);
 
@@ -99,6 +109,7 @@ tile = {name: "racing_flag",
     detectable: true
 };
 RUR.add_new_type(tile);
+
 
 /* --- default objects  -----*/
 
@@ -128,6 +139,7 @@ _add_object_type("box");
 RUR.TILES.box.name = "box";
 RUR.TILES.box.pushable = true;
 RUR.TILES.box.in_water = "bridge";
+RUR.TILES.box.transform = {"water": "bridge", "fire": null, "mud": "bridge"};
 RUR.TILES.box.ctx = RUR.ROBOT_CTX;
 
 tile = {
@@ -148,7 +160,7 @@ obj = {"name": 'beeper',
 };
 RUR.add_new_type(obj);
 
-RUR.add_new_solid_object_type = function (name, url) {
+add_new_solid_object_type = function (name, url) {
     var obj = RUR.TILES;
     obj[name] = {};
     obj[name].name = name;
@@ -170,25 +182,22 @@ RUR.add_new_solid_object_type = function (name, url) {
 };
 
 
-RUR.add_new_solid_object_type("fence_right", false);
+add_new_solid_object_type("fence_right", false);
 RUR.TILES.fence_right.message = "I hit a fence!";
 RUR.TILES.fence_right.info = "Fence: Reeborg <b>can</b> detect this but will be stopped by it.";
-RUR.TILES.fence4 = RUR.TILES.fence_right;  // compatibility with old worlds
 
-RUR.add_new_solid_object_type("fence_left", false);
+add_new_solid_object_type("fence_left", false);
 RUR.TILES.fence_left.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_left.info = RUR.TILES.fence_right.info;
-RUR.TILES.fence5 = RUR.TILES.fence_left;  // compatibility with old worlds
 
-RUR.add_new_solid_object_type("fence_double", false);
+add_new_solid_object_type("fence_double", false);
 RUR.TILES.fence_double.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_double.info = RUR.TILES.fence_right.info;
-RUR.TILES.fence6 = RUR.TILES.fence_double;  // compatibility with old worlds
 
-RUR.add_new_solid_object_type("fence_vertical", false, "fence");
+add_new_solid_object_type("fence_vertical", false);
 RUR.TILES.fence_vertical.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_vertical.info = RUR.TILES.fence_right.info;
-RUR.TILES.fence7 = RUR.TILES.fence_vertical;  // compatibility with old worlds
+
 
 },{"./../rur.js":52,"./../world_api/add_tile_type.js":69}],2:[function(require,module,exports){
 /* Dialog used by the Interactive world editor to add objects to the world.
@@ -246,7 +255,7 @@ add_object_form = dialog_add_object.find("form").on("submit", function( event ) 
     add_object();
 });
 
-},{"./../../lang/msg.js":91,"./../drawing/visible_world.js":9,"./../rur.js":52,"./../world_set/object.js":79}],3:[function(require,module,exports){
+},{"./../../lang/msg.js":91,"./../drawing/visible_world.js":9,"./../rur.js":52,"./../world_set/object.js":80}],3:[function(require,module,exports){
 
 require("./../libs/jquery.ui.dialog.minmax.js");
 require("./../rur.js");
@@ -358,7 +367,7 @@ give_object_form = dialog_give_object.find("form").on("submit", function( event 
     give_object();
 });
 
-},{"./../../lang/msg.js":91,"./../drawing/visible_world.js":9,"./../rur.js":52,"./../world_set/give_object_to_robot.js":77,"./../world_set/world_set.js":82}],5:[function(require,module,exports){
+},{"./../../lang/msg.js":91,"./../drawing/visible_world.js":9,"./../rur.js":52,"./../world_set/give_object_to_robot.js":78,"./../world_set/world_set.js":82}],5:[function(require,module,exports){
 require("./../drawing/visible_world.js");
 require("./../world_set/give_object_to_robot.js");
 require("./../rur.js");
@@ -408,7 +417,7 @@ goal_objects_form = dialog_goal_object.find("form").on("submit", function( event
     goal_objects();
 });
 
-},{"./../../lang/msg.js":91,"./../drawing/visible_world.js":9,"./../rur.js":52,"./../world_set/give_object_to_robot.js":77}],6:[function(require,module,exports){
+},{"./../../lang/msg.js":91,"./../drawing/visible_world.js":9,"./../rur.js":52,"./../world_set/give_object_to_robot.js":78}],6:[function(require,module,exports){
 require("./../drawing/visible_world.js");
 var msg = require("./../../lang/msg.js");
 
@@ -857,12 +866,13 @@ RUR.vis_world.draw_all = function () {
         RUR.OBSTACLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-//        RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.PUSHABLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
         RUR.OBJECTS_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.TILES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.OBSTACLES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.PUSHABLES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
         return;
     }
@@ -893,17 +903,10 @@ RUR.vis_world.refresh = function () {
     // start by clearing all the relevant contexts first.
     // some objects are drown on their own contexts.
     canvases = ["OBSTACLES_CTX", "GOAL_CTX", "OBJECTS_CTX", "ROBOT_CTX", 
-                "TILES_CTX", "TRACE_CTX"];
+                "TILES_CTX", "TRACE_CTX", "PUSHABLES_CTX"];
     for (canvas of canvases) {
         RUR[canvas].clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     }
-    // RUR.OBSTACLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    // RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    // RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    // RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    // RUR.TILES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    // RUR.TRACE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-
 
     if (RUR.state.editing_world) {
         // make them appear above background and tiles but below foreground walls.
@@ -1153,7 +1156,7 @@ draw_tiles = function (tiles, ctx){
                         draw_coloured_tile(colour, i, j, ctx);
                         continue;
                     } else {
-                        console.warn("undefined tile in draw_tiles; name =", keys[key]);
+                        console.warn("undefined tile in draw_tiles; name =", tile_array[t]);
                     }
                 } else if (tile.choose_image === undefined){
                     image = tile.image;
@@ -2385,7 +2388,6 @@ require("./../world_set/object.js");
 require("./../world_set/goal_object.js");
 require("./../world_set/add_robot.js");
 require("./../world_set/decorative_object.js");
-require("./../world_set/obstacle.js");
 require("./../world_set/give_object_to_robot.js");
 
 require("./../world_api/wall.js"); 
@@ -2956,14 +2958,13 @@ RUR.we.toggle_obstacle = function (obj){
     x = position[0];
     y = position[1];
 
-    RUR.toggle_obstacle_at_position(obj, x, y);
+    //RUR.toggle_obstacle_at_position(obj, x, y);
 
-
-    // if (RUR.world_get.obstacles_at_position(x, y)[obj] !== undefined) {
-    //     RUR.world_set.add_solid_object(obj, x, y, 0);
-    // } else {
-    //     RUR.world_set.add_solid_object(obj, x, y, 1);
-    // }
+    if (RUR.is_obstacle(obj, x, y) === 0) {
+        RUR.add_obstacle(obj, x, y);
+    } else {
+        RUR.remove_obstacle(obj, x, y);
+    }
 };
 
 
@@ -2975,7 +2976,7 @@ $("#robot-canvas").on("click", function (evt) {
     RUR.world_get.world_info();
 });
 
-},{"./../default_tiles/tiles.js":1,"./../dialogs/add_object.js":2,"./../dialogs/create.js":3,"./../dialogs/give_object.js":4,"./../dialogs/goal_object.js":5,"./../dialogs/select_colour.js":6,"./../dialogs/set_background_image.js":7,"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../editors/update.js":11,"./../listeners/canvas.js":18,"./../programming_api/exceptions.js":42,"./../robot/robot.js":49,"./../rur.js":52,"./../translator.js":56,"./../ui/edit_robot_menu.js":58,"./../utils/identical.js":63,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../world_api/wall.js":73,"./../world_get/world_get.js":74,"./../world_set/add_robot.js":75,"./../world_set/decorative_object.js":76,"./../world_set/give_object_to_robot.js":77,"./../world_set/goal_object.js":78,"./../world_set/object.js":79,"./../world_set/obstacle.js":80,"./../world_set/world_set.js":82}],15:[function(require,module,exports){
+},{"./../default_tiles/tiles.js":1,"./../dialogs/add_object.js":2,"./../dialogs/create.js":3,"./../dialogs/give_object.js":4,"./../dialogs/goal_object.js":5,"./../dialogs/select_colour.js":6,"./../dialogs/set_background_image.js":7,"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../editors/update.js":11,"./../listeners/canvas.js":18,"./../programming_api/exceptions.js":42,"./../robot/robot.js":49,"./../rur.js":52,"./../translator.js":56,"./../ui/edit_robot_menu.js":58,"./../utils/identical.js":63,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../world_api/wall.js":74,"./../world_get/world_get.js":75,"./../world_set/add_robot.js":76,"./../world_set/decorative_object.js":77,"./../world_set/give_object_to_robot.js":78,"./../world_set/goal_object.js":79,"./../world_set/object.js":80,"./../world_set/world_set.js":82}],15:[function(require,module,exports){
 /* require this module that will automatically modify a global object*/
 require("./utils/cors.js");
 
@@ -6392,6 +6393,42 @@ require("./../utils/key_exist.js");
 require("./../world_api/wall.js");
 require("./../world_utils/get_world.js");
 
+/* First, some utility functions */
+
+function get_next_positions (robot) {
+    "use strict";
+    var next_x, next_y, x_beyond, y_beyond;
+
+    switch (robot._orientation){
+    case RUR.EAST:
+        next_x = robot.x + 1;
+        x_beyond = robot.x + 2;
+        next_y = y_beyond = robot.y;
+        break;
+    case RUR.NORTH:
+        next_y = robot.y + 1;
+        y_beyond = robot.y + 2;
+        next_x = x_beyond = robot.x;
+        break;
+    case RUR.WEST:
+        next_x = robot.x - 1;
+        x_beyond = robot.x - 2;
+        next_y = y_beyond = robot.y;
+        break;
+    case RUR.SOUTH:
+        next_y = robot.y - 1;
+        y_beyond = robot.y - 2;
+        next_x = x_beyond = robot.x;
+        break;
+    default:
+        throw new Error("Should not happen: unhandled case in RUR.control.move().");
+    }
+    return {x: robot.x, y: robot.y, next_x:next_x, next_y:next_y,
+                 x_beyond:x_beyond, y_beyond:y_beyond};
+}
+
+
+/* Next, our namespace and its methods, for use in other modules */
 RUR.control = {};
 
 RUR.control.move = function (robot) {
@@ -6448,10 +6485,10 @@ RUR.control.move = function (robot) {
             solid_tile_beyond = false;
         }
 
-        solids_beyond = RUR.world_get.obstacles_at_position(x_beyond, y_beyond);
+        solids_beyond = RUR.get_obstacles(x_beyond, y_beyond);
         solid_object_beyond = false;
         if (solids_beyond) {
-            for (name in solids_beyond) {
+            for (name of solids_beyond) {
                 if (RUR.TILES[name] !== undefined && RUR.TILES[name].solid) {
                     solid_object_beyond = true;
                     break;
@@ -6470,11 +6507,11 @@ RUR.control.move = function (robot) {
     }
 
     RUR.state.sound_id = "#move-sound";
-    RUR.record_frame("debug", "RUR.control.move");
+    RUR.record_frame("RUR.control.move", robot);
     tile = RUR.world_get.tile_at_position(robot.x, robot.y);
     if (tile) {
         if (tile.fatal){
-            if (!(tile == RUR.TILES.water && RUR.control.solid_object_here(robot, RUR.translate("bridge"))) ){
+            if (!(tile == RUR.TILES.water && RUR.is_obstacle(RUR.translate("bridge"), robot.x, robot.y)) ){
                 throw new RUR.ReeborgError(RUR.translate(tile.message));
             }
         }
@@ -6484,12 +6521,12 @@ RUR.control.move = function (robot) {
         }
     }
 
-    objects = RUR.world_get.obstacles_at_position(robot.x, robot.y);
+    objects = RUR.get_obstacles(robot.x, robot.y);
     if (objects) {
-        for (name in objects) {
+        for (name of objects) {
             if (RUR.TILES[name] !== undefined && RUR.TILES[name].fatal) {
-                robot.x = robot._prev_x;
-                robot.y = robot._prev_y;
+                // robot.x = robot._prev_x;
+                // robot.y = robot._prev_y;
                 throw new RUR.ReeborgError(RUR.TILES[name].message);
             }
         }
@@ -6504,16 +6541,17 @@ RUR.control.move = function (robot) {
 RUR.control.move_object = function(obj, x, y, to_x, to_y){
     "use strict";
     var bridge_already_there = false;
-    if (RUR.world_get.obstacles_at_position(to_x, to_y).bridge !== undefined){
+    if (RUR.is_obstacle("bridge", to_x, to_y)){
         bridge_already_there = true;
     }
+    console.log("bridge there: ", bridge_already_there, "   obj = ", obj);
 
     RUR.set_nb_object_at_position(obj, x, y, 0);
     if (RUR.TILES[obj].in_water &&
-        RUR.world_get.tile_at_position(to_x, to_y) == RUR.TILES.water &&
+        RUR.get_background_tile(to_x, to_y) == "water" &&
         !bridge_already_there){
             // TODO: fix this
-        RUR.world_set.add_solid_object(RUR.TILES[obj].in_water, to_x, to_y, 1);
+        RUR.add_obstacle(RUR.TILES[obj].in_water, to_x, to_y);
     } else {
         RUR.set_nb_object_at_position(obj, to_x, to_y, 1);
     }
@@ -6753,13 +6791,13 @@ RUR.control.obstacles_in_front = function (robot) {
     // returns list of tiles
     switch (robot._orientation){
     case RUR.EAST:
-        return RUR.world_get.obstacles_at_position(robot.x+1, robot.y);
+        return RUR.get_obstacles(robot.x+1, robot.y);
     case RUR.NORTH:
-        return RUR.world_get.obstacles_at_position(robot.x, robot.y+1);
+        return RUR.get_obstacles(robot.x, robot.y+1);
     case RUR.WEST:
-        return RUR.world_get.obstacles_at_position(robot.x-1, robot.y);
+        return RUR.get_obstacles(robot.x-1, robot.y);
     case RUR.SOUTH:
-        return RUR.world_get.obstacles_at_position(robot.x, robot.y-1);
+        return RUR.get_obstacles(robot.x, robot.y-1);
     default:
         throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.obstacles_in_front().");
     }
@@ -6775,7 +6813,8 @@ RUR.control.front_is_clear = function(robot){
     if (tile) {
         if (tile.detectable && tile.fatal){
                 if (tile == RUR.TILES.water) {
-                    if (!RUR.control._bridge_present(robot)){
+                    // if (!RUR.control._bridge_present(robot)){
+                    if (!RUR.is_obstacle("bridge", robot.x, robot.y)){
                         return false;
                     }
                 } else {
@@ -6786,7 +6825,7 @@ RUR.control.front_is_clear = function(robot){
 
     solid = RUR.control.obstacles_in_front(robot);
     if (solid) {
-        for (name in solid) {
+        for (name of solid) {
             if (RUR.TILES[name] !== undefined &&
                 RUR.TILES[name].detectable &&
                 RUR.TILES[name].fatal) {
@@ -6799,18 +6838,18 @@ RUR.control.front_is_clear = function(robot){
 };
 
 
-RUR.control._bridge_present = function(robot) {
-    var solid, name;
-        solid = RUR.control.obstacles_in_front(robot);
-    if (solid) {
-        for (name in solid) {
-            if (name == "bridge") {
-                return true;
-            }
-        }
-    }
-    return false;
-};
+// RUR.control._bridge_present = function(robot) {
+//     var solid, name;
+//         solid = RUR.control.obstacles_in_front(robot);
+//     if (solid) {
+//         for (name of solid) {
+//             if (name == "bridge") {
+//                 return true;
+//             }
+//         }
+//     }
+//     return false;
+// };
 
 
 RUR.control.right_is_clear = function(robot){
@@ -6936,7 +6975,7 @@ RUR.control.get_colour_at_position = function (x, y) {
 };
 RUR.control.get_color_at_position = RUR.control.get_colour_at_position;
 
-},{"./../default_tiles/tiles.js":1,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../world_api/wall.js":73,"./../world_get/world_get.js":74,"./../world_set/world_set.js":82,"./../world_utils/get_world.js":86,"./exceptions.js":42,"./output.js":43}],42:[function(require,module,exports){
+},{"./../default_tiles/tiles.js":1,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../world_api/wall.js":74,"./../world_get/world_get.js":75,"./../world_set/world_set.js":82,"./../world_utils/get_world.js":86,"./exceptions.js":42,"./output.js":43}],42:[function(require,module,exports){
 
 require("./../rur.js");
 
@@ -7455,7 +7494,7 @@ check_robots_on_tiles = function(frame){
 };
 
 
-},{"./../playback/show_immediate.js":38,"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../utils/supplant.js":66,"./../world_get/world_get.js":74,"./../world_utils/clone_world.js":83,"./reset.js":48}],47:[function(require,module,exports){
+},{"./../playback/show_immediate.js":38,"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../utils/supplant.js":66,"./../world_get/world_get.js":75,"./../world_utils/clone_world.js":83,"./reset.js":48}],47:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../drawing/visible_world.js");
@@ -7548,6 +7587,8 @@ RUR.rec.display_frame = function () {
         RUR.pause(frame.pause.pause_time);
         return "pause";
     } else if (frame.error !== undefined) {
+        RUR.CURRENT_WORLD = frame.world;
+        RUR.vis_world.refresh();
         return RUR.rec.handle_error(frame);
     }
 
@@ -7733,7 +7774,7 @@ RUR.rec.check_goal = function (frame) {
     return goal_status;
 };
 
-},{"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../listeners/pause.js":24,"./../listeners/stop.js":32,"./../playback/play_sound.js":37,"./../programming_api/exceptions.js":42,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/identical.js":63,"./../world_get/world_get.js":74,"./../world_utils/clone_world.js":83}],48:[function(require,module,exports){
+},{"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../listeners/pause.js":24,"./../listeners/stop.js":32,"./../playback/play_sound.js":37,"./../programming_api/exceptions.js":42,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/identical.js":63,"./../world_get/world_get.js":75,"./../world_utils/clone_world.js":83}],48:[function(require,module,exports){
 require("./../rur.js");
 require("./../editors/create.js");
 require("./../world_api/animated_images.js");
@@ -8432,6 +8473,14 @@ function set_canvases () {
     RUR.TRACE_CTX = RUR.TRACE_CANVAS.getContext("2d");
     RUR.CANVASES.push(RUR.TRACE_CANVAS);
 
+    RUR.PUSHABLES_CANVAS = document.getElementById("pushables-canvas");
+    RUR.PUSHABLES_CTX = RUR.PUSHABLES_CANVAS.getContext("2d");
+    RUR.CANVASES.push(RUR.PUSHABLES_CANVAS);
+
+    RUR.PUSHABLES_CANVAS_ANIM = document.getElementById("pushables-canvas-anim");
+    RUR.PUSHABLES_ANIM_CTX = RUR.PUSHABLES_CANVAS_ANIM.getContext("2d");
+    RUR.CANVASES.push(RUR.PUSHABLES_CANVAS_ANIM);    
+
     RUR.ROBOT_CANVAS = document.getElementById("robot-canvas");
     RUR.ROBOT_CTX = RUR.ROBOT_CANVAS.getContext("2d");
     RUR.CANVASES.push(RUR.ROBOT_CANVAS);
@@ -8528,6 +8577,7 @@ require("./editors/create.js");
 
 // ensure that all world_api functions are defined.
 require("./world_api/obstacles.js");
+require("./world_api/pushables.js");
 
 
 brython({debug:1, pythonpath:[RUR._BASE_URL + '/src/python']});
@@ -8601,7 +8651,7 @@ function set_world(url_query) {
     }
 }
 
-},{"./default_tiles/tiles.js":1,"./editors/create.js":10,"./listeners/add_listeners.js":17,"./permalink/permalink.js":35,"./rur.js":52,"./splash_screen.js":53,"./storage/storage.js":55,"./utils/parseuri.js":65,"./world_api/obstacles.js":72,"./world_utils/import_world.js":87}],55:[function(require,module,exports){
+},{"./default_tiles/tiles.js":1,"./editors/create.js":10,"./listeners/add_listeners.js":17,"./permalink/permalink.js":35,"./rur.js":52,"./splash_screen.js":53,"./storage/storage.js":55,"./utils/parseuri.js":65,"./world_api/obstacles.js":72,"./world_api/pushables.js":73,"./world_utils/import_world.js":87}],55:[function(require,module,exports){
 /* This file documents methods used to save worlds to and retrieve them
    from a browser's local storage.
 
@@ -9288,7 +9338,7 @@ RUR.utils.add_artefact = function (args) {
  * @param {boolean} [args.goal] If specified, indicates that it is a goal-type
  *                        object that must be found.
  *
- * @param {string} [args.valid_names] A list containing the name of the 
+ * @param {array} [args.valid_names] A list containing the name of the 
  *                        acceptable objects. If this argument is specified, 
  *                        `args.name` must be found in that list, otherwise an
  *                        error will be thrown.
@@ -10030,7 +10080,7 @@ require("./../world_utils/get_world.js");
  *
  * @todo add test
  * @todo add better examples
- *
+ * @todo deal with translation
  * @example
  * // shows how to set various tiles;
  * // the mode will be set to Python and the highlighting
@@ -10061,7 +10111,7 @@ RUR.set_background_tile = function (name, x, y) {
  *        
  * @todo add test
  * @todo add examples
- *
+ * @todo deal with translation
  */
 RUR.remove_background_tile = function (x, y) {
     "use strict";
@@ -10090,7 +10140,7 @@ RUR.remove_background_tile = function (x, y) {
  *
  * @todo add test
  * @todo add proper examples
- *
+ * @todo deal with translation
  * @example
  * // shows how to set various tiles;
  * // the mode will be set to Python and the highlighting
@@ -10109,6 +10159,33 @@ RUR.get_background_tile = function (x, y) {
         return tile[0];
     }
 };
+
+RUR.is_background_tile_fatal = function(x, y) {
+    "use strict";
+    var tile, args = {x:x, y:y, type:"tiles"};
+    tile = RUR.utils.get_artefacts(args);
+    if (tile === null) {
+        return false;
+    } else if (RUR.TILES[tile[0]].fatal) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+RUR.is_background_tile_detectable = function(x, y) {
+    "use strict";
+    var tile, args = {x:x, y:y, type:"tiles"};
+    tile = RUR.utils.get_artefacts(args);
+    if (tile === null) {
+        return false;
+    } else if (RUR.TILES[tile[0]].detectable) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
 
 },{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/artefact.js":61,"./../utils/key_exist.js":64,"./../utils/validator.js":68,"./../world_utils/get_world.js":86}],72:[function(require,module,exports){
 require("./../rur.js");
@@ -10133,7 +10210,7 @@ require("./../world_utils/get_world.js");
  *
  * @todo add test
  * @todo add better examples
- *
+ * @todo deal with translation
  * @example
  * // shows how to set various tiles;
  * // the mode will be set to Python and the highlighting
@@ -10143,7 +10220,7 @@ require("./../world_utils/get_world.js");
  */
 RUR.add_obstacle = function (name, x, y) {
     "use strict";
-    var args = {name: name, x:x, y:y, type:"obstacles"};
+    var args = {name: name, x:x, y:y, type:"obstacles", valid_names:Object.keys(RUR.TILES)};
     RUR.utils.add_artefact(args);
     RUR.record_frame("RUR.add_obstacle", args);
 };
@@ -10152,7 +10229,7 @@ RUR.add_obstacle = function (name, x, y) {
 /** @function remove_obstacle
  * @memberof RUR
  * @instance
- * @summary This function removes a background tile at a location.
+ * @summary This function removes an obstacle at a location.
  *
  *
  * @param {integer} x  Position of the tile.
@@ -10164,16 +10241,17 @@ RUR.add_obstacle = function (name, x, y) {
  *        
  * @todo add test
  * @todo add examples
+ * @todo deal with translation
  *
  */
 RUR.remove_obstacle = function (name, x, y) {
     "use strict";
     var args, obstacles;
-    obstacles = RUR.get_background_tile(x, y);
+    obstacles = RUR.get_obstacles(x, y);
     if (obstacles === null) {
         throw new ReeborgError("No obstacles to remove here.");
     }
-    args= {x:x, y:y, type:"obstacles", name:name};
+    args= {x:x, y:y, type:"obstacles", name:name, valid_names:Object.keys(RUR.TILES)};
     RUR.utils.remove_artefact(args);
     RUR.record_frame("RUR.remove_obstacle", args);
 };
@@ -10193,6 +10271,7 @@ RUR.remove_obstacle = function (name, x, y) {
  *
  * @todo add test
  * @todo add proper examples
+ * @todo deal with translation
  *
  * @example
  * // shows how to set various tiles;
@@ -10213,7 +10292,234 @@ RUR.get_obstacles = function (x, y) {
     }
 };
 
+// TODO: this may not be needed after more general functions written
+// i.e. instead of looking for specific obstacle, look for 
+// obstacle with properties.
+RUR.is_obstacle = function (name, x, y) {
+    "use strict";
+    var args={name:name, x:x, y:y, type:"obstacles"};
+    if (RUR.utils.get_nb_artefact(args) > 0) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+RUR.is_obstacle_solid = function (x, y) {
+    "use strict";
+    var obs, obstacles = RUR.get_obstacles(x, y);
+    if (obstacles === null) {
+        return false;
+    }
+    for (obs of obstacles) {
+        if (RUR.TILES[obs].solid) {
+            return true;
+        }
+    }
+    return false;
+};
+
+RUR.is_obstacle_fatal = function (x, y) {
+    "use strict";
+    var obs, obstacles = RUR.get_obstacles(x, y);
+    if (obstacles === null) {
+        return false;
+    }
+    for (obs of obstacles) {
+        if (RUR.TILES[obs].fatal) {
+            return true;
+        }
+    }
+    return false;
+};
+
+// safe obstacles only protect from fatal background tiles,
+// but not from fatal obstacles
+RUR.is_obstacle_safe = function (x, y) {
+    "use strict";
+    var obs, safe_found = false, obstacles = RUR.get_obstacles(x, y);
+    if (obstacles === null) {
+        return false;
+    }
+    for (obs of obstacles) {
+        if (RUR.TILES[obs].fatal) {
+            return false;
+        }
+        if (RUR.TILES[obs].safe) {
+            safe_found = true;
+        }        
+    }
+    return safe_found;
+};
 },{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/artefact.js":61,"./../utils/key_exist.js":64,"./../utils/validator.js":68,"./../world_utils/get_world.js":86}],73:[function(require,module,exports){
+require("./../rur.js");
+require("./../utils/key_exist.js");
+require("./../utils/validator.js");
+require("./../recorder/record_frame.js");
+require("./../utils/artefact.js");
+require("./../world_utils/get_world.js");
+
+/** @function add_pushable
+ * @memberof RUR
+ * @instance
+ * @summary This function sets a named tile as background at a location.
+ *
+ * @param {string} name The name of a the tile representing the pushable.
+ *
+ *
+ * @param {integer} x  Position of the tile.
+ * @param {integer} y  Position of the tile.
+ *
+ * @throws Will throw an error if `(x, y)` is not a valid location..
+ *
+ * @todo add test
+ * @todo add better examples
+ * @todo deal with translation
+ * @example
+ * // shows how to set various tiles;
+ * // the mode will be set to Python and the highlighting
+ * // will be turned off
+ * World("/worlds/examples/tile1.json", "Example 1")
+ *
+ */
+RUR.add_pushable = function (name, x, y) {
+    "use strict";
+    var args = {name: name, x:x, y:y, type:"pushables", valid_names:Object.keys(RUR.TILES)};
+    RUR.utils.add_artefact(args);
+    RUR.record_frame("RUR.add_pushable", args);
+};
+
+
+/** @function remove_pushable
+ * @memberof RUR
+ * @instance
+ * @summary This function removes an pushable at a location.
+ *
+ *
+ * @param {integer} x  Position of the tile.
+ * @param {integer} y  Position of the tile.
+ *
+ * @throws Will throw an error if `(x, y)` is not a valid location.
+ * @throws Will throw an error if there is no background tile to remove
+ *        at that location
+ *        
+ * @todo add test
+ * @todo add examples
+ * @todo deal with translation
+ *
+ */
+RUR.remove_pushable = function (name, x, y) {
+    "use strict";
+    var args, pushables;
+    pushables = RUR.get_pushables(x, y);
+    if (pushables === null) {
+        throw new ReeborgError("No pushables to remove here.");
+    }
+    args= {x:x, y:y, type:"pushables", name:name, valid_names:Object.keys(RUR.TILES)};
+    RUR.utils.remove_artefact(args);
+    RUR.record_frame("RUR.remove_pushable", args);
+};
+
+
+/** @function get_pushables
+ * @memberof RUR
+ * @instance
+ * @summary This function returns a list of pushables found at that location;
+ *          For worlds designed "normally", such a list should contain only
+ *          one item since pushables cannot be pushed onto other pushables.
+ *          If nothing is found at that location,`null` is returned 
+ *          (which is converted to `None` in Python programs.)
+ *
+ * @param {integer} x  Position of the tile.
+ * @param {integer} y  Position of the tile.
+ *
+ * @throws Will throw an error if `(x, y)` is not a valid location..
+ *
+ * @todo add test
+ * @todo add proper examples
+ * @todo deal with translation
+ *
+ * @example
+ * // shows how to set various tiles;
+ * // the mode will be set to Python and the highlighting
+ * // will be turned off
+ * World("/worlds/examples/tile1.json", "Example 1")
+ *
+ */
+
+RUR.get_pushables = function (x, y) {
+    "use strict";
+    var tiles, args = {x:x, y:y, type:"pushables"};
+    tiles = RUR.utils.get_artefacts(args);
+    if (tiles === null) {
+        return null;
+    } else {
+        return tiles;
+    }
+};
+
+
+RUR.is_pushable = function (name, x, y) {
+    "use strict";
+    var args={name:name, x:x, y:y, type:"pushables"};
+    if (RUR.utils.get_nb_artefact(args) === 1) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+RUR.transform_pushable = function(name, x, y) {
+    "use strict";
+    var args={name:name, x:x, y:y}, others, tile, self, recording_state, tile_name;
+    if (RUR.TILES[name].transform === undefined){
+        return;
+    }
+    self = RUR.TILES[name];
+    others = RUR.get_obstacles(x, y);
+    if (others !== null){
+        for (tile in self.transform) {
+            if (others.indexOf(tile) !== -1) {
+                recording_state = RUR.state.do_not_record;
+                RUR.state.do_not_record = true;
+                RUR.remove_pushable(name, x, y);
+                if (self.transform[tile] === null) {
+                    RUR.state.do_not_record = recording_state;
+                    RUR.record_frame("RUR.transform_pushable", args);
+                    return;
+                } else {
+                    RUR.add_obstacle(self.transform[tile], x, y);
+                    RUR.state.do_not_record = recording_state;
+                    RUR.record_frame("RUR.transform_pushable", args);
+                    return;
+                }
+            }
+        }
+    }
+    tile_name = RUR.get_background_tile(x, y);
+    if (tile_name === null) {
+        return;
+    }  
+
+    for (tile in self.transform) {
+        if (tile == tile_name) {
+            recording_state = RUR.state.do_not_record;
+            RUR.state.do_not_record = true;
+            RUR.remove_pushable(name, x, y);
+            if (self.transform[tile] === null) {
+                RUR.state.do_not_record = recording_state;
+                RUR.record_frame("RUR.transform_pushable", args);
+                return;
+            } else {
+                RUR.add_obstacle(self.transform[tile], x, y);
+                RUR.state.do_not_record = recording_state;
+                RUR.record_frame("RUR.transform_pushable", args);
+                return;
+            }
+        }
+    }
+};
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/artefact.js":61,"./../utils/key_exist.js":64,"./../utils/validator.js":68,"./../world_utils/get_world.js":86}],74:[function(require,module,exports){
 require("./../rur.js");
 require("./../translator.js");
 require("./../programming_api/exceptions.js");
@@ -10597,7 +10903,7 @@ function __remove_wall(coords, orientation, goal) {
     }
 }
 
-},{"./../programming_api/exceptions.js":42,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../utils/validator.js":68,"./../world_utils/get_world.js":86}],74:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":42,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../utils/validator.js":68,"./../world_utils/get_world.js":86}],75:[function(require,module,exports){
 /* Obtain specific information about the world, either at a given
    position, or for the world in general.
 */
@@ -10725,9 +11031,9 @@ RUR.world_get.world_info = function (no_grid) {
         }
     }
 
-    tiles = RUR.world_get.obstacles_at_position(x, y);
+    tiles = RUR.get_obstacles(x, y);
     if (tiles) {
-        for (tilename in tiles) {
+        for (tilename of tiles) {
             tile = RUR.TILES[tilename];
             if (RUR.translate(tile.info)){
                 if (topic){
@@ -10858,7 +11164,7 @@ RUR.world_get.world_info = function (no_grid) {
 RUR.create_and_activate_dialogs( $("#world-info-button"), $("#World-info"),
                                  {height:300, width:600}, RUR.world_get.world_info);
 
-},{"./../default_tiles/tiles.js":1,"./../dialogs/create.js":3,"./../listeners/canvas.js":18,"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../utils/supplant.js":66}],75:[function(require,module,exports){
+},{"./../default_tiles/tiles.js":1,"./../dialogs/create.js":3,"./../listeners/canvas.js":18,"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../utils/supplant.js":66}],76:[function(require,module,exports){
 require("./../recorder/record_frame.js");
 
 
@@ -10870,7 +11176,7 @@ RUR._add_robot = function (robot) {
     RUR.record_frame();
 };
 
-},{"./../recorder/record_frame.js":46}],76:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46}],77:[function(require,module,exports){
 require("./../programming_api/exceptions.js");
 require("./../translator.js");
 require("./../utils/key_exist.js");
@@ -10919,7 +11225,7 @@ RUR.toggle_decorative_object_at_position = function (specific_object, x, y){
     }
 };
 
-},{"./../programming_api/exceptions.js":42,"./../translator.js":56,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../world_utils/get_world.js":86}],77:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":42,"./../translator.js":56,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../world_utils/get_world.js":86}],78:[function(require,module,exports){
 require("./../programming_api/exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
@@ -10972,7 +11278,7 @@ RUR.give_object_to_robot = function (obj, nb, robot) {
     }
 };
 
-},{"./../programming_api/exceptions.js":42,"./../translator.js":56,"./../utils/key_exist.js":64,"./../utils/validator.js":68,"./../world_utils/get_world.js":86}],78:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":42,"./../translator.js":56,"./../utils/key_exist.js":64,"./../utils/validator.js":68,"./../world_utils/get_world.js":86}],79:[function(require,module,exports){
 require("./../programming_api/exceptions.js");
 require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
@@ -11061,7 +11367,7 @@ RUR.set_nb_goal_object_at_position = function (specific_object, x, y, nb){
  * @deprecated Use {@link RUR#set_nb_goal_object_at_position} instead.
  */
 RUR.add_goal_object_at_position = RUR.set_nb_goal_object_at_position;
-},{"./../programming_api/exceptions.js":42,"./../translator.js":56,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../utils/validator.js":68}],79:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":42,"./../translator.js":56,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../utils/validator.js":68}],80:[function(require,module,exports){
 require("./../programming_api/exceptions.js");
 require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
@@ -11142,136 +11448,7 @@ RUR.set_nb_object_at_position = function (specific_object, x, y, nb){
  */
 RUR.add_object_at_position = RUR.set_nb_object_at_position;
 
-},{"./../programming_api/exceptions.js":42,"./../recorder/record_frame.js":46,"./../translator.js":56,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../utils/validator.js":68,"./../world_utils/get_world.js":86}],80:[function(require,module,exports){
-require("./../programming_api/exceptions.js");
-require("./../utils/key_exist.js");
-require("./../translator.js");
-require("./../utils/supplant.js");
-require("./../world_utils/get_world.js");
-
-/** @function toggle_obstacle_at_position
- * @memberof RUR
- * @instance
- * @summary This function adds or removes a given solid object (like a fence)
- * at a certain location.
- *
- * @desc Cette fonction ajoute ou enlève un objet solide (comme une clôture) à un endroit donné.
- *
- * @param {string} specific_object The name of the object type ; e.g. "fence_right" <br>
- *                        _Le nom [anglais] du type de l'objet; par exemple, "fence_right"._
- * @param {integer} x - Position of the object
- *                    <br> _position de l'objet_
- * @param {integer} y - Position of the object
- *                    <br> _position de l'objet_
- */
-
-RUR.toggle_obstacle_at_position = function (specific_object, x, y){
-    "use strict";
-    var coords, cw;
-    if (RUR.KNOWN_TILES.indexOf(specific_object) == -1){
-        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant(
-                                                 {obj: specific_object}));
-    }
-    coords = x + "," + y;
-    cw = RUR.get_world();
-    RUR.utils.ensure_key_for_obj_exists(cw, "obstacles");
-    RUR.utils.ensure_key_for_obj_exists(cw.obstacles, coords);
-
-    if (cw.obstacles[coords][specific_object]) {
-        delete cw.obstacles[coords][specific_object];
-        if (Object.keys(cw.obstacles[coords]).length === 0) {
-            delete cw.obstacles[coords];
-            if (Object.keys(cw.obstacles).length === 0) {
-                delete cw.obstacles;
-            }
-        }
-    } else {
-        cw.obstacles[coords][specific_object] = true;
-    }
-};
-
-/** @function add_obstacle_at_position
- * @memberof RUR
- * @instance
- * @summary This function adds a given solid object (like a fence)
- * at a certain location.
- *
- * @desc Cette fonction ajoute un objet solide (comme une clôture) à un endroit donné.
- *
- * @param {string} specific_object The name of the object type ; e.g. "fence_right" <br>
- *                        _Le nom [anglais] du type de l'objet; par exemple, "fence_right"._
- * @param {integer} x - Position of the object
- *                    <br> _position de l'objet_
- * @param {integer} y - Position of the object
- *                    <br> _position de l'objet_
- */
-
-RUR.add_obstacle_at_position = function (specific_object, x, y){
-    "use strict";
-    var coords, cw;
-    if (RUR.KNOWN_TILES.indexOf(specific_object) == -1){
-        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant(
-                                                 {obj: specific_object}));
-    }
-    coords = x + "," + y;
-    cw = RUR.get_world();
-    RUR.utils.ensure_key_for_obj_exists(cw, "obstacles");
-    RUR.utils.ensure_key_for_obj_exists(cw.obstacles, coords);
-
-    if (cw.obstacles[coords][specific_object]) {
-        RUR.output.print_html("<h2>Warning</h2><p>" +
-            specific_object +
-            " is already present at the requested location.</p>");
-    } else {
-        cw.obstacles[coords][specific_object] = true;
-    }
-};
-
-/** @function remove_obstacle_at_position
- * @memberof RUR
- * @instance
- * @summary This function removes a given solid object (like a fence)
- * at a certain location.
- *
- * @desc Cette fonction enlève un objet solide (comme une clôture) à un endroit donné.
- *
- * @param {string} specific_object The name of the object type ; e.g. "fence_right" <br>
- *                        _Le nom [anglais] du type de l'objet; par exemple, "fence_right"._
- * @param {integer} x - Position of the object
- *                    <br> _position de l'objet_
- * @param {integer} y - Position of the object
- *                    <br> _position de l'objet_
- */
-
-RUR.remove_obstacle_at_position = function (specific_object, x, y){
-    "use strict";
-    var coords, cw;
-    if (RUR.KNOWN_TILES.indexOf(specific_object) == -1){
-        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant(
-                                                 {obj: specific_object}));
-    }
-    coords = x + "," + y;
-    cw = RUR.get_world();
-    RUR.utils.ensure_key_for_obj_exists(cw, "obstacles");
-    RUR.utils.ensure_key_for_obj_exists(cw.obstacles, coords);
-
-    if (cw.obstacles[coords][specific_object]) {
-        delete cw.obstacles[coords][specific_object];
-        if (Object.keys(cw.obstacles[coords]).length === 0) {
-            delete cw.obstacles[coords];
-            if (Object.keys(cw.obstacles).length === 0) {
-                delete cw.obstacles;
-            }
-        }
-    } else {
-        RUR.output.print_html("<h2>Warning</h2><p>" +
-            specific_object +
-            " is <b>not</b> present at the requested location.</p>");
-        cw.obstacles[coords][specific_object] = true;
-    }
-};
-
-},{"./../programming_api/exceptions.js":42,"./../translator.js":56,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../world_utils/get_world.js":86}],81:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":42,"./../recorder/record_frame.js":46,"./../translator.js":56,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../utils/validator.js":68,"./../world_utils/get_world.js":86}],81:[function(require,module,exports){
 require("./../drawing/visible_robot.js");
 require("./../drawing/visible_world.js");
 var clone_world = require("./../world_utils/clone_world.js").clone_world;
@@ -11538,7 +11715,7 @@ var clone_world = require("./clone_world.js").clone_world;
 
 RUR.world_utils.import_world = function (json_string) {
     "use strict";
-    var body, editor_content, library_content, i, keys, more_keys, coord;
+    var body, editor_content, library_content, i, keys, more_keys, coord, index, obstacles;
     if (json_string === undefined){
         console.log("Problem: no argument passed to RUR.world_utils.import_world");
         return {};
@@ -11600,12 +11777,30 @@ RUR.world_utils.import_world = function (json_string) {
     }
     // and obstacles were written in the form {fence:1} and need to be simply
     // ["fence"]
-    if (RUR.CURRENT_WORLD.tiles !== undefined) {
+    if (RUR.CURRENT_WORLD.obstacles !== undefined) {
         keys = Object.keys(RUR.CURRENT_WORLD.obstacles);
         for (i=0; i < keys.length; i++) {
             coord = keys[i];
             if (Object.prototype.toString.call(RUR.CURRENT_WORLD.obstacles[coord]) == "[object Object]") {
-                RUR.CURRENT_WORLD.obstacles[coord] = Object.keys(RUR.CURRENT_WORLD.obstacles[coord]);
+                obstacles = Object.keys(RUR.CURRENT_WORLD.obstacles[coord]);
+                // also convert from the old names to the new ones
+                index = obstacles.indexOf("fence4");
+                if (index !== -1) {
+                    obstacles[index] = "fence_right";
+                }
+                index = obstacles.indexOf("fence5");
+                if (index !== -1) {
+                    obstacles[index] = "fence_left";
+                }
+                index = obstacles.indexOf("fence6");
+                if (index !== -1) {
+                    obstacles[index] = "fence_double";
+                }                
+                index = obstacles.indexOf("fence7");
+                if (index !== -1) {
+                    obstacles[index] = "fence_vertical";
+                }
+                RUR.CURRENT_WORLD.obstacles[coord] = obstacles;
             } else {
                 break;
             }

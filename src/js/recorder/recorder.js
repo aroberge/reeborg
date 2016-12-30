@@ -90,6 +90,8 @@ RUR.rec.display_frame = function () {
         RUR.pause(frame.pause.pause_time);
         return "pause";
     } else if (frame.error !== undefined) {
+        RUR.CURRENT_WORLD = frame.world;
+        RUR.vis_world.refresh();
         return RUR.rec.handle_error(frame);
     }
 

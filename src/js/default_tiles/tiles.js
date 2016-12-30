@@ -7,8 +7,7 @@
   to create worlds that could be more visually appealing.  
 
   Eventually, all custom canvas drawings were replaced by square images for
-  simplicity and consistency.  However, we do (for now) have two separate
-  files for adding default "objects" and "tiles" */
+  simplicity and consistency. */
 
 require("./../rur.js");
 require("./../world_api/add_tile_type.js");
@@ -64,13 +63,24 @@ tile = {
 };
 RUR.add_new_type(tile);
 
-tile = {name: "brick wall",
+tile = {name: "bricks",
     url: RUR._BASE_URL + '/src/images/bricks.png',
     info: "brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.",
     message: "Crash!",
     detectable: true,
     fatal: true,
     solid: true
+};
+RUR.add_new_type(tile);
+
+
+// fire adapted from https://commons.wikimedia.org/wiki/File:Icon-Campfire.svg
+tile = {name: "fire",
+    url: RUR._BASE_URL + '/src/images/fire.png',
+    info: "fire: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.",
+    message: "My joints are melting!",
+    detectable: true,
+    fatal: true
 };
 RUR.add_new_type(tile);
 
@@ -98,6 +108,7 @@ tile = {name: "racing_flag",
     detectable: true
 };
 RUR.add_new_type(tile);
+
 
 /* --- default objects  -----*/
 
@@ -127,6 +138,7 @@ _add_object_type("box");
 RUR.TILES.box.name = "box";
 RUR.TILES.box.pushable = true;
 RUR.TILES.box.in_water = "bridge";
+RUR.TILES.box.transform = {"water": "bridge", "fire": null, "mud": "bridge"};
 RUR.TILES.box.ctx = RUR.ROBOT_CTX;
 
 tile = {
@@ -147,7 +159,7 @@ obj = {"name": 'beeper',
 };
 RUR.add_new_type(obj);
 
-RUR.add_new_solid_object_type = function (name, url) {
+add_new_solid_object_type = function (name, url) {
     var obj = RUR.TILES;
     obj[name] = {};
     obj[name].name = name;
@@ -169,22 +181,19 @@ RUR.add_new_solid_object_type = function (name, url) {
 };
 
 
-RUR.add_new_solid_object_type("fence_right", false);
+add_new_solid_object_type("fence_right", false);
 RUR.TILES.fence_right.message = "I hit a fence!";
 RUR.TILES.fence_right.info = "Fence: Reeborg <b>can</b> detect this but will be stopped by it.";
-RUR.TILES.fence4 = RUR.TILES.fence_right;  // compatibility with old worlds
 
-RUR.add_new_solid_object_type("fence_left", false);
+add_new_solid_object_type("fence_left", false);
 RUR.TILES.fence_left.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_left.info = RUR.TILES.fence_right.info;
-RUR.TILES.fence5 = RUR.TILES.fence_left;  // compatibility with old worlds
 
-RUR.add_new_solid_object_type("fence_double", false);
+add_new_solid_object_type("fence_double", false);
 RUR.TILES.fence_double.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_double.info = RUR.TILES.fence_right.info;
-RUR.TILES.fence6 = RUR.TILES.fence_double;  // compatibility with old worlds
 
-RUR.add_new_solid_object_type("fence_vertical", false, "fence");
+add_new_solid_object_type("fence_vertical", false);
 RUR.TILES.fence_vertical.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_vertical.info = RUR.TILES.fence_right.info;
-RUR.TILES.fence7 = RUR.TILES.fence_vertical;  // compatibility with old worlds
+

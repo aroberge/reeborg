@@ -23,7 +23,7 @@ require("./../world_utils/get_world.js");
  *
  * @todo add test
  * @todo add better examples
- *
+ * @todo deal with translation
  * @example
  * // shows how to set various tiles;
  * // the mode will be set to Python and the highlighting
@@ -54,7 +54,7 @@ RUR.set_background_tile = function (name, x, y) {
  *        
  * @todo add test
  * @todo add examples
- *
+ * @todo deal with translation
  */
 RUR.remove_background_tile = function (x, y) {
     "use strict";
@@ -83,7 +83,7 @@ RUR.remove_background_tile = function (x, y) {
  *
  * @todo add test
  * @todo add proper examples
- *
+ * @todo deal with translation
  * @example
  * // shows how to set various tiles;
  * // the mode will be set to Python and the highlighting
@@ -102,3 +102,30 @@ RUR.get_background_tile = function (x, y) {
         return tile[0];
     }
 };
+
+RUR.is_background_tile_fatal = function(x, y) {
+    "use strict";
+    var tile, args = {x:x, y:y, type:"tiles"};
+    tile = RUR.utils.get_artefacts(args);
+    if (tile === null) {
+        return false;
+    } else if (RUR.TILES[tile[0]].fatal) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+RUR.is_background_tile_detectable = function(x, y) {
+    "use strict";
+    var tile, args = {x:x, y:y, type:"tiles"};
+    tile = RUR.utils.get_artefacts(args);
+    if (tile === null) {
+        return false;
+    } else if (RUR.TILES[tile[0]].detectable) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
