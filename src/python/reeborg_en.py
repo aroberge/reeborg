@@ -79,6 +79,21 @@ def default_robot():  #py:default_robot
             self.body = RUR._default_robot_body_()
     return Robot()
 
+def get_robot_by_id(serial_number):  #py:default_robot
+    """Not intended for normal use. 
+
+       If a robot with the given serial_number
+       exists, this function returns a recreated version of a UsedRobot 
+       corresponding to that robot; otherwise, it returns None.
+    """
+    r = RUR.get_robot_by_id(serial_number)
+    if r is None:
+        return r
+    class Robot(UsedRobot):
+        def __init__(self):
+            self.body = r
+    return Robot()
+
 
 def dir_js(obj):  #py:dir_js
     """Lists attributes and methods of a Javascript object."""

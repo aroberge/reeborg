@@ -127,7 +127,7 @@ RUR.control.move = function (robot) {
     }
 
     RUR.state.sound_id = "#move-sound";
-    RUR.record_frame("RUR.control.move", robot);
+    RUR.record_frame("move", robot.__id);
     tile = RUR.world_get.tile_at_position(robot.x, robot.y);
     if (tile) {
         if (tile.fatal){
@@ -145,8 +145,6 @@ RUR.control.move = function (robot) {
     if (objects) {
         for (name of objects) {
             if (RUR.TILES[name] !== undefined && RUR.TILES[name].fatal) {
-                // robot.x = robot._prev_x;
-                // robot.y = robot._prev_y;
                 throw new RUR.ReeborgError(RUR.TILES[name].message);
             }
         }
@@ -192,7 +190,7 @@ RUR.control.turn_left = function(robot){
     if (robot._is_leaky !== undefined && !robot._is_leaky) {  // update to avoid drawing from previous point.
         robot._prev_orientation = robot._orientation;
     }
-    RUR.record_frame("debug", "RUR.control.turn_left");
+    RUR.record_frame("turn_left", robot.__id);
 };
 
 RUR.control.__turn_right = function(robot){
@@ -205,7 +203,7 @@ RUR.control.__turn_right = function(robot){
     if (robot._is_leaky !== undefined && !robot._is_leaky) {  // update to avoid drawing from previous point.
         robot._prev_orientation = robot._orientation;
     }
-    RUR.record_frame("debug", "RUR.control.__turn_right");
+    RUR.record_frame("__turn_right", robot.__id);
 };
 
 RUR.control.pause = function (ms) {
@@ -287,7 +285,7 @@ RUR.control._robot_put_down_object = function (robot, obj) {
     } else {
         RUR.get_world().objects[coords][obj] += 1;
     }
-    RUR.record_frame("debug", "RUR.control._put_object");
+    RUR.record_frame("put", [robot.__id, obj]);
 };
 
 
@@ -340,7 +338,7 @@ RUR.control._take_object_and_give_to_robot = function (robot, obj) {
             robot.objects[obj]++;
         }
     }
-    RUR.record_frame("debug", "RUR.control._take_object");
+    RUR.record_frame("take", [robot.__id, obj]);
 };
 
 
@@ -560,7 +558,7 @@ RUR.control.carries_object = function (robot, obj) {
 
 RUR.control.set_model = function(robot, model){
     robot.model = model;
-    RUR.record_frame();
+    RUR.record_frame("set_model", robot.__id);
  };
 
 RUR.control.set_trace_color = function(robot, color){

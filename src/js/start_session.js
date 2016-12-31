@@ -17,6 +17,7 @@ require("./editors/create.js");
 // ensure that all world_api functions are defined.
 require("./world_api/obstacles.js");
 require("./world_api/pushables.js");
+require("./world_api/robot.js");
 
 
 brython({debug:1, pythonpath:[RUR._BASE_URL + '/src/python']});

@@ -6,5 +6,5 @@ RUR._add_robot = function (robot) {
         RUR.CURRENT_WORLD.robots = [];
     }
     RUR.CURRENT_WORLD.robots.push(robot);
-    RUR.record_frame();
+    RUR.record_frame("_add_robot", robot.__id);
 };

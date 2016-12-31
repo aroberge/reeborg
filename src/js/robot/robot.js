@@ -61,6 +61,7 @@ RUR.robot.set_private_defaults = function(robot) {
     robot._trace_history = [];
     robot._trace_style = "default";
     robot._trace_color = RUR.DEFAULT_TRACE_COLOR;
+    robot.__id = assign_id();
 };
 
 /* Robot definitions in World files has changed as
@@ -90,7 +91,7 @@ RUR.robot.modernize = function (robot) {
     RUR.robot.set_private_defaults(robot);
 };
 
-RUR.robot.assign_id = function (robot) {
-    robot.__id = RUR.robot.__ID;
+assign_id = function () {
     RUR.robot.__ID += 1;
+    return RUR.robot.__ID;
 };

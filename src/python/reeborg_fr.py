@@ -80,6 +80,20 @@ def robot_par_defaut():  #py:default_robot
             self.body = RUR._default_robot_body_()
     return Robot()
 
+def get_robot_by_id(numero_de_serie):  #py:default_robot
+    """Ceci n'est pas une fonction que vous devriez avoir à utiliser.
+
+       Si un robot avec le numéro de série spécifié existe, cette fonction
+       retourne un robot recréé pour correspondre à ce robot; 
+       sinon, la valeur None est retournée."""
+    r = RUR.get_robot_by_id(numero_de_serie)
+    if r is None:
+        return r
+    class Robot(RobotUsage):
+        def __init__(self):
+            self.body = r
+    return Robot()
+
 
 def dir_js(obj):  #py:dir_js
     """Liste les attributs et méthodes d'un objet Javascript."""
