@@ -36,7 +36,7 @@ tile = {name: "grass",
 };
 RUR.add_new_type(tile);
 
-tile = {name: "pale grass",
+tile = {name: "pale_grass",
     url: RUR._BASE_URL + '/src/images/pale_grass.png',
     info: "Grass: usually safe.",
 };
@@ -88,9 +88,9 @@ RUR.add_new_type(tile);
 
 home_message = ": Reeborg <b>can</b> detect this tile using at_goal().";
 
-tile = {name: "green home tile",
+tile = {name: "green_home_tile",
     url: RUR._BASE_URL + '/src/images/green_home_tile.png',
-    info: "green home tile" + home_message,
+    info: "green_home_tile" + home_message,
     detectable: true
 };
 RUR.add_new_type(tile);

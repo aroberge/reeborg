@@ -37,7 +37,7 @@ tile = {name: "grass",
 };
 RUR.add_new_type(tile);
 
-tile = {name: "pale grass",
+tile = {name: "pale_grass",
     url: RUR._BASE_URL + '/src/images/pale_grass.png',
     info: "Grass: usually safe.",
 };
@@ -89,9 +89,9 @@ RUR.add_new_type(tile);
 
 home_message = ": Reeborg <b>can</b> detect this tile using at_goal().";
 
-tile = {name: "green home tile",
+tile = {name: "green_home_tile",
     url: RUR._BASE_URL + '/src/images/green_home_tile.png',
-    info: "green home tile" + home_message,
+    info: "green_home_tile" + home_message,
     detectable: true
 };
 RUR.add_new_type(tile);
@@ -1100,7 +1100,7 @@ draw_goal_position = function (goal, ctx) {
     } else {    // For anyone wondering, this step might be needed only when using older world
                 // files that were created when there was not a choice
                 // of image for indicating the home position.
-        image = RUR.TILES["green home tile"].image;
+        image = RUR.TILES["green_home_tile"].image;
     }
     if (goal.possible_positions !== undefined && goal.possible_positions.length > 1){
             ctx.save();
@@ -1838,6 +1838,7 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
             RUR.world_select.append_world({url:url, shortname:new_world});
         }
         RUR.world_select.set_url(url);
+        RUR.stop();
         throw new RUR.ReeborgOK(RUR.translate("World selected").supplant({world: shortname}));
     }
 };
@@ -7253,8 +7254,6 @@ var clone_world = require("./../world_utils/clone_world.js").clone_world;
 RUR.record_frame = function (name, obj) {
     "use strict";
     var frame = {}, robot;
-    console.log("record_frame entered", name, obj);
-    console.log("state = ", RUR.state);
     if (RUR.__debug) {
         console.log("from record_frame, name, obj=", name, obj);
     }
@@ -7303,7 +7302,6 @@ RUR.record_frame = function (name, obj) {
         }
     }
 
-    console.log("about to clone_world");
     frame.world = clone_world();
 
     if (name !== undefined && obj !== undefined) {
@@ -7325,7 +7323,6 @@ RUR.record_frame = function (name, obj) {
     }
     //RUR.previous_lineno = RUR.current_line_no;
 
-    console.log("before highlight checking; nb_frames = ", RUR.nb_frames);
     if (RUR.state.highlight && name !== "highlight" &&
                RUR.state.programming_language === "python") {
         // this is a frame recording triggered normally, so 
@@ -7334,7 +7331,6 @@ RUR.record_frame = function (name, obj) {
     }
 
     RUR.frames[RUR.nb_frames] = frame;
-    console.log("recorded frame nb", RUR.nb_frames, RUR.frames.length);
     RUR.nb_frames++;
     RUR.state.sound_id = undefined;
     if (name === "error"){
@@ -7823,11 +7819,6 @@ RUR.runner.run = function (playback) {
     if (RUR.state.editing_world && !RUR.state.code_evaluated) {
         RUR._SAVED_WORLD = clone_world(RUR.CURRENT_WORLD);
     }
-
-console.log("entered runner.run; code_evaluated = ", RUR.state.code_evaluated);
-
-
-
     if (!RUR.state.code_evaluated) {
         RUR.CURRENT_WORLD = clone_world(RUR._SAVED_WORLD);
         RUR.world_init.set();
@@ -7851,9 +7842,6 @@ console.log("entered runner.run; code_evaluated = ", RUR.state.code_evaluated);
         }
         fatal_error_found = RUR.runner.eval(editor.getValue()); // jshint ignore:line
     }
-
-console.log("fatal_error_found in runner.run? ", fatal_error_found);
-
     if (!fatal_error_found) {
         // save program so that it a new browser session can use it as
         // starting point.
@@ -7882,7 +7870,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
        the way Brython programmers normally do things.   While this
        has been changed back some time after version 3.2.3, we nonetheless
        guard against any future changes by doing our own handling. */
-console.log("entering runner.eval, src=", src);
+
     RUR.__python_error = false;
     try {
         if (RUR.state.programming_language === "javascript") {
@@ -7898,9 +7886,6 @@ console.log("entering runner.eval, src=", src);
             return true;
         }
     } catch (e) {
-
-console.log("caught this error in runner.eval", e);
-
         RUR.state.code_evaluated = true;
         if (RUR.__debug){
             console.dir(e);
@@ -7962,12 +7947,9 @@ RUR.runner.eval_javascript = function (src) {
 RUR.runner.eval_python = function (src) {
     // do not  "use strict"
     var pre_code, post_code, highlight;
-console.log("entering eval_python, src=", src);
-
     RUR.reset_definitions();
     pre_code = pre_code_editor.getValue();
     post_code = post_code_editor.getValue();
-console.log("pre and post in eval_python", pre_code, post_code);
     translate_python(src, RUR.state.highlight, RUR.state.watch_vars, pre_code, post_code);
 };
 
