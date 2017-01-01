@@ -115,7 +115,7 @@ RUR.is_obstacle = function (name, x, y) {
     }
 };
 
-RUR.is_obstacle_solid = function (x, y) {
+RUR.get_solid_obstacle = function (x, y) {
     "use strict";
     var obs, obstacles = RUR.get_obstacles(x, y);
     if (obstacles === null) {
@@ -123,13 +123,13 @@ RUR.is_obstacle_solid = function (x, y) {
     }
     for (obs of obstacles) {
         if (RUR.TILES[obs].solid) {
-            return true;
+            return RUR.TILES[obs];
         }
     }
     return false;
 };
 
-RUR.is_obstacle_fatal = function (x, y) {
+RUR.get_fatal_obstacle = function (x, y) {
     "use strict";
     var obs, obstacles = RUR.get_obstacles(x, y);
     if (obstacles === null) {
@@ -137,7 +137,21 @@ RUR.is_obstacle_fatal = function (x, y) {
     }
     for (obs of obstacles) {
         if (RUR.TILES[obs].fatal) {
-            return true;
+            return RUR.TILES[obs];
+        }
+    }
+    return false;
+};
+
+RUR.get_fatal_detectable_obstacle = function (x, y) {
+    "use strict";
+    var obs, obstacles = RUR.get_obstacles(x, y);
+    if (obstacles === null) {
+        return false;
+    }
+    for (obs of obstacles) {
+        if (RUR.TILES[obs].fatal && RUR.TILES[obs].detectable) {
+            return RUR.TILES[obs];
         }
     }
     return false;

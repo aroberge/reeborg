@@ -13,6 +13,7 @@ test_utils.set_human_language = function (lang) {
 test_utils.reset = function () {
     RUR.CURRENT_WORLD = RUR.world_utils.clone_world(test_utils.empty_world);
     RUR._reset();
+    RUR.state.code_evaluated = false;
     RUR.state.highlight = false;
     RUR.state.prevent_playback = false;
     test_utils.feedback_element = undefined;
@@ -90,6 +91,7 @@ test_utils.eval_program = function(world_url, program_url, language) {
     try {
         return RUR.rec.check_goal(last_frame);
     } catch(e) {
+        console.log("error raised while trying to check goal.", e);
         console.log(RUR.frames);
         console.log(test_utils.program);
         return false;
@@ -110,7 +112,6 @@ test_utils.run_program = function(world_url, program_url, language) {
     var world;
     test_utils.reset();
     RUR.state.programming_language = language;
-    RUR.state.code_evaluated = false;
 
     if (world_url !== null) {
         test_utils.load_world_file(world_url);

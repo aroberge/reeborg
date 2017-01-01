@@ -129,6 +129,7 @@ RUR.vis_world.refresh = function () {
     // objects: goal is false, tile is true
     // draw_all_objects(current.obstacles, false, true); // likely on RUR.OBSTACLES_CTX
     draw_tiles(current.obstacles, RUR.OBSTACLES_CTX);
+    draw_tiles(current.pushables, RUR.PUSHABLES_CTX);
 
 
 

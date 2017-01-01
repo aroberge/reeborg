@@ -1,6 +1,7 @@
 
 require("./../rur.js");
 require("./create.js");
+require("./../programming_api/blockly.js");
 var msg = require("./../../lang/msg.js");
 
 function _update_from_editor(world, name, _editor) {

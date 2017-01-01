@@ -110,7 +110,7 @@ RUR.is_background_tile_fatal = function(x, y) {
     if (tile === null) {
         return false;
     } else if (RUR.TILES[tile[0]].fatal) {
-        return true;
+        return RUR.TILES[tile[0]];
     } else {
         return false;
     }

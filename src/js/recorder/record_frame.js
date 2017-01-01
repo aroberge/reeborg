@@ -10,7 +10,6 @@ var clone_world = require("./../world_utils/clone_world.js").clone_world;
 RUR.record_frame = function (name, obj) {
     "use strict";
     var frame = {}, robot;
-
     if (RUR.__debug) {
         console.log("from record_frame, name, obj=", name, obj);
     }

@@ -5,6 +5,8 @@ require("./listeners/add_listeners.js");
 require("./splash_screen.js");
 /* --- */
 
+require("./programming_api/blockly.js");
+
 require("./default_tiles/tiles.js");
 
 require("./utils/parseuri.js");

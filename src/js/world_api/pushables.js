@@ -4,6 +4,8 @@ require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
 require("./../utils/artefact.js");
 require("./../world_utils/get_world.js");
+require("./obstacles.js");
+require("./background_tile.js");
 
 /** @function add_pushable
  * @memberof RUR
@@ -56,10 +58,10 @@ RUR.add_pushable = function (name, x, y) {
  */
 RUR.remove_pushable = function (name, x, y) {
     "use strict";
-    var args, pushables;
-    pushables = RUR.get_pushables(x, y);
-    if (pushables === null) {
-        throw new ReeborgError("No pushables to remove here.");
+    var args, pushable;
+    pushable = RUR.get_pushable(x, y);
+    if (pushable === null) {
+        throw new ReeborgError("No pushable to remove here.");
     }
     args= {x:x, y:y, type:"pushables", name:name, valid_names:Object.keys(RUR.TILES)};
     RUR.utils.remove_artefact(args);
@@ -93,14 +95,14 @@ RUR.remove_pushable = function (name, x, y) {
  *
  */
 
-RUR.get_pushables = function (x, y) {
+RUR.get_pushable = function (x, y) {
     "use strict";
     var tiles, args = {x:x, y:y, type:"pushables"};
     tiles = RUR.utils.get_artefacts(args);
     if (tiles === null) {
         return null;
     } else {
-        return tiles;
+        return tiles[0];
     }
 };
 
@@ -115,12 +117,23 @@ RUR.is_pushable = function (name, x, y) {
     }
 };
 
+RUR.push_pushable = function (name, to_x, to_y, x_beyond, y_beyond) {
+    recording_state = RUR.state.do_not_record;
+    RUR.state.do_not_record = true;
+    RUR.remove_pushable(name, to_x, to_x);
+    RUR.add_pushable(name, x_beyond, y_beyond);
+    RUR.transform_pushable(name, x_beyond, y_beyond);
+    RUR.state.do_not_record = recording_state;
+};
+
 RUR.transform_pushable = function(name, x, y) {
     "use strict";
     var args={name:name, x:x, y:y}, others, tile, self, recording_state, tile_name;
-    if (RUR.TILES[name].transform === undefined){
+    if (RUR.TILES[name].transform === undefined || 
+        RUR.is_obstacle_safe(x, y)) {
         return;
     }
+
     self = RUR.TILES[name];
     others = RUR.get_obstacles(x, y);
     if (others !== null){

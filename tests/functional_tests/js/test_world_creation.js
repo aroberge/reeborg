@@ -1,3 +1,13 @@
+
+// we cannot predict what the robot id will be when we create a
+// world and wish to compare it with some predictable state.
+function remove_robot_id(world) {
+  try {
+      delete world.robots[0].__id;
+    } catch (e) {}
+  return world;
+}
+
 QUnit.module("World creation, loading, and format consistency", {
   beforeEach: function() {
     test_utils.reset();
@@ -5,16 +15,17 @@ QUnit.module("World creation, loading, and format consistency", {
 });
 QUnit.test( "Empty worlds", function(assert) {
     assert.deepEqual(test_utils.initial_world, test_utils.empty_world, "Empty world initially created." );
-    assert.deepEqual(RUR.world_utils.create_empty_world(), test_utils.empty_world, "Empty world explicitly created.");
-    assert.ok(FuncTest.object_identical(RUR.world_utils.create_empty_world(), test_utils.empty_world),
+    RUR.world_utils.create_empty_world();
+    assert.deepEqual(remove_robot_id(RUR.CURRENT_WORLD), test_utils.empty_world, "Empty world explicitly created.");
+    assert.ok(FuncTest.object_identical(remove_robot_id(RUR.CURRENT_WORLD), test_utils.empty_world),
         "Empty world explictly created; compare with my own object-comparison method." );
 });
 QUnit.test("import_world", function(assert) {
     RUR.world_utils.import_world(test_utils.empty_world);
-    assert.deepEqual(RUR.CURRENT_WORLD, test_utils.empty_world, "Empty world created by importing empty world as object." );
+    assert.deepEqual(remove_robot_id(RUR.CURRENT_WORLD), test_utils.empty_world, "Empty world created by importing empty world as object." );
     //
     RUR.world_utils.import_world(JSON.stringify(test_utils.empty_world));
-    assert.deepEqual(RUR.CURRENT_WORLD, test_utils.empty_world, "Empty world created by importing empty world as string." );
+    assert.deepEqual(remove_robot_id(RUR.CURRENT_WORLD), test_utils.empty_world, "Empty world created by importing empty world as string." );
 });
 
 QUnit.test("Load world", function(assert) {
@@ -43,7 +54,7 @@ QUnit.test("Load world", function(assert) {
     };
 
     test_utils.load_world_file(url);
-    assert.deepEqual(world_alone, RUR.CURRENT_WORLD, "Ensuring loading world is done properly in testing framework.");
+    assert.deepEqual(remove_robot_id(RUR.CURRENT_WORLD), world_alone, "Ensuring loading world is done properly in testing framework.");
     done();
 });
 
@@ -75,7 +86,7 @@ QUnit.test("Load world from url-permalink", function(assert) {
     };
 
     RUR.permalink.from_url(query);
-    assert.deepEqual(world_alone, RUR.CURRENT_WORLD, "Ensuring loading world from url is done properly.");
+    assert.deepEqual(world_alone, remove_robot_id(RUR.CURRENT_WORLD), "Ensuring loading world from url is done properly.");
     done();
 });
 

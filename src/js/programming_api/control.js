@@ -11,40 +11,49 @@ require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
 
 require("./../world_api/wall.js");
+require("./../world_api/obstacles.js");
+require("./../world_api/background_tile.js");
+require("./../world_api/pushables.js");
+
 require("./../world_utils/get_world.js");
+
 
 /* First, some utility functions */
 
 function get_next_positions (robot) {
     "use strict";
-    var next_x, next_y, x_beyond, y_beyond;
+    var next_x, next_y, x_beyond, y_beyond, orientation;
 
     switch (robot._orientation){
     case RUR.EAST:
         next_x = robot.x + 1;
         x_beyond = robot.x + 2;
         next_y = y_beyond = robot.y;
+        orientation = "east";
         break;
     case RUR.NORTH:
         next_y = robot.y + 1;
         y_beyond = robot.y + 2;
         next_x = x_beyond = robot.x;
+        orientation = "north";
         break;
     case RUR.WEST:
         next_x = robot.x - 1;
         x_beyond = robot.x - 2;
         next_y = y_beyond = robot.y;
+        orientation = "west";
         break;
     case RUR.SOUTH:
         next_y = robot.y - 1;
         y_beyond = robot.y - 2;
         next_x = x_beyond = robot.x;
+        orientation = "south";
         break;
     default:
         throw new Error("Should not happen: unhandled case in RUR.control.move().");
     }
-    return {x: robot.x, y: robot.y, next_x:next_x, next_y:next_y,
-                 x_beyond:x_beyond, y_beyond:y_beyond};
+    return {next_x:next_x, next_y:next_y, x_beyond:x_beyond, y_beyond:y_beyond,
+            orientation:orientation};
 }
 
 
@@ -53,126 +62,70 @@ RUR.control = {};
 
 RUR.control.move = function (robot) {
     "use strict";
-    var tile, tiles, name, objects, tile_beyond, solid_tile_beyond,
-        solids_beyond, solid_object_beyond,
-        pushable_object_here, pushable_object_beyond,
-        wall_beyond, x_beyond, y_beyond;
+    var positions, next_x, next_y, orientation, pushable_in_the_way, tile,
+        x_beyond, y_beyond, recording_state;
 
     if (RUR.control.wall_in_front(robot)) {
         throw new RUR.WallCollisionError(RUR.translate("Ouch! I hit a wall!"));
     }
 
+    positions = get_next_positions(robot);
+    next_x = positions.next_x;
+    next_y = positions.next_y;
+
+    // If we move, are we going to push something else in front of us? 
+    pushable_in_the_way = RUR.get_pushable(next_x, next_y);
+    if (pushable_in_the_way !== null) {
+        orientation = positions.orientation;
+        x_beyond = positions.x_beyond;
+        y_beyond = positions.y_beyond;
+        if (RUR.is_wall(orientation, next_x, next_y) ||
+            RUR.get_pushable(x_beyond, y_beyond) ||
+            RUR.get_solid_obstacle(x_beyond, y_beyond) ||
+            RUR.is_robot(x_beyond, y_beyond)) {
+            throw new RUR.ReeborgError(RUR.translate("Something is blocking the way!"));
+        } else {
+            RUR.push_pushable(pushable_in_the_way, next_x, next_y, x_beyond, y_beyond);
+        }
+    }
+    
+    // Ok, so we do the actual move
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
 
-    x_beyond = robot.x;  // if robot is moving vertically, it x coordinate does not change
-    y_beyond = robot.y;
-
-    switch (robot._orientation){
-    case RUR.EAST:
-        robot.x += 1;
-        x_beyond = robot.x + 1;
-        break;
-    case RUR.NORTH:
-        robot.y += 1;
-        y_beyond = robot.y + 1;
-        break;
-    case RUR.WEST:
-        robot.x -= 1;
-        x_beyond = robot.x - 1;
-        break;
-    case RUR.SOUTH:
-        robot.y -= 1;
-        y_beyond = robot.y - 1;
-        break;
-    default:
-        throw new Error("Should not happen: unhandled case in RUR.control.move().");
-    }
-
-    pushable_object_here = RUR.world_get.pushable_object_at_position(robot.x, robot.y);
-
-    if (pushable_object_here) {
-        // we had assume that we have made a successful move as nothing was
-        // blocking the robot which is now at its next position.
-        // However, something may have prevented the pushable object from
-        // actually being pushed
-        wall_beyond = RUR.control.wall_in_front(robot);
-        pushable_object_beyond = RUR.world_get.pushable_object_at_position(x_beyond, y_beyond);
-        tile_beyond = RUR.world_get.tile_at_position(x_beyond, y_beyond);
-        if (tile_beyond && tile_beyond.solid) {
-            solid_tile_beyond = true;
-            } else {
-            solid_tile_beyond = false;
-        }
-
-        solids_beyond = RUR.get_obstacles(x_beyond, y_beyond);
-        solid_object_beyond = false;
-        if (solids_beyond) {
-            for (name of solids_beyond) {
-                if (RUR.TILES[name] !== undefined && RUR.TILES[name].solid) {
-                    solid_object_beyond = true;
-                    break;
-                }
-            }
-        }
-
-        if (pushable_object_beyond || wall_beyond || solid_tile_beyond || solid_object_beyond) {
-            robot.x = robot._prev_x;
-            robot.y = robot._prev_y;
-            throw new RUR.ReeborgError(RUR.translate("Something is blocking the way!"));
-        } else {
-            RUR.control.move_object(pushable_object_here, robot.x, robot.y,
-            x_beyond, y_beyond);
-        }
-    }
-
+    robot.x = next_x;
+    robot.y = next_y;
     RUR.state.sound_id = "#move-sound";
-    RUR.record_frame("move", robot.__id);
-    tile = RUR.world_get.tile_at_position(robot.x, robot.y);
-    if (tile) {
-        if (tile.fatal){
-            if (!(tile == RUR.TILES.water && RUR.is_obstacle(RUR.translate("bridge"), robot.x, robot.y)) ){
-                throw new RUR.ReeborgError(RUR.translate(tile.message));
-            }
-        }
-        if (tile.slippery){
-            RUR.output.write(RUR.translate(tile.message) + "\n");
-            RUR.control.move(robot);
-        }
-    }
 
-    objects = RUR.get_obstacles(robot.x, robot.y);
-    if (objects) {
-        for (name of objects) {
-            if (RUR.TILES[name] !== undefined && RUR.TILES[name].fatal) {
-                throw new RUR.ReeborgError(RUR.TILES[name].message);
-            }
-        }
-    }
-    if (robot._is_leaky !== undefined && !robot._is_leaky) {  // update to avoid drawing from previous point.
+    // To avoid possibly messing up the drawing of the trace at a future
+    // time, we perform this check
+    if (robot._is_leaky !== undefined && !robot._is_leaky) {
         robot._prev_x = robot.x;
         robot._prev_y = robot.y;
     }
 
-};
-
-RUR.control.move_object = function(obj, x, y, to_x, to_y){
-    "use strict";
-    var bridge_already_there = false;
-    if (RUR.is_obstacle("bridge", to_x, to_y)){
-        bridge_already_there = true;
+    // A "safe obstacle" (like a bridge) allows us to move safely,
+    // so we can end there.
+    if (RUR.is_obstacle_safe(robot.x, robot.y)) {
+        RUR.record_frame("move", robot.__id);
+        return;
     }
-    console.log("bridge there: ", bridge_already_there, "   obj = ", obj);
 
-    RUR.set_nb_object_at_position(obj, x, y, 0);
-    if (RUR.TILES[obj].in_water &&
-        RUR.get_background_tile(to_x, to_y) == "water" &&
-        !bridge_already_there){
-            // TODO: fix this
-        RUR.add_obstacle(RUR.TILES[obj].in_water, to_x, to_y);
-    } else {
-        RUR.set_nb_object_at_position(obj, to_x, to_y, 1);
+    // A move has been performed ... but it may have been a fatal decision
+    tile = RUR.get_fatal_obstacle(robot.x, robot.y);
+    if (tile && tile.fatal) {
+        throw new RUR.ReeborgError(tile.message);
     }
+    tile = RUR.get_background_tile(robot.x, robot.y);
+    if (tile) {
+        if (tile.fatal) {
+            throw new RUR.ReeborgError(tile.message);
+        } else if (tile.slippery) {
+            RUR.output.write(RUR.translate(tile.message) + "\n");
+            RUR.control.move(robot);    
+        }
+    }
+    RUR.record_frame("move", robot.__id);
 };
 
 
@@ -388,87 +341,30 @@ RUR.control.wall_on_right = function (robot) {
     return result;
 };
 
-RUR.control.tile_in_front = function (robot) {
-    // returns single tile
-    switch (robot._orientation){
-    case RUR.EAST:
-        return RUR.world_get.tile_at_position(robot.x+1, robot.y);
-    case RUR.NORTH:
-        return RUR.world_get.tile_at_position(robot.x, robot.y+1);
-    case RUR.WEST:
-        return RUR.world_get.tile_at_position(robot.x-1, robot.y);
-    case RUR.SOUTH:
-        return RUR.world_get.tile_at_position(robot.x, robot.y-1);
-    default:
-        throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.tile_in_front().");
-    }
-};
-
-
-RUR.control.obstacles_in_front = function (robot) {
-    // returns list of tiles
-    switch (robot._orientation){
-    case RUR.EAST:
-        return RUR.get_obstacles(robot.x+1, robot.y);
-    case RUR.NORTH:
-        return RUR.get_obstacles(robot.x, robot.y+1);
-    case RUR.WEST:
-        return RUR.get_obstacles(robot.x-1, robot.y);
-    case RUR.SOUTH:
-        return RUR.get_obstacles(robot.x, robot.y-1);
-    default:
-        throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.obstacles_in_front().");
-    }
-};
-
 
 RUR.control.front_is_clear = function(robot){
-    var tile, tiles, solid, name;
+    var tile, tiles, solid, name, positions, next_x, next_y;
     if( RUR.control.wall_in_front(robot)) {
         return false;
     }
-    tile = RUR.control.tile_in_front(robot);
-    if (tile) {
-        if (tile.detectable && tile.fatal){
-                if (tile == RUR.TILES.water) {
-                    // if (!RUR.control._bridge_present(robot)){
-                    if (!RUR.is_obstacle("bridge", robot.x, robot.y)){
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-        }
-    }
+    positions = get_next_positions(robot);
+    next_x = positions.next_x;
+    next_y = positions.next_y;
 
-    solid = RUR.control.obstacles_in_front(robot);
-    if (solid) {
-        for (name of solid) {
-            if (RUR.TILES[name] !== undefined &&
-                RUR.TILES[name].detectable &&
-                RUR.TILES[name].fatal) {
-                return false;
-            }
-        }
+    if (RUR.get_fatal_detectable_obstacle(next_x, next_y)) {
+        return false;
+    }
+    // "safe obstacles" protect us from any problem from background tiles
+    if (RUR.is_obstacle_safe(next_x, next_y)) {
+        return true;
+    }
+    tile = RUR.get_background_tile(next_x, next_y);
+    if (tile && tile.detectable && tile.fatal){
+        return false;
     }
 
     return true;
 };
-
-
-// RUR.control._bridge_present = function(robot) {
-//     var solid, name;
-//         solid = RUR.control.obstacles_in_front(robot);
-//     if (solid) {
-//         for (name of solid) {
-//             if (name == "bridge") {
-//                 return true;
-//             }
-//         }
-//     }
-//     return false;
-// };
-
 
 RUR.control.right_is_clear = function(robot){
     var result;
@@ -497,29 +393,6 @@ RUR.control.at_goal = function (robot) {
         throw new RUR.ReeborgError(RUR.translate("There is no position as a goal in this world!"));
     }
     throw new RUR.ReeborgError(RUR.translate("There is no goal in this world!"));
-};
-
-
-// TODO: review this as it seems redundant ... and may not work as expected.
-RUR.control.solid_object_here = function (robot, tile) {
-    var tile_here, tile_type, all_solid_objects;
-    var coords = robot.x + "," + robot.y;
-
-    if (RUR.get_world().obstacles === undefined ||
-        RUR.get_world().obstacles[coords] === undefined) {
-        return false;
-    }
-
-    tile_here =  RUR.get_world().obstacles[coords];
-
-    for (tile_type in tile_here) {
-        if (tile_here.hasOwnProperty(tile_type)) {
-            if (tile!== undefined && tile_type == RUR.translate_to_english(tile)) {
-                return true;
-            }
-        }
-    }
-    return false;
 };
 
 
