@@ -126,6 +126,14 @@ function set_canvases () {
     RUR.TILES_ANIM_CTX = RUR.TILES_CANVAS_ANIM.getContext("2d");
     RUR.CANVASES.push(RUR.TILES_CANVAS_ANIM);
 
+    RUR.BRIDGE_CANVAS = document.getElementById("bridge-canvas");
+    RUR.BRIDGE_CTX = RUR.BRIDGE_CANVAS.getContext("2d");
+    RUR.CANVASES.push(RUR.BRIDGE_CANVAS);
+
+    RUR.BRIDGE_CANVAS_ANIM = document.getElementById("bridge-canvas-anim");
+    RUR.BRIDGE_ANIM_CTX = RUR.BRIDGE_CANVAS_ANIM.getContext("2d");
+    RUR.CANVASES.push(RUR.BRIDGE_CANVAS_ANIM);
+
     RUR.OBSTACLES_CANVAS = document.getElementById("obstacles-canvas");
     RUR.OBSTACLES_CTX = RUR.OBSTACLES_CANVAS.getContext("2d");
     RUR.CANVASES.push(RUR.OBSTACLES_CANVAS);

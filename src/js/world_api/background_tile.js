@@ -99,7 +99,7 @@ RUR.get_background_tile = function (x, y) {
     if (tile === null) {
         return null;
     } else {
-        return tile[0];
+        return RUR.TILES[tile[0]];
     }
 };
 

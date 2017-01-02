@@ -10,19 +10,21 @@ require("./background_tile.js");
 /** @function add_pushable
  * @memberof RUR
  * @instance
- * @summary This function sets a named tile as background at a location.
+ * @summary This function adds a named pushable at a location.
  *
  * @param {string} name The name of a the tile representing the pushable.
  *
+ * @param {string} name Name.
+ * @param {integer} x  Position.
+ * @param {integer} y  Position.
  *
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
- *
- * @throws Will throw an error if `(x, y)` is not a valid location..
+ * @throws Will throw an error if `(x, y)` is not a valid location.
+ * @throws Will throw an error if there is another pushable already at that location.
  *
  * @todo add test
  * @todo add better examples
  * @todo deal with translation
+ * @todo **Important** Add goal for pushables
  * @example
  * // shows how to set various tiles;
  * // the mode will be set to Python and the highlighting
@@ -32,7 +34,11 @@ require("./background_tile.js");
  */
 RUR.add_pushable = function (name, x, y) {
     "use strict";
-    var args = {name: name, x:x, y:y, type:"pushables", valid_names:Object.keys(RUR.TILES)};
+    var pushable, args = {name: name, x:x, y:y, type:"pushables", valid_names:Object.keys(RUR.TILES)};
+    pushable = RUR.get_pushable(x, y);
+    if (pushable !== null) {
+        throw new ReeborgError("There can be at most one pushable object at a given location.");
+    }
     RUR.utils.add_artefact(args);
     RUR.record_frame("RUR.add_pushable", args);
 };
@@ -41,19 +47,20 @@ RUR.add_pushable = function (name, x, y) {
 /** @function remove_pushable
  * @memberof RUR
  * @instance
- * @summary This function removes an pushable at a location.
+ * @summary This function removes a pushable at a location.
  *
+ * **Assumption**: only one pushable allowed at a given location.
  *
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {integer} x  Position.
+ * @param {integer} y  Position.
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
- * @throws Will throw an error if there is no background tile to remove
- *        at that location
+ * @throws Will throw an error if there is no pushable
  *        
  * @todo add test
  * @todo add examples
  * @todo deal with translation
+ * 
  *
  */
 RUR.remove_pushable = function (name, x, y) {
@@ -69,19 +76,20 @@ RUR.remove_pushable = function (name, x, y) {
 };
 
 
-/** @function get_pushables
+/** @function get_pushable
  * @memberof RUR
  * @instance
- * @summary This function returns a list of pushables found at that location;
+ * @summary This function returns the name of a pushable found at that location;
  *          For worlds designed "normally", such a list should contain only
  *          one item since pushables cannot be pushed onto other pushables.
  *          If nothing is found at that location,`null` is returned 
  *          (which is converted to `None` in Python programs.)
  *
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {integer} x  Position.
+ * @param {integer} y  Position.
+ * @returns {string} The name of the pushable at that location, or `null`.
  *
- * @throws Will throw an error if `(x, y)` is not a valid location..
+ * @throws Will throw an error if `(x, y)` is not a valid location.
  *
  * @todo add test
  * @todo add proper examples
@@ -107,22 +115,12 @@ RUR.get_pushable = function (x, y) {
 };
 
 
-RUR.is_pushable = function (name, x, y) {
-    "use strict";
-    var args={name:name, x:x, y:y, type:"pushables"};
-    if (RUR.utils.get_nb_artefact(args) === 1) {
-        return true;
-    } else {
-        return false;
-    }
-};
-
-RUR.push_pushable = function (name, to_x, to_y, x_beyond, y_beyond) {
+RUR.push_pushable = function (name, from_x, from_y, to_x, to_y) {
     recording_state = RUR.state.do_not_record;
     RUR.state.do_not_record = true;
-    RUR.remove_pushable(name, to_x, to_x);
-    RUR.add_pushable(name, x_beyond, y_beyond);
-    RUR.transform_pushable(name, x_beyond, y_beyond);
+    RUR.remove_pushable(name, from_x, from_y);
+    RUR.add_pushable(name, to_x, to_y);
+    RUR.transform_pushable(name, to_x, to_y);
     RUR.state.do_not_record = recording_state;
 };
 

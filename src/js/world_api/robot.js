@@ -57,11 +57,12 @@ require("./../world_utils/get_world.js");
  *
  * @param {integer} id  
  *
- * @returns {object} the body of the robot as a Javascript object, null otherwise.
+ * @returns {object} the body of the robot as a Javascript object, null if
+ *         a robot with this id cannot be found.
  *   
  **/
  
- RUR.get_robot_by_id = function (id) {
+RUR.get_robot_by_id = function (id) {
     "use strict";
     var r, robot, world=RUR.get_world();
 
@@ -81,3 +82,96 @@ require("./../world_utils/get_world.js");
     }
     return null;
  };
+
+ /** @function get_robot_position
+ *
+ * @memberof RUR
+ * @instance
+ * @summary This function returns the location of a robot.  
+ *
+ * @param {object} robot A robot (body) object, having the proper attribute
+ *    for position (x, y coordinates) and orientation.  Note that you should
+ *    pass in a robot (body) object obtained from some other function,
+ *    such as `RUR.get_robot_by_id()`, since
+ *    the internal names for the various attributes is subject to change.
+ *
+ * @returns {object} An object of the form 
+ *      `{x:x_value, y:y_value, orientation:orientation_value} where
+ *      `x_value` and `y_value` are integers and 
+ *      `orientation_value` is one of `"east"`, `"west"`, `"north"`, `"south"`.
+ *   
+ **/
+
+RUR.get_robot_position = function (robot) {
+    "use strict";
+    var x, y, orientation;
+    if (!robot || robot.x === undefined || robot.y === undefined ||
+        robot._orientation === undefined) {
+        throw new Error("robot body needed as argument for RUR.get_location().");
+    }
+    
+    switch (robot._orientation){
+    case RUR.EAST:
+        orientation = "east";
+        break;
+    case RUR.NORTH:
+        orientation = "north";
+        break;
+    case RUR.WEST:
+        orientation = "west";
+        break;
+    case RUR.SOUTH:
+        orientation = "south";
+        break;
+    default:
+        throw new Error("Should not happen: unhandled case in RUR.get_location().");
+    }
+    return {x:robot.x, y:robot.y, orientation:orientation};
+};
+
+    
+ /** @function get_position_in_front
+ *
+ * @memberof RUR
+ * @instance
+ * @summary This function returns the location of a robot.  
+ *
+ * @param {object} robot A robot (body) object, having the proper attribute
+ *    for position (x, y coordinates) and orientation.  Note that you should
+ *    pass in a robot (body) object obtained from some other function
+ *    such as `RUR.get_robot_by_id()`, since
+ *    the internal names for the various attributes is subject to change.
+ *
+ * @returns {object} An object of the form 
+ *      `{x:x_value, y:y_value} where `x_value` and `y_value` are integers.
+ *   
+ **/
+
+RUR.get_position_in_front = function (robot) {
+    "use strict";
+    var x, y;
+    if (!robot || robot.x === undefined || robot.y === undefined) {
+        throw new Error("robot body needed as argument for RUR.get_location_in_front().");
+    }
+    switch (robot._orientation){
+    case RUR.EAST:
+        x = robot.x + 1;
+        y = robot.y;
+        break;
+    case RUR.NORTH:
+        y = robot.y + 1;
+        x = robot.x;
+        break;
+    case RUR.WEST:
+        x = robot.x - 1;
+        y = robot.y;
+        break;
+    case RUR.SOUTH:
+        y = robot.y - 1;
+        x = robot.x;
+        break;
+    default:
+        throw new Error("Should not happen: unhandled case in RUR.get_location_in_front().");
+    }
+    return {x:x, y:y};
+};

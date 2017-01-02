@@ -16,10 +16,15 @@ require("./storage/storage.js");
 require("./permalink/permalink.js");
 require("./editors/create.js");
 
-// ensure that all world_api functions are defined.
+// ensure that all world_api methods are defined, even though they
+// might be already imported by the menu-driven world editor.
+require("./world_api/background_tile.js");
+require("./world_api/bridge.js");
 require("./world_api/obstacles.js");
 require("./world_api/pushables.js");
 require("./world_api/robot.js");
+require("./world_api/wall.js");
+
 
 
 brython({debug:1, pythonpath:[RUR._BASE_URL + '/src/python']});

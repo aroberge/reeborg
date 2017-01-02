@@ -63,6 +63,7 @@ RUR.vis_world.draw_all = function () {
         RUR.ANIMATION_FRAME_ID = undefined;
         RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.TILES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.BRIDGE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.OBSTACLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
@@ -71,6 +72,7 @@ RUR.vis_world.draw_all = function () {
 
         RUR.OBJECTS_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.TILES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.BRIDGE_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.OBSTACLES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.PUSHABLES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
@@ -130,6 +132,7 @@ RUR.vis_world.refresh = function () {
     // draw_all_objects(current.obstacles, false, true); // likely on RUR.OBSTACLES_CTX
     draw_tiles(current.obstacles, RUR.OBSTACLES_CTX);
     draw_tiles(current.pushables, RUR.PUSHABLES_CTX);
+    draw_tiles(current.bridge, RUR.BRIDGE_CTX);
 
 
 

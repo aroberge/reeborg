@@ -14,95 +14,62 @@ require("./../world_api/wall.js");
 require("./../world_api/obstacles.js");
 require("./../world_api/background_tile.js");
 require("./../world_api/pushables.js");
+require("./../world_api/robot.js");
 
 require("./../world_utils/get_world.js");
-
-
-/* First, some utility functions */
-
-function get_next_positions (robot) {
-    "use strict";
-    var next_x, next_y, x_beyond, y_beyond, orientation;
-
-    switch (robot._orientation){
-    case RUR.EAST:
-        next_x = robot.x + 1;
-        x_beyond = robot.x + 2;
-        next_y = y_beyond = robot.y;
-        orientation = "east";
-        break;
-    case RUR.NORTH:
-        next_y = robot.y + 1;
-        y_beyond = robot.y + 2;
-        next_x = x_beyond = robot.x;
-        orientation = "north";
-        break;
-    case RUR.WEST:
-        next_x = robot.x - 1;
-        x_beyond = robot.x - 2;
-        next_y = y_beyond = robot.y;
-        orientation = "west";
-        break;
-    case RUR.SOUTH:
-        next_y = robot.y - 1;
-        y_beyond = robot.y - 2;
-        next_x = x_beyond = robot.x;
-        orientation = "south";
-        break;
-    default:
-        throw new Error("Should not happen: unhandled case in RUR.control.move().");
-    }
-    return {next_x:next_x, next_y:next_y, x_beyond:x_beyond, y_beyond:y_beyond,
-            orientation:orientation};
-}
-
 
 /* Next, our namespace and its methods, for use in other modules */
 RUR.control = {};
 
 RUR.control.move = function (robot) {
     "use strict";
-    var positions, next_x, next_y, orientation, pushable_in_the_way, tile,
-        x_beyond, y_beyond, recording_state;
+    var position, next_x, next_y, orientation, pushable_in_the_way, tile,
+        x_beyond, y_beyond, recording_state, next_position, current_x, current_y;
 
     if (RUR.control.wall_in_front(robot)) {
         throw new RUR.WallCollisionError(RUR.translate("Ouch! I hit a wall!"));
     }
 
-    positions = get_next_positions(robot);
-    next_x = positions.next_x;
-    next_y = positions.next_y;
+    position = RUR.get_position_in_front(robot);
+    next_x = position.x;
+    next_y = position.y;
+
+    // attempt a move, by first saving the current position
+    current_x = robot.x;
+    current_y = robot.y;
+    robot.x = next_x;
+    robot.y = next_y;
 
     // If we move, are we going to push something else in front of us? 
     pushable_in_the_way = RUR.get_pushable(next_x, next_y);
     if (pushable_in_the_way !== null) {
-        orientation = positions.orientation;
-        x_beyond = positions.x_beyond;
-        y_beyond = positions.y_beyond;
-        if (RUR.is_wall(orientation, next_x, next_y) ||
+        next_position = RUR.get_position_in_front(robot);
+        x_beyond = next_position.x;
+        y_beyond = next_position.y;
+
+        if (RUR.control.wall_in_front(robot) ||
             RUR.get_pushable(x_beyond, y_beyond) ||
             RUR.get_solid_obstacle(x_beyond, y_beyond) ||
             RUR.is_robot(x_beyond, y_beyond)) {
+            // reverse the move
+            robot.x = current_x;
+            robot.y = current_y;
             throw new RUR.ReeborgError(RUR.translate("Something is blocking the way!"));
         } else {
             RUR.push_pushable(pushable_in_the_way, next_x, next_y, x_beyond, y_beyond);
         }
     }
     
-    // Ok, so we do the actual move
-    robot._prev_x = robot.x;
-    robot._prev_y = robot.y;
-
-    robot.x = next_x;
-    robot.y = next_y;
-    RUR.state.sound_id = "#move-sound";
-
-    // To avoid possibly messing up the drawing of the trace at a future
-    // time, we perform this check
+    // We can now complete the move
     if (robot._is_leaky !== undefined && !robot._is_leaky) {
+        // avoid messing the trace if and when we resume having a leaky robot
         robot._prev_x = robot.x;
         robot._prev_y = robot.y;
+    } else {
+        robot._prev_x = current_x;
+        robot._prev_y = current_y;        
     }
+    RUR.state.sound_id = "#move-sound";
 
     // A "safe obstacle" (like a bridge) allows us to move safely,
     // so we can end there.
@@ -343,13 +310,13 @@ RUR.control.wall_on_right = function (robot) {
 
 
 RUR.control.front_is_clear = function(robot){
-    var tile, tiles, solid, name, positions, next_x, next_y;
+    var tile, tiles, solid, name, position, next_x, next_y;
     if( RUR.control.wall_in_front(robot)) {
         return false;
     }
-    positions = get_next_positions(robot);
-    next_x = positions.next_x;
-    next_y = positions.next_y;
+    position = RUR.get_position_in_front(robot);
+    next_x = position.x;
+    next_y = position.y;
 
     if (RUR.get_fatal_detectable_obstacle(next_x, next_y)) {
         return false;

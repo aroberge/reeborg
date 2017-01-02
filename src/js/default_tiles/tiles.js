@@ -136,10 +136,10 @@ _add_object_type("tulip");
 
 _add_object_type("box");
 RUR.TILES.box.name = "box";
-RUR.TILES.box.pushable = true;
-RUR.TILES.box.in_water = "bridge";
-RUR.TILES.box.transform = {"water": "bridge", "fire": null, "mud": "bridge"};
-RUR.TILES.box.ctx = RUR.ROBOT_CTX;
+RUR.TILES.box.transform = [[{background_tile: "fire"}, null],
+                          [{obstacles: "fire"}, null],
+                          [{background_tile: "water"}, {bridge_layer: "bridge"}],
+                          [{background_tile: "mud"}, {bridge_layer: "bridge"}]];
 
 tile = {
     name: "bridge",
