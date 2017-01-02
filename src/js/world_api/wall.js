@@ -6,6 +6,7 @@ require("./../utils/validator.js");
 require("./../utils/supplant.js");
 require("./../recorder/record_frame.js");
 require("./../world_utils/get_world.js");
+require("./../utils/artefact.js");
 
 /*=========================================
 Walls data structure
@@ -19,24 +20,6 @@ Also, worlds are defined so that they are rectangular with walls on
 all sides. However, these walls are not included in the data structure
 that lists the walls, and must be handled separately.
 */
-
-function ensure_valid_position(x, y) {
-    // ensures that the position is within the world boundaries
-    var position = "(" + x + ", " + y + ")";
-    if (!RUR.utils.is_valid_position(x, y)) {
-        throw new RUR.ReeborgError(
-            RUR.translate("Invalid position.").supplant({pos:position}));
-    }
-}
-
-function ensure_valid_orientation(arg){
-    var orientation = arg.toLowerCase();
-    if (["east", "north", "west", "south"].indexOf(orientation) === -1) {
-        throw new RUR.ReeborgError(
-            RUR.translate("Invalid orientation.").supplant({orient:arg}));
-    }
-}
-
 
 /** @function get_walls
  * @memberof RUR
@@ -65,16 +48,23 @@ function ensure_valid_orientation(arg){
  *
  */
 RUR.get_walls = function(x, y, goal) {
-    var world = RUR.get_world();
-    ensure_valid_position(x, y);
-    if (goal) {
-        if (world.goal === undefined || world.goal.walls === undefined) {
-            return [];
-        }
-        return _list_walls_at(x, y, world.goal.walls);
-    } else {
-        return _list_walls_at(x, y, world.walls);
-    }    
+    // var world = RUR.get_world();
+    var args = {x:x, y:y, goal:goal, type:"walls"}, result, walls=[];
+
+    // get_artefacts returns the original container; 
+    // we avoid making changes to add by making a copy
+    result = RUR.utils.get_artefacts(args); // gets "east" and "north"
+    if (result !== null) {
+        walls = walls.concat(result);
+    }
+    //
+    if (RUR.is_wall("west", x, y, goal)) {
+        walls.push("west");
+    }
+    if (RUR.is_wall("south", x, y, goal)) {
+        walls.push("south");
+    }
+    return walls;  
 };
 
 
@@ -107,101 +97,52 @@ RUR.get_walls = function(x, y, goal) {
  *
  */
 RUR.is_wall = function(orientation, x, y, goal) {
-    var world = RUR.get_world();
-    ensure_valid_orientation(orientation);
-    ensure_valid_position(x, y);
-    // convert to lower case only after running the above validity test.
-    orientation = orientation.toLowerCase();
-    if (goal) {
-        if (world.goal === undefined || world.goal.walls === undefined) {
-            return false;
-        }
-        return _is_wall_at(orientation, x, y, world.goal.walls);
-    } else {
-        return _is_wall_at(orientation, x, y, world.walls);
-    }      
-};
-
-
-// private helper function
-// perform argument checks and returns
-// a list of walls found at a given location
-function _list_walls_at (x, y, walls) {
-    var result, orientations, index, orient;
-    result = [];
-    orientations = ["east", "north", "west", "south"];
-    for (index in orientations) {
-        orient = orientations[index];
-        if (_is_wall_at(orient, x, y, walls)) {
-            result.push(orient);
-        }
+    var args;
+    if (["east", "north", "west", "south"].indexOf(orientation) === -1) {
+        throw new RUR.ReeborgError(
+            RUR.translate("Invalid orientation.").supplant({orient:orientation}));
     }
-    return result;
-}
-
+    if (is_boundary_wall(orientation, x, y)) {
+        return true;
+    }
+    args = convert_position(orientation, x, y);
+    args.goal = goal;
+    args.type = "walls";
+    if (RUR.utils.get_nb_artefact(args) === 0) {
+        return false;
+    } else {
+        return true;
+    }     
+};
 
 // private helper function
 // perform argument checks and returns
 // true if a wall of a specified orientation is found at a given
 // location and false otherwise
-function _is_wall_at(orientation, x, y, walls) {
-    var coords;
+function is_boundary_wall(orientation, x, y) {
     switch (orientation){
     case "east":
-        coords = x + "," + y;
         if (x === RUR.MAX_X){
-            return true;
-        }
-        if (__is_wall(coords, "east", walls)) {
             return true;
         }
         break;
     case "north":
-        coords = x + "," + y;
         if (y === RUR.MAX_Y){
-            return true;
-        }
-        if (__is_wall(coords, "north", walls)) {
             return true;
         }
         break;
     case "west":
         if (x===1){
             return true;
-        } else {
-            coords = (x-1) + "," + y; // do math first before building strings
-            if (__is_wall(coords, "east", walls)) {
-                return true;
-            }
         }
         break;
     case "south":
         if (y===1){
             return true;
-        } else {
-            coords = x + "," + (y-1);  // do math first before building strings
-            if (__is_wall(coords, "north", walls)) {
-                return true;
-            }
         }
         break;
     default:
-        throw new RUR.ReeborgError("Should not happen: unhandled case in is_wall_at().");
-    }
-    return false;
-}
-
-// private helper function
-// returns true if a wall of a specified orientation is found at a
-// given coordinate
-function __is_wall (coords, orientation, walls) {
-    if (walls === undefined) {
-        return false;
-    }
-    if (walls[coords] !== undefined){
-        if (walls[coords].indexOf(orientation) !== -1) {
-            return true;
-        }
+        throw new RUR.ReeborgError("Should not happen: unhandled case in is_boundary_wall().");
     }
     return false;
 }
@@ -236,23 +177,20 @@ function __is_wall (coords, orientation, walls) {
  *
  */
 RUR.add_wall = function(orientation, x, y, goal) {
-    var world = RUR.get_world(), wall_here;
-    // the following function call will raise an exception if
-    // the orientation or the position is not valid
-    wall_here = RUR.is_wall(orientation, x, y, goal);
-    if (wall_here){
+    "use strict";
+    var args;
+
+    if (RUR.is_wall(orientation, x, y, goal)){
         throw new RUR.ReeborgError(RUR.translate("There is already a wall here!"));
     }
-    orientation = orientation.toLowerCase();
-    if (goal) {
-        RUR.utils.ensure_key_for_obj_exists(world, "goal");
-        RUR.utils.ensure_key_for_obj_exists(world.goal, "walls");
-        _add_wall(orientation, x, y, world.goal.walls);
-    } else {
-        RUR.utils.ensure_key_for_obj_exists(world, "walls");
-        _add_wall(orientation, x, y, world.walls);
-    }   
-    RUR.record_frame("debug", "add_wall");   
+    console.log("args before", args);
+    args = convert_position(orientation, x, y);
+    args.goal = goal;
+    args.type = "walls";
+    console.log("args after", args);
+    RUR.utils.add_artefact(args);
+    console.log("walls", RUR.CURRENT_WORLD.walls);
+    RUR.record_frame("add_wall", args);
 };
 
 /** @function remove_wall
@@ -284,99 +222,46 @@ RUR.add_wall = function(orientation, x, y, goal) {
  *
  */
 RUR.remove_wall = function(orientation, x, y, goal) {
-    var wall_here;
+    var args;
     // the following function call will raise an exception if
     // the orientation or the position is not valid
     wall_here = RUR.is_wall(orientation, x, y, goal);
-    if (!wall_here){
+    if (!RUR.is_wall(orientation, x, y, goal)){
         throw new RUR.ReeborgError(RUR.translate("There is no wall to remove!"));
     }
-    orientation = orientation.toLowerCase();
-    _remove_wall(orientation, x, y, goal);   
-    RUR.record_frame("debug", "remove_wall");   
+
+    args = convert_position(orientation, x, y);
+    args.goal = goal;
+    args.type = "walls";
+    RUR.utils.remove_artefact(args);
+    RUR.record_frame("remove_wall", args);  
 };
 
-
-// private helper function
-// perform argument checks and returns
-// true if a wall of a specified orientation is found at a given
-// location and false otherwise
-function _add_wall(orientation, x, y, walls) {
-    var coords;
+function convert_position (orientation, x, y) {
+    var _x, _y, _orientation;
     switch (orientation){
     case "east":
-        coords = x + "," + y;
-        __add_wall(coords, "east", walls);
+        _orientation = "east";
+        _x = x;
+        _y = y;
         break;
     case "north":
-        coords = x + "," + y;
-        __add_wall(coords, "north", walls);
+        _orientation = "north";
+        _x = x;
+        _y = y;
         break;
     case "west":
-        coords = (x-1) + "," + y; // do math first before building strings
-        __add_wall(coords, "east", walls);
+        _orientation = "east";
+        _x = x-1;
+        _y = y;
         break;
     case "south":
-        coords = x + "," + (y-1);  // do math first before building strings
-        __add_wall(coords, "north", walls);
+        _orientation = "north";
+        _x = x;
+        _y = y-1;
         break;
     default:
         throw new RUR.ReeborgError("Should not happen: unhandled case in add_wall().");
     }
-}
-
-function __add_wall(coords, orientation, walls) {
-    if (walls[coords] === undefined) {
-        walls[coords] = [orientation];
-    } else {
-        walls[coords].push(orientation);
-    }
-}
-
-// private helper function
-// perform argument checks and returns
-// true if a wall of a specified orientation is found at a given
-// location and false otherwise
-function _remove_wall(orientation, x, y, goal) {
-    var coords;
-    switch (orientation){
-    case "east":
-        coords = x + "," + y;
-        __remove_wall(coords, "east", goal);
-        break;
-    case "north":
-        coords = x + "," + y;
-        __remove_wall(coords, "north", goal);
-        break;
-    case "west":
-        coords = (x-1) + "," + y; // do math first before building strings
-        __remove_wall(coords, "east", goal);
-        break;
-    case "south":
-        coords = x + "," + (y-1);  // do math first before building strings
-        __remove_wall(coords, "north", goal);
-        break;
-    default:
-        throw new RUR.ReeborgError("Should not happen: unhandled case in add_wall().");
-    }
-}
-
-function __remove_wall(coords, orientation, goal) {
-    var index, world = RUR.get_world();
-    if (goal) {
-        index = world.goal.walls[coords].indexOf(orientation);
-        world.goal.walls[coords].splice(index, 1);
-        if (world.goal.walls[coords].length === 0){
-            delete world.goal.walls[coords];
-            if (Object.keys(world.goal.walls).length === 0) {
-                delete world.goal.walls;
-            }
-        }
-    } else {
-        index = world.walls[coords].indexOf(orientation);
-        world.walls[coords].splice(index, 1);
-        if (world.walls[coords].length === 0){
-            delete world.walls[coords];
-        }
-    }
+    return {name:_orientation, x:_x, y:_y};
 }

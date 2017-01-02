@@ -24,9 +24,9 @@ RUR.record_frame = function (name, obj) {
 // 3. resuming recording.
 // The program stopped, but no error was shown.
 
-    if (RUR.FRAME_CALLBACK !== undefined && !RUR.state.frame_callback_called){
+    if (RUR.FRAME_INSERTION !== undefined && !RUR.state.frame_callback_called){
         RUR.state.frame_callback_called = true;
-        RUR.FRAME_CALLBACK(name, obj);
+        RUR.FRAME_INSERTION(name, obj);
         RUR.state.frame_callback_called = false;
     }
 

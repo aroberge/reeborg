@@ -156,6 +156,7 @@ test('list empty walls', function (assert) {
 
 test('Add and list walls', function (assert) {    
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
+    assert.plan(8);
     RUR.add_wall("east", 3, 3);
     assert.deepEqual(RUR.get_walls(3, 3), ["east"], "east wall");
     RUR.add_wall("west", 3, 3);

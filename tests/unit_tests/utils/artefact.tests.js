@@ -10,7 +10,7 @@
 // setting global environment
 var tape_test = require('./../test_globals.js').tape_test;
 function test(test_name, fn) {
-    tape_test("aretefact.js: ", test_name, fn);
+    tape_test("artefact.js: ", test_name, fn);
 }
 
 // main module to test
