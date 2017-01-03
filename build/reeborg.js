@@ -6604,6 +6604,10 @@ RUR.control._robot_put_down_object = function (robot, obj) {
     } else {
         RUR.get_world().objects[coords][obj] += 1;
     }
+    // automatic transformation of tiles
+    // TODO: implement new methods for objects layer
+    // RUR.transform_tile(robot.x, robot.y, obj, "objects");
+
     RUR.record_frame("put", [robot.__id, obj]);
 };
 
@@ -9376,6 +9380,7 @@ RUR.utils.get_artefacts = function(args) {
  * @throws Will throw an error if no such artefact is found at that location.
  *
  * @see {@link UnitTest#test_artefact} for unit tests.
+ * @todo  Need to implement `args.all`
  *  
  */
 RUR.utils.remove_artefact = function (args) {
@@ -10227,7 +10232,7 @@ RUR.transform_tile = function(x, y, name, type) {
     }
 };
 
-
+// add note about possibly needing to record frame explicitly
 RUR.compose_tiles = function(x, y, tile1, tile2, tile3, tile4) {
     var name1, name2, name3, name4, tile,
         type1, type2, type3, type4, recording_state;
@@ -10618,9 +10623,7 @@ RUR.get_pushable = function (x, y) {
     }
 };
 
-
 RUR.push_pushable = function (name, from_x, from_y, to_x, to_y) {
-    console.log("in pushables", name, from_x, from_y, to_x, to_y);
     recording_state = RUR.state.do_not_record;
     RUR.state.do_not_record = true;
     RUR.remove_pushable(name, from_x, from_y);
@@ -11152,11 +11155,29 @@ RUR.world_get.world_info = function (no_grid) {
     var position, tile, obj, information, x, y, coords, obj_here, obj_type, goals;
     var topic, no_object, r, robot, robots;
     var tiles, tilename, fence_noted = false;
+    var description, insertion, to_replace;
+
 
     information = "";
 
     if (RUR.CURRENT_WORLD.description) {
-        information +="<b>" + RUR.translate("Description") + "</b><br>" + RUR.CURRENT_WORLD.description + "<hr>";
+        description = RUR.CURRENT_WORLD.description;
+        if (RUR.CURRENT_WORLD.pre) { // can be either javascript or python code
+            insertion = "<pre class='world_info_source'>" + RUR.CURRENT_WORLD.pre + "</pre>";
+            to_replace = "INSERT_PRE";
+            description = description.replace(to_replace, insertion);
+        }
+        if (RUR.CURRENT_WORLD.post) { // can be either javascript or python code
+            insertion = "<pre class='world_info_source'>" + RUR.CURRENT_WORLD.post + "</pre>";
+            to_replace = "INSERT_POST";
+            description = description.replace(to_replace, insertion);
+        }
+        if (RUR.CURRENT_WORLD.onload) { // only javascript, hence different class
+            insertion = "<pre class='world_info_onload'>" + RUR.CURRENT_WORLD.onload + "</pre>";
+            to_replace = "INSERT_ONLOAD";
+            description = description.replace(to_replace, insertion);
+        }
+        information +="<b>" + RUR.translate("Description") + "</b><br>" + description + "<hr>";
     }
 
     if (!no_grid) {
@@ -11169,7 +11190,11 @@ RUR.world_get.world_info = function (no_grid) {
         }
     }
 
-    tile = RUR.world_get.tile_at_position(x, y);
+    try {
+        tile = RUR.world_get.tile_at_position(x, y);
+    } catch (e) {
+        tile = false;
+    }
     topic = true;
     if (tile){
         if (RUR.translate(tile.info)) {
@@ -11181,7 +11206,11 @@ RUR.world_get.world_info = function (no_grid) {
         }
     }
 
-    tiles = RUR.get_obstacles(x, y);
+    try {
+        tiles = RUR.get_obstacles(x, y);
+    } catch (e) {
+        tiles = false;
+    }
     if (tiles) {
         for (tilename of tiles) {
             tile = RUR.TILES[tilename];
@@ -11309,11 +11338,32 @@ RUR.world_get.world_info = function (no_grid) {
     }
 
     $("#World-info").html(information);
+    $('.world_info_source').each(function() {
+        var $this = $(this), $code = $this.text();
+        $this.empty();
+        var myCodeMirror = CodeMirror(this, {
+            value: $code,
+            mode:  RUR.state.programming_language,
+            lineNumbers: !$this.is('.inline'),
+            readOnly: true,
+            theme: 'reeborg-readonly'
+        });
+    });
+    $('.world_info_onload').each(function() {
+        var $this = $(this), $code = $this.text();
+        $this.empty();
+        var myCodeMirror = CodeMirror(this, {
+            value: $code,
+            mode:  "javascript",
+            lineNumbers: !$this.is('.inline'),
+            readOnly: true,
+            theme: 'reeborg-readonly'
+        });
+    });
 };
 
 RUR.create_and_activate_dialogs( $("#world-info-button"), $("#World-info"),
-                                 {height:300, width:600}, RUR.world_get.world_info);
-
+                                 {height:400, width:800}, RUR.world_get.world_info);
 },{"./../default_tiles/tiles.js":1,"./../dialogs/create.js":3,"./../listeners/canvas.js":18,"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../utils/supplant.js":66}],79:[function(require,module,exports){
 require("./../recorder/record_frame.js");
 
@@ -11649,39 +11699,6 @@ RUR.world_set = {};
 
 var set_dimension_form;
 
-//TODO: move add_solid_object to world_set folder
-RUR.world_set.add_solid_object = function (specific_object, x, y, nb){
-    "use strict";
-    var coords, tmp;
-
-    coords = x + "," + y;
-    RUR.utils.ensure_key_for_obj_exists(RUR.CURRENT_WORLD, "obstacles");
-    RUR.utils.ensure_key_for_obj_exists(RUR.CURRENT_WORLD.obstacles, coords);
-
-    try {
-        tmp = parseInt(nb, 10);
-        nb = tmp;
-    } catch (e) {}
-
-    if (nb === 0) {
-        delete RUR.CURRENT_WORLD.obstacles[coords][specific_object];
-        if (Object.keys(RUR.CURRENT_WORLD.obstacles[coords]).length === 0){
-            delete RUR.CURRENT_WORLD.obstacles[coords];
-        }
-        if (Object.keys(RUR.CURRENT_WORLD.obstacles).length === 0){
-            delete RUR.CURRENT_WORLD.obstacles;
-        }
-    } else {
-        RUR.CURRENT_WORLD.obstacles[coords][specific_object] = nb;
-    }
-};
-
-
-
-RUR.world_set.remove_all = function () {
-    RUR.CURRENT_WORLD.robots = [];
-    trim_world(0,0, RUR.MAX_X, RUR.MAX_Y);
-};
 
 function trim_world (min_x, min_y, max_x, max_y) {
     var x, y, coords;
@@ -11707,6 +11724,10 @@ function trim_world (min_x, min_y, max_x, max_y) {
         }
     }
 }
+
+// TODO: see if https://jsfiddle.net/6bwuq9wk/6/ might not
+// be more appropriate, or use
+// remove from all individual existing methods.
 
 function remove_all_at_location (coords) {
     // trading efficiency for clarity

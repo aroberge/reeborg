@@ -13,39 +13,6 @@ RUR.world_set = {};
 
 var set_dimension_form;
 
-//TODO: move add_solid_object to world_set folder
-RUR.world_set.add_solid_object = function (specific_object, x, y, nb){
-    "use strict";
-    var coords, tmp;
-
-    coords = x + "," + y;
-    RUR.utils.ensure_key_for_obj_exists(RUR.CURRENT_WORLD, "obstacles");
-    RUR.utils.ensure_key_for_obj_exists(RUR.CURRENT_WORLD.obstacles, coords);
-
-    try {
-        tmp = parseInt(nb, 10);
-        nb = tmp;
-    } catch (e) {}
-
-    if (nb === 0) {
-        delete RUR.CURRENT_WORLD.obstacles[coords][specific_object];
-        if (Object.keys(RUR.CURRENT_WORLD.obstacles[coords]).length === 0){
-            delete RUR.CURRENT_WORLD.obstacles[coords];
-        }
-        if (Object.keys(RUR.CURRENT_WORLD.obstacles).length === 0){
-            delete RUR.CURRENT_WORLD.obstacles;
-        }
-    } else {
-        RUR.CURRENT_WORLD.obstacles[coords][specific_object] = nb;
-    }
-};
-
-
-
-RUR.world_set.remove_all = function () {
-    RUR.CURRENT_WORLD.robots = [];
-    trim_world(0,0, RUR.MAX_X, RUR.MAX_Y);
-};
 
 function trim_world (min_x, min_y, max_x, max_y) {
     var x, y, coords;
@@ -71,6 +38,10 @@ function trim_world (min_x, min_y, max_x, max_y) {
         }
     }
 }
+
+// TODO: see if https://jsfiddle.net/6bwuq9wk/6/ might not
+// be more appropriate, or use
+// remove from all individual existing methods.
 
 function remove_all_at_location (coords) {
     // trading efficiency for clarity

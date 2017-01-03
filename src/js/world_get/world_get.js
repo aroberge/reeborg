@@ -96,11 +96,29 @@ RUR.world_get.world_info = function (no_grid) {
     var position, tile, obj, information, x, y, coords, obj_here, obj_type, goals;
     var topic, no_object, r, robot, robots;
     var tiles, tilename, fence_noted = false;
+    var description, insertion, to_replace;
+
 
     information = "";
 
     if (RUR.CURRENT_WORLD.description) {
-        information +="<b>" + RUR.translate("Description") + "</b><br>" + RUR.CURRENT_WORLD.description + "<hr>";
+        description = RUR.CURRENT_WORLD.description;
+        if (RUR.CURRENT_WORLD.pre) { // can be either javascript or python code
+            insertion = "<pre class='world_info_source'>" + RUR.CURRENT_WORLD.pre + "</pre>";
+            to_replace = "INSERT_PRE";
+            description = description.replace(to_replace, insertion);
+        }
+        if (RUR.CURRENT_WORLD.post) { // can be either javascript or python code
+            insertion = "<pre class='world_info_source'>" + RUR.CURRENT_WORLD.post + "</pre>";
+            to_replace = "INSERT_POST";
+            description = description.replace(to_replace, insertion);
+        }
+        if (RUR.CURRENT_WORLD.onload) { // only javascript, hence different class
+            insertion = "<pre class='world_info_onload'>" + RUR.CURRENT_WORLD.onload + "</pre>";
+            to_replace = "INSERT_ONLOAD";
+            description = description.replace(to_replace, insertion);
+        }
+        information +="<b>" + RUR.translate("Description") + "</b><br>" + description + "<hr>";
     }
 
     if (!no_grid) {
@@ -113,7 +131,11 @@ RUR.world_get.world_info = function (no_grid) {
         }
     }
 
-    tile = RUR.world_get.tile_at_position(x, y);
+    try {
+        tile = RUR.world_get.tile_at_position(x, y);
+    } catch (e) {
+        tile = false;
+    }
     topic = true;
     if (tile){
         if (RUR.translate(tile.info)) {
@@ -125,7 +147,11 @@ RUR.world_get.world_info = function (no_grid) {
         }
     }
 
-    tiles = RUR.get_obstacles(x, y);
+    try {
+        tiles = RUR.get_obstacles(x, y);
+    } catch (e) {
+        tiles = false;
+    }
     if (tiles) {
         for (tilename of tiles) {
             tile = RUR.TILES[tilename];
@@ -253,7 +279,29 @@ RUR.world_get.world_info = function (no_grid) {
     }
 
     $("#World-info").html(information);
+    $('.world_info_source').each(function() {
+        var $this = $(this), $code = $this.text();
+        $this.empty();
+        var myCodeMirror = CodeMirror(this, {
+            value: $code,
+            mode:  RUR.state.programming_language,
+            lineNumbers: !$this.is('.inline'),
+            readOnly: true,
+            theme: 'reeborg-readonly'
+        });
+    });
+    $('.world_info_onload').each(function() {
+        var $this = $(this), $code = $this.text();
+        $this.empty();
+        var myCodeMirror = CodeMirror(this, {
+            value: $code,
+            mode:  "javascript",
+            lineNumbers: !$this.is('.inline'),
+            readOnly: true,
+            theme: 'reeborg-readonly'
+        });
+    });
 };
 
 RUR.create_and_activate_dialogs( $("#world-info-button"), $("#World-info"),
-                                 {height:300, width:600}, RUR.world_get.world_info);
+                                 {height:400, width:800}, RUR.world_get.world_info);

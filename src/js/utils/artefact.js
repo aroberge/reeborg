@@ -399,6 +399,7 @@ RUR.utils.get_artefacts = function(args) {
  * @throws Will throw an error if no such artefact is found at that location.
  *
  * @see {@link UnitTest#test_artefact} for unit tests.
+ * @todo  Need to implement `args.all`
  *  
  */
 RUR.utils.remove_artefact = function (args) {

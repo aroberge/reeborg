@@ -216,6 +216,10 @@ RUR.control._robot_put_down_object = function (robot, obj) {
     } else {
         RUR.get_world().objects[coords][obj] += 1;
     }
+    // automatic transformation of tiles
+    // TODO: implement new methods for objects layer
+    // RUR.transform_tile(robot.x, robot.y, obj, "objects");
+
     RUR.record_frame("put", [robot.__id, obj]);
 };
 
