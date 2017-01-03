@@ -12,16 +12,18 @@ header                 {z-index: 100;}
 #background-canvas     {z-index: 1;}
 #tiles-canvas          {z-index: 10;}
 #tiles-canvas-anim     {z-index: 11;}
-#obstacles-canvas      {z-index: 20;}
-#obstacles-canvas-anim {z-index: 21;}
-#goal-canvas           {z-index: 30;}
-#goal-canvas-anim      {z-index: 31;}
-#objects-canvas        {z-index: 40;}
-#objects-canvas-anim   {z-index: 41;}
-#trace-canvas          {z-index: 50;}
-#pushables-canvas      {z-index: 60;}
-#pushables-canvas-anim {z-index: 61;}
-#robot-canvas          {z-index: 70;}
+#bridge-canvas         {z-index: 20;}
+#bridge-canvas-anim    {z-index: 21;}
+#obstacles-canvas      {z-index: 30;}
+#obstacles-canvas-anim {z-index: 31;}
+#goal-canvas           {z-index: 40;}
+#goal-canvas-anim      {z-index: 41;}
+#objects-canvas        {z-index: 50;}
+#objects-canvas-anim   {z-index: 51;}
+#trace-canvas          {z-index: 60;}
+#pushables-canvas      {z-index: 70;}
+#pushables-canvas-anim {z-index: 71;}
+#robot-canvas          {z-index: 80;}
 #tooltip               {z-index: 90;}
 #Reeborg-writes        {z-index: 210;}
 #Reeborg-concludes     {z-index: 211;}
@@ -485,7 +487,7 @@ li.failure:after {
 
 .cm-s-reeborg-readonly,
 .cm-s-reeborg-dark {
-    font-size: 11pt;
+    font-size: 12pt;
     line-height: 1.4em;
 }
 .cm-s-reeborg-readonly,

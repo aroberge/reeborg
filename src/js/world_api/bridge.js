@@ -5,7 +5,7 @@ require("./../recorder/record_frame.js");
 require("./../utils/artefact.js");
 require("./../world_utils/get_world.js");
 
-/** @function set_bridge
+/** @function add_bridge
  * @memberof RUR
  * @instance
  * @summary This function sets a named tile as a bridge at that location.
@@ -24,7 +24,7 @@ require("./../world_utils/get_world.js");
  * @todo deal with translation
  *
  */
-RUR.set_bridge = function (name, x, y) {
+RUR.add_bridge = function (name, x, y) {
     "use strict";
     var args = {name: name, x:x, y:y, type:"bridge", single:true};
     RUR.utils.add_artefact(args);

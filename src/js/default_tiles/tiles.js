@@ -17,7 +17,7 @@ var home_message, obj, tile;
 tile = {name: "mud",
     url: RUR._BASE_URL + '/src/images/mud.png',
     message: "I'm stuck in mud.",
-    fatal: true,
+    fatal: "mud",
     info: "Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."
 };
 RUR.add_new_type(tile);
@@ -25,7 +25,6 @@ RUR.add_new_type(tile);
 tile = {name: "ice",
     url: RUR._BASE_URL + '/src/images/ice.png',
     message: "I'm slipping on ice!",
-    slippery: true,
     info: "Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location."
 };
 RUR.add_new_type(tile);
@@ -57,7 +56,7 @@ tile = {
         RUR._BASE_URL + '/src/images/water5.png',
         RUR._BASE_URL + '/src/images/water6.png'],
     info: "Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location.",
-    fatal: true,
+    fatal: "water",
     detectable: true,
     message: "I'm in water!"
 };
@@ -68,7 +67,7 @@ tile = {name: "bricks",
     info: "brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.",
     message: "Crash!",
     detectable: true,
-    fatal: true,
+    fatal: "bricks",
     solid: true
 };
 RUR.add_new_type(tile);
@@ -80,7 +79,7 @@ tile = {name: "fire",
     info: "fire: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.",
     message: "My joints are melting!",
     detectable: true,
-    fatal: true
+    fatal: "fire"
 };
 RUR.add_new_type(tile);
 
@@ -136,16 +135,18 @@ _add_object_type("tulip");
 
 _add_object_type("box");
 RUR.TILES.box.name = "box";
-RUR.TILES.box.transform = [[{background_tile: "fire"}, null],
-                          [{obstacles: "fire"}, null],
-                          [{background_tile: "water"}, {bridge_layer: "bridge"}],
-                          [{background_tile: "mud"}, {bridge_layer: "bridge"}]];
+RUR.TILES.box.transform = [ 
+    [{type:"tiles", name:"fire"}, null],
+    [{type:"obstacles", name:"fire"}, null],
+    [{type:"tiles", name:"water"}, {type:"bridge", name:"bridge"}],
+    [{type:"tiles", name:"mud"}, {type:"bridge", name:"bridge"}]
+];
 
 tile = {
     name: "bridge",
     info: "Bridge:Reeborg <b>can</b> detect this and will know that it allows safe passage over water.",
     url: RUR._BASE_URL + '/src/images/bridge.png',
-    safe:true
+    protection: ["water", "mud"]
 };
 RUR.add_new_type(tile);
 

@@ -10,7 +10,6 @@ require("./validator.js");
 require("./supplant.js");
 require("./../world_utils/get_world.js");
 
-
 // private helper function that
 // ensures that the position is within the world boundaries
 function ensure_valid_position(args) {
@@ -349,7 +348,8 @@ RUR.utils.get_artefacts = function(args) {
     } else {
         container = world[args.type][coords];
     }
-    return container; 
+    // return a copy so that we cannot accidently modify the original object.
+    return JSON.parse(JSON.stringify(container)); 
 };
 
 

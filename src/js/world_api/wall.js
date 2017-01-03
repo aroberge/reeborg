@@ -49,15 +49,12 @@ that lists the walls, and must be handled separately.
  */
 RUR.get_walls = function(x, y, goal) {
     // var world = RUR.get_world();
-    var args = {x:x, y:y, goal:goal, type:"walls"}, result, walls=[];
+    var args = {x:x, y:y, goal:goal, type:"walls"}, walls;
 
-    // get_artefacts returns the original container; 
-    // we avoid making changes to add by making a copy
-    result = RUR.utils.get_artefacts(args); // gets "east" and "north"
-    if (result !== null) {
-        walls = walls.concat(result);
+    walls = RUR.utils.get_artefacts(args); // gets "east" and "north" if present
+    if (walls === null) {
+        walls = [];
     }
-    //
     if (RUR.is_wall("west", x, y, goal)) {
         walls.push("west");
     }
@@ -120,29 +117,11 @@ RUR.is_wall = function(orientation, x, y, goal) {
 // true if a wall of a specified orientation is found at a given
 // location and false otherwise
 function is_boundary_wall(orientation, x, y) {
-    switch (orientation){
-    case "east":
-        if (x === RUR.MAX_X){
-            return true;
-        }
-        break;
-    case "north":
-        if (y === RUR.MAX_Y){
-            return true;
-        }
-        break;
-    case "west":
-        if (x===1){
-            return true;
-        }
-        break;
-    case "south":
-        if (y===1){
-            return true;
-        }
-        break;
-    default:
-        throw new RUR.ReeborgError("Should not happen: unhandled case in is_boundary_wall().");
+    if ( (orientation == "east"  && x === RUR.MAX_X) ||
+         (orientation == "north" && y === RUR.MAX_Y) ||
+         (orientation == "west"  && x === 1) ||
+         (orientation == "south" && y === 1) ) {
+        return true;
     }
     return false;
 }

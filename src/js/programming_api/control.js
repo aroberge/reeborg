@@ -15,6 +15,7 @@ require("./../world_api/obstacles.js");
 require("./../world_api/background_tile.js");
 require("./../world_api/pushables.js");
 require("./../world_api/robot.js");
+require("./../world_api/composition.js");
 
 require("./../world_utils/get_world.js");
 
@@ -24,7 +25,8 @@ RUR.control = {};
 RUR.control.move = function (robot) {
     "use strict";
     var position, next_x, next_y, orientation, pushable_in_the_way, tile,
-        x_beyond, y_beyond, recording_state, next_position, current_x, current_y;
+        x_beyond, y_beyond, recording_state, next_position, current_x, current_y,
+        bridge;
 
     if (RUR.control.wall_in_front(robot)) {
         throw new RUR.WallCollisionError(RUR.translate("Ouch! I hit a wall!"));
@@ -57,6 +59,7 @@ RUR.control.move = function (robot) {
             throw new RUR.ReeborgError(RUR.translate("Something is blocking the way!"));
         } else {
             RUR.push_pushable(pushable_in_the_way, next_x, next_y, x_beyond, y_beyond);
+            RUR.transform_tile(x_beyond, y_beyond, pushable_in_the_way, "pushables");
         }
     }
     
@@ -71,27 +74,35 @@ RUR.control.move = function (robot) {
     }
     RUR.state.sound_id = "#move-sound";
 
-    // A "safe obstacle" (like a bridge) allows us to move safely,
-    // so we can end there.
-    if (RUR.is_obstacle_safe(robot.x, robot.y)) {
-        RUR.record_frame("move", robot.__id);
-        return;
-    }
 
     // A move has been performed ... but it may have been a fatal decision
+    
+    // bridge may offer protection
+    bridge = RUR.get_bridge(robot.x, robot.y);
+
+    // Both obstacles and background tile may be fatal
     tile = RUR.get_fatal_obstacle(robot.x, robot.y);
     if (tile && tile.fatal) {
-        throw new RUR.ReeborgError(tile.message);
-    }
-    tile = RUR.get_background_tile(robot.x, robot.y);
-    if (tile) {
-        if (tile.fatal) {
+        try {
+            if (bridge.protection.indexOf(tile.fatal) === -1) {
+                throw new RUR.ReeborgError(tile.message);
+            }
+        } catch (e) {
             throw new RUR.ReeborgError(tile.message);
-        } else if (tile.slippery) {
-            RUR.output.write(RUR.translate(tile.message) + "\n");
-            RUR.control.move(robot);    
         }
     }
+
+    tile = RUR.get_background_tile(robot.x, robot.y);
+    if (tile && tile.fatal) {
+        try {
+            if (bridge.protection.indexOf(tile.fatal) === -1) {
+                throw new RUR.ReeborgError(tile.message);
+            }
+        } catch (e) {
+            throw new RUR.ReeborgError(tile.message);
+        }
+    }
+
     RUR.record_frame("move", robot.__id);
 };
 

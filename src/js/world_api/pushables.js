@@ -4,8 +4,8 @@ require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
 require("./../utils/artefact.js");
 require("./../world_utils/get_world.js");
-require("./obstacles.js");
-require("./background_tile.js");
+// require("./obstacles.js");
+// require("./background_tile.js");
 
 /** @function add_pushable
  * @memberof RUR
@@ -114,65 +114,10 @@ RUR.get_pushable = function (x, y) {
     }
 };
 
-
 RUR.push_pushable = function (name, from_x, from_y, to_x, to_y) {
     recording_state = RUR.state.do_not_record;
     RUR.state.do_not_record = true;
     RUR.remove_pushable(name, from_x, from_y);
     RUR.add_pushable(name, to_x, to_y);
-    RUR.transform_pushable(name, to_x, to_y);
     RUR.state.do_not_record = recording_state;
-};
-
-RUR.transform_pushable = function(name, x, y) {
-    "use strict";
-    var args={name:name, x:x, y:y}, others, tile, self, recording_state, tile_name;
-    if (RUR.TILES[name].transform === undefined || 
-        RUR.is_obstacle_safe(x, y)) {
-        return;
-    }
-
-    self = RUR.TILES[name];
-    others = RUR.get_obstacles(x, y);
-    if (others !== null){
-        for (tile in self.transform) {
-            if (others.indexOf(tile) !== -1) {
-                recording_state = RUR.state.do_not_record;
-                RUR.state.do_not_record = true;
-                RUR.remove_pushable(name, x, y);
-                if (self.transform[tile] === null) {
-                    RUR.state.do_not_record = recording_state;
-                    RUR.record_frame("RUR.transform_pushable", args);
-                    return;
-                } else {
-                    RUR.add_obstacle(self.transform[tile], x, y);
-                    RUR.state.do_not_record = recording_state;
-                    RUR.record_frame("RUR.transform_pushable", args);
-                    return;
-                }
-            }
-        }
-    }
-    tile_name = RUR.get_background_tile(x, y);
-    if (tile_name === null) {
-        return;
-    }  
-
-    for (tile in self.transform) {
-        if (tile == tile_name) {
-            recording_state = RUR.state.do_not_record;
-            RUR.state.do_not_record = true;
-            RUR.remove_pushable(name, x, y);
-            if (self.transform[tile] === null) {
-                RUR.state.do_not_record = recording_state;
-                RUR.record_frame("RUR.transform_pushable", args);
-                return;
-            } else {
-                RUR.add_obstacle(self.transform[tile], x, y);
-                RUR.state.do_not_record = recording_state;
-                RUR.record_frame("RUR.transform_pushable", args);
-                return;
-            }
-        }
-    }
 };
