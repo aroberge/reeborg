@@ -19,30 +19,13 @@ RUR.world_get.tile_at_position = function (x, y) {
     return RUR.TILES[RUR.CURRENT_WORLD.tiles[coords]];
 };
 
-// RUR.world_get.pushable_object_at_position = function(x, y) {
+// RUR.world_get.obstacles_at_position = function (x, y) {
 //     "use strict";
-//     var objects_here, obj_here, obj_type, coords = x + ',' + y;
-//     if (RUR.CURRENT_WORLD.objects === undefined) return false;
-//     if (RUR.CURRENT_WORLD.objects[coords] === undefined) return false;
-//     objects_here = RUR.CURRENT_WORLD.objects[coords];
-
-//     for (obj_type in objects_here) {
-//         if (objects_here.hasOwnProperty(obj_type)) {
-//             if (RUR.TILES[obj_type].pushable) {
-//                 return obj_type;
-//             }
-//         }
-//     }
-//     return false;
+//     var coords = x + "," + y;
+//     if (RUR.CURRENT_WORLD.obstacles === undefined) return false;
+//     if (RUR.CURRENT_WORLD.obstacles[coords] === undefined) return false;
+//     return RUR.CURRENT_WORLD.obstacles[coords];
 // };
-
-RUR.world_get.obstacles_at_position = function (x, y) {
-    "use strict";
-    var coords = x + "," + y;
-    if (RUR.CURRENT_WORLD.obstacles === undefined) return false;
-    if (RUR.CURRENT_WORLD.obstacles[coords] === undefined) return false;
-    return RUR.CURRENT_WORLD.obstacles[coords];
-};
 
 RUR.world_get.object_at_robot_position = function (robot, obj) {
     return object_of_type_here(robot, obj, RUR.CURRENT_WORLD.objects);

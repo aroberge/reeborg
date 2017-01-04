@@ -25,7 +25,26 @@ require("./world_api/pushables.js");
 require("./world_api/robot.js");
 require("./world_api/wall.js");
 
-
+RUR.TILES.box.transform = [
+    {conditions: [[RUR.is_background_tile, "water"],
+                  [RUR.is_pushable, "box"]],
+    actions: [[RUR.remove_pushable, "box"], 
+              [RUR.add_bridge, "bridge"]]
+    },
+    {conditions: [[RUR.is_background_tile, "mud"],
+                  [RUR.is_pushable, "box"]],
+    actions: [[RUR.remove_pushable, "box"], 
+              [RUR.add_bridge, "bridge"]]
+    },
+    {conditions: [[RUR.is_background_tile, "fire"],
+                  [RUR.is_pushable, "box"]],
+    actions: [[RUR.remove_pushable, "box"]]   
+    },
+    {conditions: [[RUR.is_obstacle, "fire"],
+                  [RUR.is_pushable, "box"]],
+    actions: [[RUR.remove_pushable, "box"]]   
+    }     
+];
 
 brython({debug:1, pythonpath:[RUR._BASE_URL + '/src/python']});
 if (__BRYTHON__.__MAGIC__ != "3.2.7") {

@@ -7,118 +7,66 @@ require("./../world_utils/get_world.js");
 require("./obstacles.js");
 require("./background_tile.js");
 
-RUR.transform_tile = function(x, y, name, type) {
+function conditions_satisfied (conditions, x, y) {
     "use strict";
-    var i, transformations, t, tile1, tile2, tile3, tile4;
-    transformations = RUR.TILES[name].transform;
-    if (!transformations) {
-        return;
+    var c, cond, fn, name;
+    if (Object.prototype.toString.call(conditions) != "[object Array]" ||
+        conditions.length === 0) {
+        throw new ReeborgError("Invalid conditions when attempting an automatic object transformation.");
     }
-    tile1 = {name:name, type:type};
+    try {
+        for (c=0; c < conditions.length; c++) {
+            cond = conditions[c];
+            fn = cond[0];
+            name = cond[1];
+            if (!fn(name, x, y)) {
+                return false;
+            }
+        }
+    return true;
+    } catch (e) {
+        throw new ReeborgError("Invalid conditions when attempting an automatic object transformation.");
+    }
+}
 
-    for (i=0; i<transformations.length; i++) {
-        tile2 = transformations[i][0];
-        tile3 = transformations[i][1];
-        tile4 = transformations[i][2];
-        if (RUR.compose_tiles(x, y, tile1, tile2, tile3, tile4)) {
+function do_transformations (actions, x, y) {
+    "use strict";
+    var a, act, fn, name;
+    if (Object.prototype.toString.call(actions) != "[object Array]" ||
+        actions.length === 0) {
+        throw new ReeborgError("Invalid actions when attempting an automatic object transformation.");
+    }
+    try {
+        for (a=0; a < actions.length; a++) {
+            act = actions[a];
+            fn = act[0];
+            name = act[1];
+            fn(name, x, y);
+        }
+    } catch (e) {
+        throw new ReeborgError("Invalid actions when attempting an automatic object transformation.");
+    }
+}
+
+
+RUR.transform_tile = function (name, x, y, type) {
+    "use strict";
+    var t, transf, transformations, recording_state;
+    if (RUR.TILES[name].transform === undefined) {
+        return false;
+    }
+    transformations = RUR.TILES[name].transform;
+    for (t=0; t < transformations.length; t++) {
+        transf = transformations[t];
+        if (conditions_satisfied(transf.conditions, x, y)) {
+
+            recording_state = RUR.state.do_not_record;
+            RUR.state.do_not_record = true;
+
+            do_transformations(transf.actions, x, y);
+
+            RUR.state.do_not_record = recording_state;
             return;
         }
     }
 };
-
-// add note about possibly needing to record frame explicitly
-RUR.compose_tiles = function(x, y, tile1, tile2, tile3, tile4) {
-    var name1, name2, name3, name4, tile,
-        type1, type2, type3, type4, recording_state;
-
-    name2 = tile2.name;
-    type2 = tile2.type;
-
-    tile = get_tile(x, y, name2, type2);
-    if (tile === null) {
-        return false;
-    }
-
-    recording_state = RUR.state.do_not_record;
-    RUR.state.do_not_record = true;
-
-    name1 = tile1.name;
-    type1 = tile1.type;
-    remove_tile(x, y, name1, type1);
-
-    if (tile3) {
-        name3 = tile3.name;
-        type3 = tile3.type;
-        add_tile(x, y, name3, type3);        
-    }
-
-    if (tile4) {
-        remove_tile(x, y, name2, type2);
-        name4 = tile4.name;
-        type4 = tile4.type;
-        add_tile(x, y, name4, type4);   
-    }
-    RUR.state.do_not_record = recording_state;
-    return true;
-};
-
-function get_tile(x, y, name, type) {
-    switch(type) {
-        case "tiles": 
-            obj = RUR.get_background_tile(x, y);
-            if (obj && obj.name == name) return true;
-            break;
-        case "obstacles":
-            if (RUR.is_obstacle(name, x, y)) return true; 
-            break;
-        case "pushables":
-            obj = RUR.get_pushable(x, y);
-            if (obj && obj.name == name) return true;
-            break;
-        case "bridge":
-            obj = RUR.get_bridge(x, y);
-            if (obj && obj.name == name) return true;
-            break;
-        default:
-            throw new ReeborgError("Unrecognized type in RUR.compose_tiles/get_tile: " + type);
-    }
-    return null;
-}
-
-function add_tile(x, y, name, type) {
-    switch(type) {
-        case "tiles": 
-            RUR.set_background_tile(name, x, y);
-            break;
-        case "obstacles":
-            RUR.add_obstacle(name, x, y);
-            break;
-        case "pushables":
-            RUR.add_pushable(name, x, y);
-            break;
-        case "bridge":
-            RUR.add_bridge(name, x, y);
-            break;
-        default:
-            throw new ReeborgError("Unrecognized type in RUR.compose_tiles/add_tile: " + type);
-    }
-}
-
-function remove_tile(x, y, name, type) {
-    switch(type) {
-        case "tiles": 
-            RUR.remove_background_tile(name, x, y);
-            break;
-        case "obstacles":
-            RUR.remove_obstacle(name, x, y);
-            break;
-        case "pushables":
-            RUR.remove_pushable(name, x, y);
-            break;
-        case "bridge":
-            RUR.remove_bridge(name, x, y);
-            break;
-        default:
-            throw new ReeborgError("Unrecognized type in RUR.compose_tiles/remove_tile: " + type);
-    }
-}

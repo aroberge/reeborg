@@ -103,6 +103,19 @@ RUR.get_background_tile = function (x, y) {
     }
 };
 
+RUR.is_background_tile = function (name, x, y) {
+    "use strict";
+    var tile, args = {x:x, y:y, type:"tiles"};
+    tile = RUR.utils.get_artefacts(args);
+    if (tile === null) {
+        return false;
+    } else if (tile[0] == name){
+        return true;
+    } else {
+        return false;
+    }
+};
+
 RUR.is_background_tile_fatal = function(x, y) {
     "use strict";
     var tile, args = {x:x, y:y, type:"tiles"};

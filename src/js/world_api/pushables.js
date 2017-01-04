@@ -113,6 +113,40 @@ RUR.get_pushable = function (x, y) {
         return tiles[0];
     }
 };
+/** @function is_pushable
+ * @memberof RUR
+ * @instance
+ * @summary This function returns the name of a pushable found at that location;
+ *          For worlds designed "normally", such a list should contain only
+ *          one item since pushables cannot be pushed onto other pushables.
+ *          If nothing is found at that location,`null` is returned 
+ *          (which is converted to `None` in Python programs.)
+ *
+ * @param {integer} x  Position.
+ * @param {integer} y  Position.
+ * @returns {string} The name of the pushable at that location, or `null`.
+ *
+ * @throws Will throw an error if `(x, y)` is not a valid location.
+ *
+ * @todo add test
+ * @todo add proper examples
+ * @todo deal with translation
+ *
+ * @example
+ * // shows how to set various tiles;
+ * // the mode will be set to Python and the highlighting
+ * // will be turned off
+ * World("/worlds/examples/tile1.json", "Example 1")
+ *
+ */
+
+RUR.is_pushable = function (name, x, y) {
+    "use strict";
+    var tile, args = {x:x, y:y, type:"pushables"};
+    tile = RUR.utils.get_artefacts(args);
+    return tile == name;
+};
+
 
 RUR.push_pushable = function (name, from_x, from_y, to_x, to_y) {
     recording_state = RUR.state.do_not_record;

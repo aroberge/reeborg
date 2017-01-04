@@ -59,7 +59,7 @@ RUR.control.move = function (robot) {
             throw new RUR.ReeborgError(RUR.translate("Something is blocking the way!"));
         } else {
             RUR.push_pushable(pushable_in_the_way, next_x, next_y, x_beyond, y_beyond);
-            RUR.transform_tile(x_beyond, y_beyond, pushable_in_the_way, "pushables");
+            RUR.transform_tile(pushable_in_the_way, x_beyond, y_beyond, "pushables");
         }
     }
     

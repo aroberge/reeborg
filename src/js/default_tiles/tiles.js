@@ -135,12 +135,26 @@ _add_object_type("tulip");
 
 _add_object_type("box");
 RUR.TILES.box.name = "box";
-RUR.TILES.box.transform = [ 
-    [{type:"tiles", name:"fire"}, null],
-    [{type:"obstacles", name:"fire"}, null],
-    [{type:"tiles", name:"water"}, {type:"bridge", name:"bridge"}],
-    [{type:"tiles", name:"mud"}, {type:"bridge", name:"bridge"}]
-];
+// RUR.TILES.box.transform = [
+//     {conditions: [[RUR.is_background_tile, "water"],
+//                   [RUR.is_pushable, "box"]],
+//     actions: [[RUR.remove_pushable, "box"], 
+//               [RUR.add_bridge, "bridge"]]
+//     },
+//     {conditions: [[RUR.is_background_tile, "mud"],
+//                   [RUR.is_pushable, "box"]],
+//     actions: [[RUR.remove_pushable, "box"], 
+//               [RUR.add_bridge, "bridge"]]
+//     },
+//     {conditions: [[RUR.is_background_tile, "fire"],
+//                   [RUR.is_pushable, "box"]],
+//     actions: [[RUR.remove_pushable, "box"]]   
+//     },
+//     {conditions: [[RUR.is_obstacle, "fire"],
+//                   [RUR.is_pushable, "box"]],
+//     actions: [[RUR.remove_pushable, "box"]]   
+//     }     
+// ];
 
 tile = {
     name: "bridge",
