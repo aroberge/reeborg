@@ -20,10 +20,11 @@ RUR.record_frame = function () {};
 
 // main modules to test
 require("../../../src/js/world_api/background_tile.js");
-require("../../../src/js/world_api/bridge.js");
+require("../../../src/js/world_api/bridges.js");
+require("../../../src/js/world_api/decorative_objects.js");
 require("../../../src/js/world_api/obstacles.js");
 require("../../../src/js/world_api/pushables.js");
-require("../../../src/js/world_api/wall.js");
+require("../../../src/js/world_api/walls.js");
 
 function clone (world) {
     return JSON.parse(JSON.stringify(world));
@@ -61,7 +62,23 @@ test('bridge', function (assert) {
     assert.end();
 });
 
-test_only('obstacles', function (assert) {  
+test('decorative_object', function (assert) {  
+    var original_world;
+    assert.plan(5);  
+    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
+    RUR.TILES = {thing:true};
+    original_world = clone(RUR.CURRENT_WORLD);
+    assert.ok(RUR.CURRENT_WORLD.decorative_object === undefined, "confirm that key is not present initially.");
+    assert.ok(RUR.is_decorative_object("thing", 2, 3)===false, "start with no decorative_object.");
+    RUR.add_decorative_object("thing", 2, 3);
+    assert.ok(RUR.is_decorative_object("thing", 2, 3)===true, "confirm add_decorative_object worked.");
+    RUR.remove_decorative_object("thing", 2, 3);
+    assert.ok(RUR.is_decorative_object("thing", 2, 3)===false, "confirm remove_decorative_object worked.");
+    assert.deepEqual(RUR.CURRENT_WORLD, original_world, "confirm that we returned to original state.");
+    assert.end();
+});
+
+test('obstacles', function (assert) {  
     var original_world;
     assert.plan(5);  
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();

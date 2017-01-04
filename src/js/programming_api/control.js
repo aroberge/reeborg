@@ -10,7 +10,7 @@ require("./../world_set/world_set.js");
 require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
 
-require("./../world_api/wall.js");
+require("./../world_api/walls.js");
 require("./../world_api/obstacles.js");
 require("./../world_api/background_tile.js");
 require("./../world_api/pushables.js");
@@ -92,10 +92,10 @@ RUR.control.move = function (robot) {
         }
     }
 
-    tile = RUR.get_background_tile(robot.x, robot.y);
-    if (tile && tile.fatal) {
+    if (RUR.is_background_tile_fatal(robot.x, robot.y)) {
         try {
-            if (bridge.protection.indexOf(tile.fatal) === -1) {
+            tile = RUR.get_background_tile(robot.x, robot.y);
+            if (bridge.protection.indexOf(tile[0]) === -1) {
                 throw new RUR.ReeborgError(tile.message);
             }
         } catch (e) {
@@ -336,12 +336,14 @@ RUR.control.front_is_clear = function(robot){
     if (RUR.get_fatal_detectable_obstacle(next_x, next_y)) {
         return false;
     }
-    // "safe obstacles" protect us from any problem from background tiles
+
+    // TODO : This is now done by a different category: bridges
+    // So, the following code no longer works properly...
     if (RUR.is_obstacle_safe(next_x, next_y)) {
         return true;
     }
-    tile = RUR.get_background_tile(next_x, next_y);
-    if (tile && tile.detectable && tile.fatal){
+    if (RUR.is_background_tile_fatal(next_x, next_y) &&
+        RUR.is_background_tile_detectable(next_x, next_y)){
         return false;
     }
 

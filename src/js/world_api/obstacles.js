@@ -157,6 +157,7 @@ RUR.get_fatal_detectable_obstacle = function (x, y) {
     return false;
 };
 
+// TODO: modify this to take into account bridges.
 // safe obstacles only protect from fatal background tiles,
 // but not from fatal obstacles
 RUR.is_obstacle_safe = function (x, y) {

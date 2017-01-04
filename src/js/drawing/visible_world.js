@@ -62,19 +62,23 @@ RUR.vis_world.draw_all = function () {
         clearTimeout(RUR.ANIMATION_FRAME_ID);
         RUR.ANIMATION_FRAME_ID = undefined;
         RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-        RUR.TILES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
         RUR.BRIDGE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-        RUR.OBSTACLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.DECORATIVE_OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.OBSTACLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.PUSHABLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.TILES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
         RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
-        RUR.OBJECTS_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-        RUR.TILES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.BRIDGE_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.DECORATIVE_OBJECTS_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.OBJECTS_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.OBSTACLES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.PUSHABLES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.TILES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
         return;
     }
@@ -105,7 +109,8 @@ RUR.vis_world.refresh = function () {
     // start by clearing all the relevant contexts first.
     // some objects are drown on their own contexts.
     canvases = ["OBSTACLES_CTX", "GOAL_CTX", "OBJECTS_CTX", "ROBOT_CTX", 
-                "TILES_CTX", "TRACE_CTX", "PUSHABLES_CTX", "BRIDGE_CTX"];
+                "TILES_CTX", "TRACE_CTX", "PUSHABLES_CTX", "BRIDGE_CTX",
+                "DECORATIVE_OBJECTS_CTX"];
     for (canvas of canvases) {
         RUR[canvas].clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     }
@@ -123,13 +128,11 @@ RUR.vis_world.refresh = function () {
     draw_goal();  // on GOAL_CTX
     draw_tiles(current.tiles, RUR.TILES_CTX);
     draw_foreground_walls(current.walls); // on OBJECTS_CTX
-    draw_all_objects(current.decorative_objects);
+    draw_tiles(current.decorative_objects, RUR.DECORATIVE_OBJECTS_CTX);
     draw_all_objects(current.objects);  // on OBJECTS_CTX
         // draw_all_objects also called by draw_goal, and draws on GOAL_CTX
         // and, draws some objects on ROBOT_CTX
 
-    // objects: goal is false, tile is true
-    // draw_all_objects(current.obstacles, false, true); // likely on RUR.OBSTACLES_CTX
     draw_tiles(current.obstacles, RUR.OBSTACLES_CTX);
     draw_tiles(current.pushables, RUR.PUSHABLES_CTX);
     draw_tiles(current.bridge, RUR.BRIDGE_CTX);
@@ -385,15 +388,15 @@ draw_animated_images = function (){
     RUR.animated_images = false;
     objects = RUR.get_world().tiles;
     RUR.animated_images = __draw_animated_images(objects,
-                                RUR.animated_images, RUR.TILES, RUR.TILES_ANIM_CTX);
+                                RUR.animated_images, RUR.TILES_ANIM_CTX);
 
     objects = RUR.get_world().obstacles;
     RUR.animated_images = __draw_animated_images(objects,
-                                RUR.animated_images, RUR.TILES, RUR.OBSTACLES_ANIM_CTX);
+                                RUR.animated_images, RUR.OBSTACLES_ANIM_CTX);
 
     objects = RUR.get_world().objects;
     RUR.animated_images = __draw_animated_images(objects,
-                                RUR.animated_images, RUR.TILES, RUR.OBJECTS_ANIM_CTX);
+                                RUR.animated_images, RUR.OBJECTS_ANIM_CTX);
     if (RUR.animated_images) {
         clearTimeout(RUR.ANIMATION_FRAME_ID);
         RUR.ANIMATION_FRAME_ID = setTimeout(draw_animated_images,
@@ -401,7 +404,7 @@ draw_animated_images = function (){
     }
 };
 
-function __draw_animated_images (objects, flag, obj_ref, ctx) {
+function __draw_animated_images (objects, flag, ctx) {
     "use strict";
     var i, j, i_j, coords, k, image, obj, obj_here, elem, remove_flag, images_to_remove=[];
     if (objects === undefined) {
@@ -417,7 +420,7 @@ function __draw_animated_images (objects, flag, obj_ref, ctx) {
         if (Object.prototype.toString.call(obj_here) == "[object Array]") {
             //TODO: generalize this for the case where there is more than
             //one image at a location
-            obj = obj_ref[obj_here[0]];
+            obj = RUR.TILES[obj_here[0]];
             if (obj === undefined) {
                 continue;
             } else if (obj.choose_image !== undefined){
@@ -429,7 +432,7 @@ function __draw_animated_images (objects, flag, obj_ref, ctx) {
             }
         } else if (typeof obj_here == "object") { // e.g. objects: many at position
             for (elem in obj_here) {
-                obj = obj_ref[elem];
+                obj = RUR.TILES[elem];
                 if (obj === undefined) {
                     continue;
                 } else if (obj.choose_image !== undefined){
@@ -440,6 +443,7 @@ function __draw_animated_images (objects, flag, obj_ref, ctx) {
             }
         } else {
             console.warn("Problem: unknown type in __draw_animated_images");
+            console.log("obj_here = ", obj_here);
         }
     }
 

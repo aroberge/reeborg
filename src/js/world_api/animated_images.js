@@ -1,3 +1,7 @@
+/* This file contains methods used to create animated images by creating
+   the appropriate selection sequence from a list of images.
+ */
+
 require("./../rur.js");
 
 RUR.animated_images_init = function () {

@@ -10,7 +10,7 @@
 // setting global environment
 var tape_test = require('./../test_globals.js').tape_test;
 function test(test_name, fn) {
-    tape_test("wall.js: ", test_name, fn);
+    tape_test("walls.js: ", test_name, fn);
 }
 
 // intercepting record_frame
@@ -19,7 +19,7 @@ mock("../../../src/js/recorder/record_frame.js", {});
 RUR.record_frame = function () {};
 
 // main module to test
-require("../../../src/js/world_api/wall.js");
+require("../../../src/js/world_api/walls.js");
 
 
 /* testing exceptions =============================================*/

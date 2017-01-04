@@ -18,12 +18,15 @@ require("./editors/create.js");
 
 // ensure that all world_api methods are defined, even though they
 // might be already imported by the menu-driven world editor.
+// 
+// TODO: Add functional test ensuring that each type is appropriately loaded
 require("./world_api/background_tile.js");
-require("./world_api/bridge.js");
+require("./world_api/bridges.js");
+require("./world_api/decorative_objects.js");
 require("./world_api/obstacles.js");
 require("./world_api/pushables.js");
 require("./world_api/robot.js");
-require("./world_api/wall.js");
+require("./world_api/walls.js");
 
 RUR.TILES.box.transform = [
     {conditions: [[RUR.is_background_tile, "water"],

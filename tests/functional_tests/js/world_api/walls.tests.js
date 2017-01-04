@@ -17,7 +17,7 @@
  */
 
 
-QUnit.module("testing wall.js", {
+QUnit.module("testing walls.js", {
   beforeEach: function() {
     test_utils.reset();  }
 });

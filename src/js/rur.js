@@ -158,6 +158,14 @@ function set_canvases () {
     RUR.OBJECTS_ANIM_CTX = RUR.OBJECTS_CANVAS_ANIM.getContext("2d");
     RUR.CANVASES.push(RUR.OBJECTS_CANVAS_ANIM);
 
+    RUR.DECORATIVE_OBJECTS_CANVAS = document.getElementById("decorative-objects-canvas");
+    RUR.DECORATIVE_OBJECTS_CTX = RUR.DECORATIVE_OBJECTS_CANVAS.getContext("2d");
+    RUR.CANVASES.push(RUR.DECORATIVE_OBJECTS_CANVAS);
+
+    RUR.DECORATIVE_OBJECTS_CANVAS_ANIM = document.getElementById("decorative-objects-canvas-anim");
+    RUR.DECORATIVE_OBJECTS_ANIM_CTX = RUR.DECORATIVE_OBJECTS_CANVAS_ANIM.getContext("2d");
+    RUR.CANVASES.push(RUR.DECORATIVE_OBJECTS_CANVAS_ANIM);
+
     RUR.TRACE_CANVAS = document.getElementById("trace-canvas");
     RUR.TRACE_CTX = RUR.TRACE_CANVAS.getContext("2d");
     RUR.CANVASES.push(RUR.TRACE_CANVAS);

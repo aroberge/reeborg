@@ -1,4 +1,3 @@
-
 QUnit.module(" runner.js : Javascript programs", {
   beforeEach: function() {
     test_utils.reset();  }

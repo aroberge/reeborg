@@ -877,19 +877,23 @@ RUR.vis_world.draw_all = function () {
         clearTimeout(RUR.ANIMATION_FRAME_ID);
         RUR.ANIMATION_FRAME_ID = undefined;
         RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-        RUR.TILES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
         RUR.BRIDGE_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-        RUR.OBSTACLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.DECORATIVE_OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.GOAL_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.OBJECTS_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.OBSTACLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.PUSHABLES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.TILES_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
         RUR.ROBOT_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
-        RUR.OBJECTS_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-        RUR.TILES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.BRIDGE_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.DECORATIVE_OBJECTS_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.OBJECTS_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.OBSTACLES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
         RUR.PUSHABLES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+        RUR.TILES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
 
         return;
     }
@@ -920,7 +924,8 @@ RUR.vis_world.refresh = function () {
     // start by clearing all the relevant contexts first.
     // some objects are drown on their own contexts.
     canvases = ["OBSTACLES_CTX", "GOAL_CTX", "OBJECTS_CTX", "ROBOT_CTX", 
-                "TILES_CTX", "TRACE_CTX", "PUSHABLES_CTX", "BRIDGE_CTX"];
+                "TILES_CTX", "TRACE_CTX", "PUSHABLES_CTX", "BRIDGE_CTX",
+                "DECORATIVE_OBJECTS_CTX"];
     for (canvas of canvases) {
         RUR[canvas].clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     }
@@ -938,13 +943,11 @@ RUR.vis_world.refresh = function () {
     draw_goal();  // on GOAL_CTX
     draw_tiles(current.tiles, RUR.TILES_CTX);
     draw_foreground_walls(current.walls); // on OBJECTS_CTX
-    draw_all_objects(current.decorative_objects);
+    draw_tiles(current.decorative_objects, RUR.DECORATIVE_OBJECTS_CTX);
     draw_all_objects(current.objects);  // on OBJECTS_CTX
         // draw_all_objects also called by draw_goal, and draws on GOAL_CTX
         // and, draws some objects on ROBOT_CTX
 
-    // objects: goal is false, tile is true
-    // draw_all_objects(current.obstacles, false, true); // likely on RUR.OBSTACLES_CTX
     draw_tiles(current.obstacles, RUR.OBSTACLES_CTX);
     draw_tiles(current.pushables, RUR.PUSHABLES_CTX);
     draw_tiles(current.bridge, RUR.BRIDGE_CTX);
@@ -1200,15 +1203,15 @@ draw_animated_images = function (){
     RUR.animated_images = false;
     objects = RUR.get_world().tiles;
     RUR.animated_images = __draw_animated_images(objects,
-                                RUR.animated_images, RUR.TILES, RUR.TILES_ANIM_CTX);
+                                RUR.animated_images, RUR.TILES_ANIM_CTX);
 
     objects = RUR.get_world().obstacles;
     RUR.animated_images = __draw_animated_images(objects,
-                                RUR.animated_images, RUR.TILES, RUR.OBSTACLES_ANIM_CTX);
+                                RUR.animated_images, RUR.OBSTACLES_ANIM_CTX);
 
     objects = RUR.get_world().objects;
     RUR.animated_images = __draw_animated_images(objects,
-                                RUR.animated_images, RUR.TILES, RUR.OBJECTS_ANIM_CTX);
+                                RUR.animated_images, RUR.OBJECTS_ANIM_CTX);
     if (RUR.animated_images) {
         clearTimeout(RUR.ANIMATION_FRAME_ID);
         RUR.ANIMATION_FRAME_ID = setTimeout(draw_animated_images,
@@ -1216,7 +1219,7 @@ draw_animated_images = function (){
     }
 };
 
-function __draw_animated_images (objects, flag, obj_ref, ctx) {
+function __draw_animated_images (objects, flag, ctx) {
     "use strict";
     var i, j, i_j, coords, k, image, obj, obj_here, elem, remove_flag, images_to_remove=[];
     if (objects === undefined) {
@@ -1232,7 +1235,7 @@ function __draw_animated_images (objects, flag, obj_ref, ctx) {
         if (Object.prototype.toString.call(obj_here) == "[object Array]") {
             //TODO: generalize this for the case where there is more than
             //one image at a location
-            obj = obj_ref[obj_here[0]];
+            obj = RUR.TILES[obj_here[0]];
             if (obj === undefined) {
                 continue;
             } else if (obj.choose_image !== undefined){
@@ -1244,7 +1247,7 @@ function __draw_animated_images (objects, flag, obj_ref, ctx) {
             }
         } else if (typeof obj_here == "object") { // e.g. objects: many at position
             for (elem in obj_here) {
-                obj = obj_ref[elem];
+                obj = RUR.TILES[elem];
                 if (obj === undefined) {
                     continue;
                 } else if (obj.choose_image !== undefined){
@@ -1255,6 +1258,7 @@ function __draw_animated_images (objects, flag, obj_ref, ctx) {
             }
         } else {
             console.warn("Problem: unknown type in __draw_animated_images");
+            console.log("obj_here = ", obj_here);
         }
     }
 
@@ -2408,10 +2412,9 @@ require("./../utils/key_exist.js");
 require("./../world_set/object.js");
 require("./../world_set/goal_object.js");
 require("./../world_set/add_robot.js");
-require("./../world_set/decorative_object.js");
 require("./../world_set/give_object_to_robot.js");
 
-require("./../world_api/wall.js"); 
+require("./../world_api/walls.js"); 
 
 var edit_robot_menu = require("./../ui/edit_robot_menu.js");
 var dialog_add_object = require("./../dialogs/add_object.js").dialog_add_object;
@@ -2446,7 +2449,15 @@ RUR.we.edit_world = function  () {
                 position = RUR.calculate_grid_position();
                 x = position[0];
                 y = position[1];
-                RUR.toggle_decorative_object_at_position(value, x, y);
+                console.log("should add/remove decorative");
+                if (RUR.is_decorative_object(value, x, y)) {
+                    console.log("is_decorative_object true; should remove");
+                    RUR.remove_decorative_object(value, x, y);
+                } else {
+                    console.log("is_decorative_object false; should add");                    
+                    RUR.add_decorative_object(value, x, y);
+                }
+                // RUR.toggle_decorative_object_at_position(value, x, y);
             } else {
                 RUR.we._add_object(value);
             }
@@ -2920,15 +2931,15 @@ RUR.we.set_goal_position = function (home){
     }
 };
 
-RUR.we.toggle_tile = function (tile){
+RUR.we.toggle_tile = function (name){
     // will remove the position if clicked again with tile of same type.
     "use strict";
-    var x, y, position, coords, index;
+    var x, y, position;
 
-    if (!tile) {  // if we cancel the dialog
+    if (!name) {  // if we cancel the dialog
         return;
-    } else if (tile === "colour") {
-        RUR._CALLBACK_FN = RUR.we.toggle_tile;
+    } else if (name === "colour") {
+        RUR._CALLBACK_FN = RUR.we.toggle_tile;  // TODO: review this dialog
         dialog_select_colour.dialog("open");
         return;
     }
@@ -2936,33 +2947,29 @@ RUR.we.toggle_tile = function (tile){
     position = RUR.calculate_grid_position();
     x = position[0];
     y = position[1];
-    coords = x + "," + y;
 
-    RUR.utils.ensure_key_for_obj_exists(RUR.CURRENT_WORLD, "tiles");
-    if (RUR.CURRENT_WORLD.tiles[coords] === undefined ||
-        RUR.CURRENT_WORLD.tiles[coords] != tile){
-        RUR.CURRENT_WORLD.tiles[coords] = tile;
+    if (RUR.is_background_tile(name, x, y)) {
+        RUR.remove_background_tile(name, x, y);
     } else {
-        delete RUR.CURRENT_WORLD.tiles[coords];
+        RUR.add_background_tile(name, x, y);
     }
 };
 
-RUR.we.fill_with_tile = function (tile) {
-    var x, y, coords;
+RUR.we.fill_with_tile = function (name) {
+    "use strict";
+    var x, y;
 
-    if (!tile) {    // if we cancel the dialog
+    if (!name) {    // if we cancel the dialog
         return;
-    } else if (tile === "colour") {
+    } else if (name === "colour") {
         RUR._CALLBACK_FN = RUR.we.fill_with_tile;
         dialog_select_colour.dialog("open");
         return;
     }
 
-    RUR.utils.ensure_key_for_obj_exists(RUR.CURRENT_WORLD, "tiles");
     for (x = 1; x <= RUR.MAX_X; x++) {
         for (y = 1; y <= RUR.MAX_Y; y++) {
-            coords = x + "," + y;
-            RUR.CURRENT_WORLD.tiles[coords] = tile;
+            RUR.add_background_tile(name, x, y);
         }
     }
     RUR.vis_world.refresh_world_edited();
@@ -2980,11 +2987,13 @@ RUR.we.toggle_obstacle = function (obj){
     y = position[1];
 
     //RUR.toggle_obstacle_at_position(obj, x, y);
-
-    if (RUR.is_obstacle(obj, x, y) === 0) {
-        RUR.add_obstacle(obj, x, y);
-    } else {
+    console.log("about to toggle obstacle.");
+    if (RUR.is_obstacle(obj, x, y)) {
+        console.log("obstacle here; should remove");
         RUR.remove_obstacle(obj, x, y);
+    } else {
+        console.log("obstacle missing; should add");
+        RUR.add_obstacle(obj, x, y);
     }
 };
 
@@ -2997,7 +3006,7 @@ $("#robot-canvas").on("click", function (evt) {
     RUR.world_get.world_info();
 });
 
-},{"./../default_tiles/tiles.js":1,"./../dialogs/add_object.js":2,"./../dialogs/create.js":3,"./../dialogs/give_object.js":4,"./../dialogs/goal_object.js":5,"./../dialogs/select_colour.js":6,"./../dialogs/set_background_image.js":7,"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../editors/update.js":11,"./../listeners/canvas.js":18,"./../programming_api/exceptions.js":42,"./../robot/robot.js":49,"./../rur.js":52,"./../translator.js":56,"./../ui/edit_robot_menu.js":58,"./../utils/identical.js":63,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../world_api/wall.js":77,"./../world_get/world_get.js":78,"./../world_set/add_robot.js":79,"./../world_set/decorative_object.js":80,"./../world_set/give_object_to_robot.js":81,"./../world_set/goal_object.js":82,"./../world_set/object.js":83,"./../world_set/world_set.js":85}],15:[function(require,module,exports){
+},{"./../default_tiles/tiles.js":1,"./../dialogs/add_object.js":2,"./../dialogs/create.js":3,"./../dialogs/give_object.js":4,"./../dialogs/goal_object.js":5,"./../dialogs/select_colour.js":6,"./../dialogs/set_background_image.js":7,"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../editors/update.js":11,"./../listeners/canvas.js":18,"./../programming_api/exceptions.js":42,"./../robot/robot.js":49,"./../rur.js":52,"./../translator.js":56,"./../ui/edit_robot_menu.js":58,"./../utils/identical.js":63,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../world_api/walls.js":78,"./../world_get/world_get.js":79,"./../world_set/add_robot.js":80,"./../world_set/give_object_to_robot.js":81,"./../world_set/goal_object.js":82,"./../world_set/object.js":83,"./../world_set/world_set.js":85}],15:[function(require,module,exports){
 /* require this module that will automatically modify a global object*/
 require("./utils/cors.js");
 
@@ -6412,7 +6421,7 @@ require("./../world_set/world_set.js");
 require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
 
-require("./../world_api/wall.js");
+require("./../world_api/walls.js");
 require("./../world_api/obstacles.js");
 require("./../world_api/background_tile.js");
 require("./../world_api/pushables.js");
@@ -6494,10 +6503,10 @@ RUR.control.move = function (robot) {
         }
     }
 
-    tile = RUR.get_background_tile(robot.x, robot.y);
-    if (tile && tile.fatal) {
+    if (RUR.is_background_tile_fatal(robot.x, robot.y)) {
         try {
-            if (bridge.protection.indexOf(tile.fatal) === -1) {
+            tile = RUR.get_background_tile(robot.x, robot.y);
+            if (bridge.protection.indexOf(tile[0]) === -1) {
                 throw new RUR.ReeborgError(tile.message);
             }
         } catch (e) {
@@ -6738,12 +6747,14 @@ RUR.control.front_is_clear = function(robot){
     if (RUR.get_fatal_detectable_obstacle(next_x, next_y)) {
         return false;
     }
-    // "safe obstacles" protect us from any problem from background tiles
+
+    // TODO : This is now done by a different category: bridges
+    // So, the following code no longer works properly...
     if (RUR.is_obstacle_safe(next_x, next_y)) {
         return true;
     }
-    tile = RUR.get_background_tile(next_x, next_y);
-    if (tile && tile.detectable && tile.fatal){
+    if (RUR.is_background_tile_fatal(next_x, next_y) &&
+        RUR.is_background_tile_detectable(next_x, next_y)){
         return false;
     }
 
@@ -6850,7 +6861,7 @@ RUR.control.get_colour_at_position = function (x, y) {
 };
 RUR.control.get_color_at_position = RUR.control.get_colour_at_position;
 
-},{"./../default_tiles/tiles.js":1,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../world_api/background_tile.js":71,"./../world_api/composition.js":73,"./../world_api/obstacles.js":74,"./../world_api/pushables.js":75,"./../world_api/robot.js":76,"./../world_api/wall.js":77,"./../world_get/world_get.js":78,"./../world_set/world_set.js":85,"./../world_utils/get_world.js":89,"./exceptions.js":42,"./output.js":43}],42:[function(require,module,exports){
+},{"./../default_tiles/tiles.js":1,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../world_api/background_tile.js":71,"./../world_api/composition.js":73,"./../world_api/obstacles.js":75,"./../world_api/pushables.js":76,"./../world_api/robot.js":77,"./../world_api/walls.js":78,"./../world_get/world_get.js":79,"./../world_set/world_set.js":85,"./../world_utils/get_world.js":89,"./exceptions.js":42,"./output.js":43}],42:[function(require,module,exports){
 
 require("./../rur.js");
 
@@ -7368,7 +7379,7 @@ check_robots_on_tiles = function(frame){
 };
 
 
-},{"./../playback/show_immediate.js":38,"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../utils/supplant.js":66,"./../world_get/world_get.js":78,"./../world_utils/clone_world.js":86,"./reset.js":48}],47:[function(require,module,exports){
+},{"./../playback/show_immediate.js":38,"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../utils/supplant.js":66,"./../world_get/world_get.js":79,"./../world_utils/clone_world.js":86,"./reset.js":48}],47:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../drawing/visible_world.js");
@@ -7648,7 +7659,7 @@ RUR.rec.check_goal = function (frame) {
     return goal_status;
 };
 
-},{"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../listeners/pause.js":24,"./../listeners/stop.js":32,"./../playback/play_sound.js":37,"./../programming_api/exceptions.js":42,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/identical.js":63,"./../world_get/world_get.js":78,"./../world_utils/clone_world.js":86}],48:[function(require,module,exports){
+},{"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../listeners/pause.js":24,"./../listeners/stop.js":32,"./../playback/play_sound.js":37,"./../programming_api/exceptions.js":42,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/identical.js":63,"./../world_get/world_get.js":79,"./../world_utils/clone_world.js":86}],48:[function(require,module,exports){
 require("./../rur.js");
 require("./../editors/create.js");
 require("./../world_api/animated_images.js");
@@ -8352,6 +8363,14 @@ function set_canvases () {
     RUR.OBJECTS_ANIM_CTX = RUR.OBJECTS_CANVAS_ANIM.getContext("2d");
     RUR.CANVASES.push(RUR.OBJECTS_CANVAS_ANIM);
 
+    RUR.DECORATIVE_OBJECTS_CANVAS = document.getElementById("decorative-objects-canvas");
+    RUR.DECORATIVE_OBJECTS_CTX = RUR.DECORATIVE_OBJECTS_CANVAS.getContext("2d");
+    RUR.CANVASES.push(RUR.DECORATIVE_OBJECTS_CANVAS);
+
+    RUR.DECORATIVE_OBJECTS_CANVAS_ANIM = document.getElementById("decorative-objects-canvas-anim");
+    RUR.DECORATIVE_OBJECTS_ANIM_CTX = RUR.DECORATIVE_OBJECTS_CANVAS_ANIM.getContext("2d");
+    RUR.CANVASES.push(RUR.DECORATIVE_OBJECTS_CANVAS_ANIM);
+
     RUR.TRACE_CANVAS = document.getElementById("trace-canvas");
     RUR.TRACE_CTX = RUR.TRACE_CANVAS.getContext("2d");
     RUR.CANVASES.push(RUR.TRACE_CANVAS);
@@ -8462,12 +8481,15 @@ require("./editors/create.js");
 
 // ensure that all world_api methods are defined, even though they
 // might be already imported by the menu-driven world editor.
+// 
+// TODO: Add functional test ensuring that each type is appropriately loaded
 require("./world_api/background_tile.js");
-require("./world_api/bridge.js");
+require("./world_api/bridges.js");
+require("./world_api/decorative_objects.js");
 require("./world_api/obstacles.js");
 require("./world_api/pushables.js");
 require("./world_api/robot.js");
-require("./world_api/wall.js");
+require("./world_api/walls.js");
 
 RUR.TILES.box.transform = [
     {conditions: [[RUR.is_background_tile, "water"],
@@ -8561,7 +8583,7 @@ function set_world(url_query) {
     }
 }
 
-},{"./default_tiles/tiles.js":1,"./editors/create.js":10,"./listeners/add_listeners.js":17,"./permalink/permalink.js":35,"./programming_api/blockly.js":39,"./rur.js":52,"./splash_screen.js":53,"./storage/storage.js":55,"./utils/parseuri.js":65,"./world_api/background_tile.js":71,"./world_api/bridge.js":72,"./world_api/obstacles.js":74,"./world_api/pushables.js":75,"./world_api/robot.js":76,"./world_api/wall.js":77,"./world_utils/import_world.js":90}],55:[function(require,module,exports){
+},{"./default_tiles/tiles.js":1,"./editors/create.js":10,"./listeners/add_listeners.js":17,"./permalink/permalink.js":35,"./programming_api/blockly.js":39,"./rur.js":52,"./splash_screen.js":53,"./storage/storage.js":55,"./utils/parseuri.js":65,"./world_api/background_tile.js":71,"./world_api/bridges.js":72,"./world_api/decorative_objects.js":74,"./world_api/obstacles.js":75,"./world_api/pushables.js":76,"./world_api/robot.js":77,"./world_api/walls.js":78,"./world_utils/import_world.js":90}],55:[function(require,module,exports){
 /* This file documents methods used to save worlds to and retrieve them
    from a browser's local storage.
 
@@ -9835,6 +9857,10 @@ RUR.add_new_object_type = function (name, url, url_goal) {
 RUR.add_object_image = RUR.add_new_object_type; // Vincent Maille's book.
 
 },{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./animated_images.js":70}],70:[function(require,module,exports){
+/* This file contains methods used to create animated images by creating
+   the appropriate selection sequence from a list of images.
+ */
+
 require("./../rur.js");
 
 RUR.animated_images_init = function () {
@@ -9986,7 +10012,7 @@ require("./../world_utils/get_world.js");
  *    tile name is not recognized, it is assumed to be a colour. If a new tile
  *    is set at that location, it replaces the pre-existing one.
  *
- *
+ * @param {string} name Name of the tile
  * @param {integer} x  Position of the tile.
  * @param {integer} y  Position of the tile.
  *
@@ -10069,19 +10095,19 @@ RUR.remove_background_tile = function (name, x, y) {
 
 RUR.get_background_tile = function (x, y) {
     "use strict";
-    var tile, args = {x:x, y:y, type:"tiles"};
-    tile = RUR.utils.get_artefacts(args);
-    if (tile === null) {
+    var tiles, args = {x:x, y:y, type:"tiles"};
+    tiles = RUR.utils.get_artefacts(args);
+    if (tiles === null) {
         return null;
     } else {
-        return RUR.TILES[tile[0]];
+        return tiles;
     }
 };
 
 RUR.is_background_tile = function (name, x, y) {
     "use strict";
     var tile, args = {x:x, y:y, type:"tiles"};
-    tile = RUR.utils.get_artefacts(args);
+    tile = RUR.get_background_tile(x, y);
     if (tile === null) {
         return false;
     } else if (tile[0] == name){
@@ -10098,12 +10124,14 @@ RUR.is_background_tile_fatal = function(x, y) {
     if (tile === null) {
         return false;
     } else if (RUR.TILES[tile[0]].fatal) {
-        return RUR.TILES[tile[0]];
+        return RUR.TILES[tile[0]]; // todo: return the name instead
     } else {
         return false;
     }
 };
 
+// todo: change this into undetectable, and return the name
+// of the tile when it is.
 RUR.is_background_tile_detectable = function(x, y) {
     "use strict";
     var tile, args = {x:x, y:y, type:"tiles"};
@@ -10151,7 +10179,6 @@ RUR.add_bridge = function (name, x, y) {
     RUR.utils.add_artefact(args);
     RUR.record_frame("RUR.set_bridge", args);
 };
-
 
 /** @function remove_bridge
  * @memberof RUR
@@ -10366,7 +10393,131 @@ RUR.transform_tile = function (name, x, y, type) {
     }
 };
 
-},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/artefact.js":61,"./../utils/key_exist.js":64,"./../utils/validator.js":68,"./../world_utils/get_world.js":89,"./background_tile.js":71,"./obstacles.js":74}],74:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/artefact.js":61,"./../utils/key_exist.js":64,"./../utils/validator.js":68,"./../world_utils/get_world.js":89,"./background_tile.js":71,"./obstacles.js":75}],74:[function(require,module,exports){
+require("./../rur.js");
+require("./../utils/key_exist.js");
+require("./../utils/validator.js");
+require("./../recorder/record_frame.js");
+require("./../utils/artefact.js");
+require("./../world_utils/get_world.js");
+
+/** @function add_decorative_object
+ * @memberof RUR
+ * @instance
+ * @summary This function sets a named tile as background at a location.
+ *
+ * @param {string} name The name of a tile **or** a colour recognized by JS/HTML.
+ *    No check is performed to ensure that the value given is valid; it the
+ *    tile name is not recognized, it is assumed to be a colour. If a new tile
+ *    is set at that location, it replaces the pre-existing one.
+ *
+ * @param {string} name Name of the tile
+ * @param {integer} x  Position of the tile.
+ * @param {integer} y  Position of the tile.
+ *
+ * @throws Will throw an error if `(x, y)` is not a valid location..
+ *
+ * @todo add test
+ * @todo add better examples
+ * @todo deal with translation
+ * @example
+ * // shows how to set various tiles;
+ * // the mode will be set to Python and the highlighting
+ * // will be turned off
+ * World("/worlds/examples/tile1.json", "Example 1")
+ *
+ */
+RUR.add_decorative_object = function (name, x, y) {
+    "use strict";
+    var args = {name: name, x:x, y:y, type:"decorative_objects"};
+    RUR.utils.add_artefact(args);
+    RUR.record_frame("RUR.add_decorative_object", args);
+};
+
+
+/** @function remove_decorative_object
+ * @memberof RUR
+ * @instance
+ * @summary This function removes a background tile at a location.
+ *
+ * @param {string} name Name of the tile
+ * @param {integer} x  Position of the tile.
+ * @param {integer} y  Position of the tile.
+ *
+ * @throws Will throw an error if `(x, y)` is not a valid location.
+ * @throws Will throw an error if there is no background tile to remove
+ *        at that location
+ *        
+ * @todo add test
+ * @todo add examples
+ * @todo deal with translation
+ */
+RUR.remove_decorative_object = function (name, x, y) {
+    "use strict";
+    var args;
+    args= {x:x, y:y, type:"decorative_objects", name:name};
+    try {
+        RUR.utils.remove_artefact(args);
+    } catch (e) {
+        if (e.message == "No artefact to remove") {
+            throw new ReeborgError("No tile to remove here.");
+        } else {
+            throw e;
+        }
+    }
+    RUR.record_frame("RUR.remove_decorative_object", args);
+};
+
+
+/** @function get_decorative_object
+ * @memberof RUR
+ * @instance
+ * @summary This function gets the tile name found at given location. Note that
+ *    this could be an HTML colour.  If nothing is found at that location,
+ *    `null` is returned (which is converted to `None` in Python programs.)
+ *
+ * @param {integer} x  Position of the tile.
+ * @param {integer} y  Position of the tile.
+ *
+ * @throws Will throw an error if `(x, y)` is not a valid location..
+ *
+ * @todo add test
+ * @todo add proper examples
+ * @todo deal with translation
+ * @example
+ * // shows how to set various tiles;
+ * // the mode will be set to Python and the highlighting
+ * // will be turned off
+ * World("/worlds/examples/tile1.json", "Example 1")
+ *
+ */
+
+RUR.get_decorative_object = function (x, y) {
+    "use strict";
+    var tile, args = {x:x, y:y, type:"decorative_objects"};
+    tile = RUR.utils.get_artefacts(args);
+    if (tile === null) {
+        return null;
+    } else {
+        return RUR.TILES[tile[0]];
+    }
+};
+
+RUR.is_decorative_object = function (name, x, y) {
+    "use strict";
+    var tile, args = {x:x, y:y, type:"decorative_objects"};
+    tile = RUR.utils.get_artefacts(args);
+    if (tile === null) {
+        return false;
+    } else if (tile[0] == name){
+        return true;
+    } else {
+        return false;
+    }
+};
+
+
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/artefact.js":61,"./../utils/key_exist.js":64,"./../utils/validator.js":68,"./../world_utils/get_world.js":89}],75:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
@@ -10526,6 +10677,7 @@ RUR.get_fatal_detectable_obstacle = function (x, y) {
     return false;
 };
 
+// TODO: modify this to take into account bridges.
 // safe obstacles only protect from fatal background tiles,
 // but not from fatal obstacles
 RUR.is_obstacle_safe = function (x, y) {
@@ -10544,7 +10696,7 @@ RUR.is_obstacle_safe = function (x, y) {
     }
     return safe_found;
 };
-},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/artefact.js":61,"./../utils/key_exist.js":64,"./../utils/validator.js":68,"./../world_utils/get_world.js":89}],75:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/artefact.js":61,"./../utils/key_exist.js":64,"./../utils/validator.js":68,"./../world_utils/get_world.js":89}],76:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
@@ -10702,7 +10854,7 @@ RUR.push_pushable = function (name, from_x, from_y, to_x, to_y) {
     RUR.add_pushable(name, to_x, to_y);
     RUR.state.do_not_record = recording_state;
 };
-},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/artefact.js":61,"./../utils/key_exist.js":64,"./../utils/validator.js":68,"./../world_utils/get_world.js":89}],76:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/artefact.js":61,"./../utils/key_exist.js":64,"./../utils/validator.js":68,"./../world_utils/get_world.js":89}],77:[function(require,module,exports){
 require("./../rur.js");
 require("./../world_utils/get_world.js");
 
@@ -10880,7 +11032,7 @@ RUR.get_position_in_front = function (robot) {
     }
     return {x:x, y:y};
 };
-},{"./../rur.js":52,"./../world_utils/get_world.js":89}],77:[function(require,module,exports){
+},{"./../rur.js":52,"./../world_utils/get_world.js":89}],78:[function(require,module,exports){
 require("./../rur.js");
 require("./../translator.js");
 require("./../programming_api/exceptions.js");
@@ -11131,7 +11283,7 @@ function convert_position (orientation, x, y) {
     return {name:_orientation, x:_x, y:_y};
 }
 
-},{"./../programming_api/exceptions.js":42,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/artefact.js":61,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../utils/validator.js":68,"./../world_utils/get_world.js":89}],78:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":42,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/artefact.js":61,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../utils/validator.js":68,"./../world_utils/get_world.js":89}],79:[function(require,module,exports){
 /* Obtain specific information about the world, either at a given
    position, or for the world in general.
 */
@@ -11422,7 +11574,7 @@ RUR.world_get.world_info = function (no_grid) {
 
 RUR.create_and_activate_dialogs( $("#world-info-button"), $("#World-info"),
                                  {height:400, width:800}, RUR.world_get.world_info);
-},{"./../default_tiles/tiles.js":1,"./../dialogs/create.js":3,"./../listeners/canvas.js":18,"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../utils/supplant.js":66}],79:[function(require,module,exports){
+},{"./../default_tiles/tiles.js":1,"./../dialogs/create.js":3,"./../listeners/canvas.js":18,"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../utils/supplant.js":66}],80:[function(require,module,exports){
 require("./../recorder/record_frame.js");
 
 
@@ -11434,56 +11586,7 @@ RUR._add_robot = function (robot) {
     RUR.record_frame("_add_robot", robot.__id);
 };
 
-},{"./../recorder/record_frame.js":46}],80:[function(require,module,exports){
-require("./../programming_api/exceptions.js");
-require("./../translator.js");
-require("./../utils/key_exist.js");
-require("./../utils/supplant.js");
-require("./../world_utils/get_world.js");
-
-/** @function toggle_decorative_object_at_position
- * @memberof RUR
- * @instance
- * @summary This function adds or remove a given decorative object
- * at a certain location.
- *
- * @desc Cette fonction ajoute ou enlève un objet décoratif à un endroit donné.
- *
- * @param {string} specific_object The name of the object type ; e.g. "token" <br>
- *                        _Le nom (anglais) du type de l'objet; par exemple, "token"._
- * @param {integer} x - Position of the object
- *                    <br> _position de l'objet_
- * @param {integer} y - Position of the object
- *                    <br> _position de l'objet_
- */
-
-RUR.toggle_decorative_object_at_position = function (specific_object, x, y){
-    "use strict";
-    var coords, cw;
-    specific_object = RUR.translate_to_english(specific_object);
-    if (RUR.KNOWN_TILES.indexOf(specific_object) == -1){
-        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant(
-                                                 {obj: specific_object}));
-    }
-    coords = x + "," + y;
-    cw = RUR.get_world();
-    RUR.utils.ensure_key_for_obj_exists(cw, "decorative_objects");
-    RUR.utils.ensure_key_for_obj_exists(cw.decorative_objects, coords);
-
-    if (cw.decorative_objects[coords][specific_object]) {
-        delete cw.decorative_objects[coords][specific_object];
-        if (Object.keys(cw.decorative_objects[coords]).length === 0) {
-            delete cw.decorative_objects[coords];
-            if (Object.keys(cw.decorative_objects).length === 0) {
-                delete cw.decorative_objects;
-            }
-        }
-    } else {
-        cw.decorative_objects[coords][specific_object] = true;
-    }
-};
-
-},{"./../programming_api/exceptions.js":42,"./../translator.js":56,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../world_utils/get_world.js":89}],81:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46}],81:[function(require,module,exports){
 require("./../programming_api/exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");

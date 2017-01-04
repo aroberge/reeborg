@@ -162,13 +162,10 @@ RUR.add_wall = function(orientation, x, y, goal) {
     if (RUR.is_wall(orientation, x, y, goal)){
         throw new RUR.ReeborgError(RUR.translate("There is already a wall here!"));
     }
-    console.log("args before", args);
     args = convert_position(orientation, x, y);
     args.goal = goal;
     args.type = "walls";
-    console.log("args after", args);
     RUR.utils.add_artefact(args);
-    console.log("walls", RUR.CURRENT_WORLD.walls);
     RUR.record_frame("add_wall", args);
 };
 

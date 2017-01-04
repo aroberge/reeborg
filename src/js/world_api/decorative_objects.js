@@ -5,7 +5,7 @@ require("./../recorder/record_frame.js");
 require("./../utils/artefact.js");
 require("./../world_utils/get_world.js");
 
-/** @function add_background_tile
+/** @function add_decorative_object
  * @memberof RUR
  * @instance
  * @summary This function sets a named tile as background at a location.
@@ -31,15 +31,15 @@ require("./../world_utils/get_world.js");
  * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
-RUR.add_background_tile = function (name, x, y) {
+RUR.add_decorative_object = function (name, x, y) {
     "use strict";
-    var args = {name: name, x:x, y:y, type:"tiles", single:true};
+    var args = {name: name, x:x, y:y, type:"decorative_objects"};
     RUR.utils.add_artefact(args);
-    RUR.record_frame("RUR.add_background_tile", args);
+    RUR.record_frame("RUR.add_decorative_object", args);
 };
 
 
-/** @function remove_background_tile
+/** @function remove_decorative_object
  * @memberof RUR
  * @instance
  * @summary This function removes a background tile at a location.
@@ -56,10 +56,10 @@ RUR.add_background_tile = function (name, x, y) {
  * @todo add examples
  * @todo deal with translation
  */
-RUR.remove_background_tile = function (name, x, y) {
+RUR.remove_decorative_object = function (name, x, y) {
     "use strict";
     var args;
-    args= {x:x, y:y, type:"tiles", name:name};
+    args= {x:x, y:y, type:"decorative_objects", name:name};
     try {
         RUR.utils.remove_artefact(args);
     } catch (e) {
@@ -69,11 +69,11 @@ RUR.remove_background_tile = function (name, x, y) {
             throw e;
         }
     }
-    RUR.record_frame("RUR.remove_background_tile", args);
+    RUR.record_frame("RUR.remove_decorative_object", args);
 };
 
 
-/** @function get_background_tile
+/** @function get_decorative_object
  * @memberof RUR
  * @instance
  * @summary This function gets the tile name found at given location. Note that
@@ -96,52 +96,24 @@ RUR.remove_background_tile = function (name, x, y) {
  *
  */
 
-RUR.get_background_tile = function (x, y) {
+RUR.get_decorative_object = function (x, y) {
     "use strict";
-    var tiles, args = {x:x, y:y, type:"tiles"};
-    tiles = RUR.utils.get_artefacts(args);
-    if (tiles === null) {
+    var tile, args = {x:x, y:y, type:"decorative_objects"};
+    tile = RUR.utils.get_artefacts(args);
+    if (tile === null) {
         return null;
     } else {
-        return tiles;
+        return RUR.TILES[tile[0]];
     }
 };
 
-RUR.is_background_tile = function (name, x, y) {
+RUR.is_decorative_object = function (name, x, y) {
     "use strict";
-    var tile, args = {x:x, y:y, type:"tiles"};
-    tile = RUR.get_background_tile(x, y);
+    var tile, args = {x:x, y:y, type:"decorative_objects"};
+    tile = RUR.utils.get_artefacts(args);
     if (tile === null) {
         return false;
     } else if (tile[0] == name){
-        return true;
-    } else {
-        return false;
-    }
-};
-
-RUR.is_background_tile_fatal = function(x, y) {
-    "use strict";
-    var tile, args = {x:x, y:y, type:"tiles"};
-    tile = RUR.utils.get_artefacts(args);
-    if (tile === null) {
-        return false;
-    } else if (RUR.TILES[tile[0]].fatal) {
-        return RUR.TILES[tile[0]]; // todo: return the name instead
-    } else {
-        return false;
-    }
-};
-
-// todo: change this into undetectable, and return the name
-// of the tile when it is.
-RUR.is_background_tile_detectable = function(x, y) {
-    "use strict";
-    var tile, args = {x:x, y:y, type:"tiles"};
-    tile = RUR.utils.get_artefacts(args);
-    if (tile === null) {
-        return false;
-    } else if (RUR.TILES[tile[0]].detectable) {
         return true;
     } else {
         return false;

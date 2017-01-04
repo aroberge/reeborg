@@ -20,10 +20,9 @@ require("./../utils/key_exist.js");
 require("./../world_set/object.js");
 require("./../world_set/goal_object.js");
 require("./../world_set/add_robot.js");
-require("./../world_set/decorative_object.js");
 require("./../world_set/give_object_to_robot.js");
 
-require("./../world_api/wall.js"); 
+require("./../world_api/walls.js"); 
 
 var edit_robot_menu = require("./../ui/edit_robot_menu.js");
 var dialog_add_object = require("./../dialogs/add_object.js").dialog_add_object;
@@ -54,11 +53,15 @@ RUR.we.edit_world = function  () {
             }
             break;
         case "object":
-            if (RUR.we.decorative_objects) {
+            if (RUR.we.decorative_objects) { // todo: put this in separate function
                 position = RUR.calculate_grid_position();
                 x = position[0];
                 y = position[1];
-                RUR.toggle_decorative_object_at_position(value, x, y);
+                if (RUR.is_decorative_object(value, x, y)) {
+                    RUR.remove_decorative_object(value, x, y);
+                } else {
+                    RUR.add_decorative_object(value, x, y);
+                }
             } else {
                 RUR.we._add_object(value);
             }
@@ -532,14 +535,14 @@ RUR.we.set_goal_position = function (home){
     }
 };
 
-RUR.we.toggle_tile = function (tile){
+RUR.we.toggle_tile = function (name){
     // will remove the position if clicked again with tile of same type.
     "use strict";
-    var x, y, position, coords, index;
+    var x, y, position;
 
-    if (!tile) {  // if we cancel the dialog
+    if (!name) {  // if we cancel the dialog
         return;
-    } else if (tile === "colour") {
+    } else if (name === "colour") {
         RUR._CALLBACK_FN = RUR.we.toggle_tile;
         dialog_select_colour.dialog("open");
         return;
@@ -548,33 +551,29 @@ RUR.we.toggle_tile = function (tile){
     position = RUR.calculate_grid_position();
     x = position[0];
     y = position[1];
-    coords = x + "," + y;
 
-    RUR.utils.ensure_key_for_obj_exists(RUR.CURRENT_WORLD, "tiles");
-    if (RUR.CURRENT_WORLD.tiles[coords] === undefined ||
-        RUR.CURRENT_WORLD.tiles[coords] != tile){
-        RUR.CURRENT_WORLD.tiles[coords] = tile;
+    if (RUR.is_background_tile(name, x, y)) {
+        RUR.remove_background_tile(name, x, y);
     } else {
-        delete RUR.CURRENT_WORLD.tiles[coords];
+        RUR.add_background_tile(name, x, y);
     }
 };
 
-RUR.we.fill_with_tile = function (tile) {
-    var x, y, coords;
+RUR.we.fill_with_tile = function (name) {
+    "use strict";
+    var x, y;
 
-    if (!tile) {    // if we cancel the dialog
+    if (!name) {    // if we cancel the dialog
         return;
-    } else if (tile === "colour") {
+    } else if (name === "colour") {
         RUR._CALLBACK_FN = RUR.we.fill_with_tile;
         dialog_select_colour.dialog("open");
         return;
     }
 
-    RUR.utils.ensure_key_for_obj_exists(RUR.CURRENT_WORLD, "tiles");
     for (x = 1; x <= RUR.MAX_X; x++) {
         for (y = 1; y <= RUR.MAX_Y; y++) {
-            coords = x + "," + y;
-            RUR.CURRENT_WORLD.tiles[coords] = tile;
+            RUR.add_background_tile(name, x, y);
         }
     }
     RUR.vis_world.refresh_world_edited();
@@ -591,12 +590,10 @@ RUR.we.toggle_obstacle = function (obj){
     x = position[0];
     y = position[1];
 
-    //RUR.toggle_obstacle_at_position(obj, x, y);
-
-    if (RUR.is_obstacle(obj, x, y) === 0) {
-        RUR.add_obstacle(obj, x, y);
-    } else {
+    if (RUR.is_obstacle(obj, x, y)) {
         RUR.remove_obstacle(obj, x, y);
+    } else {
+        RUR.add_obstacle(obj, x, y);
     }
 };
 

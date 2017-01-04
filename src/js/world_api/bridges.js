@@ -31,7 +31,6 @@ RUR.add_bridge = function (name, x, y) {
     RUR.record_frame("RUR.set_bridge", args);
 };
 
-
 /** @function remove_bridge
  * @memberof RUR
  * @instance
