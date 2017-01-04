@@ -43,3 +43,4 @@ Keeping track of advanced editing api
   * Add mud detector and use this for composition of classes.
   * add robot.coordinates() and robot.coordinates_in_front(); do this only for OOP. Use this for mud detector.
   * if "obstacles" are added elsewhere than on the background layer or the obstacle layer, they have no effect. Give an example with a water stream that becomes shallow enough to be crossed, or a fence that is broken and allow Reeborg to go through (do this by drawing it as decorative object at a select location).
+  * add method to get tile from name.

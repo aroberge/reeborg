@@ -1279,7 +1279,7 @@ function __remove_animated_object(args) {
 
     switch (ctx) {
         case RUR.TILES_ANIM_CTX:        
-            RUR.remove_background_tile(x, y);
+            RUR.remove_background_tile(name, x, y);
             break;
         case RUR.OBSTACLES_ANIM_CTX:    
             RUR.remove_obstacle(name, x, y);
@@ -6264,7 +6264,7 @@ RUR._paint_square_ = function (color) {
     // note that this can do more than simply setting the color: it can also
     // set the tile type.
     var robot = RUR.get_world().robots[0];
-    RUR.set_background_tile(color, robot.x, robot.y);
+    RUR.add_background_tile(color, robot.x, robot.y);
 };
 
 RUR._pause_ = RUR.control.pause;
@@ -6480,7 +6480,7 @@ RUR.control.move = function (robot) {
     // A move has been performed ... but it may have been a fatal decision
     
     // bridge may offer protection
-    bridge = RUR.get_bridge(robot.x, robot.y);
+    bridge = RUR.TILES[RUR.get_bridge(robot.x, robot.y)];
 
     // Both obstacles and background tile may be fatal
     tile = RUR.get_fatal_obstacle(robot.x, robot.y);
@@ -9714,7 +9714,10 @@ require("./../programming_api/exceptions.js");
  *                            as above (`tile.goal.url`, `tile.goal.images`, 
  *                            `tile.goal.selection_method`).
  *
- * @param {boolean} [tile.fatal] Program ends if Reeborg steps on such a tile set to `True`.
+ * @param {boolean} [tile.fatal] Program ends if Reeborg steps on such a tile with
+ *                               a value that is equivalent to "true", unless a bridge
+ *                               offering the adequate protection is present. 
+ *                               This value is usually set to the name of the tile.
  *
  * @param {boolean} [tile.detectable] If `tile.fatal == tile.detectable == True`, Reeborg can
  *                                    detect with `front_is_clear()` and `right_is_clear()`.
@@ -9973,7 +9976,7 @@ require("./../recorder/record_frame.js");
 require("./../utils/artefact.js");
 require("./../world_utils/get_world.js");
 
-/** @function set_background_tile
+/** @function add_background_tile
  * @memberof RUR
  * @instance
  * @summary This function sets a named tile as background at a location.
@@ -9999,11 +10002,11 @@ require("./../world_utils/get_world.js");
  * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
-RUR.set_background_tile = function (name, x, y) {
+RUR.add_background_tile = function (name, x, y) {
     "use strict";
     var args = {name: name, x:x, y:y, type:"tiles", single:true};
     RUR.utils.add_artefact(args);
-    RUR.record_frame("RUR.set_background_tile", args);
+    RUR.record_frame("RUR.add_background_tile", args);
 };
 
 
@@ -10012,7 +10015,7 @@ RUR.set_background_tile = function (name, x, y) {
  * @instance
  * @summary This function removes a background tile at a location.
  *
- *
+ * @param {string} name Name of the tile
  * @param {integer} x  Position of the tile.
  * @param {integer} y  Position of the tile.
  *
@@ -10024,15 +10027,19 @@ RUR.set_background_tile = function (name, x, y) {
  * @todo add examples
  * @todo deal with translation
  */
-RUR.remove_background_tile = function (x, y) {
+RUR.remove_background_tile = function (name, x, y) {
     "use strict";
-    var name, args;
-    name = RUR.get_background_tile(x, y);
-    if (name === null) {
-        throw new ReeborgError("No tile to remove here.");
-    }
+    var args;
     args= {x:x, y:y, type:"tiles", name:name};
-    RUR.utils.remove_artefact(args);
+    try {
+        RUR.utils.remove_artefact(args);
+    } catch (e) {
+        if (e.message == "No artefact to remove") {
+            throw new ReeborgError("No tile to remove here.");
+        } else {
+            throw e;
+        }
+    }
     RUR.record_frame("RUR.remove_background_tile", args);
 };
 
@@ -10151,26 +10158,31 @@ RUR.add_bridge = function (name, x, y) {
  * @instance
  * @summary This function removes a bridge at a location.
  *
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {string} name 
+ * @param {integer} x  Position.
+ * @param {integer} y  Position.
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
- * @throws Will throw an error if there is no bridge to remove
+ * @throws Will throw an error if there is no such named bridge to remove
  *        at that location
  *        
  * @todo add test
  * @todo add examples
  * @todo deal with translation
  */
-RUR.remove_bridge = function (x, y) {
+RUR.remove_bridge = function (name, x, y) {
     "use strict";
-    var name, args;
-    name = RUR.get_background_tile(x, y);
-    if (name === null) {
-        throw new ReeborgError("No bridge to remove here.");
-    }
+    var args;
     args= {x:x, y:y, type:"bridge", name:name};
-    RUR.utils.remove_artefact(args);
+    try {
+        RUR.utils.remove_artefact(args);
+    } catch (e) {
+        if (e.message == "No artefact to remove") {
+            throw new ReeborgError("No bridge to remove here.");
+        } else {
+            throw e;
+        }
+    }
     RUR.record_frame("RUR.remove_bridge", args);
 };
 
@@ -10178,7 +10190,7 @@ RUR.remove_bridge = function (x, y) {
 /** @function get_bridge
  * @memberof RUR
  * @instance
- * @summary This function gets the bridge name found at given location. 
+ * @summary This function gets the name of the bridge name found at given location. 
  *    If nothing is found at that location,
  *    `null` is returned (which is converted to `None` in Python programs.)
  *
@@ -10205,7 +10217,38 @@ RUR.get_bridge = function (x, y) {
     if (tile === null) {
         return null;
     } else {
-        return RUR.TILES[tile[0]];
+        return tile[0];
+    }
+};
+
+/** @function is_bridge
+ * @memberof RUR
+ * @instance
+ * @summary This function indicates if a named bridge is present at a given location
+ *
+ * @param {string} name The name of the bridge
+ * @param {integer} x  Position of the tile.
+ * @param {integer} y  Position of the tile.
+ *
+ * @throws Will throw an error if `(x, y)` is not a valid location..
+ *
+ * @todo add test
+ * @todo add proper examples
+ * @todo deal with translation
+ * @example
+ * // shows how to set various tiles;
+ * // the mode will be set to Python and the highlighting
+ * // will be turned off
+ * World("/worlds/examples/tile1.json", "Example 1")
+ *
+ */
+
+
+RUR.is_bridge = function (name, x, y) {
+    if (RUR.get_bridge(x, y) == name) {
+        return true;
+    } else {
+        return false;
     }
 };
 
@@ -11053,6 +11096,9 @@ RUR.remove_wall = function(orientation, x, y, goal) {
     args.goal = goal;
     args.type = "walls";
     RUR.utils.remove_artefact(args);
+    // TODO: see if it is required for working program (not tests)
+    // to ensure that walls is always a valid key.
+    RUR.utils.ensure_key_for_obj_exists(RUR.CURRENT_WORLD, "walls");
     RUR.record_frame("remove_wall", args);  
 };
 

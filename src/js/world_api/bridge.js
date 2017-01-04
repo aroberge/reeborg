@@ -37,26 +37,31 @@ RUR.add_bridge = function (name, x, y) {
  * @instance
  * @summary This function removes a bridge at a location.
  *
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {string} name 
+ * @param {integer} x  Position.
+ * @param {integer} y  Position.
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
- * @throws Will throw an error if there is no bridge to remove
+ * @throws Will throw an error if there is no such named bridge to remove
  *        at that location
  *        
  * @todo add test
  * @todo add examples
  * @todo deal with translation
  */
-RUR.remove_bridge = function (x, y) {
+RUR.remove_bridge = function (name, x, y) {
     "use strict";
-    var name, args;
-    name = RUR.get_background_tile(x, y);
-    if (name === null) {
-        throw new ReeborgError("No bridge to remove here.");
-    }
+    var args;
     args= {x:x, y:y, type:"bridge", name:name};
-    RUR.utils.remove_artefact(args);
+    try {
+        RUR.utils.remove_artefact(args);
+    } catch (e) {
+        if (e.message == "No artefact to remove") {
+            throw new ReeborgError("No bridge to remove here.");
+        } else {
+            throw e;
+        }
+    }
     RUR.record_frame("RUR.remove_bridge", args);
 };
 
@@ -64,7 +69,7 @@ RUR.remove_bridge = function (x, y) {
 /** @function get_bridge
  * @memberof RUR
  * @instance
- * @summary This function gets the bridge name found at given location. 
+ * @summary This function gets the name of the bridge name found at given location. 
  *    If nothing is found at that location,
  *    `null` is returned (which is converted to `None` in Python programs.)
  *
@@ -91,7 +96,38 @@ RUR.get_bridge = function (x, y) {
     if (tile === null) {
         return null;
     } else {
-        return RUR.TILES[tile[0]];
+        return tile[0];
+    }
+};
+
+/** @function is_bridge
+ * @memberof RUR
+ * @instance
+ * @summary This function indicates if a named bridge is present at a given location
+ *
+ * @param {string} name The name of the bridge
+ * @param {integer} x  Position of the tile.
+ * @param {integer} y  Position of the tile.
+ *
+ * @throws Will throw an error if `(x, y)` is not a valid location..
+ *
+ * @todo add test
+ * @todo add proper examples
+ * @todo deal with translation
+ * @example
+ * // shows how to set various tiles;
+ * // the mode will be set to Python and the highlighting
+ * // will be turned off
+ * World("/worlds/examples/tile1.json", "Example 1")
+ *
+ */
+
+
+RUR.is_bridge = function (name, x, y) {
+    if (RUR.get_bridge(x, y) == name) {
+        return true;
+    } else {
+        return false;
     }
 };
 

@@ -5,7 +5,7 @@ require("./../recorder/record_frame.js");
 require("./../utils/artefact.js");
 require("./../world_utils/get_world.js");
 
-/** @function set_background_tile
+/** @function add_background_tile
  * @memberof RUR
  * @instance
  * @summary This function sets a named tile as background at a location.
@@ -31,11 +31,11 @@ require("./../world_utils/get_world.js");
  * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
-RUR.set_background_tile = function (name, x, y) {
+RUR.add_background_tile = function (name, x, y) {
     "use strict";
     var args = {name: name, x:x, y:y, type:"tiles", single:true};
     RUR.utils.add_artefact(args);
-    RUR.record_frame("RUR.set_background_tile", args);
+    RUR.record_frame("RUR.add_background_tile", args);
 };
 
 
@@ -44,7 +44,7 @@ RUR.set_background_tile = function (name, x, y) {
  * @instance
  * @summary This function removes a background tile at a location.
  *
- *
+ * @param {string} name Name of the tile
  * @param {integer} x  Position of the tile.
  * @param {integer} y  Position of the tile.
  *
@@ -56,15 +56,19 @@ RUR.set_background_tile = function (name, x, y) {
  * @todo add examples
  * @todo deal with translation
  */
-RUR.remove_background_tile = function (x, y) {
+RUR.remove_background_tile = function (name, x, y) {
     "use strict";
-    var name, args;
-    name = RUR.get_background_tile(x, y);
-    if (name === null) {
-        throw new ReeborgError("No tile to remove here.");
-    }
+    var args;
     args= {x:x, y:y, type:"tiles", name:name};
-    RUR.utils.remove_artefact(args);
+    try {
+        RUR.utils.remove_artefact(args);
+    } catch (e) {
+        if (e.message == "No artefact to remove") {
+            throw new ReeborgError("No tile to remove here.");
+        } else {
+            throw e;
+        }
+    }
     RUR.record_frame("RUR.remove_background_tile", args);
 };
 

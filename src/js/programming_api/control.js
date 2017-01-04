@@ -78,7 +78,7 @@ RUR.control.move = function (robot) {
     // A move has been performed ... but it may have been a fatal decision
     
     // bridge may offer protection
-    bridge = RUR.get_bridge(robot.x, robot.y);
+    bridge = RUR.TILES[RUR.get_bridge(robot.x, robot.y)];
 
     // Both obstacles and background tile may be fatal
     tile = RUR.get_fatal_obstacle(robot.x, robot.y);

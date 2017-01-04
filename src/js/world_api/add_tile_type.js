@@ -48,7 +48,10 @@ require("./../programming_api/exceptions.js");
  *                            as above (`tile.goal.url`, `tile.goal.images`, 
  *                            `tile.goal.selection_method`).
  *
- * @param {boolean} [tile.fatal] Program ends if Reeborg steps on such a tile set to `True`.
+ * @param {boolean} [tile.fatal] Program ends if Reeborg steps on such a tile with
+ *                               a value that is equivalent to "true", unless a bridge
+ *                               offering the adequate protection is present. 
+ *                               This value is usually set to the name of the tile.
  *
  * @param {boolean} [tile.detectable] If `tile.fatal == tile.detectable == True`, Reeborg can
  *                                    detect with `front_is_clear()` and `right_is_clear()`.

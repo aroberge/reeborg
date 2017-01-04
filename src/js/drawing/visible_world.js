@@ -464,7 +464,7 @@ function __remove_animated_object(args) {
 
     switch (ctx) {
         case RUR.TILES_ANIM_CTX:        
-            RUR.remove_background_tile(x, y);
+            RUR.remove_background_tile(name, x, y);
             break;
         case RUR.OBSTACLES_ANIM_CTX:    
             RUR.remove_obstacle(name, x, y);
