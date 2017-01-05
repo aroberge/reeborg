@@ -2428,7 +2428,7 @@ var identical = require("./../utils/identical.js").identical;
 
 RUR.we = {};   // we == World Editor
 
-RUR.we.__give_to_robot = false;
+RUR.we.give_to_robot_flag = false;
 
 RUR.we.edit_world = function  () {
     "use strict";
@@ -2441,36 +2441,25 @@ RUR.we.edit_world = function  () {
     switch (root) {
         case "robot":
             if (value == "place") {
-                RUR.we.place_robot();
+                place_robot();
             }
             break;
         case "object":
-            if (RUR.we.decorative_objects) {
-                position = RUR.calculate_grid_position();
-                x = position[0];
-                y = position[1];
-                console.log("should add/remove decorative");
-                if (RUR.is_decorative_object(value, x, y)) {
-                    console.log("is_decorative_object true; should remove");
-                    RUR.remove_decorative_object(value, x, y);
-                } else {
-                    console.log("is_decorative_object false; should add");                    
-                    RUR.add_decorative_object(value, x, y);
-                }
-                // RUR.toggle_decorative_object_at_position(value, x, y);
+            if (RUR.we.decorative_objects_flag) {
+                toggle_decorative_object(value);
             } else {
-                RUR.we._add_object(value);
+                add_object(value);
             }
             break;
         case "tile":
-            RUR.we.toggle_tile(value);
+            toggle_tile(value);
             break;
         case "solid_object":
-            RUR.we.toggle_obstacle(value);
+            toggle_obstacle(value);
             break;
         case "world":
             if (value == "walls") {
-                RUR.we.toggle_wall();
+                toggle_wall();
             }
             break;
         case "position":
@@ -2478,9 +2467,9 @@ RUR.we.edit_world = function  () {
             break;
         case "goal":
             if (value == "wall") {
-                RUR.we.toggle_goal_wall();
+                toggle_goal_wall();
             } else {
-                RUR.we._add_goal_objects(value);
+                add_goal_object(value);
             }
             break;
         default:
@@ -2489,12 +2478,25 @@ RUR.we.edit_world = function  () {
     RUR.vis_world.refresh_world_edited();
 };
 
-RUR.we.alert_1 = function (txt) {
+function toggle_decorative_object(value) {
+    "use strict";
+    var x, y, position = RUR.calculate_grid_position();
+    x = position[0];
+    y = position[1];
+    if (RUR.is_decorative_object(value, x, y)) {
+        RUR.remove_decorative_object(value, x, y);
+    } else {
+        RUR.add_decorative_object(value, x, y);
+    }
+}
+
+function alert_1 (txt) {
     $("#cmd-result").html(RUR.translate(txt)).effect("highlight", {color: "gold"}, 1500);
-};
-RUR.we.alert_2 = function (txt, value) {
+}
+
+function alert_2 (txt, value) {
     $("#cmd-result").html(RUR.translate(txt).supplant({obj: RUR.translate(value)})).effect("highlight", {color: "gold"}, 1500);
-};
+}
 
 RUR.we.select = function (choice) {
     "use strict";
@@ -2512,32 +2514,32 @@ RUR.we.select = function (choice) {
         case "robot":
             switch (value) {
             case "place":
-                RUR.we.alert_1("Click on world to move robot.");
+                alert_1("Click on world to move robot.");
                 break;
             case "add":
-                RUR.we.alert_1("Added robot.");
+                alert_1("Added robot.");
                 RUR._add_robot();
                 RUR.we.edit_world();
                 edit_robot_menu.toggle();
                 break;
             case "orientation":
-                RUR.we.alert_1("Click on image to turn robot");
+                alert_1("Click on image to turn robot");
                 $("#edit-world-turn").show();
                 $("#random-orientation").show();
                 break;
             case "objects":
-                RUR.we.__give_to_robot = true;
+                RUR.we.give_to_robot_flag = true;
                 $("#edit-world-objects").show();
                 $(".not-for-robot").hide();
-                RUR.we.alert_1("Click on desired object below.");
+                alert_1("Click on desired object below.");
                 break;
             }
             break;
         case "decorative":
-            RUR.we.decorative_objects = true;
+            RUR.we.decorative_objects_flag = true;
             $("#edit-world-objects").show();
-            RUR.we.__give_to_robot = false;
-            RUR.we.alert_1("Click on desired object below.");
+            RUR.we.give_to_robot_flag = false;
+            alert_1("Click on desired object below.");
             break;
         case "background":
             dialog_set_background_image.dialog("open");
@@ -2545,81 +2547,67 @@ RUR.we.select = function (choice) {
         case "world":
             switch (value) {
             case "objects":
-                RUR.we.decorative_objects = false;
+                RUR.we.decorative_objects_flag = false;
                 $("#edit-world-objects").show();
-                $(".not-for-robot").show();  // box
-                RUR.we.__give_to_robot = false;
-                RUR.we.alert_1("Click on desired object below.");
+                RUR.we.give_to_robot_flag = false;
+                alert_1("Click on desired object below.");
                 break;
             case "tiles":
                 $("#edit-tile").show();
-                RUR.we.alert_1("Click on desired tile below.");
+                alert_1("Click on desired tile below.");
                 break;
             case "fill_tiles":
                 $("#fill-tile").show();
-                RUR.we.alert_1("Click on desired tile below.");
+                alert_1("Click on desired tile below.");
                 break;
             case "solid_objects":
                 $("#edit-solid-object").show();
-                RUR.we.alert_1("Click on desired object below.");
+                alert_1("Click on desired object below.");
                 break;
             case "walls":
-                RUR.we.alert_1("Click on world to toggle walls.");
+                alert_1("Click on world to toggle walls.");
                 break;
             }
             break;
         case "object":
             $("#edit-world-objects").show();
-            if (RUR.we.__give_to_robot) {
-                $(".not-for-robot").hide();
-                RUR.we._give_objects_to_robot(value);
+            if (RUR.we.give_to_robot_flag) {
+                give_objects_to_robot(value);
                 RUR.we.edit_world_flag = '';
             } else {
-                if (RUR.we.decorative_objects) {
-                    $(".not-for-robot").show();
-                }
-                if (value == "box"){
-                    RUR.we.alert_2("Click on world to add single object.", value);
-                } else {
-                    RUR.we.alert_2("Click on world to add object.", value);
-                }
+                alert_2("Click on world to add object.", value);
             }
             break;
         case "tile":
             $("#edit-tile").show();
-            RUR.we.alert_2("Click on world to toggle tile.", value);
+            alert_2("Click on world to toggle tile.", value);
             break;
         case "fill":
-            RUR.we.fill_with_tile(value);
+            fill_with_tile(value);
             break;
         case "solid_object":
             $("#edit-solid-object").show();
-            RUR.we.alert_2("Click on world to toggle object.", value);
+            alert_2("Click on world to toggle object.", value);
             break;
         case "position":
-            RUR.we.alert_1("Click on world to set home position for robot.");
+            alert_1("Click on world to set home position for robot.");
             break;
         case "goal":
             switch (value) {
             case "robot":
                 $("#edit-goal-position").show();
-                RUR.we.alert_1("Click on image desired to indicate the final position of the robot.");
+                alert_1("Click on image desired to indicate the final position of the robot.");
                 break;
             case "wall":
-                RUR.we.alert_1("Click on world to toggle additional walls to build.");
+                alert_1("Click on world to toggle additional walls to build.");
                 break;
             case "objects":
                 $("#edit-goal-objects").show();
-                RUR.we.alert_1("Click on desired goal object below.");
+                alert_1("Click on desired goal object below.");
                 break;
             default:
                 $("#edit-goal-objects").show();
-                if (value == "box"){
-                RUR.we.alert_2("Click on world to set number of single goal objects.", value);
-                } else {
-                RUR.we.alert_2("Click on world to set number of goal objects.", value);
-                }
-                RUR.we.alert_2("Click on world to set number of goal objects.", value);
+                alert_2("Click on world to set number of goal objects.", value);
                 break;
             }
         break;
@@ -2666,10 +2654,7 @@ RUR.create_and_activate_dialogs( $("#edit-world"), $("#edit-world-panel"),
                                  {}, function () {RUR.we.toggle_editing_mode();
                                      $("#more-menus").dialog("minimize"); });
 
-
-
-
-RUR.we.place_robot = function () {
+function place_robot () {
     "use strict";
     var position, world=RUR.CURRENT_WORLD, robot, arr=[], pos, present=false;
     position = RUR.calculate_grid_position();
@@ -2716,25 +2701,25 @@ RUR.we.place_robot = function () {
     robot.start_positions = arr;
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
-};
+}
 
 
-RUR.we._give_objects_to_robot = function (specific_object){
+function give_objects_to_robot (specific_object){
     "use strict";
 
     RUR.state.specific_object = specific_object;
     $("#give-object-name").html(RUR.translate(specific_object));
     dialog_give_object.dialog("open");
-};
+}
 
-RUR.we.turn_robot = function (orientation) {
 
+RUR.we.turn_robot = function (orientation) { // function used on reeborg.html
     RUR.CURRENT_WORLD.robots[0]._orientation = orientation;
     RUR.CURRENT_WORLD.robots[0]._prev_orientation = orientation;
     RUR.vis_world.refresh_world_edited();
 };
 
-RUR.we.calculate_wall_position = function () {
+function calculate_wall_position () {
     var ctx, x, y, orientation, remain_x, remain_y, del_x, del_y;
     x = RUR.mouse_x - $("#robot-canvas").offset().left;
     y = RUR.mouse_y - $("#robot-canvas").offset().top;
@@ -2786,25 +2771,11 @@ RUR.we.calculate_wall_position = function () {
     }
 
     return [x, y, orientation];
-};
+}
 
-RUR.we.toggle_wall = function () {
+function __toggle_wall (goal) {
     var position, x, y, orientation;
-    position = RUR.we.calculate_wall_position();
-    x = position[0];
-    y = position[1];
-    orientation = position[2];
-    if (RUR.is_wall(orientation, x, y)){
-        RUR.remove_wall(orientation, x, y);
-    } else {
-        RUR.add_wall(orientation, x, y);
-    }    
-};
-
-RUR.we.toggle_goal_wall = function () {
-    "use strict";
-    var position, x, y, orientation, goal=true;
-    position = RUR.we.calculate_wall_position();
+    position = calculate_wall_position();
     x = position[0];
     y = position[1];
     orientation = position[2];
@@ -2813,59 +2784,40 @@ RUR.we.toggle_goal_wall = function () {
         RUR.remove_wall(orientation, x, y, goal);
     } else {
         RUR.add_wall(orientation, x, y, goal);
-    }  
-};
+    }   
+}
 
-RUR.we._add_object = function (specific_object){
-    "use strict";
-    var position, x, y, query, tmp;
+function toggle_wall () {
+    __toggle_wall(false); 
+}
+
+function toggle_goal_wall () {
+    __toggle_wall(true); 
+}
+
+function set_add_object_position () {
+    var position, x, y;
     position = RUR.calculate_grid_position();
     x = position[0];
     y = position[1];
-    if (specific_object == "box") {
-        if (RUR.CURRENT_WORLD.objects !== undefined &&
-            RUR.CURRENT_WORLD.objects[x+','+y] !== undefined &&
-            RUR.CURRENT_WORLD.objects[x+','+y]["box"] == 1){  // jshint ignore:line
-            RUR.set_nb_object_at_position("box", x, y, 0);
-        } else {
-            RUR.set_nb_object_at_position("box", x, y, 1);
-        }
-        return;
-    }
-
-    RUR.state.specific_object = specific_object;
     RUR.state.x = x;
     RUR.state.y = y;
+}
+
+function add_object (specific_object){
+    set_add_object_position();
+    RUR.state.specific_object = specific_object;
     $("#add-object-name").html(RUR.translate(specific_object));
     dialog_add_object.dialog("open");
-};
+}
 
-RUR.we._add_goal_objects = function (specific_object){
+function add_goal_object (specific_object){
     "use strict";
-    var position, x, y, coords, query;
-    position = RUR.calculate_grid_position();
-    x = position[0];
-    y = position[1];
-    coords = x + "," + y;
-
-    // TODO investigate potential bug; should toggle if box ...
-    if (specific_object == "box") {
-        if (RUR.CURRENT_WORLD.goal !== undefined &&
-            RUR.CURRENT_WORLD.goal.objects !== undefined &&
-            RUR.CURRENT_WORLD.goal.objects[coords] !== undefined &&
-            RUR.CURRENT_WORLD.goal.objects[coords].box ==1){
-                RUR.set_nb_goal_object_at_position("box", x, y, 0);
-        } else {
-            RUR.set_nb_goal_object_at_position("box", x, y, 1);
-        }
-        return;
-    }
-
+    set_add_object_position();
     RUR.state.specific_object = specific_object;
-    RUR.state.x = x;
-    RUR.state.y = y;
+    $("#goal-object-name").html(RUR.translate(specific_object));
     dialog_goal_object.dialog("open");
-};
+}
 
 /** @function set_goal_position
  * @memberof RUR
@@ -2931,7 +2883,7 @@ RUR.we.set_goal_position = function (home){
     }
 };
 
-RUR.we.toggle_tile = function (name){
+function toggle_tile (name){
     // will remove the position if clicked again with tile of same type.
     "use strict";
     var x, y, position;
@@ -2939,7 +2891,7 @@ RUR.we.toggle_tile = function (name){
     if (!name) {  // if we cancel the dialog
         return;
     } else if (name === "colour") {
-        RUR._CALLBACK_FN = RUR.we.toggle_tile;  // TODO: review this dialog
+        RUR._CALLBACK_FN = toggle_tile;
         dialog_select_colour.dialog("open");
         return;
     }
@@ -2953,16 +2905,16 @@ RUR.we.toggle_tile = function (name){
     } else {
         RUR.add_background_tile(name, x, y);
     }
-};
+}
 
-RUR.we.fill_with_tile = function (name) {
+function fill_with_tile (name) {
     "use strict";
     var x, y;
 
     if (!name) {    // if we cancel the dialog
         return;
     } else if (name === "colour") {
-        RUR._CALLBACK_FN = RUR.we.fill_with_tile;
+        RUR._CALLBACK_FN = fill_with_tile;
         dialog_select_colour.dialog("open");
         return;
     }
@@ -2974,10 +2926,10 @@ RUR.we.fill_with_tile = function (name) {
     }
     RUR.vis_world.refresh_world_edited();
     $("#cmd-result").html("");
-};
+}
 
 
-RUR.we.toggle_obstacle = function (obj){
+function toggle_obstacle (obj){
     // will remove the position if clicked again with object of same type.
     "use strict";
     var x, y, position;
@@ -2986,16 +2938,12 @@ RUR.we.toggle_obstacle = function (obj){
     x = position[0];
     y = position[1];
 
-    //RUR.toggle_obstacle_at_position(obj, x, y);
-    console.log("about to toggle obstacle.");
     if (RUR.is_obstacle(obj, x, y)) {
-        console.log("obstacle here; should remove");
         RUR.remove_obstacle(obj, x, y);
     } else {
-        console.log("obstacle missing; should add");
         RUR.add_obstacle(obj, x, y);
     }
-};
+}
 
 
 // mouse clicks also requested in listeners/canvas.js
@@ -11197,13 +11145,10 @@ RUR.add_wall = function(orientation, x, y, goal) {
     if (RUR.is_wall(orientation, x, y, goal)){
         throw new RUR.ReeborgError(RUR.translate("There is already a wall here!"));
     }
-    console.log("args before", args);
     args = convert_position(orientation, x, y);
     args.goal = goal;
     args.type = "walls";
-    console.log("args after", args);
     RUR.utils.add_artefact(args);
-    console.log("walls", RUR.CURRENT_WORLD.walls);
     RUR.record_frame("add_wall", args);
 };
 
@@ -12706,7 +12651,7 @@ ui_en["m-walls"] = "Walls";
 ui_en["m-objects2"] = "Objects";
 ui_en["m-tiles"] = "Tiles";
 ui_en["m-fill"] = "Fill";
-ui_en["m-solid"] = "Solid objects";
+ui_en["m-solid"] = "Obstacles";
 ui_en["m-decorative"] = "Decorative objects";
 ui_en["m-background"] = "Background image";
 ui_en["m-goal"] = "Goal";
@@ -13063,7 +13008,7 @@ ui_fr["m-walls"] = "Murs";
 ui_fr["m-objects2"] = "Objets";
 ui_fr["m-tiles"] = "Tuiles";
 ui_fr["m-fill"] = "Remplir";
-ui_fr["m-solid"] = "Objets solides";
+ui_fr["m-solid"] = "Obstacles";
 ui_fr["m-decorative"] = "Objets décoratifs";
 ui_fr["m-background"] = "Image de fond";
 ui_fr["m-goal"] = "But";

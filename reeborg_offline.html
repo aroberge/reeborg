@@ -390,9 +390,6 @@
         <li>
           <a href="javascript:RUR.we.select('object-daisy');"><img src="src/images/daisy.png" alt="daisy"></a>
         </li>
-        <li class="not-for-robot">
-          <a href="javascript:RUR.we.select('object-box');"><img src="src/images/box.png" alt="wooden box"></a>
-        </li>
       </ul>
       <ul class="edit-world-canvas" id="edit-tile" style="display:none">
         <li>
@@ -496,9 +493,6 @@
         </li>
         <li>
           <a href="javascript:RUR.we.select('goal-daisy');"><img src="src/images/daisy_goal.png" alt="daisy"></a>
-        </li>
-        <li>
-          <a href="javascript:RUR.we.select('goal-box');"><img src="src/images/box_goal.png" alt="wooden box"></a>
         </li>
       </ul>
       <ul class="edit-goal-canvas" id="edit-goal-position" style="display:none">
@@ -766,7 +760,7 @@
   </div>
 
   <div id="dialog-goal-object" title="Set goal number for object" style="display:none;">
-    <p id="dialog-goal-object-explain"></p>
+    <p><code id="goal-object-name"></code> - <span id="dialog-goal-object-explain"></span></p>
     <form>
       <fieldset>
         <label for="input-goal-number"><code id="input-goal-number-text"></code>:
