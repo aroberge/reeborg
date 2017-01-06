@@ -108,7 +108,6 @@ tile = {name: "racing_flag",
 };
 RUR.add_new_type(tile);
 
-
 /* --- default objects  -----*/
 
 _add_object_type = function (name) {
@@ -132,29 +131,31 @@ _add_object_type("dandelion");
 _add_object_type("orange");
 _add_object_type("daisy");
 _add_object_type("tulip");
+_add_object_type("east");
+_add_object_type("north");
+RUR.TILES.east.x_offset = 2;
+RUR.TILES.east.y_offset = -2;
+RUR.TILES.north.x_offset = -2;
+RUR.TILES.north.y_offset = -2;
+
+function _add_static_wall(name, x_offset) {
+    "use strict";
+    var url, y_offset=-2;
+    url = RUR._BASE_URL + '/src/images/' + name + '.png';
+    RUR.add_new_type({"name": name, "url": url, 
+                     "x_offset": x_offset, "y_offset": y_offset});    
+}
+_add_static_wall("east_border", 2);
+_add_static_wall("east_grid", 2);
+_add_static_wall("east_edit", 2);
+
+_add_static_wall("north_border", -2);
+_add_static_wall("north_grid", -2);
+_add_static_wall("north_edit", -2);
 
 _add_object_type("box");
 RUR.TILES.box.name = "box";
-// RUR.TILES.box.transform = [
-//     {conditions: [[RUR.is_background_tile, "water"],
-//                   [RUR.is_pushable, "box"]],
-//     actions: [[RUR.remove_pushable, "box"], 
-//               [RUR.add_bridge, "bridge"]]
-//     },
-//     {conditions: [[RUR.is_background_tile, "mud"],
-//                   [RUR.is_pushable, "box"]],
-//     actions: [[RUR.remove_pushable, "box"], 
-//               [RUR.add_bridge, "bridge"]]
-//     },
-//     {conditions: [[RUR.is_background_tile, "fire"],
-//                   [RUR.is_pushable, "box"]],
-//     actions: [[RUR.remove_pushable, "box"]]   
-//     },
-//     {conditions: [[RUR.is_obstacle, "fire"],
-//                   [RUR.is_pushable, "box"]],
-//     actions: [[RUR.remove_pushable, "box"]]   
-//     }     
-// ];
+// RUR.TILES.box.transform is defined elsewhere
 
 tile = {
     name: "bridge",
@@ -174,7 +175,7 @@ obj = {"name": 'beeper',
 };
 RUR.add_new_type(obj);
 
-add_new_solid_object_type = function (name, url) {
+add_new_obstacle_type = function (name, url) {
     var obj = RUR.TILES;
     obj[name] = {};
     obj[name].name = name;
@@ -196,19 +197,19 @@ add_new_solid_object_type = function (name, url) {
 };
 
 
-add_new_solid_object_type("fence_right", false);
+add_new_obstacle_type("fence_right", false);
 RUR.TILES.fence_right.message = "I hit a fence!";
 RUR.TILES.fence_right.info = "Fence: Reeborg <b>can</b> detect this but will be stopped by it.";
 
-add_new_solid_object_type("fence_left", false);
+add_new_obstacle_type("fence_left", false);
 RUR.TILES.fence_left.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_left.info = RUR.TILES.fence_right.info;
 
-add_new_solid_object_type("fence_double", false);
+add_new_obstacle_type("fence_double", false);
 RUR.TILES.fence_double.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_double.info = RUR.TILES.fence_right.info;
 
-add_new_solid_object_type("fence_vertical", false);
+add_new_obstacle_type("fence_vertical", false);
 RUR.TILES.fence_vertical.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_vertical.info = RUR.TILES.fence_right.info;
 

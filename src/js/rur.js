@@ -108,80 +108,75 @@ function set_canvases () {
         return;
     }
     RUR.CANVASES = [];
+    RUR.ALL_CTX = [];
 
-    RUR.BACKGROUND_CANVAS = document.getElementById("background-canvas");
-    RUR.BACKGROUND_CTX = RUR.BACKGROUND_CANVAS.getContext("2d");
+    function create_ctx(canvas, ctx) {
+        RUR[ctx] = canvas.getContext("2d");
+        RUR.CANVASES.push(canvas);
+        RUR.ALL_CTX.push(RUR[ctx]);
+    }
+
+    RUR.BACKGROUND_CANVAS = document.getElementById("background-canvas"); //1
+    create_ctx(RUR.BACKGROUND_CANVAS, "BACKGROUND_CTX");
+    RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
     // Get default width and height from html files; these are shared
     // by all canvases, and can be changed when a new world is
     // loaded or created
     RUR.HEIGHT = RUR.BACKGROUND_CANVAS.height;
     RUR.WIDTH = RUR.BACKGROUND_CANVAS.width;
-    RUR.CANVASES.push(RUR.BACKGROUND_CANVAS);
 
-    RUR.TILES_CANVAS = document.getElementById("tiles-canvas");
-    RUR.TILES_CTX = RUR.TILES_CANVAS.getContext("2d");
-    RUR.CANVASES.push(RUR.TILES_CANVAS);
+    RUR.TILES_CANVAS = document.getElementById("tiles-canvas");  //2
+    create_ctx(RUR.TILES_CANVAS, "TILES_CTX");
 
-    RUR.TILES_CANVAS_ANIM = document.getElementById("tiles-canvas-anim");
-    RUR.TILES_ANIM_CTX = RUR.TILES_CANVAS_ANIM.getContext("2d");
-    RUR.CANVASES.push(RUR.TILES_CANVAS_ANIM);
+    RUR.TILES_CANVAS_ANIM = document.getElementById("tiles-canvas-anim"); // 3
+    create_ctx(RUR.TILES_CANVAS_ANIM, "TILES_ANIM_CTX");
 
-    RUR.BRIDGE_CANVAS = document.getElementById("bridge-canvas");
-    RUR.BRIDGE_CTX = RUR.BRIDGE_CANVAS.getContext("2d");
-    RUR.CANVASES.push(RUR.BRIDGE_CANVAS);
+    RUR.BRIDGE_CANVAS = document.getElementById("bridge-canvas");  //4
+    create_ctx(RUR.BRIDGE_CANVAS, "BRIDGE_CTX");
 
-    RUR.BRIDGE_CANVAS_ANIM = document.getElementById("bridge-canvas-anim");
-    RUR.BRIDGE_ANIM_CTX = RUR.BRIDGE_CANVAS_ANIM.getContext("2d");
-    RUR.CANVASES.push(RUR.BRIDGE_CANVAS_ANIM);
+    RUR.BRIDGE_CANVAS_ANIM = document.getElementById("bridge-canvas-anim");  //5
+    create_ctx(RUR.BRIDGE_CANVAS_ANIM, "BRIDGE_ANIM_CTX");
 
-    RUR.OBSTACLES_CANVAS = document.getElementById("obstacles-canvas");
-    RUR.OBSTACLES_CTX = RUR.OBSTACLES_CANVAS.getContext("2d");
-    RUR.CANVASES.push(RUR.OBSTACLES_CANVAS);
+    RUR.DECORATIVE_OBJECTS_CANVAS = document.getElementById("decorative-objects-canvas"); // 6
+    create_ctx(RUR.DECORATIVE_OBJECTS_CANVAS, "DECORATIVE_OBJECTS_CTX");
 
-    RUR.OBSTACLES_CANVAS_ANIM = document.getElementById("obstacles-canvas-anim");
-    RUR.OBSTACLES_ANIM_CTX = RUR.OBSTACLES_CANVAS_ANIM.getContext("2d");
-    RUR.CANVASES.push(RUR.OBSTACLES_CANVAS_ANIM);
+    RUR.DECORATIVE_OBJECTS_CANVAS_ANIM = document.getElementById("decorative-objects-canvas-anim"); // 7
+    create_ctx(RUR.DECORATIVE_OBJECTS_CANVAS_ANIM, "DECORATIVE_OBJECTS_ANIM_CTX");
 
-    RUR.GOAL_CANVAS = document.getElementById("goal-canvas");
-    RUR.GOAL_CTX = RUR.GOAL_CANVAS.getContext("2d");
-    RUR.CANVASES.push(RUR.GOAL_CANVAS);
+    RUR.OBSTACLES_CANVAS = document.getElementById("obstacles-canvas"); // 8
+    create_ctx(RUR.OBSTACLES_CANVAS, "OBSTACLES_CTX");
 
-    RUR.GOAL_CANVAS_ANIM = document.getElementById("goal-canvas-anim");
-    RUR.GOAL_ANIM_CTX = RUR.GOAL_CANVAS_ANIM.getContext("2d");
-    RUR.CANVASES.push(RUR.GOAL_CANVAS_ANIM);
+    RUR.OBSTACLES_CANVAS_ANIM = document.getElementById("obstacles-canvas-anim"); // 9
+    create_ctx(RUR.OBSTACLES_CANVAS_ANIM, "OBSTACLES_ANIM_CTX");
 
-    RUR.OBJECTS_CANVAS = document.getElementById("objects-canvas");
-    RUR.OBJECTS_CTX = RUR.OBJECTS_CANVAS.getContext("2d");
-    RUR.CANVASES.push(RUR.OBJECTS_CANVAS);
+    RUR.GOAL_CANVAS = document.getElementById("goal-canvas"); // 10
+    create_ctx(RUR.GOAL_CANVAS, "GOAL_CTX");
 
-    RUR.OBJECTS_CANVAS_ANIM = document.getElementById("objects-canvas-anim");
-    RUR.OBJECTS_ANIM_CTX = RUR.OBJECTS_CANVAS_ANIM.getContext("2d");
-    RUR.CANVASES.push(RUR.OBJECTS_CANVAS_ANIM);
+    // 11 removed
 
-    RUR.DECORATIVE_OBJECTS_CANVAS = document.getElementById("decorative-objects-canvas");
-    RUR.DECORATIVE_OBJECTS_CTX = RUR.DECORATIVE_OBJECTS_CANVAS.getContext("2d");
-    RUR.CANVASES.push(RUR.DECORATIVE_OBJECTS_CANVAS);
+    RUR.GOAL_CANVAS_ANIM = document.getElementById("goal-canvas-anim"); //12
+    create_ctx(RUR.GOAL_CANVAS_ANIM, "GOAL_ANIM_CTX");
 
-    RUR.DECORATIVE_OBJECTS_CANVAS_ANIM = document.getElementById("decorative-objects-canvas-anim");
-    RUR.DECORATIVE_OBJECTS_ANIM_CTX = RUR.DECORATIVE_OBJECTS_CANVAS_ANIM.getContext("2d");
-    RUR.CANVASES.push(RUR.DECORATIVE_OBJECTS_CANVAS_ANIM);
+    RUR.OBJECTS_CANVAS = document.getElementById("objects-canvas");  //13
+    create_ctx(RUR.OBJECTS_CANVAS, "OBJECTS_CTX");
 
-    RUR.TRACE_CANVAS = document.getElementById("trace-canvas");
-    RUR.TRACE_CTX = RUR.TRACE_CANVAS.getContext("2d");
-    RUR.CANVASES.push(RUR.TRACE_CANVAS);
+    RUR.OBJECTS_CANVAS_ANIM = document.getElementById("objects-canvas-anim"); //14
+    create_ctx(RUR.OBJECTS_CANVAS_ANIM, "OBJECTS_ANIM_CTX");
 
-    RUR.PUSHABLES_CANVAS = document.getElementById("pushables-canvas");
-    RUR.PUSHABLES_CTX = RUR.PUSHABLES_CANVAS.getContext("2d");
-    RUR.CANVASES.push(RUR.PUSHABLES_CANVAS);
+    RUR.TRACE_CANVAS = document.getElementById("trace-canvas"); //15
+    create_ctx(RUR.TRACE_CANVAS, "TRACE_CTX");
 
-    RUR.PUSHABLES_CANVAS_ANIM = document.getElementById("pushables-canvas-anim");
-    RUR.PUSHABLES_ANIM_CTX = RUR.PUSHABLES_CANVAS_ANIM.getContext("2d");
-    RUR.CANVASES.push(RUR.PUSHABLES_CANVAS_ANIM);    
+    RUR.PUSHABLES_CANVAS = document.getElementById("pushables-canvas"); //16
+    create_ctx(RUR.PUSHABLES_CANVAS, "PUSHABLES_CTX");
 
-    RUR.ROBOT_CANVAS = document.getElementById("robot-canvas");
-    RUR.ROBOT_CTX = RUR.ROBOT_CANVAS.getContext("2d");
-    RUR.CANVASES.push(RUR.ROBOT_CANVAS);
-    RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
+    RUR.PUSHABLES_CANVAS_ANIM = document.getElementById("pushables-canvas-anim"); //17
+    create_ctx(RUR.PUSHABLES_CANVAS_ANIM, "PUSHABLES_ANIM_CTX");
+
+    RUR.WALL_CANVAS = document.getElementById("wall-canvas"); //18
+    create_ctx(RUR.WALL_CANVAS, "WALL_CTX");
+
+    RUR.ROBOT_CANVAS = document.getElementById("robot-canvas"); //19
+    create_ctx(RUR.ROBOT_CANVAS, "ROBOT_CTX");
 }
 set_canvases();
 

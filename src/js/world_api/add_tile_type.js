@@ -122,6 +122,8 @@ function create_images(obj) {
  * @memberof RUR
  * @instance
  *
+ * @todo include goal images
+ * @todo include translated name
  * @desc This needs to be documented
  */
 RUR.show_existing_types = function () {

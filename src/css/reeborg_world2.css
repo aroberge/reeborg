@@ -9,23 +9,25 @@ body {
 /** Collecting all z-indices for easier maintenance */
 header                 {z-index: 100;}
 #splash-screen         {z-index: 1000;}
-#background-canvas     {z-index: 1;}
-#tiles-canvas          {z-index: 10;}
-#tiles-canvas-anim     {z-index: 11;}
-#bridge-canvas         {z-index: 20;}
-#bridge-canvas-anim    {z-index: 21;}
-#decorative-objects-canvas      {z-index: 30;}
-#decorative-objects-canvas-anim {z-index: 31;}
-#obstacles-canvas      {z-index: 40;}
-#obstacles-canvas-anim {z-index: 41;}
-#goal-canvas           {z-index: 50;}
-#goal-canvas-anim      {z-index: 51;}
-#objects-canvas        {z-index: 60;}
-#objects-canvas-anim   {z-index: 61;}
-#trace-canvas          {z-index: 70;}
-#pushables-canvas      {z-index: 80;}
-#pushables-canvas-anim {z-index: 81;}
-#robot-canvas          {z-index: 89;}
+#background-canvas     {z-index: 1;} /* 1 */
+#tiles-canvas          {z-index: 10;} /* 2 */
+#tiles-canvas-anim     {z-index: 11;} /* 3 */
+#bridge-canvas         {z-index: 20;} /* 4 */
+#bridge-canvas-anim    {z-index: 21;} /* 5 */
+#decorative-objects-canvas      {z-index: 30;} /* 6 */
+#decorative-objects-canvas-anim {z-index: 31;} /* 7 */
+#obstacles-canvas      {z-index: 40;} /* 8 */
+#obstacles-canvas-anim {z-index: 41;} /* 9 */
+#goal-canvas           {z-index: 50;} /* 10 */
+#goal-wall-canvas      {z-index: 51;} /* 11 */
+#goal-canvas-anim      {z-index: 52;} /* 12 */
+#objects-canvas        {z-index: 60;} /* 13 */
+#objects-canvas-anim   {z-index: 61;} /* 14 */
+#trace-canvas          {z-index: 70;} /* 15 */
+#pushables-canvas      {z-index: 80;} /* 16 */
+#pushables-canvas-anim {z-index: 81;} /* 17 */
+#wall-canvas           {z-index: 89;} /* 18 */
+#robot-canvas          {z-index: 90;} /* 19 */
 #tooltip               {z-index: 100;}
 #Reeborg-writes        {z-index: 210;}
 #Reeborg-concludes     {z-index: 211;}
