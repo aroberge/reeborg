@@ -1,0 +1,11 @@
+Tests:
+  ☐ do unit tests
+
+Implement:
+  ☐ add_object
+  ☐ remove_object
+  ☐ goal as option for object
+  ☐ goal as option for wall
+
+Check:
+  ☐ get_thing returns the correct thing for all things

@@ -178,7 +178,7 @@ RUR.utils.add_artefact = function (args) {
     var base, coords, world = RUR.get_world();
 
     ensure_common_required_args_present(args);
-
+    console.log("args from add_artefact", args);
     base = world;
     if (args.goal) {
         RUR.utils.ensure_key_for_obj_exists(world, "goal");

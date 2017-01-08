@@ -210,8 +210,7 @@ RUR.remove_wall = function(orientation, x, y, goal) {
     args.goal = goal;
     args.type = "walls";
     RUR.utils.remove_artefact(args);
-    // TODO: see if it is required for working program (not tests)
-    // to ensure that walls is always a valid key.
+    // For historical reason, worlds are always created with a "walls" attribute
     RUR.utils.ensure_key_for_obj_exists(RUR.CURRENT_WORLD, "walls");
     RUR.record_frame("remove_wall", args);  
 };
