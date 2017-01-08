@@ -7,7 +7,7 @@
       "_prev_x": 1,
       "_prev_y": 1,
       "_prev_orientation": 0,
-      "start_positions": [
+      "possible_initial_positions": [
         [
           1,
           1
@@ -387,7 +387,7 @@
   "rows": 12,
   "cols": 14,
   "goal": {
-    "possible_positions": [
+    "possible_final_positions": [
       [
         14,
         7

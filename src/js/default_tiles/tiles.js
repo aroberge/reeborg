@@ -20,32 +20,32 @@ tile = {name: "mud",
     fatal: "mud",
     info: "Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."
 };
-RUR.add_new_type(tile);
+RUR.add_new_thing(tile);
 
 tile = {name: "ice",
     url: RUR._BASE_URL + '/src/images/ice.png',
     message: "I'm slipping on ice!",
     info: "Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location."
 };
-RUR.add_new_type(tile);
+RUR.add_new_thing(tile);
 
 tile = {name: "grass",
     url: RUR._BASE_URL + '/src/images/grass.png',
     info: "Grass: usually safe."
 };
-RUR.add_new_type(tile);
+RUR.add_new_thing(tile);
 
 tile = {name: "pale_grass",
     url: RUR._BASE_URL + '/src/images/pale_grass.png',
     info: "Grass: usually safe.",
 };
-RUR.add_new_type(tile);
+RUR.add_new_thing(tile);
 
 tile = {name: "gravel",
     url: RUR._BASE_URL + '/src/images/gravel.png',
     info: "Gravel: usually safe."
 };
-RUR.add_new_type(tile);
+RUR.add_new_thing(tile);
 
 tile = {
     name:"water",
@@ -60,7 +60,7 @@ tile = {
     detectable: true,
     message: "I'm in water!"
 };
-RUR.add_new_type(tile);
+RUR.add_new_thing(tile);
 
 tile = {name: "bricks",
     url: RUR._BASE_URL + '/src/images/bricks.png',
@@ -70,7 +70,7 @@ tile = {name: "bricks",
     fatal: "bricks",
     solid: true
 };
-RUR.add_new_type(tile);
+RUR.add_new_thing(tile);
 
 
 // fire adapted from https://commons.wikimedia.org/wiki/File:Icon-Campfire.svg
@@ -81,7 +81,7 @@ tile = {name: "fire",
     detectable: true,
     fatal: "fire"
 };
-RUR.add_new_type(tile);
+RUR.add_new_thing(tile);
 
 /*--- home tiles ---*/
 
@@ -92,21 +92,21 @@ tile = {name: "green_home_tile",
     info: "green_home_tile" + home_message,
     detectable: true
 };
-RUR.add_new_type(tile);
+RUR.add_new_thing(tile);
 
 tile = {name: "house",
     url: RUR._BASE_URL + '/src/images/house.png',
     info: "house" + home_message,
     detectable: true
 };
-RUR.add_new_type(tile);
+RUR.add_new_thing(tile);
 
 tile = {name: "racing_flag",
     url: RUR._BASE_URL + '/src/images/racing_flag.png',
     info: "racing_flag" + home_message,
     detectable: true
 };
-RUR.add_new_type(tile);
+RUR.add_new_thing(tile);
 
 /* --- default objects  -----*/
 
@@ -115,7 +115,7 @@ _add_object_type = function (name) {
     var url, url_goal;
     url = RUR._BASE_URL + '/src/images/' + name + '.png';
     url_goal = RUR._BASE_URL + '/src/images/' + name + '_goal.png';
-    RUR.add_new_type({"name": name, "url": url, "goal": {"url": url_goal}});
+    RUR.add_new_thing({"name": name, "url": url, "goal": {"url": url_goal}});
 };
 
 _add_object_type("token");
@@ -133,7 +133,7 @@ _add_object_type("daisy");
 _add_object_type("tulip");
 _add_object_type("east");
 _add_object_type("north");
-RUR.TILES.east.x_offset = 2;
+RUR.TILES.east.x_offset = 38;
 RUR.TILES.east.y_offset = -2;
 RUR.TILES.north.x_offset = -2;
 RUR.TILES.north.y_offset = -2;
@@ -142,12 +142,12 @@ function _add_static_wall(name, x_offset) {
     "use strict";
     var url, y_offset=-2;
     url = RUR._BASE_URL + '/src/images/' + name + '.png';
-    RUR.add_new_type({"name": name, "url": url, 
+    RUR.add_new_thing({"name": name, "url": url, 
                      "x_offset": x_offset, "y_offset": y_offset});    
 }
-_add_static_wall("east_border", 2);
-_add_static_wall("east_grid", 2);
-_add_static_wall("east_edit", 2);
+_add_static_wall("east_border", 38);
+_add_static_wall("east_grid", 38);
+_add_static_wall("east_edit", 38);
 
 _add_static_wall("north_border", -2);
 _add_static_wall("north_grid", -2);
@@ -163,7 +163,7 @@ tile = {
     url: RUR._BASE_URL + '/src/images/bridge.png',
     protection: ["water", "mud"]
 };
-RUR.add_new_type(tile);
+RUR.add_new_thing(tile);
 
 obj = {"name": 'beeper',
     "selection_method": 'ordered',
@@ -173,7 +173,7 @@ obj = {"name": 'beeper',
             RUR._BASE_URL + '/src/images/beeper3.png'],
     "goal": {'url': RUR._BASE_URL + '/src/images/beeper_goal.png'}
 };
-RUR.add_new_type(obj);
+RUR.add_new_thing(obj);
 
 add_new_obstacle_type = function (name, url) {
     var obj = RUR.TILES;

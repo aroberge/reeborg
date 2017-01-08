@@ -86,13 +86,13 @@ RUR.world_init.set = function () {
     // next, initial position for robot
     if (RUR.CURRENT_WORLD.robots !== undefined && RUR.CURRENT_WORLD.robots.length == 1){
         robot = RUR.CURRENT_WORLD.robots[0];
-        if (robot.start_positions !== undefined) {
-            position = robot.start_positions[randint(0, robot.start_positions.length-1)];
+        if (robot.possible_initial_positions !== undefined) {
+            position = robot.possible_initial_positions[randint(0, robot.possible_initial_positions.length-1)];
             robot.x = position[0];
             robot.y = position[1];
             robot._prev_x = robot.x;
             robot._prev_y = robot.y;
-            delete robot.start_positions;
+            delete robot.possible_initial_positions;
         }
         if (robot._orientation == -1){
             RUR.CURRENT_WORLD.robots[0]._orientation = randint(0, 3);
@@ -103,13 +103,13 @@ RUR.world_init.set = function () {
     // then final position for robot
 
     if (RUR.CURRENT_WORLD.goal !== undefined &&
-        RUR.CURRENT_WORLD.goal.possible_positions !== undefined &&
-        RUR.CURRENT_WORLD.goal.possible_positions.length > 1) {
+        RUR.CURRENT_WORLD.goal.possible_final_positions !== undefined &&
+        RUR.CURRENT_WORLD.goal.possible_final_positions.length > 1) {
         goal = RUR.CURRENT_WORLD.goal;
-        position = goal.possible_positions[randint(0, goal.possible_positions.length-1)];
+        position = goal.possible_final_positions[randint(0, goal.possible_final_positions.length-1)];
         goal.position.x = position[0];
         goal.position.y = position[1];
-        delete goal.possible_positions;
+        delete goal.possible_final_positions;
     }
     RUR.vis_world.refresh();
 };

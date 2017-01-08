@@ -19,13 +19,6 @@ RUR.world_get.tile_at_position = function (x, y) {
     return RUR.TILES[RUR.CURRENT_WORLD.tiles[coords]];
 };
 
-// RUR.world_get.obstacles_at_position = function (x, y) {
-//     "use strict";
-//     var coords = x + "," + y;
-//     if (RUR.CURRENT_WORLD.obstacles === undefined) return false;
-//     if (RUR.CURRENT_WORLD.obstacles[coords] === undefined) return false;
-//     return RUR.CURRENT_WORLD.obstacles[coords];
-// };
 
 RUR.world_get.object_at_robot_position = function (robot, obj) {
     return object_of_type_here(robot, obj, RUR.CURRENT_WORLD.objects);
@@ -82,7 +75,7 @@ RUR.world_get.world_info = function (no_grid) {
     var description, insertion, to_replace;
 
 
-    information = "";
+    information = "<div class='automatic-description'>";
 
     if (RUR.CURRENT_WORLD.description) {
         description = RUR.CURRENT_WORLD.description;
@@ -101,7 +94,7 @@ RUR.world_get.world_info = function (no_grid) {
             to_replace = "INSERT_ONLOAD";
             description = description.replace(to_replace, insertion);
         }
-        information +="<b>" + RUR.translate("Description") + "</b><br>" + description + "<hr>";
+        information +="<h2>" + RUR.translate("Description") + "</h2>" + description + "</div>";
     }
 
     if (!no_grid) {
@@ -110,7 +103,7 @@ RUR.world_get.world_info = function (no_grid) {
         y = position[1];
         coords = x + "," + y;
         if (!isNaN(x)){
-            information += "x = " + x + ", y = " + y;
+            information += "<br>x,y = " + coords + "<br><br>";
         }
     }
 
@@ -124,7 +117,7 @@ RUR.world_get.world_info = function (no_grid) {
         if (RUR.translate(tile.info)) {
             if (topic){
                 topic = false;
-                information += "<br><br><b>" + RUR.translate("Special information about this location:") + "</b>";
+                information += "<b>" + RUR.translate("Special information about this location:") + "</b>";
             }
             information += "<br>" + RUR.translate(tile.info);
         }
@@ -225,7 +218,7 @@ RUR.world_get.world_info = function (no_grid) {
             robot = robots[r];
             x = robot.x;
             y = robot.y;
-            if (robot.start_positions !== undefined && robot.start_positions.length > 1){
+            if (robot.possible_initial_positions !== undefined && robot.possible_initial_positions.length > 1){
                 x = RUR.translate("random location");
                 y = '';
             }
@@ -248,12 +241,12 @@ RUR.world_get.world_info = function (no_grid) {
 
     goals = RUR.CURRENT_WORLD.goal;
     if (goals !== undefined &&
-         (goals.possible_positions !== undefined || goals.position !== undefined)){
+         (goals.possible_final_positions !== undefined || goals.position !== undefined)){
         if (topic){
             topic = false;
             information += "<br><br><b>" + RUR.translate("Goal to achieve:") + "</b>";
         }
-        if (goals.possible_positions !== undefined && goals.possible_positions.length > 2) {
+        if (goals.possible_final_positions !== undefined && goals.possible_final_positions.length > 2) {
             information += "<br>" + RUR.translate("The final required position of the robot will be chosen at random.");
         } else {
             information += "<br>" + RUR.translate("The final position of the robot must be (x, y) = ") +

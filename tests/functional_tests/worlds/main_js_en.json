@@ -6,7 +6,7 @@
       "_prev_x": 1,
       "_prev_y": 4,
       "_prev_orientation": -1,
-      "start_positions": [
+      "possible_initial_positions": [
         [
           1,
           2
@@ -193,7 +193,7 @@
         "east"
       ]
     },
-    "possible_positions": [
+    "possible_final_positions": [
       [
         13,
         10

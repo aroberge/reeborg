@@ -175,3 +175,50 @@ RUR.get_position_in_front = function (robot) {
     }
     return {x:x, y:y};
 };
+
+ /** @function add_final_position
+ *
+ * @memberof RUR
+ * @instance
+ * @summary This function adds a final position as a goal for the default robot.
+ *          It is possible to call this function multiple times, with different
+ *          `x, y` positions; doing so will result in a final position chosen
+ *          randomly (among the choices recorded) each time a program is run.
+ *
+ * @param {string} name The name of the object/image we wish to use to
+ *                      represent the final position of the robot. Only one
+ *                      image can be used for a given world, even if many possible
+ *                      choices exist for the final position: each time this
+ *                      function is called, the `name` argument replaces any
+ *                      such argument that was previously recorded.
+ *
+ * @param {integer} x  The position on the grid  
+ * @param {integer} y
+ *
+ * @todo: put in argument verification code and note which error can be thrown
+ * @throws Will throw an error if the final position is already included
+ **/
+
+
+RUR.add_final_position = function (name, x, y) {
+    "use strict";
+    var goal, pos, world=RUR.get_world();
+
+    RUR.utils.ensure_key_for_obj_exists(world, "goal");
+    goal = world.goal;
+    RUR.utils.ensure_key_for_obj_exists(goal, "position");
+    RUR.utils.ensure_key_for_array_exists(goal, "possible_final_positions");
+
+    for(var i=0; i<goal.possible_final_positions.length; i++) {
+        pos = goal.possible_final_positions[i];
+        if(pos[0]==x && pos[1]==y){
+            throw new ReeborgError("This final position is already included!");
+        } 
+    }
+
+    goal.position.x = x;
+    goal.position.y = y;
+    goal.position.image = name;
+    goal.possible_final_positions.push([x, y]);
+    RUR.record_frame("add_final_position", {name:name, x:x, y:y});
+};

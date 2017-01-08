@@ -77,10 +77,10 @@ RUR.vis_world.draw_all = function () {
     if (RUR.get_world().background_image !== undefined) {
         draw_background_image(RUR.BACKGROUND_IMAGE);
     } else {
-        draw_grid_walls(RUR.BACKGROUND_CTX); // TODO: implement using images
+        draw_grid_walls(RUR.BACKGROUND_CTX); 
     }
 
-    draw_coordinates(); // on BACKGROUND_CTX
+    draw_coordinates();
     RUR.animated_images = false;
     RUR.vis_world.refresh();
 };
@@ -111,7 +111,7 @@ RUR.vis_world.refresh = function () {
     draw_tiles(world.objects, RUR.OBJECTS_CTX);
 
     draw_info();     // on ROBOT_CTX
-    draw_robots(world.robots);  // on ROBOT_CTX
+    draw_robots(world.robots);  // on ROBOT_CTX; also draws the trace
 
     // Animated images are redrawn according to their own schedule
     // If we have not drawn any yet, we should see if we need to draw some
@@ -132,8 +132,8 @@ RUR.vis_world.refresh = function () {
         if (world.goal.walls !== undefined){
             draw_tiles(world.goal.walls, RUR.GOAL_CTX, goal);
         }
-        if (goal.position !== undefined) {
-            draw_goal_position(goal);
+        if (world.goal.position !== undefined) {
+            draw_goal_position(world.goal);
         }
     }    
 
@@ -224,7 +224,7 @@ function draw_robots (robots) {
         return;
     }
     for (robot=0; robot < robots.length; robot++){
-        if (robots[robot].start_positions !== undefined && robots[robot].start_positions.length > 1){
+        if (robots[robot].possible_initial_positions !== undefined && robots[robot].possible_initial_positions.length > 1){
             draw_robot_clones(robots[robot]);
         } else {
             RUR.vis_robot.draw(robots[robot]); // draws trace automatically
@@ -237,10 +237,10 @@ function draw_robot_clones (robot){
     var i, clone;
     RUR.ROBOT_CTX.save();
     RUR.ROBOT_CTX.globalAlpha = 0.4;
-    for (i=0; i < robot.start_positions.length; i++){
+    for (i=0; i < robot.possible_initial_positions.length; i++){
             clone = JSON.parse(JSON.stringify(robot));
-            clone.x = robot.start_positions[i][0];
-            clone.y = robot.start_positions[i][1];
+            clone.x = robot.possible_initial_positions[i][0];
+            clone.y = robot.possible_initial_positions[i][1];
             clone._prev_x = clone.x;
             clone._prev_y = clone.y;
             RUR.vis_robot.draw(clone);
@@ -267,11 +267,11 @@ function draw_goal_position (goal) {
                 // In that case, it is ok to have x_offset and y_offset undefined.
         image = RUR.TILES["green_home_tile"].image;
     }
-    if (goal.possible_positions !== undefined && goal.possible_positions.length > 1){
+    if (goal.possible_final_positions !== undefined && goal.possible_final_positions.length > 1){
         ctx.save();
         ctx.globalAlpha = 0.5;
-        for (i=0; i < goal.possible_positions.length; i++){
-                g = goal.possible_positions[i];
+        for (i=0; i < goal.possible_final_positions.length; i++){
+                g = goal.possible_final_positions[i];
                 draw_single_object(image, g[0], g[1], ctx, x_offset, y_offset);
         }
         ctx.restore();

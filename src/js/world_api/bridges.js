@@ -159,12 +159,12 @@ RUR.is_bridge = function (name, x, y) {
 
 RUR.get_bridge_protections = function (x, y) {
     "use strict";
-    var tile, args = {x:x, y:y, type:"bridge"};
-    tile = RUR.utils.get_artefacts(args);
+    var tile;
+    tile = RUR.get_bridge(x, y);
     if (tile === null) {
         return [];
-    } else if (RUR.TILES[tile[0]].protection !== undefined) {
-        return RUR.TILES[tile[0]].protection;
+    } else if (RUR.TILES[tile].protection !== undefined) {
+        return RUR.TILES[tile].protection;
     } else {
         return [];
     }

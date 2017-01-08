@@ -5,6 +5,8 @@ require("./../recorder/record_frame.js");
 require("./../utils/artefact.js");
 require("./../world_utils/get_world.js");
 
+// TODO: implement fill_background
+
 /** @function add_background_tile
  * @memberof RUR
  * @instance
@@ -82,6 +84,7 @@ RUR.remove_background_tile = function (name, x, y) {
  *
  * @param {integer} x  Position of the tile.
  * @param {integer} y  Position of the tile.
+ * @returns {string} The name of the tile found at that location or `null/None`.
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
@@ -103,7 +106,7 @@ RUR.get_background_tile = function (x, y) {
     if (tiles === null) {
         return null;
     } else {
-        return tiles;
+        return tiles[0];
     }
 };
 
@@ -113,38 +116,11 @@ RUR.is_background_tile = function (name, x, y) {
     tile = RUR.get_background_tile(x, y);
     if (tile === null) {
         return false;
-    } else if (tile[0] == name){
+    } else if (tile == name){
         return true;
     } else {
         return false;
     }
 };
 
-RUR.is_background_tile_fatal = function(x, y) {
-    "use strict";
-    var tile, args = {x:x, y:y, type:"tiles"};
-    tile = RUR.utils.get_artefacts(args);
-    if (tile === null) {
-        return false;
-    } else if (RUR.TILES[tile[0]].fatal) {
-        return RUR.TILES[tile[0]]; // todo: return the name instead
-    } else {
-        return false;
-    }
-};
-
-// todo: change this into undetectable, and return the name
-// of the tile when it is.
-RUR.is_background_tile_detectable = function(x, y) {
-    "use strict";
-    var tile, args = {x:x, y:y, type:"tiles"};
-    tile = RUR.utils.get_artefacts(args);
-    if (tile === null) {
-        return false;
-    } else if (RUR.TILES[tile[0]].detectable) {
-        return true;
-    } else {
-        return false;
-    }
-};
 

@@ -12,7 +12,7 @@
       "_trace_style": "default",
       "_trace_color": "seagreen",
       "_is_leaky": true,
-      "start_positions": [
+      "possible_initial_positions": [
         [
           1,
           1

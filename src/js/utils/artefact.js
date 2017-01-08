@@ -195,11 +195,20 @@ RUR.utils.add_artefact = function (args) {
     }
 
     RUR.utils.ensure_key_for_obj_exists(base, args.type);
-    RUR.utils.ensure_key_for_array_exists(base[args.type], coords);
-    if (args.single) {
-        base[args.type][coords] = [args.name];
+    if (args.nb) {
+        RUR.utils.ensure_key_for_dict_exists(base[args.type], coords);
+        if (base[args.type][coords][args.name] === undefined) {
+            base[args.type][coords][args.name] = args.nb;
+        } else {
+            base[args.type][coords][args.name] += args.nb;
+        }
     } else {
-        base[args.type][coords].push(args.name);
+        RUR.utils.ensure_key_for_array_exists(base[args.type], coords);
+        if (args.single) {
+            base[args.type][coords] = [args.name];
+        } else {
+            base[args.type][coords].push(args.name);
+        }
     }
 };
 

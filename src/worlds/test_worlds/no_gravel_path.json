@@ -205,7 +205,7 @@
   "cols": 14,
   "tiles": {},
   "goal": {
-    "possible_positions": [
+    "possible_final_positions": [
       [
         14,
         12

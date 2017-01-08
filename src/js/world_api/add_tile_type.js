@@ -1,12 +1,16 @@
 require("./../rur.js");
+require("./../translator.js");
 require("./animated_images.js");
 require("./../programming_api/exceptions.js");
 
-/** @function add_new_type
+/** @function add_new_thing
  * @memberof RUR
  * @instance
- * @summary This function makes it possible to add new tiles. If the name
- *    of an existing tile is specified again, it is replaced by a new one
+ * @summary This function makes it possible to add new "things", represented
+ * by an image which we call "tile".  In what follows we use the word "tile"
+ * as the generic term. 
+ * 
+ * If the name of an existing tile is specified again, it is replaced by a new one
  *    which may have completely different characteristics. 
  *
  *    **Important** Other than for testing purposes, this function should
@@ -48,22 +52,18 @@ require("./../programming_api/exceptions.js");
  *                            as above (`tile.goal.url`, `tile.goal.images`, 
  *                            `tile.goal.selection_method`).
  *
- * @param {boolean} [tile.fatal] Program ends if Reeborg steps on such a tile with
+ * @param {string} [tile.fatal] Program ends if Reeborg steps on such a tile with
  *                               a value that is equivalent to "true", unless a bridge
  *                               offering the adequate protection is present. 
  *                               This value is usually set to the name of the tile.
  *
- * @param {boolean} [tile.detectable] If `tile.fatal == tile.detectable == True`, Reeborg can
- *                                    detect with `front_is_clear()` and `right_is_clear()`.
+ * @param {string} [tile.detectable] If `tile.fatal` and  `tile.detectable` are 
+ *  both equivalent to "true", Reeborg can detect this tile with `front_is_clear()` and `right_is_clear()`.
  *
  * @param {boolean} [tile.solid] If sets to `True`, prevents a box from sliding onto this tile.
  *
- * @param {boolean} [tile.slippery] If sets to `True`, Reeborg will keep going to next tile if
- *                                  it attempts to move on this tile.
  *
  * @todo  Add "x-offset" and "y-offset" as additional properties, used for drawing
- * @todo  Add new method to retrieve the untranslated name of the tile, to help
- * world designers
  *
  * @throws Will throw an error if `name` attribute is not specified.
  * @throws Will throw an error if no images is supplied (either via the `url`
@@ -82,13 +82,13 @@ require("./../programming_api/exceptions.js");
  */
 RUR.TILES = {};
 
-RUR.add_new_type = function (tile) {
+RUR.add_new_thing = function (tile) {
     "use strict";
     var i, key, keys, name;
     name = tile.name;
 
     if (name === undefined){
-        throw new RUR.ReeborgError("RUR.add_new_type(tile): new_tile.name attribute missing.");
+        throw new RUR.ReeborgError("RUR.add_new_thing(tile): new_tile.name attribute missing.");
     }
 
     if (RUR.KNOWN_TILES.indexOf(name) != -1) {
@@ -118,36 +118,89 @@ function create_images(obj) {
     }
 }
 
-/** @function show_existing_types
+/** @function show_existing_things
  * @memberof RUR
  * @instance
  *
+ * @todo  document filter by property
  * @todo include goal images
  * @todo include translated name
  * @desc This needs to be documented
  */
-RUR.show_existing_types = function () {
-    var i, j, info, images, name;
-    info = "<table border='1'><tr><th>name</th><th>image(s)</th></tr>";
+RUR.show_existing_things = function (property) {
+    var i, j, info, images, name, url;
+    if (property !== undefined) {
+        info = "<h3>Things with property <code>" + property + "</code></h3>";
+    } else {
+        info = '';
+    }
+    if (RUR.state.human_language != 'en') {
+            info += "<table border='1'><tr><th>name</th><th>translation</th><th>image(s)</th><th>goal?</th></tr>";
+        } else {
+            info += "<table border='1'><tr><th>name</th><th>image(s)</th><th>goal?</th></tr>";
+        }
     for (i=0; i< RUR.KNOWN_TILES.length; i++) {
         name = RUR.KNOWN_TILES[i];
+        if (property !== undefined) {
+            if (RUR.TILES[name][property] === undefined) {
+                continue;
+            }
+        }
         url = RUR.TILES[name].url;
         images = RUR.TILES[name].images;
         info += "<tr><td>" +  name + "</td><td>";
+        if (RUR.state.human_language != 'en') {
+            info += RUR.translate(name) + "</td><td>";
+        }
         if (url !== undefined) {
-            info += "<img src = '" + RUR.TILES[name].url + "'>";
+            info += "<img src = '" + RUR.TILES[name].url + "'></td><td>";
         } else if (images !== undefined) {
             for(j=0; j<images.length; j++) {
                 info += "<img src = '" + images[j] + "'> - ";
             }
+            info += "</td><td>";
         } else {
-            info += "Missing image";
+            info += "Missing image</td><td>";
+        } 
+        if (RUR.TILES[name].goal !== undefined) {
+            info += "<img src = '" + RUR.TILES[name].goal.url + "'>";
         } 
         info += "</td></tr>";
     }
     info += "</table>";
     RUR._print_html_(info);
 };
+
+/** @function has_property
+ * @memberof RUR
+ * @instance
+ *
+ * @desc This needs to be documented
+ */
+RUR.has_property = function (name, property) {
+    if (RUR.TILES[name] === undefined) {
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj:name}));
+    }
+    if (RUR.TILES[name][property] === undefined) {
+        return false;
+    } else {
+        return true;
+    }
+};
+
+/** @function get_property
+ * @memberof RUR
+ * @instance
+ *
+ * @desc This needs to be documented
+ */
+RUR.get_property = function (name, property) {
+    if (RUR.TILES[name] === undefined) {
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj:name}));
+    }
+    return RUR.TILES[name][property];
+};
+
 
 /*=============================
 /
@@ -158,14 +211,14 @@ RUR.show_existing_types = function () {
 /** @function add_new_object_type
  * @memberof RUR
  * @instance
- * @deprecated Use {@link RUR#add_new_type} instead.
+ * @deprecated Use {@link RUR#add_new_thing} instead.
  */
 RUR.add_new_object_type = function (name, url, url_goal) {
-    RUR.add_new_type({"name": name, "url": url, "goal": {"url": url_goal}});
+    RUR.add_new_thing({"name": name, "url": url, "goal": {"url": url_goal}});
 };
 /** @function add_object_image
  * @memberof RUR
  * @instance
- * @deprecated Use {@link RUR#add_new_type} instead.
+ * @deprecated Use {@link RUR#add_new_thing} instead.
  */
 RUR.add_object_image = RUR.add_new_object_type; // Vincent Maille's book.

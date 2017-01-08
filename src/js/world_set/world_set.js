@@ -30,8 +30,8 @@ function trim_world (min_x, min_y, max_x, max_y) {
         }
     }
     if (RUR.CURRENT_WORLD.goal !== undefined) {
-        if (RUR.CURRENT_WORLD.goal.possible_positions !== undefined) {
-            delete RUR.CURRENT_WORLD.goal.possible_positions;
+        if (RUR.CURRENT_WORLD.goal.possible_final_positions !== undefined) {
+            delete RUR.CURRENT_WORLD.goal.possible_final_positions;
             delete RUR.CURRENT_WORLD.goal.position;
             RUR.show_feedback("#Reeborg-shouts",
                                  RUR.translate("WARNING: deleted final positions choices while resizing world!"));

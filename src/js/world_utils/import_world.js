@@ -42,6 +42,8 @@ RUR.world_utils.import_world = function (json_string) {
         }
     }
 
+    //TODO: put the conversion into new function
+
     // Backward compatibility following change done on Jan 5, 2016
     // top_tiles has been renamed obstacles (and prior to that [or after?], 
     // they were known as solid_objects); to ensure compatibility of
@@ -157,3 +159,9 @@ eval_onload = function () {
     RUR.state.evaluating_onload = false;
     RUR.vis_world.draw_all();
 };
+
+function convert_old_worlds () {
+    // TODO: add code here
+    // TODO: convert goal.possible_positions to goal.possible_final_positions
+    // TODO: convert start_positions to possible_initial_positions
+}

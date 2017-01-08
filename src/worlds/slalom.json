@@ -7,7 +7,7 @@
       "_prev_x": 4,
       "_prev_y": 24,
       "_prev_orientation": 3,
-      "start_positions": [
+      "possible_initial_positions": [
         [
           4,
           24
@@ -201,7 +201,7 @@
     "7,22": "ice"
   },
   "goal": {
-    "possible_positions": [
+    "possible_final_positions": [
       [
         3,
         1

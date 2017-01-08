@@ -269,8 +269,8 @@ function place_robot () {
     if (world.robots !== undefined){
         if (world.robots.length >0) {
             robot = world.robots[0];
-            if (!robot.start_positions){
-                robot.start_positions = [[robot.x, robot.y]];
+            if (!robot.possible_initial_positions){
+                robot.possible_initial_positions = [[robot.x, robot.y]];
             }
         } else {
             RUR._add_robot();
@@ -279,13 +279,13 @@ function place_robot () {
             robot.y = position[1];
             robot._prev_x = robot.x;
             robot._prev_y = robot.y;
-            robot.start_positions = [[robot.x, robot.y]];
+            robot.possible_initial_positions = [[robot.x, robot.y]];
             return;
         }
     }
 
-    for (var i=0; i < robot.start_positions.length; i++){
-        pos = robot.start_positions[i];
+    for (var i=0; i < robot.possible_initial_positions.length; i++){
+        pos = robot.possible_initial_positions[i];
         if(pos[0]==position[0] && pos[1]==position[1]){
             present = true;
         } else {
@@ -306,7 +306,7 @@ function place_robot () {
         return;
     }
 
-    robot.start_positions = arr;
+    robot.possible_initial_positions = arr;
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
 }
@@ -447,10 +447,10 @@ RUR.we.set_goal_position = function (home){
     RUR.utils.ensure_key_for_obj_exists(world, "goal");
     goal = world.goal;
 
-    if (goal.possible_positions === undefined) {
-        RUR.utils.ensure_key_for_obj_exists(goal, "possible_positions");
+    if (goal.possible_final_positions === undefined) {
+        RUR.utils.ensure_key_for_obj_exists(goal, "possible_final_positions");
         if (goal.position !== undefined) {
-            goal.possible_positions = [[goal.position.x, goal.position.y]];
+            goal.possible_final_positions = [[goal.position.x, goal.position.y]];
         } else {
             RUR.utils.ensure_key_for_obj_exists(goal, "position");
         }
@@ -462,8 +462,8 @@ RUR.we.set_goal_position = function (home){
     goal.position.x = position[0];
     goal.position.y = position[1];
 
-    for(var i=0; i<goal.possible_positions.length; i++) {
-        pos = goal.possible_positions[i];
+    for(var i=0; i<goal.possible_final_positions.length; i++) {
+        pos = goal.possible_final_positions[i];
         if(pos[0]==position[0] && pos[1]==position[1]){
             present = true;
             break;
@@ -479,11 +479,11 @@ RUR.we.set_goal_position = function (home){
         goal.position.x = position[0];
         goal.position.y = position[1];
     }
-    goal.possible_positions = arr;
+    goal.possible_final_positions = arr;
 
     if (arr.length === 0) {
         delete RUR.CURRENT_WORLD.goal.position;
-        delete RUR.CURRENT_WORLD.goal.possible_positions;
+        delete RUR.CURRENT_WORLD.goal.possible_final_positions;
         if (Object.keys(RUR.CURRENT_WORLD.goal).length === 0) {
             delete RUR.CURRENT_WORLD.goal;
         }

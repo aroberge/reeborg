@@ -32,11 +32,11 @@ function handleMouseMove(evt) {
     if (world.robots !== undefined) {
         for (i=0; i < world.robots.length; i++) {
             robot = world.robots[i];
-            if (robot.start_positions === undefined) {
-                robot.start_positions = [[robot.x, robot.y]];
+            if (robot.possible_initial_positions === undefined) {
+                robot.possible_initial_positions = [[robot.x, robot.y]];
             }
-            for (j=0; j < robot.start_positions.length; j++){
-                pos = robot.start_positions[j];
+            for (j=0; j < robot.possible_initial_positions.length; j++){
+                pos = robot.possible_initial_positions[j];
                 if(pos[0]==position[0] && pos[1]==position[1]){
                     mouse_above_robot = true;
                     if (robot.objects !== undefined){

@@ -14,14 +14,14 @@ function set_defaults() {
     RUR.TILES = {};
 }
 
-test('RUR.add_new_type: adding new tile type', function (assert) {
+test('RUR.add_new_thing: adding new tile type', function (assert) {
     require("../../../src/js/world_api/add_tile_type.js");   
     var obj = {}, this_obj; 
     set_defaults();
     obj.name = "this name";
     obj.url = "URL";
     obj.goal = {"url": "GOAL"};
-    RUR.add_new_type(obj); 
+    RUR.add_new_thing(obj); 
     this_obj = RUR.TILES["this name"];
     assert.equal(RUR.KNOWN_TILES[0], 'this name', "tile added");
     assert.equal(this_obj.image.src, 'URL', "url for tile ok");
@@ -33,7 +33,7 @@ test('RUR.add_new_type: adding new tile type', function (assert) {
     assert.end();
 });
 
-test('RUR.add_new_type: replace tile type', function (assert) {
+test('RUR.add_new_thing: replace tile type', function (assert) {
     require("../../../src/js/world_api/add_tile_type.js");
     var obj = {}, this_obj; 
     set_defaults();
@@ -41,9 +41,9 @@ test('RUR.add_new_type: replace tile type', function (assert) {
     silencer.disable('warn');
     obj.name = "this_name";
     obj.url = "old_URL";
-    RUR.add_new_type(obj); 
+    RUR.add_new_thing(obj); 
     obj.url = "URL";
-    RUR.add_new_type(obj); 
+    RUR.add_new_thing(obj); 
     this_obj = RUR.TILES["this_name"];
     assert.equal(RUR.KNOWN_TILES[0], 'this_name', "tile replaced");
     assert.equal(this_obj.image.src, 'URL', "url for objects ok");
@@ -54,14 +54,14 @@ test('RUR.add_new_type: replace tile type', function (assert) {
     assert.end();
 });
 
-test('RUR.add_new_type: adding tile with no goal attribute', function (assert) {
+test('RUR.add_new_thing: adding tile with no goal attribute', function (assert) {
     // decorative objects do not need "goal" attribute defined
     require("../../../src/js/world_api/add_tile_type.js");   
     var obj = {}, this_obj; 
     set_defaults();
     obj.name = "name";
     obj.url = "URL";
-    RUR.add_new_type(obj); 
+    RUR.add_new_thing(obj); 
     this_obj = RUR.TILES["name"];
     assert.equal(RUR.KNOWN_TILES[0], 'name', "tile added");
     assert.equal(this_obj.image.src, 'URL', "url for tile ok");
@@ -69,11 +69,11 @@ test('RUR.add_new_type: adding tile with no goal attribute', function (assert) {
     assert.end();
 });
 
-test('RUR.add_new_type: error raised if name attribute missing.'), function (assert) {
+test('RUR.add_new_thing: error raised if name attribute missing.'), function (assert) {
     var obj={}, message;
-    message = "RUR.add_new_type(new_tile): new_tile.name attribute missing.";
+    message = "RUR.add_new_thing(new_tile): new_tile.name attribute missing.";
     try {
-        RUR.add_new_type(obj); 
+        RUR.add_new_thing(obj); 
     } catch (e) {
         assert.equal(e.message, message, "error message ok");
         assert.equal(e.reeborg_shouts, message, "reeborg_shouts ok");

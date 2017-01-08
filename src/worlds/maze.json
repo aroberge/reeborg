@@ -387,7 +387,7 @@
   "rows": 12,
   "cols": 14,
   "goal": {
-    "possible_positions": [
+    "possible_final_positions": [
       [
         14,
         7

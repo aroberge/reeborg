@@ -16,17 +16,17 @@ require("./../world_api/background_tile.js");
 require("./../world_api/pushables.js");
 require("./../world_api/robot.js");
 require("./../world_api/composition.js");
+require("./../world_api/is_fatal.js");
 
 require("./../world_utils/get_world.js");
 
-/* Next, our namespace and its methods, for use in other modules */
 RUR.control = {};
 
 RUR.control.move = function (robot) {
     "use strict";
-    var position, next_x, next_y, orientation, pushable_in_the_way, tile,
+    var position, next_x, next_y, orientation, pushable_in_the_way, tile, tiles,
         x_beyond, y_beyond, recording_state, next_position, current_x, current_y,
-        bridge;
+        message;
 
     if (RUR.control.wall_in_front(robot)) {
         throw new RUR.WallCollisionError(RUR.translate("Ouch! I hit a wall!"));
@@ -76,33 +76,11 @@ RUR.control.move = function (robot) {
 
 
     // A move has been performed ... but it may have been a fatal decision
+    message = RUR.is_fatal(robot.x, robot.y);
+    if (message) {
+        throw new RUR.ReeborgError(message);
+    }
     
-    // bridge may offer protection
-    bridge = RUR.TILES[RUR.get_bridge(robot.x, robot.y)];
-
-    // Both obstacles and background tile may be fatal
-    tile = RUR.get_fatal_obstacle(robot.x, robot.y);
-    if (tile && tile.fatal) {
-        try {
-            if (bridge.protection.indexOf(tile.fatal) === -1) {
-                throw new RUR.ReeborgError(tile.message);
-            }
-        } catch (e) {
-            throw new RUR.ReeborgError(tile.message);
-        }
-    }
-
-    if (RUR.is_background_tile_fatal(robot.x, robot.y)) {
-        try {
-            tile = RUR.get_background_tile(robot.x, robot.y);
-            if (bridge.protection.indexOf(tile[0]) === -1) {
-                throw new RUR.ReeborgError(tile.message);
-            }
-        } catch (e) {
-            throw new RUR.ReeborgError(tile.message);
-        }
-    }
-
     RUR.record_frame("move", robot.__id);
 };
 
@@ -333,17 +311,7 @@ RUR.control.front_is_clear = function(robot){
     next_x = position.x;
     next_y = position.y;
 
-    if (RUR.get_fatal_detectable_obstacle(next_x, next_y)) {
-        return false;
-    }
-
-    // TODO : This is now done by a different category: bridges
-    // So, the following code no longer works properly...
-    if (RUR.is_obstacle_safe(next_x, next_y)) {
-        return true;
-    }
-    if (RUR.is_background_tile_fatal(next_x, next_y) &&
-        RUR.is_background_tile_detectable(next_x, next_y)){
+    if (RUR.is_fatal(next_x, next_y) && RUR.is_detectable(next_x, next_y)) {
         return false;
     }
 
