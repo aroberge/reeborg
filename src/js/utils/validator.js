@@ -15,11 +15,11 @@ _is_positive_integer = function (n) {
     return typeof n==='number' && (n%1)===0 && n>=1;
 };
 
-RUR.utils.is_integer = _is_integer;
-RUR.utils.is_non_negative_integer = _is_non_negative_integer;
-RUR.utils.is_positive_integer = _is_positive_integer;
+RUR.is_integer = _is_integer;
+RUR.is_non_negative_integer = _is_non_negative_integer;
+RUR.is_positive_integer = _is_positive_integer;
 
-RUR.utils.is_valid_position = function(x, y) {
+RUR.is_valid_position = function(x, y) {
     return (_is_positive_integer(x) && _is_positive_integer(y) && 
            x <= RUR.CURRENT_WORLD.cols && y <= RUR.CURRENT_WORLD.rows);
 };

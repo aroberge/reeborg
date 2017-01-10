@@ -2,7 +2,7 @@ require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
-require("./../utils/artefact.js");
+require("./artefact.js");
 require("./../world_utils/get_world.js");
 
 /** @function add_bridge
@@ -27,7 +27,7 @@ require("./../world_utils/get_world.js");
 RUR.add_bridge = function (name, x, y) {
     "use strict";
     var args = {name: name, x:x, y:y, type:"bridge", single:true};
-    RUR.utils.add_artefact(args);
+    RUR.add_artefact(args);
     RUR.record_frame("RUR.set_bridge", args);
 };
 
@@ -53,7 +53,7 @@ RUR.remove_bridge = function (name, x, y) {
     var args;
     args= {x:x, y:y, type:"bridge", name:name};
     try {
-        RUR.utils.remove_artefact(args);
+        RUR.remove_artefact(args);
     } catch (e) {
         if (e.message == "No artefact to remove") {
             throw new ReeborgError("No bridge to remove here.");
@@ -91,7 +91,7 @@ RUR.remove_bridge = function (name, x, y) {
 RUR.get_bridge = function (x, y) {
     "use strict";
     var tile, args = {x:x, y:y, type:"bridge"};
-    tile = RUR.utils.get_artefacts(args);
+    tile = RUR.get_artefacts(args);
     if (tile === null) {
         return null;
     } else {

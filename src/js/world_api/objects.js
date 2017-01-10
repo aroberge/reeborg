@@ -2,22 +2,19 @@ require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
-require("./../utils/artefact.js");
+require("./artefact.js");
 require("./../world_utils/get_world.js");
 
 /** @function add_object
  * @memberof RUR
  * @instance
- * @summary This function sets a named tile as background at a location.
+ * @summary This function adds one or more of a given object at a location.
  *
- * @param {string} name The name of a tile **or** a colour recognized by JS/HTML.
- *    No check is performed to ensure that the value given is valid; it the
- *    tile name is not recognized, it is assumed to be a colour. If a new tile
- *    is set at that location, it replaces the pre-existing one.
- *
- * @param {string} name Name of the tile
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {string} name Name of the object
+ * @param {integer} x  Position of the object.
+ * @param {integer} y  Position of the object.
+ * @param {object} options  Need to include: `goal`, `number`, `replace`,
+ * `min`, `max`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
@@ -25,21 +22,27 @@ require("./../world_utils/get_world.js");
  * @todo add better examples
  * @todo deal with translation
  * @example
- * // shows how to set various tiles;
+ * // shows how to set various objects;
  * // the mode will be set to Python and the highlighting
  * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
+ * World("/worlds/examples/object1.json", "Example 1")
  *
  */
 RUR.add_object = function (name, x, y, options) {
     "use strict";
-    var args = {name: name, x:x, y:y, type:"objects"};
-    console.log("options from add_object", options);
-    if (options !== undefined && options.goal !== undefined) {
-        args.goal = options.goal;
+    var k, keys, args = {name: name, x:x, y:y, type:"objects"};
+    if (options === undefined) {
+        args.number = 1;
+    } else {
+        keys = Object.keys(options);
+        for (k of keys) {
+            args[k] = options[k];
+        }
+        if (keys.indexOf("number") === -1) {
+            args["number"] = 1;
+        }
     }
-    console.log("args from add_object", args);
-    RUR.utils.add_artefact(args);
+    RUR.add_artefact(args);
     RUR.record_frame("RUR.add_object", args);
 };
 
@@ -47,14 +50,15 @@ RUR.add_object = function (name, x, y, options) {
 /** @function remove_object
  * @memberof RUR
  * @instance
- * @summary This function removes a background tile at a location.
+ * @summary This function removes an object at a location.
  *
- * @param {string} name Name of the tile
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {string} name Name of the object
+ * @param {integer} x  Position of the object.
+ * @param {integer} y  Position of the object.
+ * @param {object} options  Need to include: `goal`, `number`, `all`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
- * @throws Will throw an error if there is no background tile to remove
+ * @throws Will throw an error if there is no background object to remove
  *        at that location
  *        
  * @todo add test
@@ -69,10 +73,10 @@ RUR.remove_object = function (name, x, y, options) {
         args.goal = options.goal;
     }
     try {
-        RUR.utils.remove_artefact(args);
+        RUR.remove_artefact(args);
     } catch (e) {
         if (e.message == "No artefact to remove") {
-            throw new ReeborgError("No tile to remove here.");
+            throw new ReeborgError("No object to remove here.");
         } else {
             throw e;
         }
@@ -86,12 +90,12 @@ RUR.remove_object = function (name, x, y, options) {
 /** @function get_object
  * @memberof RUR
  * @instance
- * @summary This function gets the tile name found at given location. Note that
+ * @summary This function gets the object name found at given location. Note that
  *    this could be an HTML colour.  If nothing is found at that location,
  *    `null` is returned (which is converted to `None` in Python programs.)
  *
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {integer} x  Position of the object.
+ * @param {integer} y  Position of the object.
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
@@ -100,21 +104,21 @@ RUR.remove_object = function (name, x, y, options) {
  * @todo deal with translation
  * @todo make sure it returns the correct info
  * @example
- * // shows how to set various tiles;
+ * // shows how to set various objects;
  * // the mode will be set to Python and the highlighting
  * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
+ * World("/worlds/examples/object1.json", "Example 1")
  *
  */
 
 RUR.get_object = function (x, y) {
     "use strict";
-    var tile, args = {x:x, y:y, type:"objects"};
-    tile = RUR.utils.get_artefacts(args);
-    if (tile === null) {
+    var object, args = {x:x, y:y, type:"objects"};
+    object = RUR.get_artefacts(args);
+    if (object === null) {
         return null;
     } else {
-        return RUR.TILES[tile[0]];
+        return RUR.TILES[object[0]];
     }
 };
 
@@ -124,7 +128,7 @@ RUR.is_object = function (name, x, y, options) {
     if (options !== undefined && options.goal !== undefined) {
         args.goal = options.goal;
     }    
-    nb = RUR.utils.get_nb_artefact(args);
+    nb = RUR.get_nb_artefact(args);
     if (nb === 0) {
         return false;
     } else {

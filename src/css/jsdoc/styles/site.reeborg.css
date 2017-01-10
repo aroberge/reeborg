@@ -11,17 +11,16 @@ body {
   font-size: 12pt;
 }
 
-.sunlight-highlighted, .sunlight-container, .sunlight-container textarea {
-    font-size: 12pt !important;
-}
 
 code {
   color: #468847;
   font-weight: 700;
+  font-size: 13pt;
   font-family: Consolas, Inconsolata, Monaco, "Courier New", Courier, monospace !important;
 }
 .sunlight-highlighted, .sunlight-container, .sunlight-container textarea {
-  font-size: 12pt !important;
+  font-size: 13pt !important;
+  line-height: 15pt !important;
   font-family: Consolas, Inconsolata, Monaco, "Courier New", Courier, monospace !important;
 }
 .tag-deprecated {background-color: gold;
@@ -177,6 +176,7 @@ sub {
 }
 img {
   border: 0;
+  max-width: 800px; /* addition */
 }
 svg:not(:root) {
   overflow: hidden;
@@ -309,7 +309,7 @@ th {
   img {
     page-break-inside: avoid;
   }
-  img {
+ img {
     max-width: 100% !important;
   }
   p,

@@ -2,7 +2,7 @@ require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
-require("./../utils/artefact.js");
+require("./artefact.js");
 require("./../world_utils/get_world.js");
 
 /** @function add_decorative_object
@@ -34,7 +34,7 @@ require("./../world_utils/get_world.js");
 RUR.add_decorative_object = function (name, x, y) {
     "use strict";
     var args = {name: name, x:x, y:y, type:"decorative_objects"};
-    RUR.utils.add_artefact(args);
+    RUR.add_artefact(args);
     RUR.record_frame("RUR.add_decorative_object", args);
 };
 
@@ -61,7 +61,7 @@ RUR.remove_decorative_object = function (name, x, y) {
     var args;
     args= {x:x, y:y, type:"decorative_objects", name:name};
     try {
-        RUR.utils.remove_artefact(args);
+        RUR.remove_artefact(args);
     } catch (e) {
         if (e.message == "No artefact to remove") {
             throw new ReeborgError("No tile to remove here.");
@@ -99,7 +99,7 @@ RUR.remove_decorative_object = function (name, x, y) {
 RUR.get_decorative_object = function (x, y) {
     "use strict";
     var tile, args = {x:x, y:y, type:"decorative_objects"};
-    tile = RUR.utils.get_artefacts(args);
+    tile = RUR.get_artefacts(args);
     if (tile === null) {
         return null;
     } else {
@@ -110,7 +110,7 @@ RUR.get_decorative_object = function (x, y) {
 RUR.is_decorative_object = function (name, x, y) {
     "use strict";
     var tile, args = {x:x, y:y, type:"decorative_objects"};
-    tile = RUR.utils.get_artefacts(args);
+    tile = RUR.get_artefacts(args);
     if (tile === null) {
         return false;
     } else if (tile[0] == name){

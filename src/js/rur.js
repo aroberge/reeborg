@@ -219,6 +219,16 @@ RUR.FRAME_INSERTION = undefined; // special function available to world creators
 
 RUR.PUBLIC_DICT = {};  // For use by world creators
 
+// for colour blind people
+RUR.GREEN = "green";
+RUR.RED = "red";
+RUR.configure_red_green = function (red, green) {
+    RUR.GREEN = green;
+    RUR.RED = red;
+    localStorage.setItem("userchoice_red", red);
+    localStorage.setItem("userchoice_green", green);    
+};
+
 //--------------------------------------------------------
 // We communicate information to the user using various
 // styled dialog windows; this generic function specifies

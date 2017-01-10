@@ -143,7 +143,7 @@ def Help(obj=None):
     if not out:
         raise AttributeError("This object has no docstring.")
     else:
-        window.print_html("".join(out))
+        window.print_html("".join(out), True)
 window["Help"] = Help
 
 
@@ -163,7 +163,7 @@ def dir_py(obj, exclude=None):
                     out.append(attr)
         except AttributeError:  # javascript extension, as in supplant()
             pass              # string prototype extension, can cause problems
-    window.print_html(html_escape("\n".join(out)).replace("\n", "<br>"))
+    window.print_html(html_escape("\n".join(out)).replace("\n", "<br>"), True)
 
 
 def generic_translate_python(src, highlight, var_watch, pre_code='',

@@ -2,7 +2,7 @@ require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
-require("./../utils/artefact.js");
+require("./artefact.js");
 require("./../world_utils/get_world.js");
 
 // TODO: implement fill_background
@@ -36,7 +36,7 @@ require("./../world_utils/get_world.js");
 RUR.add_background_tile = function (name, x, y) {
     "use strict";
     var args = {name: name, x:x, y:y, type:"tiles", single:true};
-    RUR.utils.add_artefact(args);
+    RUR.add_artefact(args);
     RUR.record_frame("RUR.add_background_tile", args);
 };
 
@@ -63,7 +63,7 @@ RUR.remove_background_tile = function (name, x, y) {
     var args;
     args= {x:x, y:y, type:"tiles", name:name};
     try {
-        RUR.utils.remove_artefact(args);
+        RUR.remove_artefact(args);
     } catch (e) {
         if (e.message == "No artefact to remove") {
             throw new ReeborgError("No tile to remove here.");
@@ -102,7 +102,7 @@ RUR.remove_background_tile = function (name, x, y) {
 RUR.get_background_tile = function (x, y) {
     "use strict";
     var tiles, args = {x:x, y:y, type:"tiles"};
-    tiles = RUR.utils.get_artefacts(args);
+    tiles = RUR.get_artefacts(args);
     if (tiles === null) {
         return null;
     } else {

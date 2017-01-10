@@ -3,7 +3,7 @@ html, body {
 }
 
 body {
-    font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
+    font-family: 'Trebuchet MS', Helvetica, Arial, sans-serif;
 }
 
 /** Collecting all z-indices for easier maintenance */
@@ -491,13 +491,14 @@ li.failure:after {
 
 .cm-s-reeborg-readonly,
 .cm-s-reeborg-dark {
-    font-size: 12pt;
+    font-size: 13pt;
     line-height: 1.4em;
 }
-.cm-s-reeborg-readonly,
-.cm-s-reeborg-dark {
+/*.cm-s-reeborg-readonly,
+.cm-s-reeborg-dark
+{
     font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace;
-}
+}*/
 
 .cm-s-reeborg-readonly.CodeMirror,
 .cm-s-reeborg-dark.CodeMirror {

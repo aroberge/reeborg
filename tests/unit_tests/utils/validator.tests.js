@@ -19,11 +19,11 @@ test('validator.js: ', 'Testing filterInt()', function (assert) {
 test('validator.js', 'testing is_valid_position()', function (assert) {
     require("../../../src/js/utils/validator.js");
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-    assert.ok(RUR.utils.is_valid_position(1, 1), '(1,1) is a valid position');
-    assert.ok(RUR.utils.is_valid_position(10, 10), '(10, 10) is a valid position');
-    assert.notOk(RUR.utils.is_valid_position(0, 1), '(0, 1) is not a valid position');
-    assert.notOk(RUR.utils.is_valid_position(1, 0), '(1, 0) is not a valid position');
-    assert.notOk(RUR.utils.is_valid_position(2.3, 1), '(2.3, 1) is not a valid position');
-    assert.notOk(RUR.utils.is_valid_position(1, 2.3), '(1, 2.3) is not a valid position');
+    assert.ok(RUR.is_valid_position(1, 1), '(1,1) is a valid position');
+    assert.ok(RUR.is_valid_position(10, 10), '(10, 10) is a valid position');
+    assert.notOk(RUR.is_valid_position(0, 1), '(0, 1) is not a valid position');
+    assert.notOk(RUR.is_valid_position(1, 0), '(1, 0) is not a valid position');
+    assert.notOk(RUR.is_valid_position(2.3, 1), '(2.3, 1) is not a valid position');
+    assert.notOk(RUR.is_valid_position(1, 2.3), '(1, 2.3) is not a valid position');
     assert.end();
 });

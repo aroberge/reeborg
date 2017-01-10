@@ -43,11 +43,11 @@ RUR.set_nb_object_at_position = function (specific_object, x, y, nb){
     if (RUR.KNOWN_TILES.indexOf(specific_object) == -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: specific_object}));
     }
-    if (!RUR.utils.is_valid_position(x, y)) {
+    if (!RUR.is_valid_position(x, y)) {
         throw new RUR.ReeborgError(
             RUR.translate("Invalid position in {fn_name}").supplant({fn_name: my_name}));
     }
-    if (!(RUR.utils.is_integer(nb) && nb>=0)) {
+    if (!(RUR.is_integer(nb) && nb>=0)) {
         throw new RUR.ReeborgError(
             RUR.translate("Invalid number of objects in {fn_name}").supplant({fn_name: my_name}));
     }

@@ -610,9 +610,9 @@ function compile_partial_info (objects, information, type){
                         }
                         if (RUR.vis_world.goal_present && typeof quantity == 'number' && goal_information !== undefined) {
                             if ( goal_information[coords] !== undefined &&  goal_information[coords][1] == objects[coords][obj]) {
-                            information[coords] = [obj, objects[coords][obj], 'green'];
+                            information[coords] = [obj, objects[coords][obj], RUR.GREEN];
                             } else {
-                                information[coords] = [obj, objects[coords][obj], 'red'];
+                                information[coords] = [obj, objects[coords][obj], RUR.RED];
                             }
                         } else {
                             information[coords] = [obj, quantity, color];

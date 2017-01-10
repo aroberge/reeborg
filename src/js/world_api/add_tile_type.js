@@ -118,7 +118,7 @@ function create_images(obj) {
     }
 }
 
-/** @function show_existing_things
+/** @function show_all_things
  * @memberof RUR
  * @instance
  *
@@ -127,7 +127,7 @@ function create_images(obj) {
  * @todo include translated name
  * @desc This needs to be documented
  */
-RUR.show_existing_things = function (property) {
+RUR.show_all_things = function (property) {
     var i, j, info, images, name, url;
     if (property !== undefined) {
         info = "<h3>Things with property <code>" + property + "</code></h3>";
@@ -168,7 +168,7 @@ RUR.show_existing_things = function (property) {
         info += "</td></tr>";
     }
     info += "</table>";
-    RUR._print_html_(info);
+    RUR._print_html_(info, true); // true will replace existing content
 };
 
 /** @function has_property

@@ -23,11 +23,14 @@ require("./editors/create.js");
 require("./world_api/background_tile.js");
 require("./world_api/bridges.js");
 require("./world_api/decorative_objects.js");
+require("./world_api/objects.js");
 require("./world_api/obstacles.js");
 require("./world_api/pushables.js");
 require("./world_api/robot.js");
 require("./world_api/walls.js");
 
+
+// placed temporarily here
 RUR.TILES.box.transform = [
     {conditions: [[RUR.is_background_tile, "water"],
                   [RUR.is_pushable, "box"]],
@@ -67,6 +70,7 @@ function start_session () {
     RUR.state.session_initialized = false;
     set_editor();
     set_library();
+    get_red_green();
     // The world can include some content for the editor and/or the library, and/or the blocks
     RUR.permalink.set_language(url_query);
     mode = RUR.permalink.set_mode(url_query);
@@ -99,6 +103,15 @@ function set_editor() {
 function set_library() {
     if (localStorage.getItem("library")){
         library.setValue(localStorage.getItem("library"));
+    }
+}
+
+function get_red_green () {
+    var red, green;
+    if (localStorage.getItem("userchoice_red") && localStorage.getItem("userchoice_green")){
+        red = localStorage.getItem("userchoice_red");
+        green = localStorage.getItem("userchoice_green");
+        RUR.configure_red_green(red, green);
     }
 }
 

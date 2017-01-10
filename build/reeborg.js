@@ -215,7 +215,7 @@ RUR.TILES.fence_vertical.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_vertical.info = RUR.TILES.fence_right.info;
 
 
-},{"./../rur.js":52,"./../world_api/add_tile_type.js":69}],2:[function(require,module,exports){
+},{"./../rur.js":52,"./../world_api/add_tile_type.js":68}],2:[function(require,module,exports){
 /* Dialog used by the Interactive world editor to add objects to the world.
 */
 
@@ -271,7 +271,7 @@ add_object_form = dialog_add_object.find("form").on("submit", function( event ) 
     add_object();
 });
 
-},{"./../../lang/msg.js":95,"./../drawing/visible_world.js":9,"./../rur.js":52,"./../world_set/object.js":84}],3:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../drawing/visible_world.js":9,"./../rur.js":52,"./../world_set/object.js":85}],3:[function(require,module,exports){
 
 require("./../libs/jquery.ui.dialog.minmax.js");
 require("./../rur.js");
@@ -330,7 +330,7 @@ $("#Reeborg-proclaims").dialog({minimize: false, maximize: false, autoOpen:false
 $("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:400, dialogClass: "watches",
                                 position:{my: "bottom", at: "bottom-140", of: window}});
 
-},{"./../../lang/msg.js":95,"./../libs/jquery.ui.dialog.minmax.js":16,"./../rur.js":52}],4:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../libs/jquery.ui.dialog.minmax.js":16,"./../rur.js":52}],4:[function(require,module,exports){
 
 require("./../world_set/world_set.js");
 require("./../drawing/visible_world.js");
@@ -383,7 +383,7 @@ give_object_form = dialog_give_object.find("form").on("submit", function( event 
     give_object();
 });
 
-},{"./../../lang/msg.js":95,"./../drawing/visible_world.js":9,"./../rur.js":52,"./../world_set/give_object_to_robot.js":82,"./../world_set/world_set.js":86}],5:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../drawing/visible_world.js":9,"./../rur.js":52,"./../world_set/give_object_to_robot.js":83,"./../world_set/world_set.js":87}],5:[function(require,module,exports){
 require("./../drawing/visible_world.js");
 require("./../world_set/give_object_to_robot.js");
 require("./../rur.js");
@@ -433,7 +433,7 @@ goal_objects_form = dialog_goal_object.find("form").on("submit", function( event
     goal_objects();
 });
 
-},{"./../../lang/msg.js":95,"./../drawing/visible_world.js":9,"./../rur.js":52,"./../world_set/give_object_to_robot.js":82}],6:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../drawing/visible_world.js":9,"./../rur.js":52,"./../world_set/give_object_to_robot.js":83}],6:[function(require,module,exports){
 require("./../drawing/visible_world.js");
 var msg = require("./../../lang/msg.js");
 
@@ -472,7 +472,7 @@ select_colour = function () {
     RUR.vis_world.draw_all();
 };
 
-},{"./../../lang/msg.js":95,"./../drawing/visible_world.js":9}],7:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../drawing/visible_world.js":9}],7:[function(require,module,exports){
 require("./../drawing/visible_world.js");
 var msg = require("./../../lang/msg.js");
 var dialog;
@@ -510,7 +510,7 @@ set_background_image = function () {
     dialog.dialog("close");
 };
 
-},{"./../../lang/msg.js":95,"./../drawing/visible_world.js":9}],8:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../drawing/visible_world.js":9}],8:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../world_utils/get_world.js");
@@ -813,7 +813,7 @@ RUR.vis_robot.new_robot_images = function (images) {
     RUR.select_default_robot_model(model);
 };
 
-},{"./../rur.js":52,"./../world_utils/get_world.js":90}],9:[function(require,module,exports){
+},{"./../rur.js":52,"./../world_utils/get_world.js":91}],9:[function(require,module,exports){
 require("./../rur.js");
 require("./../translator.js");
 require("./../world_api/add_tile_type.js"); // why ?
@@ -1426,9 +1426,9 @@ function compile_partial_info (objects, information, type){
                         }
                         if (RUR.vis_world.goal_present && typeof quantity == 'number' && goal_information !== undefined) {
                             if ( goal_information[coords] !== undefined &&  goal_information[coords][1] == objects[coords][obj]) {
-                            information[coords] = [obj, objects[coords][obj], 'green'];
+                            information[coords] = [obj, objects[coords][obj], RUR.GREEN];
                             } else {
-                                information[coords] = [obj, objects[coords][obj], 'red'];
+                                information[coords] = [obj, objects[coords][obj], RUR.RED];
                             }
                         } else {
                             information[coords] = [obj, quantity, color];
@@ -1486,7 +1486,7 @@ function draw_info () {
     }
 }
 
-},{"./../rur.js":52,"./../translator.js":56,"./../world_api/add_tile_type.js":69,"./../world_utils/get_world.js":90}],10:[function(require,module,exports){
+},{"./../rur.js":52,"./../translator.js":56,"./../world_api/add_tile_type.js":68,"./../world_utils/get_world.js":91}],10:[function(require,module,exports){
 function betterTab(cm) {
   if (cm.somethingSelected()) {
     cm.indentSelection("add");
@@ -1728,7 +1728,7 @@ $("#update-library-content-btn").on("click", function(evt) {
     }
 });
 
-},{"./../../lang/msg.js":95,"./../programming_api/blockly.js":39,"./../rur.js":52,"./create.js":10}],12:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../programming_api/blockly.js":39,"./../rur.js":52,"./create.js":10}],12:[function(require,module,exports){
 
 require("./../programming_api/output.js");
 require("./../recorder/recorder.js");
@@ -1910,7 +1910,7 @@ window.get_extra_content = function () {
     return $("#extra").html();
 };
 
-},{"./../editors/update.js":11,"./../listeners/stop.js":32,"./../permalink/permalink.js":35,"./../programming_api/exceptions.js":42,"./../programming_api/output.js":43,"./../recorder/recorder.js":47,"./../translator.js":56,"./../ui/world_select.js":60,"./../utils/supplant.js":66,"./../world_utils/import_world.js":91}],13:[function(require,module,exports){
+},{"./../editors/update.js":11,"./../listeners/stop.js":32,"./../permalink/permalink.js":35,"./../programming_api/exceptions.js":42,"./../programming_api/output.js":43,"./../recorder/recorder.js":47,"./../translator.js":56,"./../ui/world_select.js":60,"./../utils/supplant.js":65,"./../world_utils/import_world.js":92}],13:[function(require,module,exports){
 /*  Handler of special on-screen keyboard
 */
 
@@ -2340,7 +2340,7 @@ function add_onclick(id, fn, arg, record, enter) {
     }
 }
 
-},{"./../../lang/msg.js":95,"./../dialogs/create.js":3,"./../listeners/editors_tabs.js":19,"./../rur.js":52,"./../translator.js":56}],14:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../dialogs/create.js":3,"./../listeners/editors_tabs.js":19,"./../rur.js":52,"./../translator.js":56}],14:[function(require,module,exports){
 /* Menu driven world editor */
 
 
@@ -2905,7 +2905,7 @@ $("#robot-canvas").on("click", function (evt) {
     RUR.world_get.world_info();
 });
 
-},{"./../default_tiles/tiles.js":1,"./../dialogs/add_object.js":2,"./../dialogs/create.js":3,"./../dialogs/give_object.js":4,"./../dialogs/goal_object.js":5,"./../dialogs/select_colour.js":6,"./../dialogs/set_background_image.js":7,"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../editors/update.js":11,"./../listeners/canvas.js":18,"./../programming_api/exceptions.js":42,"./../robot/robot.js":49,"./../rur.js":52,"./../translator.js":56,"./../ui/edit_robot_menu.js":58,"./../utils/identical.js":63,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../world_api/walls.js":79,"./../world_get/world_get.js":80,"./../world_set/add_robot.js":81,"./../world_set/give_object_to_robot.js":82,"./../world_set/goal_object.js":83,"./../world_set/object.js":84,"./../world_set/world_set.js":86}],15:[function(require,module,exports){
+},{"./../default_tiles/tiles.js":1,"./../dialogs/add_object.js":2,"./../dialogs/create.js":3,"./../dialogs/give_object.js":4,"./../dialogs/goal_object.js":5,"./../dialogs/select_colour.js":6,"./../dialogs/set_background_image.js":7,"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../editors/update.js":11,"./../listeners/canvas.js":18,"./../programming_api/exceptions.js":42,"./../robot/robot.js":49,"./../rur.js":52,"./../translator.js":56,"./../ui/edit_robot_menu.js":58,"./../utils/identical.js":62,"./../utils/key_exist.js":63,"./../utils/supplant.js":65,"./../world_api/walls.js":80,"./../world_get/world_get.js":81,"./../world_set/add_robot.js":82,"./../world_set/give_object_to_robot.js":83,"./../world_set/goal_object.js":84,"./../world_set/object.js":85,"./../world_set/world_set.js":87}],15:[function(require,module,exports){
 /* require this module that will automatically modify a global object*/
 require("./utils/cors.js");
 
@@ -2919,7 +2919,7 @@ require("./start_session.js");
 // TODO: add turtle mode (see blockly for comparing with expected solution); ensure a blockly counterpart
 // TODO: implement paint() and colour_here() in Blockly
 
-},{"./gui_tools/world_editor.js":14,"./programming_api/commands.js":40,"./start_session.js":54,"./utils/cors.js":62}],16:[function(require,module,exports){
+},{"./gui_tools/world_editor.js":14,"./programming_api/commands.js":40,"./start_session.js":54,"./utils/cors.js":61}],16:[function(require,module,exports){
 /*
  * jQuery UI Dialog 1.8.16
  * w/ Minimize & Maximize Support
@@ -4124,7 +4124,7 @@ $("#library-tab").on("click", function (evt) {
     $("#watch-variables-btn").hide();
 });
 
-},{"./../../lang/msg.js":95,"./../editors/create.js":10}],20:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../editors/create.js":10}],20:[function(require,module,exports){
 require("./../rur.js");
 require("./reload.js");
 require("./../runner/runner.js");
@@ -4311,7 +4311,7 @@ $("#human-language").change(function() {
     update_url();
 });
 
-},{"./../../lang/msg.js":95,"./../programming_api/blockly.js":39,"./../programming_api/reeborg_en.js":44,"./../programming_api/reeborg_fr.js":45,"./../rur.js":52,"./../ui/custom_world_select.js":57,"./../utils/parseuri.js":65}],22:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../programming_api/blockly.js":39,"./../programming_api/reeborg_en.js":44,"./../programming_api/reeborg_fr.js":45,"./../rur.js":52,"./../ui/custom_world_select.js":57,"./../utils/parseuri.js":64}],22:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../storage/storage.js");
@@ -4371,7 +4371,7 @@ save_world = function () {
     $('#delete-world').show();
 };
 
-},{"./../../lang/msg.js":95,"./../rur.js":52,"./../storage/storage.js":55,"./../world_utils/clone_world.js":87}],23:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../rur.js":52,"./../storage/storage.js":55,"./../world_utils/clone_world.js":88}],23:[function(require,module,exports){
 /* Sets up what happens when the user clicks on various html elements.
 */
 
@@ -4552,7 +4552,7 @@ toggle_content("description", description_editor);
 record_id("add-onload-text", "ADD ONLOAD TEXT");
 toggle_content("onload", onload_editor);
 
-},{"./../../lang/msg.js":95,"./../editors/create.js":10,"./../editors/update.js":11,"./../programming_api/blockly.js":39,"./../rur.js":52,"./../translator.js":56,"./../world_utils/export_world.js":89}],24:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../editors/create.js":10,"./../editors/update.js":11,"./../programming_api/blockly.js":39,"./../rur.js":52,"./../translator.js":56,"./../world_utils/export_world.js":90}],24:[function(require,module,exports){
 require("./../rur.js");
 require("./../playback/play.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -4586,7 +4586,7 @@ pause = function () {
 
 pause_button.addEventListener("click", pause, false);
 
-},{"./../../lang/msg.js":95,"./../playback/play.js":36,"./../rur.js":52}],25:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../playback/play.js":36,"./../rur.js":52}],25:[function(require,module,exports){
 require("./../rur.js");
 require("./../listeners/reload.js");
 require("./../gui_tools/special_keyboard.js");
@@ -4885,7 +4885,7 @@ function hide_console() {
 show_editor("python");
 // see start_session.js for initialization.
 
-},{"./../../lang/msg.js":95,"./../editors/create.js":10,"./../gui_tools/special_keyboard.js":13,"./../listeners/reload.js":26,"./../rur.js":52,"./../utils/parseuri.js":65}],26:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../editors/create.js":10,"./../gui_tools/special_keyboard.js":13,"./../listeners/reload.js":26,"./../rur.js":52,"./../utils/parseuri.js":64}],26:[function(require,module,exports){
 
 require("./../rur.js");
 var set_ready_to_run = require("./../ui/set_ready_to_run.js").set_ready_to_run;
@@ -4931,7 +4931,7 @@ RUR.reload2 = function() {
 reload_button.addEventListener("click", RUR.reload, false);
 reload2_button.addEventListener("click", RUR.reload2, false);
 
-},{"./../../lang/msg.js":95,"./../recorder/reset.js":48,"./../rur.js":52,"./../ui/set_ready_to_run.js":59,"./../world_set/reset_world.js":85}],27:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../recorder/reset.js":48,"./../rur.js":52,"./../ui/set_ready_to_run.js":59,"./../world_set/reset_world.js":86}],27:[function(require,module,exports){
 require("./../rur.js");
 require("./../recorder/recorder.js");
 
@@ -4954,7 +4954,7 @@ reverse_step = function () {
     clearTimeout(RUR._TIMER);
 };
 
-},{"./../../lang/msg.js":95,"./../recorder/recorder.js":47,"./../rur.js":52}],28:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../recorder/recorder.js":47,"./../rur.js":52}],28:[function(require,module,exports){
 require("./../drawing/visible_robot.js");
 
 require("./../rur.js");
@@ -4981,7 +4981,7 @@ $("#robot3").on("click", function (evt) {
     RUR.select_default_robot_model(3);
 });
 
-},{"./../../lang/msg.js":95,"./../drawing/visible_robot.js":8,"./../rur.js":52}],29:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../drawing/visible_robot.js":8,"./../rur.js":52}],29:[function(require,module,exports){
 
 require("./../rur.js");
 require("./reload.js");
@@ -5010,7 +5010,7 @@ function run () {
 }
 run_button.addEventListener("click", run, false);
 
-},{"./../../lang/msg.js":95,"./../playback/play.js":36,"./../runner/runner.js":50,"./../rur.js":52,"./reload.js":26}],30:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../playback/play.js":36,"./../runner/runner.js":50,"./../rur.js":52,"./reload.js":26}],30:[function(require,module,exports){
 require("./../file_io/file_io.js");
 require("./../storage/storage.js");
 
@@ -5029,7 +5029,7 @@ $("#select-world").change(function() {
     } catch (e) {}
 });
 
-},{"./../../lang/msg.js":95,"./../file_io/file_io.js":12,"./../storage/storage.js":55}],31:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../file_io/file_io.js":12,"./../storage/storage.js":55}],31:[function(require,module,exports){
 
 require("./../rur.js");
 require("./reload.js");
@@ -5050,7 +5050,7 @@ step = function () {
 };
 step_button.addEventListener("click", step, false);
 
-},{"./../../lang/msg.js":95,"./../playback/play.js":36,"./../runner/runner.js":50,"./../rur.js":52,"./reload.js":26}],32:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../playback/play.js":36,"./../runner/runner.js":50,"./../rur.js":52,"./reload.js":26}],32:[function(require,module,exports){
 
 require("./../rur.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -5070,7 +5070,7 @@ RUR.stop = function () {
 };
 stop_button.addEventListener("click", RUR.stop, false);
 
-},{"./../../lang/msg.js":95,"./../rur.js":52}],33:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../rur.js":52}],33:[function(require,module,exports){
 ;
 require("./../rur.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -5091,7 +5091,7 @@ RUR.toggle_highlight = function () {  // keep part of RUR for Python
 };
 highlight_button.addEventListener("click", RUR.toggle_highlight, false);
 
-},{"./../../lang/msg.js":95,"./../rur.js":52}],34:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../rur.js":52}],34:[function(require,module,exports){
 ;
 require("./../rur.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -5116,7 +5116,7 @@ toggle_watch_variables = function () {
 };
 watch_button.addEventListener("click", toggle_watch_variables, false);
 
-},{"./../../lang/msg.js":95,"./../rur.js":52}],35:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../rur.js":52}],35:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../storage/storage.js");
@@ -5258,7 +5258,7 @@ function receiveMessage(event){
     RUR.permalink.update(event.data);
 }
 
-},{"./../../lang/msg.js":95,"./../editors/create.js":10,"./../editors/update.js":11,"./../listeners/programming_mode.js":25,"./../rur.js":52,"./../storage/storage.js":55,"./../translator.js":56,"./../utils/parseuri.js":65,"./../world_utils/export_world.js":89}],36:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../editors/create.js":10,"./../editors/update.js":11,"./../listeners/programming_mode.js":25,"./../rur.js":52,"./../storage/storage.js":55,"./../translator.js":56,"./../utils/parseuri.js":64,"./../world_utils/export_world.js":90}],36:[function(require,module,exports){
 require("./../rur.js");
 require("./../listeners/stop.js");
 
@@ -6307,7 +6307,7 @@ RUR._UR.wall_on_right_ = function (robot) {
     return RUR.control.wall_on_right(robot);
 };
 
-},{"./../drawing/visible_robot.js":8,"./../editors/update.js":11,"./../file_io/file_io.js":12,"./../rur.js":52,"./../translator.js":56,"./../ui/custom_world_select.js":57,"./../world_api/background_tile.js":71,"./../world_set/world_set.js":86,"./../world_utils/get_world.js":90,"./control.js":41,"./output.js":43}],41:[function(require,module,exports){
+},{"./../drawing/visible_robot.js":8,"./../editors/update.js":11,"./../file_io/file_io.js":12,"./../rur.js":52,"./../translator.js":56,"./../ui/custom_world_select.js":57,"./../world_api/background_tile.js":71,"./../world_set/world_set.js":87,"./../world_utils/get_world.js":91,"./control.js":41,"./output.js":43}],41:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../translator.js");
@@ -6728,7 +6728,7 @@ RUR.control.get_colour_at_position = function (x, y) {
 };
 RUR.control.get_color_at_position = RUR.control.get_colour_at_position;
 
-},{"./../default_tiles/tiles.js":1,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../world_api/background_tile.js":71,"./../world_api/composition.js":73,"./../world_api/is_fatal.js":75,"./../world_api/obstacles.js":76,"./../world_api/pushables.js":77,"./../world_api/robot.js":78,"./../world_api/walls.js":79,"./../world_get/world_get.js":80,"./../world_set/world_set.js":86,"./../world_utils/get_world.js":90,"./exceptions.js":42,"./output.js":43}],42:[function(require,module,exports){
+},{"./../default_tiles/tiles.js":1,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/key_exist.js":63,"./../utils/supplant.js":65,"./../world_api/background_tile.js":71,"./../world_api/composition.js":73,"./../world_api/is_fatal.js":75,"./../world_api/obstacles.js":77,"./../world_api/pushables.js":78,"./../world_api/robot.js":79,"./../world_api/walls.js":80,"./../world_get/world_get.js":81,"./../world_set/world_set.js":87,"./../world_utils/get_world.js":91,"./exceptions.js":42,"./output.js":43}],42:[function(require,module,exports){
 
 require("./../rur.js");
 
@@ -7246,7 +7246,7 @@ check_robots_on_tiles = function(frame){
 };
 
 
-},{"./../playback/show_immediate.js":38,"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../utils/supplant.js":66,"./../world_get/world_get.js":80,"./../world_utils/clone_world.js":87,"./reset.js":48}],47:[function(require,module,exports){
+},{"./../playback/show_immediate.js":38,"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../utils/supplant.js":65,"./../world_get/world_get.js":81,"./../world_utils/clone_world.js":88,"./reset.js":48}],47:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../drawing/visible_world.js");
@@ -7526,7 +7526,7 @@ RUR.rec.check_goal = function (frame) {
     return goal_status;
 };
 
-},{"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../listeners/pause.js":24,"./../listeners/stop.js":32,"./../playback/play_sound.js":37,"./../programming_api/exceptions.js":42,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/identical.js":63,"./../world_get/world_get.js":80,"./../world_utils/clone_world.js":87}],48:[function(require,module,exports){
+},{"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../listeners/pause.js":24,"./../listeners/stop.js":32,"./../playback/play_sound.js":37,"./../programming_api/exceptions.js":42,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/identical.js":62,"./../world_get/world_get.js":81,"./../world_utils/clone_world.js":88}],48:[function(require,module,exports){
 require("./../rur.js");
 require("./../editors/create.js");
 require("./../world_api/animated_images.js");
@@ -7565,7 +7565,7 @@ exports.reset = reset = function() {
 reset();
 RUR._reset = reset; // for automated testing
 
-},{"./../editors/create.js":10,"./../rur.js":52,"./../world_api/animated_images.js":70}],49:[function(require,module,exports){
+},{"./../editors/create.js":10,"./../rur.js":52,"./../world_api/animated_images.js":69}],49:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../translator.js");
@@ -7664,7 +7664,7 @@ assign_id = function () {
     return RUR.robot.__ID;
 };
 
-},{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../translator.js":56,"./../utils/validator.js":68}],50:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../translator.js":56,"./../utils/validator.js":67}],50:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../translator.js");
@@ -7952,7 +7952,7 @@ RUR.runner.check_func_parentheses = function(line_of_code) {
     return false;  // no missing parentheses
 };
 
-},{"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../editors/update.js":11,"./../programming_api/blockly.js":39,"./../recorder/recorder.js":47,"./../rur.js":52,"./../translator.js":56,"./../utils/supplant.js":66,"./../world_utils/clone_world.js":87,"./world_init.js":51}],51:[function(require,module,exports){
+},{"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../editors/update.js":11,"./../programming_api/blockly.js":39,"./../recorder/recorder.js":47,"./../rur.js":52,"./../translator.js":56,"./../utils/supplant.js":65,"./../world_utils/clone_world.js":88,"./world_init.js":51}],51:[function(require,module,exports){
 
 require("./../drawing/visible_world.js");
 require("./../rur.js");
@@ -8291,6 +8291,16 @@ RUR.FRAME_INSERTION = undefined; // special function available to world creators
 
 RUR.PUBLIC_DICT = {};  // For use by world creators
 
+// for colour blind people
+RUR.GREEN = "green";
+RUR.RED = "red";
+RUR.configure_red_green = function (red, green) {
+    RUR.GREEN = green;
+    RUR.RED = red;
+    localStorage.setItem("userchoice_red", red);
+    localStorage.setItem("userchoice_green", green);    
+};
+
 //--------------------------------------------------------
 // We communicate information to the user using various
 // styled dialog windows; this generic function specifies
@@ -8348,11 +8358,14 @@ require("./editors/create.js");
 require("./world_api/background_tile.js");
 require("./world_api/bridges.js");
 require("./world_api/decorative_objects.js");
+require("./world_api/objects.js");
 require("./world_api/obstacles.js");
 require("./world_api/pushables.js");
 require("./world_api/robot.js");
 require("./world_api/walls.js");
 
+
+// placed temporarily here
 RUR.TILES.box.transform = [
     {conditions: [[RUR.is_background_tile, "water"],
                   [RUR.is_pushable, "box"]],
@@ -8392,6 +8405,7 @@ function start_session () {
     RUR.state.session_initialized = false;
     set_editor();
     set_library();
+    get_red_green();
     // The world can include some content for the editor and/or the library, and/or the blocks
     RUR.permalink.set_language(url_query);
     mode = RUR.permalink.set_mode(url_query);
@@ -8427,6 +8441,15 @@ function set_library() {
     }
 }
 
+function get_red_green () {
+    var red, green;
+    if (localStorage.getItem("userchoice_red") && localStorage.getItem("userchoice_green")){
+        red = localStorage.getItem("userchoice_red");
+        green = localStorage.getItem("userchoice_green");
+        RUR.configure_red_green(red, green);
+    }
+}
+
 function set_world(url_query) {
     var world, name;
     if (RUR.permalink.from_url(url_query)){
@@ -8445,7 +8468,7 @@ function set_world(url_query) {
     }
 }
 
-},{"./default_tiles/tiles.js":1,"./editors/create.js":10,"./listeners/add_listeners.js":17,"./permalink/permalink.js":35,"./programming_api/blockly.js":39,"./rur.js":52,"./splash_screen.js":53,"./storage/storage.js":55,"./utils/parseuri.js":65,"./world_api/background_tile.js":71,"./world_api/bridges.js":72,"./world_api/decorative_objects.js":74,"./world_api/obstacles.js":76,"./world_api/pushables.js":77,"./world_api/robot.js":78,"./world_api/walls.js":79,"./world_utils/import_world.js":91}],55:[function(require,module,exports){
+},{"./default_tiles/tiles.js":1,"./editors/create.js":10,"./listeners/add_listeners.js":17,"./permalink/permalink.js":35,"./programming_api/blockly.js":39,"./rur.js":52,"./splash_screen.js":53,"./storage/storage.js":55,"./utils/parseuri.js":64,"./world_api/background_tile.js":71,"./world_api/bridges.js":72,"./world_api/decorative_objects.js":74,"./world_api/objects.js":76,"./world_api/obstacles.js":77,"./world_api/pushables.js":78,"./world_api/robot.js":79,"./world_api/walls.js":80,"./world_utils/import_world.js":92}],55:[function(require,module,exports){
 /* This file documents methods used to save worlds to and retrieve them
    from a browser's local storage.
 
@@ -8528,7 +8551,7 @@ RUR.storage.delete_world = function (name){
     $('#delete-world').hide();
 };
 
-},{"./../rur.js":52,"./../translator.js":56,"./../ui/world_select.js":60,"./../world_utils/clone_world.js":87,"./../world_utils/export_world.js":89}],56:[function(require,module,exports){
+},{"./../rur.js":52,"./../translator.js":56,"./../ui/world_select.js":60,"./../world_utils/clone_world.js":88,"./../world_utils/export_world.js":90}],56:[function(require,module,exports){
 require("./rur.js");
 var uien = require("./../lang/ui_en.js"),
     uifr = require("./../lang/ui_fr.js"),
@@ -8581,7 +8604,7 @@ RUR.translate_to_english = function (s) {
     }
 };
 
-},{"./../lang/en.js":93,"./../lang/fr.js":94,"./../lang/ui_en.js":96,"./../lang/ui_fr.js":97,"./../lang/ui_ko.js":98,"./rur.js":52}],57:[function(require,module,exports){
+},{"./../lang/en.js":94,"./../lang/fr.js":95,"./../lang/ui_en.js":97,"./../lang/ui_fr.js":98,"./../lang/ui_ko.js":99,"./rur.js":52}],57:[function(require,module,exports){
 /* In this module, we make it possible for a user to define their
    own world menu selection. We also include some default world menus. */
 require("./../translator.js");
@@ -8896,469 +8919,6 @@ RUR.world_select.append_world = function (arg) {
 };
 
 },{}],61:[function(require,module,exports){
-/*  This file contains generic methods called by more specialized methods
-    used to create worlds. */
-
-require("./../rur.js");
-require("./utils_namespace.js");
-require("./../translator.js");
-require("./../programming_api/exceptions.js");
-require("./key_exist.js");
-require("./validator.js");
-require("./supplant.js");
-require("./../world_utils/get_world.js");
-
-// private helper function that
-// ensures that the position is within the world boundaries
-function ensure_valid_position(args) {
-    "use strict";
-    var position;
-    if (args.x !== undefined && args.y !== undefined) {
-        if (!RUR.utils.is_valid_position(args.x, args.y)) {
-            position = "(" + args.x + ", " + args.y + ")";
-            throw new RUR.ReeborgError(
-                RUR.translate("Invalid position.").supplant({pos:position}));
-        }
-    } else {
-        if (args.x === undefined) args.x = "?";
-        if (args.y === undefined) args.y = "?";
-        position = "(" + args.x + ", " + args.y + ")";
-        throw new RUR.ReeborgError(
-            RUR.translate("Invalid position.").supplant({pos:position}));
-    }
-}
-
-function ensure_common_required_args_present(args) {
-    "use strict";
-    ensure_valid_position(args);
-    if (args.type === undefined) {
-        throw new Error("Object type must be specified.");
-    }
-    if (args.name === undefined) {
-        throw new Error("Object name must be specified.");
-    }
-    if (args.valid_names !== undefined) {
-        if (args.valid_names.indexOf(args.name) === -1) {
-            throw new Error("Invalid name");
-        }
-    }
-}
-
-// for testing purpose
-if (RUR.UnitTest === undefined) {
-    RUR.UnitTest = {};
-}
-RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_present;
-
-/** @function set_nb_artefact
- * @memberof RUR.utils
- * @instance
- * @summary **This function is intended for private use by developers.**
- * 
- *    This function adds a specified number of a named artefact of a 
- *    specified type (e.g. object, goal object) at
- *    a given location.
- *    
- *    
- * @param {Object} args A Javascript object (similar to a Python dict) that
- *                      holds the relevant attribute.
- *
- * @param {string} args.name  The name of the object to be added; an error
- *    will be thrown if it is missing.
- *
- * @param {integer} args.number  The number of artefacts to be added; an error
- *    will be thrown if it is missing or if its value is not an integer 
- *    strictly greater than zero.
- *    
- * @param {string} args.type  The type of the object to be added; an error
- *    will be thrown if it is missing.
- * 
- * @param {integer} args.x The `x` coordinate where the object should be found.
- *                        If it is missing, or not within the world boundaries,
- *                        or is not an integer, an error will be thrown.
- *
- * @param {integer} args.y The `y` coordinate where the object should be found.
- *                        If it is missing, or not within the world boundaries,
- *                        or is not an integer, an error will be thrown.
- *
- * @param {boolean} [args.goal] If specified, indicates that it is a goal that
- *                        must be set.
- *
- * 
- * @param {string} [args.valid_names] A list containing the name of the 
- *                        acceptable objects. If this argument is specified, 
- *                        `args.name` must be found in that list, otherwise an
- *                        error will be thrown.
- *
- * 
- * @throws Will throw an error if `name` attribute is not specified.
- * @throws Will throw an error if `type` attribute is not specified.
- * @throws Will throw an error if `number` attribute is not specified.
- * @throws Will throw an error if `number` attribute is not a positive integer
- * @throws Will throw an error if a valid position is not specified.
- *
- * @see {@link UnitTest#test_artefact} for unit tests.
- *  
- */
-RUR.utils.set_nb_artefact = function (args) {
-    "use strict";
-    var base, coords, world = RUR.get_world();
-
-    ensure_common_required_args_present(args);
-    if (args.number === undefined) {
-        throw new Error("Number of objects must be specified.");
-    } else if(!RUR.utils.is_positive_integer(args.number)) {
-        throw new Error("Number must be a positive integer.");    
-    }
-
-    coords = args.x + "," + args.y;
-    base = world;
-    if (args.goal) {
-        RUR.utils.ensure_key_for_obj_exists(world, "goal");
-        base = world.goal;
-    }
-
-    RUR.utils.ensure_key_for_obj_exists(base, args.type);
-    RUR.utils.ensure_key_for_obj_exists(base[args.type], coords);
-    base[args.type][coords][args.name] = args.number;
-
-};
-
-
-/** @function add_artefact
- * @memberof RUR.utils
- * @instance
- * @summary **This function is intended for private use by developers.**
- * 
- *    This function adds a specified (named) artefact of a 
- *    specified type (e.g. object, background tile, wall, etc.) at
- *    a given location, potentially subject to some limitations.
- *    
- *    
- * @param {Object} args A Javascript object (similar to a Python dict) that
- *                      holds the relevant attribute.
- *
- * @param {string} args.name  The name of the object to be found; an error
- *    will be thrown if it is missing.
- *
- * @param {string} args.type  The type of the object to be found; an error
- *    will be thrown if it is missing.
- *
- * @param {integer} args.x The `x` coordinate where the object should be found.
- *                        If it is missing, or not within the world boundaries,
- *                        or is not an integer, an error will be thrown.
- *
- * @param {integer} args.y The `y` coordinate where the object should be found.
- *                        If it is missing, or not within the world boundaries,
- *                        or is not an integer, an error will be thrown.
- *
- *
- * @param {string} [args.valid_names] A list containing the name of the 
- *                        acceptable objects. If this argument is specified, 
- *                        `args.name` must be found in that list, otherwise an
- *                        error will be thrown.
- *
- * @param {boolean} [args.single] Specifies if only one of a given kind of
- *                        artefact is permitted at a given location.
- * 
- * @returns {integer} The number of object found at that location (could be 0).
- * @throws Will throw an error if `name` attribute is not specified.
- * @throws Will throw an error if `type` attribute is not specified.
- * @throws Will throw an error if a valid position is not specified.
- * @throws Will throw an error if `single` is "true" but more than one kind
- * of artefact is found at that location.
- *
- * @see {@link UnitTest#test_artefact} for unit tests.
- *  
- */
-RUR.utils.add_artefact = function (args) {
-    "use strict";
-    var base, coords, world = RUR.get_world();
-
-    ensure_common_required_args_present(args);
-
-    base = world;
-    if (args.goal) {
-        RUR.utils.ensure_key_for_obj_exists(world, "goal");
-        base = world.goal;
-    }
-    coords = args.x + "," + args.y;
-
-    // This should not happen if functions upstream always
-    // use args.single consistently
-    if (args.single && base[args.type] !== undefined &&
-               base[args.type][coords] !== undefined && 
-               base[args.type][coords].length > 1) {
-        throw new Error("Cannot replace: more than one artefact present.");
-    }
-
-    RUR.utils.ensure_key_for_obj_exists(base, args.type);
-    if (args.nb) {
-        RUR.utils.ensure_key_for_dict_exists(base[args.type], coords);
-        if (base[args.type][coords][args.name] === undefined) {
-            base[args.type][coords][args.name] = args.nb;
-        } else {
-            base[args.type][coords][args.name] += args.nb;
-        }
-    } else {
-        RUR.utils.ensure_key_for_array_exists(base[args.type], coords);
-        if (args.single) {
-            base[args.type][coords] = [args.name];
-        } else {
-            base[args.type][coords].push(args.name);
-        }
-    }
-};
-
-
-/** @function get_nb_artefact
- * @memberof RUR.utils
- * @instance
- * @summary **This function is intended for private use by developers.**
- * 
- *    This function returns the number of a specified (named) artefact of a 
- *    specified type (e.g. object, background tile, wall, etc.) at
- *    a given location.
- *    
- * @param {Object} args A Javascript object (similar to a Python dict) that
- *                      holds the relevant attribute.
- *
- * @param {string} args.name  The name of the object to be found; an error
- *    will be thrown if it is missing.
- *
- * @param {string} args.type  The type of the object to be found; an error
- *    will be thrown if it is missing.
- *
- * @param {integer} args.x The `x` coordinate where the object should be found.
- *                        If it is missing, or not within the world boundaries,
- *                        or is not an integer, an error will be thrown.
- *
- * @param {integer} args.y The `y` coordinate where the object should be found.
- *                        If it is missing, or not within the world boundaries,
- *                        or is not an integer, an error will be thrown.
- *                        
- * @param {boolean} [args.goal] If specified, indicates that it is a goal-type
- *                        object that must be found.
- *
- * @param {array} [args.valid_names] A list containing the name of the 
- *                        acceptable objects. If this argument is specified, 
- *                        `args.name` must be found in that list, otherwise an
- *                        error will be thrown.
- *
- * @returns {integer} The number of object found at that location (could be 0).
- * @throws Will throw an error if `name` attribute is not specified.
- * @throws Will throw an error if `type` attribute is not specified.
- * @throws Will throw an error if a valid position is not specified.
- *
- * @see {@link UnitTest#test_artefact} for unit tests.
- *  
- */
-RUR.utils.get_nb_artefact = function(args) {
-    "use strict";
-    var coords, container, world = RUR.get_world();
-
-    ensure_common_required_args_present(args);
-
-    coords = args.x + "," + args.y;
-    if (args.goal) {
-        if (world.goal === undefined || 
-            world.goal[args.type] === undefined ||
-            world.goal[args.type][coords] === undefined) {
-            return 0;
-        } else { 
-            container = world.goal[args.type][coords];
-        }
-    } else if (world[args.type] === undefined ||
-               world[args.type][coords] === undefined) {
-        return 0;
-    } else {
-        container = world[args.type][coords];
-    }
-
-    if (Object.prototype.toString.call(container) == "[object Object]") {
-        if (Object.keys(container).indexOf(args.name) == -1) {
-            return 0;
-        } else {
-            return container[args.name];
-        }
-    } else if (Object.prototype.toString.call(container) == "[object Array]"){
-        if (container.indexOf(args.name) == -1) {
-            return 0;
-        } else {
-            return 1;
-        }
-    } else { // should never happen
-        throw new Error("Unknown container type; need Object or Array");
-    }   
-};
-
-/** @function get_artefacts
- * @memberof RUR.utils
- * @instance
- * @summary **This function is intended for private use by developers.**
- *
- *    **Important:** This is the only function named with artefacts in plural
- *    form as other deal with a single artefact at a time, whereas this one
- *    returns a container that can contain many artefacts.
- * 
- *    This function returns a container (Javascript Object or Array) with the
- *    artefacts found at a location. 
- *    
- * @param {Object} args A Javascript object (similar to a Python dict) that
- *                      holds the relevant attribute.
- *
- *
- * @param {string} args.type  The type of the object to be found; an error
- *    will be thrown if it is missing.
- *
- * @param {integer} args.x The `x` coordinate where the object should be found.
- *                        If it is missing, or not within the world boundaries,
- *                        or is not an integer, an error will be thrown.
- *
- * @param {integer} args.y The `y` coordinate where the object should be found.
- *                        If it is missing, or not within the world boundaries,
- *                        or is not an integer, an error will be thrown.
- *                        
- * @param {boolean} [args.goal] If specified, indicates that it is a goal-type
- *                        kind that we are interested about.
- *
- *
- * @returns      A container (Array or Object) with the artefacts found at that
- *              location, or `null` if no container is found at that location.
- * @throws Will throw an error if `type` attribute is not specified.
- * @throws Will throw an error if a valid position is not specified.
- *
- * @see {@link UnitTest#test_artefact} for unit tests.
- *  
- */
-RUR.utils.get_artefacts = function(args) {
-    "use strict";
-    var base, coords, container, world = RUR.get_world();
-
-    ensure_valid_position(args);
-    if (args.type === undefined) {
-        throw new Error("Object type must be specified.");
-    }
-
-    coords = args.x + "," + args.y;
-    if (args.goal) {
-        if (world.goal === undefined || 
-            world.goal[args.type] === undefined ||
-            world.goal[args.type][coords] === undefined) {
-            return null;
-        } else { 
-            container = world.goal[args.type][coords];
-        }
-    } else if (world[args.type] === undefined ||
-               world[args.type][coords] === undefined) {
-        return null;
-    } else {
-        container = world[args.type][coords];
-    }
-    // return a copy so that we cannot accidently modify the original object.
-    return JSON.parse(JSON.stringify(container)); 
-};
-
-
-
-/** @function remove_artefact
- * @memberof RUR.utils
- * @instance
- * @summary **This function is intended for private use by developers.**
- * 
- *    This function removes a specified (named) artefact of a 
- *    specified type (e.g. object, background tile, wall, etc.) at
- *    a given location. For artefacts that can have more than 1 instance
- *    at a given location, it can either remove a single instance or all
- *    of them.
- *
- *    If no artefact of that kind is left at that location, that location is
- *    pruned (removed). If nothing is left for that kind, it is removed.
- *    If nothing is left but an empty goal, the goal object is removed
- *    as well.
- *    
- * @param {Object} args A Javascript object (similar to a Python dict) that
- *                      holds the relevant attribute.
- *
- * @param {string} args.name  The name of the object to be found; an error
- *    will be thrown if it is missing.
- *
- * @param {string} args.type  The type of the object to be found; an error
- *    will be thrown if it is missing.
- *
- * @param {integer} args.x The `x` coordinate where the object should be found.
- *                        If it is missing, or not within the world boundaries,
- *                        or is not an integer, an error will be thrown.
- *
- * @param {integer} args.y The `y` coordinate where the object should be found.
- *                        If it is missing, or not within the world boundaries,
- *                        or is not an integer, an error will be thrown.
- *                        
- * @param {boolean} [args.goal] If specified, indicates that it is a goal-type
- *                        object that must be found.
- *
- * @param {string} [args.all] If true, all instances of the named artefact
- *       will be removed; otherwise, their number will simply be reduced by 1..
- *
- * @throws Will throw an error if `name` attribute is not specified.
- * @throws Will throw an error if `type` attribute is not specified.
- * @throws Will throw an error if a valid position is not specified.
- * @throws Will throw an error if no such artefact is found at that location.
- *
- * @see {@link UnitTest#test_artefact} for unit tests.
- * @todo  Need to implement `args.all`
- *  
- */
-RUR.utils.remove_artefact = function (args) {
-    "use strict";
-    var base, container, coords, index, world = RUR.get_world();
-
-    // Calling get_nb_artefact will do all the required validation of arguments
-    if (RUR.utils.get_nb_artefact(args) === 0) {
-        throw new Error("No artefact to remove");
-    }
-
-    base = world;
-    if (args.goal) {
-        base = world.goal;
-    }
-    coords = args.x + "," + args.y;
-    container = base[args.type][coords];
-
-    if (Object.prototype.toString.call(container) == "[object Object]") {
-        container[args.name] -= 1;
-        if (container[args.name] === 0) {
-            delete container[args.name];
-        }
-        if (Object.keys(container).length === 0) { // nothing left at that location
-            delete base[args.type][coords];
-        } else {
-            return;
-        }
-    } else if (Object.prototype.toString.call(container) == "[object Array]"){
-        index = container.indexOf(args.name);
-        container.splice(index, 1);
-        if (container.length === 0){ // nothing left at that location
-            delete base[args.type][coords];
-        } else {
-            return;
-        }
-    } else { // should never happen
-        throw new Error("Unknown container type; need Object or Array");
-    }  
-
-    // remove any empty remaining JS object, up to world.
-    if (Object.keys(base[args.type]).length === 0) {
-        delete base[args.type];
-        if (args.goal) {
-            if (Object.keys(world.goal).length === 0){
-                delete world.goal;
-            }
-        }
-    }
-};
-
-},{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../translator.js":56,"./../world_utils/get_world.js":90,"./key_exist.js":64,"./supplant.js":66,"./utils_namespace.js":67,"./validator.js":68}],62:[function(require,module,exports){
 ;
 // from http://stackoverflow.com/questions/15005500/loading-cross-domain-html-page-with-jquery-ajax
 
@@ -9370,7 +8930,7 @@ $.ajaxPrefilter( function (options) {
   }
 });
 
-},{}],63:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 /*
     Original script title: "Object.identical.js"; version 1.12
     Copyright (c) 2011, Chris O'Brien, prettycode.org
@@ -9409,7 +8969,7 @@ exports.identical = identical = function (a, b) {
 require("./../rur.js");
 window.FuncTest.object_identical = identical; // for automated testing.
 
-},{"./../rur.js":52}],64:[function(require,module,exports){
+},{"./../rur.js":52}],63:[function(require,module,exports){
 require("./utils_namespace.js");
 /* short functions to make the rest of the code easier
    to read */
@@ -9434,7 +8994,7 @@ RUR.utils.ensure_key_for_array_exists = function(obj, key){
     }
 };
 
-},{"./utils_namespace.js":67}],65:[function(require,module,exports){
+},{"./utils_namespace.js":66}],64:[function(require,module,exports){
 // parseUri 1.2.2
 // (c) Steven Levithan <stevenlevithan.com>
 // MIT License
@@ -9486,7 +9046,7 @@ exports.update_url = update_url = function () {
     window.history.pushState("dummy", "dummy", permalink);
 };
 
-},{}],66:[function(require,module,exports){
+},{}],65:[function(require,module,exports){
 // adapted from http://javascript.crockford.com/remedial.html
 
 // will modify a global object - no need to export anything.
@@ -9501,7 +9061,7 @@ String.prototype.supplant = function (o) {
     );
 };
 
-},{}],67:[function(require,module,exports){
+},{}],66:[function(require,module,exports){
 require("./../rur.js");
 /** @namespace utils
  * @memberof RUR
@@ -9512,7 +9072,7 @@ require("./../rur.js");
  */
 RUR.utils = {};
 
-},{"./../rur.js":52}],68:[function(require,module,exports){
+},{"./../rur.js":52}],67:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../programming_api/exceptions.js");
@@ -9530,11 +9090,11 @@ _is_positive_integer = function (n) {
     return typeof n==='number' && (n%1)===0 && n>=1;
 };
 
-RUR.utils.is_integer = _is_integer;
-RUR.utils.is_non_negative_integer = _is_non_negative_integer;
-RUR.utils.is_positive_integer = _is_positive_integer;
+RUR.is_integer = _is_integer;
+RUR.is_non_negative_integer = _is_non_negative_integer;
+RUR.is_positive_integer = _is_positive_integer;
 
-RUR.utils.is_valid_position = function(x, y) {
+RUR.is_valid_position = function(x, y) {
     return (_is_positive_integer(x) && _is_positive_integer(y) && 
            x <= RUR.CURRENT_WORLD.cols && y <= RUR.CURRENT_WORLD.rows);
 };
@@ -9556,7 +9116,7 @@ RUR.utils.filterInt = function (value) {
   return undefined;
 };
 
-},{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./utils_namespace.js":67}],69:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./utils_namespace.js":66}],68:[function(require,module,exports){
 require("./../rur.js");
 require("./../translator.js");
 require("./animated_images.js");
@@ -9677,7 +9237,7 @@ function create_images(obj) {
     }
 }
 
-/** @function show_existing_things
+/** @function show_all_things
  * @memberof RUR
  * @instance
  *
@@ -9686,7 +9246,7 @@ function create_images(obj) {
  * @todo include translated name
  * @desc This needs to be documented
  */
-RUR.show_existing_things = function (property) {
+RUR.show_all_things = function (property) {
     var i, j, info, images, name, url;
     if (property !== undefined) {
         info = "<h3>Things with property <code>" + property + "</code></h3>";
@@ -9727,7 +9287,7 @@ RUR.show_existing_things = function (property) {
         info += "</td></tr>";
     }
     info += "</table>";
-    RUR._print_html_(info);
+    RUR._print_html_(info, true); // true will replace existing content
 };
 
 /** @function has_property
@@ -9782,7 +9342,7 @@ RUR.add_new_object_type = function (name, url, url_goal) {
  */
 RUR.add_object_image = RUR.add_new_object_type; // Vincent Maille's book.
 
-},{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../translator.js":56,"./animated_images.js":70}],70:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../translator.js":56,"./animated_images.js":69}],69:[function(require,module,exports){
 /* This file contains methods used to create animated images by creating
    the appropriate selection sequence from a list of images.
  */
@@ -9920,12 +9480,473 @@ RUR._sync = function (obj, nb, id) {
     return obj["image" + RUR._SYNC_VALUE[obj.name]];
 };
 
-},{"./../rur.js":52}],71:[function(require,module,exports){
+},{"./../rur.js":52}],70:[function(require,module,exports){
+/*  This file contains generic methods called by more specialized methods
+    used to create worlds. */
+
+require("./../rur.js");
+require("./../translator.js");
+require("./../programming_api/exceptions.js");
+require("./../utils/key_exist.js");
+require("./../utils/validator.js");
+require("./../utils/supplant.js");
+require("./../world_utils/get_world.js");
+
+// private helper function that
+// ensures that the position is within the world boundaries
+function ensure_valid_position(args) {
+    "use strict";
+    var position;
+    if (args.x !== undefined && args.y !== undefined) {
+        if (!RUR.is_valid_position(args.x, args.y)) {
+            position = "(" + args.x + ", " + args.y + ")";
+            throw new RUR.ReeborgError(
+                RUR.translate("Invalid position.").supplant({pos:position}));
+        }
+    } else {
+        if (args.x === undefined) args.x = "?";
+        if (args.y === undefined) args.y = "?";
+        position = "(" + args.x + ", " + args.y + ")";
+        throw new RUR.ReeborgError(
+            RUR.translate("Invalid position.").supplant({pos:position}));
+    }
+}
+
+function ensure_common_required_args_present(args) {
+    "use strict";
+    ensure_valid_position(args);
+    if (args.type === undefined) {
+        throw new Error("Object type must be specified.");
+    }
+    if (args.name === undefined) {
+        throw new Error("Object name must be specified.");
+    }
+    if (args.valid_names !== undefined) {
+        if (args.valid_names.indexOf(args.name) === -1) {
+            throw new Error("Invalid name");
+        }
+    }
+}
+
+// for testing purpose
+if (RUR.UnitTest === undefined) {
+    RUR.UnitTest = {};
+}
+RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_present;
+
+/** @function set_nb_artefact
+ * @memberof RUR
+ * @instance
+ * @summary **This function is intended for private use by developers.**
+ * 
+ *    This function adds a specified number of a named artefact of a 
+ *    specified type (e.g. object, goal object) at
+ *    a given location.
+ *    
+ *    
+ * @param {Object} args A Javascript object (similar to a Python dict) that
+ *                      holds the relevant attribute.
+ *
+ * @param {string} args.name  The name of the object to be added; an error
+ *    will be thrown if it is missing.
+ *
+ * @param {integer} args.number  The number of artefacts to be added; an error
+ *    will be thrown if it is missing or if its value is not an integer 
+ *    strictly greater than zero.
+ *    
+ * @param {string} args.type  The type of the object to be added; an error
+ *    will be thrown if it is missing.
+ * 
+ * @param {integer} args.x The `x` coordinate where the object should be found.
+ *                        If it is missing, or not within the world boundaries,
+ *                        or is not an integer, an error will be thrown.
+ *
+ * @param {integer} args.y The `y` coordinate where the object should be found.
+ *                        If it is missing, or not within the world boundaries,
+ *                        or is not an integer, an error will be thrown.
+ *
+ * @param {boolean} [args.goal] If specified, indicates that it is a goal that
+ *                        must be set.
+ *
+ * 
+ * @param {string} [args.valid_names] A list containing the name of the 
+ *                        acceptable objects. If this argument is specified, 
+ *                        `args.name` must be found in that list, otherwise an
+ *                        error will be thrown.
+ *
+ * 
+ * @throws Will throw an error if `name` attribute is not specified.
+ * @throws Will throw an error if `type` attribute is not specified.
+ * @throws Will throw an error if `number` attribute is not specified.
+ * @throws Will throw an error if `number` attribute is not a positive integer
+ * @throws Will throw an error if a valid position is not specified.
+ *
+ * @see {@link UnitTest#test_artefact} for unit tests.
+ *  
+ */
+RUR.set_nb_artefact = function (args) {
+    "use strict";
+    var base, coords, world = RUR.get_world();
+
+    ensure_common_required_args_present(args);
+    if (args.number === undefined) {
+        throw new Error("Number of objects must be specified.");
+    } else if(!RUR.is_positive_integer(args.number)) {
+        throw new Error("Number must be a positive integer.");    
+    }
+
+    coords = args.x + "," + args.y;
+    base = world;
+    if (args.goal) {
+        RUR.utils.ensure_key_for_obj_exists(world, "goal");
+        base = world.goal;
+    }
+
+    RUR.utils.ensure_key_for_obj_exists(base, args.type);
+    RUR.utils.ensure_key_for_obj_exists(base[args.type], coords);
+    base[args.type][coords][args.name] = args.number;
+
+};
+
+
+/** @function add_artefact
+ * @memberof RUR
+ * @instance
+ * @summary **This function is intended for private use by developers.**
+ * 
+ *    This function adds a specified (named) artefact of a 
+ *    specified type (e.g. object, background tile, wall, etc.) at
+ *    a given location, potentially subject to some limitations.
+ *    
+ *    
+ * @param {Object} args A Javascript object (similar to a Python dict) that
+ *                      holds the relevant attribute.
+ *
+ * @param {string} args.name  The name of the object to be found; an error
+ *    will be thrown if it is missing.
+ *
+ * @param {string} args.type  The type of the object to be found; an error
+ *    will be thrown if it is missing.
+ *
+ * @param {integer} args.x The `x` coordinate where the object should be found.
+ *                        If it is missing, or not within the world boundaries,
+ *                        or is not an integer, an error will be thrown.
+ *
+ * @param {integer} args.y The `y` coordinate where the object should be found.
+ *                        If it is missing, or not within the world boundaries,
+ *                        or is not an integer, an error will be thrown.
+ *
+ *
+ * @param {string} [args.valid_names] A list containing the name of the 
+ *                        acceptable objects. If this argument is specified, 
+ *                        `args.name` must be found in that list, otherwise an
+ *                        error will be thrown.
+ *
+ * @param {boolean} [args.single] Specifies if only one of a given kind of
+ *                        artefact is permitted at a given location.
+ * 
+ * @returns {integer} The number of object found at that location (could be 0).
+ * @throws Will throw an error if `name` attribute is not specified.
+ * @throws Will throw an error if `type` attribute is not specified.
+ * @throws Will throw an error if a valid position is not specified.
+ * @throws Will throw an error if `single` is "true" but more than one kind
+ * of artefact is found at that location.
+ *
+ * @see {@link UnitTest#test_artefact} for unit tests.
+ *  
+ */
+RUR.add_artefact = function (args) {
+    "use strict";
+    var base, coords, world = RUR.get_world();
+
+    ensure_common_required_args_present(args);
+    base = world;
+    if (args.goal) {
+        RUR.utils.ensure_key_for_obj_exists(world, "goal");
+        base = world.goal;
+    }
+    coords = args.x + "," + args.y;
+
+    // This should not happen if functions upstream always
+    // use args.single consistently
+    if (args.single && base[args.type] !== undefined &&
+               base[args.type][coords] !== undefined && 
+               base[args.type][coords].length > 1) {
+        throw new Error("Cannot replace: more than one artefact present.");
+    }
+
+    RUR.utils.ensure_key_for_obj_exists(base, args.type);
+    if (args.number) {
+        RUR.utils.ensure_key_for_obj_exists(base[args.type], coords);
+        if (base[args.type][coords][args.name] === undefined) {
+            base[args.type][coords][args.name] = args.number;
+        } else {
+            base[args.type][coords][args.name] += args.number;
+        }
+    } else {
+        RUR.utils.ensure_key_for_array_exists(base[args.type], coords);
+        if (args.single) {
+            base[args.type][coords] = [args.name];
+        } else {
+            base[args.type][coords].push(args.name);
+        }
+    }
+};
+
+
+/** @function get_nb_artefact
+ * @memberof RUR
+ * @instance
+ * @summary **This function is intended for private use by developers.**
+ * 
+ *    This function returns the number of a specified (named) artefact of a 
+ *    specified type (e.g. object, background tile, wall, etc.) at
+ *    a given location.
+ *    
+ * @param {Object} args A Javascript object (similar to a Python dict) that
+ *                      holds the relevant attribute.
+ *
+ * @param {string} args.name  The name of the object to be found; an error
+ *    will be thrown if it is missing.
+ *
+ * @param {string} args.type  The type of the object to be found; an error
+ *    will be thrown if it is missing.
+ *
+ * @param {integer} args.x The `x` coordinate where the object should be found.
+ *                        If it is missing, or not within the world boundaries,
+ *                        or is not an integer, an error will be thrown.
+ *
+ * @param {integer} args.y The `y` coordinate where the object should be found.
+ *                        If it is missing, or not within the world boundaries,
+ *                        or is not an integer, an error will be thrown.
+ *                        
+ * @param {boolean} [args.goal] If specified, indicates that it is a goal-type
+ *                        object that must be found.
+ *
+ * @param {array} [args.valid_names] A list containing the name of the 
+ *                        acceptable objects. If this argument is specified, 
+ *                        `args.name` must be found in that list, otherwise an
+ *                        error will be thrown.
+ *
+ * @returns {integer} The number of object found at that location (could be 0).
+ * @throws Will throw an error if `name` attribute is not specified.
+ * @throws Will throw an error if `type` attribute is not specified.
+ * @throws Will throw an error if a valid position is not specified.
+ *
+ * @see {@link UnitTest#test_artefact} for unit tests.
+ *  
+ */
+RUR.get_nb_artefact = function(args) {
+    "use strict";
+    var coords, container, world = RUR.get_world();
+
+    ensure_common_required_args_present(args);
+
+    coords = args.x + "," + args.y;
+    if (args.goal) {
+        if (world.goal === undefined || 
+            world.goal[args.type] === undefined ||
+            world.goal[args.type][coords] === undefined) {
+            return 0;
+        } else { 
+            container = world.goal[args.type][coords];
+        }
+    } else if (world[args.type] === undefined ||
+               world[args.type][coords] === undefined) {
+        return 0;
+    } else {
+        container = world[args.type][coords];
+    }
+
+    if (Object.prototype.toString.call(container) == "[object Object]") {
+        if (Object.keys(container).indexOf(args.name) == -1) {
+            return 0;
+        } else {
+            return container[args.name];
+        }
+    } else if (Object.prototype.toString.call(container) == "[object Array]"){
+        if (container.indexOf(args.name) == -1) {
+            return 0;
+        } else {
+            return 1;
+        }
+    } else { // should never happen
+        throw new Error("Unknown container type; need Object or Array");
+    }   
+};
+
+/** @function get_artefacts
+ * @memberof RUR
+ * @instance
+ * @summary **This function is intended for private use by developers.**
+ *
+ *    **Important:** This is the only function named with artefacts in plural
+ *    form as other deal with a single artefact at a time, whereas this one
+ *    returns a container that can contain many artefacts.
+ * 
+ *    This function returns a container (Javascript Object or Array) with the
+ *    artefacts found at a location. 
+ *    
+ * @param {Object} args A Javascript object (similar to a Python dict) that
+ *                      holds the relevant attribute.
+ *
+ *
+ * @param {string} args.type  The type of the object to be found; an error
+ *    will be thrown if it is missing.
+ *
+ * @param {integer} args.x The `x` coordinate where the object should be found.
+ *                        If it is missing, or not within the world boundaries,
+ *                        or is not an integer, an error will be thrown.
+ *
+ * @param {integer} args.y The `y` coordinate where the object should be found.
+ *                        If it is missing, or not within the world boundaries,
+ *                        or is not an integer, an error will be thrown.
+ *                        
+ * @param {boolean} [args.goal] If specified, indicates that it is a goal-type
+ *                        kind that we are interested about.
+ *
+ *
+ * @returns      A container (Array or Object) with the artefacts found at that
+ *              location, or `null` if no container is found at that location.
+ * @throws Will throw an error if `type` attribute is not specified.
+ * @throws Will throw an error if a valid position is not specified.
+ *
+ * @see {@link UnitTest#test_artefact} for unit tests.
+ *  
+ */
+RUR.get_artefacts = function(args) {
+    "use strict";
+    var base, coords, container, world = RUR.get_world();
+
+    ensure_valid_position(args);
+    if (args.type === undefined) {
+        throw new Error("Object type must be specified.");
+    }
+
+    coords = args.x + "," + args.y;
+    if (args.goal) {
+        if (world.goal === undefined || 
+            world.goal[args.type] === undefined ||
+            world.goal[args.type][coords] === undefined) {
+            return null;
+        } else { 
+            container = world.goal[args.type][coords];
+        }
+    } else if (world[args.type] === undefined ||
+               world[args.type][coords] === undefined) {
+        return null;
+    } else {
+        container = world[args.type][coords];
+    }
+    // return a copy so that we cannot accidently modify the original object.
+    return JSON.parse(JSON.stringify(container)); 
+};
+
+
+
+/** @function remove_artefact
+ * @memberof RUR
+ * @instance
+ * @summary **This function is intended for private use by developers.**
+ * 
+ *    This function removes a specified (named) artefact of a 
+ *    specified type (e.g. object, background tile, wall, etc.) at
+ *    a given location. For artefacts that can have more than 1 instance
+ *    at a given location, it can either remove a single instance or all
+ *    of them.
+ *
+ *    If no artefact of that kind is left at that location, that location is
+ *    pruned (removed). If nothing is left for that kind, it is removed.
+ *    If nothing is left but an empty goal, the goal object is removed
+ *    as well.
+ *    
+ * @param {Object} args A Javascript object (similar to a Python dict) that
+ *                      holds the relevant attribute.
+ *
+ * @param {string} args.name  The name of the object to be found; an error
+ *    will be thrown if it is missing.
+ *
+ * @param {string} args.type  The type of the object to be found; an error
+ *    will be thrown if it is missing.
+ *
+ * @param {integer} args.x The `x` coordinate where the object should be found.
+ *                        If it is missing, or not within the world boundaries,
+ *                        or is not an integer, an error will be thrown.
+ *
+ * @param {integer} args.y The `y` coordinate where the object should be found.
+ *                        If it is missing, or not within the world boundaries,
+ *                        or is not an integer, an error will be thrown.
+ *                        
+ * @param {boolean} [args.goal] If specified, indicates that it is a goal-type
+ *                        object that must be found.
+ *
+ * @param {string} [args.all] If true, all instances of the named artefact
+ *       will be removed; otherwise, their number will simply be reduced by 1..
+ *
+ * @throws Will throw an error if `name` attribute is not specified.
+ * @throws Will throw an error if `type` attribute is not specified.
+ * @throws Will throw an error if a valid position is not specified.
+ * @throws Will throw an error if no such artefact is found at that location.
+ *
+ * @see {@link UnitTest#test_artefact} for unit tests.
+ * @todo  Need to implement `args.all`
+ *  
+ */
+RUR.remove_artefact = function (args) {
+    "use strict";
+    var base, container, coords, index, world = RUR.get_world();
+
+    // Calling get_nb_artefact will do all the required validation of arguments
+    if (RUR.get_nb_artefact(args) === 0) {
+        throw new Error("No artefact to remove");
+    }
+
+    base = world;
+    if (args.goal) {
+        base = world.goal;
+    }
+    coords = args.x + "," + args.y;
+    container = base[args.type][coords];
+
+    if (Object.prototype.toString.call(container) == "[object Object]") {
+        container[args.name] -= 1;
+        if (container[args.name] === 0) {
+            delete container[args.name];
+        }
+        if (Object.keys(container).length === 0) { // nothing left at that location
+            delete base[args.type][coords];
+        } else {
+            return;
+        }
+    } else if (Object.prototype.toString.call(container) == "[object Array]"){
+        index = container.indexOf(args.name);
+        container.splice(index, 1);
+        if (container.length === 0){ // nothing left at that location
+            delete base[args.type][coords];
+        } else {
+            return;
+        }
+    } else { // should never happen
+        throw new Error("Unknown container type; need Object or Array");
+    }  
+
+    // remove any empty remaining JS object, up to world.
+    if (Object.keys(base[args.type]).length === 0) {
+        delete base[args.type];
+        if (args.goal) {
+            if (Object.keys(world.goal).length === 0){
+                delete world.goal;
+            }
+        }
+    }
+};
+
+},{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../translator.js":56,"./../utils/key_exist.js":63,"./../utils/supplant.js":65,"./../utils/validator.js":67,"./../world_utils/get_world.js":91}],71:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
-require("./../utils/artefact.js");
+require("./artefact.js");
 require("./../world_utils/get_world.js");
 
 // TODO: implement fill_background
@@ -9959,7 +9980,7 @@ require("./../world_utils/get_world.js");
 RUR.add_background_tile = function (name, x, y) {
     "use strict";
     var args = {name: name, x:x, y:y, type:"tiles", single:true};
-    RUR.utils.add_artefact(args);
+    RUR.add_artefact(args);
     RUR.record_frame("RUR.add_background_tile", args);
 };
 
@@ -9986,7 +10007,7 @@ RUR.remove_background_tile = function (name, x, y) {
     var args;
     args= {x:x, y:y, type:"tiles", name:name};
     try {
-        RUR.utils.remove_artefact(args);
+        RUR.remove_artefact(args);
     } catch (e) {
         if (e.message == "No artefact to remove") {
             throw new ReeborgError("No tile to remove here.");
@@ -10025,7 +10046,7 @@ RUR.remove_background_tile = function (name, x, y) {
 RUR.get_background_tile = function (x, y) {
     "use strict";
     var tiles, args = {x:x, y:y, type:"tiles"};
-    tiles = RUR.utils.get_artefacts(args);
+    tiles = RUR.get_artefacts(args);
     if (tiles === null) {
         return null;
     } else {
@@ -10048,12 +10069,12 @@ RUR.is_background_tile = function (name, x, y) {
 
 
 
-},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/artefact.js":61,"./../utils/key_exist.js":64,"./../utils/validator.js":68,"./../world_utils/get_world.js":90}],72:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":70}],72:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
-require("./../utils/artefact.js");
+require("./artefact.js");
 require("./../world_utils/get_world.js");
 
 /** @function add_bridge
@@ -10078,7 +10099,7 @@ require("./../world_utils/get_world.js");
 RUR.add_bridge = function (name, x, y) {
     "use strict";
     var args = {name: name, x:x, y:y, type:"bridge", single:true};
-    RUR.utils.add_artefact(args);
+    RUR.add_artefact(args);
     RUR.record_frame("RUR.set_bridge", args);
 };
 
@@ -10104,7 +10125,7 @@ RUR.remove_bridge = function (name, x, y) {
     var args;
     args= {x:x, y:y, type:"bridge", name:name};
     try {
-        RUR.utils.remove_artefact(args);
+        RUR.remove_artefact(args);
     } catch (e) {
         if (e.message == "No artefact to remove") {
             throw new ReeborgError("No bridge to remove here.");
@@ -10142,7 +10163,7 @@ RUR.remove_bridge = function (name, x, y) {
 RUR.get_bridge = function (x, y) {
     "use strict";
     var tile, args = {x:x, y:y, type:"bridge"};
-    tile = RUR.utils.get_artefacts(args);
+    tile = RUR.get_artefacts(args);
     if (tile === null) {
         return null;
     } else {
@@ -10221,12 +10242,12 @@ RUR.get_bridge_protections = function (x, y) {
     }
 };
 
-},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/artefact.js":61,"./../utils/key_exist.js":64,"./../utils/validator.js":68,"./../world_utils/get_world.js":90}],73:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":70}],73:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
-require("./../utils/artefact.js");
+require("./artefact.js");
 require("./../world_utils/get_world.js");
 require("./obstacles.js");
 require("./background_tile.js");
@@ -10295,12 +10316,12 @@ RUR.transform_tile = function (name, x, y, type) {
     }
 };
 
-},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/artefact.js":61,"./../utils/key_exist.js":64,"./../utils/validator.js":68,"./../world_utils/get_world.js":90,"./background_tile.js":71,"./obstacles.js":76}],74:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":70,"./background_tile.js":71,"./obstacles.js":77}],74:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
-require("./../utils/artefact.js");
+require("./artefact.js");
 require("./../world_utils/get_world.js");
 
 /** @function add_decorative_object
@@ -10332,7 +10353,7 @@ require("./../world_utils/get_world.js");
 RUR.add_decorative_object = function (name, x, y) {
     "use strict";
     var args = {name: name, x:x, y:y, type:"decorative_objects"};
-    RUR.utils.add_artefact(args);
+    RUR.add_artefact(args);
     RUR.record_frame("RUR.add_decorative_object", args);
 };
 
@@ -10359,7 +10380,7 @@ RUR.remove_decorative_object = function (name, x, y) {
     var args;
     args= {x:x, y:y, type:"decorative_objects", name:name};
     try {
-        RUR.utils.remove_artefact(args);
+        RUR.remove_artefact(args);
     } catch (e) {
         if (e.message == "No artefact to remove") {
             throw new ReeborgError("No tile to remove here.");
@@ -10397,7 +10418,7 @@ RUR.remove_decorative_object = function (name, x, y) {
 RUR.get_decorative_object = function (x, y) {
     "use strict";
     var tile, args = {x:x, y:y, type:"decorative_objects"};
-    tile = RUR.utils.get_artefacts(args);
+    tile = RUR.get_artefacts(args);
     if (tile === null) {
         return null;
     } else {
@@ -10408,7 +10429,7 @@ RUR.get_decorative_object = function (x, y) {
 RUR.is_decorative_object = function (name, x, y) {
     "use strict";
     var tile, args = {x:x, y:y, type:"decorative_objects"};
-    tile = RUR.utils.get_artefacts(args);
+    tile = RUR.get_artefacts(args);
     if (tile === null) {
         return false;
     } else if (tile[0] == name){
@@ -10419,7 +10440,7 @@ RUR.is_decorative_object = function (name, x, y) {
 };
 
 
-},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/artefact.js":61,"./../utils/key_exist.js":64,"./../utils/validator.js":68,"./../world_utils/get_world.js":90}],75:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":70}],75:[function(require,module,exports){
 require("./../rur.js");
 require("./background_tile.js");
 require("./bridges.js");
@@ -10494,12 +10515,152 @@ RUR.is_detectable = function (x, y){
 };
 
 
-},{"./../rur.js":52,"./background_tile.js":71,"./bridges.js":72,"./obstacles.js":76}],76:[function(require,module,exports){
+},{"./../rur.js":52,"./background_tile.js":71,"./bridges.js":72,"./obstacles.js":77}],76:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
-require("./../utils/artefact.js");
+require("./artefact.js");
+require("./../world_utils/get_world.js");
+
+/** @function add_object
+ * @memberof RUR
+ * @instance
+ * @summary This function adds one or more of a given object at a location.
+ *
+ * @param {string} name Name of the object
+ * @param {integer} x  Position of the object.
+ * @param {integer} y  Position of the object.
+ * @param {object} options  Need to include: `goal`, `number`, `replace`,
+ * `min`, `max`
+ *
+ * @throws Will throw an error if `(x, y)` is not a valid location..
+ *
+ * @todo add test
+ * @todo add better examples
+ * @todo deal with translation
+ * @example
+ * // shows how to set various objects;
+ * // the mode will be set to Python and the highlighting
+ * // will be turned off
+ * World("/worlds/examples/object1.json", "Example 1")
+ *
+ */
+RUR.add_object = function (name, x, y, options) {
+    "use strict";
+    var k, keys, args = {name: name, x:x, y:y, type:"objects"};
+    if (options === undefined) {
+        args.number = 1;
+    } else {
+        keys = Object.keys(options);
+        for (k of keys) {
+            args[k] = options[k];
+        }
+        if (keys.indexOf("number") === -1) {
+            args["number"] = 1;
+        }
+    }
+    RUR.add_artefact(args);
+    RUR.record_frame("RUR.add_object", args);
+};
+
+
+/** @function remove_object
+ * @memberof RUR
+ * @instance
+ * @summary This function removes an object at a location.
+ *
+ * @param {string} name Name of the object
+ * @param {integer} x  Position of the object.
+ * @param {integer} y  Position of the object.
+ * @param {object} options  Need to include: `goal`, `number`, `all`
+ *
+ * @throws Will throw an error if `(x, y)` is not a valid location.
+ * @throws Will throw an error if there is no background object to remove
+ *        at that location
+ *        
+ * @todo add test
+ * @todo add examples
+ * @todo deal with translation
+ */
+RUR.remove_object = function (name, x, y, options) {
+    "use strict";
+    var args;
+    args= {x:x, y:y, type:"objects", name:name};
+    if (options !== undefined && options.goal !== undefined) {
+        args.goal = options.goal;
+    }
+    try {
+        RUR.remove_artefact(args);
+    } catch (e) {
+        if (e.message == "No artefact to remove") {
+            throw new ReeborgError("No object to remove here.");
+        } else {
+            throw e;
+        }
+    }
+    // For historical reason, worlds are always created with an "objects" attribute
+    RUR.utils.ensure_key_for_obj_exists(RUR.CURRENT_WORLD, "objects");
+    RUR.record_frame("RUR.remove_object", args);
+};
+
+
+/** @function get_object
+ * @memberof RUR
+ * @instance
+ * @summary This function gets the object name found at given location. Note that
+ *    this could be an HTML colour.  If nothing is found at that location,
+ *    `null` is returned (which is converted to `None` in Python programs.)
+ *
+ * @param {integer} x  Position of the object.
+ * @param {integer} y  Position of the object.
+ *
+ * @throws Will throw an error if `(x, y)` is not a valid location..
+ *
+ * @todo add test
+ * @todo add proper examples
+ * @todo deal with translation
+ * @todo make sure it returns the correct info
+ * @example
+ * // shows how to set various objects;
+ * // the mode will be set to Python and the highlighting
+ * // will be turned off
+ * World("/worlds/examples/object1.json", "Example 1")
+ *
+ */
+
+RUR.get_object = function (x, y) {
+    "use strict";
+    var object, args = {x:x, y:y, type:"objects"};
+    object = RUR.get_artefacts(args);
+    if (object === null) {
+        return null;
+    } else {
+        return RUR.TILES[object[0]];
+    }
+};
+
+RUR.is_object = function (name, x, y, options) {
+    "use strict";
+    var nb, args = {x:x, y:y, name:name, type:"objects"};
+    if (options !== undefined && options.goal !== undefined) {
+        args.goal = options.goal;
+    }    
+    nb = RUR.get_nb_artefact(args);
+    if (nb === 0) {
+        return false;
+    } else {
+        return true;
+    }
+};
+
+
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":70}],77:[function(require,module,exports){
+require("./../rur.js");
+require("./../utils/key_exist.js");
+require("./../utils/validator.js");
+require("./../recorder/record_frame.js");
+require("./artefact.js");
 require("./../world_utils/get_world.js");
 
 /** @function add_obstacle
@@ -10528,7 +10689,7 @@ require("./../world_utils/get_world.js");
 RUR.add_obstacle = function (name, x, y) {
     "use strict";
     var args = {name: name, x:x, y:y, type:"obstacles", valid_names:Object.keys(RUR.TILES)};
-    RUR.utils.add_artefact(args);
+    RUR.add_artefact(args);
     RUR.record_frame("RUR.add_obstacle", args);
 };
 
@@ -10559,7 +10720,7 @@ RUR.remove_obstacle = function (name, x, y) {
         throw new ReeborgError("No obstacles to remove here.");
     }
     args= {x:x, y:y, type:"obstacles", name:name, valid_names:Object.keys(RUR.TILES)};
-    RUR.utils.remove_artefact(args);
+    RUR.remove_artefact(args);
     RUR.record_frame("RUR.remove_obstacle", args);
 };
 
@@ -10591,7 +10752,7 @@ RUR.remove_obstacle = function (name, x, y) {
 RUR.get_obstacles = function (x, y) {
     "use strict";
     var tiles, args = {x:x, y:y, type:"obstacles"};
-    tiles = RUR.utils.get_artefacts(args);
+    tiles = RUR.get_artefacts(args);
     if (tiles === null) {
         return null;
     } else {
@@ -10605,7 +10766,7 @@ RUR.get_obstacles = function (x, y) {
 RUR.is_obstacle = function (name, x, y) {
     "use strict";
     var args={name:name, x:x, y:y, type:"obstacles"};
-    if (RUR.utils.get_nb_artefact(args) > 0) {
+    if (RUR.get_nb_artefact(args) > 0) {
         return true;
     } else {
         return false;
@@ -10673,12 +10834,12 @@ RUR.is_obstacle_safe = function (x, y) {
     }
     return safe_found;
 };
-},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/artefact.js":61,"./../utils/key_exist.js":64,"./../utils/validator.js":68,"./../world_utils/get_world.js":90}],77:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":70}],78:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
-require("./../utils/artefact.js");
+require("./artefact.js");
 require("./../world_utils/get_world.js");
 // require("./obstacles.js");
 // require("./background_tile.js");
@@ -10715,7 +10876,7 @@ RUR.add_pushable = function (name, x, y) {
     if (pushable !== null) {
         throw new ReeborgError("There can be at most one pushable object at a given location.");
     }
-    RUR.utils.add_artefact(args);
+    RUR.add_artefact(args);
     RUR.record_frame("RUR.add_pushable", args);
 };
 
@@ -10747,7 +10908,7 @@ RUR.remove_pushable = function (name, x, y) {
         throw new ReeborgError("No pushable to remove here.");
     }
     args= {x:x, y:y, type:"pushables", name:name, valid_names:Object.keys(RUR.TILES)};
-    RUR.utils.remove_artefact(args);
+    RUR.remove_artefact(args);
     RUR.record_frame("RUR.remove_pushable", args);
 };
 
@@ -10782,7 +10943,7 @@ RUR.remove_pushable = function (name, x, y) {
 RUR.get_pushable = function (x, y) {
     "use strict";
     var tiles, args = {x:x, y:y, type:"pushables"};
-    tiles = RUR.utils.get_artefacts(args);
+    tiles = RUR.get_artefacts(args);
     if (tiles === null) {
         return null;
     } else {
@@ -10819,7 +10980,7 @@ RUR.get_pushable = function (x, y) {
 RUR.is_pushable = function (name, x, y) {
     "use strict";
     var tile, args = {x:x, y:y, type:"pushables"};
-    tile = RUR.utils.get_artefacts(args);
+    tile = RUR.get_artefacts(args);
     return tile == name;
 };
 
@@ -10831,7 +10992,7 @@ RUR.push_pushable = function (name, from_x, from_y, to_x, to_y) {
     RUR.add_pushable(name, to_x, to_y);
     RUR.state.do_not_record = recording_state;
 };
-},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/artefact.js":61,"./../utils/key_exist.js":64,"./../utils/validator.js":68,"./../world_utils/get_world.js":90}],78:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":70}],79:[function(require,module,exports){
 require("./../rur.js");
 require("./../world_utils/get_world.js");
 
@@ -11056,7 +11217,46 @@ RUR.add_final_position = function (name, x, y) {
     goal.possible_final_positions.push([x, y]);
     RUR.record_frame("add_final_position", {name:name, x:x, y:y});
 };
-},{"./../rur.js":52,"./../world_utils/get_world.js":90}],79:[function(require,module,exports){
+
+ /** @function add_initial_position
+ *
+ * @memberof RUR
+ * @instance
+ * @summary This function adds an initial (starting) position as a possibility for the default robot.
+ *          It is possible to call this function multiple times, with different
+ *          `x, y` positions; doing so will result in a initial position chosen
+ *          randomly (among the choices recorded) each time a program is run.
+ *
+ * @param {integer} x  The position on the grid  
+ * @param {integer} y
+ *
+ * @todo: put in argument verification code and note which error can be thrown
+ * @throws Will throw an error if the final position is already included
+ **/
+
+RUR.add_initial_position = function (x, y) {
+    "use strict";
+    var robot, pos, world=RUR.get_world();
+    if (world.robots === undefined || world.robots.length === 0) {
+        throw new ReeborgError("This world has no robot; cannot set initial position.");
+    }
+
+    robot = world.robots[0];
+    if (!robot.possible_initial_positions){
+        robot.possible_initial_positions = [[robot.x, robot.y]];
+    }
+
+    for(var i=0; i<robot.possible_initial_positions.length; i++) {
+        pos = robot.possible_initial_positions[i];
+        if(pos[0]==x && pos[1]==y){
+            throw new ReeborgError("This initial position is already included!");
+        } 
+    }
+
+    robot.possible_initial_positions.push([x, y]);
+    RUR.record_frame("add_initial_position", {x:x, y:y});
+};
+},{"./../rur.js":52,"./../world_utils/get_world.js":91}],80:[function(require,module,exports){
 require("./../rur.js");
 require("./../translator.js");
 require("./../programming_api/exceptions.js");
@@ -11065,7 +11265,7 @@ require("./../utils/validator.js");
 require("./../utils/supplant.js");
 require("./../recorder/record_frame.js");
 require("./../world_utils/get_world.js");
-require("./../utils/artefact.js");
+require("./artefact.js");
 
 /*=========================================
 Walls data structure
@@ -11110,7 +11310,7 @@ RUR.get_walls = function(x, y, goal) {
     // var world = RUR.get_world();
     var args = {x:x, y:y, goal:goal, type:"walls"}, walls;
 
-    walls = RUR.utils.get_artefacts(args); // gets "east" and "north" if present
+    walls = RUR.get_artefacts(args); // gets "east" and "north" if present
     if (walls === null) {
         walls = [];
     }
@@ -11164,7 +11364,7 @@ RUR.is_wall = function(orientation, x, y, goal) {
     args = convert_position(orientation, x, y);
     args.goal = goal;
     args.type = "walls";
-    if (RUR.utils.get_nb_artefact(args) === 0) {
+    if (RUR.get_nb_artefact(args) === 0) {
         return false;
     } else {
         return true;
@@ -11224,7 +11424,7 @@ RUR.add_wall = function(orientation, x, y, goal) {
     args = convert_position(orientation, x, y);
     args.goal = goal;
     args.type = "walls";
-    RUR.utils.add_artefact(args);
+    RUR.add_artefact(args);
     RUR.record_frame("add_wall", args);
 };
 
@@ -11268,9 +11468,8 @@ RUR.remove_wall = function(orientation, x, y, goal) {
     args = convert_position(orientation, x, y);
     args.goal = goal;
     args.type = "walls";
-    RUR.utils.remove_artefact(args);
-    // TODO: see if it is required for working program (not tests)
-    // to ensure that walls is always a valid key.
+    RUR.remove_artefact(args);
+    // For historical reason, worlds are always created with a "walls" attribute
     RUR.utils.ensure_key_for_obj_exists(RUR.CURRENT_WORLD, "walls");
     RUR.record_frame("remove_wall", args);  
 };
@@ -11304,7 +11503,7 @@ function convert_position (orientation, x, y) {
     return {name:_orientation, x:_x, y:_y};
 }
 
-},{"./../programming_api/exceptions.js":42,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/artefact.js":61,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../utils/validator.js":68,"./../world_utils/get_world.js":90}],80:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":42,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/key_exist.js":63,"./../utils/supplant.js":65,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":70}],81:[function(require,module,exports){
 /* Obtain specific information about the world, either at a given
    position, or for the world in general.
 */
@@ -11588,7 +11787,7 @@ RUR.world_get.world_info = function (no_grid) {
 
 RUR.create_and_activate_dialogs( $("#world-info-button"), $("#World-info"),
                                  {height:400, width:800}, RUR.world_get.world_info);
-},{"./../default_tiles/tiles.js":1,"./../dialogs/create.js":3,"./../listeners/canvas.js":18,"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../utils/supplant.js":66}],81:[function(require,module,exports){
+},{"./../default_tiles/tiles.js":1,"./../dialogs/create.js":3,"./../listeners/canvas.js":18,"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../utils/supplant.js":65}],82:[function(require,module,exports){
 require("./../recorder/record_frame.js");
 
 
@@ -11600,7 +11799,7 @@ RUR._add_robot = function (robot) {
     RUR.record_frame("_add_robot", robot.__id);
 };
 
-},{"./../recorder/record_frame.js":46}],82:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46}],83:[function(require,module,exports){
 require("./../programming_api/exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
@@ -11653,7 +11852,7 @@ RUR.give_object_to_robot = function (obj, nb, robot) {
     }
 };
 
-},{"./../programming_api/exceptions.js":42,"./../translator.js":56,"./../utils/key_exist.js":64,"./../utils/validator.js":68,"./../world_utils/get_world.js":90}],83:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":42,"./../translator.js":56,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":91}],84:[function(require,module,exports){
 require("./../programming_api/exceptions.js");
 require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
@@ -11697,11 +11896,11 @@ RUR.set_nb_goal_object_at_position = function (specific_object, x, y, nb){
     if (RUR.KNOWN_TILES.indexOf(specific_object) == -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: specific_object}));
     }
-    if (!RUR.utils.is_valid_position(x, y)) {
+    if (!RUR.is_valid_position(x, y)) {
         throw new RUR.ReeborgError(
             RUR.translate("Invalid position in {fn_name}").supplant({fn_name: my_name}));
     }
-    if (!(RUR.utils.is_integer(nb) && nb>=0)) {
+    if (!(RUR.is_integer(nb) && nb>=0)) {
         throw new RUR.ReeborgError(
             RUR.translate("Invalid number of objects in {fn_name}").supplant({fn_name: my_name}));
     }
@@ -11742,7 +11941,7 @@ RUR.set_nb_goal_object_at_position = function (specific_object, x, y, nb){
  * @deprecated Use {@link RUR#set_nb_goal_object_at_position} instead.
  */
 RUR.add_goal_object_at_position = RUR.set_nb_goal_object_at_position;
-},{"./../programming_api/exceptions.js":42,"./../translator.js":56,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../utils/validator.js":68}],84:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":42,"./../translator.js":56,"./../utils/key_exist.js":63,"./../utils/supplant.js":65,"./../utils/validator.js":67}],85:[function(require,module,exports){
 require("./../programming_api/exceptions.js");
 require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
@@ -11788,11 +11987,11 @@ RUR.set_nb_object_at_position = function (specific_object, x, y, nb){
     if (RUR.KNOWN_TILES.indexOf(specific_object) == -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: specific_object}));
     }
-    if (!RUR.utils.is_valid_position(x, y)) {
+    if (!RUR.is_valid_position(x, y)) {
         throw new RUR.ReeborgError(
             RUR.translate("Invalid position in {fn_name}").supplant({fn_name: my_name}));
     }
-    if (!(RUR.utils.is_integer(nb) && nb>=0)) {
+    if (!(RUR.is_integer(nb) && nb>=0)) {
         throw new RUR.ReeborgError(
             RUR.translate("Invalid number of objects in {fn_name}").supplant({fn_name: my_name}));
     }
@@ -11823,7 +12022,7 @@ RUR.set_nb_object_at_position = function (specific_object, x, y, nb){
  */
 RUR.add_object_at_position = RUR.set_nb_object_at_position;
 
-},{"./../programming_api/exceptions.js":42,"./../recorder/record_frame.js":46,"./../translator.js":56,"./../utils/key_exist.js":64,"./../utils/supplant.js":66,"./../utils/validator.js":68,"./../world_utils/get_world.js":90}],85:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":42,"./../recorder/record_frame.js":46,"./../translator.js":56,"./../utils/key_exist.js":63,"./../utils/supplant.js":65,"./../utils/validator.js":67,"./../world_utils/get_world.js":91}],86:[function(require,module,exports){
 require("./../drawing/visible_robot.js");
 require("./../drawing/visible_world.js");
 var clone_world = require("./../world_utils/clone_world.js").clone_world;
@@ -11858,7 +12057,7 @@ exports.reset_world = reset_world = function () {
 
 reset_world();
 
-},{"./../drawing/visible_robot.js":8,"./../drawing/visible_world.js":9,"./../world_utils/clone_world.js":87}],86:[function(require,module,exports){
+},{"./../drawing/visible_robot.js":8,"./../drawing/visible_world.js":9,"./../world_utils/clone_world.js":88}],87:[function(require,module,exports){
 /* In some ways, this is the counterpart of world_get/world_get.js
 */
 require("./../rur.js");
@@ -11983,7 +12182,7 @@ set_dimension_form = RUR.world_set.dialog_set_dimensions.find("form").on("submit
     set_dimension();
 });
 
-},{"./../../lang/msg.js":95,"./../default_tiles/tiles.js":1,"./../drawing/visible_world.js":9,"./../programming_api/exceptions.js":42,"./../recorder/recorder.js":47,"./../rur.js":52,"./../utils/key_exist.js":64}],87:[function(require,module,exports){
+},{"./../../lang/msg.js":96,"./../default_tiles/tiles.js":1,"./../drawing/visible_world.js":9,"./../programming_api/exceptions.js":42,"./../recorder/recorder.js":47,"./../rur.js":52,"./../utils/key_exist.js":63}],88:[function(require,module,exports){
 require("./world_utils_namespace.js");
 
 exports.clone_world = clone_world = function (world) {
@@ -11995,7 +12194,7 @@ exports.clone_world = clone_world = function (world) {
 };
 RUR.world_utils.clone_world = clone_world; // for automated testing
 
-},{"./world_utils_namespace.js":92}],88:[function(require,module,exports){
+},{"./world_utils_namespace.js":93}],89:[function(require,module,exports){
 require("./../rur.js");
 require("./world_utils_namespace.js");
 
@@ -12020,13 +12219,13 @@ RUR.world_utils.create_empty_world = function (blank_canvas) {
     return world;
 };
 RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-},{"./../rur.js":52,"./world_utils_namespace.js":92}],89:[function(require,module,exports){
+},{"./../rur.js":52,"./world_utils_namespace.js":93}],90:[function(require,module,exports){
 
 exports.export_world = function () {
     return JSON.stringify(RUR.CURRENT_WORLD, null, 2);
 };
 
-},{}],90:[function(require,module,exports){
+},{}],91:[function(require,module,exports){
 require("./../rur.js");
 
 /*  This function returns a World as a json object. Since the
@@ -12046,7 +12245,7 @@ RUR.get_world = function () {
 
 
 
-},{"./../rur.js":52}],91:[function(require,module,exports){
+},{"./../rur.js":52}],92:[function(require,module,exports){
 require("./../translator.js");
 require("./../rur.js");
 require("./../robot/robot.js");
@@ -12215,7 +12414,7 @@ function convert_old_worlds () {
     // TODO: convert start_positions to possible_initial_positions
 }
 
-},{"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../programming_api/exceptions.js":42,"./../robot/robot.js":49,"./../rur.js":52,"./../translator.js":56,"./../ui/edit_robot_menu.js":58,"./../world_api/animated_images.js":70,"./clone_world.js":87,"./create_empty_world.js":88,"./world_utils_namespace.js":92}],92:[function(require,module,exports){
+},{"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../programming_api/exceptions.js":42,"./../robot/robot.js":49,"./../rur.js":52,"./../translator.js":56,"./../ui/edit_robot_menu.js":58,"./../world_api/animated_images.js":69,"./clone_world.js":88,"./create_empty_world.js":89,"./world_utils_namespace.js":93}],93:[function(require,module,exports){
 require("./../rur.js");
 /** @namespace world_utils
  * @memberof RUR
@@ -12226,7 +12425,7 @@ require("./../rur.js");
  */
 RUR.world_utils = {};
 
-},{"./../rur.js":52}],93:[function(require,module,exports){
+},{"./../rur.js":52}],94:[function(require,module,exports){
 // Only create a new version of this file for a target language
 // if the corresponding functions are
 // defined in reeborg_xx.js and reeborg_xx.py
@@ -12262,7 +12461,7 @@ en["write"] = "write";
 
 en["from library import ?"] = "from library import ?";
 
-},{}],94:[function(require,module,exports){
+},{}],95:[function(require,module,exports){
 // Only create a new version of this file for a target language
 // if the corresponding functions are
 // defined in reeborg_xx.js and reeborg_xx.py
@@ -12298,7 +12497,7 @@ fr["write"] = "ecrit";
 
 fr["from library import ?"] = "from biblio import ?";
 
-},{}],95:[function(require,module,exports){
+},{}],96:[function(require,module,exports){
 var _recorded_ids = [];
 var _text_elements = [];
 var _elements_names = [];
@@ -12458,7 +12657,7 @@ record_title("ui-dialog-title-World-info", "Click on the world to get some addit
 
 record_id("kbd-repeat-not-keyword", "<code>repeat</code> is not a true Python keyword.");
 
-},{}],96:[function(require,module,exports){
+},{}],97:[function(require,module,exports){
 // the following is used in a few places below
 var mac_user_save_files_en = ' <b>Mac users:</b> please see <a href="https://github.com/aroberge/reeborg/blob/master/known_problems.md" target="_blank" rel="noopener">Known problems</a>.';
 
@@ -12796,7 +12995,7 @@ ui_en["UPDATE BLOCKLY CONTENT"] = "This world has some default content for the b
 ui_en["UPDATE BLOCKLY BUTTON"] = "Replace existing blocks";
 ui_en["Contents from World"] = "Contents from World";
 
-},{}],97:[function(require,module,exports){
+},{}],98:[function(require,module,exports){
 // the following is used in a few places below
 var mac_user_save_files_fr = ' <b>Utilisateurs Mac:</b> consultez <a href="https://github.com/aroberge/reeborg/blob/master/known_problems.md" target="_blank" rel="noopener">Problèmes connus</a>.';
 
@@ -13154,7 +13353,7 @@ ui_fr["UPDATE BLOCKLY CONTENT"] = "Ce monde inclus des blocs différents de ceux
 ui_fr["UPDATE BLOCKLY BUTTON"] = "Remplacer les blocs";
 ui_fr["Contents from World"] = "Remplacement de contenus";
 
-},{}],98:[function(require,module,exports){
+},{}],99:[function(require,module,exports){
 // the following is used in a few places below
 var mac_user_save_files_ko = ' <b>Mac users:</b> please see <a href="https://github.com/aroberge/reeborg/blob/master/known_problems.md" target="_blank" rel="noopener">Known problems</a>.';
 

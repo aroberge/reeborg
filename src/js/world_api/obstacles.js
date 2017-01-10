@@ -2,7 +2,7 @@ require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
-require("./../utils/artefact.js");
+require("./artefact.js");
 require("./../world_utils/get_world.js");
 
 /** @function add_obstacle
@@ -31,7 +31,7 @@ require("./../world_utils/get_world.js");
 RUR.add_obstacle = function (name, x, y) {
     "use strict";
     var args = {name: name, x:x, y:y, type:"obstacles", valid_names:Object.keys(RUR.TILES)};
-    RUR.utils.add_artefact(args);
+    RUR.add_artefact(args);
     RUR.record_frame("RUR.add_obstacle", args);
 };
 
@@ -62,7 +62,7 @@ RUR.remove_obstacle = function (name, x, y) {
         throw new ReeborgError("No obstacles to remove here.");
     }
     args= {x:x, y:y, type:"obstacles", name:name, valid_names:Object.keys(RUR.TILES)};
-    RUR.utils.remove_artefact(args);
+    RUR.remove_artefact(args);
     RUR.record_frame("RUR.remove_obstacle", args);
 };
 
@@ -94,7 +94,7 @@ RUR.remove_obstacle = function (name, x, y) {
 RUR.get_obstacles = function (x, y) {
     "use strict";
     var tiles, args = {x:x, y:y, type:"obstacles"};
-    tiles = RUR.utils.get_artefacts(args);
+    tiles = RUR.get_artefacts(args);
     if (tiles === null) {
         return null;
     } else {
@@ -108,7 +108,7 @@ RUR.get_obstacles = function (x, y) {
 RUR.is_obstacle = function (name, x, y) {
     "use strict";
     var args={name:name, x:x, y:y, type:"obstacles"};
-    if (RUR.utils.get_nb_artefact(args) > 0) {
+    if (RUR.get_nb_artefact(args) > 0) {
         return true;
     } else {
         return false;

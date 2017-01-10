@@ -2,7 +2,7 @@ require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
-require("./../utils/artefact.js");
+require("./artefact.js");
 require("./../world_utils/get_world.js");
 // require("./obstacles.js");
 // require("./background_tile.js");
@@ -39,7 +39,7 @@ RUR.add_pushable = function (name, x, y) {
     if (pushable !== null) {
         throw new ReeborgError("There can be at most one pushable object at a given location.");
     }
-    RUR.utils.add_artefact(args);
+    RUR.add_artefact(args);
     RUR.record_frame("RUR.add_pushable", args);
 };
 
@@ -71,7 +71,7 @@ RUR.remove_pushable = function (name, x, y) {
         throw new ReeborgError("No pushable to remove here.");
     }
     args= {x:x, y:y, type:"pushables", name:name, valid_names:Object.keys(RUR.TILES)};
-    RUR.utils.remove_artefact(args);
+    RUR.remove_artefact(args);
     RUR.record_frame("RUR.remove_pushable", args);
 };
 
@@ -106,7 +106,7 @@ RUR.remove_pushable = function (name, x, y) {
 RUR.get_pushable = function (x, y) {
     "use strict";
     var tiles, args = {x:x, y:y, type:"pushables"};
-    tiles = RUR.utils.get_artefacts(args);
+    tiles = RUR.get_artefacts(args);
     if (tiles === null) {
         return null;
     } else {
@@ -143,7 +143,7 @@ RUR.get_pushable = function (x, y) {
 RUR.is_pushable = function (name, x, y) {
     "use strict";
     var tile, args = {x:x, y:y, type:"pushables"};
-    tile = RUR.utils.get_artefacts(args);
+    tile = RUR.get_artefacts(args);
     return tile == name;
 };
 

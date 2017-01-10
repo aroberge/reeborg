@@ -2,12 +2,11 @@
     used to create worlds. */
 
 require("./../rur.js");
-require("./utils_namespace.js");
 require("./../translator.js");
 require("./../programming_api/exceptions.js");
-require("./key_exist.js");
-require("./validator.js");
-require("./supplant.js");
+require("./../utils/key_exist.js");
+require("./../utils/validator.js");
+require("./../utils/supplant.js");
 require("./../world_utils/get_world.js");
 
 // private helper function that
@@ -16,7 +15,7 @@ function ensure_valid_position(args) {
     "use strict";
     var position;
     if (args.x !== undefined && args.y !== undefined) {
-        if (!RUR.utils.is_valid_position(args.x, args.y)) {
+        if (!RUR.is_valid_position(args.x, args.y)) {
             position = "(" + args.x + ", " + args.y + ")";
             throw new RUR.ReeborgError(
                 RUR.translate("Invalid position.").supplant({pos:position}));
@@ -53,7 +52,7 @@ if (RUR.UnitTest === undefined) {
 RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_present;
 
 /** @function set_nb_artefact
- * @memberof RUR.utils
+ * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
  * 
@@ -102,14 +101,14 @@ RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_p
  * @see {@link UnitTest#test_artefact} for unit tests.
  *  
  */
-RUR.utils.set_nb_artefact = function (args) {
+RUR.set_nb_artefact = function (args) {
     "use strict";
     var base, coords, world = RUR.get_world();
 
     ensure_common_required_args_present(args);
     if (args.number === undefined) {
         throw new Error("Number of objects must be specified.");
-    } else if(!RUR.utils.is_positive_integer(args.number)) {
+    } else if(!RUR.is_positive_integer(args.number)) {
         throw new Error("Number must be a positive integer.");    
     }
 
@@ -128,7 +127,7 @@ RUR.utils.set_nb_artefact = function (args) {
 
 
 /** @function add_artefact
- * @memberof RUR.utils
+ * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
  * 
@@ -173,12 +172,11 @@ RUR.utils.set_nb_artefact = function (args) {
  * @see {@link UnitTest#test_artefact} for unit tests.
  *  
  */
-RUR.utils.add_artefact = function (args) {
+RUR.add_artefact = function (args) {
     "use strict";
     var base, coords, world = RUR.get_world();
 
     ensure_common_required_args_present(args);
-    console.log("args from add_artefact", args);
     base = world;
     if (args.goal) {
         RUR.utils.ensure_key_for_obj_exists(world, "goal");
@@ -195,12 +193,12 @@ RUR.utils.add_artefact = function (args) {
     }
 
     RUR.utils.ensure_key_for_obj_exists(base, args.type);
-    if (args.nb) {
-        RUR.utils.ensure_key_for_dict_exists(base[args.type], coords);
+    if (args.number) {
+        RUR.utils.ensure_key_for_obj_exists(base[args.type], coords);
         if (base[args.type][coords][args.name] === undefined) {
-            base[args.type][coords][args.name] = args.nb;
+            base[args.type][coords][args.name] = args.number;
         } else {
-            base[args.type][coords][args.name] += args.nb;
+            base[args.type][coords][args.name] += args.number;
         }
     } else {
         RUR.utils.ensure_key_for_array_exists(base[args.type], coords);
@@ -214,7 +212,7 @@ RUR.utils.add_artefact = function (args) {
 
 
 /** @function get_nb_artefact
- * @memberof RUR.utils
+ * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
  * 
@@ -255,7 +253,7 @@ RUR.utils.add_artefact = function (args) {
  * @see {@link UnitTest#test_artefact} for unit tests.
  *  
  */
-RUR.utils.get_nb_artefact = function(args) {
+RUR.get_nb_artefact = function(args) {
     "use strict";
     var coords, container, world = RUR.get_world();
 
@@ -295,7 +293,7 @@ RUR.utils.get_nb_artefact = function(args) {
 };
 
 /** @function get_artefacts
- * @memberof RUR.utils
+ * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
  *
@@ -333,7 +331,7 @@ RUR.utils.get_nb_artefact = function(args) {
  * @see {@link UnitTest#test_artefact} for unit tests.
  *  
  */
-RUR.utils.get_artefacts = function(args) {
+RUR.get_artefacts = function(args) {
     "use strict";
     var base, coords, container, world = RUR.get_world();
 
@@ -364,7 +362,7 @@ RUR.utils.get_artefacts = function(args) {
 
 
 /** @function remove_artefact
- * @memberof RUR.utils
+ * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
  * 
@@ -411,12 +409,12 @@ RUR.utils.get_artefacts = function(args) {
  * @todo  Need to implement `args.all`
  *  
  */
-RUR.utils.remove_artefact = function (args) {
+RUR.remove_artefact = function (args) {
     "use strict";
     var base, container, coords, index, world = RUR.get_world();
 
     // Calling get_nb_artefact will do all the required validation of arguments
-    if (RUR.utils.get_nb_artefact(args) === 0) {
+    if (RUR.get_nb_artefact(args) === 0) {
         throw new Error("No artefact to remove");
     }
 

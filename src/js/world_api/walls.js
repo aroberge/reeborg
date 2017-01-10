@@ -6,7 +6,7 @@ require("./../utils/validator.js");
 require("./../utils/supplant.js");
 require("./../recorder/record_frame.js");
 require("./../world_utils/get_world.js");
-require("./../utils/artefact.js");
+require("./artefact.js");
 
 /*=========================================
 Walls data structure
@@ -51,7 +51,7 @@ RUR.get_walls = function(x, y, goal) {
     // var world = RUR.get_world();
     var args = {x:x, y:y, goal:goal, type:"walls"}, walls;
 
-    walls = RUR.utils.get_artefacts(args); // gets "east" and "north" if present
+    walls = RUR.get_artefacts(args); // gets "east" and "north" if present
     if (walls === null) {
         walls = [];
     }
@@ -105,7 +105,7 @@ RUR.is_wall = function(orientation, x, y, goal) {
     args = convert_position(orientation, x, y);
     args.goal = goal;
     args.type = "walls";
-    if (RUR.utils.get_nb_artefact(args) === 0) {
+    if (RUR.get_nb_artefact(args) === 0) {
         return false;
     } else {
         return true;
@@ -165,7 +165,7 @@ RUR.add_wall = function(orientation, x, y, goal) {
     args = convert_position(orientation, x, y);
     args.goal = goal;
     args.type = "walls";
-    RUR.utils.add_artefact(args);
+    RUR.add_artefact(args);
     RUR.record_frame("add_wall", args);
 };
 
@@ -209,7 +209,7 @@ RUR.remove_wall = function(orientation, x, y, goal) {
     args = convert_position(orientation, x, y);
     args.goal = goal;
     args.type = "walls";
-    RUR.utils.remove_artefact(args);
+    RUR.remove_artefact(args);
     // For historical reason, worlds are always created with a "walls" attribute
     RUR.utils.ensure_key_for_obj_exists(RUR.CURRENT_WORLD, "walls");
     RUR.record_frame("remove_wall", args);  

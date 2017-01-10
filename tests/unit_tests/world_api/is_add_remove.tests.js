@@ -153,7 +153,7 @@ test('walls', function (assert) {
     assert.end();
 });
 
-test_only('goal objects', function (assert) {  
+test('goal objects', function (assert) {  
     var original_world, options={goal:true};
     assert.plan(6);  
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();

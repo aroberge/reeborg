@@ -222,3 +222,42 @@ RUR.add_final_position = function (name, x, y) {
     goal.possible_final_positions.push([x, y]);
     RUR.record_frame("add_final_position", {name:name, x:x, y:y});
 };
+
+ /** @function add_initial_position
+ *
+ * @memberof RUR
+ * @instance
+ * @summary This function adds an initial (starting) position as a possibility for the default robot.
+ *          It is possible to call this function multiple times, with different
+ *          `x, y` positions; doing so will result in a initial position chosen
+ *          randomly (among the choices recorded) each time a program is run.
+ *
+ * @param {integer} x  The position on the grid  
+ * @param {integer} y
+ *
+ * @todo: put in argument verification code and note which error can be thrown
+ * @throws Will throw an error if the final position is already included
+ **/
+
+RUR.add_initial_position = function (x, y) {
+    "use strict";
+    var robot, pos, world=RUR.get_world();
+    if (world.robots === undefined || world.robots.length === 0) {
+        throw new ReeborgError("This world has no robot; cannot set initial position.");
+    }
+
+    robot = world.robots[0];
+    if (!robot.possible_initial_positions){
+        robot.possible_initial_positions = [[robot.x, robot.y]];
+    }
+
+    for(var i=0; i<robot.possible_initial_positions.length; i++) {
+        pos = robot.possible_initial_positions[i];
+        if(pos[0]==x && pos[1]==y){
+            throw new ReeborgError("This initial position is already included!");
+        } 
+    }
+
+    robot.possible_initial_positions.push([x, y]);
+    RUR.record_frame("add_initial_position", {x:x, y:y});
+};
