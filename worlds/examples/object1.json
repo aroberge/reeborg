@@ -1,0 +1,26 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": "Un simple monde vide, que Reeborg peut explorer à sa guise.\n",
+  "small_tiles": false,
+  "rows": 10,
+  "cols": 10,
+  "onload": "RUR.onload_set_programming_mode('python');\nRUR.reset_default_robot_images();\n",
+  "editor": "# Ensure example works for all languages\nfrom reeborg_en import *\n    \n\ndetectable = { \"name\": \"one\",\n        \"url\": \"http://reeborg.ca/src/images/1.png\",\n        \"detectable\": True,\n        \"message\": \"Allowed to step on 1.\",\n        \"info\": \"safe\"\n        }\ndetectable_fatal = { \"name\": \"two\",\n        \"url\": \"http://reeborg.ca/src/images/2.png\",\n        \"detectable\": True,\n        \"fatal\": True,\n        \"message\": \"Not allowed to step on 2.\"\n         }\nfatal = { \"name\": \"three\",\n        \"url\": \"http://reeborg.ca/src/images/3.png\",\n        \"fatal\": True,\n        \"message\": \"Not allowed to step on 3.\"\n        }\n\n\nRUR.add_new_thing(detectable)\nRUR.add_new_thing(detectable_fatal)\nRUR.add_new_thing(fatal)\n\nRUR.add_background_tile(\"one\", 4, 1)\nRUR.add_background_tile(\"two\", 7, 1)\nRUR.add_background_tile(\"three\", 6, 4)\n\n\nRUR.add_background_tile(\"red\", 1, 8)\nRUR.add_background_tile(\"#00ff00\", 3, 8)\nRUR.add_background_tile(\"rgb(0, 0, 0)\", 5, 8)\nRUR.add_background_tile(\"rgba(0, 0, 0, 0.1)\", 7, 8)\n\n\nwhile front_is_clear():\n    move()\n\nturn_left()\n\nwhile front_is_clear():\n    move()\n"
+}

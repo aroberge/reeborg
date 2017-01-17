@@ -527,11 +527,8 @@ function fill_with_tile (name) {
         return;
     }
 
-    for (x = 1; x <= RUR.MAX_X; x++) {
-        for (y = 1; y <= RUR.MAX_Y; y++) {
-            RUR.add_background_tile(name, x, y);
-        }
-    }
+    RUR.fill_background(name);
+
     RUR.vis_world.refresh_world_edited();
     $("#cmd-result").html("");
 }

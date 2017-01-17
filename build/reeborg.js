@@ -2870,11 +2870,8 @@ function fill_with_tile (name) {
         return;
     }
 
-    for (x = 1; x <= RUR.MAX_X; x++) {
-        for (y = 1; y <= RUR.MAX_Y; y++) {
-            RUR.add_background_tile(name, x, y);
-        }
-    }
+    RUR.fill_background(name);
+
     RUR.vis_world.refresh_world_edited();
     $("#cmd-result").html("");
 }
@@ -6186,7 +6183,9 @@ RUR._put_ = function(arg) {
 };
 
 RUR._recording_ = function(bool) {
+    var current = !RUR.state.do_not_record;
     RUR.state.do_not_record = !bool;
+    return current;
 };
 
 RUR._remove_robots_ = function () {
@@ -6643,7 +6642,9 @@ RUR.control.is_facing_north = function (robot) {
 };
 
 RUR.control.think = function (delay) {
+    var old_delay = RUR.playback_delay;
     RUR.playback_delay = delay;
+    return old_delay;
 };
 
 RUR.control.at_goal = function (robot) {
@@ -9644,7 +9645,9 @@ RUR.set_nb_artefact = function (args) {
  *
  * @param {boolean} [args.single] Specifies if only one of a given kind of
  *                        artefact is permitted at a given location.
- * 
+ *
+ * @todo document number
+ * @todo document range
  * @returns {integer} The number of object found at that location (could be 0).
  * @throws Will throw an error if `name` attribute is not specified.
  * @throws Will throw an error if `type` attribute is not specified.
@@ -9676,14 +9679,19 @@ RUR.add_artefact = function (args) {
     }
 
     RUR.utils.ensure_key_for_obj_exists(base, args.type);
-    if (args.number) {
+    if (args.range) {
+        RUR.utils.ensure_key_for_obj_exists(base[args.type], coords);
+        base[args.type][coords][args.name] = args.range;
+    } else if (args.number) {
         RUR.utils.ensure_key_for_obj_exists(base[args.type], coords);
         if (base[args.type][coords][args.name] === undefined) {
             base[args.type][coords][args.name] = args.number;
         } else {
             base[args.type][coords][args.name] += args.number;
         }
-    } else {
+    }
+
+    else {
         RUR.utils.ensure_key_for_array_exists(base[args.type], coords);
         if (args.single) {
             base[args.type][coords] = [args.name];
@@ -9949,7 +9957,35 @@ require("./../recorder/record_frame.js");
 require("./artefact.js");
 require("./../world_utils/get_world.js");
 
-// TODO: implement fill_background
+
+/** @function fill_background
+ * @memberof RUR
+ * @instance
+ * @summary This function sets a named tile as background for the entire world
+ *
+ * @param {string} name The name of a tile **or** a colour recognized by JS/HTML.
+ *    No check is performed to ensure that the value given is valid; it the
+ *    tile name is not recognized, it is assumed to be a colour. If a new tile
+ *    is set at that location, it replaces the pre-existing one.
+ *
+ *
+ * @todo add test
+ * @todo add examples
+ * @todo deal with translation
+ */
+
+RUR.fill_background = function(name) {
+    var recording_state = RUR._recording_(false);
+    for (x = 1; x <= RUR.MAX_X; x++) {
+        for (y = 1; y <= RUR.MAX_Y; y++) {
+            RUR.add_background_tile(name, x, y);
+        }
+    }
+    RUR._recording_(recording_state);
+    RUR.record_frame("RUR.fill_background", name);
+};
+
+
 
 /** @function add_background_tile
  * @memberof RUR
@@ -10552,11 +10588,17 @@ RUR.add_object = function (name, x, y, options) {
     if (options === undefined) {
         args.number = 1;
     } else {
+        if (options.min !== undefined && options.max !== undefined &&
+            options.max > options.min) {
+            options.range = options.min + "-" + options.max;
+        } else if (options.goal && options.goal == "all") {
+            options.range = "all";
+        }
         keys = Object.keys(options);
         for (k of keys) {
             args[k] = options[k];
         }
-        if (keys.indexOf("number") === -1) {
+        if (options.range === undefined && keys.indexOf("number") === -1) {
             args["number"] = 1;
         }
     }

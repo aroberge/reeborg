@@ -34,11 +34,17 @@ RUR.add_object = function (name, x, y, options) {
     if (options === undefined) {
         args.number = 1;
     } else {
+        if (options.min !== undefined && options.max !== undefined &&
+            options.max > options.min) {
+            options.range = options.min + "-" + options.max;
+        } else if (options.goal && options.goal == "all") {
+            options.range = "all";
+        }
         keys = Object.keys(options);
         for (k of keys) {
             args[k] = options[k];
         }
-        if (keys.indexOf("number") === -1) {
+        if (options.range === undefined && keys.indexOf("number") === -1) {
             args["number"] = 1;
         }
     }

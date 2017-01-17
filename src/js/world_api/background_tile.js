@@ -5,7 +5,35 @@ require("./../recorder/record_frame.js");
 require("./artefact.js");
 require("./../world_utils/get_world.js");
 
-// TODO: implement fill_background
+
+/** @function fill_background
+ * @memberof RUR
+ * @instance
+ * @summary This function sets a named tile as background for the entire world
+ *
+ * @param {string} name The name of a tile **or** a colour recognized by JS/HTML.
+ *    No check is performed to ensure that the value given is valid; it the
+ *    tile name is not recognized, it is assumed to be a colour. If a new tile
+ *    is set at that location, it replaces the pre-existing one.
+ *
+ *
+ * @todo add test
+ * @todo add examples
+ * @todo deal with translation
+ */
+
+RUR.fill_background = function(name) {
+    var recording_state = RUR._recording_(false);
+    for (x = 1; x <= RUR.MAX_X; x++) {
+        for (y = 1; y <= RUR.MAX_Y; y++) {
+            RUR.add_background_tile(name, x, y);
+        }
+    }
+    RUR._recording_(recording_state);
+    RUR.record_frame("RUR.fill_background", name);
+};
+
+
 
 /** @function add_background_tile
  * @memberof RUR
@@ -26,12 +54,28 @@ require("./../world_utils/get_world.js");
  * @todo add test
  * @todo add better examples
  * @todo deal with translation
+ *
+ * @example
+ *
+ * // Show how to set a color
+ * World("Alone")
+ * RUR.add_background_tile("blue", 1, 8)
+ * RUR.add_background_tile("#00ff00", 3, 8)
+ * RUR.add_background_tile("rgb(255, 0, 0)", 5, 8)
+ * RUR.add_background_tile("rgba(255, 0, 0, 0.1)", 7, 8)
+ * RUR.add_background_tile("hsl(24, 71%, 77%)", 9, 8)
+ * 
  * @example
  * // shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
+ * // the mode will be set to Python
+ * World("/worlds/examples/background1.json", "Background 1")
  *
+ * @example
+ * // Like Background 1 above, except that all the tiles
+ * // are added in the Onload editor.  Click on World Info
+ * // to see the code.
+ * World("/worlds/examples/background2.json", "Background 2")
+ * 
  */
 RUR.add_background_tile = function (name, x, y) {
     "use strict";

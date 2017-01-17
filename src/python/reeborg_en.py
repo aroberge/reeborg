@@ -223,8 +223,10 @@ def recording(bool):  #py:recording
 
     Args:
         bool: True if recording is desired, False otherwise.
+
+    Returns: the previous recording state value.
     """
-    RUR._recording_(bool)
+    return RUR._recording_(bool)
 
 
 def remove_robots():  #py:remove_robots
@@ -306,8 +308,10 @@ def take(obj=None):  #py:take
 def think(ms):  #py:think
     """Set a time delay (in milliseconds) between Reeborg's actions
        played back.
+
+       Returns the time delay value previously used.
     """
-    RUR._think_(ms)
+    return RUR._think_(ms)
 
 
 def turn_left():  #py:turn_left

@@ -224,8 +224,11 @@ def enregistrement(bool):  #py:recording
 
     Args:
         bool: True si on veut avoir des enregistrement, False autrement
+
+    Returns:
+        La valeur de l'état d'enregistrement avant le changement.
     """
-    RUR._recording_(bool)
+    return RUR._recording_(bool)
 
 
 def plus_de_robots():  #py:remove_robots
@@ -312,8 +315,11 @@ def prend(obj=None):  #py:take
 
 
 def pense(ms):  #py:think
-    """Fixe un délai entre les actions de Reeborg à l'écran."""
-    RUR._think_(ms)
+    """Fixe un délai entre les actions de Reeborg à l'écran.
+
+    Retourne la valeur précédente de ce délai.
+    """
+    return RUR._think_(ms)
 
 
 def tourne_a_gauche():  #py:turn_left

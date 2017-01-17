@@ -1,0 +1,31 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ],
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 14
+    }
+  ],
+  "walls": {},
+  "description": "This world demonstrate how to add custom tiles\nwith various properties.<br>\n<code>\"message\"</code> is the error message \nshown if Reeborg steps on that tile and\nan exception is raised.<br>\n<code>\"info\"</code> is what is shown about this\nlocation if <b>World Info</b> is selected and\none clicks at that location.<br>\nThe following code is in the <b>Onload</b> editor.\n\nINSERT_ONLOAD",
+  "small_tiles": false,
+  "rows": 10,
+  "cols": 10,
+  "onload": "RUR.onload_set_programming_mode('python');\nRUR.reset_default_robot_images();\n",
+  "editor": "# Ensure example works for all human languages\nfrom reeborg_en import *\n\ndetectable = { \"name\": \"one\",\n        \"url\": \"http://reeborg.ca/src/images/1.png\",\n        \"detectable\": True,\n        \"info\": \"1 is safe.\"\n        }\ndetectable_fatal = { \"name\": \"two\",\n        \"url\": \"http://reeborg.ca/src/images/2.png\",\n        \"detectable\": True,\n        \"fatal\": True,\n        \"message\": \"Not allowed to step on 2.\",\n        \"info\": \"2 is not safe\"\n         }\nfatal = { \"name\": \"three\",\n        \"url\": \"http://reeborg.ca/src/images/3.png\",\n        \"fatal\": True,\n        \"message\": \"Not allowed to step on 3.\",\n        \"info\": \"3 is not safe\"\n        }\n\nRUR.add_new_thing(detectable)\nRUR.add_new_thing(detectable_fatal)\nRUR.add_new_thing(fatal)\n\nRUR.add_background_tile(\"one\", 4, 1)\nRUR.add_background_tile(\"two\", 7, 1)\nRUR.add_background_tile(\"three\", 6, 4)\n\nwhile front_is_clear():\n    move()\nturn_left()\nwhile front_is_clear():\n    move()\n"
+}

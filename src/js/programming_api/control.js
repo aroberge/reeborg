@@ -333,7 +333,9 @@ RUR.control.is_facing_north = function (robot) {
 };
 
 RUR.control.think = function (delay) {
+    var old_delay = RUR.playback_delay;
     RUR.playback_delay = delay;
+    return old_delay;
 };
 
 RUR.control.at_goal = function (robot) {
@@ -416,4 +418,3 @@ RUR.control.get_colour_at_position = function (x, y) {
         return null;
     }
 };
-RUR.control.get_color_at_position = RUR.control.get_colour_at_position;

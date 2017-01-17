@@ -161,7 +161,9 @@ RUR.set_nb_artefact = function (args) {
  *
  * @param {boolean} [args.single] Specifies if only one of a given kind of
  *                        artefact is permitted at a given location.
- * 
+ *
+ * @todo document number
+ * @todo document range
  * @returns {integer} The number of object found at that location (could be 0).
  * @throws Will throw an error if `name` attribute is not specified.
  * @throws Will throw an error if `type` attribute is not specified.
@@ -193,14 +195,19 @@ RUR.add_artefact = function (args) {
     }
 
     RUR.utils.ensure_key_for_obj_exists(base, args.type);
-    if (args.number) {
+    if (args.range) {
+        RUR.utils.ensure_key_for_obj_exists(base[args.type], coords);
+        base[args.type][coords][args.name] = args.range;
+    } else if (args.number) {
         RUR.utils.ensure_key_for_obj_exists(base[args.type], coords);
         if (base[args.type][coords][args.name] === undefined) {
             base[args.type][coords][args.name] = args.number;
         } else {
             base[args.type][coords][args.name] += args.number;
         }
-    } else {
+    }
+
+    else {
         RUR.utils.ensure_key_for_array_exists(base[args.type], coords);
         if (args.single) {
             base[args.type][coords] = [args.name];
