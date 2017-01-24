@@ -22,7 +22,7 @@
     }
   ],
   "walls": {},
-  "description": "This world demonstrate how to add custom tiles\nwith various properties. <br>\n\n<code>\"message\"</code> is the error message \nshown if Reeborg steps on that tile and\nan exception is raised.<br>\n\n<code>\"info\"</code> is what is shown about this\nlocation if <b>World Info</b> is selected and\none clicks at that location.<br>\n\nThe following code is in the <b>Onload</b> editor.\n\nINSERT_ONLOAD",
+  "description": "This world demonstrate how to add custom tiles\nwith various properties. <br>\n\nThe following code is in the <b>Onload</b> editor.\nINSERT_ONLOAD\n\n<code>\"message\"</code> is the error message \nshown if Reeborg steps on that tile and\nan exception is raised.<br>\n\n<code>\"info\"</code> is what is shown about this\nlocation if <b>World Info</b> is selected and\none clicks at that location.<br>",
   "small_tiles": false,
   "rows": 10,
   "cols": 10,

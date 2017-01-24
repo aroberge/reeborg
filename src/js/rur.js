@@ -51,7 +51,7 @@ RUR.state.human_language = "en";
 RUR.state.input_method = "python";
 RUR.state.error_recorded = false;
 RUR.state.evaluating_onload = false;
-RUR.state.frame_callback_called = false;
+RUR.state.frame_insertion_called = false;
 RUR.state.programming_language = "python";
 RUR.state.playback = false;
 RUR.state.prevent_playback = false;
@@ -215,7 +215,7 @@ RUR.BACKGROUND_IMAGE = new Image();
 RUR.BACKGROUND_IMAGE.src = '';
 
 RUR.CURRENT_WORLD = null; // needs to be created explicitly
-RUR.FRAME_INSERTION = undefined; // special function available to world creators
+RUR.frame_insertion = undefined; // special function available to world creators
 
 RUR.PUBLIC_DICT = {};  // For use by world creators
 

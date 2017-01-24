@@ -6727,7 +6727,6 @@ RUR.control.get_colour_at_position = function (x, y) {
         return null;
     }
 };
-RUR.control.get_color_at_position = RUR.control.get_colour_at_position;
 
 },{"./../default_tiles/tiles.js":1,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/key_exist.js":63,"./../utils/supplant.js":65,"./../world_api/background_tile.js":71,"./../world_api/composition.js":73,"./../world_api/is_fatal.js":75,"./../world_api/obstacles.js":77,"./../world_api/pushables.js":78,"./../world_api/robot.js":79,"./../world_api/walls.js":80,"./../world_get/world_get.js":81,"./../world_set/world_set.js":87,"./../world_utils/get_world.js":91,"./exceptions.js":42,"./output.js":43}],42:[function(require,module,exports){
 
@@ -7132,7 +7131,7 @@ var clone_world = require("./../world_utils/clone_world.js").clone_world;
 
 RUR.record_frame = function (name, obj) {
     "use strict";
-    var frame = {}, robot;
+    var py_err, frame = {}, robot;
     if (RUR.__debug) {
         console.log("from record_frame, name, obj=", name, obj);
     }
@@ -7147,10 +7146,24 @@ RUR.record_frame = function (name, obj) {
 // 3. resuming recording.
 // The program stopped, but no error was shown.
 
-    if (RUR.FRAME_INSERTION !== undefined && !RUR.state.frame_callback_called){
-        RUR.state.frame_callback_called = true;
-        RUR.FRAME_INSERTION(name, obj);
-        RUR.state.frame_callback_called = false;
+    if (name !== "highlight" && RUR.frame_insertion !== undefined && !RUR.state.frame_insertion_called){
+        RUR.state.frame_insertion_called = true;
+        try {
+            py_err = RUR.frame_insertion(name, obj);
+        } catch (e) {
+            if (RUR.state.programming_language === "javascript") {
+                RUR.state.frame_insertion_called = false;
+                throw e;
+            }
+        }
+        RUR.state.frame_insertion_called = false;
+        if (py_err && py_err.__name__) {
+            if (RUR[py_err.__name__] !== undefined) {
+                throw new RUR[py_err.__name__](py_err.reeborg_shouts);
+            } else {
+                throw new RUR.ReeborgError(py_err.__name__);
+            }
+        }
     }
 
     if ((RUR.state.do_not_record || RUR.state.prevent_playback) && name != "error") {
@@ -7183,7 +7196,7 @@ RUR.record_frame = function (name, obj) {
 
     frame.world = clone_world();
 
-    if (name !== undefined && obj !== undefined) {
+    if (name && obj) {
         frame[name] = obj;
     }
 
@@ -7558,8 +7571,8 @@ exports.reset = reset = function() {
     RUR.rec_previous_lines = [];
     RUR._max_lineno_highlighted = 0;
     RUR.animated_images_init();
-    RUR.state.frame_callback_called = false;
-    RUR.FRAME_INSERTION = undefined;
+    RUR.state.frame_insertion_called = false;
+    RUR.frame_insertion = undefined;
     RUR.state.error_recorded = false;
 };
 
@@ -8124,7 +8137,7 @@ RUR.state.human_language = "en";
 RUR.state.input_method = "python";
 RUR.state.error_recorded = false;
 RUR.state.evaluating_onload = false;
-RUR.state.frame_callback_called = false;
+RUR.state.frame_insertion_called = false;
 RUR.state.programming_language = "python";
 RUR.state.playback = false;
 RUR.state.prevent_playback = false;
@@ -8288,7 +8301,7 @@ RUR.BACKGROUND_IMAGE = new Image();
 RUR.BACKGROUND_IMAGE.src = '';
 
 RUR.CURRENT_WORLD = null; // needs to be created explicitly
-RUR.FRAME_INSERTION = undefined; // special function available to world creators
+RUR.frame_insertion = undefined; // special function available to world creators
 
 RUR.PUBLIC_DICT = {};  // For use by world creators
 
@@ -10003,15 +10016,29 @@ RUR.fill_background = function(name) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
- * @todo add test
- * @todo add better examples
- * @todo deal with translation
+ * @see {@link UnitTest#test_is_add_remove} for some unit tests.
+ *
+ * @example
+ *
+ * // Show how to set a color
+ * World("Alone")
+ * RUR.add_background_tile("blue", 1, 8)
+ * RUR.add_background_tile("#00ff00", 3, 8)
+ * RUR.add_background_tile("rgb(255, 0, 0)", 5, 8)
+ * RUR.add_background_tile("rgba(255, 0, 0, 0.1)", 7, 8)
+ * RUR.add_background_tile("hsl(24, 71%, 77%)", 9, 8)
+ * 
  * @example
  * // shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
+ * // the mode will be set to Python
+ * World("/worlds/examples/background1.json", "Background 1")
  *
+ * @example
+ * // Like Background 1 above, except that all the tiles
+ * // are added in the Onload editor.  Click on World Info
+ * // to see the code.
+ * World("/worlds/examples/background2.json", "Background 2")
+ * 
  */
 RUR.add_background_tile = function (name, x, y) {
     "use strict";

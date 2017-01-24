@@ -51,9 +51,7 @@ RUR.fill_background = function(name) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
- * @todo add test
- * @todo add better examples
- * @todo deal with translation
+ * @see {@link UnitTest#test_is_add_remove} for some unit tests.
  *
  * @example
  *

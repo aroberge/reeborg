@@ -9,7 +9,7 @@ var clone_world = require("./../world_utils/clone_world.js").clone_world;
 
 RUR.record_frame = function (name, obj) {
     "use strict";
-    var frame = {}, robot;
+    var py_err, frame = {}, robot;
     if (RUR.__debug) {
         console.log("from record_frame, name, obj=", name, obj);
     }
@@ -24,10 +24,24 @@ RUR.record_frame = function (name, obj) {
 // 3. resuming recording.
 // The program stopped, but no error was shown.
 
-    if (RUR.FRAME_INSERTION !== undefined && !RUR.state.frame_callback_called){
-        RUR.state.frame_callback_called = true;
-        RUR.FRAME_INSERTION(name, obj);
-        RUR.state.frame_callback_called = false;
+    if (name !== "highlight" && RUR.frame_insertion !== undefined && !RUR.state.frame_insertion_called){
+        RUR.state.frame_insertion_called = true;
+        try {
+            py_err = RUR.frame_insertion(name, obj);
+        } catch (e) {
+            if (RUR.state.programming_language === "javascript") {
+                RUR.state.frame_insertion_called = false;
+                throw e;
+            }
+        }
+        RUR.state.frame_insertion_called = false;
+        if (py_err && py_err.__name__) {
+            if (RUR[py_err.__name__] !== undefined) {
+                throw new RUR[py_err.__name__](py_err.reeborg_shouts);
+            } else {
+                throw new RUR.ReeborgError(py_err.__name__);
+            }
+        }
     }
 
     if ((RUR.state.do_not_record || RUR.state.prevent_playback) && name != "error") {
@@ -60,7 +74,7 @@ RUR.record_frame = function (name, obj) {
 
     frame.world = clone_world();
 
-    if (name !== undefined && obj !== undefined) {
+    if (name && obj) {
         frame[name] = obj;
     }
 
