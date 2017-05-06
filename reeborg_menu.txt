@@ -1,11 +1,12 @@
-# Lines that begin with # are comments; so are empty lines
-#
 # This is a source file for creating a menu when using easylaunch.py
 # to start Reeborg's World locally
 #
-# It MUST be put on the computer's Desktop folder, so that easylaunch.py
-# can find it.
-# Its name MUST be reeborg_menu.txt
+# Lines that begin with # are ignored; so are empty lines
+#
+# By default, it must be put on the computer's Desktop folder, 
+# and its name must be reeborg_menu.txt so that easylaunch.py
+# can find it. However, these default choices can be changed by
+# editing easylaunch.py
 #
 # Each world file (json format) has to be included (added to) the
 # full Reeborg distribution since the web server, for security reasons,
@@ -13,7 +14,10 @@
 #
 # Other than commments, the format of this file must consists of
 # lines with two entries separated by a comma, as
+#
 # path/to/world/file, name appearing in menu
+#
+# Windows users: you must use / instead of \ as path separator (as shown above)
 
 /src/worlds/home1.json, Go home
 /src/worlds/around1.json, Travel around

@@ -44,8 +44,7 @@ as well as a copy of the repository or the
 Note that some multimedia files (sound and images) used by the blockly 
 version will likely be missing, but everything will still be quite workable.
 
-
-When I need to run a local web server, I usually do this via `python -m http.server`
-which starts a server on port 8000 by default (this can be changed).
-After starting the webserver, 
-I point my browser to `http://localhost:8000/reeborg_offline.html`.
+When using the offline version, you might want to use easylaunch.py,
+found here in the root directory.  Make sure you read it (as it contains
+important information about its use) and possibly read the content of 
+reeborg_menu.txt as well.
