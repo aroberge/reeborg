@@ -2,6 +2,7 @@
 node_modules
 *.template
 graph.png
+reeborg_menu.json
 README.html
 advanced_world_creation
 api_docs
