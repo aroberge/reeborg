@@ -42,16 +42,29 @@ will likely need to run it from a terminal window.
 Configuration
 -------------
 
-There are five variables below that you might need to set for your use.
+There are up to six variables below that you might need to set for your use.
 
-To create a custom world menu, make a copy of the file reeborg_menu.txt,
-change its content so that it is to your satisfaction, and put it
-on your desktop (and/or tell your students to do the same.) 
-You can use a different name if you wish (this is one of the five
-varibles you can change).
+If you wish to use a custom world menu, there are two different possible
+scenarios: one where a single custom world menu is used every time by
+your students; the other where you might want to easily change the custom menu.
 
-When using this option, Reeborg's World will start, asking the user if she
-wishes to replace the content of the editor; THE ANSWER IS YES!
+The file that creates a custom menu is found at the root of Reeborg's
+distribution. (Its default name is reeborg_menu.json.) This file, whose
+content is difficult to write correctly by hand, is created from a simpler
+file (default name: reeborg_menu.txt) assumed (by default) to be found on 
+the desktop.
+
+If you wish to have your students always use the same world menu,
+create the file reeborg_menu.json by running this script with your version
+of reeborg_menu.txt on your computer. Afterwords, simply distribute the
+modified reeborg distribution to your students computers.
+
+Alternatively, if you wish to have your students use different custom
+world menus at different times, you simply need to give them a new
+version of reeborg_menu.txt to put on their own desktop.
+
+When using a custom world menu, Reeborg's World will start, asking the user 
+if she wishes to replace the content of the editor; THE ANSWER IS YES!
 Then, the code in the editor should be run, so that the new world menu
 can be created.
 
@@ -93,21 +106,22 @@ lang = "en" # one of "en", "fr", "ko-en", "fr-en", "en-fr"
 
 
 # Name of the source file to use to create special menu
-reeborg_menu_text = "reeborg_menu.txt"
-
+menu_text = "reeborg_menu.txt"
 
 # location of the desktop from the root directory for the user;
 # It is assumed that the above file is put on the desktop, making it easy
 # to change when needed.
 desktop = "Desktop"  # tested on Windows; should work on Mac OSX and Linux
 
-
 # Location of the source file to use to create special menus.
 # You should not need to change anything, but it is shown here in case
 # you really want to change the default location.
-reeborg_menu_source = Path(os.path.join(os.path.expanduser("~"), 
-                                   desktop, 
-                                   reeborg_menu_text))
+menu_source = Path(os.path.expanduser("~")) / desktop / menu_text
+
+# Name of the json file that will be imported at the beginning to
+# create the custom world menu; this file is normally created from
+# menu_text's content.
+menu_json = "reeborg_menu.json"
 
 #=====End of use customization=================================================
 
@@ -129,7 +143,7 @@ def find_free_port(start=8001):
     return free_port
 
 
-def create_menu(reeborg_menu_source, reeborg_menu, lang):
+def create_menu(menu_source, reeborg_menu, lang):
     '''Creates a special world file (json format) which can be loaded
        and whose effect is to include a program in the editor. When running
        this program, the world menu will change.'''
@@ -142,7 +156,7 @@ def create_menu(reeborg_menu_source, reeborg_menu, lang):
         print("invalid language; will revert to English as default.")
         begin_program = 'MakeCustomMenu(['
 
-    with open(reeborg_menu_source) as f:
+    with open(menu_source) as f:
         lines = f.read().splitlines()
 
     menu = []
@@ -150,19 +164,20 @@ def create_menu(reeborg_menu_source, reeborg_menu, lang):
         if line.strip().startswith("#") or not line.strip():
             continue
         path, name = line.split(",")
-        menu.append('["%s\", "%s"]' % (path, name))
+        menu.append('["%s", "%s"]' % (path, name))
 
     editor_content = begin_program + ','.join(menu) + "])"
     json_obj = {"editor": editor_content}
 
     with open(reeborg_menu, "w") as menu_file:
+        # we need to use json.dumps to get properly escaped double quotes
         menu_file.write(json.dumps(json_obj))
 
 
 if __name__ == '__main__':
     port = find_free_port()
     if port is None:
-        raise Exception("Impossible to launch a local server : no free port found.")
+        raise Exception("Cannot launch a local server: no free port found.")
 
     # make sure that the local web server will start in the root
     # directory of Reeborg's content
@@ -171,11 +186,13 @@ if __name__ == '__main__':
     Popen([python_name, "-m", "http.server", str(port)])
 
     # Create program to be run to set customized world menu, if needed
-    reeborg_menu = os.path.join(reeborg_root, "reeborg_menu.json")
-    if reeborg_menu_source.is_file():
-        create_menu(str(reeborg_menu_source), reeborg_menu, lang)
+    reeborg_menu = os.path.join(reeborg_root, menu_json)
+    if menu_source.is_file():
+        create_menu(str(menu_source), reeborg_menu, lang)
+
+    # We might have a custom menu included by default in the distribution
     if Path(reeborg_menu).is_file():
-        url = "&url=reeborg_menu.json"
+        url = "&url=%s" % menu_json
     else:
         url = ''
 
