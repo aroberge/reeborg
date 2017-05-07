@@ -32,7 +32,7 @@ easylaunch.py, as its name indicates, is meant to make it easy
 to launch a local/offline version of Reeborg; by local/offline, we mean
 a verion which does not need Internet access.  
 
-This script requires Python 3 to run.  If Python is configured to run
+This script requires Python 3.4 or newer to run.  If Python is configured to run
 files with names ending with ".py" by default, it might work simply
 by double-clicking on this script.  If it does work this way on your computer
 (or your students' computers), you might want to create a shortcut (Windows),
@@ -74,14 +74,19 @@ a special world menu by default.
 '''
 import json
 import os
-from pathlib import Path
 import socket
+import sys
+from pathlib import Path
 from subprocess import Popen
 from webbrowser import open_new_tab
 
+if sys.version_info < (3, 4):
+    print("Python 3.4 or newer is required.")
+    sys.exit()
+
 
 #===========================================
-# How Python (version 3.x) is invoked on the command line on your computer.
+# How Python is invoked on the command line on your computer.
 # You might need "python3" instead of "python".
 python_name = "python"
 
