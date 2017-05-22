@@ -412,7 +412,7 @@ class RobotUsage(object):  #py:UR
             if key not in {'x', 'y', 'orientation', 'jeton'}:
                 RUR.give_object_to_robot(key, kwargs[key], robot)
         self.body = robot
-        RUR._add_robot(self.body)
+        RUR.add_robot(self.body)
 
     def __str__(self):  #py:UR.__str__
         location = "({}, {})".format(self.body.x, self.body.y)

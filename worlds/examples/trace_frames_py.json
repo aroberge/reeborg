@@ -1,0 +1,31 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 3,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": "This world can be useful to find out what kind of argument\nis passed to <code>RUR.record_frame</code>\n\nThe code executed in the \"pre\" editor is\n\nINSERT_PRE\n\n",
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14,
+  "editor": "# See World Info\nmove()\nmove()\n\nreeborg = UsedRobot(2, 2, 'e', token=2)\nreeborg.move()\nreeborg.put()\nreeborg.move()\nRUR.add_background_tile(\"grass\", 8, 8)\nprint(\"hello\")\ntake() # will raise an error",
+  "pre": "from javascript import JSObject\n\ndef trace_frames(name, arg):\n    if isinstance(arg, JSObject):\n        arg = dict(arg)\n    print(\"name = \", name, \" | arg = \", arg)\n\nRUR.frame_insertion = trace_frames"
+}

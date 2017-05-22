@@ -129,8 +129,12 @@ RUR.file_io.load_world_file = function (url, shortname) {
 };
 
 /**
+ * `load_js_module` makes it possible to modify Reeborg's World
+ * by loading any javascript code and having it executed. To load
+ * from other sites, CORS is used.
+ *
  * Note that the CORS server may cache the result beyond our local
- * control. A script writer might be surprised to see that 
+ * control. A script writer might be surprised to see that
  * things are not working as expected.
  */
 RUR.load_js_module = function(url) {
@@ -169,6 +173,11 @@ function loadFile (sURL, fCallback) {
 //       and ensure that it still works.
 // TODO: add (q)unit tests
 
+/* The purpose of install_extra is to enable extensions to Reeborg's World
+   to be added.
+
+   See also RUR.load_js_module()
+*/
 RUR.install_extra = function(url) {
     loadFile(url, copy_content);
 };
@@ -176,5 +185,7 @@ function copy_content() {
     $("#extra").html(this.responseText);
 }
 window.get_extra_content = function () {
-    return $("#extra").html();
+    var extra_content = $("#extra").html();
+    console.log("extra content = ", extra_content);
+    return extra_content;
 };

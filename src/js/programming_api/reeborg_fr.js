@@ -58,7 +58,7 @@ RUR.reset_definitions_fr = function () {
     // The following are for OOP programming in Javascript
     var RobotUsage = window.RobotUsage = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
-        RUR._add_robot(this.body);
+        RUR.add_robot(this.body);
     };
     RobotUsage.prototype.au_but = function () {
         RUR._UR.at_goal_(this.body);

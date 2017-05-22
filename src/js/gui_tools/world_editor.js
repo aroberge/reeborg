@@ -126,7 +126,7 @@ RUR.we.select = function (choice) {
                 break;
             case "add":
                 alert_1("Added robot.");
-                RUR._add_robot();
+                RUR.add_robot();
                 RUR.we.edit_world();
                 edit_robot_menu.toggle();
                 break;
@@ -273,7 +273,7 @@ function place_robot () {
                 robot.possible_initial_positions = [[robot.x, robot.y]];
             }
         } else {
-            RUR._add_robot();
+            RUR.add_robot();
             robot = world.robots[0];
             robot.x = position[0];
             robot.y = position[1];

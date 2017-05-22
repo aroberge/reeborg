@@ -1,3 +1,4 @@
+Header set Access-Control-Allow-Origin "*"
 redirect 301 /index.html http://reeborg.ca/index_en.html
 ErrorDocument 404 /404.html
 # cache images and flash content for one month

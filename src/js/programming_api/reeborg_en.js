@@ -65,7 +65,7 @@ RUR.reset_definitions_en = function () {
 
     var UsedRobot = window.UsedRobot = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
-        RUR._add_robot(this.body);
+        RUR.add_robot(this.body);
     };
 
     UsedRobot.prototype.at_goal = function () {
