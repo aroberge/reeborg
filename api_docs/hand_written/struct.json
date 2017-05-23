@@ -1,0 +1,27 @@
+{
+    "canvases": {
+        "title": "Layers and canvases"
+    },
+    "animated": {
+        "title": "Animated images"
+    },
+    "1naming_convention" : {
+        "title": "1. Naming convention"
+    },
+    "2objects": {
+        "title": "2. Objects"
+    },
+    "3random": {
+        "title": "3. Adding some randomness"
+    },
+    "4background" :{
+        "title": "4. Background tiles, obstacles and decorations"
+    },
+    "5editors" : {
+        "title": "5. World information and editors"
+    }
+,
+    "todo" : {
+        "title": "To do"
+    }
+}

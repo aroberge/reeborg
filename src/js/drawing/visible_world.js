@@ -77,7 +77,7 @@ RUR.vis_world.draw_all = function () {
     if (RUR.get_world().background_image !== undefined) {
         draw_background_image(RUR.BACKGROUND_IMAGE);
     } else {
-        draw_grid_walls(RUR.BACKGROUND_CTX); 
+        draw_grid_walls(RUR.BACKGROUND_CTX);
     }
 
     draw_coordinates();
@@ -95,7 +95,7 @@ RUR.vis_world.refresh = function () {
     // and only redraw when needed.  However, it is not critical at
     // the moment
     canvases = ["TILES_CTX", "BRIDGE_CTX", "DECORATIVE_OBJECTS_CTX",
-                "OBSTACLES_CTX", "GOAL_CTX", "OBJECTS_CTX", 
+                "OBSTACLES_CTX", "GOAL_CTX", "OBJECTS_CTX",
                 "PUSHABLES_CTX", "TRACE_CTX", "WALL_CTX", "ROBOT_CTX"];
     for (canvas of canvases) {
         RUR[canvas].clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
@@ -117,7 +117,7 @@ RUR.vis_world.refresh = function () {
     // If we have not drawn any yet, we should see if we need to draw some
     if (!RUR.animated_images) {
         draw_animated_images();
-    }    
+    }
 
     if (RUR.state.editing_world) {
         // make them appear above background and tiles but below foreground walls.
@@ -135,7 +135,7 @@ RUR.vis_world.refresh = function () {
         if (world.goal.position !== undefined) {
             draw_goal_position(world.goal);
         }
-    }    
+    }
 
 };
 
@@ -170,11 +170,11 @@ function draw_grid_walls (ctx, edit){
         wall_e = RUR.TILES["east_grid"];
         wall_n = RUR.TILES["north_grid"];
     }
-    
+
     image_e = wall_e.image;
     x_offset_e = wall_e.x_offset;
     y_offset_e = wall_e.y_offset;
-    
+
     image_n = wall_n.image;
     x_offset_n = wall_n.x_offset;
     y_offset_n = wall_n.y_offset;
@@ -209,10 +209,10 @@ function draw_border (ctx) {
     y_offset = wall.y_offset;
 
     for (j = 1; j <= RUR.MAX_X; j++) {
-        draw_single_object(image, j, 0, ctx, x_offset, y_offset);        
+        draw_single_object(image, j, 0, ctx, x_offset, y_offset);
     }
     for (j = 1; j <= RUR.MAX_X; j++) {
-        draw_single_object(image, j, RUR.MAX_Y, ctx, x_offset, y_offset);                
+        draw_single_object(image, j, RUR.MAX_Y, ctx, x_offset, y_offset);
     }
 }
 
@@ -326,41 +326,52 @@ function draw_tiles (tiles, ctx, goal){
 
 function draw_animated_images (){
     "use strict";
-    var i, flag, anims, obj, ctx, world = RUR.get_world();
+    var i, flag, anims, canvas, canvases, obj, ctx, world = RUR.get_world();
     clearTimeout(RUR.ANIMATION_FRAME_ID);
 
-    RUR.OBJECTS_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.TILES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    RUR.OBSTACLES_ANIM_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
+    canvases = ["TILES_ANIM_CTX", "BRIDGE_ANIM_CTX", "DECORATIVE_OBJECTS_ANIM_CTX",
+                "OBSTACLES_ANIM_CTX", "GOAL_ANIM_CTX", "OBJECTS_ANIM_CTX",
+                "PUSHABLES_ANIM_CTX"];
+    for (canvas of canvases) {
+        RUR[canvas].clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    }
 
     flag = false; // We have not drawn any animated images yet, on this cycle
 
     anims = [[world.tiles, RUR.TILES_ANIM_CTX],
+             [world.bridge, RUR.BRIDGE_ANIM_CTX],
+             [world.decorative_objects, RUR.DECORATIVE_OBJECTS_ANIM_CTX],
              [world.obstacles, RUR.OBSTACLES_ANIM_CTX],
-             [world.objects, RUR.OBJECTS_ANIM_CTX]];
+             [world.goal, RUR.GOAL_ANIM_CTX],
+             [world.objects, RUR.OBJECTS_ANIM_CTX],
+             [world.pushables, RUR.PUSHABLES_ANIM_CTX]];
 
     for (i=0; i < anims.length; i++) {
         obj = anims[i][0];
         if (obj) {
             ctx = anims[i][1];
-            flag = flag || draw_anim(obj, ctx);
+            /* Important: flag must come after draw_anim to avoid
+               short-circuit evaluation which would result in draw_anim
+               being called only once.
+            */
+            flag = draw_anim(obj, ctx) || flag;
         }
     }
-
 
     if (flag) {
         RUR.ANIMATION_FRAME_ID = setTimeout(draw_animated_images,
             RUR.ANIMATION_TIME);
     }
 
-    // make it known globally for refresh() whether or not we have drawn 
+    // make it known globally for refresh() whether or not we have drawn
     // animated images
     RUR.animated_images = flag;
 }
 
 function draw_anim (objects, ctx) {
     "use strict";
-    var i, j, i_j, coords, flag, k, n, image, obj, obj_here, elem, 
+    var i, j, i_j, coords, flag, k, n, image, obj, obj_here, elem,
         recording_state, remove_flag, images_to_remove=[];
 
     flag = false;
@@ -416,10 +427,10 @@ function __remove_animated_object(args) {
     ctx = args[3];
 
     switch (ctx) {
-        case RUR.TILES_ANIM_CTX:        
+        case RUR.TILES_ANIM_CTX:
             RUR.remove_background_tile(name, x, y);
             break;
-        case RUR.OBSTACLES_ANIM_CTX:    
+        case RUR.OBSTACLES_ANIM_CTX:
             RUR.remove_obstacle(name, x, y);
             break;
         default:
@@ -489,8 +500,8 @@ function draw_all_objects (objects, goal){
                             if (image === undefined){
                                 console.warn("problem in draw_all_objects; obj =", specific_object);
                             } else {
-                                draw_single_object(image, i, j, ctx, 
-                                                   specific_object.x_offset, 
+                                draw_single_object(image, i, j, ctx,
+                                                   specific_object.x_offset,
                                                    specific_object.y_offset);
                             }
                         } // else, the object will be drawn in draw_anim
@@ -548,9 +559,9 @@ function draw_background_image (image) {
 
     y = RUR.HEIGHT - (RUR.MAX_Y+1)*size + thick; // location of top ...
     x = size + thick;                            // ... left corner
-    
+
     try{
-        ctx.drawImage(image, 0, 0, image_width, image_height, 
+        ctx.drawImage(image, 0, 0, image_width, image_height,
                              x, y, world_width, world_height);
     } catch (e) {
         console.warn("problem in draw_background_image", image, ctx, e);
