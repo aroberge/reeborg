@@ -17,12 +17,12 @@ The **_basic_** naming convention follows the following pattern:
    - `background_tile`
    - `bridge`
    - `decorative_object`
-   - `obstacle`
-   - `wall`
+   - `final_position`
    - `object`
-   - `pushable`
+   - `obstacle`
    - `overlay`
-
+   - `pushable`
+   - `wall`
 
 Thus, we could have:
 
@@ -38,8 +38,6 @@ RUR.add_wall("north", 4, 2)
 RUR.add_wall("west", 4, 2)
 RUR.add_final_position("house", 4, 2)
 ```
-
-Note that, while `final_position` is not included in the `TYPEs` mentioned above, `RUR.add_final_position` nonetheless follows the same naming convention.
 
 ## When 3 is not enough
 

@@ -11,3 +11,8 @@
    "normal" Python code e.g. string methods.
 
 5. Document use of `trace_frame_js.json` and `trace_frame_py.json`
+
+6. Add "traditional" exercises - possibly strings as examples
+
+
+7. Document `RUR.get_TYPE...`.

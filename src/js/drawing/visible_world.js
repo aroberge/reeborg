@@ -101,12 +101,12 @@ RUR.vis_world.refresh = function () {
         RUR[canvas].clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     }
 
+    draw_border(RUR.WALL_CTX);
     draw_tiles(world.tiles, RUR.TILES_CTX);
     draw_tiles(world.bridge, RUR.BRIDGE_CTX);
     draw_tiles(world.decorative_objects, RUR.DECORATIVE_OBJECTS_CTX);
     draw_tiles(world.obstacles, RUR.OBSTACLES_CTX);
     draw_tiles(world.pushables, RUR.PUSHABLES_CTX);
-    draw_border(RUR.WALL_CTX);
     draw_tiles(world.walls, RUR.WALL_CTX);
     draw_tiles(world.objects, RUR.OBJECTS_CTX);
 
@@ -141,16 +141,16 @@ RUR.vis_world.refresh = function () {
 
 function draw_coordinates () {
     "use strict";
-    var x, y, ctx = RUR.BACKGROUND_CTX, size=RUR.WALL_LENGTH;
+    var x, y, ctx = RUR.BACKGROUND_CTX, grid_size=RUR.WALL_LENGTH;
 
     ctx.fillStyle = RUR.COORDINATES_COLOR;
-    y = RUR.HEIGHT + 5 - size/2;
+    y = RUR.HEIGHT + 5 - grid_size/2;
     for(x=1; x <= RUR.MAX_X; x++){
-        ctx.fillText(x, (x+0.5)*size, y);
+        ctx.fillText(x, (x+0.5)*grid_size, y);
     }
-    x = size/2 -5;
+    x = grid_size/2 -5;
     for(y=1; y <= RUR.MAX_Y; y++){
-        ctx.fillText(y, x, RUR.HEIGHT - (y+0.3)*size);
+        ctx.fillText(y, x, RUR.HEIGHT - (y+0.3)*grid_size);
     }
 
     ctx.fillStyle = RUR.AXIS_LABEL_COLOR;
@@ -251,7 +251,7 @@ function draw_robot_clones (robot){
 
 function draw_goal_position (goal) {
     "use strict";
-    var image, i, g, x_offset, y_offset, ctx;
+    var image, i, coord, x_offset, y_offset, ctx;
 
     ctx = RUR.GOAL_CTX;
 
@@ -271,8 +271,8 @@ function draw_goal_position (goal) {
         ctx.save();
         ctx.globalAlpha = 0.5;
         for (i=0; i < goal.possible_final_positions.length; i++){
-                g = goal.possible_final_positions[i];
-                draw_single_object(image, g[0], g[1], ctx, x_offset, y_offset);
+                coord = goal.possible_final_positions[i];
+                draw_single_object(image, coord[0], coord[1], ctx, x_offset, y_offset);
         }
         ctx.restore();
     } else {
@@ -453,67 +453,19 @@ function _draw_single_animated (obj, coords, i, j, ctx, x_offset, y_offset){
 }
 
 function draw_coloured_tile (colour, i, j, ctx) {
-    var thick = RUR.WALL_THICKNESS, size = RUR.WALL_LENGTH;
+    var thick = RUR.WALL_THICKNESS, grid_size = RUR.WALL_LENGTH;
     var x, y;
     if (i > RUR.MAX_X || j > RUR.MAX_Y){
         return;
     }
-    x = i*size + thick/2;
-    y = RUR.HEIGHT - (j+1)*size + thick/2;
+    x = i*grid_size + thick/2;
+    y = RUR.HEIGHT - (j+1)*grid_size + thick/2;
     ctx.fillStyle = colour;
-    ctx.fillRect(x, y, size, size);
-}
-
-function draw_all_objects (objects, goal){
-    "use strict";
-    var i, j, image, ctx, coords, specific_object, objects_here, obj_name, grid_pos;
-    if (objects === undefined) {
-        return;
-    }
-
-    for (coords in objects){
-        if (objects.hasOwnProperty(coords)){
-            objects_here = objects[coords];
-            grid_pos = coords.split(",");
-            i = parseInt(grid_pos[0], 10);
-            j = parseInt(grid_pos[1], 10);
-            if (i <= RUR.MAX_X && j <= RUR.MAX_Y) {
-                for (obj_name in objects_here){
-                    if (objects_here.hasOwnProperty(obj_name)){
-                        specific_object = RUR.TILES[obj_name];
-                        if (goal) {
-                            ctx = RUR.GOAL_CTX;
-                            image = specific_object.goal.image;
-                        } else if (specific_object === undefined){
-                            console.warn("problem: specific_object is undefined");
-                            console.warn("    obj_name = ", obj_name);
-                            image = undefined;
-                        } else if (specific_object.ctx !== undefined){
-                            ctx = specific_object.ctx;
-                            image = specific_object.image;
-                        } else {
-                            ctx = RUR.OBJECTS_CTX;
-                            image = specific_object.image;
-                        }
-
-                        if (specific_object.choose_image === undefined){
-                            if (image === undefined){
-                                console.warn("problem in draw_all_objects; obj =", specific_object);
-                            } else {
-                                draw_single_object(image, i, j, ctx,
-                                                   specific_object.x_offset,
-                                                   specific_object.y_offset);
-                            }
-                        } // else, the object will be drawn in draw_anim
-                    }
-                }
-            }
-        }
-    }
+    ctx.fillRect(x, y, grid_size, grid_size);
 }
 
 function draw_single_object (image, i, j, ctx, x_offset, y_offset) {
-    var x, y, thick=RUR.WALL_THICKNESS/2, size=RUR.WALL_LENGTH;
+    var x, y, offset=RUR.WALL_THICKNESS/2, grid_size=RUR.WALL_LENGTH;
     if (x_offset === undefined) {
         x_offset = 0;
     }
@@ -524,8 +476,8 @@ function draw_single_object (image, i, j, ctx, x_offset, y_offset) {
         x_offset /= 2;
         y_offset /= 2;
     }
-    x = i*size + thick + x_offset;
-    y = RUR.HEIGHT - (j+1)*size + thick + y_offset;
+    x = i*grid_size + offset + x_offset;
+    y = RUR.HEIGHT - (j+1)*grid_size + offset + y_offset;
     try{
         if (RUR.CURRENT_WORLD.small_tiles) {
             ctx.drawImage(image, x, y, image.width/2, image.height/2);
@@ -540,12 +492,12 @@ function draw_single_object (image, i, j, ctx, x_offset, y_offset) {
 
 function draw_background_image (image) {
     // we draw the image so that it fills the entire world
-    var thick=RUR.WALL_THICKNESS/2, size=RUR.WALL_LENGTH,
+    var thick=RUR.WALL_THICKNESS/2, grid_size=RUR.WALL_LENGTH,
         image_width, image_height, world_width, world_height,
         x, y, ctx=RUR.BACKGROUND_CTX;
 
-    world_width = RUR.MAX_X*size;  // space to
-    world_height = RUR.MAX_Y*size; // be filled
+    world_width = RUR.MAX_X*grid_size;  // space to
+    world_height = RUR.MAX_Y*grid_size; // be filled
 
     image_width = image.width;
     image_height = image.height;
@@ -557,8 +509,8 @@ function draw_background_image (image) {
         image_height = world_height;
     }
 
-    y = RUR.HEIGHT - (RUR.MAX_Y+1)*size + thick; // location of top ...
-    x = size + thick;                            // ... left corner
+    y = RUR.HEIGHT - (RUR.MAX_Y+1)*grid_size + thick; // location of top ...
+    x = grid_size + thick;                            // ... left corner
 
     try{
         ctx.drawImage(image, 0, 0, image_width, image_height,
