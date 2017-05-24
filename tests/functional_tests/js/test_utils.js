@@ -91,9 +91,9 @@ test_utils.eval_program = function(world_url, program_url, language) {
     try {
         return RUR.rec.check_goal(last_frame);
     } catch(e) {
-        console.log("error raised while trying to check goal.", e);
-        console.log(RUR.frames);
-        console.log(test_utils.program);
+        console.log(">>=========\nerror raised while trying to check goal.", e);
+        console.log("frames = ", RUR.frames);
+        console.log("program = ", test_utils.program, "\n------------<<");
         return false;
     }
 };

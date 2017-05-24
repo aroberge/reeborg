@@ -1,10 +1,10 @@
-/* Initially, Reeborg's World only contained "objects", starting with a 
+/* Initially, Reeborg's World only contained "objects", starting with a
   single one (beeper, which became token) and slowly increasing the number
   and characteristics (e.g. animated object).  The first objects were
   drawn on the canvas; eventually they were replaced by square images.
 
   In parallel, background images, known as tiles could be added on the grid
-  to create worlds that could be more visually appealing.  
+  to create worlds that could be more visually appealing.
 
   Eventually, all custom canvas drawings were replaced by square images for
   simplicity and consistency. */
@@ -142,8 +142,8 @@ function _add_static_wall(name, x_offset) {
     "use strict";
     var url, y_offset=-2;
     url = RUR._BASE_URL + '/src/images/' + name + '.png';
-    RUR.add_new_thing({"name": name, "url": url, 
-                     "x_offset": x_offset, "y_offset": y_offset});    
+    RUR.add_new_thing({"name": name, "url": url,
+                     "x_offset": x_offset, "y_offset": y_offset});
 }
 _add_static_wall("east_border", 38);
 _add_static_wall("east_grid", 38);
@@ -161,7 +161,7 @@ tile = {
     name: "bridge",
     info: "Bridge:Reeborg <b>can</b> detect this and will know that it allows safe passage over water.",
     url: RUR._BASE_URL + '/src/images/bridge.png',
-    protection: ["water", "mud"]
+    protections: ["water", "mud"]
 };
 RUR.add_new_thing(tile);
 

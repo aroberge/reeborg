@@ -1,11 +1,11 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-/* Initially, Reeborg's World only contained "objects", starting with a 
+/* Initially, Reeborg's World only contained "objects", starting with a
   single one (beeper, which became token) and slowly increasing the number
   and characteristics (e.g. animated object).  The first objects were
   drawn on the canvas; eventually they were replaced by square images.
 
   In parallel, background images, known as tiles could be added on the grid
-  to create worlds that could be more visually appealing.  
+  to create worlds that could be more visually appealing.
 
   Eventually, all custom canvas drawings were replaced by square images for
   simplicity and consistency. */
@@ -143,8 +143,8 @@ function _add_static_wall(name, x_offset) {
     "use strict";
     var url, y_offset=-2;
     url = RUR._BASE_URL + '/src/images/' + name + '.png';
-    RUR.add_new_thing({"name": name, "url": url, 
-                     "x_offset": x_offset, "y_offset": y_offset});    
+    RUR.add_new_thing({"name": name, "url": url,
+                     "x_offset": x_offset, "y_offset": y_offset});
 }
 _add_static_wall("east_border", 38);
 _add_static_wall("east_grid", 38);
@@ -162,7 +162,7 @@ tile = {
     name: "bridge",
     info: "Bridge:Reeborg <b>can</b> detect this and will know that it allows safe passage over water.",
     url: RUR._BASE_URL + '/src/images/bridge.png',
-    protection: ["water", "mud"]
+    protections: ["water", "mud"]
 };
 RUR.add_new_thing(tile);
 
@@ -1216,8 +1216,8 @@ function draw_anim (objects, ctx) {
                 }
             }
         } else {
-            console.warn("Problem: unknown type in draw_anim");
-            console.log("obj_here = ", obj_here);
+            console.warn("Problem: unknown type in draw_anim; canvas =", ctx.canvas);
+            console.log("obj_here = ", obj_here, "objects = ", objects);
         }
     }
 
@@ -6325,7 +6325,7 @@ RUR.control.move = function (robot) {
     robot.x = next_x;
     robot.y = next_y;
 
-    // If we move, are we going to push something else in front of us? 
+    // If we move, are we going to push something else in front of us?
     pushable_in_the_way = RUR.get_pushable(next_x, next_y);
     if (pushable_in_the_way !== null) {
         next_position = RUR.get_position_in_front(robot);
@@ -6345,7 +6345,7 @@ RUR.control.move = function (robot) {
             RUR.transform_tile(pushable_in_the_way, x_beyond, y_beyond, "pushables");
         }
     }
-    
+
     // We can now complete the move
     if (robot._is_leaky !== undefined && !robot._is_leaky) {
         // avoid messing the trace if and when we resume having a leaky robot
@@ -6353,17 +6353,17 @@ RUR.control.move = function (robot) {
         robot._prev_y = robot.y;
     } else {
         robot._prev_x = current_x;
-        robot._prev_y = current_y;        
+        robot._prev_y = current_y;
     }
     RUR.state.sound_id = "#move-sound";
 
 
     // A move has been performed ... but it may have been a fatal decision
-    message = RUR.is_fatal(robot.x, robot.y);
+    message = RUR.is_fatal(robot.x, robot.y, get_objects_carried_protections(robot));
     if (message) {
         throw new RUR.ReeborgError(message);
     }
-    
+
     RUR.record_frame("move", robot.__id);
 };
 
@@ -6594,7 +6594,8 @@ RUR.control.front_is_clear = function(robot){
     next_x = position.x;
     next_y = position.y;
 
-    if (RUR.is_fatal(next_x, next_y) && RUR.is_detectable(next_x, next_y)) {
+    if (RUR.is_fatal(next_x, next_y, get_objects_carried_protections(robot)) &&
+        RUR.is_detectable(next_x, next_y)) {
         return false;
     }
 
@@ -6663,6 +6664,26 @@ RUR.control.carries_object = function (robot, obj) {
         }
         return 0;
     }
+};
+
+get_objects_carried_protections = function (robot) {
+    "use strict";
+    var objects_carried, obj_type, protections;
+
+    objects_carried = RUR.control.carries_object(robot);
+    if (!objects_carried || !Object.keys(objects_carried)) {
+        return [];
+    }
+
+    protections = [];
+    for(obj_type of Object.keys(objects_carried)){
+        obj_type = RUR.translate_to_english(obj_type);
+        if (RUR.TILES[obj_type] !== undefined && RUR.TILES[obj_type].protections !== undefined) {
+            protections = protections.concat(RUR.TILES[obj_type].protections);
+        }
+    }
+
+    return protections;
 };
 
 
@@ -8689,8 +8710,8 @@ RUR.make_default_menu_fr = function () {
     worlds = RUR._BASE_URL + '/src/worlds/';
 
     contents = [
-        ['src/worlds/seul.json', 'Seul'],
-        ['src/worlds/empty.json', 'Vide'],
+        [RUR._BASE_URL + '/src/worlds/seul.json', 'Seul'],
+        [RUR._BASE_URL + '/src/worlds/empty.json', 'Vide'],
         [base_url2 + 'around1.json', 'Autour 1'],
         [base_url2 + 'around2.json', 'Autour 2'],
         [base_url2 + 'around3.json', 'Autour 3'],
@@ -10108,14 +10129,14 @@ RUR.add_bridge = function (name, x, y) {
  * @instance
  * @summary This function removes a bridge at a location.
  *
- * @param {string} name 
+ * @param {string} name
  * @param {integer} x  Position.
  * @param {integer} y  Position.
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no such named bridge to remove
  *        at that location
- *        
+ *
  * @todo add test
  * @todo add examples
  * @todo deal with translation
@@ -10140,7 +10161,7 @@ RUR.remove_bridge = function (name, x, y) {
 /** @function get_bridge
  * @memberof RUR
  * @instance
- * @summary This function gets the name of the bridge name found at given location. 
+ * @summary This function gets the name of the bridge name found at given location.
  *    If nothing is found at that location,
  *    `null` is returned (which is converted to `None` in Python programs.)
  *
@@ -10206,7 +10227,7 @@ RUR.is_bridge = function (name, x, y) {
 /** @function get_bridge_protections
  * @memberof RUR
  * @instance
- * @summary This function gets the bridge name found at given location. 
+ * @summary This function gets the bridge name found at given location.
  *    If nothing is found at that location,
  *    `null` is returned (which is converted to `None` in Python programs.)
  *
@@ -10235,8 +10256,8 @@ RUR.get_bridge_protections = function (x, y) {
     tile = RUR.get_bridge(x, y);
     if (tile === null) {
         return [];
-    } else if (RUR.TILES[tile].protection !== undefined) {
-        return RUR.TILES[tile].protection;
+    } else if (RUR.TILES[tile].protections !== undefined) {
+        return RUR.TILES[tile].protections;
     } else {
         return [];
     }
@@ -10454,10 +10475,10 @@ require("./obstacles.js");
  *
  * @returns The message to show.
  */
-
-RUR.is_fatal = function (x, y){
+RUR.is_fatal = function (x, y, protections){
     "use strict";
-    var protections, tile, tiles;
+    // protections is from objects carried by the robot
+    var tile, tiles;
 
     /* Both obstacles and background tiles can be fatal;
        we combine both in a single array here */
@@ -10471,7 +10492,11 @@ RUR.is_fatal = function (x, y){
     if (tile && RUR.TILES[tile] !== undefined) {
         tiles.push(tile);
     }
-    protections = RUR.get_bridge_protections(x, y);
+
+    // both existing bridges and objects carried can offer protection
+    // against some types of otherwise fatal obstacles
+
+    protections = protections.concat(RUR.get_bridge_protections(x, y));
     for (tile of tiles) {
         if (RUR.get_property(tile, "fatal")) {
             if (protections.indexOf(RUR.TILES[tile].fatal) === -1) {
@@ -10482,6 +10507,7 @@ RUR.is_fatal = function (x, y){
     return false;
 };
 
+
 /** @function is_detectable
  * @memberof RUR
  * @instance
@@ -10490,7 +10516,6 @@ RUR.is_fatal = function (x, y){
  *
  * @returns The message to show.
  */
-
 RUR.is_detectable = function (x, y){
     "use strict";
     var detectable, tile, tiles;

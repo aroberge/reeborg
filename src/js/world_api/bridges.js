@@ -36,14 +36,14 @@ RUR.add_bridge = function (name, x, y) {
  * @instance
  * @summary This function removes a bridge at a location.
  *
- * @param {string} name 
+ * @param {string} name
  * @param {integer} x  Position.
  * @param {integer} y  Position.
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no such named bridge to remove
  *        at that location
- *        
+ *
  * @todo add test
  * @todo add examples
  * @todo deal with translation
@@ -68,7 +68,7 @@ RUR.remove_bridge = function (name, x, y) {
 /** @function get_bridge
  * @memberof RUR
  * @instance
- * @summary This function gets the name of the bridge name found at given location. 
+ * @summary This function gets the name of the bridge name found at given location.
  *    If nothing is found at that location,
  *    `null` is returned (which is converted to `None` in Python programs.)
  *
@@ -134,7 +134,7 @@ RUR.is_bridge = function (name, x, y) {
 /** @function get_bridge_protections
  * @memberof RUR
  * @instance
- * @summary This function gets the bridge name found at given location. 
+ * @summary This function gets the bridge name found at given location.
  *    If nothing is found at that location,
  *    `null` is returned (which is converted to `None` in Python programs.)
  *
@@ -163,8 +163,8 @@ RUR.get_bridge_protections = function (x, y) {
     tile = RUR.get_bridge(x, y);
     if (tile === null) {
         return [];
-    } else if (RUR.TILES[tile].protection !== undefined) {
-        return RUR.TILES[tile].protection;
+    } else if (RUR.TILES[tile].protections !== undefined) {
+        return RUR.TILES[tile].protections;
     } else {
         return [];
     }

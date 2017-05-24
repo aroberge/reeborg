@@ -42,7 +42,7 @@ RUR.control.move = function (robot) {
     robot.x = next_x;
     robot.y = next_y;
 
-    // If we move, are we going to push something else in front of us? 
+    // If we move, are we going to push something else in front of us?
     pushable_in_the_way = RUR.get_pushable(next_x, next_y);
     if (pushable_in_the_way !== null) {
         next_position = RUR.get_position_in_front(robot);
@@ -62,7 +62,7 @@ RUR.control.move = function (robot) {
             RUR.transform_tile(pushable_in_the_way, x_beyond, y_beyond, "pushables");
         }
     }
-    
+
     // We can now complete the move
     if (robot._is_leaky !== undefined && !robot._is_leaky) {
         // avoid messing the trace if and when we resume having a leaky robot
@@ -70,17 +70,17 @@ RUR.control.move = function (robot) {
         robot._prev_y = robot.y;
     } else {
         robot._prev_x = current_x;
-        robot._prev_y = current_y;        
+        robot._prev_y = current_y;
     }
     RUR.state.sound_id = "#move-sound";
 
 
     // A move has been performed ... but it may have been a fatal decision
-    message = RUR.is_fatal(robot.x, robot.y);
+    message = RUR.is_fatal(robot.x, robot.y, get_objects_carried_protections(robot));
     if (message) {
         throw new RUR.ReeborgError(message);
     }
-    
+
     RUR.record_frame("move", robot.__id);
 };
 
@@ -311,7 +311,8 @@ RUR.control.front_is_clear = function(robot){
     next_x = position.x;
     next_y = position.y;
 
-    if (RUR.is_fatal(next_x, next_y) && RUR.is_detectable(next_x, next_y)) {
+    if (RUR.is_fatal(next_x, next_y, get_objects_carried_protections(robot)) &&
+        RUR.is_detectable(next_x, next_y)) {
         return false;
     }
 
@@ -380,6 +381,26 @@ RUR.control.carries_object = function (robot, obj) {
         }
         return 0;
     }
+};
+
+get_objects_carried_protections = function (robot) {
+    "use strict";
+    var objects_carried, obj_type, protections;
+
+    objects_carried = RUR.control.carries_object(robot);
+    if (!objects_carried || !Object.keys(objects_carried)) {
+        return [];
+    }
+
+    protections = [];
+    for(obj_type of Object.keys(objects_carried)){
+        obj_type = RUR.translate_to_english(obj_type);
+        if (RUR.TILES[obj_type] !== undefined && RUR.TILES[obj_type].protections !== undefined) {
+            protections = protections.concat(RUR.TILES[obj_type].protections);
+        }
+    }
+
+    return protections;
 };
 
 

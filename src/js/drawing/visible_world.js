@@ -400,8 +400,8 @@ function draw_anim (objects, ctx) {
                 }
             }
         } else {
-            console.warn("Problem: unknown type in draw_anim");
-            console.log("obj_here = ", obj_here);
+            console.warn("Problem: unknown type in draw_anim; canvas =", ctx.canvas);
+            console.log("obj_here = ", obj_here, "objects = ", objects);
         }
     }
 

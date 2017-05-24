@@ -11,10 +11,10 @@ require("./obstacles.js");
  *
  * @returns The message to show.
  */
-
-RUR.is_fatal = function (x, y){
+RUR.is_fatal = function (x, y, protections){
     "use strict";
-    var protections, tile, tiles;
+    // protections is from objects carried by the robot
+    var tile, tiles;
 
     /* Both obstacles and background tiles can be fatal;
        we combine both in a single array here */
@@ -28,7 +28,11 @@ RUR.is_fatal = function (x, y){
     if (tile && RUR.TILES[tile] !== undefined) {
         tiles.push(tile);
     }
-    protections = RUR.get_bridge_protections(x, y);
+
+    // both existing bridges and objects carried can offer protection
+    // against some types of otherwise fatal obstacles
+
+    protections = protections.concat(RUR.get_bridge_protections(x, y));
     for (tile of tiles) {
         if (RUR.get_property(tile, "fatal")) {
             if (protections.indexOf(RUR.TILES[tile].fatal) === -1) {
@@ -39,6 +43,7 @@ RUR.is_fatal = function (x, y){
     return false;
 };
 
+
 /** @function is_detectable
  * @memberof RUR
  * @instance
@@ -47,7 +52,6 @@ RUR.is_fatal = function (x, y){
  *
  * @returns The message to show.
  */
-
 RUR.is_detectable = function (x, y){
     "use strict";
     var detectable, tile, tiles;
