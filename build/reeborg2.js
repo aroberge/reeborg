@@ -2466,7 +2466,7 @@ RUR.file_io.load_world_file = function (url, shortname) {
 
 /**
  * Note that the cors server may cache the result beyond our local
- * control. A script writer might be surprised to see that 
+ * control. A script writer might be surprised to see that
  * things are not working as expected.
  */
 RUR.load_js_module = function(url) {
@@ -2525,7 +2525,7 @@ require("./start_session.js");
 },{"./commands.js":2,"./start_session.js":51,"./utils/cors.js":57,"./world_editor.js":74}],16:[function(require,module,exports){
 /* This file contains the tiles included by default */
 require("./../rur.js");
-require("./../world_augment/add_tile_type.js");
+require("./../world_augment/things.js");
 
 var home_message, tile;
 
@@ -2615,7 +2615,7 @@ tile = {name: "racing_flag",
 };
 RUR.augment.new_tile_type(tile);
 
-},{"./../rur.js":49,"./../world_augment/add_tile_type.js":71}],17:[function(require,module,exports){
+},{"./../rur.js":49,"./../world_augment/things.js":71}],17:[function(require,module,exports){
 /*  Handler of special on-screen keyboard
 */
 
@@ -4846,7 +4846,7 @@ $("#programming-mode").change(function() {
         case "py-repl":
             RUR.state.programming_language = "python";
             editor.setOption("readOnly", true);
-            editor.setOption("theme", "reeborg-readonly");            
+            editor.setOption("theme", "reeborg-readonly");
             show_console();
             break;
         default:
@@ -5252,7 +5252,7 @@ watch_button.addEventListener("click", toggle_watch_variables, false);
 
 },{"./../../lang/msg.js":89,"./../state.js":52}],38:[function(require,module,exports){
 require("./rur.js");
-require("./world_augment/add_tile_type.js");
+require("./world_augment/things.js");
 
 var obj;
 
@@ -5342,7 +5342,7 @@ RUR.TILES.fence_vertical.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_vertical.info = RUR.TILES.fence_right.info;
 RUR.TILES.fence7 = RUR.TILES.fence_vertical;  // compatibility with old worlds
 
-},{"./rur.js":49,"./world_augment/add_tile_type.js":71}],39:[function(require,module,exports){
+},{"./rur.js":49,"./world_augment/things.js":71}],39:[function(require,module,exports){
 
 require("./rur.js");
 require("./recorder/record_frame.js");
@@ -6466,7 +6466,7 @@ RUR.runner.check_func_parentheses = function(line_of_code) {
 };
 
 },{"./blockly.js":1,"./create_editors.js":5,"./recorder.js":44,"./rur.js":49,"./state.js":52,"./translator.js":54,"./utils/supplant.js":63,"./visible_world.js":65,"./world.js":66,"./world/clone_world.js":67,"./world_init.js":76}],49:[function(require,module,exports){
-/** @namespace RUR 
+/** @namespace RUR
  * @desc The namespace reserved for all the Reeborg World methods.
  *
  */
@@ -7229,7 +7229,7 @@ RUR.vis_robot.new_robot_images = function (images) {
 require("./translator.js");
 require("./constants.js");
 require("./state.js");
-require("./world_augment/add_tile_type.js");
+require("./world_augment/things.js");
 require("./world/create_empty.js");
 
 //TODO add overlay object (like sensor) on robot canvas.
@@ -7871,7 +7871,7 @@ draw_info = function() {
     }
 };
 
-},{"./constants.js":3,"./state.js":52,"./translator.js":54,"./world/create_empty.js":68,"./world_augment/add_tile_type.js":71}],66:[function(require,module,exports){
+},{"./constants.js":3,"./state.js":52,"./translator.js":54,"./world/create_empty.js":68,"./world_augment/things.js":71}],66:[function(require,module,exports){
 
 require("./state.js");
 require("./create_editors.js");
@@ -8172,7 +8172,7 @@ require("./../exceptions.js");
  * @instance
  * @summary This function makes it possible to add new tiles. If the name
  *    of an existing tile is specified again, it is replaced by a new one
- *    which may have completely different characteristics. 
+ *    which may have completely different characteristics.
  *
  * @param {Object} tile A Javascript object (similar to a Python dict) that
  *                      describes the properties of the tile.
@@ -8211,7 +8211,7 @@ require("./../exceptions.js");
  * @todo throw an error if no image is specified.
  *
  * @throws Will throw an error is `name` attribute is not specified.
- *  
+ *
  * @example
  * // This first example shows how to set various tiles;
  * // the mode will be set to Python and the highlighting
@@ -9081,7 +9081,7 @@ RUR.world_get.show_all_tiles = function () {
             }
         } else {
             info += "Missing image";
-        } 
+        }
         info += "</td></tr>";
     }
     info += "</table>";
@@ -9730,7 +9730,7 @@ require("./../translator.js");
 * as a goal at a certain location.
 * By **object** we mean a type of object that can be taken or put down by Reeborg.
 *
- * @param {string} specific_object The name of the object type ; e.g. `"token"` 
+ * @param {string} specific_object The name of the object type ; e.g. `"token"`
  * @param {integer} x - Position of the object; must be greater than zero
  * @param {integer} y - Position of the object; must be greater than zero
  * @param {integer} nb - Number of desired objects at that location;
@@ -9879,7 +9879,7 @@ require("./../translator.js");
  * By **object** we mean a type of object that can be taken or put down by Reeborg.
  *
  *
- * @param {string} specific_object The name of the object type ; e.g. `"token"` 
+ * @param {string} specific_object The name of the object type ; e.g. `"token"`
  * @param {integer} x - Position of the object; must be greater than zero
  * @param {integer} y - Position of the object; must be greater than zero
  * @param {integer} nb - Number of objects at that location;

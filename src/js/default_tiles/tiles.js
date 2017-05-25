@@ -10,7 +10,7 @@
   simplicity and consistency. */
 
 require("./../rur.js");
-require("./../world_api/add_tile_type.js");
+require("./../world_api/things.js");
 
 var home_message, obj, tile;
 

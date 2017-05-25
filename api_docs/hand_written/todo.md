@@ -14,5 +14,6 @@
 
 6. Add "traditional" exercises - possibly strings as examples
 
-
 7. Document `RUR.get_TYPE...`.
+
+8. Ensure that "obstacles" are either solid or fatal, or both.

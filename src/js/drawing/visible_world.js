@@ -1,6 +1,6 @@
 require("./../rur.js");
 require("./../translator.js");
-require("./../world_api/add_tile_type.js"); // why ?
+require("./../world_api/things.js"); // why ?
 // probably need the other world_api files though, for removal of images.
 require("./../world_utils/get_world.js");
 //TODO add overlay object (like sensor)

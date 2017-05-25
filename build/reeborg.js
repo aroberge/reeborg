@@ -11,7 +11,7 @@
   simplicity and consistency. */
 
 require("./../rur.js");
-require("./../world_api/add_tile_type.js");
+require("./../world_api/things.js");
 
 var home_message, obj, tile;
 
@@ -215,7 +215,7 @@ RUR.TILES.fence_vertical.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_vertical.info = RUR.TILES.fence_right.info;
 
 
-},{"./../rur.js":52,"./../world_api/add_tile_type.js":68}],2:[function(require,module,exports){
+},{"./../rur.js":52,"./../world_api/things.js":79}],2:[function(require,module,exports){
 /* Dialog used by the Interactive world editor to add objects to the world.
 */
 
@@ -816,7 +816,7 @@ RUR.vis_robot.new_robot_images = function (images) {
 },{"./../rur.js":52,"./../world_utils/get_world.js":91}],9:[function(require,module,exports){
 require("./../rur.js");
 require("./../translator.js");
-require("./../world_api/add_tile_type.js"); // why ?
+require("./../world_api/things.js"); // why ?
 // probably need the other world_api files though, for removal of images.
 require("./../world_utils/get_world.js");
 //TODO add overlay object (like sensor)
@@ -1449,7 +1449,7 @@ function draw_info () {
     }
 }
 
-},{"./../rur.js":52,"./../translator.js":56,"./../world_api/add_tile_type.js":68,"./../world_utils/get_world.js":91}],10:[function(require,module,exports){
+},{"./../rur.js":52,"./../translator.js":56,"./../world_api/things.js":79,"./../world_utils/get_world.js":91}],10:[function(require,module,exports){
 function betterTab(cm) {
   if (cm.somethingSelected()) {
     cm.indentSelection("add");
@@ -6280,7 +6280,7 @@ RUR._UR.wall_on_right_ = function (robot) {
     return RUR.control.wall_on_right(robot);
 };
 
-},{"./../drawing/visible_robot.js":8,"./../editors/update.js":11,"./../file_io/file_io.js":12,"./../rur.js":52,"./../translator.js":56,"./../ui/custom_world_select.js":57,"./../world_api/background_tile.js":71,"./../world_set/world_set.js":87,"./../world_utils/get_world.js":91,"./control.js":41,"./output.js":43}],41:[function(require,module,exports){
+},{"./../drawing/visible_robot.js":8,"./../editors/update.js":11,"./../file_io/file_io.js":12,"./../rur.js":52,"./../translator.js":56,"./../ui/custom_world_select.js":57,"./../world_api/background_tile.js":70,"./../world_set/world_set.js":87,"./../world_utils/get_world.js":91,"./control.js":41,"./output.js":43}],41:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../translator.js");
@@ -6723,7 +6723,7 @@ RUR.control.get_colour_at_position = function (x, y) {
     }
 };
 
-},{"./../default_tiles/tiles.js":1,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/key_exist.js":63,"./../utils/supplant.js":65,"./../world_api/background_tile.js":71,"./../world_api/composition.js":73,"./../world_api/is_fatal.js":75,"./../world_api/obstacles.js":77,"./../world_api/pushables.js":78,"./../world_api/robot.js":79,"./../world_api/walls.js":80,"./../world_get/world_get.js":81,"./../world_set/world_set.js":87,"./../world_utils/get_world.js":91,"./exceptions.js":42,"./output.js":43}],42:[function(require,module,exports){
+},{"./../default_tiles/tiles.js":1,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/key_exist.js":63,"./../utils/supplant.js":65,"./../world_api/background_tile.js":70,"./../world_api/composition.js":72,"./../world_api/is_fatal.js":74,"./../world_api/obstacles.js":76,"./../world_api/pushables.js":77,"./../world_api/robot.js":78,"./../world_api/walls.js":80,"./../world_get/world_get.js":81,"./../world_set/world_set.js":87,"./../world_utils/get_world.js":91,"./exceptions.js":42,"./output.js":43}],42:[function(require,module,exports){
 
 require("./../rur.js");
 
@@ -7537,7 +7537,7 @@ exports.reset = reset = function() {
 reset();
 RUR._reset = reset; // for automated testing
 
-},{"./../editors/create.js":10,"./../rur.js":52,"./../world_api/animated_images.js":69}],49:[function(require,module,exports){
+},{"./../editors/create.js":10,"./../rur.js":52,"./../world_api/animated_images.js":68}],49:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../translator.js");
@@ -8440,7 +8440,7 @@ function set_world(url_query) {
     }
 }
 
-},{"./default_tiles/tiles.js":1,"./editors/create.js":10,"./listeners/add_listeners.js":17,"./permalink/permalink.js":35,"./programming_api/blockly.js":39,"./rur.js":52,"./splash_screen.js":53,"./storage/storage.js":55,"./utils/parseuri.js":64,"./world_api/background_tile.js":71,"./world_api/bridges.js":72,"./world_api/decorative_objects.js":74,"./world_api/objects.js":76,"./world_api/obstacles.js":77,"./world_api/pushables.js":78,"./world_api/robot.js":79,"./world_api/walls.js":80,"./world_utils/import_world.js":92}],55:[function(require,module,exports){
+},{"./default_tiles/tiles.js":1,"./editors/create.js":10,"./listeners/add_listeners.js":17,"./permalink/permalink.js":35,"./programming_api/blockly.js":39,"./rur.js":52,"./splash_screen.js":53,"./storage/storage.js":55,"./utils/parseuri.js":64,"./world_api/background_tile.js":70,"./world_api/bridges.js":71,"./world_api/decorative_objects.js":73,"./world_api/objects.js":75,"./world_api/obstacles.js":76,"./world_api/pushables.js":77,"./world_api/robot.js":78,"./world_api/walls.js":80,"./world_utils/import_world.js":92}],55:[function(require,module,exports){
 /* This file documents methods used to save worlds to and retrieve them
    from a browser's local storage.
 
@@ -9089,232 +9089,6 @@ RUR.utils.filterInt = function (value) {
 };
 
 },{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./utils_namespace.js":66}],68:[function(require,module,exports){
-require("./../rur.js");
-require("./../translator.js");
-require("./animated_images.js");
-require("./../programming_api/exceptions.js");
-
-/** @function add_new_thing
- * @memberof RUR
- * @instance
- * @summary This function makes it possible to add new "things", represented
- * by an image which we call "tile".  In what follows we use the word "tile"
- * as the generic term. 
- * 
- * If the name of an existing tile is specified again, it is replaced by a new one
- *    which may have completely different characteristics. 
- *
- *    **Important** Other than for testing purposes, this function should
- *    only be called from the "Onload" editor so that it can start fetching
- *    the required images as soon as possible, and try to ensure that the
- *    images will be ready to be shown when a program is executed.
- *
- * @param {Object} tile A Javascript object (similar to a Python dict) that
- *                      describes the properties of the tile.
- *
- * @param {string} tile.name  The name to be given to the tile; an exception
- *    will be raisd if it is missing.
- *
- * @param {string} [tile.info] Some information to be displayed about this tile
- *                          when a user clicks on "World Info" and then on
- *                          this tile on the world canvas.
- *
- * @param {string} [tile.url] If a single image is used, this indicated the source.
- *                            **Either tile.url or tile.images must be specified.**
- *
- * @param {string[]} [tile.images] If multiple images are used (for animated tiles),
- *                               this array (list) contains the various URLs.
- *                            **Either tile.url or tile.images must be specified.**
- *
- * @param {string} [tile.selection_method]  For animated tiles; choose one of
- * 
- *  * `"sync"`, 
- *  * `"ordered"`, 
- *  * `"random"`, 
- *  * `"cycle stay"` or
- *  * `"cycle remove"`.
- *  
- *  If the selection method is not recognized, `"random"` will
- *  be used, and no error will be thrown.
- *
- * @param {object} [tile.goal]  If the tile can be used for an object that can be
- *                            picked up or put down by Reeborg, includes `tile.goal`
- *                            to describe the image(s), following the same pattern
- *                            as above (`tile.goal.url`, `tile.goal.images`, 
- *                            `tile.goal.selection_method`).
- *
- * @param {string} [tile.fatal] Program ends if Reeborg steps on such a tile with
- *                               a value that is equivalent to "true", unless a bridge
- *                               offering the adequate protection is present. 
- *                               This value is usually set to the name of the tile.
- *
- * @param {string} [tile.detectable] If `tile.fatal` and  `tile.detectable` are 
- *  both equivalent to "true", Reeborg can detect this tile with `front_is_clear()` and `right_is_clear()`.
- *
- * @param {boolean} [tile.solid] If sets to `True`, prevents a box from sliding onto this tile.
- *
- *
- * @todo  Add "x-offset" and "y-offset" as additional properties, used for drawing
- *
- * @throws Will throw an error if `name` attribute is not specified.
- * @throws Will throw an error if no images is supplied (either via the `url`
- *         or the `images` attribute.)
- *  
- * @example
- * // This first example shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
- *
- * // A second example shows how one can change tiles behaviour.
- * // A possible usage of this would be to have Reeborg wear crampons
- * // so that it does not slip on the ice.
- * World("/worlds/examples/tile2.json", "Example 2")
- */
-RUR.TILES = {};
-
-RUR.add_new_thing = function (tile) {
-    "use strict";
-    var i, key, keys, name;
-    name = tile.name;
-
-    if (name === undefined){
-        throw new RUR.ReeborgError("RUR.add_new_thing(tile): new_tile.name attribute missing.");
-    }
-
-    if (RUR.KNOWN_TILES.indexOf(name) != -1) {
-        console.warn("Warning: tile name " + name + " already exists");
-    } else {
-        RUR.KNOWN_TILES.push(name);
-    }
-
-    RUR.TILES[name] = tile;
-    create_images(tile);
-    // Object goal (not required for decorative objects): either
-    // a single url or a list for animated images.
-    if (tile.goal) {
-        create_images(tile.goal);
-    }
-};
-
-function create_images(obj) {
-    if (obj.url) {
-        obj.image = new Image();
-        obj.image.src = obj.url;
-        RUR.images_onload(obj.image);
-    } else if (obj.images) {
-        RUR.animate_images(obj);
-    } else {
-        throw new RUR.ReeborgError("Fatal error: need either tile.url or a list: tile.images");
-    }
-}
-
-/** @function show_all_things
- * @memberof RUR
- * @instance
- *
- * @todo  document filter by property
- * @todo include goal images
- * @todo include translated name
- * @desc This needs to be documented
- */
-RUR.show_all_things = function (property) {
-    var i, j, info, images, name, url;
-    if (property !== undefined) {
-        info = "<h3>Things with property <code>" + property + "</code></h3>";
-    } else {
-        info = '';
-    }
-    if (RUR.state.human_language != 'en') {
-            info += "<table border='1'><tr><th>name</th><th>translation</th><th>image(s)</th><th>goal?</th></tr>";
-        } else {
-            info += "<table border='1'><tr><th>name</th><th>image(s)</th><th>goal?</th></tr>";
-        }
-    for (i=0; i< RUR.KNOWN_TILES.length; i++) {
-        name = RUR.KNOWN_TILES[i];
-        if (property !== undefined) {
-            if (RUR.TILES[name][property] === undefined) {
-                continue;
-            }
-        }
-        url = RUR.TILES[name].url;
-        images = RUR.TILES[name].images;
-        info += "<tr><td>" +  name + "</td><td>";
-        if (RUR.state.human_language != 'en') {
-            info += RUR.translate(name) + "</td><td>";
-        }
-        if (url !== undefined) {
-            info += "<img src = '" + RUR.TILES[name].url + "'></td><td>";
-        } else if (images !== undefined) {
-            for(j=0; j<images.length; j++) {
-                info += "<img src = '" + images[j] + "'> - ";
-            }
-            info += "</td><td>";
-        } else {
-            info += "Missing image</td><td>";
-        } 
-        if (RUR.TILES[name].goal !== undefined) {
-            info += "<img src = '" + RUR.TILES[name].goal.url + "'>";
-        } 
-        info += "</td></tr>";
-    }
-    info += "</table>";
-    RUR._print_html_(info, true); // true will replace existing content
-};
-
-/** @function has_property
- * @memberof RUR
- * @instance
- *
- * @desc This needs to be documented
- */
-RUR.has_property = function (name, property) {
-    if (RUR.TILES[name] === undefined) {
-        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj:name}));
-    }
-    if (RUR.TILES[name][property] === undefined) {
-        return false;
-    } else {
-        return true;
-    }
-};
-
-/** @function get_property
- * @memberof RUR
- * @instance
- *
- * @desc This needs to be documented
- */
-RUR.get_property = function (name, property) {
-    if (RUR.TILES[name] === undefined) {
-        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj:name}));
-    }
-    return RUR.TILES[name][property];
-};
-
-
-/*=============================
-/
-/   Deprecated methods below
-/
-/===========================*/
-
-/** @function add_new_object_type
- * @memberof RUR
- * @instance
- * @deprecated Use {@link RUR#add_new_thing} instead.
- */
-RUR.add_new_object_type = function (name, url, url_goal) {
-    RUR.add_new_thing({"name": name, "url": url, "goal": {"url": url_goal}});
-};
-/** @function add_object_image
- * @memberof RUR
- * @instance
- * @deprecated Use {@link RUR#add_new_thing} instead.
- */
-RUR.add_object_image = RUR.add_new_object_type; // Vincent Maille's book.
-
-},{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../translator.js":56,"./animated_images.js":69}],69:[function(require,module,exports){
 /* This file contains methods used to create animated images by creating
    the appropriate selection sequence from a list of images.
  */
@@ -9452,7 +9226,7 @@ RUR._sync = function (obj, nb, id) {
     return obj["image" + RUR._SYNC_VALUE[obj.name]];
 };
 
-},{"./../rur.js":52}],70:[function(require,module,exports){
+},{"./../rur.js":52}],69:[function(require,module,exports){
 /*  This file contains generic methods called by more specialized methods
     used to create worlds. */
 
@@ -9920,7 +9694,7 @@ RUR.remove_artefact = function (args) {
     }
 };
 
-},{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../translator.js":56,"./../utils/key_exist.js":63,"./../utils/supplant.js":65,"./../utils/validator.js":67,"./../world_utils/get_world.js":91}],71:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../translator.js":56,"./../utils/key_exist.js":63,"./../utils/supplant.js":65,"./../utils/validator.js":67,"./../world_utils/get_world.js":91}],70:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
@@ -10090,7 +9864,7 @@ RUR.is_background_tile = function (name, x, y) {
 
 
 
-},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":70}],72:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":69}],71:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
@@ -10263,7 +10037,7 @@ RUR.get_bridge_protections = function (x, y) {
     }
 };
 
-},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":70}],73:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":69}],72:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
@@ -10337,7 +10111,7 @@ RUR.transform_tile = function (name, x, y, type) {
     }
 };
 
-},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":70,"./background_tile.js":71,"./obstacles.js":77}],74:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":69,"./background_tile.js":70,"./obstacles.js":76}],73:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
@@ -10461,7 +10235,7 @@ RUR.is_decorative_object = function (name, x, y) {
 };
 
 
-},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":70}],75:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":69}],74:[function(require,module,exports){
 require("./../rur.js");
 require("./background_tile.js");
 require("./bridges.js");
@@ -10540,7 +10314,7 @@ RUR.is_detectable = function (x, y){
 };
 
 
-},{"./../rur.js":52,"./background_tile.js":71,"./bridges.js":72,"./obstacles.js":77}],76:[function(require,module,exports){
+},{"./../rur.js":52,"./background_tile.js":70,"./bridges.js":71,"./obstacles.js":76}],75:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
@@ -10686,7 +10460,7 @@ RUR.is_object = function (name, x, y, options) {
 };
 
 
-},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":70}],77:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":69}],76:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
@@ -10865,7 +10639,7 @@ RUR.is_obstacle_safe = function (x, y) {
     }
     return safe_found;
 };
-},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":70}],78:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":69}],77:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
@@ -11023,7 +10797,7 @@ RUR.push_pushable = function (name, from_x, from_y, to_x, to_y) {
     RUR.add_pushable(name, to_x, to_y);
     RUR.state.do_not_record = recording_state;
 };
-},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":70}],79:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":69}],78:[function(require,module,exports){
 require("./../rur.js");
 require("./../world_utils/get_world.js");
 
@@ -11287,7 +11061,241 @@ RUR.add_initial_position = function (x, y) {
     robot.possible_initial_positions.push([x, y]);
     RUR.record_frame("add_initial_position", {x:x, y:y});
 };
-},{"./../rur.js":52,"./../world_utils/get_world.js":91}],80:[function(require,module,exports){
+},{"./../rur.js":52,"./../world_utils/get_world.js":91}],79:[function(require,module,exports){
+require("./../rur.js");
+require("./../translator.js");
+require("./animated_images.js");
+require("./../programming_api/exceptions.js");
+
+/** @function add_new_thing
+ * @memberof RUR
+ * @instance
+ * @summary This function makes it possible to add new "things", represented
+ * by an image which we call "tile".  In what follows we use the word "tile"
+ * as the generic term.
+ *
+ * If the name of an existing tile is specified again, it is replaced by a new one
+ *    which may have completely different characteristics.
+ *
+ *    **Important** Other than for testing purposes, this function should
+ *    only be called from the "Onload" editor so that it can start fetching
+ *    the required images as soon as possible, and try to ensure that the
+ *    images will be ready to be shown when a program is executed.
+ *
+ * @param {Object} tile A Javascript object (similar to a Python dict) that
+ *                      describes the properties of the tile.
+ *
+ * @param {string} tile.name  The name to be given to the tile; an exception
+ *    will be raisd if it is missing.
+ *
+ * @param {string} [tile.info] Some information to be displayed about this tile
+ * when a user clicks on "World Info" and then on this tile on the world canvas.
+ * It is highly recommended to include this.
+ *
+ *
+ * @param {string} [tile.url] If a single image is used, this indicated the source.
+ *                            **Either tile.url or tile.images must be specified.**
+ *
+ * @param {strings[]} [tile.images] If multiple images are used (for animated tiles),
+ *                               this array (list) contains the various URLs.
+ *                            **Either tile.url or tile.images must be specified.**
+ *
+ * @param {string} [tile.selection_method]  For animated tiles; choose one of
+ *
+ *  * `"sync"`,
+ *  * `"ordered"`,
+ *  * `"random"`,
+ *  * `"cycle stay"` or
+ *  * `"cycle remove"`.
+ *
+ *  If the selection method is not recognized, `"random"` will
+ *  be used, and no error will be thrown.
+ *
+ * @param {object} [tile.goal]  If the tile can be used for an object that can be
+ * picked up or put down by Reeborg, includes `tile.goal` to describe the image(s),
+ * following the same pattern as above (`tile.goal.url`, `tile.goal.images`,
+ * `tile.goal.selection_method`).
+ *
+ * @param {string} [tile.fatal] Program ends if Reeborg steps on such a tile with
+ * a value that is equivalent to "true", unless a bridge offering the adequate
+ * protection is present. This value is usually set to the name of the tile.
+ *
+ * @param {string} [tile.detectable] If `tile.fatal` and  `tile.detectable` are
+ *  both equivalent to "true", Reeborg can detect this tile with
+ *  `front_is_clear()` and `right_is_clear()`.
+ *
+ * @param {strings[]} [tile.protections] Indicates against which `fatal` tile this
+ *  offer protection.  Protection is given when tiles are used as a bridge or
+ *  when they are carried.
+ *
+ * @param {boolean} [tile.solid] If sets to `True`, prevents a pushable object
+ *  from sliding onto this tile.
+ *
+ * @param {integer} [tile.x_offset] By default, tiles are drawn on a set grid.
+ *  Specifying a value for `x_offset` result in the tile drawn off grid, by a
+ *  number of pixel equal to `x_offset`.
+ *
+ * @param {integer} [tile.y_offset] By default, tiles are drawn on a set grid.
+ *  Specifying a value for `y_offset` result in the tile drawn off grid, by a
+ *  number of pixel equal to `y_offset`.
+ *
+ * @throws Will throw an error if `name` attribute is not specified.
+ * @throws Will throw an error if no images is supplied (either via the `url`
+ *         or the `images` attribute.)
+ *
+ * @example
+ * // This first example shows how to set various tiles;
+ * // the mode will be set to Python and the highlighting
+ * // will be turned off
+ * World("/worlds/examples/tile1.json", "Example 1")
+ *
+ * // A second example shows how one can change tiles behaviour.
+ * World("/worlds/examples/tile2.json", "Example 2")
+ */
+RUR.TILES = {};
+
+RUR.add_new_thing = function (tile) {
+    "use strict";
+    var i, key, keys, name;
+    name = tile.name;
+
+    if (name === undefined){
+        throw new RUR.ReeborgError("RUR.add_new_thing(tile): new_tile.name attribute missing.");
+    }
+
+    if (RUR.KNOWN_TILES.indexOf(name) != -1) {
+        console.warn("Warning: tile name " + name + " already exists");
+    } else {
+        RUR.KNOWN_TILES.push(name);
+    }
+
+    RUR.TILES[name] = tile;
+    create_images(tile);
+    // Object goal (not required for decorative objects): either
+    // a single url or a list for animated images.
+    if (tile.goal) {
+        create_images(tile.goal);
+    }
+};
+
+function create_images(obj) {
+    if (obj.url) {
+        obj.image = new Image();
+        obj.image.src = obj.url;
+        RUR.images_onload(obj.image);
+    } else if (obj.images) {
+        RUR.animate_images(obj);
+    } else {
+        throw new RUR.ReeborgError("Fatal error: need either tile.url or a list: tile.images");
+    }
+}
+
+/** @function show_all_things
+ * @memberof RUR
+ * @instance
+ *
+ * @todo  document filter by property
+ * @todo include goal images
+ * @todo include translated name
+ * @desc This needs to be documented
+ */
+RUR.show_all_things = function (property) {
+    var i, j, info, images, name, url;
+    if (property !== undefined) {
+        info = "<h3>Things with property <code>" + property + "</code></h3>";
+    } else {
+        info = '';
+    }
+    if (RUR.state.human_language != 'en') {
+            info += "<table border='1'><tr><th>name</th><th>translation</th><th>image(s)</th><th>goal?</th></tr>";
+        } else {
+            info += "<table border='1'><tr><th>name</th><th>image(s)</th><th>goal?</th></tr>";
+        }
+    for (i=0; i< RUR.KNOWN_TILES.length; i++) {
+        name = RUR.KNOWN_TILES[i];
+        if (property !== undefined) {
+            if (RUR.TILES[name][property] === undefined) {
+                continue;
+            }
+        }
+        url = RUR.TILES[name].url;
+        images = RUR.TILES[name].images;
+        info += "<tr><td>" +  name + "</td><td>";
+        if (RUR.state.human_language != 'en') {
+            info += RUR.translate(name) + "</td><td>";
+        }
+        if (url !== undefined) {
+            info += "<img src = '" + RUR.TILES[name].url + "'></td><td>";
+        } else if (images !== undefined) {
+            for(j=0; j<images.length; j++) {
+                info += "<img src = '" + images[j] + "'> - ";
+            }
+            info += "</td><td>";
+        } else {
+            info += "Missing image</td><td>";
+        }
+        if (RUR.TILES[name].goal !== undefined) {
+            info += "<img src = '" + RUR.TILES[name].goal.url + "'>";
+        }
+        info += "</td></tr>";
+    }
+    info += "</table>";
+    RUR._print_html_(info, true); // true will replace existing content
+};
+
+/** @function has_property
+ * @memberof RUR
+ * @instance
+ *
+ * @desc This needs to be documented
+ */
+RUR.has_property = function (name, property) {
+    if (RUR.TILES[name] === undefined) {
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj:name}));
+    }
+    if (RUR.TILES[name][property] === undefined) {
+        return false;
+    } else {
+        return true;
+    }
+};
+
+/** @function get_property
+ * @memberof RUR
+ * @instance
+ *
+ * @desc This needs to be documented
+ */
+RUR.get_property = function (name, property) {
+    if (RUR.TILES[name] === undefined) {
+        throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj:name}));
+    }
+    return RUR.TILES[name][property];
+};
+
+
+/*=============================
+/
+/   Deprecated methods below
+/
+/===========================*/
+
+/** @function add_new_object_type
+ * @memberof RUR
+ * @instance
+ * @deprecated Use {@link RUR#add_new_thing} instead.
+ */
+RUR.add_new_object_type = function (name, url, url_goal) {
+    RUR.add_new_thing({"name": name, "url": url, "goal": {"url": url_goal}});
+};
+/** @function add_object_image
+ * @memberof RUR
+ * @instance
+ * @deprecated Use {@link RUR#add_new_thing} instead.
+ */
+RUR.add_object_image = RUR.add_new_object_type; // Vincent Maille's book.
+
+},{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../translator.js":56,"./animated_images.js":68}],80:[function(require,module,exports){
 require("./../rur.js");
 require("./../translator.js");
 require("./../programming_api/exceptions.js");
@@ -11534,7 +11542,7 @@ function convert_position (orientation, x, y) {
     return {name:_orientation, x:_x, y:_y};
 }
 
-},{"./../programming_api/exceptions.js":42,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/key_exist.js":63,"./../utils/supplant.js":65,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":70}],81:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":42,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/key_exist.js":63,"./../utils/supplant.js":65,"./../utils/validator.js":67,"./../world_utils/get_world.js":91,"./artefact.js":69}],81:[function(require,module,exports){
 /* Obtain specific information about the world, either at a given
    position, or for the world in general.
 */
@@ -12445,7 +12453,7 @@ function convert_old_worlds () {
     // TODO: convert start_positions to possible_initial_positions
 }
 
-},{"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../programming_api/exceptions.js":42,"./../robot/robot.js":49,"./../rur.js":52,"./../translator.js":56,"./../ui/edit_robot_menu.js":58,"./../world_api/animated_images.js":69,"./clone_world.js":88,"./create_empty_world.js":89,"./world_utils_namespace.js":93}],93:[function(require,module,exports){
+},{"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../programming_api/exceptions.js":42,"./../robot/robot.js":49,"./../rur.js":52,"./../translator.js":56,"./../ui/edit_robot_menu.js":58,"./../world_api/animated_images.js":68,"./clone_world.js":88,"./create_empty_world.js":89,"./world_utils_namespace.js":93}],93:[function(require,module,exports){
 require("./../rur.js");
 /** @namespace world_utils
  * @memberof RUR
