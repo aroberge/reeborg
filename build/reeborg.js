@@ -11070,37 +11070,35 @@ require("./../programming_api/exceptions.js");
 /** @function add_new_thing
  * @memberof RUR
  * @instance
- * @summary This function makes it possible to add new "things", represented
- * by an image which we call "tile".  In what follows we use the word "tile"
- * as the generic term.
+ * @summary This method makes it possible to add new `thing`s, represented
+ * by an image which we call `thing`.
  *
- * If the name of an existing tile is specified again, it is replaced by a new one
- *    which may have completely different characteristics.
+ * If the name of an existing thing is specified again, it is replaced by a new
+ * one which may have completely different characteristics.
  *
- *    **Important** Other than for testing purposes, this function should
+ *    **Important** Other than for testing purposes, This method should
  *    only be called from the "Onload" editor so that it can start fetching
  *    the required images as soon as possible, and try to ensure that the
  *    images will be ready to be shown when a program is executed.
  *
- * @param {Object} tile A Javascript object (similar to a Python dict) that
- *                      describes the properties of the tile.
+ * @param {Object} thing A Javascript object (similar to a Python dict) that
+ * describes the properties of the `thing`.
  *
- * @param {string} tile.name  The name to be given to the tile; an exception
- *    will be raisd if it is missing.
+ * @param {string} thing.name  The name to be given to the `thing`; an exception
+ * will be raisd if it is missing.
  *
- * @param {string} [tile.info] Some information to be displayed about this tile
- * when a user clicks on "World Info" and then on this tile on the world canvas.
+ * @param {string} [thing.info] Some information to be displayed about this `thing`
+ * when a user clicks on "World Info" and then on this thing on the world canvas.
  * It is highly recommended to include this.
  *
+ * @param {string} [thing.url] If a single image is used, this indicated the source.
+ *  **Either `thing.url` or `thing.images` must be specified.**
  *
- * @param {string} [tile.url] If a single image is used, this indicated the source.
- *                            **Either tile.url or tile.images must be specified.**
+ * @param {strings[]} [thing.images] If multiple images are used
+ * (for animated `thing`s), this array (list) contains the various URLs.
+ *  **Either `thing.url` or `thing.images` must be specified.**
  *
- * @param {strings[]} [tile.images] If multiple images are used (for animated tiles),
- *                               this array (list) contains the various URLs.
- *                            **Either tile.url or tile.images must be specified.**
- *
- * @param {string} [tile.selection_method]  For animated tiles; choose one of
+ * @param {string} [thing.selection_method]  For animated `thing`s; choose one of
  *
  *  * `"sync"`,
  *  * `"ordered"`,
@@ -11111,70 +11109,75 @@ require("./../programming_api/exceptions.js");
  *  If the selection method is not recognized, `"random"` will
  *  be used, and no error will be thrown.
  *
- * @param {object} [tile.goal]  If the tile can be used for an object that can be
- * picked up or put down by Reeborg, includes `tile.goal` to describe the image(s),
- * following the same pattern as above (`tile.goal.url`, `tile.goal.images`,
- * `tile.goal.selection_method`).
+ * @param {object} [thing.goal]  If the `thing`s can be used for an object that can be
+ * picked up or put down by Reeborg, includes `thing.goal` to describe the image(s),
+ * following the same pattern as above (`thing.goal.url`, `thing.goal.images`,
+ * `thing.goal.selection_method`).
  *
- * @param {string} [tile.fatal] Program ends if Reeborg steps on such a tile with
- * a value that is equivalent to "true", unless a bridge offering the adequate
- * protection is present. This value is usually set to the name of the tile.
+ * @param {string} [thing.fatal] Program ends if Reeborg steps on such a `thing`s with
+ * a value that is equivalent to "true" when used as background things or obstacles,
+ * unless a bridge offering the adequate protection is present or an object
+ * carried by Reeborg has the right protection defined.
+ * This value is usually set to the name of the `thing`s so as to facilitate
+ * defining objects or bridges which offer the right protection.
  *
- * @param {string} [tile.detectable] If `tile.fatal` and  `tile.detectable` are
- *  both equivalent to "true", Reeborg can detect this tile with
- *  `front_is_clear()` and `right_is_clear()`.
+ * @param {string} [thing.detectable] If `thing.fatal` and  `thing.detectable` are
+ * both equivalent to "true", Reeborg can detect this `thing` with
+ * `front_is_clear()` and `right_is_clear()` if it is set as an obstacle
+ * or a background thing.
  *
- * @param {strings[]} [tile.protections] Indicates against which `fatal` tile this
- *  offer protection.  Protection is given when tiles are used as a bridge or
- *  when they are carried.
+ * @param {strings[]} [thing.protections] Indicates against which `fatal` thing this
+ * offer protection.  Protection is given when things are used as a bridge or
+ * when they are carried.
  *
- * @param {boolean} [tile.solid] If sets to `True`, prevents a pushable object
- *  from sliding onto this tile.
+ * @param {boolean} [thing.solid] If sets to `True`, prevents a pushable object
+ * from sliding onto this `thing`s when used as a background thing or as an
+ * obstacle.
  *
- * @param {integer} [tile.x_offset] By default, tiles are drawn on a set grid.
- *  Specifying a value for `x_offset` result in the tile drawn off grid, by a
- *  number of pixel equal to `x_offset`.
+ * @param {integer} [thing.x_offset] By default, `thing`s are drawn on a set grid.
+ * Specifying a value for `x_offset` result in the `thing`s drawn off grid, by a
+ * number of pixel equal to `x_offset`.
  *
- * @param {integer} [tile.y_offset] By default, tiles are drawn on a set grid.
- *  Specifying a value for `y_offset` result in the tile drawn off grid, by a
- *  number of pixel equal to `y_offset`.
+ * @param {integer} [thing.y_offset] By default, `thing`s are drawn on a set grid.
+ * Specifying a value for `y_offset` result in the `thing` drawn off grid, by a
+ * number of pixel equal to `y_offset`.
  *
  * @throws Will throw an error if `name` attribute is not specified.
  * @throws Will throw an error if no images is supplied (either via the `url`
  *         or the `images` attribute.)
  *
  * @example
- * // This first example shows how to set various tiles;
+ * // This first example shows how to set various `thing`s;
  * // the mode will be set to Python and the highlighting
  * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
+ * World("/worlds/examples/thing1.json", "Example 1")
  *
- * // A second example shows how one can change tiles behaviour.
- * World("/worlds/examples/tile2.json", "Example 2")
+ * // A second example shows how one can change `thing`s behaviour.
+ * World("/worlds/examples/thing2.json", "Example 2")
  */
 RUR.TILES = {};
 
-RUR.add_new_thing = function (tile) {
+RUR.add_new_thing = function (thing) {
     "use strict";
     var i, key, keys, name;
-    name = tile.name;
+    name = thing.name;
 
     if (name === undefined){
-        throw new RUR.ReeborgError("RUR.add_new_thing(tile): new_tile.name attribute missing.");
+        throw new RUR.ReeborgError("RUR.add_new_thing(thing): thing.name attribute missing.");
     }
 
     if (RUR.KNOWN_TILES.indexOf(name) != -1) {
-        console.warn("Warning: tile name " + name + " already exists");
+        console.warn("Warning: thing name " + name + " already exists");
     } else {
         RUR.KNOWN_TILES.push(name);
     }
 
-    RUR.TILES[name] = tile;
-    create_images(tile);
+    RUR.TILES[name] = thing;
+    create_images(thing);
     // Object goal (not required for decorative objects): either
     // a single url or a list for animated images.
-    if (tile.goal) {
-        create_images(tile.goal);
+    if (thing.goal) {
+        create_images(thing.goal);
     }
 };
 
@@ -11186,7 +11189,7 @@ function create_images(obj) {
     } else if (obj.images) {
         RUR.animate_images(obj);
     } else {
-        throw new RUR.ReeborgError("Fatal error: need either tile.url or a list: tile.images");
+        throw new RUR.ReeborgError("Fatal error: need either thing.url or a list [thing.images]");
     }
 }
 
@@ -11194,10 +11197,19 @@ function create_images(obj) {
  * @memberof RUR
  * @instance
  *
- * @todo  document filter by property
- * @todo include goal images
- * @todo include translated name
- * @desc This needs to be documented
+ * @summary This method shows all known `thing`s in a table. If a language
+ * other than English is selected, the translated name appears as well; this
+ * can be helpful to identify missing translations.
+ * If multiple images are shown, it means that the `thing` is shown as an
+ * animation.
+ * Missing images in the **goal** column indicate that this `thing` cannot
+ * be used as an object to be picked up by Reeborg.
+ *
+ * @param {string} [property] If this argument is provided, only `thing`s for
+ * which this property is defined will be shown.
+ *
+ * @example
+ * RUR.show_all_things("fatal")
  */
 RUR.show_all_things = function (property) {
     var i, j, info, images, name, url;
@@ -11247,7 +11259,20 @@ RUR.show_all_things = function (property) {
  * @memberof RUR
  * @instance
  *
- * @desc This needs to be documented
+ * @summary This method returns "true" if a `thing` has the stated property,
+ * and "false" otherwise
+ *
+ * @param {string} name The name of the `thing`.
+ *
+ * @param {string} property
+ *
+ * @example
+ * "Use Python for this example"
+ * print(RUR.has_property("water", "fatal"))
+ *
+ * @example
+ * "Use Javascript for this example"
+ * write(RUR.has_property("water", "fatal"))
  */
 RUR.has_property = function (name, property) {
     if (RUR.TILES[name] === undefined) {
@@ -11264,7 +11289,22 @@ RUR.has_property = function (name, property) {
  * @memberof RUR
  * @instance
  *
- * @desc This needs to be documented
+ * @summary This method returns the value of a given property.
+ * **Important:** the value shown will be the English default even if a
+ * translation exists and might appear in other contexts, like the
+ * "World Info".
+ *
+ * @param {string} name The name of the `thing`.
+ *
+ * @param {string} property
+ *
+ * @example
+ * "Use Python for this example"
+ * print(RUR.get_property("water", "info"))
+ *
+ * @example
+ * "Use Javascript for this example"
+ * write(RUR.get_property("water", "fatal"))
  */
 RUR.get_property = function (name, property) {
     if (RUR.TILES[name] === undefined) {

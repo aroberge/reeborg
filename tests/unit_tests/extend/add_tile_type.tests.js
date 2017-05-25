@@ -49,7 +49,7 @@ test('RUR.add_new_thing: replace tile type', function (assert) {
     assert.equal(this_obj.image.src, 'URL', "url for objects ok");
     silencer.restore();
     assert.equal(silencer.getOutput('warn')[0][0],
-                 "Warning: tile name this_name already exists",
+                 "Warning: thing name this_name already exists",
                  "Console warning ok.");
     assert.end();
 });
