@@ -14,15 +14,9 @@ require("./../world_utils/get_world.js");
 function ensure_valid_position(args) {
     "use strict";
     var position;
-    if (args.x !== undefined && args.y !== undefined) {
-        if (!RUR.is_valid_position(args.x, args.y)) {
-            position = "(" + args.x + ", " + args.y + ")";
-            throw new RUR.ReeborgError(
-                RUR.translate("Invalid position.").supplant({pos:position}));
-        }
-    } else {
-        if (args.x === undefined) args.x = "?";
-        if (args.y === undefined) args.y = "?";
+    if (args.x === undefined) args.x = "?";
+    if (args.y === undefined) args.y = "?";
+    if (!RUR.is_valid_position(args.x, args.y)) {
         position = "(" + args.x + ", " + args.y + ")";
         throw new RUR.ReeborgError(
             RUR.translate("Invalid position.").supplant({pos:position}));
@@ -54,26 +48,27 @@ RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_p
 /** @function set_nb_artefact
  * @memberof RUR
  * @instance
- * @summary **This function is intended for private use by developers.**
- * 
- *    This function adds a specified number of a named artefact of a 
- *    specified type (e.g. object, goal object) at
- *    a given location.
- *    
- *    
+ * @summary **This function is intended for private use by developers.
+ * It should not be called directly**
+ *
+ *    This function sets a specified number of a named artefact of a
+ *    specified type (e.g. object, goal object) at a given location.
+ *
+ *
  * @param {Object} args A Javascript object (similar to a Python dict) that
  *                      holds the relevant attribute.
  *
  * @param {string} args.name  The name of the object to be added; an error
  *    will be thrown if it is missing.
  *
- * @param {integer} args.number  The number of artefacts to be added; an error
- *    will be thrown if it is missing or if its value is not an integer 
- *    strictly greater than zero.
- *    
+ * @param {integer|string} args.number  The number of artefacts to be set; an error
+ * will be thrown if it is missing. If it is zero, any artefact already present
+ * will be removed. String arguments are accepted so that `"all"` for
+ * "objects as goals" and `"min-max"` for range of objects can be set.
+ *
  * @param {string} args.type  The type of the object to be added; an error
  *    will be thrown if it is missing.
- * 
+ *
  * @param {integer} args.x The `x` coordinate where the object should be found.
  *                        If it is missing, or not within the world boundaries,
  *                        or is not an integer, an error will be thrown.
@@ -85,21 +80,20 @@ RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_p
  * @param {boolean} [args.goal] If specified, indicates that it is a goal that
  *                        must be set.
  *
- * 
- * @param {string} [args.valid_names] A list containing the name of the 
- *                        acceptable objects. If this argument is specified, 
+ *
+ * @param {string} [args.valid_names] A list containing the name of the
+ *                        acceptable objects. If this argument is specified,
  *                        `args.name` must be found in that list, otherwise an
  *                        error will be thrown.
  *
- * 
+ *
  * @throws Will throw an error if `name` attribute is not specified.
  * @throws Will throw an error if `type` attribute is not specified.
  * @throws Will throw an error if `number` attribute is not specified.
- * @throws Will throw an error if `number` attribute is not a positive integer
  * @throws Will throw an error if a valid position is not specified.
  *
  * @see {@link UnitTest#test_artefact} for unit tests.
- *  
+ *
  */
 RUR.set_nb_artefact = function (args) {
     "use strict";
@@ -108,8 +102,6 @@ RUR.set_nb_artefact = function (args) {
     ensure_common_required_args_present(args);
     if (args.number === undefined) {
         throw new Error("Number of objects must be specified.");
-    } else if(!RUR.is_positive_integer(args.number)) {
-        throw new Error("Number must be a positive integer.");    
     }
 
     coords = args.x + "," + args.y;
@@ -119,10 +111,25 @@ RUR.set_nb_artefact = function (args) {
         base = world.goal;
     }
 
+    // While it may not be as efficient, the logic
+    // is easier if we proceed as though we need to add
+    // artefact, and then remove and cleanup if the number
+    // of artefact is zero
     RUR.utils.ensure_key_for_obj_exists(base, args.type);
     RUR.utils.ensure_key_for_obj_exists(base[args.type], coords);
     base[args.type][coords][args.name] = args.number;
-
+    if (args.number === 0) {
+        delete base[args.type][coords][args.name];
+        // remove any empty remaining JS object, up to world.
+        if (Object.keys(base[args.type]).length === 0) {
+            delete base[args.type];
+            if (args.goal) {
+                if (Object.keys(world.goal).length === 0){
+                    delete world.goal;
+                }
+            }
+        }
+    }
 };
 
 
@@ -130,12 +137,12 @@ RUR.set_nb_artefact = function (args) {
  * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
- * 
- *    This function adds a specified (named) artefact of a 
+ *
+ *    This function adds a specified (named) artefact of a
  *    specified type (e.g. object, background tile, wall, etc.) at
  *    a given location, potentially subject to some limitations.
- *    
- *    
+ *
+ *
  * @param {Object} args A Javascript object (similar to a Python dict) that
  *                      holds the relevant attribute.
  *
@@ -154,8 +161,8 @@ RUR.set_nb_artefact = function (args) {
  *                        or is not an integer, an error will be thrown.
  *
  *
- * @param {string} [args.valid_names] A list containing the name of the 
- *                        acceptable objects. If this argument is specified, 
+ * @param {string} [args.valid_names] A list containing the name of the
+ *                        acceptable objects. If this argument is specified,
  *                        `args.name` must be found in that list, otherwise an
  *                        error will be thrown.
  *
@@ -172,7 +179,7 @@ RUR.set_nb_artefact = function (args) {
  * of artefact is found at that location.
  *
  * @see {@link UnitTest#test_artefact} for unit tests.
- *  
+ *
  */
 RUR.add_artefact = function (args) {
     "use strict";
@@ -189,7 +196,7 @@ RUR.add_artefact = function (args) {
     // This should not happen if functions upstream always
     // use args.single consistently
     if (args.single && base[args.type] !== undefined &&
-               base[args.type][coords] !== undefined && 
+               base[args.type][coords] !== undefined &&
                base[args.type][coords].length > 1) {
         throw new Error("Cannot replace: more than one artefact present.");
     }
@@ -222,11 +229,11 @@ RUR.add_artefact = function (args) {
  * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
- * 
- *    This function returns the number of a specified (named) artefact of a 
+ *
+ *    This function returns the number of a specified (named) artefact of a
  *    specified type (e.g. object, background tile, wall, etc.) at
  *    a given location.
- *    
+ *
  * @param {Object} args A Javascript object (similar to a Python dict) that
  *                      holds the relevant attribute.
  *
@@ -243,12 +250,12 @@ RUR.add_artefact = function (args) {
  * @param {integer} args.y The `y` coordinate where the object should be found.
  *                        If it is missing, or not within the world boundaries,
  *                        or is not an integer, an error will be thrown.
- *                        
+ *
  * @param {boolean} [args.goal] If specified, indicates that it is a goal-type
  *                        object that must be found.
  *
- * @param {array} [args.valid_names] A list containing the name of the 
- *                        acceptable objects. If this argument is specified, 
+ * @param {array} [args.valid_names] A list containing the name of the
+ *                        acceptable objects. If this argument is specified,
  *                        `args.name` must be found in that list, otherwise an
  *                        error will be thrown.
  *
@@ -258,7 +265,7 @@ RUR.add_artefact = function (args) {
  * @throws Will throw an error if a valid position is not specified.
  *
  * @see {@link UnitTest#test_artefact} for unit tests.
- *  
+ *
  */
 RUR.get_nb_artefact = function(args) {
     "use strict";
@@ -268,11 +275,11 @@ RUR.get_nb_artefact = function(args) {
 
     coords = args.x + "," + args.y;
     if (args.goal) {
-        if (world.goal === undefined || 
+        if (world.goal === undefined ||
             world.goal[args.type] === undefined ||
             world.goal[args.type][coords] === undefined) {
             return 0;
-        } else { 
+        } else {
             container = world.goal[args.type][coords];
         }
     } else if (world[args.type] === undefined ||
@@ -296,7 +303,7 @@ RUR.get_nb_artefact = function(args) {
         }
     } else { // should never happen
         throw new Error("Unknown container type; need Object or Array");
-    }   
+    }
 };
 
 /** @function get_artefacts
@@ -307,10 +314,10 @@ RUR.get_nb_artefact = function(args) {
  *    **Important:** This is the only function named with artefacts in plural
  *    form as other deal with a single artefact at a time, whereas this one
  *    returns a container that can contain many artefacts.
- * 
+ *
  *    This function returns a container (Javascript Object or Array) with the
- *    artefacts found at a location. 
- *    
+ *    artefacts found at a location.
+ *
  * @param {Object} args A Javascript object (similar to a Python dict) that
  *                      holds the relevant attribute.
  *
@@ -325,7 +332,7 @@ RUR.get_nb_artefact = function(args) {
  * @param {integer} args.y The `y` coordinate where the object should be found.
  *                        If it is missing, or not within the world boundaries,
  *                        or is not an integer, an error will be thrown.
- *                        
+ *
  * @param {boolean} [args.goal] If specified, indicates that it is a goal-type
  *                        kind that we are interested about.
  *
@@ -336,7 +343,7 @@ RUR.get_nb_artefact = function(args) {
  * @throws Will throw an error if a valid position is not specified.
  *
  * @see {@link UnitTest#test_artefact} for unit tests.
- *  
+ *
  */
 RUR.get_artefacts = function(args) {
     "use strict";
@@ -349,11 +356,11 @@ RUR.get_artefacts = function(args) {
 
     coords = args.x + "," + args.y;
     if (args.goal) {
-        if (world.goal === undefined || 
+        if (world.goal === undefined ||
             world.goal[args.type] === undefined ||
             world.goal[args.type][coords] === undefined) {
             return null;
-        } else { 
+        } else {
             container = world.goal[args.type][coords];
         }
     } else if (world[args.type] === undefined ||
@@ -363,7 +370,7 @@ RUR.get_artefacts = function(args) {
         container = world[args.type][coords];
     }
     // return a copy so that we cannot accidently modify the original object.
-    return JSON.parse(JSON.stringify(container)); 
+    return JSON.parse(JSON.stringify(container));
 };
 
 
@@ -372,8 +379,8 @@ RUR.get_artefacts = function(args) {
  * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
- * 
- *    This function removes a specified (named) artefact of a 
+ *
+ *    This function removes a specified (named) artefact of a
  *    specified type (e.g. object, background tile, wall, etc.) at
  *    a given location. For artefacts that can have more than 1 instance
  *    at a given location, it can either remove a single instance or all
@@ -383,7 +390,7 @@ RUR.get_artefacts = function(args) {
  *    pruned (removed). If nothing is left for that kind, it is removed.
  *    If nothing is left but an empty goal, the goal object is removed
  *    as well.
- *    
+ *
  * @param {Object} args A Javascript object (similar to a Python dict) that
  *                      holds the relevant attribute.
  *
@@ -400,9 +407,16 @@ RUR.get_artefacts = function(args) {
  * @param {integer} args.y The `y` coordinate where the object should be found.
  *                        If it is missing, or not within the world boundaries,
  *                        or is not an integer, an error will be thrown.
- *                        
+ *
  * @param {boolean} [args.goal] If specified, indicates that it is a goal-type
  *                        object that must be found.
+ *
+ * @param {string} [args.number] Used for objects that can be manipulated by
+ * Reeborg (so that more than one can be found at a given location),
+ * this will result in `number` named
+ * artefact removed from that location; the default value of 1 does not
+ * need to be specified.  If a larger number of artefact are requested to
+ * be removed than are present, an error will be raised.
  *
  * @param {string} [args.all] If true, all instances of the named artefact
  *       will be removed; otherwise, their number will simply be reduced by 1..
@@ -414,13 +428,16 @@ RUR.get_artefacts = function(args) {
  *
  * @see {@link UnitTest#test_artefact} for unit tests.
  * @todo  Need to implement `args.all`
- *  
+ * @todo  Need to implement tests for  `args.all`
+ * @todo Need to implement `args.number`
+ * @todo Need to add full tests for `args.number`
+ *
  */
 RUR.remove_artefact = function (args) {
     "use strict";
-    var base, container, coords, index, world = RUR.get_world();
+    var base, container, coords, index, number, world = RUR.get_world();
 
-    // Calling get_nb_artefact will do all the required validation of arguments
+    // Calling get_nb_artefact will do all the required validation of basic arguments
     if (RUR.get_nb_artefact(args) === 0) {
         throw new Error("No artefact to remove");
     }
@@ -431,9 +448,14 @@ RUR.remove_artefact = function (args) {
     }
     coords = args.x + "," + args.y;
     container = base[args.type][coords];
+    if (args.number) {
+        number = args.number;
+    } else {
+        number = 1;
+    }
 
     if (Object.prototype.toString.call(container) == "[object Object]") {
-        container[args.name] -= 1;
+        container[args.name] -= number;
         if (container[args.name] === 0) {
             delete container[args.name];
         }
@@ -452,7 +474,7 @@ RUR.remove_artefact = function (args) {
         }
     } else { // should never happen
         throw new Error("Unknown container type; need Object or Array");
-    }  
+    }
 
     // remove any empty remaining JS object, up to world.
     if (Object.keys(base[args.type]).length === 0) {

@@ -6,8 +6,8 @@ require("./../programming_api/exceptions.js");
 /** @function add_new_thing
  * @memberof RUR
  * @instance
- * @summary This method makes it possible to add new `thing`s, represented
- * by an image which we call `thing`.
+ * @summary This method makes it possible to add new "things", represented
+ * by an image.
  *
  * If the name of an existing thing is specified again, it is replaced by a new
  * one which may have completely different characteristics.
@@ -18,12 +18,12 @@ require("./../programming_api/exceptions.js");
  *    images will be ready to be shown when a program is executed.
  *
  * @param {Object} thing A Javascript object (similar to a Python dict) that
- * describes the properties of the `thing`.
+ * describes the properties of the "thing".
  *
- * @param {string} thing.name  The name to be given to the `thing`; an exception
+ * @param {string} thing.name  The name to be given to the "thing"; an exception
  * will be raisd if it is missing.
  *
- * @param {string} [thing.info] Some information to be displayed about this `thing`
+ * @param {string} [thing.info] Some information to be displayed about this "thing"
  * when a user clicks on "World Info" and then on this thing on the world canvas.
  * It is highly recommended to include this.
  *
@@ -31,10 +31,10 @@ require("./../programming_api/exceptions.js");
  *  **Either `thing.url` or `thing.images` must be specified.**
  *
  * @param {strings[]} [thing.images] If multiple images are used
- * (for animated `thing`s), this array (list) contains the various URLs.
+ * (for animated "things"), this array (list) contains the various URLs.
  *  **Either `thing.url` or `thing.images` must be specified.**
  *
- * @param {string} [thing.selection_method]  For animated `thing`s; choose one of
+ * @param {string} [thing.selection_method]  For animated "things"; choose one of
  *
  *  * `"sync"`,
  *  * `"ordered"`,
@@ -45,20 +45,20 @@ require("./../programming_api/exceptions.js");
  *  If the selection method is not recognized, `"random"` will
  *  be used, and no error will be thrown.
  *
- * @param {object} [thing.goal]  If the `thing`s can be used for an object that can be
+ * @param {object} [thing.goal]  If the "things" can be used for an object that can be
  * picked up or put down by Reeborg, includes `thing.goal` to describe the image(s),
  * following the same pattern as above (`thing.goal.url`, `thing.goal.images`,
  * `thing.goal.selection_method`).
  *
- * @param {string} [thing.fatal] Program ends if Reeborg steps on such a `thing`s with
+ * @param {string} [thing.fatal] Program ends if Reeborg steps on such a "thing" with
  * a value that is equivalent to "true" when used as background things or obstacles,
  * unless a bridge offering the adequate protection is present or an object
  * carried by Reeborg has the right protection defined.
- * This value is usually set to the name of the `thing`s so as to facilitate
+ * This value is usually set to the name of the "things" so as to facilitate
  * defining objects or bridges which offer the right protection.
  *
  * @param {string} [thing.detectable] If `thing.fatal` and  `thing.detectable` are
- * both equivalent to "true", Reeborg can detect this `thing` with
+ * both equivalent to "true", Reeborg can detect this "thing" with
  * `front_is_clear()` and `right_is_clear()` if it is set as an obstacle
  * or a background thing.
  *
@@ -67,15 +67,15 @@ require("./../programming_api/exceptions.js");
  * when they are carried.
  *
  * @param {boolean} [thing.solid] If sets to `True`, prevents a pushable object
- * from sliding onto this `thing`s when used as a background thing or as an
+ * from sliding onto this "things" when used as a background thing or as an
  * obstacle.
  *
- * @param {integer} [thing.x_offset] By default, `thing`s are drawn on a set grid.
- * Specifying a value for `x_offset` result in the `thing`s drawn off grid, by a
+ * @param {integer} [thing.x_offset] By default, "things" are drawn on a set grid.
+ * Specifying a value for `x_offset` result in the "things" drawn off grid, by a
  * number of pixel equal to `x_offset`.
  *
- * @param {integer} [thing.y_offset] By default, `thing`s are drawn on a set grid.
- * Specifying a value for `y_offset` result in the `thing` drawn off grid, by a
+ * @param {integer} [thing.y_offset] By default, "things" are drawn on a set grid.
+ * Specifying a value for `y_offset` result in the "thing" drawn off grid, by a
  * number of pixel equal to `y_offset`.
  *
  * @throws Will throw an error if `name` attribute is not specified.
@@ -83,12 +83,12 @@ require("./../programming_api/exceptions.js");
  *         or the `images` attribute.)
  *
  * @example
- * // This first example shows how to set various `thing`s;
+ * // This first example shows how to set various "things";
  * // the mode will be set to Python and the highlighting
  * // will be turned off
  * World("/worlds/examples/thing1.json", "Example 1")
  *
- * // A second example shows how one can change `thing`s behaviour.
+ * // A second example shows how one can change "things" behaviour.
  * World("/worlds/examples/thing2.json", "Example 2")
  */
 RUR.TILES = {};
@@ -133,15 +133,15 @@ function create_images(obj) {
  * @memberof RUR
  * @instance
  *
- * @summary This method shows all known `thing`s in a table. If a language
+ * @summary This method shows all known "things" in a table. If a language
  * other than English is selected, the translated name appears as well; this
  * can be helpful to identify missing translations.
- * If multiple images are shown, it means that the `thing` is shown as an
+ * If multiple images are shown, it means that the "thing" is shown as an
  * animation.
- * Missing images in the **goal** column indicate that this `thing` cannot
+ * Missing images in the **goal** column indicate that this "thing" cannot
  * be used as an object to be picked up by Reeborg.
  *
- * @param {string} [property] If this argument is provided, only `thing`s for
+ * @param {string} [property] If this argument is provided, only "things" for
  * which this property is defined will be shown.
  *
  * @example
@@ -195,10 +195,10 @@ RUR.show_all_things = function (property) {
  * @memberof RUR
  * @instance
  *
- * @summary This method returns "true" if a `thing` has the stated property,
+ * @summary This method returns "true" if a "thing" has the stated property,
  * and "false" otherwise
  *
- * @param {string} name The name of the `thing`.
+ * @param {string} name The name of the "thing".
  *
  * @param {string} property
  *
@@ -225,12 +225,12 @@ RUR.has_property = function (name, property) {
  * @memberof RUR
  * @instance
  *
- * @summary This method returns the value of a given property.
+ * @summary This method returns the value of a given property for a "thing".
  * **Important:** the value shown will be the English default even if a
  * translation exists and might appear in other contexts, like the
  * "World Info".
  *
- * @param {string} name The name of the `thing`.
+ * @param {string} name The name of the "thing".
  *
  * @param {string} property
  *

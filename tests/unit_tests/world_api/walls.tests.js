@@ -2,7 +2,7 @@
  * @memberof UnitTest
  * @instance
 *
-* @desc The file listed below as the source contains unit tests for 
+* @desc The file listed below as the source contains unit tests for
 * all "walls" related methods.
 *
 */
@@ -24,119 +24,110 @@ require("../../../src/js/world_api/walls.js");
 
 /* testing exceptions =============================================*/
 
-test('get_walls: invalid position', function (assert) {  
-    assert.plan(3);  
+test('get_walls: invalid position', function (assert) {
+    assert.plan(2);
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     try {
         RUR.get_walls(0, 0);
     } catch (e) {
-        assert.equal(e.message, "(0, 0) is an invalid position.", "error message");
-        assert.equal(e.reeborg_shouts, "(0, 0) is an invalid position.", "reeborg_shouts");
+        assert.ok(e.reeborg_shouts, "reeborg_shouts");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();
 });
 
-test('is_wall: invalid position', function (assert) {  
+test('is_wall: invalid position', function (assert) {
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-    assert.plan(3);  
+    assert.plan(2);
     try {
         RUR.is_wall("north", 1, 100);
     } catch (e) {
-        assert.equal(e.message, "(1, 100) is an invalid position.", "error message");
-        assert.equal(e.reeborg_shouts, "(1, 100) is an invalid position.", "reeborg_shouts");
+        assert.ok(e.reeborg_shouts, "reeborg_shouts");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();
 });
 
 
-test('is_wall: invalid orientation', function (assert) {  
+test('is_wall: invalid orientation', function (assert) {
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-    assert.plan(3);  
+    assert.plan(2);
     try {
         RUR.is_wall("n", 1, 2);
     } catch (e) {
-        assert.equal(e.message, "'n' is an unknown orientation.", "error message");
-        assert.equal(e.reeborg_shouts, "'n' is an unknown orientation.", "reeborg_shouts");
+        assert.ok(e.reeborg_shouts, "reeborg_shouts");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();
 });
 
-test('add_wall: invalid position', function (assert) {  
+test('add_wall: invalid position', function (assert) {
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-    assert.plan(3);  
+    assert.plan(2);
     try {
         RUR.add_wall("north", 1, 100, true);  // test for goal wall
     } catch (e) {
-        assert.equal(e.message, "(1, 100) is an invalid position.", "error message");
-        assert.equal(e.reeborg_shouts, "(1, 100) is an invalid position.", "reeborg_shouts");
+        assert.ok(e.reeborg_shouts, "reeborg_shouts");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();
 });
 
-test('add_wall: invalid orientation', function (assert) {  
-    assert.plan(3);  
+test('add_wall: invalid orientation', function (assert) {
+    assert.plan(2);
     try {
         RUR.add_wall("n", 1, 2, true);
     } catch (e) {
-        assert.equal(e.message, "'n' is an unknown orientation.", "error message");
-        assert.equal(e.reeborg_shouts, "'n' is an unknown orientation.", "reeborg_shouts");
+        assert.ok(e.reeborg_shouts, "reeborg_shouts");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();
 });
 
-test('remove_wall: invalid position', function (assert) {  
+test('remove_wall: invalid position', function (assert) {
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-    assert.plan(3);  
+    assert.plan(2);
     try {
         RUR.remove_wall("north", 1, 100);
     } catch (e) {
-        assert.equal(e.message, "(1, 100) is an invalid position.", "error message");
-        assert.equal(e.reeborg_shouts, "(1, 100) is an invalid position.", "reeborg_shouts");
+        assert.ok(e.reeborg_shouts, "reeborg_shouts");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();
 });
 
-test('remove_wall: invalid orientation', function (assert) {  
+test('remove_wall: invalid orientation', function (assert) {
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-    assert.plan(3);  
+    assert.plan(2);
     try {
         RUR.remove_wall("n", 1, 2);
     } catch (e) {
-        assert.equal(e.message, "'n' is an unknown orientation.", "error message");
-        assert.equal(e.reeborg_shouts, "'n' is an unknown orientation.", "reeborg_shouts");
+        assert.ok(e.reeborg_shouts, "reeborg_shouts");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();
 });
 
-test('add_wall: twice at the same location', function (assert) {  
+test('add_wall: twice at the same location', function (assert) {
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-    assert.plan(3);  
+    assert.plan(2);
     try {
         RUR.add_wall("north", 1, 2);
         RUR.add_wall("north", 1, 2);
     } catch (e) {
-        assert.equal(e.message, "There is already a wall here!", "error message");
-        assert.equal(e.reeborg_shouts, "There is already a wall here!", "reeborg_shouts");
+        assert.ok(e.reeborg_shouts, "reeborg_shouts");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();
 });
 
-test('remove_wall: removing missing wall', function (assert) {  
+test('remove_wall: removing missing wall', function (assert) {
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-    assert.plan(3);  
+    assert.plan(2);
     try {
         RUR.remove_wall("north", 1, 2);
     } catch (e) {
-        assert.equal(e.message, "There is no wall to remove!", "error message");
-        assert.equal(e.reeborg_shouts, "There is no wall to remove!", "reeborg_shouts");
+        assert.ok(e.reeborg_shouts, "reeborg_shouts");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();
@@ -147,14 +138,14 @@ test('remove_wall: removing missing wall', function (assert) {
  end of testing cases that raise exceptions
  ========================================== */
 
-test('list empty walls', function (assert) {    
+test('list empty walls', function (assert) {
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     assert.deepEqual(RUR.get_walls(3, 3), [], "No walls present");
     assert.end();
 });
 
 
-test('Add and list walls', function (assert) {    
+test('Add and list walls', function (assert) {
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     assert.plan(8);
     RUR.add_wall("east", 3, 3);
@@ -174,7 +165,7 @@ test('Add and list walls', function (assert) {
     assert.end();
 });
 
-test('Add and get wall at', function (assert) {    
+test('Add and get wall at', function (assert) {
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.add_wall("east", 3, 3);  // west of (4, 3)
     RUR.add_wall("north", 3, 3);  // south of (3, 4)
@@ -189,7 +180,7 @@ test('Add and get wall at', function (assert) {
 });
 
 
-test('Add and list goal walls', function (assert) {    
+test('Add and list goal walls', function (assert) {
     var goal = true;
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.add_wall("east", 3, 3, goal);
@@ -209,7 +200,7 @@ test('Add and list goal walls', function (assert) {
     assert.end();
 });
 
-test('Add two walls, remove one and list walls', function (assert) {    
+test('Add two walls, remove one and list walls', function (assert) {
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.add_wall("east", 3, 3);
     RUR.add_wall("west", 3, 3);

@@ -34,21 +34,27 @@ RUR.add_object = function (name, x, y, options) {
     if (options === undefined) {
         args.number = 1;
     } else {
-        if (options.min !== undefined && options.max !== undefined &&
-            options.max > options.min) {
-            options.range = options.min + "-" + options.max;
-        } else if (options.goal && options.goal == "all") {
-            options.range = "all";
+        if (options.goal && options.goal == "all") {
+            options.number = "all";
+        } else if (options.min !== undefined) {
+            if (options.max !== undefined && options.max > options.min) {
+                options.number = options.min + "-" + options.max;
+            } else {
+                options.number = options.min;
+            }
+        } else if (options.number === undefined) {
+            options.number = 1
         }
         keys = Object.keys(options);
         for (k of keys) {
             args[k] = options[k];
         }
-        if (options.range === undefined && keys.indexOf("number") === -1) {
-            args["number"] = 1;
-        }
     }
-    RUR.add_artefact(args);
+    if (args.replace) {
+        RUR.set_nb_artefact(args);
+    } else {
+        RUR.add_artefact(args);
+    }
     RUR.record_frame("RUR.add_object", args);
 };
 
@@ -66,17 +72,20 @@ RUR.add_object = function (name, x, y, options) {
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no background object to remove
  *        at that location
- *        
+ *
  * @todo add test
  * @todo add examples
  * @todo deal with translation
  */
 RUR.remove_object = function (name, x, y, options) {
     "use strict";
-    var args;
+    var args, k, keys;
     args= {x:x, y:y, type:"objects", name:name};
-    if (options !== undefined && options.goal !== undefined) {
-        args.goal = options.goal;
+    if (options !== undefined) {
+        keys = Object.keys(options);
+        for (k of keys) {
+            args[k] = options[k];
+        }
     }
     try {
         RUR.remove_artefact(args);
@@ -93,15 +102,16 @@ RUR.remove_object = function (name, x, y, options) {
 };
 
 
-/** @function get_object
+/** @function get_objects
  * @memberof RUR
  * @instance
- * @summary This function gets the object name found at given location. Note that
- *    this could be an HTML colour.  If nothing is found at that location,
- *    `null` is returned (which is converted to `None` in Python programs.)
+ * @summary This function returns a Javascript Object/Python dict containing
+ * the names of the objects found at that location.
+ * If nothing is found at that location,
+ * `null` is returned (which is converted to `None` in Python programs.)
  *
- * @param {integer} x  Position of the object.
- * @param {integer} y  Position of the object.
+ * @param {integer} x  Position on the grid.
+ * @param {integer} y  Position on the grid.
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
@@ -109,23 +119,12 @@ RUR.remove_object = function (name, x, y, options) {
  * @todo add proper examples
  * @todo deal with translation
  * @todo make sure it returns the correct info
- * @example
- * // shows how to set various objects;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/object1.json", "Example 1")
  *
  */
 
-RUR.get_object = function (x, y) {
+RUR.get_objects = function (x, y) {
     "use strict";
-    var object, args = {x:x, y:y, type:"objects"};
-    object = RUR.get_artefacts(args);
-    if (object === null) {
-        return null;
-    } else {
-        return RUR.TILES[object[0]];
-    }
+    return RUR.get_artefacts({x:x, y:y, type:"objects"});
 };
 
 RUR.is_object = function (name, x, y, options) {
@@ -133,7 +132,7 @@ RUR.is_object = function (name, x, y, options) {
     var nb, args = {x:x, y:y, name:name, type:"objects"};
     if (options !== undefined && options.goal !== undefined) {
         args.goal = options.goal;
-    }    
+    }
     nb = RUR.get_nb_artefact(args);
     if (nb === 0) {
         return false;
@@ -142,3 +141,12 @@ RUR.is_object = function (name, x, y, options) {
     }
 };
 
+
+/** @function add_object_at_position
+ * @memberof RUR
+ * @instance
+ *
+ *
+ * @deprecated Use {@link RUR#add_object} instead.
+ */
+RUR.add_object_at_position = RUR.add_object;

@@ -17,12 +17,12 @@ require("./../editors/create.js");
 require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
 
-require("./../world_set/object.js");
+require("./../world_api/objects.js");
 require("./../world_set/goal_object.js");
 require("./../world_set/add_robot.js");
 require("./../world_set/give_object_to_robot.js");
 
-require("./../world_api/walls.js"); 
+require("./../world_api/walls.js");
 
 var edit_robot_menu = require("./../ui/edit_robot_menu.js");
 var dialog_add_object = require("./../dialogs/add_object.js").dialog_add_object;
@@ -392,15 +392,15 @@ function __toggle_wall (goal) {
         RUR.remove_wall(orientation, x, y, goal);
     } else {
         RUR.add_wall(orientation, x, y, goal);
-    }   
+    }
 }
 
 function toggle_wall () {
-    __toggle_wall(false); 
+    __toggle_wall(false);
 }
 
 function toggle_goal_wall () {
-    __toggle_wall(true); 
+    __toggle_wall(true);
 }
 
 function set_add_object_position () {

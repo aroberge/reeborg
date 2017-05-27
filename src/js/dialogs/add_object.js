@@ -2,7 +2,8 @@
 */
 
 require("./../rur.js");
-require("./../world_set/object.js");
+require("./../world_api/objects.js");
+// require("./../world_set/object.js");
 require("./../drawing/visible_world.js");
 var msg = require("./../../lang/msg.js");
 
@@ -21,7 +22,7 @@ exports.dialog_add_object = dialog_add_object = $("#dialog-add-object").dialog({
     modal: true,
     buttons: {
         OK: function () {
-            add_object();
+            set_nb_object();
         },
         Cancel: function() {
             dialog_add_object.dialog("close");
@@ -32,17 +33,12 @@ exports.dialog_add_object = dialog_add_object = $("#dialog-add-object").dialog({
     }
 });
 
-function add_object () {
+function set_nb_object () {
     "use strict";
-    var query, input_add_number_result, input_maximum_result;
-    input_add_number_result = parseInt($("#input-add-number").val(), 10);
-    input_maximum_result = parseInt($("#maximum-number").val(), 10);
-    if (input_maximum_result > input_add_number_result){
-        query =  input_add_number_result + "-" + input_maximum_result;
-    } else {
-        query = input_add_number_result;
-    }
-    RUR.set_nb_object_at_position(RUR.state.specific_object, RUR.state.x, RUR.state.y, query);
+    RUR.add_object(RUR.state.specific_object, RUR.state.x, RUR.state.y,
+        {min: parseInt($("#input-add-number").val(), 10),
+         max: parseInt($("#maximum-number").val(), 10),
+         replace: true})
     RUR.vis_world.refresh_world_edited();
     dialog_add_object.dialog("close");
     return true;

@@ -1,5 +1,6 @@
 require("./../drawing/visible_world.js");
-require("./../world_set/give_object_to_robot.js");
+// require("./../world_set/give_object_to_robot.js");
+require("./../world_api/objects.js");
 require("./../rur.js");
 
 var msg = require("./../../lang/msg.js");
@@ -29,17 +30,18 @@ exports.dialog_goal_object = dialog_goal_object = $("#dialog-goal-object").dialo
 });
 goal_objects = function () {
     "use strict";
-    var query, input_goal_number_result, all_objects_result;
-    input_goal_number_result = parseInt($("#input-goal-number").val(), 10);
-    all_objects_result = $("#all-objects").prop("checked");
-    if (all_objects_result){
-        query =  "all";
-    } else {
-        query = input_goal_number_result;
+    var goal;
+    if ( $("#all-objects").prop("checked") ){
+        goal =  "all";
     }
-    RUR.set_nb_goal_object_at_position(RUR.state.specific_object, RUR.state.x, RUR.state.y, query);
+    RUR.add_object(RUR.state.specific_object, RUR.state.x, RUR.state.y,
+        {min: parseInt($("#input-goal-number").val(), 10),
+         goal: goal})
     RUR.vis_world.refresh_world_edited();
-    dialog_goal_object.dialog("close");
+    dialog_add_object.dialog("close");
+
+
+
     return true;
 };
 goal_objects_form = dialog_goal_object.find("form").on("submit", function( event ) {
