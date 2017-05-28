@@ -259,26 +259,40 @@ RUR.vis_robot.new_robot_images = function (images) {
                 model = images.model;
                 break;
             default:
-                model = 0;
+                model = 3;
         }
     } else {
-        model = 0;
+        model = 3;
     }
-
     if (images.east !== undefined) {
         RUR.vis_robot.images[model].robot_e_img.src = images.east;
+        RUR.vis_robot.images[model].robot_e_img.onload = function() {
+            RUR.vis_world.refresh()
+        }
     }
     if (images.west !== undefined) {
         RUR.vis_robot.images[model].robot_w_img.src = images.west;
+        RUR.vis_robot.images[model].robot_w_img.onload = function() {
+            RUR.vis_world.refresh()
+        }
     }
     if (images.north !== undefined) {
         RUR.vis_robot.images[model].robot_n_img.src = images.north;
+        RUR.vis_robot.images[model].robot_n_img.onload = function() {
+            RUR.vis_world.refresh()
+        }
     }
     if (images.south !== undefined) {
         RUR.vis_robot.images[model].robot_s_img.src = images.south;
+        RUR.vis_robot.images[model].robot_s_img.onload = function() {
+            RUR.vis_world.refresh()
+        }
     }
     if (images.random !== undefined) {
         RUR.vis_robot.images[model].robot_random_img.src = images.random;
+        RUR.vis_robot.images[model].robot_random_img.onload = function() {
+            RUR.vis_world.refresh()
+        }
     }
 
     // change the image displayed in the html file.

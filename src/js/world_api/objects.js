@@ -146,10 +146,12 @@ RUR.is_object = function (name, x, y, options) {
  * @memberof RUR
  * @instance
  *
- *
  * @deprecated Use {@link RUR#add_object} instead.
  */
-RUR.add_object_at_position = RUR.add_object;
+RUR.add_object_at_position = function(name, x, y, number) { // Vincent Maille's book
+    RUR.add_object(name, x, y, {number:number});
+}
+
 
 /** @function add_goal_object_at_position
  * @memberof RUR
