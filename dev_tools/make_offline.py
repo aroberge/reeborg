@@ -45,7 +45,7 @@ online = 'reeborg_qunit_online.html'
 offline = 'reeborg_qunit_offline.html'
 
 qunit_css = """
-<link rel="stylesheet" href="qunit-2.0.1.css">
+<link rel="stylesheet" href="qunit-2.3.2.css">
 </head>
 """
 
@@ -65,7 +65,7 @@ qunit_scripts = """
 <script>
     var test_utils = {};
 </script>
-<script type="text/javascript" src="qunit-2.0.1.js"></script>
+<script type="text/javascript" src="qunit-2.3.2.js"></script>
 <script type="text/javascript" src="js/test_utils.js" defer></script>
 <script type="text/javascript" src="js/test_world_creation.js" defer></script>
 <script type="text/javascript" src="js/all_qunit_tests.js" defer></script>
