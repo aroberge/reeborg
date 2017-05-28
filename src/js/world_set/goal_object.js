@@ -11,7 +11,7 @@ require("./../translator.js");
 * as a goal at a certain location.
 * By **object** we mean a type of object that can be taken or put down by Reeborg.
 *
- * @param {string} specific_object The name of the object type ; e.g. `"token"` 
+ * @param {string} specific_object The name of the object type ; e.g. `"token"`
  * @param {integer} x - Position of the object; must be greater than zero
  * @param {integer} y - Position of the object; must be greater than zero
  * @param {integer} nb - Number of desired objects at that location;
@@ -77,12 +77,3 @@ RUR.set_nb_goal_object_at_position = function (specific_object, x, y, nb){
         RUR.record_frame("debug", "set_nb_goal_object_at_position");
     } catch (e) {}
 };
-
-/** @function add_goal_object_at_position
- * @memberof RUR
- * @instance
- *
- *
- * @deprecated Use {@link RUR#set_nb_goal_object_at_position} instead.
- */
-RUR.add_goal_object_at_position = RUR.set_nb_goal_object_at_position;

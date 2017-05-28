@@ -202,12 +202,12 @@ RUR.show_all_things = function (property) {
  *
  * @param {string} property
  *
- * @example
- * "Use Python for this example"
+ * @example {@lang python}
+ * # Python example
  * print(RUR.has_property("water", "fatal"))
  *
  * @example
- * "Use Javascript for this example"
+ * // Javascript example
  * write(RUR.has_property("water", "fatal"))
  */
 RUR.has_property = function (name, property) {

@@ -1,0 +1,142 @@
+{
+  "robots": [
+    {
+      "x": 2,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {
+        "fromage": 17,
+        "poison": 13
+      },
+      "_orientation": 0,
+      "start_positions": [
+        [
+          2,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {
+    "8,10": [
+      "east"
+    ],
+    "10,9": [
+      "north"
+    ],
+    "9,9": [
+      "east"
+    ],
+    "9,7": [
+      "north"
+    ],
+    "9,8": [
+      "east"
+    ],
+    "8,7": [
+      "east"
+    ],
+    "8,6": [
+      "north"
+    ],
+    "7,6": [
+      "east"
+    ],
+    "7,5": [
+      "north"
+    ],
+    "6,5": [
+      "north"
+    ],
+    "5,5": [
+      "east"
+    ],
+    "5,4": [
+      "east"
+    ],
+    "5,3": [
+      "north"
+    ],
+    "4,3": [
+      "east"
+    ],
+    "4,2": [
+      "east"
+    ],
+    "4,1": [
+      "north"
+    ],
+    "3,1": [
+      "east"
+    ],
+    "1,1": [
+      "north"
+    ],
+    "2,1": [
+      "north"
+    ],
+    "2,2": [
+      "east"
+    ],
+    "3,2": [
+      "north"
+    ],
+    "3,3": [
+      "east"
+    ],
+    "3,4": [
+      "east"
+    ],
+    "4,4": [
+      "north"
+    ],
+    "4,5": [
+      "east"
+    ],
+    "4,6": [
+      "east"
+    ],
+    "5,6": [
+      "north"
+    ],
+    "6,6": [
+      "north"
+    ],
+    "6,7": [
+      "east"
+    ],
+    "7,7": [
+      "north"
+    ],
+    "7,8": [
+      "east"
+    ],
+    "8,8": [
+      "north"
+    ],
+    "8,9": [
+      "east"
+    ]
+  },
+  "description": "A simple, empty world, ready for Reeborg to explore.\n<br>--<br><em>Un simple monde vide, que Reeborg peut explorer à sa guise.</em>",
+  "small_tiles": false,
+  "rows": 10,
+  "cols": 10,
+  "objects": {},
+  "goal": {
+    "possible_positions": [
+      [
+        10,
+        10
+      ]
+    ],
+    "position": {
+      "image": "racing_flag",
+      "x": 10,
+      "y": 10
+    }
+  },
+  "pre": "\nfrom random import choice\n\nm = choice(['a','b','c','d'])\nm = 'http://prototheque.free.fr/ellipses/robots/L4'+m+'.json'\nMonde(m,\"L4\")\n"
+}

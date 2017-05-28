@@ -18,7 +18,6 @@ require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
 
 require("./../world_api/objects.js");
-require("./../world_set/goal_object.js");
 require("./../world_set/add_robot.js");
 require("./../world_set/give_object_to_robot.js");
 

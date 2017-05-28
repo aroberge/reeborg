@@ -231,7 +231,6 @@ QUnit.test("Tokens", function(assert) {
     var frames, last_frame, base_url, world_file;
     var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
-    test_utils.set_human_language("en");
 
     world_file = "tokens1.json";
     assert.ok(test_utils.eval_python(base_url + world_file, "/tests/functional_tests/programs/tokens1234_en.py").success,
@@ -270,7 +269,6 @@ QUnit.test("Rain", function(assert) {
     var frames, last_frame, base_url, world_file;
     var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
-    test_utils.set_human_language("en");
 
     world_file = "rain1.json";
     assert.ok(test_utils.eval_python(base_url + world_file, "/tests/functional_tests/programs/rain_en.py").success,
@@ -294,7 +292,6 @@ QUnit.test("Newspaper", function(assert) {
     var frames, last_frame, base_url, world_file;
     var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
-    test_utils.set_human_language("en");
 
     world_file = "newspaper1.json";
     assert.ok(test_utils.eval_python(base_url + world_file, "/tests/functional_tests/programs/newspaper_en.py").success,
@@ -322,7 +319,6 @@ QUnit.test("Storm 1", function(assert) {
     var frames, last_frame, base_url, world_file;
     var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
-    test_utils.set_human_language("en");
 
     world_file = "storm1.json";
 
@@ -344,9 +340,8 @@ QUnit.test("Storm 1", function(assert) {
 QUnit.test("Storm 2; also tests library", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
-    var done = assert.async();    
+    var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
-    test_utils.set_human_language("en");
 
     // loading library indirectly
     test_utils.load_program("/tests/functional_tests/programs/storm_library_en.py");
@@ -373,7 +368,6 @@ QUnit.test("Storm 3; also tests library", function(assert) {
     var frames, last_frame, base_url, world_file;
     var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
-    test_utils.set_human_language("en");
     world_file = "storm3.json";
     // loading library indirectly
     test_utils.load_program("/tests/functional_tests/programs/storm_library_en.py");
@@ -381,7 +375,6 @@ QUnit.test("Storm 3; also tests library", function(assert) {
 
     // Need to use run_python instead of eval_python to have initially
     // random values set.
-    test_utils.set_human_language("en"); // make sure it is set correctly
     frames = test_utils.run_python(base_url + world_file, "/tests/functional_tests/programs/storm3_en.py");
     last_frame = frames[frames.length-1];
     assert.deepEqual(last_frame.world.robots[0].objects, {}, "Testing storm3: no objects carried.");

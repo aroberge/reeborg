@@ -1,0 +1,27 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "start_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": "A simple, empty world, ready for Reeborg to explore.\n<br>--<br><em>Un simple monde vide, que Reeborg peut explorer à sa guise.</em>",
+  "small_tiles": false,
+  "rows": 1,
+  "cols": 14,
+  "pre_code": "import random \npense(0)\n\n__prend = prend\n\ndef prend(obj=None):\n    if 'carotte' in objet_ici(obj) :\n        raise ReeborgError(\"Je n'aime pas les carottes !<img src='http://prototheque.free.fr/ellipses/robots/images/singe_perdu100.png'>\")\n    else : \n        __prend(obj)\n        \nL = list(range(2,14))\nfor i in range(4):\n    x = random.choice(L)\n    RUR.add_object_at_position(\"banane\", x, 1, 1)\n    L.remove(x)\nfor i in range(random.randint(2,4)):\n    x = random.choice(L)\n    RUR.add_object_at_position(\"carotte\", x, 1, 1)\n    L.remove(x)\nRUR.record_frame()\nstyle_de_trace('invisible')\npense(200)\n",
+  "onload": "nouvelles_images_de_robot({\n    \"ouest\":\"http://prototheque.free.fr//ellipses/robots/images/singe.png\",\n    \"est\": \"http://prototheque.free.fr//ellipses/robots/images/singe.png\",\n    \"nord\": \"http://prototheque.free.fr//ellipses/robots/images/singe.png\",\n    \"sud\": \"http://prototheque.free.fr//ellipses/robots/images/singe.png\"\n})\n",
+  "post_code": "if transporte('banane') > 0 : \n    raise ReeborgError(\"Il reste des bananes dans votre sac.\")\ninfo = InfoSatellite().carte_du_monde['objects']\nfor i in range(1,13) : \n    k = str(i)+',1'\n    if k in info and 'banana' in info[k] : \n        raise ReeborgError(\"Il reste des bananes sur le trajet.\")\nprint_html(\"Mission accomplie<br><img src='http://prototheque.free.fr/ellipses/robots/images/singe100.png'>\")   "
+}

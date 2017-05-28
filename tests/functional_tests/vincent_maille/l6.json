@@ -1,0 +1,19 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0
+    }
+  ],
+  "walls": {},
+  "rows": 10,
+  "cols": 10,
+  "description": "A simple, empty world, ready for Reeborg to explore.\n<br>--<br><em>Un simple monde vide, que Reeborg peut explorer à sa guise.</em>",
+  "small_tiles": false,
+  "pre": "from random import choice\n\nm = choice(['a','b','c','d'])\nm = 'http://prototheque.free.fr/ellipses/robots/L6'+m+'.json'\nMonde(m)\n"
+}

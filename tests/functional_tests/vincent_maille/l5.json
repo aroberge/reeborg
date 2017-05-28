@@ -1,0 +1,58 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {
+        "saucisse": 26
+      },
+      "_orientation": 0,
+      "start_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": "Un simple monde vide, que Reeborg peut explorer à sa guise.\n",
+  "small_tiles": false,
+  "rows": 5,
+  "cols": 7,
+  "onload": "nouvelles_images_de_robot({\n    \"ouest\":\"http://prototheque.free.fr/ellipses/robots/images/bobyO.png\",\n    \"est\": \"http://prototheque.free.fr/ellipses/robots/images/bobyE.png\",\n    \"nord\": \"http://prototheque.free.fr/ellipses/robots/images/bobyN.png\",\n    \"sud\": \"http://prototheque.free.fr/ellipses/robots/images/bobyS.png\"}\n);\n\nRUR.add_object_image(\"saucisse\", \"http://prototheque.free.fr/ellipses/robots/images/saucisse.png\", \"http://prototheque.free.fr/ellipses/robots/images/panier.png\")\n",
+  "objects": {
+    "5,6": {
+      "saucisse": 1
+    },
+    "7,6": {
+      "saucisse": 1
+    },
+    "3,10": {
+      "saucisse": 1
+    },
+    "1,12": {
+      "saucisse": 1
+    },
+    "5,10": {
+      "saucisse": 1
+    }
+  },
+  "goal": {
+    "possible_positions": [
+      [
+        1,
+        1
+      ]
+    ],
+    "position": {
+      "image": "racing_flag",
+      "x": 1,
+      "y": 1
+    }
+  },
+  "pre": "from random import randint \n\n_xm = randint(5, 10)\n_ym = randint(5, 12)\nRUR.vis_world.compute_world_geometry(_xm, _ym)\n\n# precode     \nimport random\n\nL = []\nfor n in range(random.randint(7,11)): \n    x = random.randint(1,_xm) \n    y = random.randint(1,_ym) \n    if not (x,y) in L : \n        L.append((x,y))\n        RUR.add_object_at_position(\"saucisse\",x,y,1) \nRUR.record_frame()\nstyle_de_trace('invisible')\n"
+}

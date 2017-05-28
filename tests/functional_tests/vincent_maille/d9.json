@@ -1,0 +1,21 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 2,
+      "_prev_orientation": 2,
+      "objects": {},
+      "_orientation": 3
+    }
+  ],
+  "walls": {},
+  "description": "Emmener le robot tout en haut !",
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 1,
+  "background_image": "http://prototheque.free.fr//ellipses/robots/images/ciel.png",
+  "pre_code": "style_de_trace('invisible')\n_TaG = tourne_a_gauche\n_AV = avance\ndef tourne_a_gauche() : \n    raise ReeborgError(\"Vous ne pouvez pas défier la gravité\")\n\ndef avance() : \n    _AV()\n    reeborg = robot_par_defaut().body\n    if reeborg.y == 12 :\n        pense(0)\n        _TaG()\n        _TaG()\n        for i in range(11) : \n            avance()",
+  "onload": "nouvelles_images_de_robot({\n        \"ouest\":\"http://prototheque.free.fr/ellipses/robots/images/ballonC.png\",\n        \"est\": \"http://prototheque.free.fr/ellipses/robots/images/ballonC.png\",\n        \"nord\": \"http://prototheque.free.fr/ellipses/robots/images/ballon.png\",\n        \"sud\": \"http://prototheque.free.fr/ellipses/robots/images/ballonC.png\"\n})\n"
+}

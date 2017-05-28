@@ -1,5 +1,4 @@
 require("./../drawing/visible_world.js");
-// require("./../world_set/give_object_to_robot.js");
 require("./../world_api/objects.js");
 require("./../rur.js");
 
@@ -36,12 +35,9 @@ goal_objects = function () {
     }
     RUR.add_object(RUR.state.specific_object, RUR.state.x, RUR.state.y,
         {min: parseInt($("#input-goal-number").val(), 10),
-         goal: goal})
+         goal: goal, replace: true})
     RUR.vis_world.refresh_world_edited();
-    dialog_add_object.dialog("close");
-
-
-
+    dialog_goal_object.dialog("close");
     return true;
 };
 goal_objects_form = dialog_goal_object.find("form").on("submit", function( event ) {

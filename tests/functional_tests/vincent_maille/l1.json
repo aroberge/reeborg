@@ -1,0 +1,25 @@
+{
+  "robots": [
+    {
+      "x": 5,
+      "y": 7,
+      "_prev_x": 5,
+      "_prev_y": 6,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 1,
+      "start_positions": [
+        [
+          5,
+          7
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": "A simple, empty world, ready for Reeborg to explore.\n<br>--<br><em>Un simple monde vide, que Reeborg peut explorer à sa guise.</em>",
+  "small_tiles": false,
+  "rows": 7,
+  "cols": 5,
+  "pre_code": "from random import randint \n\nx = randint(4, 10)\ny = randint(4, 10)\nRUR.vis_world.compute_world_geometry(x, y)"
+}

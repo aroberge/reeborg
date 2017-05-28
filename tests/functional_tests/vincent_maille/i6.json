@@ -1,0 +1,28 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 3,
+      "objects": {},
+      "_orientation": 0,
+      "start_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": "A simple, empty world, ready for Reeborg to explore.\n<br>--<br><em>Un simple monde vide, que Reeborg peut explorer à sa guise.</em>",
+  "small_tiles": false,
+  "rows": 1,
+  "cols": 14,
+  "pre_code": "import random\nstyle_de_trace('invisible')\n# Pour que le joueur verifie\n# Regler nb instructions max\n_nbt, _nbm = 0, 2\nn = random.randint(6,12)\nG, B, D = [], [], []\nfor _ in range(n) : \n    G.append(random.randint(25,60))\nRUR.add_object_at_position(\"sac\",1,1,n) \nRUR.record_frame()\n__prend = prend\n__avance = avance\n__depose = depose\nprint ('Pour information, il y a',n,'sacs de poids :')\nprint (G)\nn = 0\nfor i in range(len(G)-1,-1,-1) : \n    n = n + G[i]\n    if n > 100 : \n        n = G[i]\n        _nbm = _nbm + 2\n   \ndef pese() : \n    RUR.record_frame()\n    reeborg = robot_par_defaut().body\n    if objet_ici() == None : \n        raise ReeborgError(\"Il n'y a rien à peser.\")\n    else :\n        if reeborg.x == 1 : \n            print(\"Le premier sac ici pèse\",G[-1],\"Kg\")\n            return G[-1]\n        else :\n            print(\"Le prochain sac pèse\",D[-1],\"Kg\")\n            return D[-1]\n                \ndef prend(obj=None) : \n    reeborg = robot_par_defaut().body\n    if reeborg.x == 1 : \n        __prend(obj)\n        B.append(G.pop())\n    if reeborg.x == 14 : \n        __prend(obj)\n        B.append(D.pop())\n\ndef depose(obj=None) : \n    reeborg = robot_par_defaut().body\n    if reeborg.x == 1 : \n        __depose(obj)\n        G.append(B.pop())\n    else :\n        if reeborg.x == 14 : \n            __depose(obj)\n            D.append(B.pop())\n        else  :\n            raise ReeborgError(\"PLOUF !\")\n                    \ndef avance() : \n    global _nbt\n    __avance()\n    reeborg = robot_par_defaut().body\n    if reeborg.x == 3 : \n        _nbt = _nbt + 1\n    if reeborg.x > 1 and reeborg.x < 14 : \n        if sum(B) > 100 : \n            raise ReeborgError(\"Le bateau a coulé...\")\n",
+  "post_code": "if len(B) == 0 and len(G) == 0 : \n    if _nbt > _nbm : \n        raise ReeborgError(\"On pouvait faire plus rapidement...\")\n    else : \n        print (\"Mission accomplie !\")\nelse : \n    raise ReeborgError(\"Il reste du riz.\")\n    \n",
+  "onload": "RUR.add_object_image(\"sac\", \"http://prototheque.free.fr/ellipses/robots/images/riz.png\",\"http://prototheque.free.fr//ellipses/robots/images/riz.png\")\nnouvelles_images_de_robot({\n    \"ouest\":\"http://prototheque.free.fr//ellipses/robots/images/bateau400_o.png\",\n    \"est\": \"http://prototheque.free.fr//ellipses/robots/images/bateau400_e.png\",\n    \"nord\": \"http://prototheque.free.fr//ellipses/robots/images/bateau400_n.png\",\n    \"sud\": \"http://prototheque.free.fr//ellipses/robots/images/bateau400_s.png\"\n})",
+  "background_image": "http://prototheque.free.fr/ellipses/robots/images/fond_loup.png"
+}

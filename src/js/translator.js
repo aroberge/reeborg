@@ -31,7 +31,7 @@ RUR.translation_to_english = RUR.en_to_en;
 RUR.translate = function (s) {
     if (RUR.untranslated[s]) {
         return s;
-    } else if (RUR.translation !== undefined && RUR.translation[s] !== undefined) {
+    } else if (RUR.translation[s] !== undefined) {
         return RUR.translation[s];
     } else {
         console.warn("Translation needed for " + s);

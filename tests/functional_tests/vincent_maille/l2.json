@@ -1,0 +1,28 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {
+        "triangle": 1
+      },
+      "_orientation": 0,
+      "start_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": "A simple, empty world, ready for Reeborg to explore.\n<br>--<br><em>Un simple monde vide, que Reeborg peut explorer à sa guise.</em>",
+  "small_tiles": false,
+  "rows": 10,
+  "cols": 8,
+  "pre": "from random import randint \n\n_newx = 2*randint(1, 5)+1\n_newy = 2*randint(1, 5)+1\nRUR.vis_world.compute_world_geometry(_newx, _newy)",
+  "post": "if transporte('triangle') > 0 :\n    raise ReeborgError(\"Il me reste encore un objet\")\n\nreeborg = robot_par_defaut().body\nif reeborg.x != _newx // 2  + 1 or reeborg.y != _newy // 2 + 1:\n    raise ReeborgError(\"Je ne suis pas sur la bonne case\")\n\nraise ReeborgSuccess(\"Mission accomplie.\")"
+}

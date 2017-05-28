@@ -1,0 +1,28 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "start_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": "A simple, empty world, ready for Reeborg to explore.\n<br>--<br><em>Un simple monde vide, que Reeborg peut explorer à sa guise.</em>",
+  "small_tiles": false,
+  "rows": 1,
+  "cols": 14,
+  "pre_code": "RUR.add_object_at_position(\"chou\",1,1,1) \nRUR.add_object_at_position(\"chevre\",1,1,1) \nRUR.add_object_at_position(\"loup\",1,1,1) \nRUR.record_frame()\n# 0 : chou, 1 : chevre, 2 : loup\nL = ['chou', 'chevre', 'loup']\nG, B, D = [0,1,2], [], []\n__prend = prend\n__avance = avance\n__depose = depose\nstyle_de_trace('invisible')\ndef prend(obj=None) : \n    reeborg = robot_par_defaut().body\n    if reeborg.x == 1 : \n        __prend(obj)\n        G.remove(L.index(obj))\n        B.append(L.index(obj))\n    if reeborg.x == 14 : \n        __prend(obj)\n        D.remove(L.index(obj))\n        B.append(L.index(obj))\n    if len(transporte()) > 1 : \n        raise ReeborgError(\"Trop de monde sur le bateau !\")            \n\n\ndef depose(obj=None) : \n    reeborg = robot_par_defaut().body\n    if reeborg.x == 1 : \n        __depose(obj)\n        B.remove(L.index(obj))\n        G.append(L.index(obj))\n    else :\n        if reeborg.x == 14 : \n            __depose(obj)\n            B.remove(L.index(obj))\n            D.append(L.index(obj))\n        else  :\n            raise ReeborgError(\"PLOUF !\")\n                    \ndef __avec(a,b) : \n    if a in G and b in G : \n        return True\n    if a in D and b in D : \n        return True\n    return False    \n\ndef avance() : \n    __avance()\n    reeborg = robot_par_defaut().body\n    if reeborg.x > 1 and reeborg.x < 14 : \n        if __avec(0,1) : \n            raise ReeborgError(\"La chèvre a mangé le chou !\")\n        if __avec(1,2) : \n            raise ReeborgError(\"Le loup a mangé la chèvre !\")\n",
+  "post_code": "\n    \nreeborg = robot_par_defaut().body\nif reeborg.x == 14 :\n    if 0 in D and 1 in D and 2 in D : \n        print (\"Mission accomplie !\")\n    else : \n        raise ReeborgError(\"Tout le monde n'est pas à destination.\")\nelse : \n    raise ReeborgError(\"Le pêcheur n'est pas de l'autre côté.\")\n    \n",
+  "onload": "RUR.add_object_image(\"chou\", \"http://prototheque.free.fr/ellipses/robots/images/choux.png\",\"http://prototheque.free.fr//ellipses/robots/images/choux.png\")\nRUR.add_object_image(\"chevre\", \"http://prototheque.free.fr/ellipses/robots/images/chevre.png\",\"http://prototheque.free.fr//ellipses/robots/images/chevre.png\")\nRUR.add_object_image(\"loup\", \"http://prototheque.free.fr/ellipses/robots/images/loup.png\",\"http://prototheque.free.fr//ellipses/robots/images/loup.png\")\nnouvelles_images_de_robot({\n    \"ouest\":\"http://prototheque.free.fr//ellipses/robots/images/bateau400_o.png\",\n    \"est\": \"http://prototheque.free.fr//ellipses/robots/images/bateau400_e.png\",\n    \"nord\": \"http://prototheque.free.fr//ellipses/robots/images/bateau400_n.png\",\n    \"sud\": \"http://prototheque.free.fr//ellipses/robots/images/bateau400_s.png\"\n})",
+  "background_image": "http://prototheque.free.fr/ellipses/robots/images/fond_loup.png"
+}

@@ -1,0 +1,72 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "start_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {
+    "13,6": [
+      "north"
+    ],
+    "12,6": [
+      "north"
+    ],
+    "11,6": [
+      "north"
+    ],
+    "10,7": [
+      "east"
+    ],
+    "10,8": [
+      "east"
+    ],
+    "10,9": [
+      "east"
+    ],
+    "11,9": [
+      "north"
+    ],
+    "12,9": [
+      "north"
+    ],
+    "13,9": [
+      "north",
+      "east"
+    ],
+    "13,7": [
+      "east"
+    ],
+    "13,8": [
+      "east"
+    ]
+  },
+  "description": "A simple, empty world, ready for Reeborg to explore.\n<br>--<br><em>Un simple monde vide, que Reeborg peut explorer à sa guise.</em>",
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14,
+  "goal": {
+    "possible_positions": [
+      [
+        14,
+        12
+      ]
+    ],
+    "position": {
+      "image": "racing_flag",
+      "x": 14,
+      "y": 12
+    }
+  }
+}

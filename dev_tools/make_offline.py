@@ -4,26 +4,26 @@
    Creates two other versions used to run some automated tests using QUnit.
 '''
 
-# First we create the version that can be run without internet access
-# 
+
 def make_offline():
-  try:
-      with open('reeborg.html', 'r') as f:
-          lines = f.readlines()
-  except FileNotFoundError:
-      import sys
-      print("This script is meant to run from the base directory of the project.")
-      sys.exit()
+    '''makes offline version which can be run without internet access.'''
+    try:
+        with open('reeborg.html', 'r') as f:
+            lines = f.readlines()
+    except FileNotFoundError:
+        import sys
+        print("This script is meant to run from the base directory of the project.")
+        sys.exit()
 
-  with open('reeborg_offline.html', 'w') as f:
-      for line in lines:
-          line = line.replace("<!--online-->", "<!--online")
-          line = line.replace("<!--/online-->", "/online-->")
-          line = line.replace("<!--offline", "<!--offline-->")
-          line = line.replace("/offline-->", "<!--/offline-->")
-          f.write(line)
+    with open('reeborg_offline.html', 'w') as f:
+        for line in lines:
+            line = line.replace("<!--online-->", "<!--online")
+            line = line.replace("<!--/online-->", "/online-->")
+            line = line.replace("<!--offline", "<!--offline-->")
+            line = line.replace("/offline-->", "<!--/offline-->")
+            f.write(line)
 
-  print("offline version recreated.")
+    print("offline version recreated.")
 
 make_offline()
 
@@ -36,7 +36,7 @@ make_offline()
 # Then we add a div required to display the results from
 # the QUnit tests.  We also add a button used to stop the custom
 # server we use to run the tests. Since this is run from
-# a command line, using the custom server and button gives us a nice way to 
+# a command line, using the custom server and button gives us a nice way to
 # return to the command line without having to use ctrl-c which I have found
 # to be unreliable.
 
@@ -63,35 +63,37 @@ qunit_body_addition = """
 qunit_scripts = """
 </div>
 <script>
-    var test_utils = {}; 
+    var test_utils = {};
 </script>
 <script type="text/javascript" src="qunit-2.0.1.js"></script>
 <script type="text/javascript" src="js/test_utils.js" defer></script>
 <script type="text/javascript" src="js/test_world_creation.js" defer></script>
 <script type="text/javascript" src="js/all_qunit_tests.js" defer></script>
+<script type="text/javascript" src="vincent_maille/maille_qunit.js" defer></script>
 <script type="text/javascript" src="js/world_api/walls.tests.js" defer></script>
 </body>
 """
 
 def make_qunit_version(infile, outfile):
-  with open(infile, 'r') as f:
-      lines = f.readlines()
+    '''Makes versions (online/offline) that run functional tests with qunit.'''
+    with open(infile, 'r') as f:
+        lines = f.readlines()
 
-  with open("tests/functional_tests/" + outfile, 'w') as f:
-      for line in lines:
-          if '</head>' in line:
-              line = qunit_css
-          elif '<body>' in line:
-              line = qunit_body_addition
-          elif "src/" in line and not "brython" in line:
-              line = line.replace("src/", "../../src/")
-          elif "build/" in line:
-              line = line.replace("build/", "../../build/")
-          elif "offline/" in line:
-              line = line.replace("offline/", "../../offline/")
-          elif '</body>' in line:
-              line = qunit_scripts
-          f.write(line)
+    with open("tests/functional_tests/" + outfile, 'w') as f:
+        for line in lines:
+            if '</head>' in line:
+                line = qunit_css
+            elif '<body>' in line:
+                line = qunit_body_addition
+            elif "src/" in line and not "brython" in line:
+                line = line.replace("src/", "../../src/")
+            elif "build/" in line:
+                line = line.replace("build/", "../../build/")
+            elif "offline/" in line:
+                line = line.replace("offline/", "../../offline/")
+            elif '</body>' in line:
+                line = qunit_scripts
+            f.write(line)
 
 make_qunit_version('reeborg_offline.html', offline)
 print("QUnit offline version recreated.")

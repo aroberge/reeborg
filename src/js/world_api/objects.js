@@ -150,3 +150,10 @@ RUR.is_object = function (name, x, y, options) {
  * @deprecated Use {@link RUR#add_object} instead.
  */
 RUR.add_object_at_position = RUR.add_object;
+
+/** @function add_goal_object_at_position
+ * @memberof RUR
+ * @instance
+ *
+ * @deprecated Use {@link RUR#add_object} instead.
+ */
