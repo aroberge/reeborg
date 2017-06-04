@@ -33,19 +33,22 @@ RUR.world_utils.import_world = function (json_string) {
     }
 
     if (RUR.CURRENT_WORLD.robots !== undefined) {
-        if (RUR.CURRENT_WORLD.robots[0] !== undefined) {
+        if (RUR.CURRENT_WORLD.robots[0]) {
             RUR.robot.modernize(RUR.CURRENT_WORLD.robots[0]);
             body = RUR.CURRENT_WORLD.robots[0];
             body._prev_x = body.x;
             body._prev_y = body.y;
             body._prev_orientation = body._orientation;
+        } else {
+            // protect against robots[0] == (undefined or null)
+            RUR.CURRENT_WORLD.robots = [];
         }
     }
 
     //TODO: put the conversion into new function
 
     // Backward compatibility following change done on Jan 5, 2016
-    // top_tiles has been renamed obstacles (and prior to that [or after?], 
+    // top_tiles has been renamed obstacles (and prior to that [or after?],
     // they were known as solid_objects); to ensure compatibility of
     // worlds created before, we change the old name
     // following http://stackoverflow.com/a/14592469/558799
@@ -61,7 +64,7 @@ RUR.world_utils.import_world = function (json_string) {
         delete RUR.CURRENT_WORLD.solid_objects;
     }
 
-    // Backward compatibility change done on December 29, 2016. 
+    // Backward compatibility change done on December 29, 2016.
     // tiles were written as e.g. "water"; need to be written as ["water"]
     if (RUR.CURRENT_WORLD.tiles !== undefined) {
         keys = Object.keys(RUR.CURRENT_WORLD.tiles);
@@ -94,7 +97,7 @@ RUR.world_utils.import_world = function (json_string) {
                 index = obstacles.indexOf("fence6");
                 if (index !== -1) {
                     obstacles[index] = "fence_double";
-                }                
+                }
                 index = obstacles.indexOf("fence7");
                 if (index !== -1) {
                     obstacles[index] = "fence_vertical";

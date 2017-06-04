@@ -104,6 +104,13 @@ QUnit.test("Load world without running program", function(assert) {
 
     assert.equal(RUR.file_io.load_world_from_program('Home 2'), "no world change",
           "Loading world twice does not generate an error.");
+    /* World files that are not found result in the following message in the
+       console:
+    GET http://localhost:8800/tests/functional_tests/Alone 404 (File not found)
+
+    We add our own console message so that no one should be surprised by this.
+    */
+    console.log("404 (File not found) expected for 'Alone'.")
     assert.throws(function() {RUR.file_io.load_world_from_program('Alone');},
                  "Raised expected error from loading non-existent world.");
     assert.equal(test_utils.feedback_element, "#Reeborg-shouts", "Feedback element ok.");

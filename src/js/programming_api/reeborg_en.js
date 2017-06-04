@@ -136,6 +136,9 @@ RUR.reset_definitions_en = function () {
         RUR._UR.wall_on_right_(this.body);
     };
 
+    // make prototype available with known English name in RUR namespace
+    RUR.UsedRobot = UsedRobot;
+
     // English specific and only for compatibility with rur-ple
     // do not translate the following
     window.put_beeper = put;

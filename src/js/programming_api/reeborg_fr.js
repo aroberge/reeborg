@@ -128,4 +128,6 @@ RUR.reset_definitions_fr = function () {
         RUR._UR.wall_on_right_(this.body);
     };
 
+    // make prototype available with known English name in RUR namespace
+    RUR.UsedRobot = RobotUsage;
 };

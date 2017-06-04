@@ -38,34 +38,33 @@ require("./../world_utils/get_world.js");
     return false;
  };
 
- /** @function get_robot_by_id
+ /** @function get_robot_body_by_id
  *
  * @memberof RUR
  * @instance
  * @summary This function indicates returns a robot "body" specified by
- *          its id, if a robot with such an id exists.  (The `id` is
- *          like a serial number: it is a number unique for each robot
- *          created). No error checking
- *   is performed on the argument.  If some exception is raised,
- *   it is simply logged in the browser's console.
+ * its id, if a robot with such an id exists.  (The `id` is
+ * like a serial number: it is a number unique for each robot created).
+ * No error checking is performed on the argument.  If some exception is raised,
+ * it is simply logged in the browser's console.
  *
- *    **Important** This function cannot be used directly in a Python program
- *    to yield something sensible. (If you want, you can convert the result
- *    to a Python dict() -- provided it is not None, of course.)
- *    From Python, use instead `get_robot_by_id()` (without the RUR prefix),
- *    or `robot_spécifique` in French,
- *    which returns a full UsedRobot object (and not simply its body).
+ * **Important:** This function cannot be used directly in a Python program
+ * to yield something sensible. (If you want, you can convert the result
+ * to a Python dict() -- provided it is not None, of course.)
+ * From Python, use instead `get_robot_by_id()` (without the RUR prefix),
+ * or `robot_spécifique` in French,
+ * which returns a true Python UsedRobot instance.
  *
  * @param {integer} id
  *
- * @returns {object} the body of the robot as a Javascript object, null if
+ * @returns {object} the body of the robot as a Javascript object, `null` if
  *         a robot with this id cannot be found.
  *
  **/
 
 RUR.get_robot_body_by_id = function (id) {
     "use strict";
-    var r, robot, world=RUR.get_world();
+    var r, robot_body, world=RUR.get_world();
 
     if (world.robots === undefined || world.robots.length === 0) {
         return null;
@@ -73,15 +72,51 @@ RUR.get_robot_body_by_id = function (id) {
 
     try {
         for (r=0; r<world.robots.length; r++) {
-            robot = world.robots[r];
-            if (robot.__id == id){
-                return robot;
+            robot_body = world.robots[r];
+            if (robot_body.__id == id){
+                return robot_body;
             }
         }
     } catch(e) {
-        console.warn("error in RUR.is_robot ", e);
+        console.warn("error in RUR.get_robot_body_by_id ", e);
     }
     return null;
+ };
+
+ /** @function get_robot_by_id
+ *
+ * @memberof RUR
+ * @instance
+ * @summary This function indicates returns a Javascript UsedRobot instance
+ * specified by its id, if a robot with such an id exists.  (The `id` is
+ * like a serial number: it is a number unique for each robot created).
+ * No error checking is performed on the argument.
+ * If some exception is raised, it is simply logged in the browser's console.
+ *
+ * **Important:** This function cannot be used directly in a Python program
+ * to yield something sensible.
+ * From Python, use instead `get_robot_by_id()` (without the RUR prefix),
+ * or `robot_spécifique` in French,
+ * which returns a true Python UsedRobot instance.
+ *
+ * @param {integer} id
+ *
+ * @returns {object} A Javascript UsedRobot instance corresponding to the
+ * robot with the specified id, or `null` if a robot with this id cannot be found.
+ *
+ **/
+
+RUR.get_robot_by_id = function (id) {
+    "use strict";
+    var body, robot;
+    body = RUR.get_robot_body_by_id(id);
+    if (body === null) {
+        return null;
+    } else {
+        robot = Object.create(RUR.UsedRobot.prototype);
+        robot.body = body;
+        return robot;
+    }
  };
 
  /** @function get_robot_position
@@ -90,11 +125,11 @@ RUR.get_robot_body_by_id = function (id) {
  * @instance
  * @summary This function returns the location of a robot.
  *
- * @param {object} robot A robot (body) object, having the proper attribute
+ * @param {object} robot_body A robot body object, having the proper attribute
  *    for position (x, y coordinates) and orientation.  Note that you should
- *    pass in a robot (body) object obtained from some other function,
+ *    pass in a robot body object obtained from some other function,
  *    such as `RUR.get_robot_body_by_id()`, since
- *    the internal names for the various attributes is subject to change.
+ *    the internal names for the various attributes are subject to change.
  *
  * @returns {object} An object of the form
  *      `{x:x_value, y:y_value, orientation:orientation_value} where
@@ -103,15 +138,15 @@ RUR.get_robot_body_by_id = function (id) {
  *
  **/
 
-RUR.get_robot_position = function (robot) {
+RUR.get_robot_position = function (robot_body) {
     "use strict";
     var x, y, orientation;
-    if (!robot || robot.x === undefined || robot.y === undefined ||
-        robot._orientation === undefined) {
+    if (!robot_body || robot_body.x === undefined || robot_body.y === undefined ||
+        robot_body._orientation === undefined) {
         throw new Error("robot body needed as argument for RUR.get_location().");
     }
 
-    switch (robot._orientation){
+    switch (robot_body._orientation){
     case RUR.EAST:
         orientation = "east";
         break;
@@ -127,7 +162,7 @@ RUR.get_robot_position = function (robot) {
     default:
         throw new Error("Should not happen: unhandled case in RUR.get_location().");
     }
-    return {x:robot.x, y:robot.y, orientation:orientation};
+    return {x:robot_body.x, y:robot_body.y, orientation:orientation};
 };
 
 
@@ -137,9 +172,9 @@ RUR.get_robot_position = function (robot) {
  * @instance
  * @summary This function returns the location of a robot.
  *
- * @param {object} robot A robot (body) object, having the proper attribute
+ * @param {object} robot_body A robot body object, having the proper attribute
  *    for position (x, y coordinates) and orientation.  Note that you should
- *    pass in a robot (body) object obtained from some other function
+ *    pass in a robot body object obtained from some other function
  *    such as `RUR.get_robot_body_by_id()`, since
  *    the internal names for the various attributes are subject to change.
  *
@@ -148,28 +183,28 @@ RUR.get_robot_position = function (robot) {
  *
  **/
 
-RUR.get_position_in_front = function (robot) {
+RUR.get_position_in_front = function (robot_body) {
     "use strict";
     var x, y;
-    if (!robot || robot.x === undefined || robot.y === undefined) {
+    if (!robot_body || robot_body.x === undefined || robot_body.y === undefined) {
         throw new Error("robot body needed as argument for RUR.get_location_in_front().");
     }
-    switch (robot._orientation){
+    switch (robot_body._orientation){
     case RUR.EAST:
-        x = robot.x + 1;
-        y = robot.y;
+        x = robot_body.x + 1;
+        y = robot_body.y;
         break;
     case RUR.NORTH:
-        y = robot.y + 1;
-        x = robot.x;
+        y = robot_body.y + 1;
+        x = robot_body.x;
         break;
     case RUR.WEST:
-        x = robot.x - 1;
-        y = robot.y;
+        x = robot_body.x - 1;
+        y = robot_body.y;
         break;
     case RUR.SOUTH:
-        y = robot.y - 1;
-        x = robot.x;
+        y = robot_body.y - 1;
+        x = robot_body.x;
         break;
     default:
         throw new Error("Should not happen: unhandled case in RUR.get_location_in_front().");
@@ -182,16 +217,16 @@ RUR.get_position_in_front = function (robot) {
  * @memberof RUR
  * @instance
  * @summary This function adds a final position as a goal for the default robot.
- *          It is possible to call this function multiple times, with different
- *          `x, y` positions; doing so will result in a final position chosen
- *          randomly (among the choices recorded) each time a program is run.
+ * It is possible to call this function multiple times, with different
+ * `x, y` positions; doing so will result in a final position chosen
+ * randomly (among the choices recorded) each time a program is run.
  *
  * @param {string} name The name of the object/image we wish to use to
- *                      represent the final position of the robot. Only one
- *                      image can be used for a given world, even if many possible
- *                      choices exist for the final position: each time this
- *                      function is called, the `name` argument replaces any
- *                      such argument that was previously recorded.
+ *  represent the final position of the robot. Only one
+ *  image can be used for a given world, even if many possible
+ *  choices exist for the final position: each time this
+ *  function is called, the `name` argument replaces any
+ *  such argument that was previously recorded.
  *
  * @param {integer} x  The position on the grid
  * @param {integer} y
@@ -228,10 +263,10 @@ RUR.add_final_position = function (name, x, y) {
  *
  * @memberof RUR
  * @instance
- * @summary This function adds an initial (starting) position as a possibility for the default robot.
- *          It is possible to call this function multiple times, with different
- *          `x, y` positions; doing so will result in a initial position chosen
- *          randomly (among the choices recorded) each time a program is run.
+ * @summary This function adds an initial (starting) position as a possibility
+ * for the default robot. It is possible to call this function multiple times,
+ * with different `x, y` positions; doing so will result in a initial position
+ * chosen randomly (among the choices recorded) each time a program is run.
  *
  * @param {integer} x  The position on the grid
  * @param {integer} y
