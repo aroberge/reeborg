@@ -80,13 +80,13 @@ def robot_par_defaut():  #py:default_robot
             self.body = RUR._default_robot_body_()
     return Robot()
 
-def get_robot_by_id(numero_de_serie):  #py:default_robot
+def robot_spécifique(numero_de_serie):  #py:default_robot
     """Ceci n'est pas une fonction que vous devriez avoir à utiliser.
 
        Si un robot avec le numéro de série spécifié existe, cette fonction
-       retourne un robot recréé pour correspondre à ce robot; 
+       retourne un robot recréé pour correspondre à ce robot;
        sinon, la valeur None est retournée."""
-    r = RUR.get_robot_by_id(numero_de_serie)
+    r = RUR.get_robot_body_by_id(numero_de_serie)
     if r is None:
         return r
     class Robot(RobotUsage):
@@ -204,7 +204,7 @@ def print_html(html, replace=False):  #py:print_html
     Args:
         html: le contenu (en format html) qui sera affich/.
         replace: si égal à True, l'ancien contenu sera remplacé par le nouveau;
-            sinon, le nouveau contenu remplacera l'ancien.     
+            sinon, le nouveau contenu remplacera l'ancien.
     """
     RUR._print_html_(html, replace)
 window['print_html'] = print_html

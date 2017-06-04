@@ -840,13 +840,13 @@ RUR.vis_world.compute_world_geometry = function (cols, rows) {
     "use strict";
     var height, width, canvas;
     if (RUR.get_world().small_tiles) {
-        RUR.WALL_LENGTH = 20;
-        RUR.WALL_THICKNESS = 2;
+        RUR.WALL_LENGTH = RUR.DEFAULT_WALL_LENGTH/2;
+        RUR.WALL_THICKNESS = RUR.DEFAULT_WALL_THICKNESS/2;
         RUR.SCALE = 0.5;
         RUR.BACKGROUND_CTX.font = "8px sans-serif";
     } else {
-        RUR.WALL_LENGTH = 40;
-        RUR.WALL_THICKNESS = 4;
+        RUR.WALL_LENGTH = RUR.DEFAULT_WALL_LENGTH;
+        RUR.WALL_THICKNESS = RUR.DEFAULT_WALL_THICKNESS;
         RUR.SCALE = 1;
         RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
     }
@@ -4583,11 +4583,11 @@ record_id("programming-mode");
  *          be run (either as blocks, in the editor, or in the pre- or post- code stage.)
  *
  *
- * @param {string} mode  One of "python", "javascript", or "blockly" 
+ * @param {string} mode  One of "python", "javascript", or "blockly"
  *
  * @todo: see if we should not distinguish between blockly-js and blockly-py
  * @todo: see if we should not add py-repl as an option
- * 
+ *
  * @example
  * // shows how to switch mode to Blockly, where some blocks are already placed.
  * World("/worlds/examples/square_blockly.json", "Square")
@@ -4690,7 +4690,7 @@ $("#programming-mode").change(function() {
         case "py-repl":
             RUR.state.programming_language = "python";
             editor.setOption("readOnly", true);
-            editor.setOption("theme", "reeborg-readonly");            
+            editor.setOption("theme", "reeborg-readonly");
             show_console();
             break;
         default:
@@ -7145,7 +7145,7 @@ RUR.record_frame = function (name, obj) {
        of a frame; they are as follows. */
 
 // TODO: document a test that would fail if we were to remove the condition
-// name!="error" below -- this addition was done by 
+// name!="error" below -- this addition was done by
 // 1. turning off recording
 // 2. doing stuff ... including something that should have raised an error
 // 3. resuming recording.
@@ -7153,20 +7153,21 @@ RUR.record_frame = function (name, obj) {
 
     if (name !== "highlight" && RUR.frame_insertion !== undefined && !RUR.state.frame_insertion_called){
         RUR.state.frame_insertion_called = true;
-        try {
-            py_err = RUR.frame_insertion(name, obj);
-        } catch (e) {
-            if (RUR.state.programming_language === "javascript") {
-                RUR.state.frame_insertion_called = false;
-                throw e;
+        if (RUR.state.programming_language === "python") {
+            py_err = RUR.frame_insertion(name, obj)
+            RUR.state.frame_insertion_called = false;
+            if (py_err && py_err.__name__) {
+                if (RUR[py_err.__name__] !== undefined) {
+                    throw new RUR[py_err.__name__](py_err.reeborg_shouts);
+                } else {
+                    throw new RUR.ReeborgError(py_err.__name__);
+                }
             }
-        }
-        RUR.state.frame_insertion_called = false;
-        if (py_err && py_err.__name__) {
-            if (RUR[py_err.__name__] !== undefined) {
-                throw new RUR[py_err.__name__](py_err.reeborg_shouts);
-            } else {
-                throw new RUR.ReeborgError(py_err.__name__);
+        } else {
+            try {
+                RUR.frame_insertion(name, obj);
+            } finally {
+                RUR.state.frame_insertion_called = false;
             }
         }
     }
@@ -7174,7 +7175,7 @@ RUR.record_frame = function (name, obj) {
     if ((RUR.state.do_not_record || RUR.state.prevent_playback) && name != "error") {
         return;
     } else if (RUR.state.input_method==="py-repl") {
-        /* if the REPL is active, we do not record anything, and show 
+        /* if the REPL is active, we do not record anything, and show
            immediately the updated world. */
         return RUR._show_immediate(name, obj);
     } else if (name == "watch_variables" && RUR.nb_frames >= 1) {
@@ -7186,7 +7187,7 @@ RUR.record_frame = function (name, obj) {
           RUR.current_line_no == RUR.rec_line_numbers [RUR.nb_frames-1]) {
         // no highlighting change: do not include any extra frame
         return;
-    } 
+    }
 
     if (RUR.CURRENT_WORLD.robots !== undefined){
         for (robot of RUR.CURRENT_WORLD.robots) { // jshint ignore:line
@@ -7445,7 +7446,7 @@ RUR.rec.check_current_world_status = function() {
 RUR.rec.check_goal = function (frame) {
     var g, world, goal_status = {"success": true}, result;
     g = frame.world.goal;
-    if (g === undefined) { // This is only needed for some 
+    if (g === undefined) { // This is only needed for some
         return goal_status;        // functional which call check_goal directly
     } else if (Object.keys(g).length === 0) { // no real goal to check
         goal_status.message = "<p class='center'>" +
@@ -7453,7 +7454,7 @@ RUR.rec.check_goal = function (frame) {
                      "</p>";
         return goal_status;
     }
-    
+
     world = frame.world;
     goal_status.message = "<ul>";
     if (g.position !== undefined){
@@ -8052,7 +8053,7 @@ RUR.world_init.set = function () {
 };
 
 },{"./../drawing/visible_world.js":9,"./../rur.js":52}],52:[function(require,module,exports){
-/** @namespace RUR 
+/** @namespace RUR
  * @desc The namespace reserved for all the core Reeborg World methods.
  *
  */
@@ -8077,15 +8078,15 @@ try {
 }
 
 // Commenting for jsdoc:
-/** @namespace FuncTest 
- * @desc FuncTest is a namespace that can be used to hold global reference 
- * to functions that are useful to perform some functional tests only, but 
+/** @namespace FuncTest
+ * @desc FuncTest is a namespace that can be used to hold global reference
+ * to functions that are useful to perform some functional tests only, but
  * is mostly intended as a helper in creating documentation using jsdoc.
  *
  * <span class="reeborg-important">The "methods" listed below are not callable
  *  but simply convenient names used to document the unit tests using jsdoc.
  *  </span>
- */ 
+ */
 window.FuncTest = {};
 
 
@@ -8149,11 +8150,11 @@ RUR.DEFAULT_WIDTH = 625;
 // We use multiple canvases to facilitate the drawing of objects
 // without having to worry much about the order in which we draw
 // the various types of objects.
-// 
+//
 // The order in which the canvases are overlayed one on top of another
 // is set in the CSS file and should not be inferred from the
 // Javascript code below.
-// 
+//
 // Note that, when doing unit tests (not functional tests), we do not
 // have canvases defined; so we enclose these definitions in a function
 // that does ignores canvases when appropriate.
@@ -8234,8 +8235,8 @@ function set_canvases () {
 }
 set_canvases();
 
-RUR.WALL_LENGTH = 40;   // These can be adjusted
-RUR.WALL_THICKNESS = 4;  // elsewhere if RUR.CURRENT_WORLD.small_tiles become true.
+RUR.WALL_LENGTH = RUR.DEFAULT_WALL_LENGTH = 40;
+RUR.WALL_THICKNESS = RUR.DEFAULT_WALL_THICKNESS = 4;
 
 RUR.MAX_Y = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
 RUR.MAX_X = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
@@ -8280,15 +8281,15 @@ RUR.configure_red_green = function (red, green) {
     RUR.GREEN = green;
     RUR.RED = red;
     localStorage.setItem("userchoice_red", red);
-    localStorage.setItem("userchoice_green", green);    
+    localStorage.setItem("userchoice_green", green);
 };
 
 //--------------------------------------------------------
 // We communicate information to the user using various
 // styled dialog windows; this generic function specifies
 // which dialog (html "element") to use and the content to
-// display to the user. 
-// 
+// display to the user.
+//
 RUR.show_feedback = function (element, content) {
     $(element).html(content).dialog("open");
 };
@@ -8335,7 +8336,7 @@ require("./editors/create.js");
 
 // ensure that all world_api methods are defined, even though they
 // might be already imported by the menu-driven world editor.
-// 
+//
 // TODO: Add functional test ensuring that each type is appropriately loaded
 require("./world_api/background_tile.js");
 require("./world_api/bridges.js");
@@ -8351,22 +8352,22 @@ require("./world_api/walls.js");
 RUR.TILES.box.transform = [
     {conditions: [[RUR.is_background_tile, "water"],
                   [RUR.is_pushable, "box"]],
-    actions: [[RUR.remove_pushable, "box"], 
+    actions: [[RUR.remove_pushable, "box"],
               [RUR.add_bridge, "bridge"]]
     },
     {conditions: [[RUR.is_background_tile, "mud"],
                   [RUR.is_pushable, "box"]],
-    actions: [[RUR.remove_pushable, "box"], 
+    actions: [[RUR.remove_pushable, "box"],
               [RUR.add_bridge, "bridge"]]
     },
     {conditions: [[RUR.is_background_tile, "fire"],
                   [RUR.is_pushable, "box"]],
-    actions: [[RUR.remove_pushable, "box"]]   
+    actions: [[RUR.remove_pushable, "box"]]
     },
     {conditions: [[RUR.is_obstacle, "fire"],
                   [RUR.is_pushable, "box"]],
-    actions: [[RUR.remove_pushable, "box"]]   
-    }     
+    actions: [[RUR.remove_pushable, "box"]]
+    }
 ];
 
 brython({debug:1, pythonpath:[RUR._BASE_URL + '/src/python']});
@@ -9047,7 +9048,7 @@ String.prototype.supplant = function (o) {
 require("./../rur.js");
 /** @namespace utils
  * @memberof RUR
- * @desc RUR.utils is a namespace intended for private utility functions. 
+ * @desc RUR.utils is a namespace intended for private utility functions.
  *   The sparse documentation about these is meant for developers.
  *   These methods should not be invoked by an end user as they could
  *   change (or be removed) at any time.
@@ -9077,7 +9078,7 @@ RUR.is_non_negative_integer = _is_non_negative_integer;
 RUR.is_positive_integer = _is_positive_integer;
 
 RUR.is_valid_position = function(x, y) {
-    return (_is_positive_integer(x) && _is_positive_integer(y) && 
+    return (_is_positive_integer(x) && _is_positive_integer(y) &&
            x <= RUR.CURRENT_WORLD.cols && y <= RUR.CURRENT_WORLD.rows);
 };
 
@@ -9791,7 +9792,7 @@ RUR.fill_background = function(name) {
  * RUR.add_background_tile("rgb(255, 0, 0)", 5, 8)
  * RUR.add_background_tile("rgba(255, 0, 0, 0.1)", 7, 8)
  * RUR.add_background_tile("hsl(24, 71%, 77%)", 9, 8)
- * 
+ *
  * @example
  * // shows how to set various tiles;
  * // the mode will be set to Python
@@ -9802,7 +9803,7 @@ RUR.fill_background = function(name) {
  * // are added in the Onload editor.  Click on World Info
  * // to see the code.
  * World("/worlds/examples/background2.json", "Background 2")
- * 
+ *
  */
 RUR.add_background_tile = function (name, x, y) {
     "use strict";
@@ -9824,7 +9825,7 @@ RUR.add_background_tile = function (name, x, y) {
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no background tile to remove
  *        at that location
- *        
+ *
  * @todo add test
  * @todo add examples
  * @todo deal with translation
@@ -10197,7 +10198,7 @@ RUR.add_decorative_object = function (name, x, y) {
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no background tile to remove
  *        at that location
- *        
+ *
  * @todo add test
  * @todo add examples
  * @todo deal with translation
@@ -10559,7 +10560,7 @@ RUR.add_obstacle = function (name, x, y) {
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no background tile to remove
  *        at that location
- *        
+ *
  * @todo add test
  * @todo add examples
  * @todo deal with translation
@@ -10614,7 +10615,7 @@ RUR.get_obstacles = function (x, y) {
 };
 
 // TODO: this may not be needed after more general functions written
-// i.e. instead of looking for specific obstacle, look for 
+// i.e. instead of looking for specific obstacle, look for
 // obstacle with properties.
 RUR.is_obstacle = function (name, x, y) {
     "use strict";
@@ -10683,7 +10684,7 @@ RUR.is_obstacle_safe = function (x, y) {
         }
         if (RUR.TILES[obs].safe) {
             safe_found = true;
-        }        
+        }
     }
     return safe_found;
 };
@@ -10746,11 +10747,11 @@ RUR.add_pushable = function (name, x, y) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no pushable
- *        
+ *
  * @todo add test
  * @todo add examples
  * @todo deal with translation
- * 
+ *
  *
  */
 RUR.remove_pushable = function (name, x, y) {
@@ -10772,7 +10773,7 @@ RUR.remove_pushable = function (name, x, y) {
  * @summary This function returns the name of a pushable found at that location;
  *          For worlds designed "normally", such a list should contain only
  *          one item since pushables cannot be pushed onto other pushables.
- *          If nothing is found at that location,`null` is returned 
+ *          If nothing is found at that location,`null` is returned
  *          (which is converted to `None` in Python programs.)
  *
  * @param {integer} x  Position.
@@ -10809,7 +10810,7 @@ RUR.get_pushable = function (x, y) {
  * @summary This function returns the name of a pushable found at that location;
  *          For worlds designed "normally", such a list should contain only
  *          one item since pushables cannot be pushed onto other pushables.
- *          If nothing is found at that location,`null` is returned 
+ *          If nothing is found at that location,`null` is returned
  *          (which is converted to `None` in Python programs.)
  *
  * @param {integer} x  Position.
@@ -10858,13 +10859,13 @@ require("./../world_utils/get_world.js");
  *   is performed on the arguments.  If some exception is raised,
  *   it is simply logged in the browser's console.
  *
- * @param {integer} x  Position 
- * @param {integer} y  Position 
+ * @param {integer} x  Position
+ * @param {integer} y  Position
  *
  * @returns {bool} True if a robot is found at that position, false otherwise.
- *   
+ *
  **/
- 
+
  RUR.is_robot = function (x, y) {
     "use strict";
     var r, robot, world=RUR.get_world();
@@ -10898,19 +10899,19 @@ require("./../world_utils/get_world.js");
  *   it is simply logged in the browser's console.
  *
  *    **Important** This function cannot be used directly in a Python program
- *    to yield something sensible. (If you want, you can convert the result 
+ *    to yield something sensible. (If you want, you can convert the result
  *    to a Python dict() -- provided it is not None, of course.)
  *    From Python, use instead `get_robot_by_id()` (without the RUR prefix)
  *    which returns a full UsedRobot object (and not simply its body).
  *
- * @param {integer} id  
+ * @param {integer} id
  *
  * @returns {object} the body of the robot as a Javascript object, null if
  *         a robot with this id cannot be found.
- *   
+ *
  **/
- 
-RUR.get_robot_by_id = function (id) {
+
+RUR.get_robot_body_by_id = function (id) {
     "use strict";
     var r, robot, world=RUR.get_world();
 
@@ -10935,19 +10936,19 @@ RUR.get_robot_by_id = function (id) {
  *
  * @memberof RUR
  * @instance
- * @summary This function returns the location of a robot.  
+ * @summary This function returns the location of a robot.
  *
  * @param {object} robot A robot (body) object, having the proper attribute
  *    for position (x, y coordinates) and orientation.  Note that you should
  *    pass in a robot (body) object obtained from some other function,
- *    such as `RUR.get_robot_by_id()`, since
+ *    such as `RUR.get_robot_body_by_id()`, since
  *    the internal names for the various attributes is subject to change.
  *
- * @returns {object} An object of the form 
+ * @returns {object} An object of the form
  *      `{x:x_value, y:y_value, orientation:orientation_value} where
- *      `x_value` and `y_value` are integers and 
+ *      `x_value` and `y_value` are integers and
  *      `orientation_value` is one of `"east"`, `"west"`, `"north"`, `"south"`.
- *   
+ *
  **/
 
 RUR.get_robot_position = function (robot) {
@@ -10957,7 +10958,7 @@ RUR.get_robot_position = function (robot) {
         robot._orientation === undefined) {
         throw new Error("robot body needed as argument for RUR.get_location().");
     }
-    
+
     switch (robot._orientation){
     case RUR.EAST:
         orientation = "east";
@@ -10977,22 +10978,22 @@ RUR.get_robot_position = function (robot) {
     return {x:robot.x, y:robot.y, orientation:orientation};
 };
 
-    
+
  /** @function get_position_in_front
  *
  * @memberof RUR
  * @instance
- * @summary This function returns the location of a robot.  
+ * @summary This function returns the location of a robot.
  *
  * @param {object} robot A robot (body) object, having the proper attribute
  *    for position (x, y coordinates) and orientation.  Note that you should
  *    pass in a robot (body) object obtained from some other function
- *    such as `RUR.get_robot_by_id()`, since
+ *    such as `RUR.get_robot_body_by_id()`, since
  *    the internal names for the various attributes is subject to change.
  *
- * @returns {object} An object of the form 
+ * @returns {object} An object of the form
  *      `{x:x_value, y:y_value} where `x_value` and `y_value` are integers.
- *   
+ *
  **/
 
 RUR.get_position_in_front = function (robot) {
@@ -11040,7 +11041,7 @@ RUR.get_position_in_front = function (robot) {
  *                      function is called, the `name` argument replaces any
  *                      such argument that was previously recorded.
  *
- * @param {integer} x  The position on the grid  
+ * @param {integer} x  The position on the grid
  * @param {integer} y
  *
  * @todo: put in argument verification code and note which error can be thrown
@@ -11061,7 +11062,7 @@ RUR.add_final_position = function (name, x, y) {
         pos = goal.possible_final_positions[i];
         if(pos[0]==x && pos[1]==y){
             throw new ReeborgError("This final position is already included!");
-        } 
+        }
     }
 
     goal.position.x = x;
@@ -11080,7 +11081,7 @@ RUR.add_final_position = function (name, x, y) {
  *          `x, y` positions; doing so will result in a initial position chosen
  *          randomly (among the choices recorded) each time a program is run.
  *
- * @param {integer} x  The position on the grid  
+ * @param {integer} x  The position on the grid
  * @param {integer} y
  *
  * @todo: put in argument verification code and note which error can be thrown
@@ -11103,7 +11104,7 @@ RUR.add_initial_position = function (x, y) {
         pos = robot.possible_initial_positions[i];
         if(pos[0]==x && pos[1]==y){
             throw new ReeborgError("This initial position is already included!");
-        } 
+        }
     }
 
     robot.possible_initial_positions.push([x, y]);
@@ -11414,7 +11415,7 @@ that lists the walls, and must be handled separately.
  * the boundaries of a normal (rectangular) world. The order they are listed,
  * if present, are `"east"`, `"north"`, `"west"`, `"south"`.
  *
- * @param {integer} x  Position: `1 <= x <= max_x`  
+ * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  * @param {bool} [goal] If `true`, list the goal walls found at that position
  *                      instead of regular walls.
@@ -11426,9 +11427,9 @@ that lists the walls, and must be handled separately.
  * @example
  * // Execute the following instruction (either from Python or Javascript)
  * // to load a sample program
- * 
+ *
  * World("worlds/examples/walls.json", "Wall example")
- * 
+ *
  * // Then run the program; notice how the goal set (3 walls to build)
  * // is automatically verified at the end.
  *
@@ -11447,7 +11448,7 @@ RUR.get_walls = function(x, y, goal) {
     if (RUR.is_wall("south", x, y, goal)) {
         walls.push("south");
     }
-    return walls;  
+    return walls;
 };
 
 
@@ -11458,12 +11459,12 @@ RUR.get_walls = function(x, y, goal) {
  * stated position and orientation, and `false` otherwise.
  *
  * @param {string} orientation  One of `"east", "west", "north", "south"`.
- * @param {integer} x  Position: `1 <= x <= max_x`  
+ * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  * @param {bool} [goal] If `true`, get information about goal walls
  *                      instead of regular walls.
  *
- * 
+ *
  * @throws Will throw an error if `x` or `y` is outside the world boundary.
  * @throws Will throw an error if `orientation` is not a valid choice.
  *
@@ -11472,9 +11473,9 @@ RUR.get_walls = function(x, y, goal) {
  * @example
  * // Execute the following instruction (either from Python or Javascript)
  * // to load a sample program
- * 
+ *
  * World("worlds/examples/walls.json", "Wall example")
- * 
+ *
  * // Then run the program; notice how the goal set (3 walls to build)
  * // is automatically verified at the end.
  *
@@ -11495,7 +11496,7 @@ RUR.is_wall = function(orientation, x, y, goal) {
         return false;
     } else {
         return true;
-    }     
+    }
 };
 
 // private helper function
@@ -11521,7 +11522,7 @@ function is_boundary_wall(orientation, x, y) {
  * otherwise, it raises an exception.
  *
  * @param {string} orientation  One of `"east", "west", "north", "south"`.
- * @param {integer} x  Position: `1 <= x <= max_x`  
+ * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  * @param {bool} [goal] If `true`, get information about goal walls.
  *
@@ -11534,9 +11535,9 @@ function is_boundary_wall(orientation, x, y) {
  * @example
  * // Execute the following instruction (either from Python or Javascript)
  * // to load a sample program
- * 
+ *
  * World("worlds/examples/walls.json", "Wall example")
- * 
+ *
  * // Then run the program; notice how the goal set (3 walls to build)
  * // is automatically verified at the end.
  *
@@ -11563,7 +11564,7 @@ RUR.add_wall = function(orientation, x, y, goal) {
  * otherwise, it raises an exception.
  *
  * @param {string} orientation  One of `"east", "west", "north", "south"`.
- * @param {integer} x  Position: `1 <= x <= max_x`  
+ * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  * @param {bool} [goal] If `true`, get information about goal walls.
  *
@@ -11576,9 +11577,9 @@ RUR.add_wall = function(orientation, x, y, goal) {
  * @example
  * // Execute the following instruction (either from Python or Javascript)
  * // to load a sample program
- * 
+ *
  * World("worlds/examples/walls.json", "Wall example")
- * 
+ *
  * // Then run the program; notice how the goal set (3 walls to build)
  * // is automatically verified at the end.
  *
@@ -11598,7 +11599,7 @@ RUR.remove_wall = function(orientation, x, y, goal) {
     RUR.remove_artefact(args);
     // For historical reason, worlds are always created with a "walls" attribute
     RUR.utils.ensure_key_for_obj_exists(RUR.CURRENT_WORLD, "walls");
-    RUR.record_frame("remove_wall", args);  
+    RUR.record_frame("remove_wall", args);
 };
 
 function convert_position (orientation, x, y) {
@@ -12155,7 +12156,7 @@ RUR.world_utils.clone_world = clone_world; // for automated testing
 require("./../rur.js");
 require("./world_utils_namespace.js");
 
-/* The following is used in a few places, including in unit and 
+/* The following is used in a few places, including in unit and
    functional tests. It is not documented with JSdoc as it should not
    be required for normal world creation; the recommended practice being
    to start with an existing world. */
@@ -12187,10 +12188,10 @@ require("./../rur.js");
 
 /*  This function returns a World as a json object. Since the
  *  internal structure of worlds is subject to change, it is
- *  not advised to make use of this function inside a world definition. 
- *  
+ *  not advised to make use of this function inside a world definition.
+ *
  *  However, it can be useful as a means to explore the
- *  world structure, or assign advanced students to write their own 
+ *  world structure, or assign advanced students to write their own
  *  functions based on the world structure (for example: find
  *  the shortest path in a maze using various search algorithms.)
  *
@@ -12250,7 +12251,7 @@ RUR.world_utils.import_world = function (json_string) {
     //TODO: put the conversion into new function
 
     // Backward compatibility following change done on Jan 5, 2016
-    // top_tiles has been renamed obstacles (and prior to that [or after?], 
+    // top_tiles has been renamed obstacles (and prior to that [or after?],
     // they were known as solid_objects); to ensure compatibility of
     // worlds created before, we change the old name
     // following http://stackoverflow.com/a/14592469/558799
@@ -12266,7 +12267,7 @@ RUR.world_utils.import_world = function (json_string) {
         delete RUR.CURRENT_WORLD.solid_objects;
     }
 
-    // Backward compatibility change done on December 29, 2016. 
+    // Backward compatibility change done on December 29, 2016.
     // tiles were written as e.g. "water"; need to be written as ["water"]
     if (RUR.CURRENT_WORLD.tiles !== undefined) {
         keys = Object.keys(RUR.CURRENT_WORLD.tiles);
@@ -12299,7 +12300,7 @@ RUR.world_utils.import_world = function (json_string) {
                 index = obstacles.indexOf("fence6");
                 if (index !== -1) {
                     obstacles[index] = "fence_double";
-                }                
+                }
                 index = obstacles.indexOf("fence7");
                 if (index !== -1) {
                     obstacles[index] = "fence_vertical";
@@ -12375,7 +12376,7 @@ function convert_old_worlds () {
 require("./../rur.js");
 /** @namespace world_utils
  * @memberof RUR
- * @desc RUR.world_utils is a namespace intended for private utility functions. 
+ * @desc RUR.world_utils is a namespace intended for private utility functions.
  *   The sparse documentation about these is meant for developers.
  *   These methods should not be invoked by an end user as they could
  *   change (or be removed) at any time.

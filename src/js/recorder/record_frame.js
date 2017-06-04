@@ -14,40 +14,42 @@ RUR.record_frame = function (name, obj) {
         console.log("from record_frame, name, obj=", name, obj);
     }
 
-    /* There are a number of conditions that would prevent the recording
-       of a frame; they are as follows. */
+    /* TODO: Document RUR.frame_insertion and put a link here.    */
+
+    if (name !== "highlight" && RUR.frame_insertion !== undefined && !RUR.state.frame_insertion_called){
+        // avoid recursive calls as this would make it too difficult
+        // to use frame_insertion
+        RUR.state.frame_insertion_called = true;
+        if (RUR.state.programming_language === "python") {
+            py_err = RUR.frame_insertion(name, obj)
+            RUR.state.frame_insertion_called = false;
+            if (py_err && py_err.__name__) {
+                if (RUR[py_err.__name__] !== undefined) {
+                    throw new RUR[py_err.__name__](py_err.reeborg_shouts);
+                } else {
+                    throw new RUR.ReeborgError(py_err.__name__);
+                }
+            }
+        } else {
+            try {
+                RUR.frame_insertion(name, obj); // may throw an error
+            } finally {
+                RUR.state.frame_insertion_called = false;
+            }
+        }
+    }
 
 // TODO: document a test that would fail if we were to remove the condition
-// name!="error" below -- this addition was done by 
+// name!="error" below -- this addition was done by
 // 1. turning off recording
 // 2. doing stuff ... including something that should have raised an error
 // 3. resuming recording.
 // The program stopped, but no error was shown.
 
-    if (name !== "highlight" && RUR.frame_insertion !== undefined && !RUR.state.frame_insertion_called){
-        RUR.state.frame_insertion_called = true;
-        try {
-            py_err = RUR.frame_insertion(name, obj);
-        } catch (e) {
-            if (RUR.state.programming_language === "javascript") {
-                RUR.state.frame_insertion_called = false;
-                throw e;
-            }
-        }
-        RUR.state.frame_insertion_called = false;
-        if (py_err && py_err.__name__) {
-            if (RUR[py_err.__name__] !== undefined) {
-                throw new RUR[py_err.__name__](py_err.reeborg_shouts);
-            } else {
-                throw new RUR.ReeborgError(py_err.__name__);
-            }
-        }
-    }
-
     if ((RUR.state.do_not_record || RUR.state.prevent_playback) && name != "error") {
         return;
     } else if (RUR.state.input_method==="py-repl") {
-        /* if the REPL is active, we do not record anything, and show 
+        /* if the REPL is active, we do not record anything, and show
            immediately the updated world. */
         return RUR._show_immediate(name, obj);
     } else if (name == "watch_variables" && RUR.nb_frames >= 1) {
@@ -59,7 +61,7 @@ RUR.record_frame = function (name, obj) {
           RUR.current_line_no == RUR.rec_line_numbers [RUR.nb_frames-1]) {
         // no highlighting change: do not include any extra frame
         return;
-    } 
+    }
 
     if (RUR.CURRENT_WORLD.robots !== undefined){
         for (robot of RUR.CURRENT_WORLD.robots) { // jshint ignore:line

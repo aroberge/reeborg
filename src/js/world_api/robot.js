@@ -10,13 +10,13 @@ require("./../world_utils/get_world.js");
  *   is performed on the arguments.  If some exception is raised,
  *   it is simply logged in the browser's console.
  *
- * @param {integer} x  Position 
- * @param {integer} y  Position 
+ * @param {integer} x  Position
+ * @param {integer} y  Position
  *
  * @returns {bool} True if a robot is found at that position, false otherwise.
- *   
+ *
  **/
- 
+
  RUR.is_robot = function (x, y) {
     "use strict";
     var r, robot, world=RUR.get_world();
@@ -50,19 +50,20 @@ require("./../world_utils/get_world.js");
  *   it is simply logged in the browser's console.
  *
  *    **Important** This function cannot be used directly in a Python program
- *    to yield something sensible. (If you want, you can convert the result 
+ *    to yield something sensible. (If you want, you can convert the result
  *    to a Python dict() -- provided it is not None, of course.)
- *    From Python, use instead `get_robot_by_id()` (without the RUR prefix)
+ *    From Python, use instead `get_robot_by_id()` (without the RUR prefix),
+ *    or `robot_spécifique` in French,
  *    which returns a full UsedRobot object (and not simply its body).
  *
- * @param {integer} id  
+ * @param {integer} id
  *
  * @returns {object} the body of the robot as a Javascript object, null if
  *         a robot with this id cannot be found.
- *   
+ *
  **/
- 
-RUR.get_robot_by_id = function (id) {
+
+RUR.get_robot_body_by_id = function (id) {
     "use strict";
     var r, robot, world=RUR.get_world();
 
@@ -87,19 +88,19 @@ RUR.get_robot_by_id = function (id) {
  *
  * @memberof RUR
  * @instance
- * @summary This function returns the location of a robot.  
+ * @summary This function returns the location of a robot.
  *
  * @param {object} robot A robot (body) object, having the proper attribute
  *    for position (x, y coordinates) and orientation.  Note that you should
  *    pass in a robot (body) object obtained from some other function,
- *    such as `RUR.get_robot_by_id()`, since
+ *    such as `RUR.get_robot_body_by_id()`, since
  *    the internal names for the various attributes is subject to change.
  *
- * @returns {object} An object of the form 
+ * @returns {object} An object of the form
  *      `{x:x_value, y:y_value, orientation:orientation_value} where
- *      `x_value` and `y_value` are integers and 
+ *      `x_value` and `y_value` are integers and
  *      `orientation_value` is one of `"east"`, `"west"`, `"north"`, `"south"`.
- *   
+ *
  **/
 
 RUR.get_robot_position = function (robot) {
@@ -109,7 +110,7 @@ RUR.get_robot_position = function (robot) {
         robot._orientation === undefined) {
         throw new Error("robot body needed as argument for RUR.get_location().");
     }
-    
+
     switch (robot._orientation){
     case RUR.EAST:
         orientation = "east";
@@ -129,22 +130,22 @@ RUR.get_robot_position = function (robot) {
     return {x:robot.x, y:robot.y, orientation:orientation};
 };
 
-    
+
  /** @function get_position_in_front
  *
  * @memberof RUR
  * @instance
- * @summary This function returns the location of a robot.  
+ * @summary This function returns the location of a robot.
  *
  * @param {object} robot A robot (body) object, having the proper attribute
  *    for position (x, y coordinates) and orientation.  Note that you should
  *    pass in a robot (body) object obtained from some other function
- *    such as `RUR.get_robot_by_id()`, since
- *    the internal names for the various attributes is subject to change.
+ *    such as `RUR.get_robot_body_by_id()`, since
+ *    the internal names for the various attributes are subject to change.
  *
- * @returns {object} An object of the form 
+ * @returns {object} An object of the form
  *      `{x:x_value, y:y_value} where `x_value` and `y_value` are integers.
- *   
+ *
  **/
 
 RUR.get_position_in_front = function (robot) {
@@ -192,7 +193,7 @@ RUR.get_position_in_front = function (robot) {
  *                      function is called, the `name` argument replaces any
  *                      such argument that was previously recorded.
  *
- * @param {integer} x  The position on the grid  
+ * @param {integer} x  The position on the grid
  * @param {integer} y
  *
  * @todo: put in argument verification code and note which error can be thrown
@@ -213,7 +214,7 @@ RUR.add_final_position = function (name, x, y) {
         pos = goal.possible_final_positions[i];
         if(pos[0]==x && pos[1]==y){
             throw new ReeborgError("This final position is already included!");
-        } 
+        }
     }
 
     goal.position.x = x;
@@ -232,7 +233,7 @@ RUR.add_final_position = function (name, x, y) {
  *          `x, y` positions; doing so will result in a initial position chosen
  *          randomly (among the choices recorded) each time a program is run.
  *
- * @param {integer} x  The position on the grid  
+ * @param {integer} x  The position on the grid
  * @param {integer} y
  *
  * @todo: put in argument verification code and note which error can be thrown
@@ -255,7 +256,7 @@ RUR.add_initial_position = function (x, y) {
         pos = robot.possible_initial_positions[i];
         if(pos[0]==x && pos[1]==y){
             throw new ReeborgError("This initial position is already included!");
-        } 
+        }
     }
 
     robot.possible_initial_positions.push([x, y]);

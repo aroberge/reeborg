@@ -1,9 +1,10 @@
 import sys
-from browser import window
+from browser import window, console
 try:
     from highlight import insert_highlight_info
 except Exception as e:
     print("problem in common.py")
+
 from preprocess import transform
 
 def _add_watch(expr):
@@ -23,9 +24,7 @@ def __write_err(data):
     window.RUR.output._write("<b style='color:red'>" + str(data) + "</b>")
 
 def html_escape(obj):
-    return str(obj).replace("&", "&amp"
-                  ).replace("<", "&lt;"   # NOQA
-                  ).replace(">", "&gt;")  # NOQA
+    return str(obj).replace("&", "&amp").replace("<", "&lt;").replace(">", "&gt;")
 
 
 old = "<span class='watch_name'>%s:</span> <span class='watch_value'>%s</span>"  # NOQA

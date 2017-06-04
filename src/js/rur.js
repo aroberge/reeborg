@@ -1,4 +1,4 @@
-/** @namespace RUR 
+/** @namespace RUR
  * @desc The namespace reserved for all the core Reeborg World methods.
  *
  */
@@ -23,15 +23,15 @@ try {
 }
 
 // Commenting for jsdoc:
-/** @namespace FuncTest 
- * @desc FuncTest is a namespace that can be used to hold global reference 
- * to functions that are useful to perform some functional tests only, but 
+/** @namespace FuncTest
+ * @desc FuncTest is a namespace that can be used to hold global reference
+ * to functions that are useful to perform some functional tests only, but
  * is mostly intended as a helper in creating documentation using jsdoc.
  *
  * <span class="reeborg-important">The "methods" listed below are not callable
  *  but simply convenient names used to document the unit tests using jsdoc.
  *  </span>
- */ 
+ */
 window.FuncTest = {};
 
 
@@ -95,11 +95,11 @@ RUR.DEFAULT_WIDTH = 625;
 // We use multiple canvases to facilitate the drawing of objects
 // without having to worry much about the order in which we draw
 // the various types of objects.
-// 
+//
 // The order in which the canvases are overlayed one on top of another
 // is set in the CSS file and should not be inferred from the
 // Javascript code below.
-// 
+//
 // Note that, when doing unit tests (not functional tests), we do not
 // have canvases defined; so we enclose these definitions in a function
 // that does ignores canvases when appropriate.
@@ -180,8 +180,8 @@ function set_canvases () {
 }
 set_canvases();
 
-RUR.WALL_LENGTH = 40;   // These can be adjusted
-RUR.WALL_THICKNESS = 4;  // elsewhere if RUR.CURRENT_WORLD.small_tiles become true.
+RUR.WALL_LENGTH = RUR.DEFAULT_WALL_LENGTH = 40;
+RUR.WALL_THICKNESS = RUR.DEFAULT_WALL_THICKNESS = 4;
 
 RUR.MAX_Y = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
 RUR.MAX_X = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
@@ -226,15 +226,15 @@ RUR.configure_red_green = function (red, green) {
     RUR.GREEN = green;
     RUR.RED = red;
     localStorage.setItem("userchoice_red", red);
-    localStorage.setItem("userchoice_green", green);    
+    localStorage.setItem("userchoice_green", green);
 };
 
 //--------------------------------------------------------
 // We communicate information to the user using various
 // styled dialog windows; this generic function specifies
 // which dialog (html "element") to use and the content to
-// display to the user. 
-// 
+// display to the user.
+//
 RUR.show_feedback = function (element, content) {
     $(element).html(content).dialog("open");
 };
