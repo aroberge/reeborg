@@ -40,3 +40,11 @@ RUR.WallCollisionError = function (message) {
 };
 
 
+RUR.MissingObjectError = function (message) {
+    if (RUR.state.programming_language == "python"){
+        return MissingObjectError(message);
+    }
+    this.name = "MissingObjectError";
+    this.message = message;
+    this.reeborg_shouts = message;
+};

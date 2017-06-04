@@ -149,19 +149,19 @@ RUR.control.put = function(robot, arg){
         }
     }
     if (all_objects.length === 0){
-        throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({obj: RUR.translate("object")}));
+        throw new RUR.MissingObjectError(RUR.translate("I don't have any object to put down!").supplant({obj: RUR.translate("object")}));
     }
     if (arg !== undefined) {
         if (robot.objects[translated_arg] === undefined) {
-            throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({obj:arg}));
+            throw new RUR.MissingObjectError(RUR.translate("I don't have any object to put down!").supplant({obj:arg}));
         }  else {
             RUR.control._robot_put_down_object(robot, translated_arg);
         }
     }  else {
         if (objects_carried.length === 0){
-            throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({obj: RUR.translate("object")}));
+            throw new RUR.MissingObjectError(RUR.translate("I don't have any object to put down!").supplant({obj: RUR.translate("object")}));
         } else if (all_objects.length > 1){
-             throw new RUR.ReeborgError(RUR.translate("I carry too many different objects. I don't know which one to put down!"));
+             throw new RUR.MissingObjectError(RUR.translate("I carry too many different objects. I don't know which one to put down!"));
         } else {
             RUR.control._robot_put_down_object(robot, translated_arg);
         }
@@ -215,14 +215,14 @@ RUR.control.take = function(robot, arg){
     objects_here = RUR.world_get.object_at_robot_position(robot, arg);
     if (arg !== undefined) {
         if (Array.isArray(objects_here) && objects_here.length === 0) {
-            throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: arg}));
+            throw new RUR.MissingObjectError(RUR.translate("No object found here").supplant({obj: arg}));
         }  else {
             RUR.control._take_object_and_give_to_robot(robot, arg);
         }
     }  else if (Array.isArray(objects_here) && objects_here.length === 0){
-        throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: RUR.translate("object")}));
+        throw new RUR.MissingObjectError(RUR.translate("No object found here").supplant({obj: RUR.translate("object")}));
     }  else if (objects_here.length > 1){
-        throw new RUR.ReeborgError(RUR.translate("Many objects are here; I do not know which one to take!"));
+        throw new RUR.MissingObjectError(RUR.translate("Many objects are here; I do not know which one to take!"));
     } else {
         RUR.control._take_object_and_give_to_robot(robot, objects_here[0]);
     }

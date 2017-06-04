@@ -19,6 +19,12 @@ RUR.record_frame = function (name, obj) {
     if (name !== "highlight" && RUR.frame_insertion !== undefined && !RUR.state.frame_insertion_called){
         // avoid recursive calls as this would make it too difficult
         // to use frame_insertion
+        if (name === undefined) {
+            name = "RUR.record_frame: missing first argument";
+        }
+        if (obj === undefined) {
+            obj = "RUR.record_frame: missing second argument";
+        }
         RUR.state.frame_insertion_called = true;
         if (RUR.state.programming_language === "python") {
             py_err = RUR.frame_insertion(name, obj)

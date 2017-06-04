@@ -321,7 +321,7 @@ $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, w
                                 position:{my: "bottom", at: "bottom-20", of: window}});
 $("#Reeborg-explores").dialog({minimize: false, maximize: false, autoOpen:false, width:600,
                                 position:{my: "center", at: "center", of: $("#robot-canvas")}});
-$("#Reeborg-proclaims").dialog({minimize: false, maximize: false, autoOpen:false, width:800, dialogClass: "proclaims",
+$("#Reeborg-proclaims").dialog({minimize: false, maximize: false, autoOpen:false, width:800, height:400, dialogClass: "proclaims",
                                 position:{my: "bottom", at: "bottom-80", of: window}});
 $("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:400, dialogClass: "watches",
                                 position:{my: "bottom", at: "bottom-140", of: window}});
@@ -2432,7 +2432,7 @@ function alert_2 (txt, value) {
 
 RUR.we.select = function (choice) {
     "use strict";
-    var value, split, root, robot;
+    var value, split, root;
     RUR.we.edit_world_flag = choice;
     split = choice.split("-");
     root = split[0];
@@ -2599,11 +2599,6 @@ function place_robot () {
         } else {
             robot = RUR.robot.create_robot(position[0], position[1]);
             RUR.add_robot(robot);
-            // robot = world.robots[0];
-            // robot.x = position[0];
-            // robot.y = position[1];
-            // robot._prev_x = robot.x;
-            // robot._prev_y = robot.y;
             robot.possible_initial_positions = [[robot.x, robot.y]];
             return;
         }
@@ -6440,19 +6435,19 @@ RUR.control.put = function(robot, arg){
         }
     }
     if (all_objects.length === 0){
-        throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({obj: RUR.translate("object")}));
+        throw new RUR.MissingObjectError(RUR.translate("I don't have any object to put down!").supplant({obj: RUR.translate("object")}));
     }
     if (arg !== undefined) {
         if (robot.objects[translated_arg] === undefined) {
-            throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({obj:arg}));
+            throw new RUR.MissingObjectError(RUR.translate("I don't have any object to put down!").supplant({obj:arg}));
         }  else {
             RUR.control._robot_put_down_object(robot, translated_arg);
         }
     }  else {
         if (objects_carried.length === 0){
-            throw new RUR.ReeborgError(RUR.translate("I don't have any object to put down!").supplant({obj: RUR.translate("object")}));
+            throw new RUR.MissingObjectError(RUR.translate("I don't have any object to put down!").supplant({obj: RUR.translate("object")}));
         } else if (all_objects.length > 1){
-             throw new RUR.ReeborgError(RUR.translate("I carry too many different objects. I don't know which one to put down!"));
+             throw new RUR.MissingObjectError(RUR.translate("I carry too many different objects. I don't know which one to put down!"));
         } else {
             RUR.control._robot_put_down_object(robot, translated_arg);
         }
@@ -6506,14 +6501,14 @@ RUR.control.take = function(robot, arg){
     objects_here = RUR.world_get.object_at_robot_position(robot, arg);
     if (arg !== undefined) {
         if (Array.isArray(objects_here) && objects_here.length === 0) {
-            throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: arg}));
+            throw new RUR.MissingObjectError(RUR.translate("No object found here").supplant({obj: arg}));
         }  else {
             RUR.control._take_object_and_give_to_robot(robot, arg);
         }
     }  else if (Array.isArray(objects_here) && objects_here.length === 0){
-        throw new RUR.ReeborgError(RUR.translate("No object found here").supplant({obj: RUR.translate("object")}));
+        throw new RUR.MissingObjectError(RUR.translate("No object found here").supplant({obj: RUR.translate("object")}));
     }  else if (objects_here.length > 1){
-        throw new RUR.ReeborgError(RUR.translate("Many objects are here; I do not know which one to take!"));
+        throw new RUR.MissingObjectError(RUR.translate("Many objects are here; I do not know which one to take!"));
     } else {
         RUR.control._take_object_and_give_to_robot(robot, objects_here[0]);
     }
@@ -6774,6 +6769,14 @@ RUR.WallCollisionError = function (message) {
 };
 
 
+RUR.MissingObjectError = function (message) {
+    if (RUR.state.programming_language == "python"){
+        return MissingObjectError(message);
+    }
+    this.name = "MissingObjectError";
+    this.message = message;
+    this.reeborg_shouts = message;
+};
 
 },{"./../rur.js":52}],43:[function(require,module,exports){
 
@@ -7152,6 +7155,12 @@ RUR.record_frame = function (name, obj) {
     if (name !== "highlight" && RUR.frame_insertion !== undefined && !RUR.state.frame_insertion_called){
         // avoid recursive calls as this would make it too difficult
         // to use frame_insertion
+        if (name === undefined) {
+            name = "RUR.record_frame: missing first argument";
+        }
+        if (obj === undefined) {
+            obj = "RUR.record_frame: missing second argument";
+        }
         RUR.state.frame_insertion_called = true;
         if (RUR.state.programming_language === "python") {
             py_err = RUR.frame_insertion(name, obj)
