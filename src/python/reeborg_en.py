@@ -682,6 +682,17 @@ try:
 except:
     pass
 
+class MissingObjectError(ReeborgError):
+    """Exceptions specific to Reeborg's World.
+
+       Can occur when Reeborg attempts to take or put down an object.
+    """
+    pass
+try:
+    window['MissingObjectError'] = MissingObjectError
+except:
+    pass
+
 
 class SatelliteInfo():  #py:SI
 

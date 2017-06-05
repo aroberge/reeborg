@@ -98,6 +98,24 @@ test_utils.eval_program = function(world_url, program_url, language) {
     }
 };
 
+
+test_utils.run_world = function(world_url, language) {
+    var world;
+    test_utils.reset();
+    RUR.state.programming_language = language;
+
+    test_utils.load_world_file(world_url);
+    test_utils.pre_code = RUR.CURRENT_WORLD.pre || '';
+    test_utils.post_code = RUR.CURRENT_WORLD.post || '';
+    test_utils.program = RUR.CURRENT_WORLD.editor || '';
+
+    RUR.runner.eval(test_utils.program);
+    return RUR.frames[RUR.frames.length - 1]; // last frame
+};
+
+
+
+
 test_utils.run_javascript = function (world_url, program_url) {
     return test_utils.run_program(world_url, program_url, "javascript");
 };

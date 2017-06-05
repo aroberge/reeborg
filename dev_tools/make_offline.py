@@ -70,6 +70,7 @@ qunit_scripts = """
 <script type="text/javascript" src="js/test_world_creation.js" defer></script>
 <script type="text/javascript" src="js/all_qunit_tests.js" defer></script>
 <script type="text/javascript" src="vincent_maille/maille_qunit.js" defer></script>
+<script type="text/javascript" src="jsdoc/advanced_world_creation.js" defer></script>
 <script type="text/javascript" src="js/world_api/walls.tests.js" defer></script>
 </body>
 """

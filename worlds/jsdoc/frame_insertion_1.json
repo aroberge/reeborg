@@ -1,0 +1,52 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 4,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {
+    "5,3": [
+      "north"
+    ]
+  },
+  "description": "An example showing how automatic frame insertion\ncan modify the behaviour of a program.\n\nThe code in the pre-editor is:\n\nINSERT_PRE",
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14,
+  "tiles": {
+    "2,1": [
+      "ice"
+    ],
+    "3,1": [
+      "ice"
+    ],
+    "4,1": [
+      "ice"
+    ],
+    "5,2": [
+      "ice"
+    ],
+    "5,3": [
+      "ice"
+    ]
+  },
+  "pre": "def unsafe_callback(name, arg):\n    # Note: Exception raised in this function would not be handled\n    # properly due to the Python/Javascript interactions\n    # unique to Reeborg's World\n    if name==\"move\":\n        RUR.record_frame(\"callback\", \"move\");\n        r = get_robot_by_id(arg)\n        while RUR.is_background_tile(\"ice\", r.body.x, r.body.y):\n            print_html(\"I am slipping on ice.<br>\")\n            r.move()  # may raise an exception\n    \n    elif (name == \"error\" and hasattr(arg, \"name\") and\n          arg.name == \"WallCollisionError\"):\n        think(1000)\n        print_html(\"This is going to hurt.\", True)\n        print_html(\"<h3>This is really going to hurt.</h3>\")\n        sound(True)\n        print_html(\"<img src='/src/images/ouch.png'>\")\n\n        \ndef safe_callback(name, arg):\n    # For frame insertion, we need to *return* an exception\n    # rather than let it be raised and caught.\n    try:\n        unsafe_callback(name, arg)\n    except Exception as e:\n        return e\n\nRUR.frame_insertion = safe_callback\n",
+  "editor": "move()\nturn_left()\nmove()\ntake()\n"
+}

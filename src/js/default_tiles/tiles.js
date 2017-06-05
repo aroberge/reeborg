@@ -1,4 +1,6 @@
-/* Initially, Reeborg's World only contained "objects", starting with a
+/* A bit of history ...
+
+  Initially, Reeborg's World only contained "objects", starting with a
   single one (beeper, which became token) and slowly increasing the number
   and characteristics (e.g. animated object).  The first objects were
   drawn on the canvas; eventually they were replaced by square images.
@@ -24,8 +26,7 @@ RUR.add_new_thing(tile);
 
 tile = {name: "ice",
     url: RUR._BASE_URL + '/src/images/ice.png',
-    message: "I'm slipping on ice!",
-    info: "Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location."
+    info: "Ice: Reeborg <b>cannot</b> detect this and <em>might</em> slide and move to the next location if it moves to this location."
 };
 RUR.add_new_thing(tile);
 

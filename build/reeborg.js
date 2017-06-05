@@ -1,5 +1,7 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-/* Initially, Reeborg's World only contained "objects", starting with a
+/* A bit of history ...
+
+  Initially, Reeborg's World only contained "objects", starting with a
   single one (beeper, which became token) and slowly increasing the number
   and characteristics (e.g. animated object).  The first objects were
   drawn on the canvas; eventually they were replaced by square images.
@@ -25,8 +27,7 @@ RUR.add_new_thing(tile);
 
 tile = {name: "ice",
     url: RUR._BASE_URL + '/src/images/ice.png',
-    message: "I'm slipping on ice!",
-    info: "Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location."
+    info: "Ice: Reeborg <b>cannot</b> detect this and <em>might</em> slide and move to the next location if it moves to this location."
 };
 RUR.add_new_thing(tile);
 
@@ -1613,8 +1614,11 @@ function set_button (name, content_present) {
 }
 
 function _update_user_editor (world, name, ed) {
-    // For blockly, editor and library, the user is given the choice to
-    // update the content or to keep their own.
+    if (test_utils) {  // global variable defined for functional testing
+        return;
+    }
+    // For blockly, editor and library, when not running tests,
+    // the user is given the choice to update the content or to keep their own.
     if (world[name]) {
         set_button("name", true);
         $("#update-"+name+"-content").show();
@@ -12805,7 +12809,7 @@ ui_en["I cannot help you with this problem."] = "I cannot help you with this pro
 ui_en["I'm stuck in mud."] = "I'm stuck in mud.";
 ui_en["Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."] = "Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location.";
 ui_en["I'm slipping on ice!"] = "I'm slipping on ice!";
-ui_en["Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location."] = "Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location.";
+ui_en["Ice: Reeborg <b>cannot</b> detect this and <em>might</em> slide and move to the next location if it moves to this location."] = "Ice: Reeborg <b>cannot</b> detect this and <em>might</em> slide and move to the next location if it moves to this location.";
 ui_en["Grass: usually safe."] = "Grass: usually safe.";
 ui_en["Gravel: usually safe."] = "Gravel: usually safe.";
 ui_en["I'm in water!"] = "I'm in water!";
@@ -13158,7 +13162,7 @@ ui_fr["I cannot help you with this problem."] = "Je ne peux pas vous aider avec 
 ui_fr["I'm stuck in mud."] = "Je suis immobilisé dans la boue.";
 ui_fr["Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."] = "Boue: Reeborg <b>ne peut pas</b> détecter ceci et y sera immobilisé s'il va à cet endroit.";
 ui_fr["I'm slipping on ice!"] = "Je glisse sur la glace!";
-ui_fr["Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location."] = "Glace: Reeborg <b>ne peut pas</b> détecter ceci et glissera à la prochaine case.";
+ui_fr["Ice: Reeborg <b>cannot</b> detect this and <em>might</em> slide and move to the next location if it moves to this location."] = "Glace: Reeborg <b>ne peut pas</b> détecter ceci et pourrait glisser à la prochaine case.";
 ui_fr["Grass: usually safe."] = "Gazon: habituellement sans problèmes.";
 ui_fr["Gravel: usually safe."] = "Gravier: habituellement sans problèmes.";
 ui_fr["I'm in water!"] = "Je suis dans l'eau!";
@@ -13517,7 +13521,7 @@ ui_ko["I cannot help you with this problem."] = "I cannot help you with this pro
 ui_ko["I'm stuck in mud."] = "난 진흙에 걸렸어요.";
 ui_ko["Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."] = "진흙: 리보그는 이것을 탐지 <b>하지 못하고<b> 이 위치로 이동하게 되면 걸리게 됩니다.";
 ui_ko["I'm slipping on ice!"] = "저는 얼음에 미끄러지고 있어요!";
-ui_ko["Ice: Reeborg <b>cannot</b> detect this and will slide and move to the next location if it moves to this location."] = "얼음: 리보그는 이것을 탐지 <b>하지 못하고</b> 만약 이 위치로 이동하게 되면 미끄러지고 다음 위치로 이동하게 됩니다.";
+ui_ko["Ice: Reeborg <b>cannot</b> detect this and <em>might</em> slide and move to the next location if it moves to this location."] = "얼음: 리보그는 이것을 탐지 <b>하지 못하고</b> 만약 이 위치로 이동하게 되면 미끄러지고 다음 위치로 이동하게 됩니다.";
 ui_ko["Grass: usually safe."] = "잔디: 보통 안전함.";
 ui_ko["Gravel: usually safe."] = "자갈: 보통 안전함.";
 ui_ko["I'm in water!"] = "난 물 속에 있어요!";
