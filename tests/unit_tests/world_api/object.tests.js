@@ -1,13 +1,3 @@
-/** @function test_add_remove_object
- * @memberof UnitTest
- * @instance
- *
- * @desc This refers to the file containing various
- * unit tests for "object" related methods, complementing those found
- * in {@link UnitTest#test_is_add_remove}.
- *
-*/
-
 // Enable silencing warnings - from missing translations
 var silencer =  require('silencer');
 

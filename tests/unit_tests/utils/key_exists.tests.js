@@ -1,12 +1,3 @@
- /** @function test_key_exists
- * @memberof UnitTest
- * @instance
-*
-* @desc The file listed below as the source contains unit tests for 
-* "key exists" methods.
-*
-*/
-
 // setting global environment
 var tape_test = require('./../test_globals.js').tape_test;
 function test(test_name, fn) {
@@ -18,7 +9,7 @@ require("../../../src/js/utils/key_exist.js");
 
 test('Testing ensure_key_for_obj_exists()', function (assert) {
     var obj = {};
-    assert.plan(1);  
+    assert.plan(1);
     RUR.utils.ensure_key_for_obj_exists(obj, "key");
     assert.deepEqual(obj.key, {}, "empty obj assigned to new key.");
     assert.end();
@@ -35,7 +26,7 @@ test('Testing ensure_key_for_obj_exists()', function (assert) {
 
 test('Testing ensure_key_for_array_exists()', function (assert) {
     var obj = {};
-    assert.plan(1);  
+    assert.plan(1);
     RUR.utils.ensure_key_for_array_exists(obj, "key");
     assert.deepEqual(obj.key, [], "empty array assigned to new key.");
     assert.end();

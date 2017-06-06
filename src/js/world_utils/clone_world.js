@@ -1,4 +1,4 @@
-require("./world_utils_namespace.js");
+require("./../rur.js");
 
 exports.clone_world = clone_world = function (world) {
     if (world === undefined) {

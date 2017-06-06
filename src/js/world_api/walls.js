@@ -28,21 +28,19 @@ that lists the walls, and must be handled separately.
  * the boundaries of a normal (rectangular) world. The order they are listed,
  * if present, are `"east"`, `"north"`, `"west"`, `"south"`.
  *
- * @param {integer} x  Position: `1 <= x <= max_x`  
+ * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  * @param {bool} [goal] If `true`, list the goal walls found at that position
  *                      instead of regular walls.
  *
  * @throws Will throw an error if `x` or `y` is outside the world boundary.
  *
- * @see {@link UnitTest#test_walls} for unit tests.
- * @see {@link FuncTest#test_walls} for functional/integration tests.
  * @example
  * // Execute the following instruction (either from Python or Javascript)
  * // to load a sample program
- * 
+ *
  * World("worlds/examples/walls.json", "Wall example")
- * 
+ *
  * // Then run the program; notice how the goal set (3 walls to build)
  * // is automatically verified at the end.
  *
@@ -61,7 +59,7 @@ RUR.get_walls = function(x, y, goal) {
     if (RUR.is_wall("south", x, y, goal)) {
         walls.push("south");
     }
-    return walls;  
+    return walls;
 };
 
 
@@ -72,23 +70,21 @@ RUR.get_walls = function(x, y, goal) {
  * stated position and orientation, and `false` otherwise.
  *
  * @param {string} orientation  One of `"east", "west", "north", "south"`.
- * @param {integer} x  Position: `1 <= x <= max_x`  
+ * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  * @param {bool} [goal] If `true`, get information about goal walls
  *                      instead of regular walls.
  *
- * 
+ *
  * @throws Will throw an error if `x` or `y` is outside the world boundary.
  * @throws Will throw an error if `orientation` is not a valid choice.
  *
- * @see {@link UnitTest#test_walls} for unit tests.
- * @see {@link FuncTest#test_walls} for functional/integration tests.
  * @example
  * // Execute the following instruction (either from Python or Javascript)
  * // to load a sample program
- * 
+ *
  * World("worlds/examples/walls.json", "Wall example")
- * 
+ *
  * // Then run the program; notice how the goal set (3 walls to build)
  * // is automatically verified at the end.
  *
@@ -109,7 +105,7 @@ RUR.is_wall = function(orientation, x, y, goal) {
         return false;
     } else {
         return true;
-    }     
+    }
 };
 
 // private helper function
@@ -135,7 +131,7 @@ function is_boundary_wall(orientation, x, y) {
  * otherwise, it raises an exception.
  *
  * @param {string} orientation  One of `"east", "west", "north", "south"`.
- * @param {integer} x  Position: `1 <= x <= max_x`  
+ * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  * @param {bool} [goal] If `true`, get information about goal walls.
  *
@@ -143,14 +139,12 @@ function is_boundary_wall(orientation, x, y) {
  * @throws Will throw an error if `orientation` is not a valid choice.
  * @throws Will throw an error if there is already a wall there.
  *
- * @see {@link UnitTest#test_walls} for unit tests.
- * @see {@link FuncTest#test_walls} for functional/integration tests.
  * @example
  * // Execute the following instruction (either from Python or Javascript)
  * // to load a sample program
- * 
+ *
  * World("worlds/examples/walls.json", "Wall example")
- * 
+ *
  * // Then run the program; notice how the goal set (3 walls to build)
  * // is automatically verified at the end.
  *
@@ -177,7 +171,7 @@ RUR.add_wall = function(orientation, x, y, goal) {
  * otherwise, it raises an exception.
  *
  * @param {string} orientation  One of `"east", "west", "north", "south"`.
- * @param {integer} x  Position: `1 <= x <= max_x`  
+ * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  * @param {bool} [goal] If `true`, get information about goal walls.
  *
@@ -185,14 +179,12 @@ RUR.add_wall = function(orientation, x, y, goal) {
  * @throws Will throw an error if `orientation` is not a valid choice.
  * @throws Will throw an error if there is no wall to remove.
  *
- * @see {@link UnitTest#test_walls} for unit tests.
- * @see {@link FuncTest#test_walls} for functional/integration tests.
  * @example
  * // Execute the following instruction (either from Python or Javascript)
  * // to load a sample program
- * 
+ *
  * World("worlds/examples/walls.json", "Wall example")
- * 
+ *
  * // Then run the program; notice how the goal set (3 walls to build)
  * // is automatically verified at the end.
  *
@@ -212,7 +204,7 @@ RUR.remove_wall = function(orientation, x, y, goal) {
     RUR.remove_artefact(args);
     // For historical reason, worlds are always created with a "walls" attribute
     RUR.utils.ensure_key_for_obj_exists(RUR.CURRENT_WORLD, "walls");
-    RUR.record_frame("remove_wall", args);  
+    RUR.record_frame("remove_wall", args);
 };
 
 function convert_position (orientation, x, y) {

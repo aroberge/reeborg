@@ -4,7 +4,8 @@
         "dictionaries": ["jsdoc", "closure"]
     },
     "source": {
-        "include": [ "src/js", "tests", "src/lang"]
+        "include": [ "src/js", "tests", "src/lang"],
+        "exclude": ["tests/functional_tests/qunit-2.3.2.js"]
     },
     "plugins": ["plugins/markdown"],
     "markdown": {

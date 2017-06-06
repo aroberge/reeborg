@@ -17,7 +17,7 @@ QUnit.test( "Empty worlds", function(assert) {
     assert.deepEqual(test_utils.initial_world, test_utils.empty_world, "Empty world initially created." );
     RUR.world_utils.create_empty_world();
     assert.deepEqual(remove_robot_id(RUR.CURRENT_WORLD), test_utils.empty_world, "Empty world explicitly created.");
-    assert.ok(FuncTest.object_identical(remove_robot_id(RUR.CURRENT_WORLD), test_utils.empty_world),
+    assert.ok(RUR.FuncTest.object_identical(remove_robot_id(RUR.CURRENT_WORLD), test_utils.empty_world),
         "Empty world explictly created; compare with my own object-comparison method." );
 });
 QUnit.test("import_world", function(assert) {

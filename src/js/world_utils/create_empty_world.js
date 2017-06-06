@@ -1,7 +1,6 @@
 require("./../rur.js");
-require("./world_utils_namespace.js");
 
-/* The following is used in a few places, including in unit and 
+/* The following is used in a few places, including in unit and
    functional tests. It is not documented with JSdoc as it should not
    be required for normal world creation; the recommended practice being
    to start with an existing world. */

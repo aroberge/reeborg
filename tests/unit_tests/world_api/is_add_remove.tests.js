@@ -1,12 +1,3 @@
- /** @function test_is_add_remove
- * @memberof UnitTest
- * @instance
-*
-* @desc The file listed below is the source contains unit tests 
-* for all the `is_thing`, `add_thing` and `remove_thing` methods.
-*
-*/
-
 // setting global environment
 var tape_test = require('./../test_globals.js').tape_test;
 function test(test_name, fn) {
@@ -31,14 +22,14 @@ function clone (world) {
     return JSON.parse(JSON.stringify(world));
 }
 
-test('background_tile', function (assert) {  
+test('background_tile', function (assert) {
     var original_world;
-    assert.plan(6);  
+    assert.plan(6);
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.TILES = {thing:true};
     original_world = clone(RUR.CURRENT_WORLD);
     assert.ok(RUR.CURRENT_WORLD.tiles === undefined, "confirm that key is not present initially.");
-    assert.ok(RUR.is_background_tile("thing", 2, 3)===false, "start with no bacground tile.");    
+    assert.ok(RUR.is_background_tile("thing", 2, 3)===false, "start with no bacground tile.");
     RUR.add_background_tile("thing", 2, 3);
     // Was our first test checking the right key?
     assert.ok(RUR.CURRENT_WORLD.tiles !== undefined, "confirm that key is now present.");
@@ -49,9 +40,9 @@ test('background_tile', function (assert) {
     assert.end();
 });
 
-test('bridge', function (assert) {  
+test('bridge', function (assert) {
     var original_world;
-    assert.plan(6);  
+    assert.plan(6);
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.TILES = {thing:true};
     original_world = clone(RUR.CURRENT_WORLD);
@@ -67,9 +58,9 @@ test('bridge', function (assert) {
     assert.end();
 });
 
-test('decorative_object', function (assert) {  
+test('decorative_object', function (assert) {
     var original_world;
-    assert.plan(6);  
+    assert.plan(6);
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.TILES = {thing:true};
     original_world = clone(RUR.CURRENT_WORLD);
@@ -77,7 +68,7 @@ test('decorative_object', function (assert) {
     assert.ok(RUR.is_decorative_object("thing", 2, 3)===false, "start with no decorative_object.");
     RUR.add_decorative_object("thing", 2, 3);
     // Was our first test checking the right key?
-    assert.ok(RUR.CURRENT_WORLD.decorative_objects !== undefined, "confirm that key has been created.");    
+    assert.ok(RUR.CURRENT_WORLD.decorative_objects !== undefined, "confirm that key has been created.");
     assert.ok(RUR.is_decorative_object("thing", 2, 3)===true, "confirm add_decorative_object worked.");
     RUR.remove_decorative_object("thing", 2, 3);
     assert.ok(RUR.is_decorative_object("thing", 2, 3)===false, "confirm remove_decorative_object worked.");
@@ -85,9 +76,9 @@ test('decorative_object', function (assert) {
     assert.end();
 });
 
-test('objects', function (assert) {  
+test('objects', function (assert) {
     var original_world;
-    assert.plan(5);  
+    assert.plan(5);
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.TILES = {thing:true};
     original_world = clone(RUR.CURRENT_WORLD);
@@ -102,9 +93,9 @@ test('objects', function (assert) {
 });
 
 
-test('obstacles', function (assert) {  
+test('obstacles', function (assert) {
     var original_world;
-    assert.plan(6);  
+    assert.plan(6);
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.TILES = {thing:true};
     original_world = clone(RUR.CURRENT_WORLD);
@@ -120,9 +111,9 @@ test('obstacles', function (assert) {
     assert.end();
 });
 
-test('pushables', function (assert) {  
+test('pushables', function (assert) {
     var original_world;
-    assert.plan(6);  
+    assert.plan(6);
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     RUR.TILES = {thing:true};
     original_world = clone(RUR.CURRENT_WORLD);
@@ -138,9 +129,9 @@ test('pushables', function (assert) {
     assert.end();
 });
 
-test('walls', function (assert) {  
+test('walls', function (assert) {
     var original_world;
-    assert.plan(5);  
+    assert.plan(5);
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     original_world = clone(RUR.CURRENT_WORLD);
     assert.ok(RUR.CURRENT_WORLD.walls !== undefined, "confirm that key is present initially.");
@@ -153,16 +144,16 @@ test('walls', function (assert) {
     assert.end();
 });
 
-test('goal objects', function (assert) {  
+test('goal objects', function (assert) {
     var original_world, options={goal:true};
-    assert.plan(6);  
+    assert.plan(6);
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-    assert.ok(RUR.CURRENT_WORLD.goal === undefined, "confirm that goal key is not present initially.");    
+    assert.ok(RUR.CURRENT_WORLD.goal === undefined, "confirm that goal key is not present initially.");
     RUR.TILES = {thing:true};
     original_world = clone(RUR.CURRENT_WORLD);
     assert.ok(RUR.is_object("thing", 2, 3, options)===false, "start with no goal object.");
     RUR.add_object("thing", 2, 3, options);
-    assert.ok(RUR.CURRENT_WORLD.goal !== undefined, "confirm that goal key is now present.");  
+    assert.ok(RUR.CURRENT_WORLD.goal !== undefined, "confirm that goal key is now present.");
     assert.ok(RUR.is_object("thing", 2, 3, options)===true, "confirm add_object for goal worked.");
     RUR.remove_object("thing", 2, 3, options);
     assert.ok(RUR.is_object("thing", 2, 3, options)===false, "confirm remove_object for goal worked.");
@@ -170,15 +161,15 @@ test('goal objects', function (assert) {
     assert.end();
 });
 
-test('goal walls', function (assert) {  
+test('goal walls', function (assert) {
     var original_world, goal=true;
-    assert.plan(6);  
+    assert.plan(6);
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
     original_world = clone(RUR.CURRENT_WORLD);
     assert.ok(RUR.CURRENT_WORLD.goal === undefined, "confirm that key is not present initially.");
     assert.ok(RUR.is_wall("east", 2, 3, goal)===false, "start with no goal walls.");
     RUR.add_wall("east", 2, 3, goal);
-    assert.ok(RUR.CURRENT_WORLD.goal !== undefined, "confirm that goal key is present.");        
+    assert.ok(RUR.CURRENT_WORLD.goal !== undefined, "confirm that goal key is present.");
     assert.ok(RUR.is_wall("east", 2, 3, goal)===true, "confirm add_wall for goal worked.");
     RUR.remove_wall("east", 2, 3, goal);
     assert.ok(RUR.is_wall("east", 2, 3, goal)===false, "confirm remove_wall for goal worked.");

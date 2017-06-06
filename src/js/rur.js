@@ -4,6 +4,9 @@
  */
 window.RUR = RUR || {}; // RUR should be already defined in the html file;
                         // however, it might not when running tests.
+RUR.utils = {};
+RUR.world_utils = {};
+RUR.FuncTest = {};
 
 /* In order to make it easier to have a version of Reeborg's World
    installed on different servers, or from different location with
@@ -21,19 +24,6 @@ try {
 } catch (e) {
     RUR._BASE_URL = '';
 }
-
-// Commenting for jsdoc:
-/** @namespace FuncTest
- * @desc FuncTest is a namespace that can be used to hold global reference
- * to functions that are useful to perform some functional tests only, but
- * is mostly intended as a helper in creating documentation using jsdoc.
- *
- * <span class="reeborg-important">The "methods" listed below are not callable
- *  but simply convenient names used to document the unit tests using jsdoc.
- *  </span>
- */
-window.FuncTest = {};
-
 
 /* Reeborg's World can be in different states (running a program,
  * editing a world, etc.) and the behaviour of some features can be affected

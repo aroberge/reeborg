@@ -92,7 +92,6 @@ RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_p
  * @throws Will throw an error if `number` attribute is not specified.
  * @throws Will throw an error if a valid position is not specified.
  *
- * @see {@link UnitTest#test_artefact} for unit tests.
  *
  */
 RUR.set_nb_artefact = function (args) {
@@ -178,7 +177,6 @@ RUR.set_nb_artefact = function (args) {
  * @throws Will throw an error if `single` is "true" but more than one kind
  * of artefact is found at that location.
  *
- * @see {@link UnitTest#test_artefact} for unit tests.
  *
  */
 RUR.add_artefact = function (args) {
@@ -264,7 +262,6 @@ RUR.add_artefact = function (args) {
  * @throws Will throw an error if `type` attribute is not specified.
  * @throws Will throw an error if a valid position is not specified.
  *
- * @see {@link UnitTest#test_artefact} for unit tests.
  *
  */
 RUR.get_nb_artefact = function(args) {
@@ -342,7 +339,6 @@ RUR.get_nb_artefact = function(args) {
  * @throws Will throw an error if `type` attribute is not specified.
  * @throws Will throw an error if a valid position is not specified.
  *
- * @see {@link UnitTest#test_artefact} for unit tests.
  *
  */
 RUR.get_artefacts = function(args) {
@@ -426,7 +422,6 @@ RUR.get_artefacts = function(args) {
  * @throws Will throw an error if a valid position is not specified.
  * @throws Will throw an error if no such artefact is found at that location.
  *
- * @see {@link UnitTest#test_artefact} for unit tests.
  * @todo  Need to implement `args.all`
  * @todo  Need to implement tests for  `args.all`
  * @todo Need to implement `args.number`

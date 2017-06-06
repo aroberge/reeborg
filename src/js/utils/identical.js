@@ -34,4 +34,4 @@ exports.identical = identical = function (a, b) {
 };
 
 require("./../rur.js");
-window.FuncTest.object_identical = identical; // for automated testing.
+RUR.FuncTest.object_identical = identical; // for automated testing.

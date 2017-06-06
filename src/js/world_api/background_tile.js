@@ -51,7 +51,6 @@ RUR.fill_background = function(name) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
- * @see {@link UnitTest#test_is_add_remove} for some unit tests.
  *
  * @example
  *
@@ -62,7 +61,7 @@ RUR.fill_background = function(name) {
  * RUR.add_background_tile("rgb(255, 0, 0)", 5, 8)
  * RUR.add_background_tile("rgba(255, 0, 0, 0.1)", 7, 8)
  * RUR.add_background_tile("hsl(24, 71%, 77%)", 9, 8)
- * 
+ *
  * @example
  * // shows how to set various tiles;
  * // the mode will be set to Python
@@ -73,7 +72,7 @@ RUR.fill_background = function(name) {
  * // are added in the Onload editor.  Click on World Info
  * // to see the code.
  * World("/worlds/examples/background2.json", "Background 2")
- * 
+ *
  */
 RUR.add_background_tile = function (name, x, y) {
     "use strict";
@@ -95,7 +94,7 @@ RUR.add_background_tile = function (name, x, y) {
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no background tile to remove
  *        at that location
- *        
+ *
  * @todo add test
  * @todo add examples
  * @todo deal with translation

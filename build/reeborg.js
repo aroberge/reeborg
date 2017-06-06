@@ -216,7 +216,7 @@ RUR.TILES.fence_vertical.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_vertical.info = RUR.TILES.fence_right.info;
 
 
-},{"./../rur.js":52,"./../world_api/things.js":79}],2:[function(require,module,exports){
+},{"./../rur.js":52,"./../world_api/things.js":78}],2:[function(require,module,exports){
 /* Dialog used by the Interactive world editor to add objects to the world.
 */
 
@@ -268,7 +268,7 @@ add_object_form = dialog_add_object.find("form").on("submit", function( event ) 
     add_object();
 });
 
-},{"./../../lang/msg.js":94,"./../drawing/visible_world.js":9,"./../rur.js":52,"./../world_api/objects.js":75}],3:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../drawing/visible_world.js":9,"./../rur.js":52,"./../world_api/objects.js":74}],3:[function(require,module,exports){
 
 require("./../libs/jquery.ui.dialog.minmax.js");
 require("./../rur.js");
@@ -327,7 +327,7 @@ $("#Reeborg-proclaims").dialog({minimize: false, maximize: false, autoOpen:false
 $("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:400, dialogClass: "watches",
                                 position:{my: "bottom", at: "bottom-140", of: window}});
 
-},{"./../../lang/msg.js":94,"./../libs/jquery.ui.dialog.minmax.js":16,"./../rur.js":52}],4:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../libs/jquery.ui.dialog.minmax.js":16,"./../rur.js":52}],4:[function(require,module,exports){
 
 require("./../world_set/world_set.js");
 require("./../drawing/visible_world.js");
@@ -380,7 +380,7 @@ give_object_form = dialog_give_object.find("form").on("submit", function( event 
     give_object();
 });
 
-},{"./../../lang/msg.js":94,"./../drawing/visible_world.js":9,"./../rur.js":52,"./../world_set/give_object_to_robot.js":83,"./../world_set/world_set.js":85}],5:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../drawing/visible_world.js":9,"./../rur.js":52,"./../world_set/give_object_to_robot.js":82,"./../world_set/world_set.js":84}],5:[function(require,module,exports){
 require("./../drawing/visible_world.js");
 require("./../world_api/objects.js");
 require("./../rur.js");
@@ -428,7 +428,7 @@ goal_objects_form = dialog_goal_object.find("form").on("submit", function( event
     goal_objects();
 });
 
-},{"./../../lang/msg.js":94,"./../drawing/visible_world.js":9,"./../rur.js":52,"./../world_api/objects.js":75}],6:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../drawing/visible_world.js":9,"./../rur.js":52,"./../world_api/objects.js":74}],6:[function(require,module,exports){
 require("./../drawing/visible_world.js");
 var msg = require("./../../lang/msg.js");
 
@@ -467,7 +467,7 @@ select_colour = function () {
     RUR.vis_world.draw_all();
 };
 
-},{"./../../lang/msg.js":94,"./../drawing/visible_world.js":9}],7:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../drawing/visible_world.js":9}],7:[function(require,module,exports){
 require("./../drawing/visible_world.js");
 var msg = require("./../../lang/msg.js");
 var dialog;
@@ -505,7 +505,7 @@ set_background_image = function () {
     dialog.dialog("close");
 };
 
-},{"./../../lang/msg.js":94,"./../drawing/visible_world.js":9}],8:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../drawing/visible_world.js":9}],8:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../world_utils/get_world.js");
@@ -822,7 +822,7 @@ RUR.vis_robot.new_robot_images = function (images) {
     RUR.select_default_robot_model(model);
 };
 
-},{"./../rur.js":52,"./../world_utils/get_world.js":89}],9:[function(require,module,exports){
+},{"./../rur.js":52,"./../world_utils/get_world.js":88}],9:[function(require,module,exports){
 require("./../rur.js");
 require("./../translator.js");
 require("./../world_api/things.js"); // why ?
@@ -1458,7 +1458,7 @@ function draw_info () {
     }
 }
 
-},{"./../rur.js":52,"./../translator.js":56,"./../world_api/things.js":79,"./../world_utils/get_world.js":89}],10:[function(require,module,exports){
+},{"./../rur.js":52,"./../translator.js":56,"./../world_api/things.js":78,"./../world_utils/get_world.js":88}],10:[function(require,module,exports){
 function betterTab(cm) {
   if (cm.somethingSelected()) {
     cm.indentSelection("add");
@@ -1614,9 +1614,10 @@ function set_button (name, content_present) {
 }
 
 function _update_user_editor (world, name, ed) {
-    if (test_utils) {  // global variable defined for functional testing
+    try {
+        test_utils; // global variable defined for functional testing
         return;
-    }
+    } catch (e) {}
     // For blockly, editor and library, when not running tests,
     // the user is given the choice to update the content or to keep their own.
     if (world[name]) {
@@ -1703,7 +1704,7 @@ $("#update-library-content-btn").on("click", function(evt) {
     }
 });
 
-},{"./../../lang/msg.js":94,"./../programming_api/blockly.js":39,"./../rur.js":52,"./create.js":10}],12:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../programming_api/blockly.js":39,"./../rur.js":52,"./create.js":10}],12:[function(require,module,exports){
 
 require("./../programming_api/output.js");
 require("./../recorder/recorder.js");
@@ -1896,7 +1897,7 @@ window.get_extra_content = function () {
     return extra_content;
 };
 
-},{"./../editors/update.js":11,"./../listeners/stop.js":32,"./../permalink/permalink.js":35,"./../programming_api/exceptions.js":42,"./../programming_api/output.js":43,"./../recorder/recorder.js":47,"./../translator.js":56,"./../ui/world_select.js":60,"./../utils/supplant.js":65,"./../world_utils/import_world.js":90}],13:[function(require,module,exports){
+},{"./../editors/update.js":11,"./../listeners/stop.js":32,"./../permalink/permalink.js":35,"./../programming_api/exceptions.js":42,"./../programming_api/output.js":43,"./../recorder/recorder.js":47,"./../translator.js":56,"./../ui/world_select.js":60,"./../utils/supplant.js":65,"./../world_utils/import_world.js":89}],13:[function(require,module,exports){
 /*  Handler of special on-screen keyboard
 */
 
@@ -2326,7 +2327,7 @@ function add_onclick(id, fn, arg, record, enter) {
     }
 }
 
-},{"./../../lang/msg.js":94,"./../dialogs/create.js":3,"./../listeners/editors_tabs.js":19,"./../rur.js":52,"./../translator.js":56}],14:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../dialogs/create.js":3,"./../listeners/editors_tabs.js":19,"./../rur.js":52,"./../translator.js":56}],14:[function(require,module,exports){
 /* Menu driven world editor */
 
 
@@ -2883,7 +2884,7 @@ $("#robot-canvas").on("click", function (evt) {
     RUR.world_get.world_info();
 });
 
-},{"./../default_tiles/tiles.js":1,"./../dialogs/add_object.js":2,"./../dialogs/create.js":3,"./../dialogs/give_object.js":4,"./../dialogs/goal_object.js":5,"./../dialogs/select_colour.js":6,"./../dialogs/set_background_image.js":7,"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../editors/update.js":11,"./../listeners/canvas.js":18,"./../programming_api/exceptions.js":42,"./../robot/robot.js":49,"./../rur.js":52,"./../translator.js":56,"./../ui/edit_robot_menu.js":58,"./../utils/identical.js":62,"./../utils/key_exist.js":63,"./../utils/supplant.js":65,"./../world_api/objects.js":75,"./../world_api/walls.js":80,"./../world_get/world_get.js":81,"./../world_set/add_robot.js":82,"./../world_set/give_object_to_robot.js":83,"./../world_set/world_set.js":85}],15:[function(require,module,exports){
+},{"./../default_tiles/tiles.js":1,"./../dialogs/add_object.js":2,"./../dialogs/create.js":3,"./../dialogs/give_object.js":4,"./../dialogs/goal_object.js":5,"./../dialogs/select_colour.js":6,"./../dialogs/set_background_image.js":7,"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../editors/update.js":11,"./../listeners/canvas.js":18,"./../programming_api/exceptions.js":42,"./../robot/robot.js":49,"./../rur.js":52,"./../translator.js":56,"./../ui/edit_robot_menu.js":58,"./../utils/identical.js":62,"./../utils/key_exist.js":63,"./../utils/supplant.js":65,"./../world_api/objects.js":74,"./../world_api/walls.js":79,"./../world_get/world_get.js":80,"./../world_set/add_robot.js":81,"./../world_set/give_object_to_robot.js":82,"./../world_set/world_set.js":84}],15:[function(require,module,exports){
 /* require this module that will automatically modify a global object*/
 require("./utils/cors.js");
 
@@ -4102,7 +4103,7 @@ $("#library-tab").on("click", function (evt) {
     $("#watch-variables-btn").hide();
 });
 
-},{"./../../lang/msg.js":94,"./../editors/create.js":10}],20:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../editors/create.js":10}],20:[function(require,module,exports){
 require("./../rur.js");
 require("./reload.js");
 require("./../runner/runner.js");
@@ -4289,7 +4290,7 @@ $("#human-language").change(function() {
     update_url();
 });
 
-},{"./../../lang/msg.js":94,"./../programming_api/blockly.js":39,"./../programming_api/reeborg_en.js":44,"./../programming_api/reeborg_fr.js":45,"./../rur.js":52,"./../ui/custom_world_select.js":57,"./../utils/parseuri.js":64}],22:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../programming_api/blockly.js":39,"./../programming_api/reeborg_en.js":44,"./../programming_api/reeborg_fr.js":45,"./../rur.js":52,"./../ui/custom_world_select.js":57,"./../utils/parseuri.js":64}],22:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../storage/storage.js");
@@ -4349,7 +4350,7 @@ save_world = function () {
     $('#delete-world').show();
 };
 
-},{"./../../lang/msg.js":94,"./../rur.js":52,"./../storage/storage.js":55,"./../world_utils/clone_world.js":86}],23:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../rur.js":52,"./../storage/storage.js":55,"./../world_utils/clone_world.js":85}],23:[function(require,module,exports){
 /* Sets up what happens when the user clicks on various html elements.
 */
 
@@ -4530,7 +4531,7 @@ toggle_content("description", description_editor);
 record_id("add-onload-text", "ADD ONLOAD TEXT");
 toggle_content("onload", onload_editor);
 
-},{"./../../lang/msg.js":94,"./../editors/create.js":10,"./../editors/update.js":11,"./../programming_api/blockly.js":39,"./../rur.js":52,"./../translator.js":56,"./../world_utils/export_world.js":88}],24:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../editors/create.js":10,"./../editors/update.js":11,"./../programming_api/blockly.js":39,"./../rur.js":52,"./../translator.js":56,"./../world_utils/export_world.js":87}],24:[function(require,module,exports){
 require("./../rur.js");
 require("./../playback/play.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -4564,7 +4565,7 @@ pause = function () {
 
 pause_button.addEventListener("click", pause, false);
 
-},{"./../../lang/msg.js":94,"./../playback/play.js":36,"./../rur.js":52}],25:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../playback/play.js":36,"./../rur.js":52}],25:[function(require,module,exports){
 require("./../rur.js");
 require("./../listeners/reload.js");
 require("./../gui_tools/special_keyboard.js");
@@ -4863,7 +4864,7 @@ function hide_console() {
 show_editor("python");
 // see start_session.js for initialization.
 
-},{"./../../lang/msg.js":94,"./../editors/create.js":10,"./../gui_tools/special_keyboard.js":13,"./../listeners/reload.js":26,"./../rur.js":52,"./../utils/parseuri.js":64}],26:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../editors/create.js":10,"./../gui_tools/special_keyboard.js":13,"./../listeners/reload.js":26,"./../rur.js":52,"./../utils/parseuri.js":64}],26:[function(require,module,exports){
 
 require("./../rur.js");
 var set_ready_to_run = require("./../ui/set_ready_to_run.js").set_ready_to_run;
@@ -4909,7 +4910,7 @@ RUR.reload2 = function() {
 reload_button.addEventListener("click", RUR.reload, false);
 reload2_button.addEventListener("click", RUR.reload2, false);
 
-},{"./../../lang/msg.js":94,"./../recorder/reset.js":48,"./../rur.js":52,"./../ui/set_ready_to_run.js":59,"./../world_set/reset_world.js":84}],27:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../recorder/reset.js":48,"./../rur.js":52,"./../ui/set_ready_to_run.js":59,"./../world_set/reset_world.js":83}],27:[function(require,module,exports){
 require("./../rur.js");
 require("./../recorder/recorder.js");
 
@@ -4932,7 +4933,7 @@ reverse_step = function () {
     clearTimeout(RUR._TIMER);
 };
 
-},{"./../../lang/msg.js":94,"./../recorder/recorder.js":47,"./../rur.js":52}],28:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../recorder/recorder.js":47,"./../rur.js":52}],28:[function(require,module,exports){
 require("./../drawing/visible_robot.js");
 
 require("./../rur.js");
@@ -4959,7 +4960,7 @@ $("#robot3").on("click", function (evt) {
     RUR.select_default_robot_model(3);
 });
 
-},{"./../../lang/msg.js":94,"./../drawing/visible_robot.js":8,"./../rur.js":52}],29:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../drawing/visible_robot.js":8,"./../rur.js":52}],29:[function(require,module,exports){
 
 require("./../rur.js");
 require("./reload.js");
@@ -4988,7 +4989,7 @@ function run () {
 }
 run_button.addEventListener("click", run, false);
 
-},{"./../../lang/msg.js":94,"./../playback/play.js":36,"./../runner/runner.js":50,"./../rur.js":52,"./reload.js":26}],30:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../playback/play.js":36,"./../runner/runner.js":50,"./../rur.js":52,"./reload.js":26}],30:[function(require,module,exports){
 require("./../file_io/file_io.js");
 require("./../storage/storage.js");
 
@@ -5007,7 +5008,7 @@ $("#select-world").change(function() {
     } catch (e) {}
 });
 
-},{"./../../lang/msg.js":94,"./../file_io/file_io.js":12,"./../storage/storage.js":55}],31:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../file_io/file_io.js":12,"./../storage/storage.js":55}],31:[function(require,module,exports){
 
 require("./../rur.js");
 require("./reload.js");
@@ -5028,7 +5029,7 @@ step = function () {
 };
 step_button.addEventListener("click", step, false);
 
-},{"./../../lang/msg.js":94,"./../playback/play.js":36,"./../runner/runner.js":50,"./../rur.js":52,"./reload.js":26}],32:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../playback/play.js":36,"./../runner/runner.js":50,"./../rur.js":52,"./reload.js":26}],32:[function(require,module,exports){
 
 require("./../rur.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -5048,7 +5049,7 @@ RUR.stop = function () {
 };
 stop_button.addEventListener("click", RUR.stop, false);
 
-},{"./../../lang/msg.js":94,"./../rur.js":52}],33:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../rur.js":52}],33:[function(require,module,exports){
 ;
 require("./../rur.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -5069,7 +5070,7 @@ RUR.toggle_highlight = function () {  // keep part of RUR for Python
 };
 highlight_button.addEventListener("click", RUR.toggle_highlight, false);
 
-},{"./../../lang/msg.js":94,"./../rur.js":52}],34:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../rur.js":52}],34:[function(require,module,exports){
 ;
 require("./../rur.js");
 var record_id = require("./../../lang/msg.js").record_id;
@@ -5094,7 +5095,7 @@ toggle_watch_variables = function () {
 };
 watch_button.addEventListener("click", toggle_watch_variables, false);
 
-},{"./../../lang/msg.js":94,"./../rur.js":52}],35:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../rur.js":52}],35:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../storage/storage.js");
@@ -5236,7 +5237,7 @@ function receiveMessage(event){
     RUR.permalink.update(event.data);
 }
 
-},{"./../../lang/msg.js":94,"./../editors/create.js":10,"./../editors/update.js":11,"./../listeners/programming_mode.js":25,"./../rur.js":52,"./../storage/storage.js":55,"./../translator.js":56,"./../utils/parseuri.js":64,"./../world_utils/export_world.js":88}],36:[function(require,module,exports){
+},{"./../../lang/msg.js":92,"./../editors/create.js":10,"./../editors/update.js":11,"./../listeners/programming_mode.js":25,"./../rur.js":52,"./../storage/storage.js":55,"./../translator.js":56,"./../utils/parseuri.js":64,"./../world_utils/export_world.js":87}],36:[function(require,module,exports){
 require("./../rur.js");
 require("./../listeners/stop.js");
 
@@ -6287,7 +6288,7 @@ RUR._UR.wall_on_right_ = function (robot) {
     return RUR.control.wall_on_right(robot);
 };
 
-},{"./../drawing/visible_robot.js":8,"./../editors/update.js":11,"./../file_io/file_io.js":12,"./../rur.js":52,"./../translator.js":56,"./../ui/custom_world_select.js":57,"./../world_api/background_tile.js":70,"./../world_set/world_set.js":85,"./../world_utils/get_world.js":89,"./control.js":41,"./output.js":43}],41:[function(require,module,exports){
+},{"./../drawing/visible_robot.js":8,"./../editors/update.js":11,"./../file_io/file_io.js":12,"./../rur.js":52,"./../translator.js":56,"./../ui/custom_world_select.js":57,"./../world_api/background_tile.js":69,"./../world_set/world_set.js":84,"./../world_utils/get_world.js":88,"./control.js":41,"./output.js":43}],41:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../translator.js");
@@ -6730,7 +6731,7 @@ RUR.control.get_colour_at_position = function (x, y) {
     }
 };
 
-},{"./../default_tiles/tiles.js":1,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/key_exist.js":63,"./../utils/supplant.js":65,"./../world_api/background_tile.js":70,"./../world_api/composition.js":72,"./../world_api/is_fatal.js":74,"./../world_api/obstacles.js":76,"./../world_api/pushables.js":77,"./../world_api/robot.js":78,"./../world_api/walls.js":80,"./../world_get/world_get.js":81,"./../world_set/world_set.js":85,"./../world_utils/get_world.js":89,"./exceptions.js":42,"./output.js":43}],42:[function(require,module,exports){
+},{"./../default_tiles/tiles.js":1,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/key_exist.js":63,"./../utils/supplant.js":65,"./../world_api/background_tile.js":69,"./../world_api/composition.js":71,"./../world_api/is_fatal.js":73,"./../world_api/obstacles.js":75,"./../world_api/pushables.js":76,"./../world_api/robot.js":77,"./../world_api/walls.js":79,"./../world_get/world_get.js":80,"./../world_set/world_set.js":84,"./../world_utils/get_world.js":88,"./exceptions.js":42,"./output.js":43}],42:[function(require,module,exports){
 
 require("./../rur.js");
 
@@ -6891,9 +6892,6 @@ RUR.reset_definitions_en = function () {
     window.done = RUR._done_;
     window.front_is_clear = RUR._front_is_clear_;
     window.is_facing_north = RUR._is_facing_north_;
-    /**@function move
-     * @desc Move forward, by one grid position.
-     */
     window.move = RUR._move_;
     window.new_robot_images = RUR._new_robot_images_;
     window.object_here = RUR._object_here_;
@@ -7249,7 +7247,7 @@ RUR.record_frame = function (name, obj) {
 };
 
 
-},{"./../playback/show_immediate.js":38,"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../utils/supplant.js":65,"./../world_get/world_get.js":81,"./../world_utils/clone_world.js":86,"./reset.js":48}],47:[function(require,module,exports){
+},{"./../playback/show_immediate.js":38,"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../utils/supplant.js":65,"./../world_get/world_get.js":80,"./../world_utils/clone_world.js":85,"./reset.js":48}],47:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../drawing/visible_world.js");
@@ -7529,7 +7527,7 @@ RUR.rec.check_goal = function (frame) {
     return goal_status;
 };
 
-},{"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../listeners/pause.js":24,"./../listeners/stop.js":32,"./../playback/play_sound.js":37,"./../programming_api/exceptions.js":42,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/identical.js":62,"./../world_get/world_get.js":81,"./../world_utils/clone_world.js":86}],48:[function(require,module,exports){
+},{"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../listeners/pause.js":24,"./../listeners/stop.js":32,"./../playback/play_sound.js":37,"./../programming_api/exceptions.js":42,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/identical.js":62,"./../world_get/world_get.js":80,"./../world_utils/clone_world.js":85}],48:[function(require,module,exports){
 require("./../rur.js");
 require("./../editors/create.js");
 require("./../world_api/animated_images.js");
@@ -7568,7 +7566,7 @@ exports.reset = reset = function() {
 reset();
 RUR._reset = reset; // for automated testing
 
-},{"./../editors/create.js":10,"./../rur.js":52,"./../world_api/animated_images.js":68}],49:[function(require,module,exports){
+},{"./../editors/create.js":10,"./../rur.js":52,"./../world_api/animated_images.js":67}],49:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../translator.js");
@@ -7667,7 +7665,7 @@ assign_id = function () {
     return RUR.robot.__ID;
 };
 
-},{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../translator.js":56,"./../utils/validator.js":67}],50:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../translator.js":56,"./../utils/validator.js":66}],50:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../translator.js");
@@ -7955,7 +7953,7 @@ RUR.runner.check_func_parentheses = function(line_of_code) {
     return false;  // no missing parentheses
 };
 
-},{"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../editors/update.js":11,"./../programming_api/blockly.js":39,"./../recorder/recorder.js":47,"./../rur.js":52,"./../translator.js":56,"./../utils/supplant.js":65,"./../world_utils/clone_world.js":86,"./world_init.js":51}],51:[function(require,module,exports){
+},{"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../editors/update.js":11,"./../programming_api/blockly.js":39,"./../recorder/recorder.js":47,"./../rur.js":52,"./../translator.js":56,"./../utils/supplant.js":65,"./../world_utils/clone_world.js":85,"./world_init.js":51}],51:[function(require,module,exports){
 
 require("./../drawing/visible_world.js");
 require("./../rur.js");
@@ -8079,6 +8077,9 @@ RUR.world_init.set = function () {
  */
 window.RUR = RUR || {}; // RUR should be already defined in the html file;
                         // however, it might not when running tests.
+RUR.utils = {};
+RUR.world_utils = {};
+RUR.FuncTest = {};
 
 /* In order to make it easier to have a version of Reeborg's World
    installed on different servers, or from different location with
@@ -8096,19 +8097,6 @@ try {
 } catch (e) {
     RUR._BASE_URL = '';
 }
-
-// Commenting for jsdoc:
-/** @namespace FuncTest
- * @desc FuncTest is a namespace that can be used to hold global reference
- * to functions that are useful to perform some functional tests only, but
- * is mostly intended as a helper in creating documentation using jsdoc.
- *
- * <span class="reeborg-important">The "methods" listed below are not callable
- *  but simply convenient names used to document the unit tests using jsdoc.
- *  </span>
- */
-window.FuncTest = {};
-
 
 /* Reeborg's World can be in different states (running a program,
  * editing a world, etc.) and the behaviour of some features can be affected
@@ -8471,7 +8459,7 @@ function set_world(url_query) {
     }
 }
 
-},{"./default_tiles/tiles.js":1,"./editors/create.js":10,"./listeners/add_listeners.js":17,"./permalink/permalink.js":35,"./programming_api/blockly.js":39,"./rur.js":52,"./splash_screen.js":53,"./storage/storage.js":55,"./utils/parseuri.js":64,"./world_api/background_tile.js":70,"./world_api/bridges.js":71,"./world_api/decorative_objects.js":73,"./world_api/objects.js":75,"./world_api/obstacles.js":76,"./world_api/pushables.js":77,"./world_api/robot.js":78,"./world_api/walls.js":80,"./world_utils/import_world.js":90}],55:[function(require,module,exports){
+},{"./default_tiles/tiles.js":1,"./editors/create.js":10,"./listeners/add_listeners.js":17,"./permalink/permalink.js":35,"./programming_api/blockly.js":39,"./rur.js":52,"./splash_screen.js":53,"./storage/storage.js":55,"./utils/parseuri.js":64,"./world_api/background_tile.js":69,"./world_api/bridges.js":70,"./world_api/decorative_objects.js":72,"./world_api/objects.js":74,"./world_api/obstacles.js":75,"./world_api/pushables.js":76,"./world_api/robot.js":77,"./world_api/walls.js":79,"./world_utils/import_world.js":89}],55:[function(require,module,exports){
 /* This file documents methods used to save worlds to and retrieve them
    from a browser's local storage.
 
@@ -8554,7 +8542,7 @@ RUR.storage.delete_world = function (name){
     $('#delete-world').hide();
 };
 
-},{"./../rur.js":52,"./../translator.js":56,"./../ui/world_select.js":60,"./../world_utils/clone_world.js":86,"./../world_utils/export_world.js":88}],56:[function(require,module,exports){
+},{"./../rur.js":52,"./../translator.js":56,"./../ui/world_select.js":60,"./../world_utils/clone_world.js":85,"./../world_utils/export_world.js":87}],56:[function(require,module,exports){
 require("./rur.js");
 var uien = require("./../lang/ui_en.js"),
     uifr = require("./../lang/ui_fr.js"),
@@ -8607,7 +8595,7 @@ RUR.translate_to_english = function (s) {
     }
 };
 
-},{"./../lang/en.js":92,"./../lang/fr.js":93,"./../lang/ui_en.js":95,"./../lang/ui_fr.js":96,"./../lang/ui_ko.js":97,"./rur.js":52}],57:[function(require,module,exports){
+},{"./../lang/en.js":90,"./../lang/fr.js":91,"./../lang/ui_en.js":93,"./../lang/ui_fr.js":94,"./../lang/ui_ko.js":95,"./rur.js":52}],57:[function(require,module,exports){
 /* In this module, we make it possible for a user to define their
    own world menu selection. We also include some default world menus. */
 require("./../translator.js");
@@ -8970,10 +8958,10 @@ exports.identical = identical = function (a, b) {
 };
 
 require("./../rur.js");
-window.FuncTest.object_identical = identical; // for automated testing.
+RUR.FuncTest.object_identical = identical; // for automated testing.
 
 },{"./../rur.js":52}],63:[function(require,module,exports){
-require("./utils_namespace.js");
+require("./../rur.js");
 /* short functions to make the rest of the code easier
    to read */
 
@@ -8997,7 +8985,7 @@ RUR.utils.ensure_key_for_array_exists = function(obj, key){
     }
 };
 
-},{"./utils_namespace.js":66}],64:[function(require,module,exports){
+},{"./../rur.js":52}],64:[function(require,module,exports){
 // parseUri 1.2.2
 // (c) Steven Levithan <stevenlevithan.com>
 // MIT License
@@ -9065,21 +9053,9 @@ String.prototype.supplant = function (o) {
 };
 
 },{}],66:[function(require,module,exports){
-require("./../rur.js");
-/** @namespace utils
- * @memberof RUR
- * @desc RUR.utils is a namespace intended for private utility functions. 
- *   The sparse documentation about these is meant for developers.
- *   These methods should not be invoked by an end user as they could
- *   change (or be removed) at any time.
- */
-RUR.utils = {};
-
-},{"./../rur.js":52}],67:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../programming_api/exceptions.js");
-require("./utils_namespace.js");
 
 _is_integer = function(n) {
     return typeof n==='number' && (n%1)===0;
@@ -9098,7 +9074,7 @@ RUR.is_non_negative_integer = _is_non_negative_integer;
 RUR.is_positive_integer = _is_positive_integer;
 
 RUR.is_valid_position = function(x, y) {
-    return (_is_positive_integer(x) && _is_positive_integer(y) && 
+    return (_is_positive_integer(x) && _is_positive_integer(y) &&
            x <= RUR.CURRENT_WORLD.cols && y <= RUR.CURRENT_WORLD.rows);
 };
 
@@ -9119,7 +9095,7 @@ RUR.utils.filterInt = function (value) {
   return undefined;
 };
 
-},{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./utils_namespace.js":66}],68:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":42,"./../rur.js":52}],67:[function(require,module,exports){
 /* This file contains methods used to create animated images by creating
    the appropriate selection sequence from a list of images.
  */
@@ -9257,7 +9233,7 @@ RUR._sync = function (obj, nb, id) {
     return obj["image" + RUR._SYNC_VALUE[obj.name]];
 };
 
-},{"./../rur.js":52}],69:[function(require,module,exports){
+},{"./../rur.js":52}],68:[function(require,module,exports){
 /*  This file contains generic methods called by more specialized methods
     used to create worlds. */
 
@@ -9352,7 +9328,6 @@ RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_p
  * @throws Will throw an error if `number` attribute is not specified.
  * @throws Will throw an error if a valid position is not specified.
  *
- * @see {@link UnitTest#test_artefact} for unit tests.
  *
  */
 RUR.set_nb_artefact = function (args) {
@@ -9438,7 +9413,6 @@ RUR.set_nb_artefact = function (args) {
  * @throws Will throw an error if `single` is "true" but more than one kind
  * of artefact is found at that location.
  *
- * @see {@link UnitTest#test_artefact} for unit tests.
  *
  */
 RUR.add_artefact = function (args) {
@@ -9524,7 +9498,6 @@ RUR.add_artefact = function (args) {
  * @throws Will throw an error if `type` attribute is not specified.
  * @throws Will throw an error if a valid position is not specified.
  *
- * @see {@link UnitTest#test_artefact} for unit tests.
  *
  */
 RUR.get_nb_artefact = function(args) {
@@ -9602,7 +9575,6 @@ RUR.get_nb_artefact = function(args) {
  * @throws Will throw an error if `type` attribute is not specified.
  * @throws Will throw an error if a valid position is not specified.
  *
- * @see {@link UnitTest#test_artefact} for unit tests.
  *
  */
 RUR.get_artefacts = function(args) {
@@ -9686,7 +9658,6 @@ RUR.get_artefacts = function(args) {
  * @throws Will throw an error if a valid position is not specified.
  * @throws Will throw an error if no such artefact is found at that location.
  *
- * @see {@link UnitTest#test_artefact} for unit tests.
  * @todo  Need to implement `args.all`
  * @todo  Need to implement tests for  `args.all`
  * @todo Need to implement `args.number`
@@ -9747,7 +9718,7 @@ RUR.remove_artefact = function (args) {
     }
 };
 
-},{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../translator.js":56,"./../utils/key_exist.js":63,"./../utils/supplant.js":65,"./../utils/validator.js":67,"./../world_utils/get_world.js":89}],70:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../translator.js":56,"./../utils/key_exist.js":63,"./../utils/supplant.js":65,"./../utils/validator.js":66,"./../world_utils/get_world.js":88}],69:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
@@ -9801,7 +9772,6 @@ RUR.fill_background = function(name) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
- * @see {@link UnitTest#test_is_add_remove} for some unit tests.
  *
  * @example
  *
@@ -9812,7 +9782,7 @@ RUR.fill_background = function(name) {
  * RUR.add_background_tile("rgb(255, 0, 0)", 5, 8)
  * RUR.add_background_tile("rgba(255, 0, 0, 0.1)", 7, 8)
  * RUR.add_background_tile("hsl(24, 71%, 77%)", 9, 8)
- * 
+ *
  * @example
  * // shows how to set various tiles;
  * // the mode will be set to Python
@@ -9823,7 +9793,7 @@ RUR.fill_background = function(name) {
  * // are added in the Onload editor.  Click on World Info
  * // to see the code.
  * World("/worlds/examples/background2.json", "Background 2")
- * 
+ *
  */
 RUR.add_background_tile = function (name, x, y) {
     "use strict";
@@ -9845,7 +9815,7 @@ RUR.add_background_tile = function (name, x, y) {
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no background tile to remove
  *        at that location
- *        
+ *
  * @todo add test
  * @todo add examples
  * @todo deal with translation
@@ -9917,7 +9887,7 @@ RUR.is_background_tile = function (name, x, y) {
 
 
 
-},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":89,"./artefact.js":69}],71:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":66,"./../world_utils/get_world.js":88,"./artefact.js":68}],70:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
@@ -10090,7 +10060,7 @@ RUR.get_bridge_protections = function (x, y) {
     }
 };
 
-},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":89,"./artefact.js":69}],72:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":66,"./../world_utils/get_world.js":88,"./artefact.js":68}],71:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
@@ -10164,7 +10134,7 @@ RUR.transform_tile = function (name, x, y, type) {
     }
 };
 
-},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":89,"./artefact.js":69,"./background_tile.js":70,"./obstacles.js":76}],73:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":66,"./../world_utils/get_world.js":88,"./artefact.js":68,"./background_tile.js":69,"./obstacles.js":75}],72:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
@@ -10288,7 +10258,7 @@ RUR.is_decorative_object = function (name, x, y) {
 };
 
 
-},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":89,"./artefact.js":69}],74:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":66,"./../world_utils/get_world.js":88,"./artefact.js":68}],73:[function(require,module,exports){
 require("./../rur.js");
 require("./background_tile.js");
 require("./bridges.js");
@@ -10367,7 +10337,7 @@ RUR.is_detectable = function (x, y){
 };
 
 
-},{"./../rur.js":52,"./background_tile.js":70,"./bridges.js":71,"./obstacles.js":76}],75:[function(require,module,exports){
+},{"./../rur.js":52,"./background_tile.js":69,"./bridges.js":70,"./obstacles.js":75}],74:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
@@ -10529,7 +10499,7 @@ RUR.add_object_at_position = function(name, x, y, number) { // Vincent Maille's 
  *
  * @deprecated Use {@link RUR#add_object} instead.
  */
-},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":89,"./artefact.js":69}],76:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":66,"./../world_utils/get_world.js":88,"./artefact.js":68}],75:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
@@ -10708,7 +10678,7 @@ RUR.is_obstacle_safe = function (x, y) {
     }
     return safe_found;
 };
-},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":89,"./artefact.js":69}],77:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":66,"./../world_utils/get_world.js":88,"./artefact.js":68}],76:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
@@ -10866,7 +10836,7 @@ RUR.push_pushable = function (name, from_x, from_y, to_x, to_y) {
     RUR.add_pushable(name, to_x, to_y);
     RUR.state.do_not_record = recording_state;
 };
-},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":89,"./artefact.js":69}],78:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46,"./../rur.js":52,"./../utils/key_exist.js":63,"./../utils/validator.js":66,"./../world_utils/get_world.js":88,"./artefact.js":68}],77:[function(require,module,exports){
 require("./../rur.js");
 require("./../world_utils/get_world.js");
 
@@ -11166,7 +11136,7 @@ RUR.add_initial_position = function (x, y) {
     robot.possible_initial_positions.push([x, y]);
     RUR.record_frame("add_initial_position", {x:x, y:y});
 };
-},{"./../rur.js":52,"./../world_utils/get_world.js":89}],79:[function(require,module,exports){
+},{"./../rur.js":52,"./../world_utils/get_world.js":88}],78:[function(require,module,exports){
 require("./../rur.js");
 require("./../translator.js");
 require("./animated_images.js");
@@ -11440,7 +11410,7 @@ RUR.add_new_object_type = function (name, url, url_goal) {
  */
 RUR.add_object_image = RUR.add_new_object_type; // Vincent Maille's book.
 
-},{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../translator.js":56,"./animated_images.js":68}],80:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../translator.js":56,"./animated_images.js":67}],79:[function(require,module,exports){
 require("./../rur.js");
 require("./../translator.js");
 require("./../programming_api/exceptions.js");
@@ -11471,21 +11441,19 @@ that lists the walls, and must be handled separately.
  * the boundaries of a normal (rectangular) world. The order they are listed,
  * if present, are `"east"`, `"north"`, `"west"`, `"south"`.
  *
- * @param {integer} x  Position: `1 <= x <= max_x`  
+ * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  * @param {bool} [goal] If `true`, list the goal walls found at that position
  *                      instead of regular walls.
  *
  * @throws Will throw an error if `x` or `y` is outside the world boundary.
  *
- * @see {@link UnitTest#test_walls} for unit tests.
- * @see {@link FuncTest#test_walls} for functional/integration tests.
  * @example
  * // Execute the following instruction (either from Python or Javascript)
  * // to load a sample program
- * 
+ *
  * World("worlds/examples/walls.json", "Wall example")
- * 
+ *
  * // Then run the program; notice how the goal set (3 walls to build)
  * // is automatically verified at the end.
  *
@@ -11504,7 +11472,7 @@ RUR.get_walls = function(x, y, goal) {
     if (RUR.is_wall("south", x, y, goal)) {
         walls.push("south");
     }
-    return walls;  
+    return walls;
 };
 
 
@@ -11515,23 +11483,21 @@ RUR.get_walls = function(x, y, goal) {
  * stated position and orientation, and `false` otherwise.
  *
  * @param {string} orientation  One of `"east", "west", "north", "south"`.
- * @param {integer} x  Position: `1 <= x <= max_x`  
+ * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  * @param {bool} [goal] If `true`, get information about goal walls
  *                      instead of regular walls.
  *
- * 
+ *
  * @throws Will throw an error if `x` or `y` is outside the world boundary.
  * @throws Will throw an error if `orientation` is not a valid choice.
  *
- * @see {@link UnitTest#test_walls} for unit tests.
- * @see {@link FuncTest#test_walls} for functional/integration tests.
  * @example
  * // Execute the following instruction (either from Python or Javascript)
  * // to load a sample program
- * 
+ *
  * World("worlds/examples/walls.json", "Wall example")
- * 
+ *
  * // Then run the program; notice how the goal set (3 walls to build)
  * // is automatically verified at the end.
  *
@@ -11552,7 +11518,7 @@ RUR.is_wall = function(orientation, x, y, goal) {
         return false;
     } else {
         return true;
-    }     
+    }
 };
 
 // private helper function
@@ -11578,7 +11544,7 @@ function is_boundary_wall(orientation, x, y) {
  * otherwise, it raises an exception.
  *
  * @param {string} orientation  One of `"east", "west", "north", "south"`.
- * @param {integer} x  Position: `1 <= x <= max_x`  
+ * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  * @param {bool} [goal] If `true`, get information about goal walls.
  *
@@ -11586,14 +11552,12 @@ function is_boundary_wall(orientation, x, y) {
  * @throws Will throw an error if `orientation` is not a valid choice.
  * @throws Will throw an error if there is already a wall there.
  *
- * @see {@link UnitTest#test_walls} for unit tests.
- * @see {@link FuncTest#test_walls} for functional/integration tests.
  * @example
  * // Execute the following instruction (either from Python or Javascript)
  * // to load a sample program
- * 
+ *
  * World("worlds/examples/walls.json", "Wall example")
- * 
+ *
  * // Then run the program; notice how the goal set (3 walls to build)
  * // is automatically verified at the end.
  *
@@ -11620,7 +11584,7 @@ RUR.add_wall = function(orientation, x, y, goal) {
  * otherwise, it raises an exception.
  *
  * @param {string} orientation  One of `"east", "west", "north", "south"`.
- * @param {integer} x  Position: `1 <= x <= max_x`  
+ * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  * @param {bool} [goal] If `true`, get information about goal walls.
  *
@@ -11628,14 +11592,12 @@ RUR.add_wall = function(orientation, x, y, goal) {
  * @throws Will throw an error if `orientation` is not a valid choice.
  * @throws Will throw an error if there is no wall to remove.
  *
- * @see {@link UnitTest#test_walls} for unit tests.
- * @see {@link FuncTest#test_walls} for functional/integration tests.
  * @example
  * // Execute the following instruction (either from Python or Javascript)
  * // to load a sample program
- * 
+ *
  * World("worlds/examples/walls.json", "Wall example")
- * 
+ *
  * // Then run the program; notice how the goal set (3 walls to build)
  * // is automatically verified at the end.
  *
@@ -11655,7 +11617,7 @@ RUR.remove_wall = function(orientation, x, y, goal) {
     RUR.remove_artefact(args);
     // For historical reason, worlds are always created with a "walls" attribute
     RUR.utils.ensure_key_for_obj_exists(RUR.CURRENT_WORLD, "walls");
-    RUR.record_frame("remove_wall", args);  
+    RUR.record_frame("remove_wall", args);
 };
 
 function convert_position (orientation, x, y) {
@@ -11687,7 +11649,7 @@ function convert_position (orientation, x, y) {
     return {name:_orientation, x:_x, y:_y};
 }
 
-},{"./../programming_api/exceptions.js":42,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/key_exist.js":63,"./../utils/supplant.js":65,"./../utils/validator.js":67,"./../world_utils/get_world.js":89,"./artefact.js":69}],81:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":42,"./../recorder/record_frame.js":46,"./../rur.js":52,"./../translator.js":56,"./../utils/key_exist.js":63,"./../utils/supplant.js":65,"./../utils/validator.js":66,"./../world_utils/get_world.js":88,"./artefact.js":68}],80:[function(require,module,exports){
 /* Obtain specific information about the world, either at a given
    position, or for the world in general.
 */
@@ -11971,7 +11933,7 @@ RUR.world_get.world_info = function (no_grid) {
 
 RUR.create_and_activate_dialogs( $("#world-info-button"), $("#World-info"),
                                  {height:400, width:800}, RUR.world_get.world_info);
-},{"./../default_tiles/tiles.js":1,"./../dialogs/create.js":3,"./../listeners/canvas.js":18,"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../utils/supplant.js":65}],82:[function(require,module,exports){
+},{"./../default_tiles/tiles.js":1,"./../dialogs/create.js":3,"./../listeners/canvas.js":18,"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../utils/supplant.js":65}],81:[function(require,module,exports){
 require("./../recorder/record_frame.js");
 
 
@@ -11986,7 +11948,7 @@ RUR.add_robot = function (robot) {
     RUR.record_frame("RUR.add_robot", robot.__id);
 };
 
-},{"./../recorder/record_frame.js":46}],83:[function(require,module,exports){
+},{"./../recorder/record_frame.js":46}],82:[function(require,module,exports){
 require("./../programming_api/exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
@@ -12039,7 +12001,7 @@ RUR.give_object_to_robot = function (obj, nb, robot) {
     }
 };
 
-},{"./../programming_api/exceptions.js":42,"./../translator.js":56,"./../utils/key_exist.js":63,"./../utils/validator.js":67,"./../world_utils/get_world.js":89}],84:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":42,"./../translator.js":56,"./../utils/key_exist.js":63,"./../utils/validator.js":66,"./../world_utils/get_world.js":88}],83:[function(require,module,exports){
 require("./../drawing/visible_robot.js");
 require("./../drawing/visible_world.js");
 var clone_world = require("./../world_utils/clone_world.js").clone_world;
@@ -12074,7 +12036,7 @@ exports.reset_world = reset_world = function () {
 
 reset_world();
 
-},{"./../drawing/visible_robot.js":8,"./../drawing/visible_world.js":9,"./../world_utils/clone_world.js":86}],85:[function(require,module,exports){
+},{"./../drawing/visible_robot.js":8,"./../drawing/visible_world.js":9,"./../world_utils/clone_world.js":85}],84:[function(require,module,exports){
 /* In some ways, this is the counterpart of world_get/world_get.js
 */
 require("./../rur.js");
@@ -12199,8 +12161,8 @@ set_dimension_form = RUR.world_set.dialog_set_dimensions.find("form").on("submit
     set_dimension();
 });
 
-},{"./../../lang/msg.js":94,"./../default_tiles/tiles.js":1,"./../drawing/visible_world.js":9,"./../programming_api/exceptions.js":42,"./../recorder/recorder.js":47,"./../rur.js":52,"./../utils/key_exist.js":63}],86:[function(require,module,exports){
-require("./world_utils_namespace.js");
+},{"./../../lang/msg.js":92,"./../default_tiles/tiles.js":1,"./../drawing/visible_world.js":9,"./../programming_api/exceptions.js":42,"./../recorder/recorder.js":47,"./../rur.js":52,"./../utils/key_exist.js":63}],85:[function(require,module,exports){
+require("./../rur.js");
 
 exports.clone_world = clone_world = function (world) {
     if (world === undefined) {
@@ -12211,11 +12173,10 @@ exports.clone_world = clone_world = function (world) {
 };
 RUR.world_utils.clone_world = clone_world; // for automated testing
 
-},{"./world_utils_namespace.js":91}],87:[function(require,module,exports){
+},{"./../rur.js":52}],86:[function(require,module,exports){
 require("./../rur.js");
-require("./world_utils_namespace.js");
 
-/* The following is used in a few places, including in unit and 
+/* The following is used in a few places, including in unit and
    functional tests. It is not documented with JSdoc as it should not
    be required for normal world creation; the recommended practice being
    to start with an existing world. */
@@ -12236,13 +12197,13 @@ RUR.world_utils.create_empty_world = function (blank_canvas) {
     return world;
 };
 RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-},{"./../rur.js":52,"./world_utils_namespace.js":91}],88:[function(require,module,exports){
+},{"./../rur.js":52}],87:[function(require,module,exports){
 
 exports.export_world = function () {
     return JSON.stringify(RUR.CURRENT_WORLD, null, 2);
 };
 
-},{}],89:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
 require("./../rur.js");
 
 /*  This function returns a World as a json object. Since the
@@ -12262,7 +12223,7 @@ RUR.get_world = function () {
 
 
 
-},{"./../rur.js":52}],90:[function(require,module,exports){
+},{"./../rur.js":52}],89:[function(require,module,exports){
 require("./../translator.js");
 require("./../rur.js");
 require("./../robot/robot.js");
@@ -12271,7 +12232,7 @@ require("./../programming_api/exceptions.js");
 require("./../editors/create.js");
 require("./create_empty_world.js");
 require("./../world_api/animated_images.js");
-require("./world_utils_namespace.js");
+
 var edit_robot_menu = require("./../ui/edit_robot_menu.js");
 var clone_world = require("./clone_world.js").clone_world;
 
@@ -12434,18 +12395,7 @@ function convert_old_worlds () {
     // TODO: convert start_positions to possible_initial_positions
 }
 
-},{"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../programming_api/exceptions.js":42,"./../robot/robot.js":49,"./../rur.js":52,"./../translator.js":56,"./../ui/edit_robot_menu.js":58,"./../world_api/animated_images.js":68,"./clone_world.js":86,"./create_empty_world.js":87,"./world_utils_namespace.js":91}],91:[function(require,module,exports){
-require("./../rur.js");
-/** @namespace world_utils
- * @memberof RUR
- * @desc RUR.world_utils is a namespace intended for private utility functions. 
- *   The sparse documentation about these is meant for developers.
- *   These methods should not be invoked by an end user as they could
- *   change (or be removed) at any time.
- */
-RUR.world_utils = {};
-
-},{"./../rur.js":52}],92:[function(require,module,exports){
+},{"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../programming_api/exceptions.js":42,"./../robot/robot.js":49,"./../rur.js":52,"./../translator.js":56,"./../ui/edit_robot_menu.js":58,"./../world_api/animated_images.js":67,"./clone_world.js":85,"./create_empty_world.js":86}],90:[function(require,module,exports){
 // Only create a new version of this file for a target language
 // if the corresponding functions are
 // defined in reeborg_xx.js and reeborg_xx.py
@@ -12481,7 +12431,7 @@ en["write"] = "write";
 
 en["from library import ?"] = "from library import ?";
 
-},{}],93:[function(require,module,exports){
+},{}],91:[function(require,module,exports){
 // Only create a new version of this file for a target language
 // if the corresponding functions are
 // defined in reeborg_xx.js and reeborg_xx.py
@@ -12517,7 +12467,7 @@ fr["write"] = "ecrit";
 
 fr["from library import ?"] = "from biblio import ?";
 
-},{}],94:[function(require,module,exports){
+},{}],92:[function(require,module,exports){
 var _recorded_ids = [];
 var _text_elements = [];
 var _elements_names = [];
@@ -12677,7 +12627,7 @@ record_title("ui-dialog-title-World-info", "Click on the world to get some addit
 
 record_id("kbd-repeat-not-keyword", "<code>repeat</code> is not a true Python keyword.");
 
-},{}],95:[function(require,module,exports){
+},{}],93:[function(require,module,exports){
 // the following is used in a few places below
 var mac_user_save_files_en = ' <b>Mac users:</b> please see <a href="https://github.com/aroberge/reeborg/blob/master/known_problems.md" target="_blank" rel="noopener">Known problems</a>.';
 
@@ -13015,7 +12965,7 @@ ui_en["UPDATE BLOCKLY CONTENT"] = "This world has some default content for the b
 ui_en["UPDATE BLOCKLY BUTTON"] = "Replace existing blocks";
 ui_en["Contents from World"] = "Contents from World";
 
-},{}],96:[function(require,module,exports){
+},{}],94:[function(require,module,exports){
 // the following is used in a few places below
 var mac_user_save_files_fr = ' <b>Utilisateurs Mac:</b> consultez <a href="https://github.com/aroberge/reeborg/blob/master/known_problems.md" target="_blank" rel="noopener">Problèmes connus</a>.';
 
@@ -13373,7 +13323,7 @@ ui_fr["UPDATE BLOCKLY CONTENT"] = "Ce monde inclus des blocs différents de ceux
 ui_fr["UPDATE BLOCKLY BUTTON"] = "Remplacer les blocs";
 ui_fr["Contents from World"] = "Remplacement de contenus";
 
-},{}],97:[function(require,module,exports){
+},{}],95:[function(require,module,exports){
 // the following is used in a few places below
 var mac_user_save_files_ko = ' <b>Mac users:</b> please see <a href="https://github.com/aroberge/reeborg/blob/master/known_problems.md" target="_blank" rel="noopener">Known problems</a>.';
 

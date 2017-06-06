@@ -1,12 +1,3 @@
- /** @function test_walls
- * @memberof UnitTest
- * @instance
-*
-* @desc The file listed below as the source contains unit tests for
-* all "walls" related methods.
-*
-*/
-
 // setting global environment
 var tape_test = require('./../test_globals.js').tape_test;
 function test(test_name, fn) {

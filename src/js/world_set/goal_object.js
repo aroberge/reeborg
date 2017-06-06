@@ -30,7 +30,6 @@ require("./../translator.js");
  * // to Python.
  * World("/worlds/examples/set_nb_object.json", "Set nb")
  *
- * @see {@link UnitTest#test_set_nb_goal_object_at_position} for unit tests.
 *
 */
 RUR.set_nb_goal_object_at_position = function (specific_object, x, y, nb){

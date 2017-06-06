@@ -1,4 +1,10 @@
-{
+{   "getting_started": {
+        "title": "Advanced world creation: Start here"
+    },
+    "basic" : {
+        "title": "Basic information for creating interesting worlds.",
+        "children": ["2objects", "1naming_convention"]
+    },
     "canvases": {
         "title": "Layers and canvases"
     },

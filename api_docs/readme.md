@@ -22,7 +22,7 @@ In my experience in teaching Mathematics and Physics, I have noticed that differ
 
 ## Young beginners
 
-While I have no direct experience of teaching young students, the positive feedback I have heard is that Reeborg's World is quite suitable for them to learn the basics of programming.  However, I gather that some students may get bored as each programming task resembles the others.  Looking at other sites aiming to teach young children, I noticed that they most often incorporate colourful images and very nice graphics, much nicer than what is included by default with Reeborg's World. 
+While I have no direct experience of teaching young students, the positive feedback I have heard is that Reeborg's World is quite suitable for them to learn the basics of programming.  However, I gather that some students may get bored as each programming task resembles the others.  Looking at other sites aiming to teach young children, I noticed that they most often incorporate colourful images and very nice graphics, much nicer than what is included by default with Reeborg's World.
 
 The methods described in this documentation are intended to address this issue and offer some potential solutions, to make the learning environment even more appealing to young learners.
 
@@ -30,71 +30,12 @@ The methods described in this documentation are intended to address this issue a
 
 Let's face it: older teenagers and young adults may not like to be treated as young children, but they too enjoy environments with better graphics than bland looking ones. Furthermore, they can appreciate an environment such as Reeborg's World that uses a real programming language (Python, or Javascript) and can present them with challenging (but doable) programming tasks with nice visual feedback.
 
-## More advanced students 
+## More advanced students
 
 Often, programming environments such as Reeborg's World are used to teach beginners, but then abandoned as more advanced concepts are taught, often in a more abstract way. To me, that is a mistake. Once the students have become familiar with a programming environment, especially one that can give visual feedback, it only make sense to revisit this environment to illustrate programming concepts. Beyond simple control flow (`if/else, while, for,` etc.), Reeborg's World can be used to assign problems exploring Object Oriented Programming, including inheritance and composition, data structures (lists/arrays and dict/hash tables in particular), and can even be used to look at various search algorithms (depth-first _vs_ breadth first, A*, etc.).
 
 
-# Advanced world creation
 
-While the menu driven *World editing dialog* makes it possible to create your own world, it is limited to create worlds with pre-defined objects.  Furthermore, it
-creates static worlds which are then interacted with through a user's program.
-A world creator may wish to introduce additional interactivity by changing
-the state of the world when a user's program has achieved a partial goal,
-like reaching a pre-defined position.  The functions documented here are
-intended to give world creators all the flexibility they need to create
-their own worlds.
-
-This documentation is primarily intended to create worlds using Javascript methods **instead of, or in addition to** using the menu-driven World editor, which provides fewer options. (The vast majority of these methods are also usable _as is_ in a Python program.)
-
-
-
-## Menu-driven World editor _vs_ Programming methods.
-
-In what follows, I will create a world first using the Menu-driven editor, and then using Javascript methods. An animated gif is shown, illustrating the result at each step. (Note that, as Reeborg's World changes, the interface may look a bit different from what you will see on these images.)
-
-If you want, you can right-click on each image to open it in another tab and view it at a larger scale.
-
-
-### Using the World editor
-
-Let's create a simple world, with Reeborg already in it, and have three walls surround the home location which Reeborg would have to reach to complete the programming task.
-
-1. Start with a simple world with Reeborg already in it.
-2. Navigate the menus to open the Menu-driven World editor; note how the appearance of the world changes, indicating we are in "edit mode".
-3. Use the menu to add 3 walls an set a location as the final desired position.
-4. Save the world in the browser (local storage).  Later, if you wish, you can save it in a .json file.
-5. Dismiss the World editor; note how the world's appearance changes back to its normal state.
-6. By saving it in the browser, the world has been added to the html selector; worlds stored in the browser appear with a pale yellow background in the html selector.
-
-![editor][editor_link]
-
-[editor_link]: ../../src/images/create_world.gif
-
-### Using the Javascript methods
-
-Let's reproduce the same world using the Javascript methods instead. In the animated gif, I have run these as instructions in a Python program instead of a Javascript one.
-
-1. Start with a simple world with Reeborg already in it.
-2. Enter the program required to create the 3 walls and the final position for Reeborg to reach.
-3. Run the program. Note how the various "things" are added ... and how we get an error dialog at the end indicating that Reeborg has **not** accomplished the required task.
-4. Navigate the menus to open the World editor.
-   - Note how the world we saved previously is mentioned, with a button allowing us to delete it from the browser's memory (local storage) if we wish.
-5. Save the world in the browser, and dismiss the World edit window.  
-6. Like before, by saving it in the browser, the world has now been added to the html selector.
-
-![methods][methods_link]
-
-[methods_link]: ../../src/images/create_world2.gif
-
-For future reference, the code used in the above example was:
-
-```
-RUR.add_wall("east", 4, 2)
-RUR.add_wall("north", 4, 2)
-RUR.add_wall("west", 4, 2)
-RUR.add_final_position("house", 4, 2)
-```
 
 ## About the RUR namespace
 
