@@ -13,6 +13,7 @@ var clone_world = require("./clone_world.js").clone_world;
 RUR.world_utils.import_world = function (json_string) {
     "use strict";
     var body, editor_content, library_content, i, keys, more_keys, coord, index, obstacles;
+
     if (json_string === undefined){
         console.log("Problem: no argument passed to RUR.world_utils.import_world");
         return {};
@@ -141,27 +142,32 @@ RUR.world_utils.import_world = function (json_string) {
     if (RUR.state.editing_world) {
         edit_robot_menu.toggle();
     }
-
-    if (RUR.CURRENT_WORLD.onload !== undefined) {
-        eval_onload();
-    }
-    RUR._SAVED_WORLD = clone_world();
-
+    process_onload();
 };
 
-eval_onload = function () {
-    RUR.state.evaluating_onload = true;
-    try {
-        eval(RUR.CURRENT_WORLD.onload);  // jshint ignore:line
-    } catch (e) {
-        RUR.show_feedback("#Reeborg-shouts",
-            RUR.translate("Problem with onload code.") + "<br><pre>" +
-            RUR.CURRENT_WORLD.onload + "</pre>");
-        console.log("error in onload:", e);
+process_onload = function () {
+    RUR.WORLD_BEFORE_ONLOAD = clone_world();
+    if (RUR.CURRENT_WORLD.onload !== undefined && !RUR.state.editing_world) {
+        RUR.state.evaluating_onload = true; // affects the way errors are treated
+        try {
+            eval(RUR.CURRENT_WORLD.onload);  // jshint ignore:line
+        } catch (e) {
+            RUR.show_feedback("#Reeborg-shouts", e.message + "<br>" +
+                RUR.translate("Problem with onload code.") + "<pre>" +
+                RUR.CURRENT_WORLD.onload + "</pre>");
+            console.log("error in onload:", e);
+        }
+        RUR.state.evaluating_onload = false;
+        // remove any frames created by onload
+        RUR.frames = [];
+        RUR.nb_frames = 0;
+        RUR.current_frame_no = 0;
     }
-    RUR.state.evaluating_onload = false;
+    RUR.WORLD_AFTER_ONLOAD = clone_world();
     RUR.vis_world.draw_all();
+
 };
+RUR.world_utils.process_onload = process_onload;
 
 function convert_old_worlds () {
     // TODO: add code here

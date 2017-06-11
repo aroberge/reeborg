@@ -27,11 +27,12 @@ RUR.runner = {};
 RUR.runner.run = function (playback) {
     "use strict";
     var fatal_error_found = false, xml, xml_text;
-    if (RUR.state.editing_world && !RUR.state.code_evaluated) {
-        RUR._SAVED_WORLD = clone_world(RUR.CURRENT_WORLD);
-    }
     if (!RUR.state.code_evaluated) {
-        RUR.CURRENT_WORLD = clone_world(RUR._SAVED_WORLD);
+        if (RUR.state.editing_world) {
+        // TODO: check that this is ok
+        RUR.WORLD_AFTER_ONLOAD = clone_world(RUR.CURRENT_WORLD);
+        }
+        RUR.CURRENT_WORLD = clone_world(RUR.WORLD_AFTER_ONLOAD);
         RUR.world_init.set();
 
         if (!(RUR.state.programming_language === "python" && RUR.state.highlight) ) {

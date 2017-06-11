@@ -99,7 +99,6 @@ RUR.file_io.load_world_file = function (url, shortname) {
         RUR.file_io.last_url_loaded = url;
         RUR.file_io.last_shortname_loaded = shortname;
     }
-
     if (url.substring(0,11) === "user_world:"){
         data = localStorage.getItem(url);
         if (data === null) {

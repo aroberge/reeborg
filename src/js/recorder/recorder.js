@@ -71,16 +71,15 @@ RUR.rec.display_frame = function () {
     RUR.current_frame_no++;
 
     if (frame === undefined){
-        //RUR.CURRENT_WORLD = RUR._SAVED_WORLD;  // useful when ...
-        RUR.vis_world.refresh();                    // ... reversing step
+        RUR.vis_world.refresh();
         return;
     }
 
-    // many of these are exlusive of others ... but to give more flexibility
+    // many of the following if statements are exlusive of others ...
+    // but to give more flexibility
     // in adding options (and prevent bugs!!), we do not use an
     // if/else if/... structure, but rather a series of if clauses
     // unless it is clear that they are completely independent
-
 
     if (frame.delay !== undefined){
         RUR.playback_delay = frame.delay;
@@ -118,10 +117,6 @@ RUR.rec.display_frame = function () {
         $("#Reeborg-watches").dialog("open");
     }
 
-    /* The world is a global object which changes as the program is "compiled".
-       When we do a playback, we need to ensure that the relevant parameters
-       for display (e.g. delay, sound, etc.) are set to what was intended
-        at a given programming step. */
     RUR.CURRENT_WORLD = frame.world;
     if (frame.sound_id !== undefined){
         RUR._play_sound(frame.sound_id);
@@ -214,7 +209,7 @@ RUR.rec.check_current_world_status = function() {
 RUR.rec.check_goal = function (frame) {
     var g, world, goal_status = {"success": true}, result;
     g = frame.world.goal;
-    if (g === undefined) { // This is only needed for some 
+    if (g === undefined) { // This is only needed for some
         return goal_status;        // functional which call check_goal directly
     } else if (Object.keys(g).length === 0) { // no real goal to check
         goal_status.message = "<p class='center'>" +
@@ -222,7 +217,7 @@ RUR.rec.check_goal = function (frame) {
                      "</p>";
         return goal_status;
     }
-    
+
     world = frame.world;
     goal_status.message = "<ul>";
     if (g.position !== undefined){

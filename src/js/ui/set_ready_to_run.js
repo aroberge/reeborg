@@ -1,7 +1,7 @@
 
 require("./../rur.js");
 
-exports.set_ready_to_run = set_ready_to_run = function () {
+exports.set_ui_ready_to_run = set_ui_ready_to_run = function () {
     RUR.state.prevent_playback = false;
     $("#stop").attr("disabled", "true");
     $("#pause").attr("disabled", "true");
@@ -11,4 +11,4 @@ exports.set_ready_to_run = set_ready_to_run = function () {
     $("#reload").attr("disabled", "true");
 };
 
-set_ready_to_run();
+set_ui_ready_to_run();

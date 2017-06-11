@@ -45,6 +45,7 @@ RUR.state.frame_insertion_called = false;
 RUR.state.programming_language = "python";
 RUR.state.playback = false;
 RUR.state.prevent_playback = false;
+RUR.state.running_program = false;
 RUR.state.session_initialized = false;
 RUR.state.sound_id = undefined;
 RUR.state.sound_on = false;
@@ -186,9 +187,9 @@ RUR.MAX_X_DEFAULT = 14;
 RUR.MAX_Y_DEFAULT = 12;
 RUR.USE_SMALL_TILES = false;
 
-RUR.WALL_COLOR = "brown";   // changed (toggled) in world_editor.js
-RUR.SHADOW_WALL_COLOR= "#f0f0f0";    // changed (toggled) in world_editor.js
-RUR.GOAL_WALL_COLOR = "black";
+// RUR.WALL_COLOR = "brown";   // changed (toggled) in world_editor.js
+// RUR.SHADOW_WALL_COLOR= "#f0f0f0";    // changed (toggled) in world_editor.js
+// RUR.GOAL_WALL_COLOR = "black";
 RUR.COORDINATES_COLOR = "black";
 RUR.AXIS_LABEL_COLOR = "brown";
 

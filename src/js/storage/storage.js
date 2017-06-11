@@ -33,13 +33,18 @@ RUR.storage._save_world = function (name){
     } else {
         RUR.storage.save_world(name);
     }
-    RUR._SAVED_WORLD = clone_world();
+    /* We make an assumption here that the onload code has not been run */
+    RUR.WORLD_BEFORE_ONLOAD = clone_world();
 };
 
 RUR.storage.save_world = function (name){
     "use strict";
     var url = "user_world:"+ name;
-    localStorage.setItem(url, export_world(RUR.CURRENT_WORLD));
+    if (RUR.state.editing_world) {
+        localStorage.setItem(url, export_world(RUR.CURRENT_WORLD));
+    } else {
+        localStorage.setItem(url, export_world(RUR.WORLD_BEFORE_ONLOAD));
+    }
     RUR.storage.append_world_name(name);
 };
 

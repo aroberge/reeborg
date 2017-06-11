@@ -1,25 +1,12 @@
 
 require("./../rur.js");
 
-/* When loading a world from a url, Python names may not have been
-   defined in the running environment. If that is the case,
-   we make sure to stop that error and let a the basic javascript
-   one propagate so that the correct dialog can be shown.
- */
-
-RUR.ReeborgOK = function (message) {
-    if (RUR.state.programming_language == "python"){
-        try { // see comment above
-            return ReeborgOK(message);
-        } catch (e) {}
-    }
-    this.name = "ReeborgOK";
-    this.reeborg_concludes = message;
-    this.message = message;
-};
+// During evaluation of "onload", which is done before a program is
+// running and only involves Javascript code, some errors may be thrown.
+// In this situation we make sure that these errors are not passed to Brython.
 
 RUR.ReeborgError = function (message) {
-    if (RUR.state.programming_language == "python"){
+    if (RUR.state.programming_language == "python" && RUR.state.evaluating_onload){
         try { // see comment above
             return ReeborgError(message);
         } catch (e) {}
@@ -29,6 +16,19 @@ RUR.ReeborgError = function (message) {
     this.message = message;
     this.reeborg_shouts = message;
 };
+
+
+RUR.ReeborgOK = function (message) {
+    if (RUR.state.programming_language == "python"){
+        try {
+            return ReeborgOK(message);
+        } catch (e) {}
+    }
+    this.name = "ReeborgOK";
+    this.reeborg_concludes = message;
+    this.message = message;
+};
+
 
 RUR.WallCollisionError = function (message) {
     if (RUR.state.programming_language == "python"){

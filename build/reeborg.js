@@ -1806,7 +1806,6 @@ RUR.file_io.load_world_file = function (url, shortname) {
         RUR.file_io.last_url_loaded = url;
         RUR.file_io.last_shortname_loaded = shortname;
     }
-
     if (url.substring(0,11) === "user_world:"){
         data = localStorage.getItem(url);
         if (data === null) {
@@ -2563,8 +2562,8 @@ RUR.we.toggle_editing_mode = function () {
 
         RUR.state.editing_world = false;
         RUR.state.code_evaluated = false;
-        RUR.WALL_COLOR = "brown";
-        RUR.SHADOW_WALL_COLOR = "#f0f0f0";
+        // RUR.WALL_COLOR = "brown";
+        // RUR.SHADOW_WALL_COLOR = "#f0f0f0";
         try {
             localStorage.setItem("editor", editor.getValue());
             localStorage.setItem("library", library.getValue());
@@ -2577,8 +2576,8 @@ RUR.we.toggle_editing_mode = function () {
         $("#onload-editor-tab").parent().show();
         edit_robot_menu.toggle();
         RUR.state.editing_world = true;
-        RUR.WALL_COLOR = "black";
-        RUR.SHADOW_WALL_COLOR = "#ccd";
+        // RUR.WALL_COLOR = "black";
+        // RUR.SHADOW_WALL_COLOR = "#ccd";
         $("#highlight").hide();
         $("#watch-variables-btn").hide();
     }
@@ -4345,7 +4344,6 @@ dialog.find("form").on("submit", function( event ) {
 save_world = function () {
     RUR.CURRENT_WORLD = RUR.update_world_from_editors(RUR.CURRENT_WORLD);
     RUR.storage._save_world($("#world-name").val().trim());
-    RUR._SAVED_WORLD = clone_world();
     dialog.dialog("close");
     $('#delete-world').show();
 };
@@ -4867,7 +4865,7 @@ show_editor("python");
 },{"./../../lang/msg.js":92,"./../editors/create.js":10,"./../gui_tools/special_keyboard.js":13,"./../listeners/reload.js":26,"./../rur.js":52,"./../utils/parseuri.js":64}],26:[function(require,module,exports){
 
 require("./../rur.js");
-var set_ready_to_run = require("./../ui/set_ready_to_run.js").set_ready_to_run;
+var set_ui_ready_to_run = require("./../ui/set_ready_to_run.js").set_ui_ready_to_run;
 var rec_reset = require("./../recorder/reset.js").reset;
 var reset_world = require("./../world_set/reset_world.js").reset_world;
 var record_id = require("./../../lang/msg.js").record_id;
@@ -4878,7 +4876,7 @@ var reload2_button = document.getElementById("reload2");
 record_id("reload2");
 
 RUR.reload = function() {
-    set_ready_to_run();
+    set_ui_ready_to_run();
     RUR.reload2();
     $("#highlight-impossible").hide();
     RUR.state.code_evaluated = false;
@@ -6735,25 +6733,12 @@ RUR.control.get_colour_at_position = function (x, y) {
 
 require("./../rur.js");
 
-/* When loading a world from a url, Python names may not have been
-   defined in the running environment. If that is the case,
-   we make sure to stop that error and let a the basic javascript
-   one propagate so that the correct dialog can be shown.
- */
-
-RUR.ReeborgOK = function (message) {
-    if (RUR.state.programming_language == "python"){
-        try { // see comment above
-            return ReeborgOK(message);
-        } catch (e) {}
-    }
-    this.name = "ReeborgOK";
-    this.reeborg_concludes = message;
-    this.message = message;
-};
+// During evaluation of "onload", which is done before a program is
+// running and only involves Javascript code, some errors may be thrown.
+// In this situation we make sure that these errors are not passed to Brython.
 
 RUR.ReeborgError = function (message) {
-    if (RUR.state.programming_language == "python"){
+    if (RUR.state.programming_language == "python" && RUR.state.evaluating_onload){
         try { // see comment above
             return ReeborgError(message);
         } catch (e) {}
@@ -6763,6 +6748,19 @@ RUR.ReeborgError = function (message) {
     this.message = message;
     this.reeborg_shouts = message;
 };
+
+
+RUR.ReeborgOK = function (message) {
+    if (RUR.state.programming_language == "python"){
+        try {
+            return ReeborgOK(message);
+        } catch (e) {}
+    }
+    this.name = "ReeborgOK";
+    this.reeborg_concludes = message;
+    this.message = message;
+};
+
 
 RUR.WallCollisionError = function (message) {
     if (RUR.state.programming_language == "python"){
@@ -7321,16 +7319,15 @@ RUR.rec.display_frame = function () {
     RUR.current_frame_no++;
 
     if (frame === undefined){
-        //RUR.CURRENT_WORLD = RUR._SAVED_WORLD;  // useful when ...
-        RUR.vis_world.refresh();                    // ... reversing step
+        RUR.vis_world.refresh();
         return;
     }
 
-    // many of these are exlusive of others ... but to give more flexibility
+    // many of the following if statements are exlusive of others ...
+    // but to give more flexibility
     // in adding options (and prevent bugs!!), we do not use an
     // if/else if/... structure, but rather a series of if clauses
     // unless it is clear that they are completely independent
-
 
     if (frame.delay !== undefined){
         RUR.playback_delay = frame.delay;
@@ -7368,10 +7365,6 @@ RUR.rec.display_frame = function () {
         $("#Reeborg-watches").dialog("open");
     }
 
-    /* The world is a global object which changes as the program is "compiled".
-       When we do a playback, we need to ensure that the relevant parameters
-       for display (e.g. delay, sound, etc.) are set to what was intended
-        at a given programming step. */
     RUR.CURRENT_WORLD = frame.world;
     if (frame.sound_id !== undefined){
         RUR._play_sound(frame.sound_id);
@@ -7464,7 +7457,7 @@ RUR.rec.check_current_world_status = function() {
 RUR.rec.check_goal = function (frame) {
     var g, world, goal_status = {"success": true}, result;
     g = frame.world.goal;
-    if (g === undefined) { // This is only needed for some 
+    if (g === undefined) { // This is only needed for some
         return goal_status;        // functional which call check_goal directly
     } else if (Object.keys(g).length === 0) { // no real goal to check
         goal_status.message = "<p class='center'>" +
@@ -7472,7 +7465,7 @@ RUR.rec.check_goal = function (frame) {
                      "</p>";
         return goal_status;
     }
-    
+
     world = frame.world;
     goal_status.message = "<ul>";
     if (g.position !== undefined){
@@ -7695,11 +7688,12 @@ RUR.runner = {};
 RUR.runner.run = function (playback) {
     "use strict";
     var fatal_error_found = false, xml, xml_text;
-    if (RUR.state.editing_world && !RUR.state.code_evaluated) {
-        RUR._SAVED_WORLD = clone_world(RUR.CURRENT_WORLD);
-    }
     if (!RUR.state.code_evaluated) {
-        RUR.CURRENT_WORLD = clone_world(RUR._SAVED_WORLD);
+        if (RUR.state.editing_world) {
+        // TODO: check that this is ok
+        RUR.WORLD_AFTER_ONLOAD = clone_world(RUR.CURRENT_WORLD);
+        }
+        RUR.CURRENT_WORLD = clone_world(RUR.WORLD_AFTER_ONLOAD);
         RUR.world_init.set();
 
         if (!(RUR.state.programming_language === "python" && RUR.state.highlight) ) {
@@ -8118,6 +8112,7 @@ RUR.state.frame_insertion_called = false;
 RUR.state.programming_language = "python";
 RUR.state.playback = false;
 RUR.state.prevent_playback = false;
+RUR.state.running_program = false;
 RUR.state.session_initialized = false;
 RUR.state.sound_id = undefined;
 RUR.state.sound_on = false;
@@ -8259,9 +8254,9 @@ RUR.MAX_X_DEFAULT = 14;
 RUR.MAX_Y_DEFAULT = 12;
 RUR.USE_SMALL_TILES = false;
 
-RUR.WALL_COLOR = "brown";   // changed (toggled) in world_editor.js
-RUR.SHADOW_WALL_COLOR= "#f0f0f0";    // changed (toggled) in world_editor.js
-RUR.GOAL_WALL_COLOR = "black";
+// RUR.WALL_COLOR = "brown";   // changed (toggled) in world_editor.js
+// RUR.SHADOW_WALL_COLOR= "#f0f0f0";    // changed (toggled) in world_editor.js
+// RUR.GOAL_WALL_COLOR = "black";
 RUR.COORDINATES_COLOR = "black";
 RUR.AXIS_LABEL_COLOR = "brown";
 
@@ -8495,13 +8490,18 @@ RUR.storage._save_world = function (name){
     } else {
         RUR.storage.save_world(name);
     }
-    RUR._SAVED_WORLD = clone_world();
+    /* We make an assumption here that the onload code has not been run */
+    RUR.WORLD_BEFORE_ONLOAD = clone_world();
 };
 
 RUR.storage.save_world = function (name){
     "use strict";
     var url = "user_world:"+ name;
-    localStorage.setItem(url, export_world(RUR.CURRENT_WORLD));
+    if (RUR.state.editing_world) {
+        localStorage.setItem(url, export_world(RUR.CURRENT_WORLD));
+    } else {
+        localStorage.setItem(url, export_world(RUR.WORLD_BEFORE_ONLOAD));
+    }
     RUR.storage.append_world_name(name);
 };
 
@@ -8800,7 +8800,7 @@ exports.toggle = function () {
 
 require("./../rur.js");
 
-exports.set_ready_to_run = set_ready_to_run = function () {
+exports.set_ui_ready_to_run = set_ui_ready_to_run = function () {
     RUR.state.prevent_playback = false;
     $("#stop").attr("disabled", "true");
     $("#pause").attr("disabled", "true");
@@ -8810,7 +8810,7 @@ exports.set_ready_to_run = set_ready_to_run = function () {
     $("#reload").attr("disabled", "true");
 };
 
-set_ready_to_run();
+set_ui_ready_to_run();
 
 },{"./../rur.js":52}],60:[function(require,module,exports){
 
@@ -12002,41 +12002,28 @@ RUR.give_object_to_robot = function (obj, nb, robot) {
 };
 
 },{"./../programming_api/exceptions.js":42,"./../translator.js":56,"./../utils/key_exist.js":63,"./../utils/validator.js":66,"./../world_utils/get_world.js":88}],83:[function(require,module,exports){
+require("./../rur.js");
+require("./../world_utils/import_world.js");
 require("./../drawing/visible_robot.js");
 require("./../drawing/visible_world.js");
 var clone_world = require("./../world_utils/clone_world.js").clone_world;
 
-//TODO: code for evaluating onload is essentially repeated in two different
-//files; it should be refactored.
-//
 //TODO: See if all defaults could be incorporated here, e.g. robot images, etc.
 
 exports.reset_world = reset_world = function () {
     if (RUR.state.editing_world){
         return;
     }
-    RUR.CURRENT_WORLD = clone_world(RUR._SAVED_WORLD);
     RUR.reset_default_robot_images();
     RUR.MAX_STEPS = 1000;
     RUR.ANIMATION_TIME = 120;
-    if (RUR.CURRENT_WORLD.onload) {
-        RUR.state.evaluating_onload = true;
-        try {
-            eval(RUR.CURRENT_WORLD.onload);  // jshint ignore:line
-        } catch (e) {
-            RUR.show_feedback("#Reeborg-shouts",
-                RUR.translate("Problem with onload code.") + "<br><pre>" +
-                RUR.CURRENT_WORLD.onload + "</pre>");
-            console.log("error in onload:", e);
-        }
-        RUR.state.evaluating_onload = false;
-    }
-    RUR.vis_world.draw_all();
+
+    RUR.CURRENT_WORLD = clone_world(RUR.WORLD_BEFORE_ONLOAD);
+    RUR.world_utils.process_onload();
 };
 
 reset_world();
-
-},{"./../drawing/visible_robot.js":8,"./../drawing/visible_world.js":9,"./../world_utils/clone_world.js":85}],84:[function(require,module,exports){
+},{"./../drawing/visible_robot.js":8,"./../drawing/visible_world.js":9,"./../rur.js":52,"./../world_utils/clone_world.js":85,"./../world_utils/import_world.js":89}],84:[function(require,module,exports){
 /* In some ways, this is the counterpart of world_get/world_get.js
 */
 require("./../rur.js");
@@ -12198,9 +12185,12 @@ RUR.world_utils.create_empty_world = function (blank_canvas) {
 };
 RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
 },{"./../rur.js":52}],87:[function(require,module,exports){
-
-exports.export_world = function () {
-    return JSON.stringify(RUR.CURRENT_WORLD, null, 2);
+exports.export_world = function (world) {
+    if (world === undefined) {
+        return JSON.stringify(RUR.CURRENT_WORLD, null, 2);
+    } else {
+        return JSON.stringify(world, null, 2);
+    }
 };
 
 },{}],88:[function(require,module,exports){
@@ -12239,6 +12229,7 @@ var clone_world = require("./clone_world.js").clone_world;
 RUR.world_utils.import_world = function (json_string) {
     "use strict";
     var body, editor_content, library_content, i, keys, more_keys, coord, index, obstacles;
+
     if (json_string === undefined){
         console.log("Problem: no argument passed to RUR.world_utils.import_world");
         return {};
@@ -12367,27 +12358,32 @@ RUR.world_utils.import_world = function (json_string) {
     if (RUR.state.editing_world) {
         edit_robot_menu.toggle();
     }
-
-    if (RUR.CURRENT_WORLD.onload !== undefined) {
-        eval_onload();
-    }
-    RUR._SAVED_WORLD = clone_world();
-
+    process_onload();
 };
 
-eval_onload = function () {
-    RUR.state.evaluating_onload = true;
-    try {
-        eval(RUR.CURRENT_WORLD.onload);  // jshint ignore:line
-    } catch (e) {
-        RUR.show_feedback("#Reeborg-shouts",
-            RUR.translate("Problem with onload code.") + "<br><pre>" +
-            RUR.CURRENT_WORLD.onload + "</pre>");
-        console.log("error in onload:", e);
+process_onload = function () {
+    RUR.WORLD_BEFORE_ONLOAD = clone_world();
+    if (RUR.CURRENT_WORLD.onload !== undefined && !RUR.state.editing_world) {
+        RUR.state.evaluating_onload = true; // affects the way errors are treated
+        try {
+            eval(RUR.CURRENT_WORLD.onload);  // jshint ignore:line
+        } catch (e) {
+            RUR.show_feedback("#Reeborg-shouts", e.message + "<br>" +
+                RUR.translate("Problem with onload code.") + "<pre>" +
+                RUR.CURRENT_WORLD.onload + "</pre>");
+            console.log("error in onload:", e);
+        }
+        RUR.state.evaluating_onload = false;
+        // remove any frames created by onload
+        RUR.frames = [];
+        RUR.nb_frames = 0;
+        RUR.current_frame_no = 0;
     }
-    RUR.state.evaluating_onload = false;
+    RUR.WORLD_AFTER_ONLOAD = clone_world();
     RUR.vis_world.draw_all();
+
 };
+RUR.world_utils.process_onload = process_onload;
 
 function convert_old_worlds () {
     // TODO: add code here
