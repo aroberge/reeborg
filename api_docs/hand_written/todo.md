@@ -17,3 +17,15 @@
 7. Document `RUR.get_TYPE...`.
 
 8. Ensure that "obstacles" are either solid or fatal, or both.
+
+9. figure out how to combine insert frame and voice narration for people
+   with visual challenges.
+
+10. a) tutorial: learning oriented
+    b) how-to guides: problem-oriented
+    c) discussions: understanding oriented
+    d) reference: information oriented
+
+11. Document RUR.get_world
+
+12. Get better error message for onload; show error and offending code.

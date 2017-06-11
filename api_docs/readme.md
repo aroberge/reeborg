@@ -10,11 +10,19 @@
 
 [comment]: # (Note that the configuration file for jsdoc is found from the base directory of this project as follows: dev_tools/jsdoc_conf.jsdoc.)
 
-### About this documentation
+# About this documentation
 
-_This documentation is written for people who wish to create new programming tasks, **going beyond what can be done using the Menu-driven World Editor included in Reeborg's World.** For example, you might want to use different images, including animation, or to add more capabilities to Reeborg's World._  People that simply wish to learn how to use Reeborg's World, or would like to follow a programming tutorial, should use [this link](http://reeborg.ca/docs/en) instead. [Please, note that the link points to a document available in English, French and Korean, with the language chosen using a selector on the right hand side.] _Unlike the other documentation, this one is available only in English.  If needed, you might want to use [http://translate.google.com](http://translate.google.com) to get a version in your own language._
+This documentation is written for people who wish to create new programming tasks, **going beyond what can be done using the Menu-driven World Editor included in Reeborg's World.** For example, you might want to use different images, including animation, or to add more capabilities to Reeborg's World._  People that simply wish to learn how to use Reeborg's World, or would like to follow a programming tutorial, should use [this link](http://reeborg.ca/docs/en) instead. [Please, note that the link points to a document available in English, French and Korean, with the language chosen using a selector on the right hand side.]
 
-_Other than the documents listed under the **Tutorials** menu above, and the information written on this page, this documentation is generated utomatically using Jsdoc from **comments** included in javascript source files (and not from the actual code, unlike what is usually done for Python by Sphinx.) Since comments are **not** executed, it can happen that they do not reflect what the code is actually doing. If you find that the information provided here is incorrect, or if you have any question or suggestion, please do not hesitate to get in touch with me (Andre.Roberge@gmail.com)._
+Unlike [the tutorial](http://reeborg.ca/docs/en), this documentation is available only in English.
+If needed, you might want to use [http://translate.google.com](http://translate.google.com) to get a version in your own language.
+
+Other than the documents listed under the **Tutorials** menu above, and the information written on this page, this documentation has been generated utomatically using Jsdoc from **comments** included in javascript source files.
+Since comments are **not** executed, it can happen that they do not reflect what the code is actually doing. If you find that the information provided here is incorrect, or if you have any question or suggestion, please do not hesitate to get in touch with me (Andre.Roberge@gmail.com).
+
+## Next
+
+We suggest you start with {@tutorial getting_started}.
 
 # Motivation
 

@@ -195,6 +195,13 @@ def generic_translate_python(src, highlight, var_watch, pre_code='',
     globals_['previous_watch_values'] = {}
 
     src = transform(src)
+    # sometimes, when copying from documentation displayed in the browsers
+    # some nonbreaking spaces are inserted instead of regular spaces.
+    # We make the assumption that nonbreaking spaces should never appear
+    # in source code - which is not necessarily valid...
+    if '\xa0' in src:
+        src = src.replace('\xa0', ' ')
+        window.console.warn("Some nonbreaking spaces were replaced in the Python code.")
     exec(lang_import, globals_)
     # globals_['system_default_vars'] = set([key for key in globals_])
 

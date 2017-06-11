@@ -1,9 +1,15 @@
 {   "getting_started": {
         "title": "Advanced world creation: Start here"
     },
-    "basic" : {
-        "title": "Basic information for creating interesting worlds.",
-        "children": ["2objects", "1naming_convention"]
+    "how": {
+        "title": "How to ..."
+    },
+    "why": {
+        "title": "Why"
+    },
+    "reference": {
+        "title": "Reference",
+        "children": ["naming_convention"]
     },
     "canvases": {
         "title": "Layers and canvases"
@@ -11,11 +17,11 @@
     "animated": {
         "title": "Animated images"
     },
-    "1naming_convention" : {
-        "title": "1. Naming convention"
+    "naming_convention" : {
+        "title": "Naming convention"
     },
-    "2objects": {
-        "title": "2. Objects"
+    "objects": {
+        "title": "Working with objects"
     },
     "3random": {
         "title": "3. Adding some randomness"
