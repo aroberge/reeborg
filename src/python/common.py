@@ -129,7 +129,7 @@ def Help(obj=None):
         window.console.log("exception in Help", e.__name__)
 
     for attr in dir(obj):
-        if attr == "__class__":
+        if attr == "__class__" or attr.startswith("__"):
             continue
         try:
             if hasattr(getattr(obj, attr), "__doc__"):

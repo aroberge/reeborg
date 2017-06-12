@@ -16,11 +16,11 @@ record_id("programming-mode");
  *          be run (either as blocks, in the editor, or in the pre- or post- code stage.)
  *
  *
- * @param {string} mode  One of "python", "javascript", or "blockly" 
+ * @param {string} mode  One of "python", "javascript", or "blockly"
  *
  * @todo: see if we should not distinguish between blockly-js and blockly-py
  * @todo: see if we should not add py-repl as an option
- * 
+ *
  * @example
  * // shows how to switch mode to Blockly, where some blocks are already placed.
  * World("/worlds/examples/square_blockly.json", "Square")
@@ -123,7 +123,7 @@ $("#programming-mode").change(function() {
         case "py-repl":
             RUR.state.programming_language = "python";
             editor.setOption("readOnly", true);
-            editor.setOption("theme", "reeborg-readonly");            
+            editor.setOption("theme", "reeborg-readonly");
             show_console();
             break;
         default:
@@ -266,6 +266,8 @@ function show_console() {
     $("#reload").hide();
     $("#reload2").show();
     $("#reload2").removeAttr("disabled");
+    $("#frame-selector").hide();
+    $("#frame-id").hide();
     _start_repl();
 }
 
@@ -281,6 +283,8 @@ function _start_repl() {
 
 function hide_console() {
     $("#py-console").hide();
+    $("#frame-selector").show();
+    $("#frame-id").show();
     $("#stop").show();
     $("#pause").show();
     $("#run").show();

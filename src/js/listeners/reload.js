@@ -40,5 +40,9 @@ RUR.reload2 = function() {
     }
 };
 
+RUR.hide_end_dialogs = function () { // used in py_repl.py
+    $("#Reeborg-concludes").dialog("close");
+    $("#Reeborg-shouts").dialog("close");
+};
 reload_button.addEventListener("click", RUR.reload, false);
 reload2_button.addEventListener("click", RUR.reload2, false);

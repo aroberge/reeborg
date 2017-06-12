@@ -12,10 +12,15 @@ def print_exc():
         offset = exc.args[3]
         print('\n  ' + exc.args[4])
         print('\n  ' + offset * ' ' + '^')
-    else:
-        print(exc.info)
-    print('\n' + exc.__name__)
-    if exc.args:
+    else: # limit traceback to user code
+        user_traceback = False
+        for line in exc.info:
+            if user_traceback:
+                print(line)
+            if "print_exc" in line:
+                user_traceback = True
+    print('\n' + exc.__name__, end='')
+    if hasattr(exc, "args") and len(exc.args) > 0:
         print(': %s' % exc.args[0])
     print('\n')
 
@@ -39,7 +44,16 @@ class PyConsole:
         self.textarea.value += "... "
 
     def get_text(self):
-        return self.textarea.value
+        # sometimes, when copying from documentation displayed in the browsers
+        # some nonbreaking spaces are inserted instead of regular spaces.
+        # We make the assumption that nonbreaking spaces should never appear
+        # in source code - which is not necessarily valid...
+        src = self.textarea.value
+        if '\xa0' in src:
+            src = src.replace('\xa0', ' ')
+            self.textarea.value = src
+            window.console.warn("replaced nonbreaking spaces in process_code")
+        return src
 
     def cursor_to_end(self):
         pos = len(self.textarea.value)
@@ -153,27 +167,56 @@ class Interpreter():
         if lang == 'en':
             exec("from reeborg_en import *", self.namespace)
             self.namespace["done"] = self.done
+            # in case "done" gets reassigned in the "pre" code of a world,
+            # we keep another version available.
+            self.namespace["Done"] = self.done
+            self.namespace["World"] = self.world
         elif lang == 'fr':
             exec("from reeborg_fr import *", self.namespace)
             self.namespace["termine"] = self.done
+            self.namespace["Termine"] = self.done
+            self.namespace["Monde"] = self.world
         self.namespace["Help"] = window["Help"]
         self.namespace["init"] = window.RUR.world_init.set
+        # Ensure my help replaces Brython's builtin
         exec("__BRYTHON__.builtins.help = Help", self.namespace)
         self.run_pre()
 
     def run_pre(self):
-        try:
-            exec(RUR.CURRENT_WORLD.pre_code, self.namespace)
-        except:
-            pass
+        if hasattr(RUR.CURRENT_WORLD, "pre"):
+            try:
+                exec(RUR.CURRENT_WORLD.pre, self.namespace)
+            except Exception as e:
+                window.console.log("Error when executing pre:", e)
 
     def done(self):
-        try:
-            exec(RUR.CURRENT_WORLD.post_code, self.namespace)
-        except Exception as e:
-            if e.__name__ == "ReeborgError":
-                raise
+        '''If a goal is set in this world, calling done() will
+        show if the goal has been accomplished in a standard dialog from
+        Reeborg's World.
+
+        Since custom goals can be created in post_code, any such
+        code will also be run when calling done.
+        '''
+        RUR.hide_end_dialogs() # hide previously shown dialogs
+        if hasattr(RUR.CURRENT_WORLD, "post"):
+            exec(RUR.CURRENT_WORLD.post, self.namespace) # may raise an exception
         RUR.rec.check_current_world_status()
+
+
+    def world(self, *args):
+        '''Selects the appropriate world.
+        If it exists, gives a positive feedback and restarts the REPL.
+        '''
+        try:
+            RUR._World_(*args)
+        except Exception as e:
+            if hasattr(e, "reeborg_concludes"):
+                self.restart()
+                print(e.reeborg_concludes)
+            elif hasattr(e, "reeborg_shouts"):
+                print(e.reeborg_shouts)
+            else:
+                raise e
 
     def set_current_line(self, src):
         if self.status == "main":
@@ -209,7 +252,7 @@ class Interpreter():
             py_console.prompt()
             self.status = "main"
 
-    def process_statement(self, src):
+    def process_statement(self):
         try:
             _ = self.namespace['_'] = eval(self.current_line, self.namespace)
             if _ is not None:
@@ -222,12 +265,16 @@ class Interpreter():
         except SyntaxError as msg:
             self.handle_syntax_error(msg)
         except Exception as e:
-            if e.__name__ in ['ReeborgError', 'WallCollisionError']:
-                py_console.append("{}: {}".format(e.__name__,
-                    RUR.translate(getattr(e, 'reeborg_shouts'))))  # NOQA
+            exc = __BRYTHON__.current_exception  # NOQA
+            if hasattr(e, 'reeborg_shouts'):
+                message = RUR.translate(getattr(e, 'reeborg_shouts'))
+                message = message.replace('<code>', '').replace('</code>', '')
+                py_console.append("{}: {}".format(e.__name__, message))  # NOQA
+            elif hasattr(e, 'reeborg_concludes'):
+                message = RUR.translate(getattr(e, 'reeborg_concludes'))
+                py_console.append("{}: {}".format(e.__name__, message)) # NOQA
             else:
-                exc = __BRYTHON__.current_exception  # NOQA
-                py_console.append("{}: {}".format(e.__name__, exc.args[0]))
+                 print_exc()
             py_console.append("\n")
             py_console.prompt()
             self.status = "main"
@@ -255,7 +302,7 @@ class Interpreter():
         self.history.append(self.current_line)
         self.current = len(self.history)
         if self.status == "main" or self.status == "multiline":
-            self.process_statement(src)
+            self.process_statement()  # self.current_line
         elif self.current_line == "":  # end of block
             self.process_block(src)
         else:

@@ -7,6 +7,14 @@ require("./../playback/show_immediate.js");
 require("./../utils/supplant.js");
 var clone_world = require("./../world_utils/clone_world.js").clone_world;
 
+function update_trace_history() {
+    if (RUR.CURRENT_WORLD.robots !== undefined){
+        for (robot of RUR.CURRENT_WORLD.robots) { // jshint ignore:line
+            RUR.vis_robot.update_trace_history(robot);
+        }
+    }
+}
+
 RUR.record_frame = function (name, obj) {
     "use strict";
     var py_err, frame = {}, robot;
@@ -52,12 +60,13 @@ RUR.record_frame = function (name, obj) {
 // 3. resuming recording.
 // The program stopped, but no error was shown.
 
-    if ((RUR.state.do_not_record || RUR.state.prevent_playback) && name != "error") {
-        return;
-    } else if (RUR.state.input_method==="py-repl") {
+    if (RUR.state.input_method==="py-repl") {
         /* if the REPL is active, we do not record anything, and show
            immediately the updated world. */
+        update_trace_history();
         return RUR._show_immediate(name, obj);
+    } else if ((RUR.state.do_not_record || RUR.state.prevent_playback) && name != "error") {
+        return;
     } else if (name == "watch_variables" && RUR.nb_frames >= 1) {
         /* Watched variables are appended to previous frame so as to avoid
           generating too many extra frames. */
@@ -69,12 +78,7 @@ RUR.record_frame = function (name, obj) {
         return;
     }
 
-    if (RUR.CURRENT_WORLD.robots !== undefined){
-        for (robot of RUR.CURRENT_WORLD.robots) { // jshint ignore:line
-            RUR.vis_robot.update_trace_history(robot);
-        }
-    }
-
+    update_trace_history();
     frame.world = clone_world();
 
     if (name && obj) {

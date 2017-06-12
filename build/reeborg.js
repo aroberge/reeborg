@@ -4582,11 +4582,11 @@ record_id("programming-mode");
  *          be run (either as blocks, in the editor, or in the pre- or post- code stage.)
  *
  *
- * @param {string} mode  One of "python", "javascript", or "blockly" 
+ * @param {string} mode  One of "python", "javascript", or "blockly"
  *
  * @todo: see if we should not distinguish between blockly-js and blockly-py
  * @todo: see if we should not add py-repl as an option
- * 
+ *
  * @example
  * // shows how to switch mode to Blockly, where some blocks are already placed.
  * World("/worlds/examples/square_blockly.json", "Square")
@@ -4689,7 +4689,7 @@ $("#programming-mode").change(function() {
         case "py-repl":
             RUR.state.programming_language = "python";
             editor.setOption("readOnly", true);
-            editor.setOption("theme", "reeborg-readonly");            
+            editor.setOption("theme", "reeborg-readonly");
             show_console();
             break;
         default:
@@ -4832,6 +4832,8 @@ function show_console() {
     $("#reload").hide();
     $("#reload2").show();
     $("#reload2").removeAttr("disabled");
+    $("#frame-selector").hide();
+    $("#frame-id").hide();
     _start_repl();
 }
 
@@ -4847,6 +4849,8 @@ function _start_repl() {
 
 function hide_console() {
     $("#py-console").hide();
+    $("#frame-selector").show();
+    $("#frame-id").show();
     $("#stop").show();
     $("#pause").show();
     $("#run").show();
@@ -4905,6 +4909,10 @@ RUR.reload2 = function() {
     }
 };
 
+RUR.hide_end_dialogs = function () { // used in py_repl.py
+    $("#Reeborg-concludes").dialog("close");
+    $("#Reeborg-shouts").dialog("close");
+};
 reload_button.addEventListener("click", RUR.reload, false);
 reload2_button.addEventListener("click", RUR.reload2, false);
 
@@ -6738,7 +6746,8 @@ require("./../rur.js");
 // In this situation we make sure that these errors are not passed to Brython.
 
 RUR.ReeborgError = function (message) {
-    if (RUR.state.programming_language == "python" && RUR.state.evaluating_onload){
+    if (RUR.state.input_method == "py-repl" ||
+        (RUR.state.programming_language == "python" && !RUR.state.evaluating_onload)){
         try { // see comment above
             return ReeborgError(message);
         } catch (e) {}
@@ -7143,6 +7152,14 @@ require("./../playback/show_immediate.js");
 require("./../utils/supplant.js");
 var clone_world = require("./../world_utils/clone_world.js").clone_world;
 
+function update_trace_history() {
+    if (RUR.CURRENT_WORLD.robots !== undefined){
+        for (robot of RUR.CURRENT_WORLD.robots) { // jshint ignore:line
+            RUR.vis_robot.update_trace_history(robot);
+        }
+    }
+}
+
 RUR.record_frame = function (name, obj) {
     "use strict";
     var py_err, frame = {}, robot;
@@ -7188,12 +7205,13 @@ RUR.record_frame = function (name, obj) {
 // 3. resuming recording.
 // The program stopped, but no error was shown.
 
-    if ((RUR.state.do_not_record || RUR.state.prevent_playback) && name != "error") {
-        return;
-    } else if (RUR.state.input_method==="py-repl") {
+    if (RUR.state.input_method==="py-repl") {
         /* if the REPL is active, we do not record anything, and show
            immediately the updated world. */
+        update_trace_history();
         return RUR._show_immediate(name, obj);
+    } else if ((RUR.state.do_not_record || RUR.state.prevent_playback) && name != "error") {
+        return;
     } else if (name == "watch_variables" && RUR.nb_frames >= 1) {
         /* Watched variables are appended to previous frame so as to avoid
           generating too many extra frames. */
@@ -7205,12 +7223,7 @@ RUR.record_frame = function (name, obj) {
         return;
     }
 
-    if (RUR.CURRENT_WORLD.robots !== undefined){
-        for (robot of RUR.CURRENT_WORLD.robots) { // jshint ignore:line
-            RUR.vis_robot.update_trace_history(robot);
-        }
-    }
-
+    update_trace_history();
     frame.world = clone_world();
 
     if (name && obj) {
