@@ -34,7 +34,10 @@ RUR.onload_set_programming_mode = function(mode) {
     /* First determine if any change is needed */
     switch (mode) {
         case "python":
+        case "py-repl":
         case "javascript":
+        case "blockly-js":
+        case "blockly-py":
             if (RUR.state.input_method == mode) {
                 return;
             }
@@ -46,7 +49,7 @@ RUR.onload_set_programming_mode = function(mode) {
             }
             break;
         default:
-            alert(mode + " is not allowed; only 'python', 'javascript' and 'blockly' are allowed.");
+            alert(mode + " is not allowed.");
             return;
     }
 
@@ -59,7 +62,10 @@ RUR.onload_set_programming_mode = function(mode) {
     setTimeout( function() {
         switch (mode) {
             case "python":
+            case "py-repl":
             case "javascript":
+            case "blockly-js":
+            case "blockly-py":
                 break;
             case "blockly":
                 if (RUR.state.programming_language === "javascript") {

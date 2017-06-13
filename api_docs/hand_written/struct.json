@@ -2,11 +2,19 @@
         "title": "Advanced world creation: Start here"
     },
     "how": {
-        "title": "How to ..."
+        "title": "How to ...",
+        "children": ["custom_goals"]
     },
+        "custom_goals": {
+            "title": "How to set up a custom goal"
+        },
     "why": {
-        "title": "Why"
+        "title": "Why? Understanding some design and other decisions",
+        "children": ["nobreak"]
     },
+        "nobreak": {
+            "title": "Why are non-breaking spaces removed in Python code?"
+        },
     "reference": {
         "title": "Reference",
         "children": ["naming_convention"]

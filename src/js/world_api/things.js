@@ -137,7 +137,7 @@ function create_images(obj) {
  * other than English is selected, the translated name appears as well; this
  * can be helpful to identify missing translations.
  * If multiple images are shown, it means that the "thing" is shown as an
- * animation.
+ * animation in a world.
  * Missing images in the **goal** column indicate that this "thing" cannot
  * be used as an object to be picked up by Reeborg.
  *
@@ -145,6 +145,7 @@ function create_images(obj) {
  * which this property is defined will be shown.
  *
  * @example
+ * RUR.show_all_things()
  * RUR.show_all_things("fatal")
  */
 RUR.show_all_things = function (property) {
@@ -234,13 +235,11 @@ RUR.has_property = function (name, property) {
  *
  * @param {string} property
  *
- * @example
- * "Use Python for this example"
- * print(RUR.get_property("water", "info"))
+ * @example {@lang python}
+ * print(RUR.get_property("water", "info"))  # Python
  *
- * @example
- * "Use Javascript for this example"
- * write(RUR.get_property("water", "fatal"))
+ * @example {@lang javascript}
+ * write(RUR.get_property("water", "fatal"))  // Javascript
  */
 RUR.get_property = function (name, property) {
     if (RUR.TILES[name] === undefined) {

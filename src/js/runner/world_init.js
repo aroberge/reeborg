@@ -1,8 +1,5 @@
-
 require("./../drawing/visible_world.js");
 require("./../rur.js");
-
-RUR.world_init = {};
 
 // Returns a random integer between min and max (both included)
 randint = function (min, max, previous) {
@@ -10,8 +7,23 @@ randint = function (min, max, previous) {
 };
 
 
-// assigns initial values
-RUR.world_init.set = function () {
+/** @function world_init
+ * @memberof RUR
+ * @instance
+ * @summary This function is called automatically just before a program is run.
+ * It identifies which objects (including goals) are initially assigned unknown
+ * random values, and assigns the required values.
+ *
+ * In most cases, this function should not be called directly by a world
+ * creator. We do give one example showing when to use it.
+ *
+ *
+ * @todo Show example where it is invoked automatically
+ * @todo Show example where it is invoked explictly
+ * @todo Add link to tutorial where it is mentioned
+ *
+ */
+RUR.world_init = function () {
     "use strict";
     var coords, obj, objects, objects_here, nb, range, robot;
     var position, goal, total_nb_objects = {};

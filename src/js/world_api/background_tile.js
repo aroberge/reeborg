@@ -151,6 +151,28 @@ RUR.get_background_tile = function (x, y) {
     }
 };
 
+
+/** @function is_background_tile
+ * @memberof RUR
+ * @instance
+ *
+ * @todo finish writing documentation
+ * @todo check all other is_XXX for documentation
+ *
+ * @example {@lang python}
+ * no_highlight()
+ * World("worlds/examples/simple_path.json", "simple_path")
+ * reeborg = default_robot()
+ * while not at_goal():
+ *     pos = RUR.get_position_in_front(reeborg.body)
+ *     x, y = pos["x"], pos["y"]
+ *     if RUR.is_background_tile("gravel", x, y):
+ *         move()
+ *     else:
+ *         turn_left()
+ */
+
+
 RUR.is_background_tile = function (name, x, y) {
     "use strict";
     var tile, args = {x:x, y:y, type:"tiles"};

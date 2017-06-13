@@ -33,7 +33,7 @@ RUR.runner.run = function (playback) {
         RUR.WORLD_AFTER_ONLOAD = clone_world(RUR.CURRENT_WORLD);
         }
         RUR.CURRENT_WORLD = clone_world(RUR.WORLD_AFTER_ONLOAD);
-        RUR.world_init.set();
+        RUR.world_init();
 
         if (!(RUR.state.programming_language === "python" && RUR.state.highlight) ) {
             RUR.record_frame();  // record the starting state as first frame;

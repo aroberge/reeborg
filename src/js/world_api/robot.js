@@ -181,6 +181,18 @@ RUR.get_robot_position = function (robot_body) {
  * @returns {object} An object of the form
  *      `{x:x_value, y:y_value} where `x_value` and `y_value` are integers.
  *
+ * @example {@lang python}
+ * no_highlight()
+ * World("worlds/examples/simple_path.json", "simple_path")
+ * reeborg = default_robot()
+ * while not at_goal():
+ *     pos = RUR.get_position_in_front(reeborg.body)
+ *     x, y = pos["x"], pos["y"]
+ *     if RUR.is_background_tile("gravel", x, y):
+ *         move()
+ *     else:
+ *         turn_left()
+ *
  **/
 
 RUR.get_position_in_front = function (robot_body) {

@@ -18,11 +18,10 @@
       "_trace_history": [],
       "_trace_style": "default",
       "_trace_color": "seagreen",
-      "__id": 5
+      "__id": 6
     }
   ],
   "walls": {},
-  "description": "Have Reeborg follow the gravel path as indicated.\n<br><img src='src/images/simple_path.gif'><br>\nNote that you are not allowed to use \n<code>done()</code> to end the execution of your program.\n",
   "small_tiles": false,
   "rows": 6,
   "cols": 10,
@@ -223,5 +222,6 @@
   },
   "pre": "def done():\n    '''Prevents the user from avoiding the test run in the\n       post-code editor.'''\n    raise ReeborgError(\"You are not allowed to use done().\")\n\n_path_followed = []\n_old_move = move\n    \ndef move():\n    reeborg = default_robot()\n    _old_move()\n    _path_followed.append((reeborg.body.x, reeborg.body.y))\n",
   "post": "_desired_path = [\n    (2,1), (3,1), (4,1), (5,1), \n    (6,1), (6,2), (6,3), (6,4), \n    (6,5), (5,5), (4,5), (4,4), (4,3), \n    (5,3), (6,3), (7,3), (8,3), (9,3), (10,3)]\n\nif _desired_path != _path_followed:\n    raise ReeborgError(\"Desired path not followed!\")\n",
-  "onload": "// Since Python code is included in the\n// pre and post editors, we need to ensure\n// that Python is set as the programming language.\nif (!(RUR.state.input_method == \"py-repl\" ||\n    RUR.state.input_method == \"python\" ||\n    RUR.state.input_method == \"blockly-py\")) {\n    RUR.onload_set_programming_mode(\"python\");\n}\n"
+  "onload": "// Since Python code is included in the\n// pre and post editors, we need to ensure\n// that Python is set as the programming language.\nif (!(RUR.state.input_method == \"py-repl\" ||\n    RUR.state.input_method == \"python\" ||\n    RUR.state.input_method == \"blockly-py\")) {\n    RUR.onload_set_programming_mode(\"python\");\n}\n",
+  "description": "Have Reeborg follow the gravel path as indicated.\n<br><img src='src/images/simple_path.gif'><br>\nNote that you are not allowed to use \n<code>done()</code> to end the execution of your program.\n<br>\n\n<h3>Explanation</h3>\n\nThis world contains some Python code.\nTo ensure that the proper mode is selected, the onload editor\ncontains the following code:\n\nINSERT_ONLOAD\n\nTo ensure that the correct path is followed, we have\nthe following code in the pre editor\nINSERT_PRE\nrunning before the user's program, and the code\nINSERT_POST\nrunning after the user's program.\n"
 }

@@ -28,4 +28,3 @@
 
 11. Document RUR.get_world
 
-12. Get better error message for onload; show error and offending code.

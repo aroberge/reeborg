@@ -4600,7 +4600,10 @@ RUR.onload_set_programming_mode = function(mode) {
     /* First determine if any change is needed */
     switch (mode) {
         case "python":
+        case "py-repl":
         case "javascript":
+        case "blockly-js":
+        case "blockly-py":
             if (RUR.state.input_method == mode) {
                 return;
             }
@@ -4612,7 +4615,7 @@ RUR.onload_set_programming_mode = function(mode) {
             }
             break;
         default:
-            alert(mode + " is not allowed; only 'python', 'javascript' and 'blockly' are allowed.");
+            alert(mode + " is not allowed.");
             return;
     }
 
@@ -4625,7 +4628,10 @@ RUR.onload_set_programming_mode = function(mode) {
     setTimeout( function() {
         switch (mode) {
             case "python":
+            case "py-repl":
             case "javascript":
+            case "blockly-js":
+            case "blockly-py":
                 break;
             case "blockly":
                 if (RUR.state.programming_language === "javascript") {
@@ -7707,7 +7713,7 @@ RUR.runner.run = function (playback) {
         RUR.WORLD_AFTER_ONLOAD = clone_world(RUR.CURRENT_WORLD);
         }
         RUR.CURRENT_WORLD = clone_world(RUR.WORLD_AFTER_ONLOAD);
-        RUR.world_init.set();
+        RUR.world_init();
 
         if (!(RUR.state.programming_language === "python" && RUR.state.highlight) ) {
             RUR.record_frame();  // record the starting state as first frame;
@@ -7961,11 +7967,8 @@ RUR.runner.check_func_parentheses = function(line_of_code) {
 };
 
 },{"./../drawing/visible_world.js":9,"./../editors/create.js":10,"./../editors/update.js":11,"./../programming_api/blockly.js":39,"./../recorder/recorder.js":47,"./../rur.js":52,"./../translator.js":56,"./../utils/supplant.js":65,"./../world_utils/clone_world.js":85,"./world_init.js":51}],51:[function(require,module,exports){
-
 require("./../drawing/visible_world.js");
 require("./../rur.js");
-
-RUR.world_init = {};
 
 // Returns a random integer between min and max (both included)
 randint = function (min, max, previous) {
@@ -7973,8 +7976,23 @@ randint = function (min, max, previous) {
 };
 
 
-// assigns initial values
-RUR.world_init.set = function () {
+/** @function world_init
+ * @memberof RUR
+ * @instance
+ * @summary This function is called automatically just before a program is run.
+ * It identifies which objects (including goals) are initially assigned unknown
+ * random values, and assigns the required values.
+ *
+ * In most cases, this function should not be called directly by a world
+ * creator. We do give one example showing when to use it.
+ *
+ *
+ * @todo Show example where it is invoked automatically
+ * @todo Show example where it is invoked explictly
+ * @todo Add link to tutorial where it is mentioned
+ *
+ */
+RUR.world_init = function () {
     "use strict";
     var coords, obj, objects, objects_here, nb, range, robot;
     var position, goal, total_nb_objects = {};
@@ -9885,6 +9903,28 @@ RUR.get_background_tile = function (x, y) {
     }
 };
 
+
+/** @function is_background_tile
+ * @memberof RUR
+ * @instance
+ *
+ * @todo finish writing documentation
+ * @todo check all other is_XXX for documentation
+ *
+ * @example {@lang python}
+ * no_highlight()
+ * World("worlds/examples/simple_path.json", "simple_path")
+ * reeborg = default_robot()
+ * while not at_goal():
+ *     pos = RUR.get_position_in_front(reeborg.body)
+ *     x, y = pos["x"], pos["y"]
+ *     if RUR.is_background_tile("gravel", x, y):
+ *         move()
+ *     else:
+ *         turn_left()
+ */
+
+
 RUR.is_background_tile = function (name, x, y) {
     "use strict";
     var tile, args = {x:x, y:y, type:"tiles"};
@@ -11033,6 +11073,18 @@ RUR.get_robot_position = function (robot_body) {
  * @returns {object} An object of the form
  *      `{x:x_value, y:y_value} where `x_value` and `y_value` are integers.
  *
+ * @example {@lang python}
+ * no_highlight()
+ * World("worlds/examples/simple_path.json", "simple_path")
+ * reeborg = default_robot()
+ * while not at_goal():
+ *     pos = RUR.get_position_in_front(reeborg.body)
+ *     x, y = pos["x"], pos["y"]
+ *     if RUR.is_background_tile("gravel", x, y):
+ *         move()
+ *     else:
+ *         turn_left()
+ *
  **/
 
 RUR.get_position_in_front = function (robot_body) {
@@ -11289,7 +11341,7 @@ function create_images(obj) {
  * other than English is selected, the translated name appears as well; this
  * can be helpful to identify missing translations.
  * If multiple images are shown, it means that the "thing" is shown as an
- * animation.
+ * animation in a world.
  * Missing images in the **goal** column indicate that this "thing" cannot
  * be used as an object to be picked up by Reeborg.
  *
@@ -11297,6 +11349,7 @@ function create_images(obj) {
  * which this property is defined will be shown.
  *
  * @example
+ * RUR.show_all_things()
  * RUR.show_all_things("fatal")
  */
 RUR.show_all_things = function (property) {
@@ -11386,13 +11439,11 @@ RUR.has_property = function (name, property) {
  *
  * @param {string} property
  *
- * @example
- * "Use Python for this example"
- * print(RUR.get_property("water", "info"))
+ * @example {@lang python}
+ * print(RUR.get_property("water", "info"))  # Python
  *
- * @example
- * "Use Javascript for this example"
- * write(RUR.get_property("water", "fatal"))
+ * @example {@lang javascript}
+ * write(RUR.get_property("water", "fatal"))  // Javascript
  */
 RUR.get_property = function (name, property) {
     if (RUR.TILES[name] === undefined) {

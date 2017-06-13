@@ -41,7 +41,7 @@ RUR.add_final_position("house", 4, 2)
 
 ## When 3 is not enough
 
-In some cases, the basic three arguments, `name`, `x`, and `y`, are not sufficient.  To deal with such cases in a general way, a fourth argument can be added; this argument will be a Python **dict** or, if using Javascript, a simple object. Some specific examples will be given later.
+In some cases, the basic three arguments, `name`, `x`, and `y`, are not sufficient.  To deal with such cases in a general way, a fourth argument can be added; this argument will be a Python **dict** or, if using Javascript, a simple object. Some specific examples are provided elsewhere.
 
 ## Available _things_ and general help
 

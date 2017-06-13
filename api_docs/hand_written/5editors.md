@@ -46,7 +46,8 @@ If we change the mode to edit the world, we see the following:
 
 [editors]: ../../src/images/editors.png
 
-Insted of just two editor (Python code, and Library), we now have 6 editors. Furthermore, the World editor dialog indicates that the content of 3 of these editors is included in this world definition.
+Insted of just two editor (Python code, and Library), we now have 6 editors.
+Furthermore, the World editor dialog indicates that the content of 3 of these editors is included in this world definition.
 
 ![editors2][editors2]
 
