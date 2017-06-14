@@ -4573,19 +4573,64 @@ var update_url = require("./../utils/parseuri.js").update_url;
 
 record_id("programming-mode");
 
+/** @function onload_set_programming_language
+ * @memberof RUR
+ * @instance
+ * @summary This function must ONLY be called from the Onload editor. It is
+ * used to set which of two programming languages are allowed. If the
+ * programming mode is compatible with that language, then it is not changed;
+ * otherwise, it is change to the default mode (with Code editor) for
+ * that language.
+ *
+ * **This should only be required if the world contains some content to
+ * be run** (either in the editor, or in the pre- or post- code editors.)
+ * Otherwise, do not use so that the world can be used using either programming
+ * language.
+ *
+ * @param {string} language  Either "python" or "javascript". If the language
+ * is not recognized, it is set to "python".
+ *
+ * @see RUR#onload_set_programming_mode
+ * @todo give example world
+ */
+
+RUR.onload_set_programming_language = function(language) {
+    if (!RUR.state.evaluating_onload) {
+        alert("RUR.onload_set_programming_language should only be called from the 'Onload' editor.");
+        return;
+    }
+    language = language.toLowerCase();  // make it more user-friendly
+    if (language == "python") {
+        if (!(RUR.state.input_method == "py-repl" ||
+            RUR.state.input_method == "python" ||
+            RUR.state.input_method == "blockly-py")) {
+            RUR.onload_set_programming_mode("python");
+        }
+    } else if (language == "javascript") {
+        if (!(RUR.state.input_method == "javascript" ||
+            RUR.state.input_method == "blockly-js")) {
+            RUR.onload_set_programming_mode("javascript");
+        }
+    } else {
+        RUR.onload_set_programming_mode("python");
+    }
+}
+
+
 /** @function onload_set_programming_mode
  * @memberof RUR
  * @instance
- * @summary This function must ONLY be called from an onload editor. It is used
- *          to specify which of three mode must be used for a given world.
- *          This should only be required if the world contains some content to
- *          be run (either as blocks, in the editor, or in the pre- or post- code stage.)
+ * @summary This function must ONLY be called from the Onload editor. It is used
+ * to specify which of five modes must be used for a given world.
  *
+ * **This should only be required if the world contains some content to
+ * be run** (either as blocks, in the editor, or in the pre- or post- code editors)
+ * which does require a specific mode.
+ * Otherwise, do not use so that the world can be used using all possible
+ * programming modes.
  *
- * @param {string} mode  One of "python", "javascript", or "blockly"
- *
- * @todo: see if we should not distinguish between blockly-js and blockly-py
- * @todo: see if we should not add py-repl as an option
+ * @param {string} mode  One of `["python", "javascript", "py-repl", "blockly-js", blockly-py]`.
+ *   If the mode is not a recognized value, it will be set to "python".
  *
  * @example
  * // shows how to switch mode to Blockly, where some blocks are already placed.
@@ -4594,29 +4639,12 @@ record_id("programming-mode");
 
 RUR.onload_set_programming_mode = function(mode) {
     if (!RUR.state.evaluating_onload) {
-        alert("RUR.onload_set_programming_mode should only be called from the 'onload' World component.");
+        alert("RUR.onload_set_programming_mode should only be called from the 'Onload' editor.");
         return;
     }
-    /* First determine if any change is needed */
-    switch (mode) {
-        case "python":
-        case "py-repl":
-        case "javascript":
-        case "blockly-js":
-        case "blockly-py":
-            if (RUR.state.input_method == mode) {
-                return;
-            }
-            break;
-        case "blockly":
-            if (RUR.state.input_method == "blockly-js" ||
-                RUR.state.input_method == "blockly-py") {
-                return;
-            }
-            break;
-        default:
-            alert(mode + " is not allowed.");
-            return;
+    mode = mode.toLowerCase(); // make it more user-friendly
+    if (RUR.state.input_method == mode) {
+        return;
     }
 
     /* When a world is imported from a program using World() or Monde(),
@@ -4626,26 +4654,11 @@ RUR.onload_set_programming_mode = function(mode) {
        used to run the original program.
      */
     setTimeout( function() {
-        switch (mode) {
-            case "python":
-            case "py-repl":
-            case "javascript":
-            case "blockly-js":
-            case "blockly-py":
-                break;
-            case "blockly":
-                if (RUR.state.programming_language === "javascript") {
-                    mode = "blockly-js";
-                } else {
-                    mode = "blockly-py";
-                }
-                break;
-            default:
-                alert("Unrecognized mode in RUR.set_programming_mode" + mode);
-        }
         $("#programming-mode").val(mode);
+        // the following will ensure that "python" is used as default if
+        // the mode is not recognized as a valid one.
         $("#programming-mode").change();
-    }, 300);
+    }, 600);
 };
 
 $("#programming-mode").change(function() {
@@ -4700,11 +4713,12 @@ $("#programming-mode").change(function() {
             break;
         default:
             RUR.state.programming_language = "python";
+            RUR.state.input_method = "python";
             $("#editor-tab").html(RUR.translate("Python Code"));
             show_editor("python");
             editor.setOption("readOnly", false);
             editor.setOption("theme", "reeborg-dark");
-            console.log("Problem? Default value used in programming-mode select.");
+            console.warn(" Default value used in programming-mode select.");
     }
     RUR.kbd.set_programming_language(RUR.state.programming_language);
     update_url();
@@ -11206,13 +11220,13 @@ require("./../programming_api/exceptions.js");
  * @summary This method makes it possible to add new "things", represented
  * by an image.
  *
- * If the name of an existing thing is specified again, it is replaced by a new
- * one which may have completely different characteristics.
+ * If the name of an existing thing is specified with different properties,
+ * it is replaced by the new one.
  *
- *    **Important** Other than for testing purposes, This method should
- *    only be called from the "Onload" editor so that it can start fetching
- *    the required images as soon as possible, and try to ensure that the
- *    images will be ready to be shown when a program is executed.
+ * **Important** Other than for testing purposes, This method should
+ * only be called from the "Onload" editor so that it can start fetching
+ * the required images as soon as possible, and try to ensure that the
+ * images will be ready to be shown when a program is executed.
  *
  * @param {Object} thing A Javascript object (similar to a Python dict) that
  * describes the properties of the "thing".
