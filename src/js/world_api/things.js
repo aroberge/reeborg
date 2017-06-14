@@ -9,13 +9,13 @@ require("./../programming_api/exceptions.js");
  * @summary This method makes it possible to add new "things", represented
  * by an image.
  *
- * If the name of an existing thing is specified again, it is replaced by a new
- * one which may have completely different characteristics.
+ * If the name of an existing thing is specified with different properties,
+ * it is replaced by the new one.
  *
- *    **Important** Other than for testing purposes, This method should
- *    only be called from the "Onload" editor so that it can start fetching
- *    the required images as soon as possible, and try to ensure that the
- *    images will be ready to be shown when a program is executed.
+ * **Important** Other than for testing purposes, This method should
+ * only be called from the "Onload" editor so that it can start fetching
+ * the required images as soon as possible, and try to ensure that the
+ * images will be ready to be shown when a program is executed.
  *
  * @param {Object} thing A Javascript object (similar to a Python dict) that
  * describes the properties of the "thing".
@@ -95,19 +95,29 @@ RUR.TILES = {};
 
 RUR.add_new_thing = function (thing) {
     "use strict";
-    var i, key, keys, name;
+    var i, key, keys, name, original_arg;
     name = thing.name;
 
     if (name === undefined){
         throw new RUR.ReeborgError("RUR.add_new_thing(thing): thing.name attribute missing.");
     }
 
+    // avoid modifying the original object
+    original_arg = JSON.stringify(thing);  // for comparison below
+    thing = JSON.parse(original_arg);  // clone of original
+
     if (RUR.KNOWN_TILES.indexOf(name) != -1) {
-        console.warn("Warning: thing name " + name + " already exists");
+        if (original_arg == RUR.TILES[name].original_arg) {
+            // use concatenation in log and warn, for comparison with unit tests.
+            console.log(name + " is already known; no need to recreate.");
+            return;
+        }
+        console.warn("Warning: redefining " + name);
     } else {
         RUR.KNOWN_TILES.push(name);
     }
 
+    thing.original_arg = original_arg;
     RUR.TILES[name] = thing;
     create_images(thing);
     // Object goal (not required for decorative objects): either

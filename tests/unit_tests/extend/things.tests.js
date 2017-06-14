@@ -39,9 +39,14 @@ test('RUR.add_new_thing: replace tile type', function (assert) {
     set_defaults();
     silencer.reset();
     silencer.disable('warn');
+    silencer.disable('log');
     obj.name = "this_name";
     obj.url = "old_URL";
     RUR.add_new_thing(obj);
+    RUR.add_new_thing(obj);
+    assert.equal(silencer.getOutput('log')[0][0],
+                 "this_name is already known; no need to recreate.",
+                 "Console log ok.");
     obj.url = "URL";
     RUR.add_new_thing(obj);
     this_obj = RUR.TILES["this_name"];
@@ -49,7 +54,7 @@ test('RUR.add_new_thing: replace tile type', function (assert) {
     assert.equal(this_obj.image.src, 'URL', "url for objects ok");
     silencer.restore();
     assert.equal(silencer.getOutput('warn')[0][0],
-                 "Warning: thing name this_name already exists",
+                 "Warning: redefining this_name",
                  "Console warning ok.");
     assert.end();
 });

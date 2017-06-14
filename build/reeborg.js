@@ -7981,15 +7981,8 @@ randint = function (min, max, previous) {
  * @instance
  * @summary This function is called automatically just before a program is run.
  * It identifies which objects (including goals) are initially assigned unknown
- * random values, and assigns the required values.
- *
- * In most cases, this function should not be called directly by a world
- * creator. We do give one example showing when to use it.
- *
- *
- * @todo Show example where it is invoked automatically
- * @todo Show example where it is invoked explictly
- * @todo Add link to tutorial where it is mentioned
+ * random values, and assigns the required values.  A world creator should
+ * never need to call this function.
  *
  */
 RUR.world_init = function () {
@@ -11299,19 +11292,29 @@ RUR.TILES = {};
 
 RUR.add_new_thing = function (thing) {
     "use strict";
-    var i, key, keys, name;
+    var i, key, keys, name, original_arg;
     name = thing.name;
 
     if (name === undefined){
         throw new RUR.ReeborgError("RUR.add_new_thing(thing): thing.name attribute missing.");
     }
 
+    // avoid modifying the original object
+    original_arg = JSON.stringify(thing);  // for comparison below
+    thing = JSON.parse(original_arg);  // clone of original
+
     if (RUR.KNOWN_TILES.indexOf(name) != -1) {
-        console.warn("Warning: thing name " + name + " already exists");
+        if (original_arg == RUR.TILES[name].original_arg) {
+            // use concatenation in log and warn, for comparison with unit tests.
+            console.log(name + " is already known; no need to recreate.");
+            return;
+        }
+        console.warn("Warning: redefining " + name);
     } else {
         RUR.KNOWN_TILES.push(name);
     }
 
+    thing.original_arg = original_arg;
     RUR.TILES[name] = thing;
     create_images(thing);
     // Object goal (not required for decorative objects): either
