@@ -12,15 +12,8 @@ randint = function (min, max, previous) {
  * @instance
  * @summary This function is called automatically just before a program is run.
  * It identifies which objects (including goals) are initially assigned unknown
- * random values, and assigns the required values.
- *
- * In most cases, this function should not be called directly by a world
- * creator. We do give one example showing when to use it.
- *
- *
- * @todo Show example where it is invoked automatically
- * @todo Show example where it is invoked explictly
- * @todo Add link to tutorial where it is mentioned
+ * random values, and assigns the required values.  A world creator should
+ * never need to call this function.
  *
  */
 RUR.world_init = function () {

@@ -3,8 +3,17 @@
     },
     "how": {
         "title": "How to ...",
-        "children": ["custom_goals"]
+        "children": ["objects", "random", "background", "custom_goals"]
     },
+        "objects": {
+            "title": "How to add objects and goals"
+        },
+        "random": {
+            "title": "How to add some randomness"
+        },
+        "background" :{
+            "title": "How to work with Background tiles, obstacles and decorative objects"
+        },
         "custom_goals": {
             "title": "How to set up a custom goal"
         },
@@ -17,30 +26,20 @@
         },
     "reference": {
         "title": "Reference",
-        "children": ["naming_convention"]
+        "children": ["editors", "naming_convention", "animated"]
     },
+        "editors" : {
+            "title": "The many different editors"
+        },
+        "naming_convention" : {
+            "title": "Naming convention"
+        },
+        "animated": {
+            "title": "Animated images"
+        },
     "canvases": {
         "title": "Layers and canvases"
     },
-    "animated": {
-        "title": "Animated images"
-    },
-    "naming_convention" : {
-        "title": "Naming convention"
-    },
-    "objects": {
-        "title": "Working with objects"
-    },
-    "3random": {
-        "title": "3. Adding some randomness"
-    },
-    "4background" :{
-        "title": "4. Background tiles, obstacles and decorations"
-    },
-    "5editors" : {
-        "title": "5. World information and editors"
-    }
-,
     "todo" : {
         "title": "To do"
     }

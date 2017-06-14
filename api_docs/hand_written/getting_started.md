@@ -10,9 +10,10 @@ their own worlds.
 In this very short tutorial, you will first create and save a "world" using
 the menu driven *World editing dialog* and then create the same "world"
 running a program that makes use of available methods instead.
+Finally, we will show how to dynamically create a similar "world"
+using the **Onload editor**.
 It is important that you do this so that you can understand the more
 complex examples provided elsewhere in this documentation.
-
 
 
 ## Menu-driven World editor _vs_ Programming methods.
@@ -68,13 +69,40 @@ name as the previous one.
 
 [methods_link]: ../../src/images/create_world2.gif
 
-### Compare the worlds
+#### Compare the worlds
 
 You should have two differently named world (.json) files. Their contents
 should be identical.  You should confirm this using a "diff" program
 on your computer, or an online tool,
 such as [https://www.diffchecker.com/](https://www.diffchecker.com/).
 
+
+### Dynamically create the world
+
+Before reading this section, you might want to make a small detour
+and read the brief tutorial {@tutorial editors}.
+
+1. Start again with the same simple world with Reeborg already in it.
+2. Select the **Onload editor**. You may have to move some dialogs/windows
+   around the screen, and possibly minimize them.
+3. Enter the following code in the Onload editor
+```
+RUR.add_wall("east", 4, 2)
+RUR.add_wall("north", 4, 2)
+RUR.add_wall("west", 4, 2)
+RUR.add_final_position("house", 4, 2)
+```
+   You do not need to execute this code. The content of the Onload editor is
+   automatically executed whenever a world is loaded or reloaded.
+4. Make sure that the option to save the content of the Onload editor
+   is selected, and save the world in the browser.
+5. Like in the previous cases, by saving it in the browser, the world has now been added to the html selector.
+6. [optional] Save the world in a .json file, with a different
+name as the previous ones.
+
+
+If you switch between each of the three worlds you have saved in your browser,
+they should all look the same, no matter which method was used to create it.
 
 # Next
 

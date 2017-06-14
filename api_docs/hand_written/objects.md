@@ -1,4 +1,4 @@
-**Objects**, together with **walls** are the basic elements used to create interesting programming tasks. In this section, we show how to add objects using the Application Programming Interface (API) instead of using the menu-driven World editor. While it might be easier to use the World editor for objects included with Reeborg's World, using the API is required when it comes to adding your own objects.
+**Objects**, together with **walls** are the basic elements used to create interesting programming tasks. In this section, we show how to add objects using the Application Programming Interface (API) instead of using the menu-driven World editor. While it might be easier to use the World editor for objects included with Reeborg's World, using the API is required when it comes to adding your own custom objects.
 
 ## Adding a single object
 
@@ -107,15 +107,22 @@ However, the information about how many objects are found at that location is st
 
 [token_tulip_gif]: ../../src/images/token_tulip.gif
 
-The information provided by the "World Info" dialog will be covered later.
+The information provided by the "World Info" dialog is in {@tutorial editors}.
 
 
-## You can add anything
+## You can add anything as an object
 
-While the menu-driven dialog restricts what you can add as objects, using the API you can add anything ... even it it does not make sense to do do.
+While the menu-driven dialog restricts what you can add as objects, using the API you can add anything ... even it it might not make sense to do do.
 
 ![Adding gravel as an object][add_gravel_gif]
 
 [add_gravel_gif]: ../../src/images/add_gravel.gif
 
 Note the number 1 appearing at the bottom left, indicating the number of `"gravel"` as an object.  `"gravel"` is a **background tile** normally used to create more interesting looking backgrounds ... and not as an object to be picked up by Reeborg.
+
+#### Gravel as an object?
+
+As we mentioned, while we can use arbitrary "things" as objects, it might not
+always make sense.  Then again...
+Perhaps one could design a world where `take()` is replaced by `shovel()` and
+Reeborg must shovel out some gravel to clean a path.

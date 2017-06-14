@@ -173,7 +173,7 @@ about to be executed can be highlighted in the editor,
 and to allow the variable "watch"._]
 This additional code can be used to add additional requirements for a task
 (like it was done in this example) which could not be done using the
-menu-driven editor.
+menu-driven World editor.
 
 ### The Post editor
 

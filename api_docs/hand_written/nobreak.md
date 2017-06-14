@@ -13,8 +13,9 @@ non-breaking space is 160, whereas it is 32 for a regular space character.
 In Reeborg's World, when executing Python code that contains non-breaking spaces
 (perhaps in some strings), these characters are replaced by regular spaces.
 The reason for doing so is that code samples that appear in this
-documentation are formatted by (JSDoc)[http://usejsdoc.org/] and either
-JSDoc itself, or the (docstrap template)[https://github.com/docstrap/docstrap]
+documentation are formatted by [JSDoc](http://usejsdoc.org/) and either
+JSDoc itself, or the [DocStrap template](https://github.com/docstrap/docstrap)
+with the [Sunlight syntax highlighting](http://sunlightjs.com/)
 inserts some non-breaking spaces in the code where regular spaces would appear.
 Python does not recognize non-breaking spaces as valid space characters;
 Javascript does not appear to make a distinction between the two.
