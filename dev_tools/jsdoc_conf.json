@@ -25,6 +25,7 @@
         }
       },
       "theme": "reeborg",
+      "linenums": true,
       "outputSourceFiles": true,
       "search": false,
       "dateFormat": "dddd, MMMM Do YYYY",

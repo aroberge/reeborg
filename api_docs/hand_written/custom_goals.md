@@ -49,6 +49,7 @@ turn_left()
 move()
 move()
 #done()
+
 ```
 
 Try it, both as is and by uncommenting the `done()` instruction which,
@@ -130,6 +131,7 @@ if (!(RUR.state.input_method == "py-repl" ||
     RUR.state.input_method == "blockly-py")) {
     RUR.onload_set_programming_mode("python");
 }
+
 ```
 The content of this editor **must** be some Javascript code.
 Whenever a world is loaded, or reloaded, this code is executed
@@ -153,6 +155,7 @@ def move():
     reeborg = default_robot()
     _old_move()
     _path_followed.append((reeborg.body.x, reeborg.body.y))
+
 ```
 
 By redefining `done()`, we prevent the user from terminating the program
@@ -187,6 +190,7 @@ _desired_path = [
 
 if _desired_path != _path_followed:
     raise ReeborgError("Desired path not followed!")
+
 ```
 If no error is raised, the normal goal evaluation to see if the final (goal)
 position has been reached, and the appropriate dialog is shown.

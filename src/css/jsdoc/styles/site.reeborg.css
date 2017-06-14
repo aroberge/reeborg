@@ -18,11 +18,26 @@ code {
   font-size: 13pt;
   font-family: Consolas, Inconsolata, Monaco, "Courier New", Courier, monospace !important;
 }
-.sunlight-highlighted, .sunlight-container, .sunlight-container textarea {
+.sunlight-highlighted, .sunlight-container, .sunlight-container textarea, .sunlight-line-number-margin {
   font-size: 13pt !important;
   line-height: 15pt !important;
   font-family: Consolas, Inconsolata, Monaco, "Courier New", Courier, monospace !important;
 }
+
+.sunlight-highlighted {
+  margin: 0;
+  line-height: auto;
+  word-break: normal;
+  word-wrap: normal;
+  white-space: pre;
+  background-color: transparent;
+  border: none;
+}
+.sunlight-line-number-margin {
+  border-width: 0 1px 0 0;
+  padding: 9.5px 4px !important;
+}
+
 .tag-deprecated {background-color: gold;
 }
 
@@ -7046,25 +7061,7 @@ code {
   padding-top: 100px !important;
   margin-top: -100px !important;
 }
-.sunlight-highlighted {
-  margin: 0;
-  line-height: auto;
-  word-break: normal;
-  word-wrap: normal;
-  white-space: pre;
-  background-color: transparent;
-  border: none;
-}
-.sunlight-line-number-margin {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
-  border-width: 0 1px 0 0;
-  font-size: 12px;
-  line-height: 15px;
-  padding: 9.5px 4px !important;
-}
+
 .dropdown-menu {
   overflow-y: auto;
   max-height: 150px;
