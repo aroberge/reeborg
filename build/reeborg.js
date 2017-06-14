@@ -4587,11 +4587,16 @@ record_id("programming-mode");
  * Otherwise, do not use so that the world can be used using either programming
  * language.
  *
- * @param {string} language  Either "python" or "javascript". If the language
- * is not recognized, it is set to "python".
+ * @param {string} language  Either `"python"` or `"javascript"`. If the language
+ * is not recognized, it is set to `"python"`.
  *
  * @see RUR#onload_set_programming_mode
- * @todo give example world
+ * @see {@tutorial custom_goals} for more details about the example mentioned below.
+ *
+ * @example {@lang python}
+ * # Execute the following and, after the world has loaded,
+ * # click on **World Info** to see how this code is used.
+ * World("worlds/examples/simple_path_explain.json")
  */
 
 RUR.onload_set_programming_language = function(language) {
@@ -4629,8 +4634,8 @@ RUR.onload_set_programming_language = function(language) {
  * Otherwise, do not use so that the world can be used using all possible
  * programming modes.
  *
- * @param {string} mode  One of `["python", "javascript", "py-repl", "blockly-js", blockly-py]`.
- *   If the mode is not a recognized value, it will be set to "python".
+ * @param {string} mode  One of `["python", "javascript", "py-repl", "blockly-js", "blockly-py"]`.
+ *   If the mode is not a recognized value, it will be set to `"python"`.
  *
  * @example
  * // shows how to switch mode to Blockly, where some blocks are already placed.
@@ -5292,7 +5297,7 @@ function loop () {
         RUR.stop();
         return;
     }
-    RUR._TIMER = setTimeout(loop, RUR.playback_delay);
+    RUR._TIMER = setTimeout(loop, RUR.PLAYBACK_TIME_PER_FRAME);
 }
 
 },{"./../listeners/stop.js":32,"./../rur.js":52}],37:[function(require,module,exports){
@@ -6651,8 +6656,8 @@ RUR.control.is_facing_north = function (robot) {
 };
 
 RUR.control.think = function (delay) {
-    var old_delay = RUR.playback_delay;
-    RUR.playback_delay = delay;
+    var old_delay = RUR.PLAYBACK_TIME_PER_FRAME;
+    RUR.PLAYBACK_TIME_PER_FRAME = delay;
     return old_delay;
 };
 
@@ -7250,7 +7255,7 @@ RUR.record_frame = function (name, obj) {
         frame[name] = obj;
     }
 
-    frame.delay = RUR.playback_delay;
+    frame.delay = RUR.PLAYBACK_TIME_PER_FRAME;
     if (RUR.state.sound_id && RUR.state.sound_on && frame.delay >= RUR.MIN_TIME_SOUND) {
         frame.sound_id = RUR.state.sound_id;
     }
@@ -7363,7 +7368,7 @@ RUR.rec.display_frame = function () {
     // unless it is clear that they are completely independent
 
     if (frame.delay !== undefined){
-        RUR.playback_delay = frame.delay;
+        RUR.PLAYBACK_TIME_PER_FRAME = frame.delay;
     }
 
     if (frame.pause) {
@@ -7568,7 +7573,7 @@ exports.reset = reset = function() {
     RUR.frames = [];
     RUR.rec_line_numbers = [];
     RUR.state.playback = false;
-    RUR.playback_delay = 300;
+    RUR.PLAYBACK_TIME_PER_FRAME = 300;
     RUR.state.do_not_record = false;
     RUR.watched_expressions = [];
     clearTimeout(RUR._TIMER);
@@ -8300,6 +8305,7 @@ RUR.AXIS_LABEL_COLOR = "brown";
 
 RUR.MAX_STEPS = 1000;
 RUR.MIN_TIME_SOUND = 250;
+RUR.PLAYBACK_TIME_PER_FRAME = 300;
 
 RUR.DEFAULT_TRACE_COLOR = "seagreen";
 

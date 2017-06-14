@@ -1,6 +1,6 @@
 Using the graphical world editor, you can specify various goal, such as
 a desired final position.  Using some programming methods, it is possible
-to add to these goals.
+to add to these goals.  In this section, we see a basic example.
 
 If you have Reeborg's World loaded in your browser, run the following program:
 ```
@@ -60,33 +60,29 @@ according to the instructions given, you are not allowed to use.
 After having tried the above, you may want to load the following world:
 
 ```
-World("worlds/examples/simple_path_explain.json", "path_explain")
+World("worlds/examples/simple_path_explain.json")
 ```
 
-If you then click on **World Info**, you will see something like
+If you then click on **World Info**, you will see something that looks
+somewhat similar to the following image.
 
 ![simple_path2][simple_path2]
 
 [simple_path2]: ../../src/images/simple_path_explain.png
 
-The text on the image above is likely to small to read; furthermore, it has
-been changed slightly since the above image has been created; clicking on
+The text on the image above is likely to small to read; furthermore, the
+world has changed since the above image has been created; clicking on
 **World Info** will always show up to date information for this world.
 
 ### A closer look
 
-If we change the mode to edit the world, we see the following:
-![editors][editors]
+Before reading on, if you have not done so, you might want to
+read {@tutorial editors}.
 
-[editors]: ../../src/images/editors.png
 
-Insted of just two editor (Python code, and Library), we now have 6 editors. Furthermore, the World editor dialog indicates that the content of 4 of these editors is included in this world definition.
-
-![editors2][editors2]
-
-[editors2]: ../../src/images/editors2.png
-
-The content of the **Description** editor (shortened to **Desc.** on the editor tab) is what is shown at the top of the **World Info** window. In the case of the second example we have shown, here is the content of that editor:
+The content of the **Description** editor (shortened to **Desc.** on the editor tab) is what is shown at the top of the **World Info** window.
+In the case of the second example we have shown, here was the content of that editor
+when this document was written.
 
 ```xml
 Have Reeborg follow the gravel path as indicated.
@@ -111,86 +107,28 @@ INSERT_POST
 running after the user's program.
 ```
 
-Before the content is shown, the string `INSERT_ONLOAD` is replaced by the content of the "Onload" editor, and similarly for `INSERT_PRE` and `INSERT_POST`.
+The important thing to note here are the strings `INSERT_ONLOAD`, `INSERT_PRE` and `INSERT_POST`
+which are replaced by the content of the various editors.
 
-Using the **Description editor** makes it possible to tell students about
-the details of a given task to accomplish without having to refer them
-to a separate document (e.g. tutorial) found elsewhere.
 
-### The Onload editor
+## Important consideration
 
-By either looking at the window for the World Info, or at the Onload editor
-itself, we can see that the content of the Onload editor is the following
-[at least when this documentation was written]:
-```javascript
-// Since Python code is included in the
-// pre and post editors, we need to ensure
-// that Python is set as the programming language.
-if (!(RUR.state.input_method == "py-repl" ||
-    RUR.state.input_method == "python" ||
-    RUR.state.input_method == "blockly-py")) {
-    RUR.onload_set_programming_mode("python");
-}
+When you design a custom goal, like we do here with the verification
+in the **Post** editor that the correct path has been followed,
+it is important to prevent the students to use `done()`, otherwise the
+code in the **Post** editor could be bypassed and, as long as Reeborg
+ends up at the desired final position, the goal would have been
+determined to be accomplished.  For example, try the following:
 
-```
-The content of this editor **must** be some Javascript code.
-Whenever a world is loaded, or reloaded, this code is executed
-using Javascript's `eval()`.  In this example, we use the content
-of this editor to ensure that the programming mode is set to allow
-Python code.
-
-### The Pre editor
-
-The content of the Pre editor is the following Python code:
 ```python
-def done():
-    '''Prevents the user from avoiding the test run in the
-       post-code editor.'''
-    raise ReeborgError("You are not allowed to use done().")
-
-_path_followed = []
-_old_move = move
-
-def move():
-    reeborg = default_robot()
-    _old_move()
-    _path_followed.append((reeborg.body.x, reeborg.body.y))
-
+for i in range(9):
+    move()
+turn_left()
+move()
+move()
+RUR._done_()  ## cheating!!
 ```
 
-By redefining `done()`, we prevent the user from terminating the program
-immediately after Reeborg reaches its final destination; this ensures that
-the code in the "Post" editor will be evaluated.
-
-
-We have also redefined `move` prior to having the user's code
-being executed and, after the user's code has been executed,
-so as to record the path followed and eventually
-compare it with a hard-coded path.
-
-Before a program (entered in the Python Code editor) is run,
-it is concatenated with the code found in the **Pre** editor,
-followed by the code found in the **Post** editor.
-[_For Python, there is additional processing of the code done so that lines
-about to be executed can be highlighted in the editor,
-and to allow the variable "watch"._]
-This additional code can be used to add additional requirements for a task
-(like it was done in this example) which could not be done using the
-menu-driven World editor.
-
-### The Post editor
-
-The content of the Post editor is as follows:
-```python
-_desired_path = [
-    (2,1), (3,1), (4,1), (5,1),
-    (6,1), (6,2), (6,3), (6,4),
-    (6,5), (5,5), (4,5), (4,4), (4,3),
-    (5,3), (6,3), (7,3), (8,3), (9,3), (10,3)]
-
-if _desired_path != _path_followed:
-    raise ReeborgError("Desired path not followed!")
-
-```
-If no error is raised, the normal goal evaluation to see if the final (goal)
-position has been reached, and the appropriate dialog is shown.
+If you have read carefully the content of the **Pre** editor for
+the `simple_path_explain` world, you might have been able to
+guess that using `RUR._done_()` was a way to cheat for this world.

@@ -85,7 +85,7 @@ RUR.record_frame = function (name, obj) {
         frame[name] = obj;
     }
 
-    frame.delay = RUR.playback_delay;
+    frame.delay = RUR.PLAYBACK_TIME_PER_FRAME;
     if (RUR.state.sound_id && RUR.state.sound_on && frame.delay >= RUR.MIN_TIME_SOUND) {
         frame.sound_id = RUR.state.sound_id;
     }

@@ -34,7 +34,7 @@ when a new browser session is started.
 
 Below, we refer to this editor as the **main editor**.
 
-## the library editor
+## The library editor
 
 The purpose of this editor is to provide an opportunity to learn about
 Python's `import` statement, and realise that a library "module" is just

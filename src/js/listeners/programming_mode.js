@@ -21,11 +21,16 @@ record_id("programming-mode");
  * Otherwise, do not use so that the world can be used using either programming
  * language.
  *
- * @param {string} language  Either "python" or "javascript". If the language
- * is not recognized, it is set to "python".
+ * @param {string} language  Either `"python"` or `"javascript"`. If the language
+ * is not recognized, it is set to `"python"`.
  *
  * @see RUR#onload_set_programming_mode
- * @todo give example world
+ * @see {@tutorial custom_goals} for more details about the example mentioned below.
+ *
+ * @example {@lang python}
+ * # Execute the following and, after the world has loaded,
+ * # click on **World Info** to see how this code is used.
+ * World("worlds/examples/simple_path_explain.json")
  */
 
 RUR.onload_set_programming_language = function(language) {
@@ -63,8 +68,8 @@ RUR.onload_set_programming_language = function(language) {
  * Otherwise, do not use so that the world can be used using all possible
  * programming modes.
  *
- * @param {string} mode  One of `["python", "javascript", "py-repl", "blockly-js", blockly-py]`.
- *   If the mode is not a recognized value, it will be set to "python".
+ * @param {string} mode  One of `["python", "javascript", "py-repl", "blockly-js", "blockly-py"]`.
+ *   If the mode is not a recognized value, it will be set to `"python"`.
  *
  * @example
  * // shows how to switch mode to Blockly, where some blocks are already placed.

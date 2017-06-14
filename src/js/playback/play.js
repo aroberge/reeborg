@@ -26,5 +26,5 @@ function loop () {
         RUR.stop();
         return;
     }
-    RUR._TIMER = setTimeout(loop, RUR.playback_delay);
+    RUR._TIMER = setTimeout(loop, RUR.PLAYBACK_TIME_PER_FRAME);
 }

@@ -334,8 +334,8 @@ RUR.control.is_facing_north = function (robot) {
 };
 
 RUR.control.think = function (delay) {
-    var old_delay = RUR.playback_delay;
-    RUR.playback_delay = delay;
+    var old_delay = RUR.PLAYBACK_TIME_PER_FRAME;
+    RUR.PLAYBACK_TIME_PER_FRAME = delay;
     return old_delay;
 };
 

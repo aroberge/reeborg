@@ -82,7 +82,7 @@ RUR.rec.display_frame = function () {
     // unless it is clear that they are completely independent
 
     if (frame.delay !== undefined){
-        RUR.playback_delay = frame.delay;
+        RUR.PLAYBACK_TIME_PER_FRAME = frame.delay;
     }
 
     if (frame.pause) {

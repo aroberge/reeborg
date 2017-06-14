@@ -12,7 +12,7 @@ exports.reset = reset = function() {
     RUR.frames = [];
     RUR.rec_line_numbers = [];
     RUR.state.playback = false;
-    RUR.playback_delay = 300;
+    RUR.PLAYBACK_TIME_PER_FRAME = 300;
     RUR.state.do_not_record = false;
     RUR.watched_expressions = [];
     clearTimeout(RUR._TIMER);
