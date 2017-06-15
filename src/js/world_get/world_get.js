@@ -24,10 +24,6 @@ RUR.world_get.object_at_robot_position = function (robot, obj) {
     return object_of_type_here(robot, obj, RUR.CURRENT_WORLD.objects);
 };
 
-RUR.world_get.decorative_object_at_robot_position = function (robot, obj) {
-    return object_of_type_here(robot, obj, RUR.CURRENT_WORLD.decorative_objects);
-};
-
 
 function object_of_type_here (robot, obj, object_type) {
     // object_type == RUR.CURRENT_WORLD.objects or RUR.CURRENT_WORLD.decorative_objects

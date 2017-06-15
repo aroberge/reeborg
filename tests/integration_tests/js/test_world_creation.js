@@ -106,7 +106,7 @@ QUnit.test("Load world without running program", function(assert) {
           "Loading world twice does not generate an error.");
     /* World files that are not found result in the following message in the
        console:
-    GET http://localhost:8800/tests/functional_tests/Alone 404 (File not found)
+    GET http://localhost:8800/tests/integration_tests/Alone 404 (File not found)
 
     We add our own console message so that no one should be surprised by this.
     */
@@ -126,14 +126,14 @@ QUnit.test("Load world by running Python programs", function(assert) {
                 ["/src/worlds/tutorial_en/home1.json", "Home 1"]];
     RUR.custom_world_select.make(contents);
 
-    test_utils.run_python(null, "/tests/functional_tests/programs/select_home1_en.py");
+    test_utils.run_python(null, "/tests/integration_tests/programs/select_home1_en.py");
     //playback should have been prevented, and only the feedback shown.
     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element expected.");
     assert.equal(test_utils.content, "World Home 1 selected", "Correct information about world selected.");
 
     // second time runs the rest of the program as the correct world is selected
     console.log("frames = ", test_utils.run_python(
-             null, "/tests/functional_tests/programs/select_home1_en.py"));
+             null, "/tests/integration_tests/programs/select_home1_en.py"));
     RUR.rec.conclude();
     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     assert.equal(test_utils.content,

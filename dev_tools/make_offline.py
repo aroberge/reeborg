@@ -80,7 +80,7 @@ def make_qunit_version(infile, outfile):
     with open(infile, 'r') as f:
         lines = f.readlines()
 
-    with open("tests/functional_tests/" + outfile, 'w') as f:
+    with open("tests/integration_tests/" + outfile, 'w') as f:
         for line in lines:
             if '</head>' in line:
                 line = qunit_css

@@ -1,4 +1,11 @@
-
+/**
+ * @name test_add_new_thing
+ * @memberof UnitTest
+ * @instance
+ *
+ * Fake jsdoc entry so that we can document that the tests exist.
+ *
+ */
 var tape_test = require('./../test_globals.js').tape_test;
 var silencer =  require('silencer');
 
@@ -13,6 +20,7 @@ function set_defaults() {
     RUR._NB_IMAGES_TO_LOAD = 0;
     RUR.TILES = {};
 }
+
 
 test('RUR.add_new_thing: adding new tile type', function (assert) {
     require("../../../src/js/world_api/things.js");

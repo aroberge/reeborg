@@ -2,7 +2,7 @@ QUnit.module("Examples from Vincent Maille", {
   beforeEach: function() {
     test_utils.reset();
     test_utils.set_human_language("fr");
-    test_utils.base_url = "/tests/functional_tests/vincent_maille/";
+    test_utils.base_url = "/tests/integration_tests/vincent_maille/";
     RUR.state.programming_language = "python";
   }
 });
@@ -33,7 +33,7 @@ QUnit.test("Home 1, 2, 3", function(assert) {
     var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
     world_files = ["home1.json", "home2.json", "home3.json"];
-    test_utils.load_program("/tests/functional_tests/programs/home_fr.py");
+    test_utils.load_program("/tests/integration_tests/programs/home_fr.py");
     for (i in world_files) {
         assert.ok(test_utils.eval_python(base_url + world_files[i]).success,
                                       world_files[i] + " run successfully.");

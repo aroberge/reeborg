@@ -82,6 +82,7 @@ require("./../programming_api/exceptions.js");
  * @throws Will throw an error if no images is supplied (either via the `url`
  *         or the `images` attribute.)
  *
+ * @see Unit tests are found in {@link UnitTest#test_add_new_thing}
  * @example
  * // This first example shows how to set various "things";
  * // the mode will be set to Python and the highlighting

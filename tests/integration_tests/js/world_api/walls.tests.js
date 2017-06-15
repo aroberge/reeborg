@@ -17,7 +17,7 @@ QUnit.test("Test add/remove wall", function(assert) {
     var done = assert.async();
     test_utils.set_human_language("en");
     assert.ok(test_utils.eval_python(world_url,
-            "/tests/functional_tests/programs/test_walls.py").success,
+            "/tests/integration_tests/programs/test_walls.py").success,
             "No problem encountered!");
     done();
 });

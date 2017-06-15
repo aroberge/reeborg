@@ -33,7 +33,7 @@ print("""
     to stop server session.
     """)
 server_address = ('', 8800)
-url = "http://localhost:8800/tests/functional_tests/reeborg_qunit_offline.html?lang=en&mode=python"
+url = "http://localhost:8800/tests/integration_tests/reeborg_qunit_offline.html?lang=en&mode=python"
 webbrowser.open_new(url)
 
 httpd = MyTCPServer(server_address, MyHandler)
