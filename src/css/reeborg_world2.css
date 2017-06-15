@@ -19,7 +19,6 @@ header                 {z-index: 100;}
 #obstacles-canvas      {z-index: 40;} /* 8 */
 #obstacles-canvas-anim {z-index: 41;} /* 9 */
 #goal-canvas           {z-index: 50;} /* 10 */
-#goal-wall-canvas      {z-index: 51;} /* 11 */
 #goal-canvas-anim      {z-index: 52;} /* 12 */
 #objects-canvas        {z-index: 60;} /* 13 */
 #objects-canvas-anim   {z-index: 61;} /* 14 */

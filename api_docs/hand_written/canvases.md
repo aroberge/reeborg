@@ -2,9 +2,9 @@ With many different possible types of "objects" that need to be drawn (backgroun
 
 Drawing on all the canvases is done periodically, at a fixed time interval which can be changed by the function `think()`. However, this approach has been found to be too limiting when introducing animated objects which are drawn on a different schedule. While it would have been possible to use the same canvases for both static and animated objects, we have decided instead to introduce a second set of canvases, intended for animated images only. For a given class of objects, these secondary canvases typically sit on top of the corresponding "static" one, thus giving visual precedence to the animated objects. The drawing schedule for all the animated objects is determined by the global variable `RUR.ANIMATION_TIME`.
 
-In addition to the different time scale, there is another big difference between the way drawing updates are performed.  When a program is executed, a series of frames are recorded.  Embedded in each frame, there can be some variables (frame_delay, pause, etc.) which can determine the time delay before the next frame is drawn. Thus, one can use `think()` or `pause()` within a program to control how the display will be updated. However, for the animated images, `RUR.ANIMATION_TIME` is a variable whose value at the end of the program's execution will stay constant throughout the display (playback) of the frames that have been recorded. 
+In addition to the different time scale, there is another big difference between the way drawing updates are performed.  When a program is executed, a series of frames are recorded.  Embedded in each frame, there can be some variables (frame_delay, pause, etc.) which can determine the time delay before the next frame is drawn. Thus, one can use `think()` or `pause()` within a program to control how the display will be updated. However, for the animated images, `RUR.ANIMATION_TIME` is a variable whose value at the end of the program's execution will stay constant throughout the display (playback) of the frames that have been recorded.
 
-  - add example 
+  - add example
 
 ## The layers
 
@@ -15,37 +15,35 @@ Nonetheless, for completeness, here is the ordering of the canvases, from top to
 2. overlay layer [not implemented yet]
 3. robot animation [not implemented yet]
 4. robots
-5. wall [not yet implemented as a canvas]
-6. animated pushable object [not implemented]
-7. (static) pushable object [not implemented]
-8. animated goal for pushable objects.
-9. (static) goal for pushable objects.
-10. trace left by robot.
-11. animated objects (which can be picked up)
-12. (static) objects (which can be picked up)
-13. animated goal objects
-14. (static) goal objects
-15. animated obstacles 
-16. (static) obstacles
-17. animated decorative objects
-18. (static) decorative objects
-19. animated bridge layer
-20. (static) bridge layer
-21. animated background tiles
-22. (static) background tiles
-23. static background image, covering the entire world's surface, which has no effect on the behaviour of Reeborg.
+5. wall
+6. animated pushable object
+7. (static) pushable object
+8. trace left by robot.
+9. animated objects (which can be picked up)
+10. (static) objects (which can be picked up)
+11. animated goal
+12. (static) goal: objects, walls, final position, pushable [goals].
+13. animated obstacles
+14. (static) obstacles
+15. animated decorative objects
+16. (static) decorative objects
+17. animated bridge layer
+18. (static) bridge layer
+19. animated background tiles
+20. (static) background tiles
+21. static background image, covering the entire world's surface, which has no effect on the behaviour of Reeborg.
 
 ## Interaction between layers
 
-Other than the overlay layer, which is intended for special effects, robots should never be hidden by other artefacts: thus they are drawn near the very top of the stack of layers (canvases). This is also the case for walls. Below the walls, pushable objects can be used to hide other artefacts. However, a pushable object cannot be pushed onto a tile where a solid object is found (on the obstacle layers), nor can it be pushed on a tile where another robot is located [to be implemented] nor can it be pushed through a wall: all of these will result in a fatal collision for Reeborg.
+Other than the overlay layer, which is intended for special effects, robots should never be hidden by other artefacts: thus they are drawn near the very top of the stack of layers (canvases). This is also the case for walls. Below the walls, pushable objects can be used to hide other artefacts. However, a pushable object cannot be pushed onto a tile where a solid object is found (on the obstacle layers), nor can it be pushed on a tile where another robot is located nor can it be pushed through a wall: all of these will result in a fatal collision for Reeborg.
 
   - add example
 
-"Obstacles" can be solid (acting like a wall for Reeborg) or "safe" (thus allowing Reeborg to step onto that location, regardless of the type of background tile below).  
+"Obstacles" can be solid (acting like a wall for Reeborg) or "safe" (thus allowing Reeborg to step onto that location, regardless of the type of background tile below).
 
   - add example
 
-Pushable objects, when pushed onto a given tile (background or obstacle), can transform into some obstacle or disappear altogether. This is determined by the property of the object and is handled automatically. 
+Pushable objects, when pushed onto a given tile (background or obstacle), can transform into some obstacle or disappear altogether. This is determined by the property of the object and is handled automatically.
 
   - add example: box+water = bridge; box+fire=fire (box disappear)  (Maybe make the fire temporarily bigger).
 
@@ -56,7 +54,7 @@ Each world change (addition or removal of object, movement of robot, etc.) norma
     recording(False)
       move the robot  (remove from one location, add to the next)
       remove the box
-      attempt to add box to next tile (water) 
+      attempt to add box to next tile (water)
       add bridge as obstacle on next tile instead
     recording(True)
     call record_frame() explicitly

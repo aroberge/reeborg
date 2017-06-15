@@ -300,8 +300,12 @@ function draw_tiles (tiles, ctx, goal){
             }
             for (t=0; t<tile_array.length; t++) {
                 tile = RUR.TILES[tile_array[t]];
-                if (tile === undefined) {
-                    colour = tiles[keys[key]];
+                if (tile === undefined || tile.color) {
+                    if (tile === undefined) {
+                        colour = tiles[keys[key]];
+                    } else {
+                        colour = tile.color;
+                    }
                     draw_coloured_tile(colour, i, j, ctx);
                     continue;
                 } else if (goal) {

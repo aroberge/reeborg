@@ -120,9 +120,16 @@ background (grass or gravel) is present at that location.
 
 ## The Onload editor
 
-The content of this editor **must** be some Javascript code.
-Whenever a world is loaded, or reloaded, this code is executed
+The content of this editor is normally assumed to be some **Javascript code**.
+The syntax highlighting mode for this editor is set to Javascript and cannot be changed.
+
+Whenever a world is loaded, or reloaded, this code is normally executed
 using Javascript's `eval()`.  This can be used to specify which
 programming language or programming mode must be used for a given world,
 as well as for dynamically creating world features, including new objects
 represented by custom images.
+
+If the very first character of the code is `#`, it is assumed instead that
+the code is written in Python, and the code is evaluated using Python's `exec`.
+However, this has not been as fully tested and may not be as reliable as
+using Javascript code.

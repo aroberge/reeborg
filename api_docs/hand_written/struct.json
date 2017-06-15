@@ -19,8 +19,11 @@
         },
     "why": {
         "title": "Why? Understanding some design and other decisions",
-        "children": ["nobreak"]
+        "children": ["motivation", "nobreak"]
     },
+        "motivation": {
+            "title": "Motivation: why create more complex worlds?"
+        },
         "nobreak": {
             "title": "Why are non-breaking spaces removed in Python code?"
         },

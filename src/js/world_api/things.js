@@ -27,12 +27,16 @@ require("./../programming_api/exceptions.js");
  * when a user clicks on "World Info" and then on this thing on the world canvas.
  * It is highly recommended to include this.
  *
+ * @param {string} [thing.color] A string representing a valid html color
+ * (named, rgb, rgba, hsl or #-notation).
+ * **Either `thing.color`, thing.url` or `thing.images` must be specified.**
+ *
  * @param {string} [thing.url] If a single image is used, this indicated the source.
- *  **Either `thing.url` or `thing.images` must be specified.**
+ *  **Either `thing.color`, `thing.url` or `thing.images` must be specified.**
  *
  * @param {strings[]} [thing.images] If multiple images are used
  * (for animated "things"), this array (list) contains the various URLs.
- *  **Either `thing.url` or `thing.images` must be specified.**
+ *  **Either `thing.color`, `thing.url` or `thing.images` must be specified.**
  *
  * @param {string} [thing.selection_method]  For animated "things"; choose one of
  *
@@ -48,7 +52,7 @@ require("./../programming_api/exceptions.js");
  * @param {object} [thing.goal]  If the "things" can be used for an object that can be
  * picked up or put down by Reeborg, includes `thing.goal` to describe the image(s),
  * following the same pattern as above (`thing.goal.url`, `thing.goal.images`,
- * `thing.goal.selection_method`).
+ * `thing.goal.selection_method`), except that `goal` is ignored if `color` is true.
  *
  * @param {string} [thing.fatal] Program ends if Reeborg steps on such a "thing" with
  * a value that is equivalent to "true" when used as background things or obstacles,
@@ -56,6 +60,10 @@ require("./../programming_api/exceptions.js");
  * carried by Reeborg has the right protection defined.
  * This value is usually set to the name of the "things" so as to facilitate
  * defining objects or bridges which offer the right protection.
+ * For `fatal` things, `message` should be defined as well.
+ *
+ * @param {string} [thing.message] The message shown when Reeborg steps on
+ * a `fatal` tile.
  *
  * @param {string} [thing.detectable] If `thing.fatal` and  `thing.detectable` are
  * both equivalent to "true", Reeborg can detect this "thing" with
@@ -72,15 +80,17 @@ require("./../programming_api/exceptions.js");
  *
  * @param {integer} [thing.x_offset] By default, "things" are drawn on a set grid.
  * Specifying a value for `x_offset` result in the "things" drawn off grid, by a
- * number of pixel equal to `x_offset`.
+ * number of pixel equal to `x_offset`. This is only valid for images - not for
+ * colors.
  *
  * @param {integer} [thing.y_offset] By default, "things" are drawn on a set grid.
  * Specifying a value for `y_offset` result in the "thing" drawn off grid, by a
- * number of pixel equal to `y_offset`.
+ * number of pixel equal to `y_offset`. This is only valid for images - not for
+ * colors.
  *
  * @throws Will throw an error if `name` attribute is not specified.
- * @throws Will throw an error if no images is supplied (either via the `url`
- *         or the `images` attribute.)
+ * @throws Will throw an error if no image is supplied (either via the `url`
+ *         or the `images` attribute) and `color` does not evaluate to true.
  *
  * @see Unit tests are found in {@link UnitTest#test_add_new_thing}
  * @example
@@ -120,6 +130,9 @@ RUR.add_new_thing = function (thing) {
 
     thing.original_arg = original_arg;
     RUR.TILES[name] = thing;
+    if (thing.color) {
+        return;
+    }
     create_images(thing);
     // Object goal (not required for decorative objects): either
     // a single url or a list for animated images.
@@ -144,7 +157,8 @@ function create_images(obj) {
  * @memberof RUR
  * @instance
  *
- * @summary This method shows all known "things" in a table. If a language
+ * @summary This method shows all known "things" in a table, with the exception
+ * of those defined with the `color` attribute. If a language
  * other than English is selected, the translated name appears as well; this
  * can be helpful to identify missing translations.
  * If multiple images are shown, it means that the "thing" is shown as an
@@ -177,6 +191,9 @@ RUR.show_all_things = function (property) {
             if (RUR.TILES[name][property] === undefined) {
                 continue;
             }
+        }
+        if (RUR.TILES[name].color) {
+            continue;
         }
         url = RUR.TILES[name].url;
         images = RUR.TILES[name].images;

@@ -20,30 +20,6 @@ If needed, you might want to use [http://translate.google.com](http://translate.
 Other than the documents listed under the **Tutorials** menu above, and the information written on this page, this documentation has been generated utomatically using Jsdoc from **comments** included in javascript source files.
 Since comments are **not** executed, it can happen that they do not reflect what the code is actually doing. If you find that the information provided here is incorrect, or if you have any question or suggestion, please do not hesitate to get in touch with me (Andre.Roberge@gmail.com).
 
-## Next
-
-We suggest you start with {@tutorial getting_started}.
-
-# Motivation
-
-In my experience in teaching Mathematics and Physics, I have noticed that different examples or problems that I see as testing a single common concept are often seen by students as completely independent one of another, leading them initially to try to memorize a different solution to each, rather than understanding the underlying concept. Often, it will not be until the students have done many superficially different problems by themselves that they will finally understand the underlying concept.  As is the case in Physics and Mathematics, I believe that the same is likely true when teaching programming, and that students can benefit from seeing the same concept illustrated in seemingly very different looking programming assignments.
-
-## Young beginners
-
-While I have no direct experience of teaching young students, the positive feedback I have heard is that Reeborg's World is quite suitable for them to learn the basics of programming.  However, I gather that some students may get bored as each programming task resembles the others.  Looking at other sites aiming to teach young children, I noticed that they most often incorporate colourful images and very nice graphics, much nicer than what is included by default with Reeborg's World.
-
-The methods described in this documentation are intended to address this issue and offer some potential solutions, to make the learning environment even more appealing to young learners.
-
-## Not so young beginners
-
-Let's face it: older teenagers and young adults may not like to be treated as young children, but they too enjoy environments with better graphics than bland looking ones. Furthermore, they can appreciate an environment such as Reeborg's World that uses a real programming language (Python, or Javascript) and can present them with challenging (but doable) programming tasks with nice visual feedback.
-
-## More advanced students
-
-Often, programming environments such as Reeborg's World are used to teach beginners, but then abandoned as more advanced concepts are taught, often in a more abstract way. To me, that is a mistake. Once the students have become familiar with a programming environment, especially one that can give visual feedback, it only make sense to revisit this environment to illustrate programming concepts. Beyond simple control flow (`if/else, while, for,` etc.), Reeborg's World can be used to assign problems exploring Object Oriented Programming, including inheritance and composition, data structures (lists/arrays and dict/hash tables in particular), and can even be used to look at various search algorithms (depth-first _vs_ breadth first, A*, etc.).
-
-
-
 
 ## About the RUR namespace
 
@@ -59,8 +35,8 @@ name **robot** was used [see wikipedia:RUR](https://en.wikipedia.org/wiki/R.U.R.
 Please note that there are many more functions belonging to the `RUR` namespace
 than what is documented here.  As a general rule, you should not create additional functions belonging to this namespace; however, some suggested exceptions are mentioned later in this documentation.
 
+## Next
 
-# Next steps
+We suggest you start with {@tutorial getting_started}.
 
-I suggest that you use the **Tutorials** menu on top, and go through the topics in order, starting with the Naming convention. Later, use the **Namespaces** menu for quick reference.
 

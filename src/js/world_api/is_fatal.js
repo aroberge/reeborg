@@ -36,7 +36,11 @@ RUR.is_fatal = function (x, y, protections){
     for (tile of tiles) {
         if (RUR.get_property(tile, "fatal")) {
             if (protections.indexOf(RUR.TILES[tile].fatal) === -1) {
-                return RUR.TILES[tile].message;
+                if (RUR.TILES[tile].message) {
+                    return RUR.TILES[tile].message;
+                } else {
+                    return "Fatal tile needs message defined";
+                }
             }
         }
     }
