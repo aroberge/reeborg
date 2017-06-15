@@ -1,6 +1,6 @@
 /**
  * @name THINGS_add_new_thing
- * @memberof UnitTest
+ * @memberof TestUnit
  * @instance
  *
  * Fake jsdoc entry so that we can document that the tests exist.

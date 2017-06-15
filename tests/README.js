@@ -1,5 +1,5 @@
 /**
- * @namespace UnitTest
+ * @namespace TestUnit
  *
  * @desc This is a fake namespace so that we can easily document and find files
  * where unit tests are found for a given function.
@@ -14,7 +14,7 @@
  */
 
 /**
- * @namespace IntegrationTest
+ * @namespace TestIntegration
  *
  * @desc This is a fake namespace so that we can easily document and find files where
  * integration tests are found for a given function.

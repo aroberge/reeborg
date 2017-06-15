@@ -300,9 +300,8 @@ function _start_repl() {
     try {
         restart_repl();
     } catch (e) {
-        console.log("_start_repl: failure", e);
-        console.log("Will try again in 500ms.");
-        window.setTimeout(_start_repl, 500);
+        console.log("_start_repl: failure; Will try again in 200ms.");
+        window.setTimeout(_start_repl, 200);
     }
 }
 

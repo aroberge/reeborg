@@ -165,7 +165,7 @@ def dir_py(obj, exclude=None):
     window.print_html(html_escape("\n".join(out)).replace("\n", "<br>"), True)
 
 
-def generic_translate_python(src, highlight, var_watch, pre_code='',
+def generic_translate_python(src, highlight=False, var_watch=False, pre_code='',
                              post_code=''):
     ''' RUR.translate Python code into Javascript and execute
 

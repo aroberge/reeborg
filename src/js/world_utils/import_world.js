@@ -142,21 +142,44 @@ RUR.world_utils.import_world = function (json_string) {
     if (RUR.state.editing_world) {
         edit_robot_menu.toggle();
     }
-    process_onload();
+    start_process_onload();
 };
+
+function start_process_onload() {
+    if (window.translate_python == undefined) {
+        console.log("startup delay: translate_python not available; will try again in 200ms.");
+        window.setTimeout(start_process_onload, 200);
+    }
+    else {
+        process_onload();
+    }
+}
+
+function show_onload_feedback (e) {
+    RUR.show_feedback("#Reeborg-shouts", e.message + "<br>" +
+        RUR.translate("Problem with onload code.") + "<pre>" +
+        RUR.CURRENT_WORLD.onload + "</pre>");
+    console.log("error in onload:", e);
+}
 
 process_onload = function () {
     RUR.WORLD_BEFORE_ONLOAD = clone_world();
     if (RUR.CURRENT_WORLD.onload !== undefined && !RUR.state.editing_world) {
         RUR.state.evaluating_onload = true; // affects the way errors are treated
-        try {
-            eval(RUR.CURRENT_WORLD.onload);  // jshint ignore:line
-        } catch (e) {
-            RUR.show_feedback("#Reeborg-shouts", e.message + "<br>" +
-                RUR.translate("Problem with onload code.") + "<pre>" +
-                RUR.CURRENT_WORLD.onload + "</pre>");
-            console.log("error in onload:", e);
+        if (RUR.CURRENT_WORLD.onload[0]=="#") {
+            try {
+               window.translate_python(RUR.CURRENT_WORLD.onload);
+            } catch (e) {
+                show_onload_feedback(e);
+            }
+        } else {
+            try {
+                eval(RUR.CURRENT_WORLD.onload);  // jshint ignore:line
+            } catch (e) {
+                show_onload_feedback(e);
+            }
         }
+
         RUR.state.evaluating_onload = false;
         // remove any frames created by onload
         RUR.frames = [];
