@@ -5,7 +5,7 @@
     },
     "source": {
         "include": [ "src/js", "tests", "src/lang"],
-        "exclude": ["tests/functional_tests/qunit-2.3.2.js"]
+        "exclude": ["tests/integration_tests/qunit-2.3.2.js"]
     },
     "plugins": ["plugins/markdown"],
     "markdown": {

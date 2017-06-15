@@ -11299,6 +11299,7 @@ require("./../programming_api/exceptions.js");
  * @throws Will throw an error if no images is supplied (either via the `url`
  *         or the `images` attribute.)
  *
+ * @see Unit tests are found in {@link UnitTest#test_add_new_thing}
  * @example
  * // This first example shows how to set various "things";
  * // the mode will be set to Python and the highlighting
@@ -11761,10 +11762,6 @@ RUR.world_get.tile_at_position = function (x, y) {
 
 RUR.world_get.object_at_robot_position = function (robot, obj) {
     return object_of_type_here(robot, obj, RUR.CURRENT_WORLD.objects);
-};
-
-RUR.world_get.decorative_object_at_robot_position = function (robot, obj) {
-    return object_of_type_here(robot, obj, RUR.CURRENT_WORLD.decorative_objects);
 };
 
 

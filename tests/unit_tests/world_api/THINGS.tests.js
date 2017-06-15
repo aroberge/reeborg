@@ -1,5 +1,5 @@
 /**
- * @name test_add_new_thing
+ * @name THINGS_add_new_thing
  * @memberof UnitTest
  * @instance
  *
