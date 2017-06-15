@@ -119,9 +119,9 @@ RUR.vis_world.refresh = function () {
         draw_animated_images();
     }
 
-    if (RUR.state.editing_world) {
+    if (RUR.state.editing_world || RUR.state.visible_grid) {
         // make them appear above background and tiles but below foreground walls.
-        draw_grid_walls(RUR.GOAL_CTX, true);
+        draw_grid_walls(RUR.GOAL_CTX, RUR.state.editing_world);
     }
 
     if (world.goal !== undefined){

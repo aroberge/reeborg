@@ -154,8 +154,7 @@ ui_fr["Crash!"] = "Crash!";
 ui_fr["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it."] = "Mur de brique: Reeborg <b>peut</b> détecter ceci mais il se fera mal s'il essaie de passer au travers.";
 ui_fr["I hit a fence!"] = "J'ai frappé une clôture!";
 ui_fr["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "Clôture: Reeborg <b>peut</b> détecter ceci mais il ne peut pas passer au travers.";
-ui_fr["Bridge:"] = "Pont: ";
-ui_fr["Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Reeborg <b>peut</b> détecter ceci et sait que cela lui permettra de traverser l'eau en sureté.";
+ui_fr["Bridge:Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Pont: Reeborg <b>peut</b> détecter ceci et sait que cela lui permettra de traverser l'eau en sureté.";
 
 fr_to_en["pont"] = "bridge";
 ui_fr["Something is blocking the way!"] = "Quelque chose bloque le chemin!";

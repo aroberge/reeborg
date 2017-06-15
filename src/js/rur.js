@@ -55,6 +55,7 @@ RUR.state.watch_vars = false;
 RUR.state.x = undefined;
 RUR.state.y = undefined;
 RUR.state.changed_cells = [];
+RUR.state.visible_grid = false;
 
 
 // TODO: see if worthwhile to create RUR.state.do_highlight()

@@ -1,0 +1,42 @@
+{
+  "robots": [
+    {
+      "x": 3,
+      "y": 1,
+      "prev_orientation": 0,
+      "objects": {},
+      "_prev_x": 3,
+      "_prev_y": 1,
+      "_prev_orientation": 2,
+      "possible_initial_positions": [
+        [
+          3,
+          1
+        ]
+      ],
+      "_orientation": 2,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 10
+    }
+  ],
+  "small_tiles": false,
+  "rows": 3,
+  "cols": 3,
+  "description": "Écrivez un programme qui permet à Reeborg de retourner à sa maison.",
+  "goal": {
+    "possible_final_positions": [
+      [
+        1,
+        1
+      ]
+    ],
+    "position": {
+      "image": "house",
+      "x": 1,
+      "y": 1
+    }
+  }
+}

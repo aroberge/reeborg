@@ -944,9 +944,9 @@ RUR.vis_world.refresh = function () {
         draw_animated_images();
     }
 
-    if (RUR.state.editing_world) {
+    if (RUR.state.editing_world || RUR.state.visible_grid) {
         // make them appear above background and tiles but below foreground walls.
-        draw_grid_walls(RUR.GOAL_CTX, true);
+        draw_grid_walls(RUR.GOAL_CTX, RUR.state.editing_world);
     }
 
     if (world.goal !== undefined){
@@ -8168,6 +8168,7 @@ RUR.state.watch_vars = false;
 RUR.state.x = undefined;
 RUR.state.y = undefined;
 RUR.state.changed_cells = [];
+RUR.state.visible_grid = false;
 
 
 // TODO: see if worthwhile to create RUR.state.do_highlight()
@@ -8699,6 +8700,7 @@ RUR.make_default_menu = function(language) {
 RUR.make_default_menu_en = function () {
     "use strict";
     var contents,
+        new_tutorial_en = RUR._BASE_URL + '/worlds/tutorial_en/',
         tutorial_en = RUR._BASE_URL + '/src/worlds/tutorial_en/',
         menus = RUR._BASE_URL + '/src/worlds/menus/',
         worlds = RUR._BASE_URL + '/src/worlds/',
@@ -8722,9 +8724,9 @@ RUR.make_default_menu_en = function () {
         [tutorial_en + 'harvest4b.json', 'Harvest 4b'],
         [tutorial_en + 'harvest4c.json', 'Harvest 4c'],
         [tutorial_en + 'harvest4d.json', 'Harvest 4d'],
-        [tutorial_en + 'home1.json', 'Home 1'],
-        [tutorial_en + 'home2.json', 'Home 2'],
-        [tutorial_en + 'home3.json', 'Home 3'],
+        [new_tutorial_en + 'home1.json', 'Home 1'],
+        [new_tutorial_en + 'home2.json', 'Home 2'],
+        [new_tutorial_en + 'home3.json', 'Home 3'],
         [tutorial_en + 'hurdle1.json', 'Hurdle 1'],
         [tutorial_en + 'hurdle2.json', 'Hurdle 2'],
         [tutorial_en + 'hurdle3.json', 'Hurdle 3'],
@@ -8767,13 +8769,14 @@ RUR.make_default_menu_en = function () {
 
 RUR.make_default_menu_fr = function () {
     "use strict";
-    var base_url, base_url2, contents, menus, worlds;
+    var base_url, base_url2, contents, menus, worlds, new_tutorial_fr;
 
     base_url = RUR._BASE_URL + '/src/worlds/tutorial_en/';
     base_url2 = RUR._BASE_URL + '/src/worlds/tutorial_fr/';
 
     menus = RUR._BASE_URL + '/src/worlds/menus/';
     worlds = RUR._BASE_URL + '/src/worlds/';
+    new_tutorial_fr = RUR._BASE_URL + '/worlds/tutorial_fr/',
 
     contents = [
         [RUR._BASE_URL + '/src/worlds/seul.json', 'Seul'],
@@ -8782,9 +8785,9 @@ RUR.make_default_menu_fr = function () {
         [base_url2 + 'around2.json', 'Autour 2'],
         [base_url2 + 'around3.json', 'Autour 3'],
         [base_url2 + 'around4.json', 'Autour 4'],
-        [base_url + 'home1.json', 'But 1'],
-        [base_url + 'home2.json', 'But 2'],
-        [base_url + 'home3.json', 'But 3'],
+        [new_tutorial_fr + 'home1.json', 'But 1'],
+        [new_tutorial_fr + 'home2.json', 'But 2'],
+        [new_tutorial_fr + 'home3.json', 'But 3'],
         [base_url + 'center1.json', 'Centrer 1'],
         [base_url + 'center2.json', 'Centrer 2'],
         [base_url + 'center3.json', 'Centrer 3'],
@@ -12896,8 +12899,7 @@ ui_en["Crash!"] = "Crash!";
 ui_en["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it."] = "Brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.";
 ui_en["I hit a fence!"] = "I hit a fence!";
 ui_en["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "Fence: Reeborg <b>can</b> detect this but will be stopped by it.";
-ui_en["Bridge:"] = "Bridge: ";
-ui_en["Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Reeborg <b>can</b> detect this and will know that it allows safe passage over water.";
+ui_en["Bridge:Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Bridge: Reeborg <b>can</b> detect this and will know that it allows safe passage over water.";
 
 ui_en["Something is blocking the way!"] = "Something is blocking the way!";
 ui_en["Reeborg <b>can</b> detect this tile using at_goal()."] = "Reeborg <b>can</b> detect this using at_goal().";
@@ -13249,8 +13251,7 @@ ui_fr["Crash!"] = "Crash!";
 ui_fr["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it."] = "Mur de brique: Reeborg <b>peut</b> détecter ceci mais il se fera mal s'il essaie de passer au travers.";
 ui_fr["I hit a fence!"] = "J'ai frappé une clôture!";
 ui_fr["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "Clôture: Reeborg <b>peut</b> détecter ceci mais il ne peut pas passer au travers.";
-ui_fr["Bridge:"] = "Pont: ";
-ui_fr["Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Reeborg <b>peut</b> détecter ceci et sait que cela lui permettra de traverser l'eau en sureté.";
+ui_fr["Bridge:Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Pont: Reeborg <b>peut</b> détecter ceci et sait que cela lui permettra de traverser l'eau en sureté.";
 
 fr_to_en["pont"] = "bridge";
 ui_fr["Something is blocking the way!"] = "Quelque chose bloque le chemin!";
@@ -13608,8 +13609,7 @@ ui_ko["Crash!"] = "Crash!";
 ui_ko["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it."] = "벽돌 벽: 리보그는 이것을 탐지 할 수 있지만 만약 벽돌 벽으로 간다면 자신을 다치게 합니다.";
 ui_ko["I hit a fence!"] = "I hit a fence!";
 ui_ko["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "울타리: 리보그는 이것을  <b>can</b> 탐지 할 수 있지만 그것에 의해 중지됩니다.";
-ui_ko["Bridge:"] = "Bridge: ";
-ui_ko["Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "리보그는 이것을 탐지 할 수 <b>있으며</b> 이 물 위에서 안전한 통행을 허용하는것을 알게 될 것입니다.";
+ui_ko["Bridge:Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "리보그는 이것을 탐지 할 수 <b>있으며</b> 이 물 위에서 안전한 통행을 허용하는것을 알게 될 것입니다.";
 
 ui_ko["Something is blocking the way!"] = "뭔가가 길을 막고 있어요!";
 ui_ko["Reeborg <b>can</b> detect this tile using at_goal()."] = "리보그는 at_goal() 를 사용해서 탐지 할 수 <b>있어요</b>.";

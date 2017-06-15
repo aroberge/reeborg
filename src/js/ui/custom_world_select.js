@@ -54,6 +54,7 @@ RUR.make_default_menu = function(language) {
 RUR.make_default_menu_en = function () {
     "use strict";
     var contents,
+        new_tutorial_en = RUR._BASE_URL + '/worlds/tutorial_en/',
         tutorial_en = RUR._BASE_URL + '/src/worlds/tutorial_en/',
         menus = RUR._BASE_URL + '/src/worlds/menus/',
         worlds = RUR._BASE_URL + '/src/worlds/',
@@ -77,9 +78,9 @@ RUR.make_default_menu_en = function () {
         [tutorial_en + 'harvest4b.json', 'Harvest 4b'],
         [tutorial_en + 'harvest4c.json', 'Harvest 4c'],
         [tutorial_en + 'harvest4d.json', 'Harvest 4d'],
-        [tutorial_en + 'home1.json', 'Home 1'],
-        [tutorial_en + 'home2.json', 'Home 2'],
-        [tutorial_en + 'home3.json', 'Home 3'],
+        [new_tutorial_en + 'home1.json', 'Home 1'],
+        [new_tutorial_en + 'home2.json', 'Home 2'],
+        [new_tutorial_en + 'home3.json', 'Home 3'],
         [tutorial_en + 'hurdle1.json', 'Hurdle 1'],
         [tutorial_en + 'hurdle2.json', 'Hurdle 2'],
         [tutorial_en + 'hurdle3.json', 'Hurdle 3'],
@@ -122,13 +123,14 @@ RUR.make_default_menu_en = function () {
 
 RUR.make_default_menu_fr = function () {
     "use strict";
-    var base_url, base_url2, contents, menus, worlds;
+    var base_url, base_url2, contents, menus, worlds, new_tutorial_fr;
 
     base_url = RUR._BASE_URL + '/src/worlds/tutorial_en/';
     base_url2 = RUR._BASE_URL + '/src/worlds/tutorial_fr/';
 
     menus = RUR._BASE_URL + '/src/worlds/menus/';
     worlds = RUR._BASE_URL + '/src/worlds/';
+    new_tutorial_fr = RUR._BASE_URL + '/worlds/tutorial_fr/',
 
     contents = [
         [RUR._BASE_URL + '/src/worlds/seul.json', 'Seul'],
@@ -137,9 +139,9 @@ RUR.make_default_menu_fr = function () {
         [base_url2 + 'around2.json', 'Autour 2'],
         [base_url2 + 'around3.json', 'Autour 3'],
         [base_url2 + 'around4.json', 'Autour 4'],
-        [base_url + 'home1.json', 'But 1'],
-        [base_url + 'home2.json', 'But 2'],
-        [base_url + 'home3.json', 'But 3'],
+        [new_tutorial_fr + 'home1.json', 'But 1'],
+        [new_tutorial_fr + 'home2.json', 'But 2'],
+        [new_tutorial_fr + 'home3.json', 'But 3'],
         [base_url + 'center1.json', 'Centrer 1'],
         [base_url + 'center2.json', 'Centrer 2'],
         [base_url + 'center3.json', 'Centrer 3'],
