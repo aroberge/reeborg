@@ -4,8 +4,7 @@ require("./../utils/validator.js");
 require("./../world_utils/get_world.js");
 
 RUR.vis_robot = {};
-// limit to 10 models, from 0 to 9.
-RUR.vis_robot.images = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
+RUR.vis_robot.images = [];
 
 // we will keep track if we have loaded all images
 RUR.vis_robot.loaded_images = 0;
@@ -15,27 +14,44 @@ RUR.vis_robot.nb_images = 0;
 RUR._BASE_URL = RUR._BASE_URL || '';
 
 
-function set_images(robot) {
-    var model = robot.model;
-    RUR.vis_robot.images[model].robot_e_img = new Image();
-    RUR.vis_robot.images[model].robot_e_img.src = robot.east;
-    RUR.vis_robot.images[model].robot_n_img = new Image();
-    RUR.vis_robot.images[model].robot_n_img.src = robot.north;
-    RUR.vis_robot.images[model].robot_w_img = new Image();
-    RUR.vis_robot.images[model].robot_w_img.src = robot.west;
-    RUR.vis_robot.images[model].robot_s_img = new Image();
-    RUR.vis_robot.images[model].robot_s_img.src = robot.south;
+function set_images(images, refresh) {
+    var default_images, east, west, north, south, robot, model = images.model;
+
+    default_images = {east: RUR._BASE_URL + '/src/images/robot_e.png',
+        north: RUR._BASE_URL + '/src/images/robot_n.png',
+        west: RUR._BASE_URL + '/src/images/robot_w.png',
+        south: RUR._BASE_URL + '/src/images/robot_s.png'
+    }
+
+    if (RUR.vis_robot.images[model] === undefined) {
+        RUR.vis_robot.images[model] = {};
+        robot = RUR.vis_robot.images[model];
+        robot.robot_e_img = new Image();
+        robot.robot_n_img = new Image();
+        robot.robot_w_img = new Image();
+        robot.robot_s_img = new Image();
+    } else {
+        robot = RUR.vis_robot.images[model];
+    }
+
+    robot.robot_e_img.src = images.east || default_images.east;
+    robot.robot_w_img.src = images.west || default_images.west;
+    robot.robot_n_img.src = images.north || default_images.north;
+    robot.robot_s_img.src = images.south || default_images.south;
+
+    if (refresh) {
+        robot.robot_e_img.onload = function() { RUR.vis_world.refresh(); }
+        robot.robot_w_img.onload = function() { RUR.vis_world.refresh(); }
+        robot.robot_n_img.onload = function() { RUR.vis_world.refresh(); }
+        robot.robot_s_img.onload = function() { RUR.vis_world.refresh(); }
+    }
+
 }
 
 
 RUR.reset_default_robot_images = function () {
-    // classic
-    set_images({model: 0,
-        east: RUR._BASE_URL + '/src/images/robot_e.png',
-        north: RUR._BASE_URL + '/src/images/robot_n.png',
-        west: RUR._BASE_URL + '/src/images/robot_w.png',
-        south: RUR._BASE_URL + '/src/images/robot_s.png'
-    });
+    // classic; uses default
+    set_images({model: 0});
     // 2d red rover
     set_images({model: 1,
         east: RUR._BASE_URL + '/src/images/rover_e.png',
@@ -104,10 +120,7 @@ RUR.vis_robot.s_img.onload = function () {
     RUR.vis_robot.loaded_images += 1;
 };
 RUR.vis_robot.nb_images += 1;
-RUR.vis_robot.random_img.onload = function () {
-    RUR.vis_robot.loaded_images += 1;
-};
-RUR.vis_robot.nb_images += 1;
+
 
 
 RUR.vis_robot.draw = function (robot) {
@@ -319,52 +332,14 @@ RUR.new_robot_images = function (images) {
     var model, random;
     if (images.model !== undefined) {
         model = images.model;
-        if (!RUR.is_non_negative_integer(model) || model > 9) {
-            throw new ReeborgError(RUR.translate("Robot model must be an integer between 0 and 9."));
+        if (!RUR.is_non_negative_integer(model)) {
+            throw new ReeborgError(RUR.translate("Robot model must be a non-negative integer."));
         }
-        model = images.model;
     } else {
         model = 3;
     }
-    if (images.east !== undefined) {
-        RUR.vis_robot.images[model].robot_e_img = new Image();
-        RUR.vis_robot.images[model].robot_e_img.src = images.east;
-        RUR.vis_robot.images[model].robot_e_img.onload = function() {
-            RUR.vis_world.refresh()
-        }
-    }
-    if (images.west !== undefined) {
-        RUR.vis_robot.images[model].robot_w_img = new Image();
-        RUR.vis_robot.images[model].robot_w_img.src = images.west;
-        RUR.vis_robot.images[model].robot_w_img.onload = function() {
-            RUR.vis_world.refresh()
-        }
-    }
-    if (images.north !== undefined) {
-        RUR.vis_robot.images[model].robot_n_img = new Image();
-        RUR.vis_robot.images[model].robot_n_img.src = images.north;
-        RUR.vis_robot.images[model].robot_n_img.onload = function() {
-            RUR.vis_world.refresh()
-        }
-    }
-    if (images.south !== undefined) {
-        RUR.vis_robot.images[model].robot_s_img = new Image();
-        RUR.vis_robot.images[model].robot_s_img.src = images.south;
-        RUR.vis_robot.images[model].robot_s_img.onload = function() {
-            RUR.vis_world.refresh()
-        }
-    }
-    if (images.random === undefined) {
-        random = RUR._BASE_URL + '/src/images/robot_random.png'
-    } else {
-        random = images.random;
-    }
-    RUR.vis_robot.images[model].robot_random_img = new Image();
-    RUR.vis_robot.images[model].robot_random_img.src = random;
-    RUR.vis_robot.images[model].robot_random_img.onload = function() {
-        RUR.vis_world.refresh()
-    }
 
+    set_images(images, true);
 
     // change the image displayed in the html file.
     if (model < 4) {
