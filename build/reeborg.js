@@ -508,66 +508,71 @@ set_background_image = function () {
 },{"./../../lang/msg.js":92,"./../drawing/visible_world.js":9}],8:[function(require,module,exports){
 
 require("./../rur.js");
+require("./../utils/validator.js");
 require("./../world_utils/get_world.js");
-// TODO: RUR._BASE_URL -> need to change it to state...
 
 RUR.vis_robot = {};
-RUR.vis_robot.images = [{}, {}, {}, {}];
+// limit to 10 models, from 0 to 9.
+RUR.vis_robot.images = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
 
 // we will keep track if we have loaded all images
 RUR.vis_robot.loaded_images = 0;
 RUR.vis_robot.nb_images = 0;
 
-RUR._BASE_URL = RUR._BASE_URL || '';  // enable changing defaults for unit tests
+// elable changing defaults for unit tests or if put on different server location
+RUR._BASE_URL = RUR._BASE_URL || '';
+
+
+function set_images(robot) {
+    var model = robot.model;
+    RUR.vis_robot.images[model].robot_e_img = new Image();
+    RUR.vis_robot.images[model].robot_e_img.src = robot.east;
+    RUR.vis_robot.images[model].robot_n_img = new Image();
+    RUR.vis_robot.images[model].robot_n_img.src = robot.north;
+    RUR.vis_robot.images[model].robot_w_img = new Image();
+    RUR.vis_robot.images[model].robot_w_img.src = robot.west;
+    RUR.vis_robot.images[model].robot_s_img = new Image();
+    RUR.vis_robot.images[model].robot_s_img.src = robot.south;
+    if (robot.random) {
+        RUR.vis_robot.images[model].robot_random_img = new Image();
+        RUR.vis_robot.images[model].robot_random_img.src = robot.random;
+    }
+}
+
 
 RUR.reset_default_robot_images = function () {
-
     // classic
-    RUR.vis_robot.images[0].robot_e_img = new Image();
-    RUR.vis_robot.images[0].robot_e_img.src = RUR._BASE_URL + '/src/images/robot_e.png';
-    RUR.vis_robot.images[0].robot_n_img = new Image();
-    RUR.vis_robot.images[0].robot_n_img.src = RUR._BASE_URL + '/src/images/robot_n.png';
-    RUR.vis_robot.images[0].robot_w_img = new Image();
-    RUR.vis_robot.images[0].robot_w_img.src = RUR._BASE_URL + '/src/images/robot_w.png';
-    RUR.vis_robot.images[0].robot_s_img = new Image();
-    RUR.vis_robot.images[0].robot_s_img.src = RUR._BASE_URL + '/src/images/robot_s.png';
-    RUR.vis_robot.images[0].robot_random_img = new Image();
-    RUR.vis_robot.images[0].robot_random_img.src = RUR._BASE_URL + '/src/images/robot_random.png';
-    // rover type
-    RUR.vis_robot.images[1].robot_e_img = new Image();
-    RUR.vis_robot.images[1].robot_e_img.src = RUR._BASE_URL + '/src/images/rover_e.png';
-    RUR.vis_robot.images[1].robot_n_img = new Image();
-    RUR.vis_robot.images[1].robot_n_img.src = RUR._BASE_URL + '/src/images/rover_n.png';
-    RUR.vis_robot.images[1].robot_w_img = new Image();
-    RUR.vis_robot.images[1].robot_w_img.src = RUR._BASE_URL + '/src/images/rover_w.png';
-    RUR.vis_robot.images[1].robot_s_img = new Image();
-    RUR.vis_robot.images[1].robot_s_img.src = RUR._BASE_URL + '/src/images/rover_s.png';
-    RUR.vis_robot.images[1].robot_random_img = new Image();
-    RUR.vis_robot.images[1].robot_random_img.src = RUR._BASE_URL + '/src/images/rover_random.png';
-
-    // 3d red type
-    RUR.vis_robot.images[2].robot_e_img = new Image();
-    RUR.vis_robot.images[2].robot_e_img.src = RUR._BASE_URL + '/src/images/plain_e.png';
-    RUR.vis_robot.images[2].robot_n_img = new Image();
-    RUR.vis_robot.images[2].robot_n_img.src = RUR._BASE_URL + '/src/images/plain_n.png';
-    RUR.vis_robot.images[2].robot_w_img = new Image();
-    RUR.vis_robot.images[2].robot_w_img.src = RUR._BASE_URL + '/src/images/plain_w.png';
-    RUR.vis_robot.images[2].robot_s_img = new Image();
-    RUR.vis_robot.images[2].robot_s_img.src = RUR._BASE_URL + '/src/images/plain_s.png';
-    RUR.vis_robot.images[2].robot_random_img = new Image();
-    RUR.vis_robot.images[2].robot_random_img.src = RUR._BASE_URL + '/src/images/robot_random.png';
-
-    // solar panel type
-    RUR.vis_robot.images[3].robot_e_img = new Image();
-    RUR.vis_robot.images[3].robot_e_img.src = RUR._BASE_URL + '/src/images/sp_e.png';
-    RUR.vis_robot.images[3].robot_n_img = new Image();
-    RUR.vis_robot.images[3].robot_n_img.src = RUR._BASE_URL + '/src/images/sp_n.png';
-    RUR.vis_robot.images[3].robot_w_img = new Image();
-    RUR.vis_robot.images[3].robot_w_img.src = RUR._BASE_URL + '/src/images/sp_w.png';
-    RUR.vis_robot.images[3].robot_s_img = new Image();
-    RUR.vis_robot.images[3].robot_s_img.src = RUR._BASE_URL + '/src/images/sp_s.png';
-    RUR.vis_robot.images[3].robot_random_img = new Image();
-    RUR.vis_robot.images[3].robot_random_img.src = RUR._BASE_URL + '/src/images/robot_random.png';
+    set_images({model: 0,
+        east: RUR._BASE_URL + '/src/images/robot_e.png',
+        north: RUR._BASE_URL + '/src/images/robot_n.png',
+        west: RUR._BASE_URL + '/src/images/robot_w.png',
+        south: RUR._BASE_URL + '/src/images/robot_s.png',
+        random: RUR._BASE_URL + '/src/images/robot_random.png',
+    });
+    // 2d red rover
+    set_images({model: 1,
+        east: RUR._BASE_URL + '/src/images/rover_e.png',
+        north: RUR._BASE_URL + '/src/images/rover_n.png',
+        west: RUR._BASE_URL + '/src/images/rover_w.png',
+        south: RUR._BASE_URL + '/src/images/rover_s.png',
+        random: RUR._BASE_URL + '/src/images/rover_random.png',
+    });
+    // 3d red rover
+    set_images({model: 2,
+        east: RUR._BASE_URL + '/src/images/plain_e.png',
+        north: RUR._BASE_URL + '/src/images/plain_n.png',
+        west: RUR._BASE_URL + '/src/images/plain_w.png',
+        south: RUR._BASE_URL + '/src/images/plain_s.png',
+        random: RUR._BASE_URL + '/src/images/robot_random.png',
+    });
+    // solar panel
+    set_images({model: 3,
+        east: RUR._BASE_URL + '/src/images/sp_e.png',
+        north: RUR._BASE_URL + '/src/images/sp_n.png',
+        west: RUR._BASE_URL + '/src/images/sp_w.png',
+        south: RUR._BASE_URL + '/src/images/sp_s.png',
+        random: RUR._BASE_URL + '/src/images/robot_random.png'
+    });
 
     $("#robot0 img").attr("src", RUR.vis_robot.images[0].robot_e_img.src);
     $("#robot1 img").attr("src", RUR.vis_robot.images[1].robot_e_img.src);
@@ -756,73 +761,74 @@ RUR.vis_robot.draw_trace_segment = function (segment) {
     ctx.stroke();
 };
 
-RUR.vis_robot.new_robot_images = function (images) {
-    var model;
+/** @function new_robot_images
+ * @memberof RUR
+ * @instance
+ *
+ * @todo **Need to document**
+ * @todo Implement robot animation by cycling model; do it by instance
+ */
+
+RUR.new_robot_images = function (images) {
+    var model, random;
     if (images.model !== undefined) {
-        switch (images.model) {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-                model = images.model;
-                break;
-            default:
-                model = 3;
+        model = images.model;
+        if (!RUR.is_non_negative_integer(model) || model > 9) {
+            throw new ReeborgError(RUR.translate("Robot model must be an integer between 0 and 9."));
         }
+        model = images.model;
     } else {
         model = 3;
     }
     if (images.east !== undefined) {
+        RUR.vis_robot.images[model].robot_e_img = new Image();
         RUR.vis_robot.images[model].robot_e_img.src = images.east;
         RUR.vis_robot.images[model].robot_e_img.onload = function() {
             RUR.vis_world.refresh()
         }
     }
     if (images.west !== undefined) {
+        RUR.vis_robot.images[model].robot_w_img = new Image();
         RUR.vis_robot.images[model].robot_w_img.src = images.west;
         RUR.vis_robot.images[model].robot_w_img.onload = function() {
             RUR.vis_world.refresh()
         }
     }
     if (images.north !== undefined) {
+        RUR.vis_robot.images[model].robot_n_img = new Image();
         RUR.vis_robot.images[model].robot_n_img.src = images.north;
         RUR.vis_robot.images[model].robot_n_img.onload = function() {
             RUR.vis_world.refresh()
         }
     }
     if (images.south !== undefined) {
+        RUR.vis_robot.images[model].robot_s_img = new Image();
         RUR.vis_robot.images[model].robot_s_img.src = images.south;
         RUR.vis_robot.images[model].robot_s_img.onload = function() {
             RUR.vis_world.refresh()
         }
     }
-    if (images.random !== undefined) {
-        RUR.vis_robot.images[model].robot_random_img.src = images.random;
-        RUR.vis_robot.images[model].robot_random_img.onload = function() {
-            RUR.vis_world.refresh()
-        }
+    if (images.random === undefined) {
+        random = RUR._BASE_URL + '/src/images/robot_random.png'
+    } else {
+        random = images.random;
+    }
+    RUR.vis_robot.images[model].robot_random_img = new Image();
+    RUR.vis_robot.images[model].robot_random_img.src = random;
+    RUR.vis_robot.images[model].robot_random_img.onload = function() {
+        RUR.vis_world.refresh()
     }
 
+
     // change the image displayed in the html file.
-    switch (model) {
-        case 0:
-            $("#robot0 img").attr("src", images.east);
-            break;
-        case 1:
-            $("#robot1 img").attr("src", images.east);
-            break;
-        case 2:
-            $("#robot2 img").attr("src", images.east);
-            break;
-        case 3:
-            $("#robot3 img").attr("src", images.east);
-            break;
+    if (model < 4) {
+        $("#robot" + model + " img").attr("src", images.east);
     }
 
     RUR.select_default_robot_model(model);
 };
 
-},{"./../rur.js":52,"./../world_utils/get_world.js":88}],9:[function(require,module,exports){
+},{"./../rur.js":52,"./../utils/validator.js":66,"./../world_utils/get_world.js":88}],9:[function(require,module,exports){
 require("./../rur.js");
 require("./../translator.js");
 require("./../world_api/things.js"); // why ?
@@ -1419,6 +1425,10 @@ function compile_partial_info (objects, information, type){
 function draw_info () {
     var i, j, coords, keys, key, info, ctx;
     var scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT, text_width;
+
+    if (RUR.state.do_not_draw_info) {
+        return;
+    }
 
     compile_info();
     if (RUR.vis_world.information === undefined &&
@@ -6173,7 +6183,7 @@ RUR._move_ = function () {
     RUR.control.move(RUR.get_world().robots[0]);
 };
 
-RUR._new_robot_images_ = RUR.vis_robot.new_robot_images;
+RUR._new_robot_images_ = RUR.new_robot_images;
 
 RUR._no_highlight_ = user_no_highlight;
 
@@ -8148,6 +8158,7 @@ RUR.state = {};
 
 RUR.state.code_evaluated = false;
 RUR.state.do_not_record = false;
+RUR.state.do_not_draw_info = false;
 RUR.state.editing_world = false;
 RUR.state.highlight = true;
 RUR.state.human_language = "en";
@@ -12077,13 +12088,11 @@ require("./../world_utils/get_world.js");
  *
  * @param {string} obj The name of the object type ; e.g. "token" <br>
  *                        _Le nom du type de l'objet; par exemple, "jeton"._
- * @param {integer} x - Position of the object
- *                    <br> _position de l'objet_
  * @param {integer} nb - Number of objects at that location;
  *           a value of zero is used to remove objects.
  *           <br> _Nombre d'objets à cet endroit;
  *           une valeur de zéro est utilisée pour supprimer les objets._
- * @param {robot.body} robot - Optional argument
+ * @param {robot.body} [robot] - Optional argument
  *                    <br> _argument optionnel_
  */
 
@@ -12490,7 +12499,11 @@ function show_onload_feedback (e) {
 }
 
 process_onload = function () {
-    RUR.state.visible_grid = false; // always reset
+    // TODO: review everything that needs to be reset and puts it here
+    // or put in reset_world.js and make sure to call it.
+    RUR.state.visible_grid = false;
+    RUR.state.do_not_draw_info = false;
+    //
     RUR.WORLD_BEFORE_ONLOAD = clone_world();
     if (RUR.CURRENT_WORLD.onload !== undefined && !RUR.state.editing_world) {
         RUR.state.evaluating_onload = true; // affects the way errors are treated

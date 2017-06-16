@@ -35,6 +35,7 @@ RUR.state = {};
 
 RUR.state.code_evaluated = false;
 RUR.state.do_not_record = false;
+RUR.state.do_not_draw_info = false;
 RUR.state.editing_world = false;
 RUR.state.highlight = true;
 RUR.state.human_language = "en";

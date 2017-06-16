@@ -83,7 +83,7 @@ RUR._move_ = function () {
     RUR.control.move(RUR.get_world().robots[0]);
 };
 
-RUR._new_robot_images_ = RUR.vis_robot.new_robot_images;
+RUR._new_robot_images_ = RUR.new_robot_images;
 
 RUR._no_highlight_ = user_no_highlight;
 

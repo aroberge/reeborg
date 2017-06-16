@@ -595,6 +595,10 @@ function draw_info () {
     var i, j, coords, keys, key, info, ctx;
     var scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT, text_width;
 
+    if (RUR.state.do_not_draw_info) {
+        return;
+    }
+
     compile_info();
     if (RUR.vis_world.information === undefined &&
         RUR.vis_world.goal_information === undefined) {

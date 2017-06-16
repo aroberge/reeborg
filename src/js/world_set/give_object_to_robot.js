@@ -15,13 +15,11 @@ require("./../world_utils/get_world.js");
  *
  * @param {string} obj The name of the object type ; e.g. "token" <br>
  *                        _Le nom du type de l'objet; par exemple, "jeton"._
- * @param {integer} x - Position of the object
- *                    <br> _position de l'objet_
  * @param {integer} nb - Number of objects at that location;
  *           a value of zero is used to remove objects.
  *           <br> _Nombre d'objets à cet endroit;
  *           une valeur de zéro est utilisée pour supprimer les objets._
- * @param {robot.body} robot - Optional argument
+ * @param {robot.body} [robot] - Optional argument
  *                    <br> _argument optionnel_
  */
 
