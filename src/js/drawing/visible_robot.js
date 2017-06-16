@@ -25,10 +25,6 @@ function set_images(robot) {
     RUR.vis_robot.images[model].robot_w_img.src = robot.west;
     RUR.vis_robot.images[model].robot_s_img = new Image();
     RUR.vis_robot.images[model].robot_s_img.src = robot.south;
-    if (robot.random) {
-        RUR.vis_robot.images[model].robot_random_img = new Image();
-        RUR.vis_robot.images[model].robot_random_img.src = robot.random;
-    }
 }
 
 
@@ -38,32 +34,28 @@ RUR.reset_default_robot_images = function () {
         east: RUR._BASE_URL + '/src/images/robot_e.png',
         north: RUR._BASE_URL + '/src/images/robot_n.png',
         west: RUR._BASE_URL + '/src/images/robot_w.png',
-        south: RUR._BASE_URL + '/src/images/robot_s.png',
-        random: RUR._BASE_URL + '/src/images/robot_random.png',
+        south: RUR._BASE_URL + '/src/images/robot_s.png'
     });
     // 2d red rover
     set_images({model: 1,
         east: RUR._BASE_URL + '/src/images/rover_e.png',
         north: RUR._BASE_URL + '/src/images/rover_n.png',
         west: RUR._BASE_URL + '/src/images/rover_w.png',
-        south: RUR._BASE_URL + '/src/images/rover_s.png',
-        random: RUR._BASE_URL + '/src/images/rover_random.png',
+        south: RUR._BASE_URL + '/src/images/rover_s.png'
     });
     // 3d red rover
     set_images({model: 2,
         east: RUR._BASE_URL + '/src/images/plain_e.png',
         north: RUR._BASE_URL + '/src/images/plain_n.png',
         west: RUR._BASE_URL + '/src/images/plain_w.png',
-        south: RUR._BASE_URL + '/src/images/plain_s.png',
-        random: RUR._BASE_URL + '/src/images/robot_random.png',
+        south: RUR._BASE_URL + '/src/images/plain_s.png'
     });
     // solar panel
     set_images({model: 3,
         east: RUR._BASE_URL + '/src/images/sp_e.png',
         north: RUR._BASE_URL + '/src/images/sp_n.png',
         west: RUR._BASE_URL + '/src/images/sp_w.png',
-        south: RUR._BASE_URL + '/src/images/sp_s.png',
-        random: RUR._BASE_URL + '/src/images/robot_random.png'
+        south: RUR._BASE_URL + '/src/images/sp_s.png'
     });
 
     $("#robot0 img").attr("src", RUR.vis_robot.images[0].robot_e_img.src);
@@ -86,7 +78,6 @@ RUR.select_default_robot_model = function (arg) {
     RUR.vis_robot.n_img = RUR.vis_robot.images[style].robot_n_img;
     RUR.vis_robot.w_img = RUR.vis_robot.images[style].robot_w_img;
     RUR.vis_robot.s_img = RUR.vis_robot.images[style].robot_s_img;
-    RUR.vis_robot.random_img = RUR.vis_robot.images[style].robot_random_img;
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.refresh();
     }
@@ -118,16 +109,18 @@ RUR.vis_robot.random_img.onload = function () {
 };
 RUR.vis_robot.nb_images += 1;
 
+
 RUR.vis_robot.draw = function (robot) {
     "use strict";
     var x, y, width, height, image;
+    if (!robot) {
+        console.warn("RUR.vis_robot.draw called with no robot.");
+        return;
+    }
     // handling legacy Code
     if (robot.orientation !== undefined) {
         robot._orientation = robot.orientation;
         robot.orientation = null;
-    }
-    if (!robot) {
-        return;
     }
     if (robot.x > RUR.MAX_X || robot.y > RUR.MAX_Y) {
         return;
@@ -171,12 +164,7 @@ RUR.vis_robot.draw = function (robot) {
             }
             break;
         case -1:
-            if (robot.model !== undefined){
-                image = RUR.vis_robot.images[robot.model].robot_random_img;
-            } else {
-                image = RUR.vis_robot.random_img;
-            }
-            break;
+            RUR.vis_robot.draw_random(robot);
         default:
             image = RUR.vis_robot.e_img;
         }
@@ -186,6 +174,72 @@ RUR.vis_robot.draw = function (robot) {
     }
     RUR.vis_robot.draw_trace_history(robot);
 };
+
+
+// drawing random orientation robot
+RUR.vis_robot.draw_random = function (robot) {
+    "use strict";
+    var x, y, width, height, image, random_orientation;
+    if (!robot) {
+        console.warn("RUR.vis_robot.draw_random called with no robot.");
+        return;
+    }
+
+    if (!(robot._orientation == -1 || robot.orientation == -1)) {
+        console.warn("RUR.vis_robot.draw_random but orientation != -1.");
+        return;
+    }
+    if (robot.x > RUR.MAX_X || robot.y > RUR.MAX_Y) {
+        return;
+    }
+
+    // all images are taken to be centered on a tile 40x40, which are scaled
+    //  appropriately
+    width = RUR.TILE_SIZE * RUR.SCALE;
+    height = RUR.TILE_SIZE * RUR.SCALE;
+
+    x = robot.x*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
+    y = RUR.HEIGHT - (robot.y+1)*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
+
+    random_orientation = Math.floor(Math.random() * 4)
+    switch(random_orientation){
+        case RUR.EAST:
+            if (robot.model !== undefined){
+                image = RUR.vis_robot.images[robot.model].robot_e_img;
+            } else {
+                image = RUR.vis_robot.e_img;
+            }
+            break;
+        case RUR.NORTH:
+            if (robot.model !== undefined){
+                image = RUR.vis_robot.images[robot.model].robot_n_img;
+            } else {
+                image = RUR.vis_robot.n_img;
+            }
+            break;
+        case RUR.WEST:
+            if (robot.model !== undefined){
+                image = RUR.vis_robot.images[robot.model].robot_w_img;
+            } else {
+                image = RUR.vis_robot.w_img;
+            }
+            break;
+        case RUR.SOUTH:
+            if (robot.model !== undefined){
+                image = RUR.vis_robot.images[robot.model].robot_s_img;
+            } else {
+                image = RUR.vis_robot.s_img;
+            }
+            break;
+        default:
+            image = RUR.vis_robot.e_img;
+            console.warn("default should not happen in RUR.vis_robot.draw_random.");
+        }
+    RUR.ROBOT_ANIM_CTX.drawImage(image, x, y, width, height);
+    RUR.state.random_robot = true;
+};
+
+
 
 
 // TODO: extract to its own file, to reduce dependencies

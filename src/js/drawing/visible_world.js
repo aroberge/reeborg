@@ -219,34 +219,73 @@ function draw_border (ctx) {
 
 function draw_robots (robots) {
     "use strict";
-    var robot;
+    var body, robot;
     if (!robots || robots[0] === undefined) {
         return;
     }
     for (robot=0; robot < robots.length; robot++){
-        if (robots[robot].possible_initial_positions !== undefined && robots[robot].possible_initial_positions.length > 1){
-            draw_robot_clones(robots[robot]);
+        body = robots[robot];
+        if (body._orientation == -1) { // skip random
+            continue;
+        }
+        if (body.possible_initial_positions !== undefined && body.possible_initial_positions.length > 1){
+            draw_robot_clones(body);
         } else {
-            RUR.vis_robot.draw(robots[robot]); // draws trace automatically
+            RUR.vis_robot.draw(body); // draws trace automatically
         }
     }
 }
 
-function draw_robot_clones (robot){
+function draw_random_robots (robots) {
+    "use strict";
+    var body, robot;
+    if (!robots || robots[0] === undefined) {
+        return;
+    }
+    for (robot=0; robot < robots.length; robot++){
+        body = robots[robot];
+        if (body._orientation != -1) { // not random
+            continue;
+        }
+        if (body.possible_initial_positions !== undefined && body.possible_initial_positions.length > 1){
+            draw_robot_clones(body, true);
+        } else {
+            RUR.vis_robot.draw_random(body);
+        }
+    }
+}
+
+
+function draw_robot_clones (robot, random){
     "use strict";
     var i, clone;
-    RUR.ROBOT_CTX.save();
-    RUR.ROBOT_CTX.globalAlpha = 0.4;
-    for (i=0; i < robot.possible_initial_positions.length; i++){
-            clone = JSON.parse(JSON.stringify(robot));
-            clone.x = robot.possible_initial_positions[i][0];
-            clone.y = robot.possible_initial_positions[i][1];
-            clone._prev_x = clone.x;
-            clone._prev_y = clone.y;
-            RUR.vis_robot.draw(clone);
+    if (random) {
+        RUR.ROBOT_ANIM_CTX.save();
+        RUR.ROBOT_ANIM_CTX.globalAlpha = 0.4;
+    } else {
+        RUR.ROBOT_CTX.save();
+        RUR.ROBOT_CTX.globalAlpha = 0.4;
     }
-    RUR.ROBOT_CTX.restore();
+
+    for (i=0; i < robot.possible_initial_positions.length; i++){
+        clone = JSON.parse(JSON.stringify(robot));
+        clone.x = robot.possible_initial_positions[i][0];
+        clone.y = robot.possible_initial_positions[i][1];
+        clone._prev_x = clone.x;
+        clone._prev_y = clone.y;
+        if (random) {
+            RUR.vis_robot.draw_random(clone);
+        } else {
+            RUR.vis_robot.draw(clone);
+        }
+    }
+    if (random) {
+        RUR.ROBOT_ANIM_CTX.restore();
+    } else {
+        RUR.ROBOT_CTX.restore();
+    }
 }
+
 
 
 function draw_goal_position (goal) {
@@ -333,15 +372,16 @@ function draw_animated_images (){
     var i, flag, anims, canvas, canvases, obj, ctx, world = RUR.get_world();
     clearTimeout(RUR.ANIMATION_FRAME_ID);
 
-
     canvases = ["TILES_ANIM_CTX", "BRIDGE_ANIM_CTX", "DECORATIVE_OBJECTS_ANIM_CTX",
                 "OBSTACLES_ANIM_CTX", "GOAL_ANIM_CTX", "OBJECTS_ANIM_CTX",
-                "PUSHABLES_ANIM_CTX"];
+                "PUSHABLES_ANIM_CTX", "ROBOT_ANIM_CTX"];
     for (canvas of canvases) {
         RUR[canvas].clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     }
 
-    flag = false; // We have not drawn any animated images yet, on this cycle
+    RUR.state.random_robot = false;
+    draw_random_robots(world.robots);
+    flag = RUR.state.random_robot; // flag is true when animated images are drawn on a given cycle
 
     anims = [[world.tiles, RUR.TILES_ANIM_CTX],
              [world.bridge, RUR.BRIDGE_ANIM_CTX],

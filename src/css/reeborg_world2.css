@@ -27,6 +27,9 @@ header                 {z-index: 100;}
 #pushables-canvas-anim {z-index: 81;} /* 17 */
 #wall-canvas           {z-index: 89;} /* 18 */
 #robot-canvas          {z-index: 90;} /* 19 */
+#robot-anim-canvas     {z-index: 91;} /* 20 */
+/* when adding a new canvas such as an overlay, on top of #robot-anim-canvas,
+ensure that it replaces #robot-anim-canvas in world_editor.js and canvas.js */
 #tooltip               {z-index: 100;}
 #Reeborg-writes        {z-index: 210;}
 #Reeborg-concludes     {z-index: 211;}
