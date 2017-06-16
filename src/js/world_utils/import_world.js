@@ -163,6 +163,7 @@ function show_onload_feedback (e) {
 }
 
 process_onload = function () {
+    RUR.state.visible_grid = false; // always reset
     RUR.WORLD_BEFORE_ONLOAD = clone_world();
     if (RUR.CURRENT_WORLD.onload !== undefined && !RUR.state.editing_world) {
         RUR.state.evaluating_onload = true; // affects the way errors are treated

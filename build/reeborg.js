@@ -140,20 +140,20 @@ RUR.TILES.east.y_offset = -2;
 RUR.TILES.north.x_offset = -2;
 RUR.TILES.north.y_offset = -2;
 
-function _add_static_wall(name, x_offset) {
+function _add_static_wall(name, x_offset, y_offset) {
     "use strict";
-    var url, y_offset=-2;
+    var url;
     url = RUR._BASE_URL + '/src/images/' + name + '.png';
     RUR.add_new_thing({"name": name, "url": url,
                      "x_offset": x_offset, "y_offset": y_offset});
 }
-_add_static_wall("east_border", 38);
-_add_static_wall("east_grid", 38);
-_add_static_wall("east_edit", 38);
+_add_static_wall("east_border", 38, -2);
+_add_static_wall("east_grid", 39, -2);
+_add_static_wall("east_edit", 38, -2);
 
-_add_static_wall("north_border", -2);
-_add_static_wall("north_grid", -2);
-_add_static_wall("north_edit", -2);
+_add_static_wall("north_border", -2, -2);
+_add_static_wall("north_grid", -2, -1);
+_add_static_wall("north_edit", -2, -2);
 
 _add_object_type("box");
 RUR.TILES.box.name = "box";
@@ -12490,6 +12490,7 @@ function show_onload_feedback (e) {
 }
 
 process_onload = function () {
+    RUR.state.visible_grid = false; // always reset
     RUR.WORLD_BEFORE_ONLOAD = clone_world();
     if (RUR.CURRENT_WORLD.onload !== undefined && !RUR.state.editing_world) {
         RUR.state.evaluating_onload = true; // affects the way errors are treated
