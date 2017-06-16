@@ -48,7 +48,6 @@ function set_images(images, refresh) {
 
 }
 
-
 RUR.reset_default_robot_images = function () {
     // classic; uses default
     set_images({model: 0});
@@ -348,3 +347,35 @@ RUR.new_robot_images = function (images) {
 
     RUR.select_default_robot_model(model);
 };
+
+// additional robot images from rur-ple
+set_images({model: 4,
+    east: RUR._BASE_URL + '/src/images/blue_robot_e.png',
+    north: RUR._BASE_URL + '/src/images/blue_robot_n.png',
+    west: RUR._BASE_URL + '/src/images/blue_robot_w.png',
+    south: RUR._BASE_URL + '/src/images/blue_robot_s.png'
+});
+set_images({model: 5,
+    east: RUR._BASE_URL + '/src/images/purple_robot_e.png',
+    north: RUR._BASE_URL + '/src/images/purple_robot_n.png',
+    west: RUR._BASE_URL + '/src/images/purple_robot_w.png',
+    south: RUR._BASE_URL + '/src/images/purple_robot_s.png'
+});
+set_images({model: 6,
+    east: RUR._BASE_URL + '/src/images/green_robot_e.png',
+    north: RUR._BASE_URL + '/src/images/green_robot_n.png',
+    west: RUR._BASE_URL + '/src/images/green_robot_w.png',
+    south: RUR._BASE_URL + '/src/images/green_robot_s.png'
+});
+set_images({model: 7,
+    east: RUR._BASE_URL + '/src/images/light_blue_robot_e.png',
+    north: RUR._BASE_URL + '/src/images/light_blue_robot_n.png',
+    west: RUR._BASE_URL + '/src/images/light_blue_robot_w.png',
+    south: RUR._BASE_URL + '/src/images/light_blue_robot_s.png'
+});
+set_images({model: 8,
+    east: RUR._BASE_URL + '/src/images/yellow_robot_e.png',
+    north: RUR._BASE_URL + '/src/images/yellow_robot_n.png',
+    west: RUR._BASE_URL + '/src/images/yellow_robot_w.png',
+    south: RUR._BASE_URL + '/src/images/yellow_robot_s.png'
+});
