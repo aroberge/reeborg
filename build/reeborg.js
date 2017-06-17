@@ -157,7 +157,27 @@ _add_static_wall("north_edit", -2, -2);
 
 _add_object_type("box");
 RUR.TILES.box.name = "box";
-// RUR.TILES.box.transform is defined elsewhere
+RUR.TILES.box.transform = [
+    {conditions: [[RUR.is_background_tile, "water"],
+                  [RUR.is_pushable, "box"]],
+    actions: [[RUR.remove_pushable, "box"],
+              [RUR.add_bridge, "bridge"]]
+    },
+    {conditions: [[RUR.is_background_tile, "mud"],
+                  [RUR.is_pushable, "box"]],
+    actions: [[RUR.remove_pushable, "box"],
+              [RUR.add_bridge, "bridge"]]
+    },
+    {conditions: [[RUR.is_background_tile, "fire"],
+                  [RUR.is_pushable, "box"]],
+    actions: [[RUR.remove_pushable, "box"]]
+    },
+    {conditions: [[RUR.is_obstacle, "fire"],
+                  [RUR.is_pushable, "box"]],
+    actions: [[RUR.remove_pushable, "box"]]
+    }
+];
+
 
 tile = {
     name: "bridge",
@@ -214,7 +234,6 @@ RUR.TILES.fence_double.info = RUR.TILES.fence_right.info;
 add_new_obstacle_type("fence_vertical", false);
 RUR.TILES.fence_vertical.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_vertical.info = RUR.TILES.fence_right.info;
-
 
 },{"./../rur.js":52,"./../world_api/things.js":78}],2:[function(require,module,exports){
 /* Dialog used by the Interactive world editor to add objects to the world.
@@ -586,6 +605,39 @@ RUR.reset_default_robot_images = function () {
     $("#robot2 img").attr("src", RUR.vis_robot.images[2].robot_e_img.src);
     $("#robot3 img").attr("src", RUR.vis_robot.images[3].robot_e_img.src);
     RUR.select_default_robot_model(localStorage.getItem("robot_default_model"));
+
+    // additional robot images from rur-ple
+    set_images({model: 4,
+        east: RUR._BASE_URL + '/src/images/blue_robot_e.png',
+        north: RUR._BASE_URL + '/src/images/blue_robot_n.png',
+        west: RUR._BASE_URL + '/src/images/blue_robot_w.png',
+        south: RUR._BASE_URL + '/src/images/blue_robot_s.png'
+    });
+    set_images({model: 5,
+        east: RUR._BASE_URL + '/src/images/purple_robot_e.png',
+        north: RUR._BASE_URL + '/src/images/purple_robot_n.png',
+        west: RUR._BASE_URL + '/src/images/purple_robot_w.png',
+        south: RUR._BASE_URL + '/src/images/purple_robot_s.png'
+    });
+    set_images({model: 6,
+        east: RUR._BASE_URL + '/src/images/green_robot_e.png',
+        north: RUR._BASE_URL + '/src/images/green_robot_n.png',
+        west: RUR._BASE_URL + '/src/images/green_robot_w.png',
+        south: RUR._BASE_URL + '/src/images/green_robot_s.png'
+    });
+    set_images({model: 7,
+        east: RUR._BASE_URL + '/src/images/light_blue_robot_e.png',
+        north: RUR._BASE_URL + '/src/images/light_blue_robot_n.png',
+        west: RUR._BASE_URL + '/src/images/light_blue_robot_w.png',
+        south: RUR._BASE_URL + '/src/images/light_blue_robot_s.png'
+    });
+    set_images({model: 8,
+        east: RUR._BASE_URL + '/src/images/yellow_robot_e.png',
+        north: RUR._BASE_URL + '/src/images/yellow_robot_n.png',
+        west: RUR._BASE_URL + '/src/images/yellow_robot_w.png',
+        south: RUR._BASE_URL + '/src/images/yellow_robot_s.png'
+    });
+    RUR.state.reset_default_robot_images_needed = false;
 };
 
 RUR.vis_robot.style = 0;
@@ -831,8 +883,35 @@ RUR.vis_robot.draw_trace_segment = function (segment) {
  * @memberof RUR
  * @instance
  *
- * @todo **Need to document**
+ * @desc Create new images for the robot.
+ *
+ * **Suggestion**: use in the Onload editor, so that images can be fetched
+ * as soon as the world is loaded.
+ *
+ * **Python**: You _can_ use `new_robot_images` without the `RUR` prefix. For the
+ * French version, you can use `nouvelles_images_de_robot`. However, this form
+ * is preferable as it can be used with either Javascript or Python in the
+ * Onload editor.
+ *
+ *
+ * @param {Object} images A Javascript object (similar to a Python dict) that
+ * holds the relevant attributes.
+ *
+ * @param {integer} [images.model]  The model number for the robot; it must
+ * be a non-negative integer.
+ * If it is one of [0, 1, 2, 3], it will take the place of one of the visible
+ * robot images that can be selected by the user. The default value is 3.
+ *
+ * @param {string} [images.east]  A url for the source of the image to be used
+ * for the robot in the East orientation. If it is not specified, the
+ * default "classic" image will be used.
+ *
+ * @param {string} [images.north]  Similar to `images.east`.
+ * @param {string} [images.west]  Similar to `images.east`.
+ * @param {string} [images.south]  Similar to `images.east`.
+ *
  * @todo Implement robot animation by cycling model; do it by instance
+ * @todo Add example
  */
 
 RUR.new_robot_images = function (images) {
@@ -845,6 +924,7 @@ RUR.new_robot_images = function (images) {
     } else {
         model = 3;
     }
+    RUR.state.reset_default_robot_images_needed = true;
 
     set_images(images, true);
 
@@ -856,37 +936,6 @@ RUR.new_robot_images = function (images) {
     RUR.select_default_robot_model(model);
 };
 
-// additional robot images from rur-ple
-set_images({model: 4,
-    east: RUR._BASE_URL + '/src/images/blue_robot_e.png',
-    north: RUR._BASE_URL + '/src/images/blue_robot_n.png',
-    west: RUR._BASE_URL + '/src/images/blue_robot_w.png',
-    south: RUR._BASE_URL + '/src/images/blue_robot_s.png'
-});
-set_images({model: 5,
-    east: RUR._BASE_URL + '/src/images/purple_robot_e.png',
-    north: RUR._BASE_URL + '/src/images/purple_robot_n.png',
-    west: RUR._BASE_URL + '/src/images/purple_robot_w.png',
-    south: RUR._BASE_URL + '/src/images/purple_robot_s.png'
-});
-set_images({model: 6,
-    east: RUR._BASE_URL + '/src/images/green_robot_e.png',
-    north: RUR._BASE_URL + '/src/images/green_robot_n.png',
-    west: RUR._BASE_URL + '/src/images/green_robot_w.png',
-    south: RUR._BASE_URL + '/src/images/green_robot_s.png'
-});
-set_images({model: 7,
-    east: RUR._BASE_URL + '/src/images/light_blue_robot_e.png',
-    north: RUR._BASE_URL + '/src/images/light_blue_robot_n.png',
-    west: RUR._BASE_URL + '/src/images/light_blue_robot_w.png',
-    south: RUR._BASE_URL + '/src/images/light_blue_robot_s.png'
-});
-set_images({model: 8,
-    east: RUR._BASE_URL + '/src/images/yellow_robot_e.png',
-    north: RUR._BASE_URL + '/src/images/yellow_robot_n.png',
-    west: RUR._BASE_URL + '/src/images/yellow_robot_w.png',
-    south: RUR._BASE_URL + '/src/images/yellow_robot_s.png'
-});
 },{"./../rur.js":52,"./../utils/validator.js":66,"./../world_utils/get_world.js":88}],9:[function(require,module,exports){
 require("./../rur.js");
 require("./../translator.js");
@@ -8268,6 +8317,7 @@ RUR.state.frame_insertion_called = false;
 RUR.state.programming_language = "python";
 RUR.state.playback = false;
 RUR.state.prevent_playback = false;
+RUR.state.reset_default_robot_images_needed = false;
 RUR.state.running_program = false;
 RUR.state.session_initialized = false;
 RUR.state.sound_id = undefined;
@@ -8500,7 +8550,7 @@ require("./editors/create.js");
 
 // ensure that all world_api methods are defined, even though they
 // might be already imported by the menu-driven world editor.
-// 
+//
 // TODO: Add functional test ensuring that each type is appropriately loaded
 require("./world_api/background_tile.js");
 require("./world_api/bridges.js");
@@ -8510,29 +8560,6 @@ require("./world_api/obstacles.js");
 require("./world_api/pushables.js");
 require("./world_api/robot.js");
 require("./world_api/walls.js");
-
-
-// placed temporarily here
-RUR.TILES.box.transform = [
-    {conditions: [[RUR.is_background_tile, "water"],
-                  [RUR.is_pushable, "box"]],
-    actions: [[RUR.remove_pushable, "box"], 
-              [RUR.add_bridge, "bridge"]]
-    },
-    {conditions: [[RUR.is_background_tile, "mud"],
-                  [RUR.is_pushable, "box"]],
-    actions: [[RUR.remove_pushable, "box"], 
-              [RUR.add_bridge, "bridge"]]
-    },
-    {conditions: [[RUR.is_background_tile, "fire"],
-                  [RUR.is_pushable, "box"]],
-    actions: [[RUR.remove_pushable, "box"]]   
-    },
-    {conditions: [[RUR.is_obstacle, "fire"],
-                  [RUR.is_pushable, "box"]],
-    actions: [[RUR.remove_pushable, "box"]]   
-    }     
-];
 
 brython({debug:1, pythonpath:[RUR._BASE_URL + '/src/python']});
 if (__BRYTHON__.__MAGIC__ != "3.2.7") {
@@ -8823,10 +8850,10 @@ RUR.make_default_menu_en = function () {
     contents = [
         [worlds + 'alone.json', 'Alone'],
         [worlds + 'empty.json', 'Empty'],
-        [tutorial_en + 'around1.json', 'Around 1'],
-        [tutorial_en + 'around2.json', 'Around 2'],
-        [tutorial_en + 'around3.json', 'Around 3'],
-        [tutorial_en + 'around4.json', 'Around 4'],
+        [new_tutorial_en + 'around1.json', 'Around 1'],
+        [new_tutorial_en + 'around2.json', 'Around 2'],
+        [new_tutorial_en + 'around3.json', 'Around 3'],
+        [new_tutorial_en + 'around4.json', 'Around 4'],
         [tutorial_en + 'center1.json', 'Center 1'],
         [tutorial_en + 'center2.json', 'Center 2'],
         [tutorial_en + 'center3.json', 'Center 3'],
@@ -8894,10 +8921,10 @@ RUR.make_default_menu_fr = function () {
     contents = [
         [RUR._BASE_URL + '/src/worlds/seul.json', 'Seul'],
         [RUR._BASE_URL + '/src/worlds/empty.json', 'Vide'],
-        [base_url2 + 'around1.json', 'Autour 1'],
-        [base_url2 + 'around2.json', 'Autour 2'],
-        [base_url2 + 'around3.json', 'Autour 3'],
-        [base_url2 + 'around4.json', 'Autour 4'],
+        [new_tutorial_fr + 'around1.json', 'Autour 1'],
+        [new_tutorial_fr + 'around2.json', 'Autour 2'],
+        [new_tutorial_fr + 'around3.json', 'Autour 3'],
+        [new_tutorial_fr + 'around4.json', 'Autour 4'],
         [new_tutorial_fr + 'home1.json', 'But 1'],
         [new_tutorial_fr + 'home2.json', 'But 2'],
         [new_tutorial_fr + 'home3.json', 'But 3'],
@@ -12156,7 +12183,7 @@ RUR.world_get.world_info = function (no_grid) {
 };
 
 RUR.create_and_activate_dialogs( $("#world-info-button"), $("#World-info"),
-                                 {height:400, width:800}, RUR.world_get.world_info);
+                                 {height:600, width:800}, RUR.world_get.world_info);
 },{"./../default_tiles/tiles.js":1,"./../dialogs/create.js":3,"./../listeners/canvas.js":18,"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../utils/supplant.js":65}],81:[function(require,module,exports){
 require("./../recorder/record_frame.js");
 
@@ -12236,7 +12263,9 @@ exports.reset_world = reset_world = function () {
     if (RUR.state.editing_world){
         return;
     }
-    RUR.reset_default_robot_images();
+    if (RUR.state.reset_default_robot_images_needed) {
+        RUR.reset_default_robot_images();
+    }
     RUR.MAX_STEPS = 1000;
     RUR.ANIMATION_TIME = 120;
 
@@ -12589,6 +12618,7 @@ function start_process_onload() {
         window.setTimeout(start_process_onload, 200);
     }
     else {
+        RUR.WORLD_BEFORE_ONLOAD = clone_world();
         process_onload();
     }
 }
@@ -12606,7 +12636,6 @@ process_onload = function () {
     RUR.state.visible_grid = false;
     RUR.state.do_not_draw_info = false;
     //
-    RUR.WORLD_BEFORE_ONLOAD = clone_world();
     if (RUR.CURRENT_WORLD.onload !== undefined && !RUR.state.editing_world) {
         RUR.state.evaluating_onload = true; // affects the way errors are treated
         if (RUR.CURRENT_WORLD.onload[0]=="#") {

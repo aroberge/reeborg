@@ -276,4 +276,4 @@ RUR.world_get.world_info = function (no_grid) {
 };
 
 RUR.create_and_activate_dialogs( $("#world-info-button"), $("#World-info"),
-                                 {height:400, width:800}, RUR.world_get.world_info);
+                                 {height:600, width:800}, RUR.world_get.world_info);
