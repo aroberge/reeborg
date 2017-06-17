@@ -10,7 +10,9 @@ exports.reset_world = reset_world = function () {
     if (RUR.state.editing_world){
         return;
     }
-    RUR.reset_default_robot_images();
+    if (RUR.state.reset_default_robot_images_needed) {
+        RUR.reset_default_robot_images();
+    }
     RUR.MAX_STEPS = 1000;
     RUR.ANIMATION_TIME = 120;
 

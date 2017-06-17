@@ -156,7 +156,27 @@ _add_static_wall("north_edit", -2, -2);
 
 _add_object_type("box");
 RUR.TILES.box.name = "box";
-// RUR.TILES.box.transform is defined elsewhere
+RUR.TILES.box.transform = [
+    {conditions: [[RUR.is_background_tile, "water"],
+                  [RUR.is_pushable, "box"]],
+    actions: [[RUR.remove_pushable, "box"],
+              [RUR.add_bridge, "bridge"]]
+    },
+    {conditions: [[RUR.is_background_tile, "mud"],
+                  [RUR.is_pushable, "box"]],
+    actions: [[RUR.remove_pushable, "box"],
+              [RUR.add_bridge, "bridge"]]
+    },
+    {conditions: [[RUR.is_background_tile, "fire"],
+                  [RUR.is_pushable, "box"]],
+    actions: [[RUR.remove_pushable, "box"]]
+    },
+    {conditions: [[RUR.is_obstacle, "fire"],
+                  [RUR.is_pushable, "box"]],
+    actions: [[RUR.remove_pushable, "box"]]
+    }
+];
+
 
 tile = {
     name: "bridge",
@@ -213,4 +233,3 @@ RUR.TILES.fence_double.info = RUR.TILES.fence_right.info;
 add_new_obstacle_type("fence_vertical", false);
 RUR.TILES.fence_vertical.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_vertical.info = RUR.TILES.fence_right.info;
-

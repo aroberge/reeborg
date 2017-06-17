@@ -140,7 +140,29 @@ def nouvelles_images_de_robot(images):  #py:new_robot_images
     Surtout destiné aux créateurs de mondes, ceci permet de remplacer
     les images utilisées pour le robot par d'autres images.
 
-    Une explication plus détaillée viendra.
+    Au lieu d'utiliser cette fonction Python, il est préférable d'utiliser
+    RUR.new_robot_images dans l'éditeur Onload de façon à s'assurer d'avoir
+    les images requises le plus rapidement possible.
+
+        Args:
+            images: un "dict" Python
+            images[modèle]: Le numéro du modèle de robot; ceci doit être un
+            entier non-négatif.
+            Si une valeur parmi [0, 1, 2, 3] est spécifiée, le robot en question
+            remplacera les choix qui peuvent être sélectionné par un usager.
+            La valeur par défaut est 3.
+
+            images["est"]  Un lien (url) pour la source de l'image à utiliser
+            pour un robot dans l'orientation est (vers la droite de l'écran).
+            Si cette valeur n'est pas spécifiée, l'image "classique" sera
+            utilisée par défaut.  On peut utiliser l'argument anglais
+            ("east" plutôt que "est") et obtenir le même résultat.
+
+            images["nord"] ou images["north"]  Similaire à images["est"]
+
+            images["ouest"] ou images["west"]  Similaire à images["est"]
+
+            images["sud"] ou images["south"]   Similaire à images["est"]
     """
     if "est" in images:
         images["east"] = images["est"]

@@ -78,6 +78,39 @@ RUR.reset_default_robot_images = function () {
     $("#robot2 img").attr("src", RUR.vis_robot.images[2].robot_e_img.src);
     $("#robot3 img").attr("src", RUR.vis_robot.images[3].robot_e_img.src);
     RUR.select_default_robot_model(localStorage.getItem("robot_default_model"));
+
+    // additional robot images from rur-ple
+    set_images({model: 4,
+        east: RUR._BASE_URL + '/src/images/blue_robot_e.png',
+        north: RUR._BASE_URL + '/src/images/blue_robot_n.png',
+        west: RUR._BASE_URL + '/src/images/blue_robot_w.png',
+        south: RUR._BASE_URL + '/src/images/blue_robot_s.png'
+    });
+    set_images({model: 5,
+        east: RUR._BASE_URL + '/src/images/purple_robot_e.png',
+        north: RUR._BASE_URL + '/src/images/purple_robot_n.png',
+        west: RUR._BASE_URL + '/src/images/purple_robot_w.png',
+        south: RUR._BASE_URL + '/src/images/purple_robot_s.png'
+    });
+    set_images({model: 6,
+        east: RUR._BASE_URL + '/src/images/green_robot_e.png',
+        north: RUR._BASE_URL + '/src/images/green_robot_n.png',
+        west: RUR._BASE_URL + '/src/images/green_robot_w.png',
+        south: RUR._BASE_URL + '/src/images/green_robot_s.png'
+    });
+    set_images({model: 7,
+        east: RUR._BASE_URL + '/src/images/light_blue_robot_e.png',
+        north: RUR._BASE_URL + '/src/images/light_blue_robot_n.png',
+        west: RUR._BASE_URL + '/src/images/light_blue_robot_w.png',
+        south: RUR._BASE_URL + '/src/images/light_blue_robot_s.png'
+    });
+    set_images({model: 8,
+        east: RUR._BASE_URL + '/src/images/yellow_robot_e.png',
+        north: RUR._BASE_URL + '/src/images/yellow_robot_n.png',
+        west: RUR._BASE_URL + '/src/images/yellow_robot_w.png',
+        south: RUR._BASE_URL + '/src/images/yellow_robot_s.png'
+    });
+    RUR.state.reset_default_robot_images_needed = false;
 };
 
 RUR.vis_robot.style = 0;
@@ -323,8 +356,35 @@ RUR.vis_robot.draw_trace_segment = function (segment) {
  * @memberof RUR
  * @instance
  *
- * @todo **Need to document**
+ * @desc Create new images for the robot.
+ *
+ * **Suggestion**: use in the Onload editor, so that images can be fetched
+ * as soon as the world is loaded.
+ *
+ * **Python**: You _can_ use `new_robot_images` without the `RUR` prefix. For the
+ * French version, you can use `nouvelles_images_de_robot`. However, this form
+ * is preferable as it can be used with either Javascript or Python in the
+ * Onload editor.
+ *
+ *
+ * @param {Object} images A Javascript object (similar to a Python dict) that
+ * holds the relevant attributes.
+ *
+ * @param {integer} [images.model]  The model number for the robot; it must
+ * be a non-negative integer.
+ * If it is one of [0, 1, 2, 3], it will take the place of one of the visible
+ * robot images that can be selected by the user. The default value is 3.
+ *
+ * @param {string} [images.east]  A url for the source of the image to be used
+ * for the robot in the East orientation. If it is not specified, the
+ * default "classic" image will be used.
+ *
+ * @param {string} [images.north]  Similar to `images.east`.
+ * @param {string} [images.west]  Similar to `images.east`.
+ * @param {string} [images.south]  Similar to `images.east`.
+ *
  * @todo Implement robot animation by cycling model; do it by instance
+ * @todo Add example
  */
 
 RUR.new_robot_images = function (images) {
@@ -337,6 +397,7 @@ RUR.new_robot_images = function (images) {
     } else {
         model = 3;
     }
+    RUR.state.reset_default_robot_images_needed = true;
 
     set_images(images, true);
 
@@ -347,35 +408,3 @@ RUR.new_robot_images = function (images) {
 
     RUR.select_default_robot_model(model);
 };
-
-// additional robot images from rur-ple
-set_images({model: 4,
-    east: RUR._BASE_URL + '/src/images/blue_robot_e.png',
-    north: RUR._BASE_URL + '/src/images/blue_robot_n.png',
-    west: RUR._BASE_URL + '/src/images/blue_robot_w.png',
-    south: RUR._BASE_URL + '/src/images/blue_robot_s.png'
-});
-set_images({model: 5,
-    east: RUR._BASE_URL + '/src/images/purple_robot_e.png',
-    north: RUR._BASE_URL + '/src/images/purple_robot_n.png',
-    west: RUR._BASE_URL + '/src/images/purple_robot_w.png',
-    south: RUR._BASE_URL + '/src/images/purple_robot_s.png'
-});
-set_images({model: 6,
-    east: RUR._BASE_URL + '/src/images/green_robot_e.png',
-    north: RUR._BASE_URL + '/src/images/green_robot_n.png',
-    west: RUR._BASE_URL + '/src/images/green_robot_w.png',
-    south: RUR._BASE_URL + '/src/images/green_robot_s.png'
-});
-set_images({model: 7,
-    east: RUR._BASE_URL + '/src/images/light_blue_robot_e.png',
-    north: RUR._BASE_URL + '/src/images/light_blue_robot_n.png',
-    west: RUR._BASE_URL + '/src/images/light_blue_robot_w.png',
-    south: RUR._BASE_URL + '/src/images/light_blue_robot_s.png'
-});
-set_images({model: 8,
-    east: RUR._BASE_URL + '/src/images/yellow_robot_e.png',
-    north: RUR._BASE_URL + '/src/images/yellow_robot_n.png',
-    west: RUR._BASE_URL + '/src/images/yellow_robot_w.png',
-    south: RUR._BASE_URL + '/src/images/yellow_robot_s.png'
-});

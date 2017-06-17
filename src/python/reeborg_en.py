@@ -139,7 +139,29 @@ def move():  #py:move
 
 def new_robot_images(images):  #py:new_robot_images
     """
-    Allow to replace the images used for the robot.  See the documentation.
+    Allow to replace the images used for the robot.
+
+    Instead of using this function, it is preferable to use
+    RUR.new_robot_images in the Onload editor, so that the images can be
+    fetched as quickly as possible.
+
+        Args:
+            images: a Python dict
+            images[model]: The model number for the robot; it must
+            be a non-negative integer. If it is one of [0, 1, 2, 3],
+            it will take the place of one of the visible
+            robot images that can be selected by the user.
+            The default value is 3.
+
+            images["east"]  A url for the source of the image to be used
+            for the robot in the East orientation. If it is not specified, the
+            default "classic" image will be used.
+
+            images["north"]  Similar to images["east"]
+
+            images["west"]   Similar to images["east"]
+
+            images["south"]  Similar to images["east"]
     """
     RUR._new_robot_images_(images)
 
