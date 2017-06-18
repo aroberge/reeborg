@@ -51,6 +51,8 @@ Pushable objects, when pushed onto a given tile (background or obstacle), can tr
 
 Each world change (addition or removal of object, movement of robot, etc.) normally results in a frame being recorded, so that only one thing changes from one frame to the next.  Sometimes, this might not be desirable. For example, with the default objects, if Reeborg moves (frame recorded) pushing a box (remove the box from one location: frame recorded; add to another location: frame recorded) onto a water tile (remove the box: frame recorded; add a bridge: frame recorded) ... the display would not look right. Instead, we want to have all these appear to be done simultaneously.  For your own code, this can be done with the `recording()` function call. In pseudo-code, the above example would be done as follows:
 
+**Important** Use a different example, perhaps a `throw()` instruction.
+
     recording(False)
       move the robot  (remove from one location, add to the next)
       remove the box

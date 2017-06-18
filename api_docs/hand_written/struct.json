@@ -1,49 +1,46 @@
-{   "getting_started": {
+{
+"how": {
+    "title": "A guide to world creation",
+    "children": ["getting_started", "editors", "naming_convention", "objects", "random", "background",
+    "custom_goals", "show_path", "animated", "motivation", "nobreak", "canvases"]
+},
+    "getting_started": {
         "title": "Advanced world creation: Start here"
     },
-    "how": {
-        "title": "How to ...",
-        "children": ["objects", "random", "background", "custom_goals"]
+    "editors" : {
+        "title": "The many different editors"
     },
-        "objects": {
-            "title": "How to add objects and goals"
-        },
-        "random": {
-            "title": "How to add some randomness"
-        },
-        "background" :{
-            "title": "How to work with Background tiles, obstacles and decorative objects"
-        },
-        "custom_goals": {
-            "title": "How to set up a custom goal"
-        },
-    "why": {
-        "title": "Why? Understanding some design and other decisions",
-        "children": ["motivation", "nobreak"]
+    "naming_convention" : {
+        "title": "Naming convention"
     },
-        "motivation": {
-            "title": "Motivation: why create more complex worlds?"
-        },
-        "nobreak": {
-            "title": "Why are non-breaking spaces removed in Python code?"
-        },
-    "reference": {
-        "title": "Reference",
-        "children": ["editors", "naming_convention", "animated"]
+    "objects": {
+        "title": "How to add objects and goals"
     },
-        "editors" : {
-            "title": "The many different editors"
-        },
-        "naming_convention" : {
-            "title": "Naming convention"
-        },
-        "animated": {
-            "title": "Animated images"
-        },
+    "random": {
+        "title": "How to add some randomness"
+    },
+    "background" :{
+        "title": "How to work with Background tiles, obstacles and decorative objects"
+    },
+    "custom_goals": {
+        "title": "How to set up a custom goal"
+    },
+    "show_path": {
+        "title": "How to show just the path followed by Reeborg"
+    },
+    "animated": {
+        "title": "Animated images"
+    },
+    "motivation": {
+        "title": "Motivation: why create more complex worlds?"
+    },
+    "nobreak": {
+        "title": "Why are non-breaking spaces removed in Python code?"
+    },
     "canvases": {
         "title": "Layers and canvases"
     },
-    "todo" : {
-        "title": "To do"
+"todo" : {
+    "title": "To do"
     }
 }

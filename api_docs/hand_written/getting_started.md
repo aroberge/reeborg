@@ -103,7 +103,3 @@ name as the previous ones.
 
 If you switch between each of the three worlds you have saved in your browser,
 they should all look the same, no matter which method was used to create it.
-
-# Next
-
-The following links to another tutorial {@tutorial objects}.

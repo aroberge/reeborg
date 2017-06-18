@@ -76,8 +76,8 @@ world has changed since the above image has been created; clicking on
 
 ### A closer look
 
-Before reading on, if you have not done so, you might want to
-read {@tutorial editors}.
+Before going further, if you have not already done so, you might want to
+read {@tutorial editors} and come back here afterwards.
 
 
 The content of the **Description** editor (shortened to **Desc.** on the editor tab) is what is shown at the top of the **World Info** window.
