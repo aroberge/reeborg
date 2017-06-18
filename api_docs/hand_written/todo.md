@@ -5,7 +5,7 @@
 
 2. Show example of automatic transformations.
 
-3. Show example of adding extra capability with install_extra()
+3. Show example of adding extra capability with `install_extra()` and `extra_python_content()`.
 
 4. Show example of writing custom goal tests; do for graphical world and
    "normal" Python code e.g. string methods.
@@ -27,4 +27,7 @@
     d) reference: information oriented
 
 11. Document RUR.get_world
+
+12. Explain how to work without an internet connection or if CORS problems
+    arise - for world, but not extra images unfortunately.
 

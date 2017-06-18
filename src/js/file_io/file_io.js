@@ -178,13 +178,34 @@ function loadFile (sURL, fCallback) {
    See also RUR.load_js_module()
 */
 RUR.install_extra = function(url) {
-    loadFile(url, copy_content);
+    loadFile(url, RUR.extra_python_content);
 };
-function copy_content() {
-    $("#extra").html(this.responseText);
+/**
+ * @function extra_python_content
+ * @instance
+ *
+ * @desc "Installs" a python module defined as a string parameter to
+ * this function. Whereas it can be used from both a Javascript or Python code,
+ * multi-line code samples are **much** easier to write using Python.
+ *
+ * To be used as alternative to the Python function `install_extra` which
+ * install a python module named `extra` from a url.
+ *
+ * @param {string} python_code
+ *
+ * @todo add example
+ * @todo add tutorial
+ */
+RUR.extra_python_content = function (python_code) {
+    if (python_code) {
+        $("#extra").html(python_code);
+    } else {
+        $("#extra").html(this.responseText);
+    }
 }
 window.get_extra_content = function () {
     var extra_content = $("#extra").html();
     console.log("extra content = ", extra_content);
     return extra_content;
 };
+

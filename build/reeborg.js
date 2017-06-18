@@ -2047,16 +2047,37 @@ function loadFile (sURL, fCallback) {
    See also RUR.load_js_module()
 */
 RUR.install_extra = function(url) {
-    loadFile(url, copy_content);
+    loadFile(url, RUR.extra_python_content);
 };
-function copy_content() {
-    $("#extra").html(this.responseText);
+/**
+ * @function extra_python_content
+ * @instance
+ *
+ * @desc "Installs" a python module defined as a string parameter to
+ * this function. Whereas it can be used from both a Javascript or Python code,
+ * multi-line code samples are **much** easier to write using Python.
+ *
+ * To be used as alternative to the Python function `install_extra` which
+ * install a python module named `extra` from a url.
+ *
+ * @param {string} python_code
+ *
+ * @todo add example
+ * @todo add tutorial
+ */
+RUR.extra_python_content = function (python_code) {
+    if (python_code) {
+        $("#extra").html(python_code);
+    } else {
+        $("#extra").html(this.responseText);
+    }
 }
 window.get_extra_content = function () {
     var extra_content = $("#extra").html();
     console.log("extra content = ", extra_content);
     return extra_content;
 };
+
 
 },{"./../editors/update.js":11,"./../listeners/stop.js":32,"./../permalink/permalink.js":35,"./../programming_api/exceptions.js":42,"./../programming_api/output.js":43,"./../recorder/recorder.js":47,"./../translator.js":56,"./../ui/world_select.js":60,"./../utils/supplant.js":65,"./../world_utils/import_world.js":89}],13:[function(require,module,exports){
 /*  Handler of special on-screen keyboard
@@ -12291,34 +12312,31 @@ RUR.world_set = {};
 var set_dimension_form;
 
 
-function trim_world (min_x, min_y, max_x, max_y) {
+function trim_world (new_max_x, new_max_y, old_max_x, old_max_y) {
     var x, y, coords;
+    // remove stuff from outside new boundaries
 
-    for (x = min_x+1; x <= max_x; x++) {
-        for (y = 1; y <= max_y; y++) {
+    for (x = new_max_x+1; x <= old_max_x; x++) {
+        for (y = 1; y <= old_max_y; y++) {
             coords = x + "," + y;
             remove_all_at_location(coords);
         }
     }
-    for (x = 1; x <= max_x; x++) {
-        for (y = min_y+1; y <= max_y; y++) {
+    for (x = 1; x <= old_max_x; x++) {
+        for (y = new_max_y+1; y <= old_max_y; y++) {
             coords = x + "," + y;
             remove_all_at_location(coords);
         }
+    }
+    if (RUR.CURRENT_WORLD.possible_initial_positions !== undefined) {
+        delete RUR.CURRENT_WORLD.possible_initial_positions;
     }
     if (RUR.CURRENT_WORLD.goal !== undefined) {
         if (RUR.CURRENT_WORLD.goal.possible_final_positions !== undefined) {
             delete RUR.CURRENT_WORLD.goal.possible_final_positions;
-            delete RUR.CURRENT_WORLD.goal.position;
-            RUR.show_feedback("#Reeborg-shouts",
-                                 RUR.translate("WARNING: deleted final positions choices while resizing world!"));
         }
     }
 }
-
-// TODO: see if https://jsfiddle.net/6bwuq9wk/6/ might not
-// be more appropriate, or use
-// remove from all individual existing methods.
 
 function remove_all_at_location (coords) {
     // trading efficiency for clarity
@@ -12327,14 +12345,24 @@ function remove_all_at_location (coords) {
             delete RUR.CURRENT_WORLD.tiles[coords];
         }
     }
+    if (RUR.CURRENT_WORLD.bridge !== undefined) {
+        if (RUR.CURRENT_WORLD.bridge[coords] !== undefined){
+            delete RUR.CURRENT_WORLD.bridge[coords];
+        }
+    }
+    if (RUR.CURRENT_WORLD.decorative_objects !== undefined) {
+        if (RUR.CURRENT_WORLD.decorative_objects[coords] !== undefined){
+            delete RUR.CURRENT_WORLD.decorative_objects[coords];
+        }
+    }
     if (RUR.CURRENT_WORLD.obstacles !== undefined) {
         if (RUR.CURRENT_WORLD.obstacles[coords] !== undefined){
             delete RUR.CURRENT_WORLD.obstacles[coords];
         }
     }
-    if (RUR.CURRENT_WORLD.objects !== undefined) {
-        if (RUR.CURRENT_WORLD.objects[coords] !== undefined){
-            delete RUR.CURRENT_WORLD.objects[coords];
+    if (RUR.CURRENT_WORLD.pushables !== undefined) {
+        if (RUR.CURRENT_WORLD.pushables[coords] !== undefined){
+            delete RUR.CURRENT_WORLD.pushables[coords];
         }
     }
     if (RUR.CURRENT_WORLD.walls !== undefined) {
@@ -12342,17 +12370,20 @@ function remove_all_at_location (coords) {
             delete RUR.CURRENT_WORLD.walls[coords];
         }
     }
-    if (RUR.CURRENT_WORLD.goal !== undefined) {
-        if (RUR.CURRENT_WORLD.goal.objects !== undefined) {
-            if (RUR.CURRENT_WORLD.goal.objects[coords] !== undefined){
-                delete RUR.CURRENT_WORLD.goal.objects[coords];
-            }
+    if (RUR.CURRENT_WORLD.objects !== undefined) {
+        if (RUR.CURRENT_WORLD.objects[coords] !== undefined){
+            delete RUR.CURRENT_WORLD.objects[coords];
         }
     }
     if (RUR.CURRENT_WORLD.goal !== undefined) {
         if (RUR.CURRENT_WORLD.goal.walls !== undefined) {
             if (RUR.CURRENT_WORLD.goal.walls[coords] !== undefined){
                 delete RUR.CURRENT_WORLD.goal.walls[coords];
+            }
+        }
+        if (RUR.CURRENT_WORLD.goal.objects !== undefined) {
+            if (RUR.CURRENT_WORLD.goal.objects[coords] !== undefined){
+                delete RUR.CURRENT_WORLD.goal.objects[coords];
             }
         }
     }
