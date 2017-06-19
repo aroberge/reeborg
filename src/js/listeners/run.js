@@ -9,6 +9,7 @@ var run_button = document.getElementById("run");
 record_id("run");
 
 function run () {
+    RUR.state.run_button_clicked = true;
     if (RUR.state.stop_called){
         RUR.state.stop_called = false;
         RUR.reload();
@@ -22,7 +23,6 @@ function run () {
     $("#frame-selector").attr("disabled", "true").addClass("disabled").removeClass("enabled");
 
     clearTimeout(RUR._TIMER);
-    RUR.state.run_button_clicked = true;
     RUR.runner.run(RUR.play);
     RUR.state.run_button_clicked = false;
 }

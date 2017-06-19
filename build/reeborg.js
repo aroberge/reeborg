@@ -5203,6 +5203,7 @@ var run_button = document.getElementById("run");
 record_id("run");
 
 function run () {
+    RUR.state.run_button_clicked = true;
     if (RUR.state.stop_called){
         RUR.state.stop_called = false;
         RUR.reload();
@@ -5216,7 +5217,6 @@ function run () {
     $("#frame-selector").attr("disabled", "true").addClass("disabled").removeClass("enabled");
 
     clearTimeout(RUR._TIMER);
-    RUR.state.run_button_clicked = true;
     RUR.runner.run(RUR.play);
     RUR.state.run_button_clicked = false;
 }
@@ -7921,6 +7921,8 @@ RUR.runner = {};
 RUR.runner.run = function (playback) {
     "use strict";
     var fatal_error_found = false, xml, xml_text;
+    console.log("RUR.runner.run called");
+    console.log("RUR.state.run_button_clicked = ", RUR.state.run_button_clicked);
     if (!RUR.state.code_evaluated) {
         if (RUR.state.editing_world) {
         // TODO: check that this is ok
