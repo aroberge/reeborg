@@ -105,6 +105,13 @@ def check_balanced_brackets(src):
     else:
         return False
 
+def is_assignment(line):
+    if "=" not in line:
+        return False
+    parts = line.split("=")
+    lhs = parts[0].strip()
+    return lhs.isidentifier()
+
 
 def insert_highlight_info(src, highlight=True, var_watch=False):
     global _watch, _highlight
@@ -136,7 +143,7 @@ def insert_highlight_info(src, highlight=True, var_watch=False):
         indent = line[:-len(line_wo_indent)]
         first_word, remaining = extract_first_word(line_wo_indent, ' #=([{:\'"\\')
         if use_next_indent:
-            if saved_lineno_group[-1] >= lineno:
+            if saved_lineno_group[-1] >= lineno:  # pylint: disable=E1136
                 new_lines.append(line)
                 continue
             new_lines.append(tracing_line(indent, saved_lineno_group))
@@ -163,7 +170,7 @@ def insert_highlight_info(src, highlight=True, var_watch=False):
             new_lines.append(indent + first_word +
                              tracing_line(' ', current_group) +
                              ' and' + remaining)
-        elif '=' in line_wo_indent:
+        elif is_assignment(line_wo_indent):
             new_lines.append(tracing_line(indent, current_group))
             new_lines.append(line)
         elif not first_word and remaining[0] == "#":
