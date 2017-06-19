@@ -5216,7 +5216,9 @@ function run () {
     $("#frame-selector").attr("disabled", "true").addClass("disabled").removeClass("enabled");
 
     clearTimeout(RUR._TIMER);
+    RUR.state.run_button_clicked = true;
     RUR.runner.run(RUR.play);
+    RUR.state.run_button_clicked = false;
 }
 run_button.addEventListener("click", run, false);
 
@@ -8077,9 +8079,6 @@ RUR.runner.simplify_python_traceback = function(e) {
                         console.log(e.args);
                         try {
                             other_info += e.args[4];
-                            if (RUR.state.highlight) {
-                                other_info += "Try turning off syntax highlighting; if this fixes the problem, please file a bug.";
-                            }
                         } catch (e) {
                             console.log("error in simplifying traceback: ", e);
                         }
@@ -8116,7 +8115,7 @@ RUR.runner.simplify_python_traceback = function(e) {
                 break;
             case "Internal Javascript error: SyntaxError":
             case "Internal Javascript error: TypeError":
-                error_name = "Invalid Python Code";
+                error_name = "Invalid Python Code - " + error_name;
                 message = '';
                 other_info = RUR.translate("I cannot help you with this problem.");
                 break;
@@ -8367,6 +8366,7 @@ RUR.state.programming_language = "python";
 RUR.state.playback = false;
 RUR.state.prevent_playback = false;
 RUR.state.reset_default_robot_images_needed = false;
+RUR.state.run_button_clicked = false;
 RUR.state.running_program = false;
 RUR.state.session_initialized = false;
 RUR.state.sound_id = undefined;
@@ -8810,6 +8810,10 @@ RUR.translation = RUR.ui_en;
 merge_dicts(RUR.translation, RUR.en);
 RUR.translation_to_english = RUR.en_to_en;
 
+RUR._translation_needed = {};
+RUR._translation_to_english_needed = {};
+
+
 RUR.translate = function (s) {
     if (s==undefined) {
         return "";
@@ -8819,7 +8823,10 @@ RUR.translate = function (s) {
     } else if (RUR.translation[s] !== undefined) {
         return RUR.translation[s];
     } else {
-        console.warn("Translation needed for " + s);
+        if (RUR._translation_needed[s] == undefined) { // avoid giving multiple warnings
+            console.warn("Translation needed for " + s);
+            RUR._translation_needed[s] = true;
+        }
         return s;
     }
 };
@@ -8830,7 +8837,10 @@ RUR.translate_to_english = function (s) {
     } else if (RUR.translation_to_english[s] !== undefined) {
         return RUR.translation_to_english[s];
     } else {
-        console.warn("Translation to English needed for " + s);
+        if (RUR._translation_to_english_needed[s] == undefined) { // avoid giving multiple warnings
+            console.warn("Translation to English needed for " + s);
+            RUR._translation_to_english_needed[s] = true;
+        }
         return s;
     }
 };
@@ -10125,10 +10135,7 @@ RUR.get_background_tile = function (x, y) {
  * @example {@lang python}
  * no_highlight()
  * World("worlds/examples/simple_path.json", "simple_path")
- * reeborg = default_robot()
- * while not at_goal():
- *     pos = RUR.get_position_in_front(reeborg.body)
- *     x, y = pos["x"], pos["y"]
+ * x, y = position_in_front()
  *     if RUR.is_background_tile("gravel", x, y):
  *         move()
  *     else:
@@ -12369,6 +12376,9 @@ exports.reset_world = reset_world = function () {
     RUR.ANIMATION_TIME = 120;
 
     RUR.CURRENT_WORLD = clone_world(RUR.WORLD_BEFORE_ONLOAD);
+    if (RUR.state.run_button_clicked) { // do not process_onload
+        return;
+    }
     RUR.world_utils.process_onload();
 };
 

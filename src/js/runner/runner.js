@@ -185,9 +185,6 @@ RUR.runner.simplify_python_traceback = function(e) {
                         console.log(e.args);
                         try {
                             other_info += e.args[4];
-                            if (RUR.state.highlight) {
-                                other_info += "Try turning off syntax highlighting; if this fixes the problem, please file a bug.";
-                            }
                         } catch (e) {
                             console.log("error in simplifying traceback: ", e);
                         }
@@ -224,7 +221,7 @@ RUR.runner.simplify_python_traceback = function(e) {
                 break;
             case "Internal Javascript error: SyntaxError":
             case "Internal Javascript error: TypeError":
-                error_name = "Invalid Python Code";
+                error_name = "Invalid Python Code - " + error_name;
                 message = '';
                 other_info = RUR.translate("I cannot help you with this problem.");
                 break;

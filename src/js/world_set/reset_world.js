@@ -17,6 +17,9 @@ exports.reset_world = reset_world = function () {
     RUR.ANIMATION_TIME = 120;
 
     RUR.CURRENT_WORLD = clone_world(RUR.WORLD_BEFORE_ONLOAD);
+    if (RUR.state.run_button_clicked) { // do not process_onload
+        return;
+    }
     RUR.world_utils.process_onload();
 };
 

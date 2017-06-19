@@ -68,7 +68,7 @@ reeborg.set_model(10)
 
 RUR.add_new_thing({"name": "cheese",
     "url": "/src/images/fromage.png",
-    "info": "Safe to eat.})
+    "info": "Safe to eat."})
 
 RUR.add_new_thing({"name": "poison",
     "url": "/src/images/poison.png",
@@ -91,6 +91,7 @@ eat = take
 def take():
     raise ReeborgError("I do not know how to do this.")
 
+add_watch("position_in_front()")
 
 while not is_facing_north():
     turn_left()
@@ -123,5 +124,4 @@ while right_is_clear():
     eat_row()
     go_back()
 eat_row()
-
 ```

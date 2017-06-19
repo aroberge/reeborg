@@ -4,7 +4,7 @@ To create interesting worlds without using the menu-driven editor, at the very l
   - The name of _things_
   - **If** a _thing_ of a particular _type_ can be found at a given location
   - How to **add** a _thing_ of a particular _type_ at a given location
-  - How to **remove** a _thing_ of a particular _type_ at a given location.
+  - Possibly, how to **remove** a _thing_ of a particular _type_ at a given location.
 
 The **_basic_** naming convention follows the following pattern:
 
@@ -17,7 +17,7 @@ The **_basic_** naming convention follows the following pattern:
    - `background_tile`
    - `bridge`
    - `decorative_object`
-   - `final_position`
+   - `final_position`  (cannot use ``RUR.remove_final_position`)
    - `object`
    - `obstacle`
    - `overlay`

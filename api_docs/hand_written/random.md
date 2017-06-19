@@ -14,7 +14,8 @@ Instead of a number, we see a "?" next to the token, indicating an unknown quant
 
 [token]: ../../src/images/token_random.png
 
-<p class="reeborg-important">This should only be used for _creating_ worlds.</p>
+<p class="reeborg-important">This should only be used for _creating_ worlds and saving them as
+a json file, or in the Onload editor.</p>
 
 When a program is run, the first step is to identify values that should be chosen at random within a certain range,
 and set them, after which the code entered is run.

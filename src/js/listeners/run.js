@@ -22,6 +22,8 @@ function run () {
     $("#frame-selector").attr("disabled", "true").addClass("disabled").removeClass("enabled");
 
     clearTimeout(RUR._TIMER);
+    RUR.state.run_button_clicked = true;
     RUR.runner.run(RUR.play);
+    RUR.state.run_button_clicked = false;
 }
 run_button.addEventListener("click", run, false);

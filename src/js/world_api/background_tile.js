@@ -162,10 +162,7 @@ RUR.get_background_tile = function (x, y) {
  * @example {@lang python}
  * no_highlight()
  * World("worlds/examples/simple_path.json", "simple_path")
- * reeborg = default_robot()
- * while not at_goal():
- *     pos = RUR.get_position_in_front(reeborg.body)
- *     x, y = pos["x"], pos["y"]
+ * x, y = position_in_front()
  *     if RUR.is_background_tile("gravel", x, y):
  *         move()
  *     else:

@@ -28,6 +28,10 @@ RUR.translation = RUR.ui_en;
 merge_dicts(RUR.translation, RUR.en);
 RUR.translation_to_english = RUR.en_to_en;
 
+RUR._translation_needed = {};
+RUR._translation_to_english_needed = {};
+
+
 RUR.translate = function (s) {
     if (s==undefined) {
         return "";
@@ -37,7 +41,10 @@ RUR.translate = function (s) {
     } else if (RUR.translation[s] !== undefined) {
         return RUR.translation[s];
     } else {
-        console.warn("Translation needed for " + s);
+        if (RUR._translation_needed[s] == undefined) { // avoid giving multiple warnings
+            console.warn("Translation needed for " + s);
+            RUR._translation_needed[s] = true;
+        }
         return s;
     }
 };
@@ -48,7 +55,10 @@ RUR.translate_to_english = function (s) {
     } else if (RUR.translation_to_english[s] !== undefined) {
         return RUR.translation_to_english[s];
     } else {
-        console.warn("Translation to English needed for " + s);
+        if (RUR._translation_to_english_needed[s] == undefined) { // avoid giving multiple warnings
+            console.warn("Translation to English needed for " + s);
+            RUR._translation_to_english_needed[s] = true;
+        }
         return s;
     }
 };

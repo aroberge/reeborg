@@ -105,16 +105,30 @@ def check_balanced_brackets(src):
     else:
         return False
 
+
 def is_assignment(line):
-    if "=" not in line:
+    '''assume only one assignment symbol in line'''
+    assignments = ["+=", "-=", "*=", "@=", "/=", "//=", "%=", "**=",
+                   ">>=", "<<=", "&=", "^=", "|="]
+    for assignment in assignments:
+        if assignment in line:
+            found = assignment
+            break
+    else:
         return False
-    parts = line.split("=")
+
+    parts = line.split(found)
     lhs = parts[0].strip()
-    return lhs.isidentifier()
+    try:
+        return lhs.isidentifier()  # Brython can raise an error for some reason
+    except:
+        return False
 
 
 def insert_highlight_info(src, highlight=True, var_watch=False):
     global _watch, _highlight
+    if not src:
+        return '\n'
     _watch = var_watch
     _highlight = highlight
     line_info = check_balanced_brackets(src)

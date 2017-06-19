@@ -264,6 +264,10 @@ class Interpreter():
             self.status = "block"
         except SyntaxError as msg:
             self.handle_syntax_error(msg)
+        except NameError as e:
+            py_console.append("NameError\n")
+            py_console.prompt()
+            self.status = "main"
         except Exception as e:
             exc = __BRYTHON__.current_exception  # NOQA
             if hasattr(e, 'reeborg_shouts'):

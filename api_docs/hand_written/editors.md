@@ -65,7 +65,7 @@ when a new browser session is started.
 This editor can contain code (in the same language as the code in the
 main editor) that is to be run together with the user's program.
 
-Before a program (entered in the Python Code editor) is run,
+Before a program (entered in the main editor) is run,
 it is concatenated with the code found in the **Pre** editor,
 followed by the code found in the **Post** editor.
 [_For Python, there is additional processing of the code done so that lines
@@ -120,7 +120,8 @@ background (grass or gravel) is present at that location.
 
 ## The Onload editor
 
-The content of this editor is normally assumed to be some **Javascript code**.
+Unless If the very first character of the code is `#`,
+the content of this editor is assumed to be some **Javascript code**.
 The syntax highlighting mode for this editor is set to Javascript and cannot be changed.
 
 Whenever a world is loaded, or reloaded, this code is normally executed
