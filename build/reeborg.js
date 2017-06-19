@@ -6648,7 +6648,7 @@ RUR.control.done = function () {
     if (RUR.state.input_method === "py-repl") {
         RUR.frames = [];
         RUR.nb_frames = 1;
-        RUR.record_frame();
+        RUR.record_frame("done");
         RUR.rec.conclude();
     } else {
         throw new RUR.ReeborgError(RUR.translate("Done!"));
@@ -7437,8 +7437,11 @@ RUR.record_frame = function (name, obj) {
           generating too many extra frames. */
         RUR.frames[RUR.nb_frames-1]["watch_variables"] = obj;
         return;
-    } else if (name=="highlight" &&
-          RUR.current_line_no == RUR.rec_line_numbers [RUR.nb_frames-1]) {
+    // } else if (name=="highlight" &&
+    //       RUR.current_line_no == RUR.rec_line_numbers [RUR.nb_frames-1]) {
+    //     // no highlighting change: do not include any extra frame
+    //     return;
+    } else if (name=="highlight" && RUR.nb_frames != 0) {
         // no highlighting change: do not include any extra frame
         return;
     }
@@ -7921,8 +7924,6 @@ RUR.runner = {};
 RUR.runner.run = function (playback) {
     "use strict";
     var fatal_error_found = false, xml, xml_text;
-    console.log("RUR.runner.run called");
-    console.log("RUR.state.run_button_clicked = ", RUR.state.run_button_clicked);
     if (!RUR.state.code_evaluated) {
         if (RUR.state.editing_world) {
         // TODO: check that this is ok
@@ -11593,7 +11594,9 @@ RUR.add_new_thing = function (thing) {
     if (RUR.KNOWN_TILES.indexOf(name) != -1) {
         if (original_arg == RUR.TILES[name].original_arg) {
             // use concatenation in log and warn, for comparison with unit tests.
-            console.log(name + " is already known; no need to recreate.");
+            if (RUR.UnitTest !== undefined && RUR.UnitTest.logtest !== undefined){
+                console.log(name + " is already known; no need to recreate.");
+            }
             return;
         }
         console.warn("Warning: redefining " + name);

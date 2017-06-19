@@ -50,6 +50,7 @@ test('RUR.add_new_thing: replace tile type', function (assert) {
     silencer.disable('log');
     obj.name = "this_name";
     obj.url = "old_URL";
+    RUR.UnitTest.logtest = true;
     RUR.add_new_thing(obj);
     RUR.add_new_thing(obj);
     assert.equal(silencer.getOutput('log')[0][0],

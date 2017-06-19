@@ -27,8 +27,6 @@ RUR.runner = {};
 RUR.runner.run = function (playback) {
     "use strict";
     var fatal_error_found = false, xml, xml_text;
-    console.log("RUR.runner.run called");
-    console.log("RUR.state.run_button_clicked = ", RUR.state.run_button_clicked);
     if (!RUR.state.code_evaluated) {
         if (RUR.state.editing_world) {
         // TODO: check that this is ok

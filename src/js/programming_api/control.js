@@ -123,7 +123,7 @@ RUR.control.done = function () {
     if (RUR.state.input_method === "py-repl") {
         RUR.frames = [];
         RUR.nb_frames = 1;
-        RUR.record_frame();
+        RUR.record_frame("done");
         RUR.rec.conclude();
     } else {
         throw new RUR.ReeborgError(RUR.translate("Done!"));

@@ -120,7 +120,9 @@ RUR.add_new_thing = function (thing) {
     if (RUR.KNOWN_TILES.indexOf(name) != -1) {
         if (original_arg == RUR.TILES[name].original_arg) {
             // use concatenation in log and warn, for comparison with unit tests.
-            console.log(name + " is already known; no need to recreate.");
+            if (RUR.UnitTest !== undefined && RUR.UnitTest.logtest !== undefined){
+                console.log(name + " is already known; no need to recreate.");
+            }
             return;
         }
         console.warn("Warning: redefining " + name);

@@ -72,8 +72,11 @@ RUR.record_frame = function (name, obj) {
           generating too many extra frames. */
         RUR.frames[RUR.nb_frames-1]["watch_variables"] = obj;
         return;
-    } else if (name=="highlight" &&
-          RUR.current_line_no == RUR.rec_line_numbers [RUR.nb_frames-1]) {
+    // } else if (name=="highlight" &&
+    //       RUR.current_line_no == RUR.rec_line_numbers [RUR.nb_frames-1]) {
+    //     // no highlighting change: do not include any extra frame
+    //     return;
+    } else if (name=="highlight" && RUR.nb_frames != 0) {
         // no highlighting change: do not include any extra frame
         return;
     }
