@@ -76,7 +76,7 @@ RUR.control.move = function (robot) {
 
 
     // A move has been performed ... but it may have been a fatal decision
-    message = RUR.is_fatal(robot.x, robot.y, get_objects_carried_protections(robot));
+    message = RUR.is_fatal_position(robot.x, robot.y, robot);
     if (message) {
         throw new RUR.ReeborgError(message);
     }
@@ -203,7 +203,7 @@ RUR.control._robot_put_down_object = function (robot, obj) {
 
 
 RUR.control.take = function(robot, arg){
-    var translated_arg, objects_here;
+    var translated_arg, objects_here, message;
     RUR.state.sound_id = "#take-sound";
     if (arg !== undefined) {
         translated_arg = RUR.translate_to_english(arg);
@@ -216,13 +216,25 @@ RUR.control.take = function(robot, arg){
     if (arg !== undefined) {
         if (Array.isArray(objects_here) && objects_here.length === 0) {
             throw new RUR.MissingObjectError(RUR.translate("No object found here").supplant({obj: arg}));
-        }  else {
+        }  else if(RUR.is_fatal_thing(arg)) {
+            message = RUR.get_property(arg, 'message');
+            if (message == undefined) {
+                message = "I picked up a fatal object.";
+            }
+            throw new RUR.ReeborgError(RUR.translate(message));
+        } else {
             RUR.control._take_object_and_give_to_robot(robot, arg);
         }
     }  else if (Array.isArray(objects_here) && objects_here.length === 0){
         throw new RUR.MissingObjectError(RUR.translate("No object found here").supplant({obj: RUR.translate("object")}));
     }  else if (objects_here.length > 1){
         throw new RUR.MissingObjectError(RUR.translate("Many objects are here; I do not know which one to take!"));
+    }  else if(RUR.is_fatal_thing(objects_here[0])) {
+        message = RUR.get_property(objects_here[0], 'message');
+        if (message == undefined) {
+            message = "I picked up a fatal object.";
+        }
+        throw new RUR.ReeborgError(RUR.translate(message));
     } else {
         RUR.control._take_object_and_give_to_robot(robot, objects_here[0]);
     }
@@ -311,7 +323,7 @@ RUR.control.front_is_clear = function(robot){
     next_x = position.x;
     next_y = position.y;
 
-    if (RUR.is_fatal(next_x, next_y, get_objects_carried_protections(robot)) &&
+    if (RUR.is_fatal_position(next_x, next_y, robot) &&
         RUR.is_detectable(next_x, next_y)) {
         return false;
     }
@@ -381,26 +393,6 @@ RUR.control.carries_object = function (robot, obj) {
         }
         return 0;
     }
-};
-
-get_objects_carried_protections = function (robot) {
-    "use strict";
-    var objects_carried, obj_type, protections;
-
-    objects_carried = RUR.control.carries_object(robot);
-    if (!objects_carried || !Object.keys(objects_carried)) {
-        return [];
-    }
-
-    protections = [];
-    for(obj_type of Object.keys(objects_carried)){
-        obj_type = RUR.translate_to_english(obj_type);
-        if (RUR.TILES[obj_type] !== undefined && RUR.TILES[obj_type].protections !== undefined) {
-            protections = protections.concat(RUR.TILES[obj_type].protections);
-        }
-    }
-
-    return protections;
 };
 
 

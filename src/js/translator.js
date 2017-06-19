@@ -29,6 +29,9 @@ merge_dicts(RUR.translation, RUR.en);
 RUR.translation_to_english = RUR.en_to_en;
 
 RUR.translate = function (s) {
+    if (s==undefined) {
+        return "";
+    }
     if (RUR.untranslated[s]) {
         return s;
     } else if (RUR.translation[s] !== undefined) {

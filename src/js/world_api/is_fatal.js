@@ -3,7 +3,37 @@ require("./background_tile.js");
 require("./bridges.js");
 require("./obstacles.js");
 
-/** @function is_fatal
+/** @function get_protections
+ * @memberof RUR
+ * @instance
+ *
+ * @desc This needs to be documented
+ *
+ * @param {object} robot Determine if robot or robot body.
+ *
+ * @returns an array of protections
+ */
+RUR.get_protections = function (robot) {
+    "use strict";
+    var objects_carried, obj_type, protections;
+
+    objects_carried = RUR.control.carries_object(robot);
+    if (!objects_carried || !Object.keys(objects_carried)) {
+        return [];
+    }
+
+    protections = [];
+    for(obj_type of Object.keys(objects_carried)){
+        obj_type = RUR.translate_to_english(obj_type);
+        if (RUR.TILES[obj_type] !== undefined && RUR.TILES[obj_type].protections !== undefined) {
+            protections = protections.concat(RUR.TILES[obj_type].protections);
+        }
+    }
+
+    return protections;
+};
+
+/** @function is_fatal_position
  * @memberof RUR
  * @instance
  *
@@ -11,11 +41,12 @@ require("./obstacles.js");
  *
  * @returns The message to show.
  */
-RUR.is_fatal = function (x, y, protections){
+RUR.is_fatal_position = function (x, y, robot){
     "use strict";
     // protections is from objects carried by the robot
-    var tile, tiles;
+    var protections, tile, tiles;
 
+    protections = RUR.get_protections(robot);
     /* Both obstacles and background tiles can be fatal;
        we combine both in a single array here */
 
@@ -79,3 +110,18 @@ RUR.is_detectable = function (x, y){
     return false;
 };
 
+/** @function is_fatal_thing
+ * @memberof RUR
+ * @instance
+ *
+ * @desc This needs to be documented
+ *
+ * @returns The message to show.
+ */
+RUR.is_fatal_thing = function (name){
+    name = RUR.translate_to_english(name);
+    if (RUR.get_property(name, 'fatal')) {
+        return true;
+    }
+    return false;
+}

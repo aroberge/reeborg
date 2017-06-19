@@ -38,6 +38,7 @@ fr_to_en["étoile"] = "star";
 ui_fr["strawberry"] = "fraise";
 fr_to_en["fraise"] = "strawberry";
 ui_fr.token = "jeton";
+ui_fr["tokens are Reeborg's favourite thing."] = "Les jetons sont les objets favoris de Reeborg.";
 fr_to_en["jeton"] = "token";
 ui_fr.triangle = "triangle";
 fr_to_en["triangle"] = "triangle";
@@ -46,7 +47,7 @@ fr_to_en["tulipe"] = "tulip";
 
 ui_fr["Problem with onload code."] = "Code Javascript 'onload' non valide; veuillez contacter le créateur de ce monde.";
 
-ui_fr["Too many steps:"] = "Trop d'instructions: {max_steps}";
+ui_fr["Too many steps:"] = "Trop d'instructions: {max_steps}<br>Utilisez <code>max_nb_instructions()(nb)</code> pour augmenter la limite.";
 ui_fr["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg est à la bonne coordonnée x.</li>";
 ui_fr["<li class='failure'>Reeborg is at the wrong x position.</li>"] = "<li class='failure'>Reeborg est à la mauvaise coordonnée x.</li>";
 ui_fr["<li class='success'>Reeborg is at the correct y position.</li>"] = "<li class='success'>Reeborg est à la bonne coordonnée y.</li>";

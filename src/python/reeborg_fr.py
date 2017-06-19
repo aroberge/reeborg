@@ -213,6 +213,26 @@ def objet_ici(obj=None):  #py:object_here
     return list(ans)  # convert from js list-like object to proper Python list
 
 
+def position_ici():
+    '''Retourne un tuple (x, y) donnant les coordonnées du robot'''
+    body = RUR._default_robot_body_()
+    return (body.x, body.y)
+
+
+def position_devant():
+    '''
+    Retourne un tuple (x, y) donnant les coordonnées de la position
+    immédiatement devant le robot si la position est à l'intérieur
+    des limites du monde, autrement un tuple nul est retourné.
+    '''
+    body = RUR._default_robot_body_()
+    pos = RUR.get_position_in_front(body)
+    if RUR.is_valid_position(pos["x"], pos["y"]):
+        return (pos["x"], pos["y"])
+    else:
+        return tuple()
+
+
 def colorie(couleur):  #py:paint_square
     """Colorie la case où se trouve Reeborg avec la couleur spécifiée"""
     RUR._paint_square_(couleur)
@@ -589,6 +609,25 @@ class RobotUsage(object):  #py:UR
             return list(RUR._UR.object_here_(self.body, obj))
         else:
             return list(RUR._UR.object_here_(self.body))
+
+
+    def position_ici(self):
+        '''Retourne un tuple (x, y) donnant les coordonnées du robot'''
+        return (self.body.x, self.body.y)
+
+
+    def position_devant(self):
+        '''
+        Retourne un tuple (x, y) donnant les coordonnées de la position
+        immédiatement devant le robot si la position est à l'intérieur
+        des limites du monde, autrement le tuple nul est retourné.
+        '''
+        pos = RUR.get_position_in_front(self.body)
+        if RUR.is_valid_position(pos["x"], pos["y"]):
+            return (pos["x"], pos["y"])
+        else:
+            return tuple()
+
 
     def depose(self, obj=None):  #py:UR.put
         """

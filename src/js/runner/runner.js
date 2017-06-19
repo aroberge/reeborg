@@ -203,9 +203,15 @@ RUR.runner.simplify_python_traceback = function(e) {
                     other_info = RUR.runner.find_line_number(e.args[4]);
                     if (e.args[4].indexOf("RUR.set_lineno_highlight([") == -1){
                         other_info += "<br><code>" + e.args[4] + "</code>";
+                    } else if (RUR.state.highlight) {
+                        other_info += "Try turning off syntax highlighting; if this fixes the problem, please file a bug.";
                     }
                 } catch (e) {  // jshint ignore:line
-                    other_info = "I could not analyze this error; you might want to contact my programmer with a description of this problem.";
+                    if (RUR.state.highlight) {
+                        other_info += "Try turning off syntax highlighting; if this fixes the problem, please file a bug.";
+                    } else {
+                        other_info = "I could not analyze this error; you might want to contact my programmer with a description of this problem.";
+                    }
                 }
                 break;
             case "NameError":

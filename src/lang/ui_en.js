@@ -25,12 +25,13 @@ ui_en["square"] = en_to_en["square"] = "square";
 ui_en["star"] = en_to_en["star"] = "star";
 ui_en["strawberry"] = en_to_en["strawberry"] = "strawberry";
 ui_en["token"] = en_to_en["token"] = "token";
+ui_en["tokens are Reeborg's favourite thing."] = "tokens are Reeborg's favourite thing.";
 ui_en["triangle"] = en_to_en["triangle"] = "triangle";
 ui_en["tulip"] = en_to_en["tulip"] = "tulip";
 
 ui_en["Problem with onload code."] = "Invalid Javascript onload code; contact the creator of this world.";
 
-ui_en["Too many steps:"] = "Too many steps: {max_steps}";
+ui_en["Too many steps:"] = "Too many steps: {max_steps}<br>Use <code>set_max_nb_instructions(nb)</code> to increase the limit.";
 ui_en["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg is at the correct x position.</li>";
 ui_en["<li class='failure'>Reeborg is at the wrong x position.</li>"] = "<li class='failure'>Reeborg is at the wrong x position.</li>";
 ui_en["<li class='success'>Reeborg is at the correct y position.</li>"] = "<li class='success'>Reeborg is at the correct y position.</li>";

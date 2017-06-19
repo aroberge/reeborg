@@ -120,6 +120,7 @@ _add_object_type = function (name) {
 };
 
 _add_object_type("token");
+RUR.TILES.token.info = "tokens are Reeborg's favourite thing.";
 _add_object_type("star");
 _add_object_type("triangle");
 _add_object_type("square");

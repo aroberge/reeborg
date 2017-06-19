@@ -39,6 +39,7 @@ ko_to_en["별"] = "star";
 ui_ko["strawberry"] = "딸기";
 ko_to_en["딸기"] = "strawberry";
 ui_ko.token = "토큰";
+ui_en["tokens are Reeborg's favourite thing."] = "토큰 are Reeborg's favourite thing.";
 ko_to_en["토큰"] = "token";
 ui_ko.triangle = "삼각형";
 ko_to_en["삼각형"] = "triangle";
@@ -47,7 +48,7 @@ ko_to_en["튤립"] = "tulip";
 
 ui_ko["Problem with onload code."] = "유효하지 않은 자바스크립트 onload 코드입니다; 이 월드의 제작자에게 연락하세요.";
 
-ui_ko["Too many steps:"] = "너무 많은 steps: {max_steps}";
+ui_ko["Too many steps:"] = "너무 많은 steps: {max_steps}<br>Use <code>set_max_nb_instructions(nb)</code> to increase the limit.";
 ui_ko["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>리보그는 올바른 x 위치에 있습니다. </li>";
 ui_ko["<li class='failure'>Reeborg is at the wrong x position.</li>"] = "<li class='failure'>리보그는 잘못된 x 위치에 있습니다. </li>";
 ui_ko["<li class='success'>Reeborg is at the correct y position.</li>"] = "<li class='success'>리보그는 올바른 y 위치에 있습니다. </li>";

@@ -121,6 +121,7 @@ _add_object_type = function (name) {
 };
 
 _add_object_type("token");
+RUR.TILES.token.info = "tokens are Reeborg's favourite thing.";
 _add_object_type("star");
 _add_object_type("triangle");
 _add_object_type("square");
@@ -5462,10 +5463,11 @@ $("#copy-permalink").on("click", function (evt) {
 });
 
 // for embedding in iframe
-addEventListener("message", receiveMessage, false);
-function receiveMessage(event){
-    RUR.permalink.update(event.data);
-}
+// update() missing so this raises an error.
+// addEventListener("message", receiveMessage, false);
+// function receiveMessage(event){
+//     RUR.permalink.update(event.data);
+// }
 
 },{"./../../lang/msg.js":92,"./../editors/create.js":10,"./../editors/update.js":11,"./../listeners/programming_mode.js":25,"./../rur.js":52,"./../storage/storage.js":55,"./../translator.js":56,"./../utils/parseuri.js":64,"./../world_utils/export_world.js":87}],36:[function(require,module,exports){
 require("./../rur.js");
@@ -6597,7 +6599,7 @@ RUR.control.move = function (robot) {
 
 
     // A move has been performed ... but it may have been a fatal decision
-    message = RUR.is_fatal(robot.x, robot.y, get_objects_carried_protections(robot));
+    message = RUR.is_fatal_position(robot.x, robot.y, robot);
     if (message) {
         throw new RUR.ReeborgError(message);
     }
@@ -6724,7 +6726,7 @@ RUR.control._robot_put_down_object = function (robot, obj) {
 
 
 RUR.control.take = function(robot, arg){
-    var translated_arg, objects_here;
+    var translated_arg, objects_here, message;
     RUR.state.sound_id = "#take-sound";
     if (arg !== undefined) {
         translated_arg = RUR.translate_to_english(arg);
@@ -6737,13 +6739,25 @@ RUR.control.take = function(robot, arg){
     if (arg !== undefined) {
         if (Array.isArray(objects_here) && objects_here.length === 0) {
             throw new RUR.MissingObjectError(RUR.translate("No object found here").supplant({obj: arg}));
-        }  else {
+        }  else if(RUR.is_fatal_thing(arg)) {
+            message = RUR.get_property(arg, 'message');
+            if (message == undefined) {
+                message = "I picked up a fatal object.";
+            }
+            throw new RUR.ReeborgError(RUR.translate(message));
+        } else {
             RUR.control._take_object_and_give_to_robot(robot, arg);
         }
     }  else if (Array.isArray(objects_here) && objects_here.length === 0){
         throw new RUR.MissingObjectError(RUR.translate("No object found here").supplant({obj: RUR.translate("object")}));
     }  else if (objects_here.length > 1){
         throw new RUR.MissingObjectError(RUR.translate("Many objects are here; I do not know which one to take!"));
+    }  else if(RUR.is_fatal_thing(objects_here[0])) {
+        message = RUR.get_property(objects_here[0], 'message');
+        if (message == undefined) {
+            message = "I picked up a fatal object.";
+        }
+        throw new RUR.ReeborgError(RUR.translate(message));
     } else {
         RUR.control._take_object_and_give_to_robot(robot, objects_here[0]);
     }
@@ -6832,7 +6846,7 @@ RUR.control.front_is_clear = function(robot){
     next_x = position.x;
     next_y = position.y;
 
-    if (RUR.is_fatal(next_x, next_y, get_objects_carried_protections(robot)) &&
+    if (RUR.is_fatal_position(next_x, next_y, robot) &&
         RUR.is_detectable(next_x, next_y)) {
         return false;
     }
@@ -6902,26 +6916,6 @@ RUR.control.carries_object = function (robot, obj) {
         }
         return 0;
     }
-};
-
-get_objects_carried_protections = function (robot) {
-    "use strict";
-    var objects_carried, obj_type, protections;
-
-    objects_carried = RUR.control.carries_object(robot);
-    if (!objects_carried || !Object.keys(objects_carried)) {
-        return [];
-    }
-
-    protections = [];
-    for(obj_type of Object.keys(objects_carried)){
-        obj_type = RUR.translate_to_english(obj_type);
-        if (RUR.TILES[obj_type] !== undefined && RUR.TILES[obj_type].protections !== undefined) {
-            protections = protections.concat(RUR.TILES[obj_type].protections);
-        }
-    }
-
-    return protections;
 };
 
 
@@ -8056,7 +8050,7 @@ RUR.runner.eval_javascript = function (src) {
 
 RUR.runner.eval_python = function (src) {
     // do not  "use strict"
-    var pre_code, post_code, highlight;
+    var pre_code, post_code;
     RUR.reset_definitions();
     pre_code = pre_code_editor.getValue();
     post_code = post_code_editor.getValue();
@@ -8074,25 +8068,42 @@ RUR.runner.simplify_python_traceback = function(e) {
         switch (error_name) {
             case "SyntaxError":
                 try {
-                    other_info = RUR.runner.find_line_number(e.args[1][3]);
-                    if (RUR.runner.check_colons(e.args[1][3])) {
+                    other_info = RUR.runner.find_line_number(e.args[4]);
+                    if (RUR.runner.check_colons(e.args[4])) {
                         other_info += RUR.translate("<br>Perhaps a missing colon is the cause.");
-                    } else if (RUR.runner.check_func_parentheses(e.args[1][3])){
+                    } else if (RUR.runner.check_func_parentheses(e.args[4])){
                         other_info += RUR.translate("<br>Perhaps you forgot to add parentheses ().");
+                    } else {
+                        console.log(e.args);
+                        try {
+                            other_info += e.args[4];
+                            if (RUR.state.highlight) {
+                                other_info += "Try turning off syntax highlighting; if this fixes the problem, please file a bug.";
+                            }
+                        } catch (e) {
+                            console.log("error in simplifying traceback: ", e);
+                        }
                     }
                 } catch (e) { // jshint ignore:line
                     other_info = "I could not analyze this error; you might want to contact my programmer with a description of this problem.";
+                    console.log("error in simplifying traceback: ", e);
                 }
                 break;
             case "IndentationError":
                 message = RUR.translate("The code is not indented correctly.");
                 try {
-                    other_info = RUR.runner.find_line_number(e.args[1][3]);
-                    if (e.args[1][3].indexOf("RUR.set_lineno_highlight([") == -1){
-                        other_info += "<br><code>" + e.args[1][3] + "</code>";
+                    other_info = RUR.runner.find_line_number(e.args[4]);
+                    if (e.args[4].indexOf("RUR.set_lineno_highlight([") == -1){
+                        other_info += "<br><code>" + e.args[4] + "</code>";
+                    } else if (RUR.state.highlight) {
+                        other_info += "Try turning off syntax highlighting; if this fixes the problem, please file a bug.";
                     }
                 } catch (e) {  // jshint ignore:line
-                    other_info = "I could not analyze this error; you might want to contact my programmer with a description of this problem.";
+                    if (RUR.state.highlight) {
+                        other_info += "Try turning off syntax highlighting; if this fixes the problem, please file a bug.";
+                    } else {
+                        other_info = "I could not analyze this error; you might want to contact my programmer with a description of this problem.";
+                    }
                 }
                 break;
             case "NameError":
@@ -8800,6 +8811,9 @@ merge_dicts(RUR.translation, RUR.en);
 RUR.translation_to_english = RUR.en_to_en;
 
 RUR.translate = function (s) {
+    if (s==undefined) {
+        return "";
+    }
     if (RUR.untranslated[s]) {
         return s;
     } else if (RUR.translation[s] !== undefined) {
@@ -10514,7 +10528,37 @@ require("./background_tile.js");
 require("./bridges.js");
 require("./obstacles.js");
 
-/** @function is_fatal
+/** @function get_protections
+ * @memberof RUR
+ * @instance
+ *
+ * @desc This needs to be documented
+ *
+ * @param {object} robot Determine if robot or robot body.
+ *
+ * @returns an array of protections
+ */
+RUR.get_protections = function (robot) {
+    "use strict";
+    var objects_carried, obj_type, protections;
+
+    objects_carried = RUR.control.carries_object(robot);
+    if (!objects_carried || !Object.keys(objects_carried)) {
+        return [];
+    }
+
+    protections = [];
+    for(obj_type of Object.keys(objects_carried)){
+        obj_type = RUR.translate_to_english(obj_type);
+        if (RUR.TILES[obj_type] !== undefined && RUR.TILES[obj_type].protections !== undefined) {
+            protections = protections.concat(RUR.TILES[obj_type].protections);
+        }
+    }
+
+    return protections;
+};
+
+/** @function is_fatal_position
  * @memberof RUR
  * @instance
  *
@@ -10522,11 +10566,12 @@ require("./obstacles.js");
  *
  * @returns The message to show.
  */
-RUR.is_fatal = function (x, y, protections){
+RUR.is_fatal_position = function (x, y, robot){
     "use strict";
     // protections is from objects carried by the robot
-    var tile, tiles;
+    var protections, tile, tiles;
 
+    protections = RUR.get_protections(robot);
     /* Both obstacles and background tiles can be fatal;
        we combine both in a single array here */
 
@@ -10590,7 +10635,21 @@ RUR.is_detectable = function (x, y){
     return false;
 };
 
-
+/** @function is_fatal_thing
+ * @memberof RUR
+ * @instance
+ *
+ * @desc This needs to be documented
+ *
+ * @returns The message to show.
+ */
+RUR.is_fatal_thing = function (name){
+    name = RUR.translate_to_english(name);
+    if (RUR.get_property(name, 'fatal')) {
+        return true;
+    }
+    return false;
+}
 },{"./../rur.js":52,"./background_tile.js":69,"./bridges.js":70,"./obstacles.js":75}],74:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
@@ -11953,6 +12012,7 @@ require("./../default_tiles/tiles.js");
 require("./../dialogs/create.js");
 require("./../listeners/canvas.js");
 require("./../utils/supplant.js");
+require("./../world_api/things.js");
 
 RUR.world_get = {};
 
@@ -12095,11 +12155,12 @@ RUR.world_get.world_info = function (no_grid) {
         obj_here = obj[coords];
         for (obj_type in obj_here) {
             if (obj_here.hasOwnProperty(obj_type)) {
-                    if (topic){
-                        topic = false;
-                        information += "<br><br><b>" + RUR.translate("Objects found here:") + "</b>";
-                    }
-               information += "<br>" + RUR.translate(obj_type) + ":" + obj_here[obj_type];
+                if (topic){
+                    topic = false;
+                    information += "<br><br><b>" + RUR.translate("Objects found here:") + "</b>";
+                }
+                information += "<br>" + RUR.translate(obj_type) + ":" + obj_here[obj_type];
+                information += " " + RUR.translate(RUR.get_property(obj_type, "info"));
             }
         }
     }
@@ -12222,7 +12283,7 @@ RUR.world_get.world_info = function (no_grid) {
 
 RUR.create_and_activate_dialogs( $("#world-info-button"), $("#World-info"),
                                  {height:600, width:800}, RUR.world_get.world_info);
-},{"./../default_tiles/tiles.js":1,"./../dialogs/create.js":3,"./../listeners/canvas.js":18,"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../utils/supplant.js":65}],81:[function(require,module,exports){
+},{"./../default_tiles/tiles.js":1,"./../dialogs/create.js":3,"./../listeners/canvas.js":18,"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../utils/supplant.js":65,"./../world_api/things.js":78}],81:[function(require,module,exports){
 require("./../recorder/record_frame.js");
 
 
@@ -12978,12 +13039,13 @@ ui_en["square"] = en_to_en["square"] = "square";
 ui_en["star"] = en_to_en["star"] = "star";
 ui_en["strawberry"] = en_to_en["strawberry"] = "strawberry";
 ui_en["token"] = en_to_en["token"] = "token";
+ui_en["tokens are Reeborg's favourite thing."] = "tokens are Reeborg's favourite thing.";
 ui_en["triangle"] = en_to_en["triangle"] = "triangle";
 ui_en["tulip"] = en_to_en["tulip"] = "tulip";
 
 ui_en["Problem with onload code."] = "Invalid Javascript onload code; contact the creator of this world.";
 
-ui_en["Too many steps:"] = "Too many steps: {max_steps}";
+ui_en["Too many steps:"] = "Too many steps: {max_steps}<br>Use <code>set_max_nb_instructions(nb)</code> to increase the limit.";
 ui_en["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg is at the correct x position.</li>";
 ui_en["<li class='failure'>Reeborg is at the wrong x position.</li>"] = "<li class='failure'>Reeborg is at the wrong x position.</li>";
 ui_en["<li class='success'>Reeborg is at the correct y position.</li>"] = "<li class='success'>Reeborg is at the correct y position.</li>";
@@ -13328,6 +13390,7 @@ fr_to_en["étoile"] = "star";
 ui_fr["strawberry"] = "fraise";
 fr_to_en["fraise"] = "strawberry";
 ui_fr.token = "jeton";
+ui_fr["tokens are Reeborg's favourite thing."] = "Les jetons sont les objets favoris de Reeborg.";
 fr_to_en["jeton"] = "token";
 ui_fr.triangle = "triangle";
 fr_to_en["triangle"] = "triangle";
@@ -13336,7 +13399,7 @@ fr_to_en["tulipe"] = "tulip";
 
 ui_fr["Problem with onload code."] = "Code Javascript 'onload' non valide; veuillez contacter le créateur de ce monde.";
 
-ui_fr["Too many steps:"] = "Trop d'instructions: {max_steps}";
+ui_fr["Too many steps:"] = "Trop d'instructions: {max_steps}<br>Utilisez <code>max_nb_instructions()(nb)</code> pour augmenter la limite.";
 ui_fr["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg est à la bonne coordonnée x.</li>";
 ui_fr["<li class='failure'>Reeborg is at the wrong x position.</li>"] = "<li class='failure'>Reeborg est à la mauvaise coordonnée x.</li>";
 ui_fr["<li class='success'>Reeborg is at the correct y position.</li>"] = "<li class='success'>Reeborg est à la bonne coordonnée y.</li>";
@@ -13686,6 +13749,7 @@ ko_to_en["별"] = "star";
 ui_ko["strawberry"] = "딸기";
 ko_to_en["딸기"] = "strawberry";
 ui_ko.token = "토큰";
+ui_en["tokens are Reeborg's favourite thing."] = "토큰 are Reeborg's favourite thing.";
 ko_to_en["토큰"] = "token";
 ui_ko.triangle = "삼각형";
 ko_to_en["삼각형"] = "triangle";
@@ -13694,7 +13758,7 @@ ko_to_en["튤립"] = "tulip";
 
 ui_ko["Problem with onload code."] = "유효하지 않은 자바스크립트 onload 코드입니다; 이 월드의 제작자에게 연락하세요.";
 
-ui_ko["Too many steps:"] = "너무 많은 steps: {max_steps}";
+ui_ko["Too many steps:"] = "너무 많은 steps: {max_steps}<br>Use <code>set_max_nb_instructions(nb)</code> to increase the limit.";
 ui_ko["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>리보그는 올바른 x 위치에 있습니다. </li>";
 ui_ko["<li class='failure'>Reeborg is at the wrong x position.</li>"] = "<li class='failure'>리보그는 잘못된 x 위치에 있습니다. </li>";
 ui_ko["<li class='success'>Reeborg is at the correct y position.</li>"] = "<li class='success'>리보그는 올바른 y 위치에 있습니다. </li>";

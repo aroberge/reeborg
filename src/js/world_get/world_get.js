@@ -8,6 +8,7 @@ require("./../default_tiles/tiles.js");
 require("./../dialogs/create.js");
 require("./../listeners/canvas.js");
 require("./../utils/supplant.js");
+require("./../world_api/things.js");
 
 RUR.world_get = {};
 
@@ -150,11 +151,12 @@ RUR.world_get.world_info = function (no_grid) {
         obj_here = obj[coords];
         for (obj_type in obj_here) {
             if (obj_here.hasOwnProperty(obj_type)) {
-                    if (topic){
-                        topic = false;
-                        information += "<br><br><b>" + RUR.translate("Objects found here:") + "</b>";
-                    }
-               information += "<br>" + RUR.translate(obj_type) + ":" + obj_here[obj_type];
+                if (topic){
+                    topic = false;
+                    information += "<br><br><b>" + RUR.translate("Objects found here:") + "</b>";
+                }
+                information += "<br>" + RUR.translate(obj_type) + ":" + obj_here[obj_type];
+                information += " " + RUR.translate(RUR.get_property(obj_type, "info"));
             }
         }
     }

@@ -134,7 +134,8 @@ $("#copy-permalink").on("click", function (evt) {
 });
 
 // for embedding in iframe
-addEventListener("message", receiveMessage, false);
-function receiveMessage(event){
-    RUR.permalink.update(event.data);
-}
+// update() missing so this raises an error.
+// addEventListener("message", receiveMessage, false);
+// function receiveMessage(event){
+//     RUR.permalink.update(event.data);
+// }
