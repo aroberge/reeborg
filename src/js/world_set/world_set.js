@@ -123,7 +123,7 @@ function set_dimension () {
     RUR.CURRENT_WORLD.small_tiles = $("#use-small-tiles").prop("checked");
 
     trim_world(max_x, max_y, RUR.MAX_X, RUR.MAX_Y);   // remove extra objects
-    RUR.vis_world.compute_world_geometry(max_x, max_y);
+    RUR.set_world_size(max_x, max_y);
     RUR.world_set.dialog_set_dimensions.dialog("close");
     return true;
 }

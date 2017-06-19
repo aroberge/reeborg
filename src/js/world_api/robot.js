@@ -219,7 +219,7 @@ RUR.get_position_in_front = function (robot_body) {
         x = robot_body.x;
         break;
     default:
-        throw new Error("Should not happen: unhandled case in RUR.get_location_in_front().");
+        throw new Error("Should not happen: unhandled case in RUR.get_position_in_front().");
     }
     return {x:x, y:y};
 };

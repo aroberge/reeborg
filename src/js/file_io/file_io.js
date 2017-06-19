@@ -182,6 +182,7 @@ RUR.install_extra = function(url) {
 };
 /**
  * @function extra_python_content
+ * @memberof RUR
  * @instance
  *
  * @desc "Installs" a python module defined as a string parameter to
@@ -191,7 +192,8 @@ RUR.install_extra = function(url) {
  * To be used as alternative to the Python function `install_extra` which
  * install a python module named `extra` from a url.
  *
- * @param {string} python_code
+ * @param {string} python_code The Python code which is the content of the
+ * desired module
  *
  * @todo add example
  * @todo add tutorial

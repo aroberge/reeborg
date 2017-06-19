@@ -951,7 +951,20 @@ RUR.vis_world.refresh_world_edited = function () {
     RUR.world_get.world_info();
 };
 
-RUR.vis_world.compute_world_geometry = function (cols, rows) {
+/** @function set_world_size
+ * @memberof RUR
+ * @instance
+ *
+ * @desc Change the size of the world
+ *
+ * @param {integer} max_x The width of the world. Internally, we use
+ * `cols` instead of `max_x`.
+ * @param {integer} max_y The height of the world. Internally, we use
+ * `rows` instead of `max_y`.
+ * @todo Add example
+ */
+
+RUR.set_world_size = function (max_x, max_y) {
     "use strict";
     var height, width, canvas;
     if (RUR.get_world().small_tiles) {
@@ -966,11 +979,11 @@ RUR.vis_world.compute_world_geometry = function (cols, rows) {
         RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
     }
 
-    if (cols !== undefined && rows !== undefined) {
-        height = (rows + 1.5) * RUR.WALL_LENGTH;
-        width = (cols + 1.5) * RUR.WALL_LENGTH;
-        RUR.MAX_Y = rows;
-        RUR.MAX_X = cols;
+    if (max_x !== undefined && max_y !== undefined) {
+        height = (max_y + 1.5) * RUR.WALL_LENGTH;
+        width = (max_x + 1.5) * RUR.WALL_LENGTH;
+        RUR.MAX_Y = max_y;
+        RUR.MAX_X = max_x;
     } else {
         height = (RUR.MAX_Y + 1.5) * RUR.WALL_LENGTH;
         width = (RUR.MAX_X + 1.5) * RUR.WALL_LENGTH;
@@ -990,6 +1003,8 @@ RUR.vis_world.compute_world_geometry = function (cols, rows) {
     RUR.vis_world.draw_all();
 };
 
+// retaining compatibility with some of Vincent Maille's worlds.
+RUR.vis_world.compute_world_geometry = RUR.set_world_size;
 
 RUR.vis_world.draw_all = function () {
     "use strict";
@@ -2051,6 +2066,7 @@ RUR.install_extra = function(url) {
 };
 /**
  * @function extra_python_content
+ * @memberof RUR
  * @instance
  *
  * @desc "Installs" a python module defined as a string parameter to
@@ -2060,7 +2076,8 @@ RUR.install_extra = function(url) {
  * To be used as alternative to the Python function `install_extra` which
  * install a python module named `extra` from a url.
  *
- * @param {string} python_code
+ * @param {string} python_code The Python code which is the content of the
+ * desired module
  *
  * @todo add example
  * @todo add tutorial
@@ -11295,7 +11312,7 @@ RUR.get_position_in_front = function (robot_body) {
         x = robot_body.x;
         break;
     default:
-        throw new Error("Should not happen: unhandled case in RUR.get_location_in_front().");
+        throw new Error("Should not happen: unhandled case in RUR.get_position_in_front().");
     }
     return {x:x, y:y};
 };
@@ -12421,7 +12438,7 @@ function set_dimension () {
     RUR.CURRENT_WORLD.small_tiles = $("#use-small-tiles").prop("checked");
 
     trim_world(max_x, max_y, RUR.MAX_X, RUR.MAX_Y);   // remove extra objects
-    RUR.vis_world.compute_world_geometry(max_x, max_y);
+    RUR.set_world_size(max_x, max_y);
     RUR.world_set.dialog_set_dimensions.dialog("close");
     return true;
 }
@@ -12633,7 +12650,7 @@ RUR.world_utils.import_world = function (json_string) {
     RUR.CURRENT_WORLD.small_tiles = RUR.CURRENT_WORLD.small_tiles || false;
     RUR.CURRENT_WORLD.rows = RUR.CURRENT_WORLD.rows || RUR.MAX_Y_DEFAULT;
     RUR.CURRENT_WORLD.cols = RUR.CURRENT_WORLD.cols || RUR.MAX_X_DEFAULT;
-    RUR.vis_world.compute_world_geometry(RUR.CURRENT_WORLD.cols, RUR.CURRENT_WORLD.rows);
+    RUR.set_world_size(RUR.CURRENT_WORLD.cols, RUR.CURRENT_WORLD.rows);
 
     RUR.update_editors(RUR.CURRENT_WORLD);
 

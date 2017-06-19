@@ -31,3 +31,5 @@
 12. Explain how to work without an internet connection or if CORS problems
     arise - for world, but not extra images unfortunately.
 
+13. Explore the possibility of adding `here()` which would return a tuple
+    `(x, y)` in Python, and an array in Javascript.

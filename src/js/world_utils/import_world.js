@@ -135,7 +135,7 @@ RUR.world_utils.import_world = function (json_string) {
     RUR.CURRENT_WORLD.small_tiles = RUR.CURRENT_WORLD.small_tiles || false;
     RUR.CURRENT_WORLD.rows = RUR.CURRENT_WORLD.rows || RUR.MAX_Y_DEFAULT;
     RUR.CURRENT_WORLD.cols = RUR.CURRENT_WORLD.cols || RUR.MAX_X_DEFAULT;
-    RUR.vis_world.compute_world_geometry(RUR.CURRENT_WORLD.cols, RUR.CURRENT_WORLD.rows);
+    RUR.set_world_size(RUR.CURRENT_WORLD.cols, RUR.CURRENT_WORLD.rows);
 
     RUR.update_editors(RUR.CURRENT_WORLD);
 

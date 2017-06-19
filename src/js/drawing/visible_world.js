@@ -12,7 +12,20 @@ RUR.vis_world.refresh_world_edited = function () {
     RUR.world_get.world_info();
 };
 
-RUR.vis_world.compute_world_geometry = function (cols, rows) {
+/** @function set_world_size
+ * @memberof RUR
+ * @instance
+ *
+ * @desc Change the size of the world
+ *
+ * @param {integer} max_x The width of the world. Internally, we use
+ * `cols` instead of `max_x`.
+ * @param {integer} max_y The height of the world. Internally, we use
+ * `rows` instead of `max_y`.
+ * @todo Add example
+ */
+
+RUR.set_world_size = function (max_x, max_y) {
     "use strict";
     var height, width, canvas;
     if (RUR.get_world().small_tiles) {
@@ -27,11 +40,11 @@ RUR.vis_world.compute_world_geometry = function (cols, rows) {
         RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
     }
 
-    if (cols !== undefined && rows !== undefined) {
-        height = (rows + 1.5) * RUR.WALL_LENGTH;
-        width = (cols + 1.5) * RUR.WALL_LENGTH;
-        RUR.MAX_Y = rows;
-        RUR.MAX_X = cols;
+    if (max_x !== undefined && max_y !== undefined) {
+        height = (max_y + 1.5) * RUR.WALL_LENGTH;
+        width = (max_x + 1.5) * RUR.WALL_LENGTH;
+        RUR.MAX_Y = max_y;
+        RUR.MAX_X = max_x;
     } else {
         height = (RUR.MAX_Y + 1.5) * RUR.WALL_LENGTH;
         width = (RUR.MAX_X + 1.5) * RUR.WALL_LENGTH;
@@ -51,6 +64,8 @@ RUR.vis_world.compute_world_geometry = function (cols, rows) {
     RUR.vis_world.draw_all();
 };
 
+// retaining compatibility with some of Vincent Maille's worlds.
+RUR.vis_world.compute_world_geometry = RUR.set_world_size;
 
 RUR.vis_world.draw_all = function () {
     "use strict";
