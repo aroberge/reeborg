@@ -197,11 +197,11 @@ obj = {"name": 'beeper',
 };
 RUR.add_new_thing(obj);
 
-add_new_obstacle_type = function (name, url) {
+add_new_obstacle_type = function (name, url, fatal) {
     var obj = RUR.TILES;
     obj[name] = {};
     obj[name].name = name;
-    obj[name].fatal = true;
+    obj[name].fatal = fatal;
     obj[name].solid = true;
     obj[name].detectable = true;
     obj[name].ctx = RUR.OBSTACLES_CTX;
@@ -219,18 +219,18 @@ add_new_obstacle_type = function (name, url) {
 };
 
 
-add_new_obstacle_type("fence_right", false);
+add_new_obstacle_type("fence_right", false, "fence");
 RUR.TILES.fence_right.message = "I hit a fence!";
 RUR.TILES.fence_right.info = "Fence: Reeborg <b>can</b> detect this but will be stopped by it.";
 
-add_new_obstacle_type("fence_left", false);
+add_new_obstacle_type("fence_left", false, "fence");
 RUR.TILES.fence_left.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_left.info = RUR.TILES.fence_right.info;
 
-add_new_obstacle_type("fence_double", false);
+add_new_obstacle_type("fence_double", false, "fence");
 RUR.TILES.fence_double.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_double.info = RUR.TILES.fence_right.info;
 
-add_new_obstacle_type("fence_vertical", false);
+add_new_obstacle_type("fence_vertical", false, "fence");
 RUR.TILES.fence_vertical.message = RUR.TILES.fence_right.message;
 RUR.TILES.fence_vertical.info = RUR.TILES.fence_right.info;

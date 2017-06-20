@@ -9,6 +9,7 @@
 /* main addition to original version */
 body {
   font-size: 12pt;
+  line-height: 1.5;
 }
 
 
@@ -43,7 +44,7 @@ code {
 
 p, ol, ul {
   font-weight: normal;
-  max-width: 55em;
+  max-width: 50em;
 }
 article ol li {margin-bottom: 0.5em;}
 

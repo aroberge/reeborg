@@ -45,7 +45,8 @@ In some cases, the basic three arguments, `name`, `x`, and `y`, are not sufficie
 
 ## Available _things_ and general help
 
-To view what _things_ are available, you can execute a program with a single line of code:
+To view what _things_ are available, you can execute a program with a single line of code.
+(See {@link RUR#show_all_things} for more details.)
 
     RUR.show_all_things()
 

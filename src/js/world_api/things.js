@@ -169,23 +169,28 @@ function create_images(obj) {
  * be used as an object to be picked up by Reeborg.
  *
  * @param {string} [property] If this argument is provided, only "things" for
- * which this property is defined will be shown.
+ * which this property/attribute is defined will be shown,
+ * and the value of the attribute will be shown as well.
  *
  * @example
  * RUR.show_all_things()
  * RUR.show_all_things("fatal")
  */
 RUR.show_all_things = function (property) {
-    var i, j, info, images, name, url;
+    var i, j, info, images, name, url, begin, end, prop_str;
     if (property !== undefined) {
         info = "<h3>Things with property <code>" + property + "</code></h3>";
+        prop_str = "<th>" + property + "</th>";
     } else {
         info = '';
+        prop_str = '';
     }
+    begin = "<table border='1'><tr><th>name</th>";
+    end = "<th>image(s)</th><th>goal?</th></tr>";
     if (RUR.state.human_language != 'en') {
-            info += "<table border='1'><tr><th>name</th><th>translation</th><th>image(s)</th><th>goal?</th></tr>";
+            info += begin + "<th>translation</th>" + prop_str + end;
         } else {
-            info += "<table border='1'><tr><th>name</th><th>image(s)</th><th>goal?</th></tr>";
+            info += begin + prop_str + end;
         }
     for (i=0; i< RUR.KNOWN_TILES.length; i++) {
         name = RUR.KNOWN_TILES[i];
@@ -202,6 +207,9 @@ RUR.show_all_things = function (property) {
         info += "<tr><td>" +  name + "</td><td>";
         if (RUR.state.human_language != 'en') {
             info += RUR.translate(name) + "</td><td>";
+        }
+        if (property !== undefined) {
+            info +=  RUR.TILES[name][property] + "</td><td>";
         }
         if (url !== undefined) {
             info += "<img src = '" + RUR.TILES[name].url + "'></td><td>";
@@ -220,6 +228,7 @@ RUR.show_all_things = function (property) {
     }
     info += "</table>";
     RUR._print_html_(info, true); // true will replace existing content
+    return null; // for the python repl
 };
 
 /** @function has_property

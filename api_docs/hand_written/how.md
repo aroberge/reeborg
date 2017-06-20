@@ -19,7 +19,7 @@ in the rest of this documentation. Note that the `help()` function mentioned
 as available from the Python REPL can also be used in a program
 written in the code editor.
 
-Using the menu-drive world editor, it is easy to add objects and specify
+Using the menu-driven world editor, it is easy to add objects and specify
 goals for Reeborg. {@tutorial objects} explains how to do the same thing
 using the advanced programming interface. You need to know how to do
 this if you want to learn to add your own objects later on.
