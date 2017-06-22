@@ -3,7 +3,6 @@ require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
 require("./artefact.js");
-require("./../world_utils/get_world.js");
 
 /** @function add_decorative_object
  * @memberof RUR
@@ -51,7 +50,7 @@ RUR.add_decorative_object = function (name, x, y) {
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no background tile to remove
  *        at that location
- *        
+ *
  * @todo add test
  * @todo add examples
  * @todo deal with translation
@@ -103,7 +102,7 @@ RUR.get_decorative_object = function (x, y) {
     if (tile === null) {
         return null;
     } else {
-        return RUR.TILES[tile[0]];
+        return RUR.THINGS[tile[0]];
     }
 };
 

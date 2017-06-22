@@ -54,12 +54,12 @@ RUR.make_default_menu = function(language) {
 RUR.make_default_menu_en = function () {
     "use strict";
     var contents,
-        new_tutorial_en = RUR._BASE_URL + '/worlds/tutorial_en/',
-        tutorial_en = RUR._BASE_URL + '/src/worlds/tutorial_en/',
-        menus = RUR._BASE_URL + '/src/worlds/menus/',
-        worlds = RUR._BASE_URL + '/src/worlds/',
-        docs = RUR._BASE_URL + '/src/worlds/documentation/',
-        permalinks = RUR._BASE_URL + '/src/worlds/permalinks/';
+        new_tutorial_en = RUR.BASE_URL + '/worlds/tutorial_en/',
+        tutorial_en = RUR.BASE_URL + '/src/worlds/tutorial_en/',
+        menus = RUR.BASE_URL + '/src/worlds/menus/',
+        worlds = RUR.BASE_URL + '/src/worlds/',
+        docs = RUR.BASE_URL + '/src/worlds/documentation/',
+        permalinks = RUR.BASE_URL + '/src/worlds/permalinks/';
 
     contents = [
         [worlds + 'alone.json', 'Alone'],
@@ -125,16 +125,16 @@ RUR.make_default_menu_fr = function () {
     "use strict";
     var base_url, base_url2, contents, menus, worlds, new_tutorial_fr;
 
-    base_url = RUR._BASE_URL + '/src/worlds/tutorial_en/';
-    base_url2 = RUR._BASE_URL + '/src/worlds/tutorial_fr/';
+    base_url = RUR.BASE_URL + '/src/worlds/tutorial_en/';
+    base_url2 = RUR.BASE_URL + '/src/worlds/tutorial_fr/';
 
-    menus = RUR._BASE_URL + '/src/worlds/menus/';
-    worlds = RUR._BASE_URL + '/src/worlds/';
-    new_tutorial_fr = RUR._BASE_URL + '/worlds/tutorial_fr/',
+    menus = RUR.BASE_URL + '/src/worlds/menus/';
+    worlds = RUR.BASE_URL + '/src/worlds/';
+    new_tutorial_fr = RUR.BASE_URL + '/worlds/tutorial_fr/',
 
     contents = [
-        [RUR._BASE_URL + '/src/worlds/seul.json', 'Seul'],
-        [RUR._BASE_URL + '/src/worlds/empty.json', 'Vide'],
+        [RUR.BASE_URL + '/src/worlds/seul.json', 'Seul'],
+        [RUR.BASE_URL + '/src/worlds/empty.json', 'Vide'],
         [new_tutorial_fr + 'around1.json', 'Autour 1'],
         [new_tutorial_fr + 'around2.json', 'Autour 2'],
         [new_tutorial_fr + 'around3.json', 'Autour 3'],
@@ -179,7 +179,7 @@ RUR.make_default_menu_fr = function () {
         [worlds + 'gravel_path_fr',
                            'Sentier de gravier (solution)'],
         [worlds + 'slalom.json', 'Slalom'],
-        [RUR._BASE_URL + 'src/worlds/blank.json', 'Canevas graphique'],
+        [RUR.BASE_URL + 'src/worlds/blank.json', 'Canevas graphique'],
     ];
 
     RUR.custom_world_select.make(contents);

@@ -25,8 +25,8 @@ RUR.get_protections = function (robot) {
     protections = [];
     for(obj_type of Object.keys(objects_carried)){
         obj_type = RUR.translate_to_english(obj_type);
-        if (RUR.TILES[obj_type] !== undefined && RUR.TILES[obj_type].protections !== undefined) {
-            protections = protections.concat(RUR.TILES[obj_type].protections);
+        if (RUR.THINGS[obj_type] !== undefined && RUR.THINGS[obj_type].protections !== undefined) {
+            protections = protections.concat(RUR.THINGS[obj_type].protections);
         }
     }
 
@@ -56,7 +56,7 @@ RUR.is_fatal_position = function (x, y, robot){
     }
     tile = RUR.get_background_tile(x, y);
     // tile is a name; it could be a colour, which is never fatal.
-    if (tile && RUR.TILES[tile] !== undefined) {
+    if (tile && RUR.THINGS[tile] !== undefined) {
         tiles.push(tile);
     }
 
@@ -66,9 +66,9 @@ RUR.is_fatal_position = function (x, y, robot){
     protections = protections.concat(RUR.get_bridge_protections(x, y));
     for (tile of tiles) {
         if (RUR.get_property(tile, "fatal")) {
-            if (protections.indexOf(RUR.TILES[tile].fatal) === -1) {
-                if (RUR.TILES[tile].message) {
-                    return RUR.TILES[tile].message;
+            if (protections.indexOf(RUR.THINGS[tile].fatal) === -1) {
+                if (RUR.THINGS[tile].message) {
+                    return RUR.THINGS[tile].message;
                 } else {
                     return "Fatal tile needs message defined";
                 }
@@ -99,7 +99,7 @@ RUR.is_detectable = function (x, y){
         tiles = [];
     }
     tile = RUR.get_background_tile(x, y);
-    if (tile && RUR.TILES[tile] !== undefined) {
+    if (tile && RUR.THINGS[tile] !== undefined) {
         tiles.push(tile);
     }
     for (tile of tiles) {

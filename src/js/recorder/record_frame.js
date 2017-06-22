@@ -2,14 +2,14 @@
 require("./../rur.js");
 require("./reset.js");
 require("./../programming_api/exceptions.js");
-// require("./../world_get/world_get.js");
 require("./../playback/show_immediate.js");
 require("./../utils/supplant.js");
 var clone_world = require("./../world_utils/clone_world.js").clone_world;
 
 function update_trace_history() {
-    if (RUR.CURRENT_WORLD.robots !== undefined){
-        for (robot of RUR.CURRENT_WORLD.robots) { // jshint ignore:line
+    var world = RUR.get_world();
+    if (world.robots !== undefined){
+        for (robot of world.robots) { // jshint ignore:line
             RUR.vis_robot.update_trace_history(robot);
         }
     }

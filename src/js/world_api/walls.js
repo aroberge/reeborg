@@ -5,7 +5,6 @@ require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../utils/supplant.js");
 require("./../recorder/record_frame.js");
-require("./../world_utils/get_world.js");
 require("./artefact.js");
 
 /*=========================================
@@ -190,7 +189,7 @@ RUR.add_wall = function(orientation, x, y, goal) {
  *
  */
 RUR.remove_wall = function(orientation, x, y, goal) {
-    var args;
+    var args, world=RUR.get_world();
     // the following function call will raise an exception if
     // the orientation or the position is not valid
     wall_here = RUR.is_wall(orientation, x, y, goal);
@@ -203,7 +202,7 @@ RUR.remove_wall = function(orientation, x, y, goal) {
     args.type = "walls";
     RUR.remove_artefact(args);
     // For historical reason, worlds are always created with a "walls" attribute
-    RUR.utils.ensure_key_for_obj_exists(RUR.CURRENT_WORLD, "walls");
+    RUR.utils.ensure_key_for_obj_exists(world, "walls");
     RUR.record_frame("remove_wall", args);
 };
 

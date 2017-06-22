@@ -30,7 +30,7 @@ require("./world_api/walls.js");
 
 
 
-brython({debug:1, pythonpath:[RUR._BASE_URL + '/src/python']});
+brython({debug:1, pythonpath:[RUR.BASE_URL + '/src/python']});
 if (__BRYTHON__.__MAGIC__ != "3.2.7") {
     alert("Expecting Brython version 3.2.7 and got " + __BRYTHON__.__MAGIC__);
 }

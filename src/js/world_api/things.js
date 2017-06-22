@@ -102,7 +102,6 @@ require("./../programming_api/exceptions.js");
  * // A second example shows how one can change "things" behaviour.
  * World("/worlds/examples/thing2.json", "Example 2")
  */
-RUR.TILES = {};
 
 RUR.add_new_thing = function (thing) {
     "use strict";
@@ -117,8 +116,8 @@ RUR.add_new_thing = function (thing) {
     original_arg = JSON.stringify(thing);  // for comparison below
     thing = JSON.parse(original_arg);  // clone of original
 
-    if (RUR.KNOWN_TILES.indexOf(name) != -1) {
-        if (original_arg == RUR.TILES[name].original_arg) {
+    if (RUR.KNOWN_THINGS.indexOf(name) != -1) {
+        if (original_arg == RUR.THINGS[name].original_arg) {
             // use concatenation in log and warn, for comparison with unit tests.
             if (RUR.UnitTest !== undefined && RUR.UnitTest.logtest !== undefined){
                 console.log(name + " is already known; no need to recreate.");
@@ -127,11 +126,11 @@ RUR.add_new_thing = function (thing) {
         }
         console.warn("Warning: redefining " + name);
     } else {
-        RUR.KNOWN_TILES.push(name);
+        RUR.KNOWN_THINGS.push(name);
     }
 
     thing.original_arg = original_arg;
-    RUR.TILES[name] = thing;
+    RUR.THINGS[name] = thing;
     if (thing.color) {
         return;
     }
@@ -192,27 +191,27 @@ RUR.show_all_things = function (property) {
         } else {
             info += begin + prop_str + end;
         }
-    for (i=0; i< RUR.KNOWN_TILES.length; i++) {
-        name = RUR.KNOWN_TILES[i];
+    for (i=0; i< RUR.KNOWN_THINGS.length; i++) {
+        name = RUR.KNOWN_THINGS[i];
         if (property !== undefined) {
-            if (RUR.TILES[name][property] === undefined) {
+            if (RUR.THINGS[name][property] === undefined) {
                 continue;
             }
         }
-        if (RUR.TILES[name].color) {
+        if (RUR.THINGS[name].color) {
             continue;
         }
-        url = RUR.TILES[name].url;
-        images = RUR.TILES[name].images;
+        url = RUR.THINGS[name].url;
+        images = RUR.THINGS[name].images;
         info += "<tr><td>" +  name + "</td><td>";
         if (RUR.state.human_language != 'en') {
             info += RUR.translate(name) + "</td><td>";
         }
         if (property !== undefined) {
-            info +=  RUR.TILES[name][property] + "</td><td>";
+            info +=  RUR.THINGS[name][property] + "</td><td>";
         }
         if (url !== undefined) {
-            info += "<img src = '" + RUR.TILES[name].url + "'></td><td>";
+            info += "<img src = '" + RUR.THINGS[name].url + "'></td><td>";
         } else if (images !== undefined) {
             for(j=0; j<images.length; j++) {
                 info += "<img src = '" + images[j] + "'> - ";
@@ -221,8 +220,8 @@ RUR.show_all_things = function (property) {
         } else {
             info += "Missing image</td><td>";
         }
-        if (RUR.TILES[name].goal !== undefined) {
-            info += "<img src = '" + RUR.TILES[name].goal.url + "'>";
+        if (RUR.THINGS[name].goal !== undefined) {
+            info += "<img src = '" + RUR.THINGS[name].goal.url + "'>";
         }
         info += "</td></tr>";
     }
@@ -251,10 +250,10 @@ RUR.show_all_things = function (property) {
  * write(RUR.has_property("water", "fatal"))
  */
 RUR.has_property = function (name, property) {
-    if (RUR.TILES[name] === undefined) {
+    if (RUR.THINGS[name] === undefined) {
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj:name}));
     }
-    if (RUR.TILES[name][property] === undefined) {
+    if (RUR.THINGS[name][property] === undefined) {
         return false;
     } else {
         return true;
@@ -281,10 +280,10 @@ RUR.has_property = function (name, property) {
  * write(RUR.get_property("water", "fatal"))  // Javascript
  */
 RUR.get_property = function (name, property) {
-    if (RUR.TILES[name] === undefined) {
+    if (RUR.THINGS[name] === undefined) {
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj:name}));
     }
-    return RUR.TILES[name][property];
+    return RUR.THINGS[name][property];
 };
 
 

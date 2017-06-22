@@ -2,11 +2,19 @@
  * @desc The namespace reserved for all the core Reeborg World methods.
  *
  */
+
+/*====================================================
+ Yes, I know, global variables are a terrible thing.
+======================================================*/
+
 window.RUR = RUR || {}; // RUR should be already defined in the html file;
                         // however, it might not when running tests.
 RUR.utils = {};
 RUR.world_utils = {};
 RUR.FuncTest = {};
+
+RUR.THINGS = {}; // javascript objects which can be drawn, like "token"
+RUR.KNOWN_THINGS = []; // keeping track of their names only
 
 /* In order to make it easier to have a version of Reeborg's World
    installed on different servers, or from different location with
@@ -17,12 +25,12 @@ var pathname;
 try {
     pathname = window.location.pathname;  // not defined for unit tests
     if (pathname.indexOf("qunit") !== -1 ){  // running functional/qunit test
-        RUR._BASE_URL = '../..';
+        RUR.BASE_URL = '../..';
     } else {
-        RUR._BASE_URL = window.location.pathname.substr(0, window.location.pathname.lastIndexOf('/'));
+        RUR.BASE_URL = window.location.pathname.substr(0, window.location.pathname.lastIndexOf('/'));
     }
 } catch (e) {
-    RUR._BASE_URL = '';
+    RUR.BASE_URL = '';
 }
 
 /* Reeborg's World can be in different states (running a program,
@@ -62,6 +70,8 @@ RUR.state.changed_cells = [];
 RUR.state.visible_grid = false;
 
 RUR.onload_new_image = function  () {
+    // we do not require the file in which it is defined
+    // to avoid a circular import.
     if (RUR.vis_world === undefined) { // not ready yet
         return;
     }
@@ -75,32 +85,27 @@ RUR.onload_new_image = function  () {
 
 
 
-
-
 // TODO: see if worthwhile to create RUR.state.do_highlight()
 // this would be to combine all the flags required to have highlighting on
 
 // TODO: after simplifying the permalink, see if RUR.state.prevent_playback
 // is still needed.
 
-
-/*====================================================
-    CONSTANTS
-
- Yes, I know, global variables are a terrible thing.
-======================================================*/
-
 RUR.EAST = 0;
 RUR.NORTH = 1;
 RUR.WEST = 2;
 RUR.SOUTH = 3;
 
-// all images are assumed to be of this size.
 RUR.TILE_SIZE = 40;
 
-// current default canvas size.
+// current default canvas size; can be changed based on world definition.
 RUR.DEFAULT_HEIGHT = 550;
 RUR.DEFAULT_WIDTH = 625;
+
+// The following non-default values can be cut in half
+// when using worlds with "small tiles".
+RUR.WALL_LENGTH = RUR.DEFAULT_WALL_LENGTH = 40;
+RUR.WALL_THICKNESS = RUR.DEFAULT_WALL_THICKNESS = 4;
 
 //----------------------------------------------------------------
 // We use multiple canvases to facilitate the drawing of objects
@@ -136,11 +141,11 @@ function set_canvases () {
     RUR.HEIGHT = RUR.BACKGROUND_CANVAS.height;
     RUR.WIDTH = RUR.BACKGROUND_CANVAS.width;
 
-    RUR.TILES_CANVAS = document.getElementById("tiles-canvas");  //2
-    create_ctx(RUR.TILES_CANVAS, "TILES_CTX");
+    RUR.THINGS_CANVAS = document.getElementById("tiles-canvas");  //2
+    create_ctx(RUR.THINGS_CANVAS, "TILES_CTX");
 
-    RUR.TILES_CANVAS_ANIM = document.getElementById("tiles-canvas-anim"); // 3
-    create_ctx(RUR.TILES_CANVAS_ANIM, "TILES_ANIM_CTX");
+    RUR.THINGS_CANVAS_ANIM = document.getElementById("tiles-canvas-anim"); // 3
+    create_ctx(RUR.THINGS_CANVAS_ANIM, "TILES_ANIM_CTX");
 
     RUR.BRIDGE_CANVAS = document.getElementById("bridge-canvas");  //4
     create_ctx(RUR.BRIDGE_CANVAS, "BRIDGE_CTX");
@@ -192,10 +197,9 @@ function set_canvases () {
     RUR.ROBOT_ANIM_CANVAS = document.getElementById("robot-anim-canvas"); //20
     create_ctx(RUR.ROBOT_ANIM_CANVAS, "ROBOT_ANIM_CTX");
 }
-set_canvases();
 
-RUR.WALL_LENGTH = RUR.DEFAULT_WALL_LENGTH = 40;
-RUR.WALL_THICKNESS = RUR.DEFAULT_WALL_THICKNESS = 4;
+// We immediately create the canvases.
+set_canvases();
 
 RUR.MAX_Y = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
 RUR.MAX_X = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
@@ -210,9 +214,6 @@ RUR.MAX_X_DEFAULT = 14;
 RUR.MAX_Y_DEFAULT = 12;
 RUR.USE_SMALL_TILES = false;
 
-// RUR.WALL_COLOR = "brown";   // changed (toggled) in world_editor.js
-// RUR.SHADOW_WALL_COLOR= "#f0f0f0";    // changed (toggled) in world_editor.js
-// RUR.GOAL_WALL_COLOR = "black";
 RUR.COORDINATES_COLOR = "black";
 RUR.AXIS_LABEL_COLOR = "brown";
 
@@ -222,7 +223,6 @@ RUR.PLAYBACK_TIME_PER_FRAME = 300;
 
 RUR.DEFAULT_TRACE_COLOR = "seagreen";
 
-RUR.KNOWN_TILES = [];
 RUR.ANIMATION_TIME = 120;
 RUR.END_CYCLE = "end cycle"; // for animated images
 
@@ -230,13 +230,48 @@ RUR.BACKGROUND_IMAGE = new Image();
 RUR.BACKGROUND_IMAGE.src = '';
 
 RUR.CURRENT_WORLD = null; // needs to be created explicitly
-RUR.frame_insertion = undefined; // special function available to world creators
 
-RUR.PUBLIC_DICT = {};  // For use by world creators
+/** @function get_world
+ * @memberof RUR
+ * @instance
+ *
+ * @desc  This function returns a World as a json object. Since the
+ *  internal structure of worlds is subject to change, it is
+ *  not advised to make use of this function inside a world definition.
+ *
+ *  However, **when using javascript**, it can be useful as a means to explore
+ *  the world structure, or assign advanced students to write their own
+ *  functions based on the world structure (for example: find
+ *  the shortest path in a maze using various search algorithms.)
+ *
+ * **When using Python, see instead `SatelliteInfo()`.
+ */
+RUR.get_world = function () {
+    return RUR.CURRENT_WORLD;
+};
+
+RUR.frame_insertion = undefined; // special function available to world creators
 
 // for colour blind people
 RUR.GREEN = "green";
 RUR.RED = "red";
+/** @function configure_red_green
+ * @memberof RUR
+ * @instance
+ *
+ * @desc  Colour blind users may use this function to choose two colours,
+ * instead of red and green, to indicate if the number of objects required
+ * as a goal at a given location has been achieved or not.  The choices made
+ * are saved in the browser's local storage and should only need to be
+ * entered once.
+ *
+ * @param {string} red A colour indicated either as a named colour, like
+ * `"red"`, `"indigo"`, etc., an rgb value like `"rgb(125, 34, 22)"`,
+ * or an rgba value, or a hexadecimal colour like `"#FA2336"`.
+ *
+ * @param {string} green Another colour, seen as contrasting with `red` by
+ * the user.
+ */
 RUR.configure_red_green = function (red, green) {
     RUR.GREEN = green;
     RUR.RED = red;

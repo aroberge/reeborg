@@ -138,6 +138,7 @@ $("#load-library-btn").on("click", function (evt) {
 
 
 function toggle_content (name, obj) {
+    var world = RUR.get_world();
     record_id("add-" + name + "-to-world-btn");
     record_id("add-" + name + "-ok");
     record_id("add-" + name + "-not-ok");
@@ -145,11 +146,11 @@ function toggle_content (name, obj) {
         if ($(this).hasClass("blue-gradient")) {
             $("#add-" + name + "-ok").show();
             $("#add-" + name + "-not-ok").hide();
-            RUR.CURRENT_WORLD[name] = obj.getValue();
+            world[name] = obj.getValue();
         } else {
             $("#add-" + name + "-ok").hide();
             $("#add-" + name + "-not-ok").show();
-            delete RUR.CURRENT_WORLD[name];
+            delete world[name];
         }
         $(this).toggleClass("blue-gradient");
         $(this).toggleClass("active-element");

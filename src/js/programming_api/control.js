@@ -18,8 +18,6 @@ require("./../world_api/robot.js");
 require("./../world_api/composition.js");
 require("./../world_api/is_fatal.js");
 
-require("./../world_utils/get_world.js");
-
 RUR.control = {};
 
 RUR.control.move = function (robot) {
@@ -136,7 +134,7 @@ RUR.control.put = function(robot, arg){
 
     if (arg !== undefined) {
         translated_arg = RUR.translate_to_english(arg);
-        if (RUR.KNOWN_TILES.indexOf(translated_arg) == -1){
+        if (RUR.KNOWN_THINGS.indexOf(translated_arg) == -1){
             throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
         }
     }
@@ -206,7 +204,7 @@ RUR.control.take = function(robot, arg){
     RUR.state.sound_id = "#take-sound";
     if (arg !== undefined) {
         translated_arg = RUR.translate_to_english(arg);
-        if (RUR.KNOWN_TILES.indexOf(translated_arg) == -1){
+        if (RUR.KNOWN_THINGS.indexOf(translated_arg) == -1){
             throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: arg}));
         }
     }

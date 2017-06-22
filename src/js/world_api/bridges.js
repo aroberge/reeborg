@@ -3,7 +3,6 @@ require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
 require("./artefact.js");
-require("./../world_utils/get_world.js");
 
 /** @function add_bridge
  * @memberof RUR
@@ -163,8 +162,8 @@ RUR.get_bridge_protections = function (x, y) {
     tile = RUR.get_bridge(x, y);
     if (tile === null) {
         return [];
-    } else if (RUR.TILES[tile].protections !== undefined) {
-        return RUR.TILES[tile].protections;
+    } else if (RUR.THINGS[tile].protections !== undefined) {
+        return RUR.THINGS[tile].protections;
     } else {
         return [];
     }

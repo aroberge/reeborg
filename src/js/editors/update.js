@@ -109,7 +109,7 @@ dialog_update_editors_from_world = $("#dialog-update-editors-from-world").dialog
 });
 
 $("#update-blockly-content-btn").on("click", function(evt) {
-    RUR.blockly.setValue(RUR.CURRENT_WORLD.blockly);
+    RUR.blockly.setValue(RUR.get_world().blockly);
     $("#update-blockly-content").hide();
     if  (!$("#update-editor-content").is(":visible") &&
          !$("#update-library-content").is(":visible")
@@ -118,7 +118,7 @@ $("#update-blockly-content-btn").on("click", function(evt) {
     }
 });
 $("#update-editor-content-btn").on("click", function(evt) {
-    editor.setValue(RUR.CURRENT_WORLD.editor);
+    editor.setValue(RUR.get_world().editor);
     $("#update-editor-content").hide();
     if  (!$("#update-blockly-content").is(":visible") &&
          !$("#update-library-content").is(":visible")
@@ -127,7 +127,7 @@ $("#update-editor-content-btn").on("click", function(evt) {
     }
 });
 $("#update-library-content-btn").on("click", function(evt) {
-    library.setValue(RUR.CURRENT_WORLD.library);
+    library.setValue(RUR.get_world().library);
     $("#update-library-content").hide();
     if  (!$("#update-blockly-content").is(":visible") &&
          !$("#update-editor-content").is(":visible")

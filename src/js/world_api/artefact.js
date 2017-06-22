@@ -7,7 +7,6 @@ require("./../programming_api/exceptions.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../utils/supplant.js");
-require("./../world_utils/get_world.js");
 
 // private helper function that
 // ensures that the position is within the world boundaries

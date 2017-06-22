@@ -1,3 +1,4 @@
+require("./../rur.js");
 require("./../programming_api/exceptions.js");
 require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
@@ -37,7 +38,7 @@ RUR.set_nb_goal_object_at_position = function (specific_object, x, y, nb){
     var coords, cw, my_name;
     specific_object = RUR.translate_to_english(specific_object);
     my_name = "RUR.set_nb_goal_object_at_position(specific_object, x, y, nb)";
-    if (RUR.KNOWN_TILES.indexOf(specific_object) == -1){
+    if (RUR.KNOWN_THINGS.indexOf(specific_object) == -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: specific_object}));
     }
     if (!RUR.is_valid_position(x, y)) {
@@ -50,7 +51,7 @@ RUR.set_nb_goal_object_at_position = function (specific_object, x, y, nb){
     }
 
     coords = x + "," + y;
-    cw = RUR.CURRENT_WORLD;
+    cw = RUR.get_world();
 
     RUR.utils.ensure_key_for_obj_exists(cw, "goal");
     RUR.utils.ensure_key_for_obj_exists(cw.goal, "objects");

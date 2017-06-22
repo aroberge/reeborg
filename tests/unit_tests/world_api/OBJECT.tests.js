@@ -18,7 +18,7 @@ require("../../../src/js/world_api/objects.js");
 
 test('adding known object', function (assert) {
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-    RUR.KNOWN_TILES = ['a'];
+    RUR.KNOWN_THINGS = ['a'];
     RUR.untranslated['a'] = true;
     RUR.add_object('a', 2, 3, {number:4});
     assert.equal(RUR.CURRENT_WORLD.objects['2,3'].a, 4, "nb objects ok");
@@ -27,7 +27,7 @@ test('adding known object', function (assert) {
 
 test('adding known goal object', function (assert) {
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-    RUR.KNOWN_TILES = ['a'];
+    RUR.KNOWN_THINGS = ['a'];
     RUR.untranslated['a'] = true;
     RUR.add_object('a', 2, 3, {number:4, goal:true});
     assert.equal(RUR.CURRENT_WORLD.goal.objects['2,3'].a, 4, "nb goal objects ok");
@@ -37,7 +37,7 @@ test('adding known goal object', function (assert) {
 test('adding and removing fixed number of known object', function (assert) {
     var identical = require("../../../src/js/utils/identical.js").identical;
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-    RUR.KNOWN_TILES = ['a'];
+    RUR.KNOWN_THINGS = ['a'];
     RUR.untranslated['a'] = true;
     RUR.add_object('a', 2, 3, {number:4});
     RUR.remove_object('a', 2, 3, {number:4});
@@ -47,7 +47,7 @@ test('adding and removing fixed number of known object', function (assert) {
 
 test('adding and removing fixed number of known object as goal', function (assert) {
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-    RUR.KNOWN_TILES = ['a'];
+    RUR.KNOWN_THINGS = ['a'];
     RUR.untranslated['a'] = true;
     RUR.add_object('a', 2, 3, {number:4, goal:true});
     RUR.remove_object('a', 2, 3, {number:4, goal:true});
@@ -58,7 +58,7 @@ test('adding and removing fixed number of known object as goal', function (asser
 test('adding fixed number for two different objects and removing one type', function (assert) {
     var identical = require("../../../src/js/utils/identical.js").identical;
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-    RUR.KNOWN_TILES = ['a', 'b'];
+    RUR.KNOWN_THINGS = ['a', 'b'];
     RUR.untranslated['a'] = true;
     RUR.untranslated['b'] = true;
     RUR.add_object('b', 2, 3, {number:4});
@@ -71,7 +71,7 @@ test('adding fixed number for two different objects and removing one type', func
 test('adding fixed number for two different objects as goal and removing one type', function (assert) {
     var identical = require("../../../src/js/utils/identical.js").identical;
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-    RUR.KNOWN_TILES = ['a', 'b'];
+    RUR.KNOWN_THINGS = ['a', 'b'];
     RUR.untranslated['a'] = true;
     RUR.untranslated['b'] = true;
     RUR.add_object('b', 2, 3, {number:4, goal:true});
@@ -86,7 +86,7 @@ test('adding unknown object', function (assert) {
     silencer.reset();
     silencer.disable('warn');
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-    RUR.KNOWN_TILES = [];
+    RUR.KNOWN_THINGS = [];
     RUR.translation = {};
     RUR.untranslated['a'] = false;
     try {
@@ -101,7 +101,7 @@ test('adding unknown object', function (assert) {
 
 test('invalid x value', function (assert) {
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-    RUR.KNOWN_TILES = ['a'];
+    RUR.KNOWN_THINGS = ['a'];
     RUR.untranslated['a'] = true;
     try {
         RUR.add_object('a', 0, 3, {number:4});
@@ -114,7 +114,7 @@ test('invalid x value', function (assert) {
 
 test('invalid y value', function (assert) {
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-    RUR.KNOWN_TILES = ['a'];
+    RUR.KNOWN_THINGS = ['a'];
     RUR.untranslated['a'] = true;
     try {
         RUR.add_object('a', 3, -1, {number:4});

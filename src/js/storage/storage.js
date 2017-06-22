@@ -29,7 +29,7 @@ RUR.storage._save_world = function (name){
             return;
         }
         // replace existing
-        localStorage.setItem("user_world:"+ name, export_world(RUR.CURRENT_WORLD));
+        localStorage.setItem("user_world:"+ name, export_world(RUR.get_world()));
     } else {
         RUR.storage.save_world(name);
     }
@@ -41,7 +41,7 @@ RUR.storage.save_world = function (name){
     "use strict";
     var url = "user_world:"+ name;
     if (RUR.state.editing_world) {
-        localStorage.setItem(url, export_world(RUR.CURRENT_WORLD));
+        localStorage.setItem(url, export_world(RUR.get_world()));
     } else {
         localStorage.setItem(url, export_world(RUR.WORLD_BEFORE_ONLOAD));
     }

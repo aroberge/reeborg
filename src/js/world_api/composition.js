@@ -3,7 +3,6 @@ require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
 require("./artefact.js");
-require("./../world_utils/get_world.js");
 require("./obstacles.js");
 require("./background_tile.js");
 
@@ -56,10 +55,10 @@ function do_transformations (actions, x, y) {
 RUR.transform_tile = function (name, x, y) {
     "use strict";
     var t, transf, transformations, recording_state;
-    if (RUR.TILES[name].transform === undefined) {
+    if (RUR.THINGS[name].transform === undefined) {
         return false;
     }
-    transformations = RUR.TILES[name].transform;
+    transformations = RUR.THINGS[name].transform;
     for (t=0; t < transformations.length; t++) {
         transf = transformations[t];
         if (conditions_satisfied(transf.conditions, x, y)) {

@@ -1,8 +1,7 @@
 require("./../rur.js");
 require("./../translator.js");
 require("./../world_api/things.js"); // why ?
-// probably need the other world_api files though, for removal of images.
-require("./../world_utils/get_world.js");
+
 //TODO add overlay object (like sensor)
 
 RUR.vis_world = {};
@@ -176,11 +175,11 @@ function draw_grid_walls (ctx, edit){
         x_offset_e, x_offset_n, y_offset_e, y_offset_n;
 
     if (edit) {
-        wall_e = RUR.TILES["east_edit"];
-        wall_n = RUR.TILES["north_edit"];
+        wall_e = RUR.THINGS["east_edit"];
+        wall_n = RUR.THINGS["north_edit"];
     } else {
-        wall_e = RUR.TILES["east_grid"];
-        wall_n = RUR.TILES["north_grid"];
+        wall_e = RUR.THINGS["east_grid"];
+        wall_n = RUR.THINGS["north_grid"];
     }
 
     image_e = wall_e.image;
@@ -203,7 +202,7 @@ function draw_border (ctx) {
     "use strict";
     var j, image, wall, x_offset, y_offset;
 
-    wall = RUR.TILES["east_border"];
+    wall = RUR.THINGS["east_border"];
     image = wall.image;
     x_offset = wall.x_offset;
     y_offset = wall.y_offset;
@@ -215,7 +214,7 @@ function draw_border (ctx) {
         draw_single_object(image, RUR.MAX_X, j, ctx, x_offset, y_offset);
     }
 
-    wall = RUR.TILES["north_border"];
+    wall = RUR.THINGS["north_border"];
     image = wall.image;
     x_offset = wall.x_offset;
     y_offset = wall.y_offset;
@@ -308,15 +307,15 @@ function draw_goal_position (goal) {
 
     if (goal.position.image !== undefined &&
         typeof goal.position.image === 'string' &&
-        RUR.TILES[goal.position.image] !== undefined){
-        image = RUR.TILES[goal.position.image].image;
-        x_offset = RUR.TILES[goal.position.image].x_offset;
-        y_offset = RUR.TILES[goal.position.image].y_offset;
+        RUR.THINGS[goal.position.image] !== undefined){
+        image = RUR.THINGS[goal.position.image].image;
+        x_offset = RUR.THINGS[goal.position.image].x_offset;
+        y_offset = RUR.THINGS[goal.position.image].y_offset;
     } else {    // For anyone wondering, this step might be needed only when using older world
                 // files that were created when there was not a choice
                 // of image for indicating the home position.
                 // In that case, it is ok to have x_offset and y_offset undefined.
-        image = RUR.TILES["green_home_tile"].image;
+        image = RUR.THINGS["green_home_tile"].image;
     }
     if (goal.possible_final_positions !== undefined && goal.possible_final_positions.length > 1){
         ctx.save();
@@ -350,7 +349,7 @@ function draw_tiles (tiles, ctx, goal){
                 tile_array = Object.keys(tile_array);
             }
             for (t=0; t<tile_array.length; t++) {
-                tile = RUR.TILES[tile_array[t]];
+                tile = RUR.THINGS[tile_array[t]];
                 if (tile === undefined || tile.color) {
                     if (tile === undefined) {
                         colour = tiles[keys[key]];
@@ -444,7 +443,7 @@ function draw_anim (objects, ctx) {
 
         if (Object.prototype.toString.call(obj_here) == "[object Array]") {
             for (n=0; n < obj_here.length; n++) {
-                obj = RUR.TILES[obj_here[n]];
+                obj = RUR.THINGS[obj_here[n]];
                 if (obj === undefined) {
                     continue;
                 } else if (obj.choose_image !== undefined){
@@ -521,21 +520,22 @@ function draw_coloured_tile (colour, i, j, ctx) {
 }
 
 function draw_single_object (image, i, j, ctx, x_offset, y_offset) {
-    var x, y, offset=RUR.WALL_THICKNESS/2, grid_size=RUR.WALL_LENGTH;
+    var x, y, offset=RUR.WALL_THICKNESS/2, grid_size=RUR.WALL_LENGTH,
+        world = RUR.get_world();
     if (x_offset === undefined) {
         x_offset = 0;
     }
     if (y_offset === undefined) {
         y_offset = 0;
     }
-    if (RUR.CURRENT_WORLD.small_tiles) {
+    if (world.small_tiles) {
         x_offset /= 2;
         y_offset /= 2;
     }
     x = i*grid_size + offset + x_offset;
     y = RUR.HEIGHT - (j+1)*grid_size + offset + y_offset;
     try{
-        if (RUR.CURRENT_WORLD.small_tiles) {
+        if (world.small_tiles) {
             ctx.drawImage(image, x, y, image.width/2, image.height/2);
         } else {
             ctx.drawImage(image, x, y);

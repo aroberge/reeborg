@@ -3,7 +3,6 @@ require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
 require("./artefact.js");
-require("./../world_utils/get_world.js");
 
 /** @function add_obstacle
  * @memberof RUR
@@ -31,7 +30,7 @@ require("./../world_utils/get_world.js");
  */
 RUR.add_obstacle = function (name, x, y) {
     "use strict";
-    var args = {name: name, x:x, y:y, type:"obstacles", valid_names:Object.keys(RUR.TILES)};
+    var args = {name: name, x:x, y:y, type:"obstacles", valid_names:Object.keys(RUR.THINGS)};
     RUR.add_artefact(args);
     RUR.record_frame("RUR.add_obstacle", args);
 };
@@ -62,7 +61,7 @@ RUR.remove_obstacle = function (name, x, y) {
     if (obstacles === null) {
         throw new ReeborgError("No obstacles to remove here.");
     }
-    args= {x:x, y:y, type:"obstacles", name:name, valid_names:Object.keys(RUR.TILES)};
+    args= {x:x, y:y, type:"obstacles", name:name, valid_names:Object.keys(RUR.THINGS)};
     RUR.remove_artefact(args);
     RUR.record_frame("RUR.remove_obstacle", args);
 };
@@ -128,8 +127,8 @@ RUR.get_solid_obstacle = function (x, y) {
         return false;
     }
     for (obs of obstacles) {
-        if (RUR.TILES[obs].solid) {
-            return RUR.TILES[obs]; //TODO: return array of obstacles
+        if (RUR.THINGS[obs].solid) {
+            return RUR.THINGS[obs]; //TODO: return array of obstacles
         }
     }
     return false;
@@ -142,8 +141,8 @@ RUR.get_fatal_obstacle = function (x, y) {
         return false;
     }
     for (obs of obstacles) {
-        if (RUR.TILES[obs].fatal) {
-            return RUR.TILES[obs]; //TODO: return array of obstacles
+        if (RUR.THINGS[obs].fatal) {
+            return RUR.THINGS[obs]; //TODO: return array of obstacles
         }
     }
     return false;
@@ -156,8 +155,8 @@ RUR.get_fatal_detectable_obstacle = function (x, y) {
         return false;
     }
     for (obs of obstacles) {
-        if (RUR.TILES[obs].fatal && RUR.TILES[obs].detectable) {
-            return RUR.TILES[obs]; //TODO: return array of obstacles
+        if (RUR.THINGS[obs].fatal && RUR.THINGS[obs].detectable) {
+            return RUR.THINGS[obs]; //TODO: return array of obstacles
         }
     }
     return false;
@@ -173,10 +172,10 @@ RUR.is_obstacle_safe = function (x, y) {
         return false;
     }
     for (obs of obstacles) { //TODO: change to make sure that all obstacles are included
-        if (RUR.TILES[obs].fatal) {
+        if (RUR.THINGS[obs].fatal) {
             return false;
         }
-        if (RUR.TILES[obs].safe) {
+        if (RUR.THINGS[obs].safe) {
             safe_found = true;
         }
     }

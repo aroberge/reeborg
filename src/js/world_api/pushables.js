@@ -3,9 +3,7 @@ require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
 require("./artefact.js");
-require("./../world_utils/get_world.js");
-// require("./obstacles.js");
-// require("./background_tile.js");
+
 
 /** @function add_pushable
  * @memberof RUR
@@ -34,7 +32,7 @@ require("./../world_utils/get_world.js");
  */
 RUR.add_pushable = function (name, x, y) {
     "use strict";
-    var pushable, args = {name: name, x:x, y:y, type:"pushables", valid_names:Object.keys(RUR.TILES)};
+    var pushable, args = {name: name, x:x, y:y, type:"pushables", valid_names:Object.keys(RUR.THINGS)};
     pushable = RUR.get_pushable(x, y);
     if (pushable !== null) {
         throw new ReeborgError("There can be at most one pushable object at a given location.");
@@ -56,11 +54,11 @@ RUR.add_pushable = function (name, x, y) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no pushable
- *        
+ *
  * @todo add test
  * @todo add examples
  * @todo deal with translation
- * 
+ *
  *
  */
 RUR.remove_pushable = function (name, x, y) {
@@ -70,7 +68,7 @@ RUR.remove_pushable = function (name, x, y) {
     if (pushable === null) {
         throw new ReeborgError("No pushable to remove here.");
     }
-    args= {x:x, y:y, type:"pushables", name:name, valid_names:Object.keys(RUR.TILES)};
+    args= {x:x, y:y, type:"pushables", name:name, valid_names:Object.keys(RUR.THINGS)};
     RUR.remove_artefact(args);
     RUR.record_frame("RUR.remove_pushable", args);
 };
@@ -82,7 +80,7 @@ RUR.remove_pushable = function (name, x, y) {
  * @summary This function returns the name of a pushable found at that location;
  *          For worlds designed "normally", such a list should contain only
  *          one item since pushables cannot be pushed onto other pushables.
- *          If nothing is found at that location,`null` is returned 
+ *          If nothing is found at that location,`null` is returned
  *          (which is converted to `None` in Python programs.)
  *
  * @param {integer} x  Position.
@@ -119,7 +117,7 @@ RUR.get_pushable = function (x, y) {
  * @summary This function returns the name of a pushable found at that location;
  *          For worlds designed "normally", such a list should contain only
  *          one item since pushables cannot be pushed onto other pushables.
- *          If nothing is found at that location,`null` is returned 
+ *          If nothing is found at that location,`null` is returned
  *          (which is converted to `None` in Python programs.)
  *
  * @param {integer} x  Position.

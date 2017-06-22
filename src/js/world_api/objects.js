@@ -3,7 +3,6 @@ require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
 require("./artefact.js");
-require("./../world_utils/get_world.js");
 
 /** @function add_object
  * @memberof RUR
@@ -79,7 +78,7 @@ RUR.add_object = function (name, x, y, options) {
  */
 RUR.remove_object = function (name, x, y, options) {
     "use strict";
-    var args, k, keys;
+    var args, k, keys, world = RUR.get_world();
     args= {x:x, y:y, type:"objects", name:name};
     if (options !== undefined) {
         keys = Object.keys(options);
@@ -97,7 +96,7 @@ RUR.remove_object = function (name, x, y, options) {
         }
     }
     // For historical reason, worlds are always created with an "objects" attribute
-    RUR.utils.ensure_key_for_obj_exists(RUR.CURRENT_WORLD, "objects");
+    RUR.utils.ensure_key_for_obj_exists(world, "objects");
     RUR.record_frame("RUR.remove_object", args);
 };
 

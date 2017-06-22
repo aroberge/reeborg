@@ -1,7 +1,6 @@
 
 require("./../rur.js");
 require("./../utils/validator.js");
-require("./../world_utils/get_world.js");
 
 RUR.vis_robot = {};
 RUR.vis_robot.images = [];
@@ -11,16 +10,16 @@ RUR.vis_robot.loaded_images = 0;
 RUR.vis_robot.nb_images = 0;
 
 // elable changing defaults for unit tests or if put on different server location
-RUR._BASE_URL = RUR._BASE_URL || '';
+RUR.BASE_URL = RUR.BASE_URL || '';
 
 
 function set_images(images) {
     var default_images, east, west, north, south, robot, model = images.model;
 
-    default_images = {east: RUR._BASE_URL + '/src/images/robot_e.png',
-        north: RUR._BASE_URL + '/src/images/robot_n.png',
-        west: RUR._BASE_URL + '/src/images/robot_w.png',
-        south: RUR._BASE_URL + '/src/images/robot_s.png'
+    default_images = {east: RUR.BASE_URL + '/src/images/robot_e.png',
+        north: RUR.BASE_URL + '/src/images/robot_n.png',
+        west: RUR.BASE_URL + '/src/images/robot_w.png',
+        south: RUR.BASE_URL + '/src/images/robot_s.png'
     }
 
     if (RUR.vis_robot.images[model] === undefined) {
@@ -57,24 +56,24 @@ RUR.reset_default_robot_images = function () {
     set_images({model: 0});
     // 2d red rover
     set_images({model: 1,
-        east: RUR._BASE_URL + '/src/images/rover_e.png',
-        north: RUR._BASE_URL + '/src/images/rover_n.png',
-        west: RUR._BASE_URL + '/src/images/rover_w.png',
-        south: RUR._BASE_URL + '/src/images/rover_s.png'
+        east: RUR.BASE_URL + '/src/images/rover_e.png',
+        north: RUR.BASE_URL + '/src/images/rover_n.png',
+        west: RUR.BASE_URL + '/src/images/rover_w.png',
+        south: RUR.BASE_URL + '/src/images/rover_s.png'
     });
     // 3d red rover
     set_images({model: 2,
-        east: RUR._BASE_URL + '/src/images/plain_e.png',
-        north: RUR._BASE_URL + '/src/images/plain_n.png',
-        west: RUR._BASE_URL + '/src/images/plain_w.png',
-        south: RUR._BASE_URL + '/src/images/plain_s.png'
+        east: RUR.BASE_URL + '/src/images/plain_e.png',
+        north: RUR.BASE_URL + '/src/images/plain_n.png',
+        west: RUR.BASE_URL + '/src/images/plain_w.png',
+        south: RUR.BASE_URL + '/src/images/plain_s.png'
     });
     // solar panel
     set_images({model: 3,
-        east: RUR._BASE_URL + '/src/images/sp_e.png',
-        north: RUR._BASE_URL + '/src/images/sp_n.png',
-        west: RUR._BASE_URL + '/src/images/sp_w.png',
-        south: RUR._BASE_URL + '/src/images/sp_s.png'
+        east: RUR.BASE_URL + '/src/images/sp_e.png',
+        north: RUR.BASE_URL + '/src/images/sp_n.png',
+        west: RUR.BASE_URL + '/src/images/sp_w.png',
+        south: RUR.BASE_URL + '/src/images/sp_s.png'
     });
 
     $("#robot0 img").attr("src", RUR.vis_robot.images[0].robot_e_img.src);
@@ -85,34 +84,34 @@ RUR.reset_default_robot_images = function () {
 
     // additional robot images from rur-ple
     set_images({model: 4,
-        east: RUR._BASE_URL + '/src/images/blue_robot_e.png',
-        north: RUR._BASE_URL + '/src/images/blue_robot_n.png',
-        west: RUR._BASE_URL + '/src/images/blue_robot_w.png',
-        south: RUR._BASE_URL + '/src/images/blue_robot_s.png'
+        east: RUR.BASE_URL + '/src/images/blue_robot_e.png',
+        north: RUR.BASE_URL + '/src/images/blue_robot_n.png',
+        west: RUR.BASE_URL + '/src/images/blue_robot_w.png',
+        south: RUR.BASE_URL + '/src/images/blue_robot_s.png'
     });
     set_images({model: 5,
-        east: RUR._BASE_URL + '/src/images/purple_robot_e.png',
-        north: RUR._BASE_URL + '/src/images/purple_robot_n.png',
-        west: RUR._BASE_URL + '/src/images/purple_robot_w.png',
-        south: RUR._BASE_URL + '/src/images/purple_robot_s.png'
+        east: RUR.BASE_URL + '/src/images/purple_robot_e.png',
+        north: RUR.BASE_URL + '/src/images/purple_robot_n.png',
+        west: RUR.BASE_URL + '/src/images/purple_robot_w.png',
+        south: RUR.BASE_URL + '/src/images/purple_robot_s.png'
     });
     set_images({model: 6,
-        east: RUR._BASE_URL + '/src/images/green_robot_e.png',
-        north: RUR._BASE_URL + '/src/images/green_robot_n.png',
-        west: RUR._BASE_URL + '/src/images/green_robot_w.png',
-        south: RUR._BASE_URL + '/src/images/green_robot_s.png'
+        east: RUR.BASE_URL + '/src/images/green_robot_e.png',
+        north: RUR.BASE_URL + '/src/images/green_robot_n.png',
+        west: RUR.BASE_URL + '/src/images/green_robot_w.png',
+        south: RUR.BASE_URL + '/src/images/green_robot_s.png'
     });
     set_images({model: 7,
-        east: RUR._BASE_URL + '/src/images/light_blue_robot_e.png',
-        north: RUR._BASE_URL + '/src/images/light_blue_robot_n.png',
-        west: RUR._BASE_URL + '/src/images/light_blue_robot_w.png',
-        south: RUR._BASE_URL + '/src/images/light_blue_robot_s.png'
+        east: RUR.BASE_URL + '/src/images/light_blue_robot_e.png',
+        north: RUR.BASE_URL + '/src/images/light_blue_robot_n.png',
+        west: RUR.BASE_URL + '/src/images/light_blue_robot_w.png',
+        south: RUR.BASE_URL + '/src/images/light_blue_robot_s.png'
     });
     set_images({model: 8,
-        east: RUR._BASE_URL + '/src/images/yellow_robot_e.png',
-        north: RUR._BASE_URL + '/src/images/yellow_robot_n.png',
-        west: RUR._BASE_URL + '/src/images/yellow_robot_w.png',
-        south: RUR._BASE_URL + '/src/images/yellow_robot_s.png'
+        east: RUR.BASE_URL + '/src/images/yellow_robot_e.png',
+        north: RUR.BASE_URL + '/src/images/yellow_robot_n.png',
+        west: RUR.BASE_URL + '/src/images/yellow_robot_w.png',
+        south: RUR.BASE_URL + '/src/images/yellow_robot_s.png'
     });
     RUR.state.reset_default_robot_images_needed = false;
 };

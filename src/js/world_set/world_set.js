@@ -15,7 +15,7 @@ var set_dimension_form;
 
 
 function trim_world (new_max_x, new_max_y, old_max_x, old_max_y) {
-    var x, y, coords;
+    var x, y, coords, world=RUR.get_world();
     // remove stuff from outside new boundaries
 
     for (x = new_max_x+1; x <= old_max_x; x++) {
@@ -30,62 +30,63 @@ function trim_world (new_max_x, new_max_y, old_max_x, old_max_y) {
             remove_all_at_location(coords);
         }
     }
-    if (RUR.CURRENT_WORLD.possible_initial_positions !== undefined) {
-        delete RUR.CURRENT_WORLD.possible_initial_positions;
+    if (world.possible_initial_positions !== undefined) {
+        delete world.possible_initial_positions;
     }
-    if (RUR.CURRENT_WORLD.goal !== undefined) {
-        if (RUR.CURRENT_WORLD.goal.possible_final_positions !== undefined) {
-            delete RUR.CURRENT_WORLD.goal.possible_final_positions;
+    if (world.goal !== undefined) {
+        if (world.goal.possible_final_positions !== undefined) {
+            delete world.goal.possible_final_positions;
         }
     }
 }
 
 function remove_all_at_location (coords) {
+    var world = RUR.get_world();
     // trading efficiency for clarity
-    if (RUR.CURRENT_WORLD.tiles !== undefined) {
-        if (RUR.CURRENT_WORLD.tiles[coords] !== undefined){
-            delete RUR.CURRENT_WORLD.tiles[coords];
+    if (world.tiles !== undefined) {
+        if (world.tiles[coords] !== undefined){
+            delete world.tiles[coords];
         }
     }
-    if (RUR.CURRENT_WORLD.bridge !== undefined) {
-        if (RUR.CURRENT_WORLD.bridge[coords] !== undefined){
-            delete RUR.CURRENT_WORLD.bridge[coords];
+    if (world.bridge !== undefined) {
+        if (world.bridge[coords] !== undefined){
+            delete world.bridge[coords];
         }
     }
-    if (RUR.CURRENT_WORLD.decorative_objects !== undefined) {
-        if (RUR.CURRENT_WORLD.decorative_objects[coords] !== undefined){
-            delete RUR.CURRENT_WORLD.decorative_objects[coords];
+    if (world.decorative_objects !== undefined) {
+        if (world.decorative_objects[coords] !== undefined){
+            delete world.decorative_objects[coords];
         }
     }
-    if (RUR.CURRENT_WORLD.obstacles !== undefined) {
-        if (RUR.CURRENT_WORLD.obstacles[coords] !== undefined){
-            delete RUR.CURRENT_WORLD.obstacles[coords];
+    if (world.obstacles !== undefined) {
+        if (world.obstacles[coords] !== undefined){
+            delete world.obstacles[coords];
         }
     }
-    if (RUR.CURRENT_WORLD.pushables !== undefined) {
-        if (RUR.CURRENT_WORLD.pushables[coords] !== undefined){
-            delete RUR.CURRENT_WORLD.pushables[coords];
+    if (world.pushables !== undefined) {
+        if (world.pushables[coords] !== undefined){
+            delete world.pushables[coords];
         }
     }
-    if (RUR.CURRENT_WORLD.walls !== undefined) {
-        if (RUR.CURRENT_WORLD.walls[coords] !== undefined){
-            delete RUR.CURRENT_WORLD.walls[coords];
+    if (world.walls !== undefined) {
+        if (world.walls[coords] !== undefined){
+            delete world.walls[coords];
         }
     }
-    if (RUR.CURRENT_WORLD.objects !== undefined) {
-        if (RUR.CURRENT_WORLD.objects[coords] !== undefined){
-            delete RUR.CURRENT_WORLD.objects[coords];
+    if (world.objects !== undefined) {
+        if (world.objects[coords] !== undefined){
+            delete world.objects[coords];
         }
     }
-    if (RUR.CURRENT_WORLD.goal !== undefined) {
-        if (RUR.CURRENT_WORLD.goal.walls !== undefined) {
-            if (RUR.CURRENT_WORLD.goal.walls[coords] !== undefined){
-                delete RUR.CURRENT_WORLD.goal.walls[coords];
+    if (world.goal !== undefined) {
+        if (world.goal.walls !== undefined) {
+            if (world.goal.walls[coords] !== undefined){
+                delete world.goal.walls[coords];
             }
         }
-        if (RUR.CURRENT_WORLD.goal.objects !== undefined) {
-            if (RUR.CURRENT_WORLD.goal.objects[coords] !== undefined){
-                delete RUR.CURRENT_WORLD.goal.objects[coords];
+        if (world.goal.objects !== undefined) {
+            if (world.goal.objects[coords] !== undefined){
+                delete world.goal.objects[coords];
             }
         }
     }
@@ -117,10 +118,10 @@ RUR.world_set.dialog_set_dimensions = $("#dialog-set-dimensions").dialog({
 });
 function set_dimension () {
     "use strict";
-    var max_x, max_y;
+    var max_x, max_y, world = RUR.get_world();
     max_x = parseInt($("#input-max-x").val(), 10);
     max_y = parseInt($("#input-max-y").val(), 10);
-    RUR.CURRENT_WORLD.small_tiles = $("#use-small-tiles").prop("checked");
+    world.small_tiles = $("#use-small-tiles").prop("checked");
 
     trim_world(max_x, max_y, RUR.MAX_X, RUR.MAX_Y);   // remove extra objects
     RUR.set_world_size(max_x, max_y);

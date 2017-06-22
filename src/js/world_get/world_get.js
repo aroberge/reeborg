@@ -15,19 +15,19 @@ RUR.world_get = {};
 RUR.world_get.tile_at_position = function (x, y) { // TODO: still needed or move elswhere?
     "use strict";
     var coords = x + "," + y;
-    if (RUR.CURRENT_WORLD.tiles === undefined) return false;
-    if (RUR.CURRENT_WORLD.tiles[coords] === undefined) return false;
-    return RUR.TILES[RUR.CURRENT_WORLD.tiles[coords]];
+    if (RUR.get_world().tiles === undefined) return false;
+    if (RUR.get_world().tiles[coords] === undefined) return false;
+    return RUR.THINGS[RUR.get_world().tiles[coords]];
 };
 
 
 RUR.world_get.object_at_robot_position = function (robot, obj) { // TODO: still needed or move elswhere?
-    return object_of_type_here(robot, obj, RUR.CURRENT_WORLD.objects);
+    return object_of_type_here(robot, obj, RUR.get_world().objects);
 };
 
 
 function object_of_type_here (robot, obj, object_type) {
-    // object_type == RUR.CURRENT_WORLD.objects or RUR.CURRENT_WORLD.decorative_objects
+    // object_type == RUR.get_world().objects or RUR.get_world().decorative_objects
     var obj_here, obj_type, all_objects;
     var coords = robot.x + "," + robot.y;
 
@@ -58,7 +58,7 @@ function object_of_type_here (robot, obj, object_type) {
 }
 
 RUR.world_get.world_map = function () {
-    return JSON.stringify(RUR.CURRENT_WORLD, null, 2);
+    return JSON.stringify(RUR.get_world(), null, 2);
 };
 
 RUR.world_get.world_info = function (no_grid) {
@@ -74,20 +74,20 @@ RUR.world_get.world_info = function (no_grid) {
 
     information = "<div class='automatic-description'>";
 
-    if (RUR.CURRENT_WORLD.description) {
-        description = RUR.CURRENT_WORLD.description;
-        if (RUR.CURRENT_WORLD.pre) { // can be either javascript or python code
-            insertion = "<pre class='world_info_source'>" + RUR.CURRENT_WORLD.pre + "</pre>";
+    if (RUR.get_world().description) {
+        description = RUR.get_world().description;
+        if (RUR.get_world().pre) { // can be either javascript or python code
+            insertion = "<pre class='world_info_source'>" + RUR.get_world().pre + "</pre>";
             to_replace = "INSERT_PRE";
             description = description.replace(to_replace, insertion);
         }
-        if (RUR.CURRENT_WORLD.post) { // can be either javascript or python code
-            insertion = "<pre class='world_info_source'>" + RUR.CURRENT_WORLD.post + "</pre>";
+        if (RUR.get_world().post) { // can be either javascript or python code
+            insertion = "<pre class='world_info_source'>" + RUR.get_world().post + "</pre>";
             to_replace = "INSERT_POST";
             description = description.replace(to_replace, insertion);
         }
-        if (RUR.CURRENT_WORLD.onload) { // only javascript, hence different class
-            insertion = "<pre class='world_info_onload'>" + RUR.CURRENT_WORLD.onload + "</pre>";
+        if (RUR.get_world().onload) { // only javascript, hence different class
+            insertion = "<pre class='world_info_onload'>" + RUR.get_world().onload + "</pre>";
             to_replace = "INSERT_ONLOAD";
             description = description.replace(to_replace, insertion);
         }
@@ -127,7 +127,7 @@ RUR.world_get.world_info = function (no_grid) {
     }
     if (tiles) {
         for (tilename of tiles) {
-            tile = RUR.TILES[tilename];
+            tile = RUR.THINGS[tilename];
             if (RUR.translate(tile.info)){
                 if (topic){
                     topic = false;
@@ -145,7 +145,7 @@ RUR.world_get.world_info = function (no_grid) {
         }
     }
 
-    obj = RUR.CURRENT_WORLD.objects;
+    obj = RUR.get_world().objects;
     topic = true;
     if (obj !== undefined && obj[coords] !== undefined){
         obj_here = obj[coords];
@@ -161,7 +161,7 @@ RUR.world_get.world_info = function (no_grid) {
         }
     }
 
-    goals = RUR.CURRENT_WORLD.goal;
+    goals = RUR.get_world().goal;
     if (goals !== undefined){
         obj = goals.objects;
         topic = true;
@@ -210,7 +210,7 @@ RUR.world_get.world_info = function (no_grid) {
         }
     }
 
-    robots = RUR.CURRENT_WORLD.robots;
+    robots = RUR.get_world().robots;
     if (robots !== undefined && robots.length !== undefined){
         for (r=0; r<robots.length; r++){
             robot = robots[r];
@@ -237,7 +237,7 @@ RUR.world_get.world_info = function (no_grid) {
     }
 
 
-    goals = RUR.CURRENT_WORLD.goal;
+    goals = RUR.get_world().goal;
     if (goals !== undefined &&
          (goals.possible_final_positions !== undefined || goals.position !== undefined)){
         if (topic){

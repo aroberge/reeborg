@@ -15,7 +15,7 @@ test('adding known object', function (assert) {
     require("../../../src/js/world_api/obstacles.js");
     assert.plan(1);
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-    RUR.TILES = {'a':true};
+    RUR.THINGS = {'a':true};
     RUR.untranslated['a'] = true;
     global.RUR.add_obstacle('a', 2, 3);
     assert.deepEqual(RUR.CURRENT_WORLD.obstacles['2,3'], ["a"], "obstacle ok");
@@ -27,7 +27,7 @@ test('adding and removing known solid object', function (assert) {
     require("../../../src/js/world_api/obstacles.js");
     assert.plan(1);
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-    RUR.TILES = {'a':true};
+    RUR.THINGS = {'a':true};
     RUR.untranslated['a'] = true;
     RUR.add_obstacle('a', 2, 3);
     RUR.remove_obstacle('a', 2, 3);
@@ -40,7 +40,7 @@ test('adding two and removing one known solid objects', function (assert) {
     require("../../../src/js/world_api/obstacles.js");
     assert.plan(1);
     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-    RUR.TILES = {'a':true, 'b': true};
+    RUR.THINGS = {'a':true, 'b': true};
     RUR.untranslated['a'] = true;
     RUR.untranslated['b'] = true;
     RUR.add_obstacle('b', 2, 3);
@@ -57,7 +57,7 @@ test('adding two and removing one known solid objects', function (assert) {
 //     assert.plan(4);
 //     require("../../../src/js/world_api/obstacles.js");
 //     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
-//     RUR.TILES = [];
+//     RUR.THINGS = [];
 //     RUR.translation = {};
 //     try {
 //         RUR.add_obstacle('a', 2, 3);

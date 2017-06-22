@@ -15,10 +15,10 @@ function test(test_name, fn) {
 
 
 function set_defaults() {
-    RUR.KNOWN_TILES = [];
+    RUR.KNOWN_THINGS = [];
     RUR._NB_IMAGES_LOADED = 0;
     RUR._NB_IMAGES_TO_LOAD = 0;
-    RUR.TILES = {};
+    RUR.THINGS = {};
 }
 
 
@@ -30,8 +30,8 @@ test('RUR.add_new_thing: adding new tile type', function (assert) {
     obj.url = "URL";
     obj.goal = {"url": "GOAL"};
     RUR.add_new_thing(obj);
-    this_obj = RUR.TILES["this name"];
-    assert.equal(RUR.KNOWN_TILES[0], 'this name', "tile added");
+    this_obj = RUR.THINGS["this name"];
+    assert.equal(RUR.KNOWN_THINGS[0], 'this name', "tile added");
     assert.equal(this_obj.image.src, 'URL', "url for tile ok");
     assert.equal(this_obj.goal.image.src, 'GOAL', "url for goal ok");
     assert.end();
@@ -54,8 +54,8 @@ test('RUR.add_new_thing: replace tile type', function (assert) {
                  "Console log ok.");
     obj.url = "URL";
     RUR.add_new_thing(obj);
-    this_obj = RUR.TILES["this_name"];
-    assert.equal(RUR.KNOWN_TILES[0], 'this_name', "tile replaced");
+    this_obj = RUR.THINGS["this_name"];
+    assert.equal(RUR.KNOWN_THINGS[0], 'this_name', "tile replaced");
     assert.equal(this_obj.image.src, 'URL', "url for objects ok");
     silencer.restore();
     assert.equal(silencer.getOutput('warn')[0][0],
@@ -72,8 +72,8 @@ test('RUR.add_new_thing: adding tile with no goal attribute', function (assert) 
     obj.name = "name";
     obj.url = "URL";
     RUR.add_new_thing(obj);
-    this_obj = RUR.TILES["name"];
-    assert.equal(RUR.KNOWN_TILES[0], 'name', "tile added");
+    this_obj = RUR.THINGS["name"];
+    assert.equal(RUR.KNOWN_THINGS[0], 'name', "tile added");
     assert.equal(this_obj.image.src, 'URL', "url for tile ok");
     assert.equal(this_obj.goal, undefined, "no goal set ok");
     assert.end();

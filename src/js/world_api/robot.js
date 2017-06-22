@@ -1,5 +1,4 @@
 require("./../rur.js");
-require("./../world_utils/get_world.js");
 
 
 /** @function is_robot

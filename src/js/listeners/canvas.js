@@ -19,7 +19,7 @@ function handleMouseMove(evt) {
     var x, y, hit, position, world, robot, mouse_above_robot, image, nb_obj;
     var size = 40, objects_carried;
 
-    world = RUR.CURRENT_WORLD;
+    world = RUR.get_world();
     x = evt.pageX - $("#robot-anim-canvas").offset().left;
     y = evt.pageY - $("#robot-anim-canvas").offset().top;
     position = RUR.calculate_grid_position();
@@ -63,9 +63,9 @@ function handleMouseMove(evt) {
         tooltip.canvas.style.top = y + "px";
         tooltip.ctx.clearRect(0, 0, tooltip.canvas.width, tooltip.canvas.height);
         for (i=0; i < objects_carried.length; i++){
-            image = RUR.TILES[objects_carried[i]].image;
+            image = RUR.THINGS[objects_carried[i]].image;
             if (image === undefined) {
-                image = RUR.TILES[objects_carried[i]]["image0"];
+                image = RUR.THINGS[objects_carried[i]]["image0"];
             }
             nb_obj = robot.objects[objects_carried[i]];
             if (nb_obj == "infinite" || nb_obj == Infinity) {
