@@ -229,9 +229,11 @@ RUR.END_CYCLE = "end cycle"; // for animated images
 RUR.BACKGROUND_IMAGE = new Image();
 RUR.BACKGROUND_IMAGE.src = '';
 
+// RUR.CURRENT_WORLD should not be used in other javascript functions;
+// some of the functions defined below should be used instead.
 RUR.CURRENT_WORLD = null; // needs to be created explicitly
 
-/** @function get_world
+/** @function get_current_world
  * @memberof RUR
  * @instance
  *
@@ -246,9 +248,32 @@ RUR.CURRENT_WORLD = null; // needs to be created explicitly
  *
  * **When using Python, see instead `SatelliteInfo()`.
  */
-RUR.get_world = function () {
+RUR.get_current_world = function () {
     return RUR.CURRENT_WORLD;
 };
+
+// No need to document this with JSDoc as it should not be called by external users.
+RUR.set_current_world = function (world) {
+    RUR.CURRENT_WORLD = world;
+}
+
+RUR.export_world = function (world) {
+    if (world === undefined) {
+        return JSON.stringify(RUR.CURRENT_WORLD, null, 2);
+    } else {
+        return JSON.stringify(world, null, 2);
+    }
+};
+
+RUR.clone_world = function (world) {
+    if (world === undefined) {
+        return JSON.parse(JSON.stringify(RUR.CURRENT_WORLD));
+    } else {
+        return JSON.parse(JSON.stringify(world));
+    }
+};
+
+
 
 RUR.frame_insertion = undefined; // special function available to world creators
 

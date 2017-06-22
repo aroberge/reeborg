@@ -20,4 +20,4 @@ RUR.world_utils.create_empty_world = function (blank_canvas) {
 
     return world;
 };
-RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
+RUR.set_current_world(RUR.world_utils.create_empty_world());

@@ -27,7 +27,7 @@ RUR.vis_world.refresh_world_edited = function () {
 RUR.set_world_size = function (max_x, max_y) {
     "use strict";
     var height, width, canvas;
-    if (RUR.get_world().small_tiles) {
+    if (RUR.get_current_world().small_tiles) {
         RUR.WALL_LENGTH = RUR.DEFAULT_WALL_LENGTH/2;
         RUR.WALL_THICKNESS = RUR.DEFAULT_WALL_THICKNESS/2;
         RUR.SCALE = 0.5;
@@ -48,8 +48,8 @@ RUR.set_world_size = function (max_x, max_y) {
         height = (RUR.MAX_Y + 1.5) * RUR.WALL_LENGTH;
         width = (RUR.MAX_X + 1.5) * RUR.WALL_LENGTH;
     }
-    RUR.get_world().rows = RUR.MAX_Y;
-    RUR.get_world().cols = RUR.MAX_X;
+    RUR.get_current_world().rows = RUR.MAX_Y;
+    RUR.get_current_world().cols = RUR.MAX_X;
 
     if (height !== RUR.HEIGHT || width !== RUR.WIDTH) {
         for (canvas of RUR.CANVASES) { //jshint ignore:line
@@ -68,7 +68,7 @@ RUR.vis_world.compute_world_geometry = RUR.set_world_size;
 
 RUR.vis_world.draw_all = function () {
     "use strict";
-    var ctx, world = RUR.get_world();
+    var ctx, world = RUR.get_current_world();
 
     if (world.blank_canvas) { // for game environment
         if (RUR.state.editing_world) {
@@ -85,7 +85,7 @@ RUR.vis_world.draw_all = function () {
     }
 
     RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-    if (RUR.get_world().background_image !== undefined) {
+    if (RUR.get_current_world().background_image !== undefined) {
         draw_background_image(RUR.BACKGROUND_IMAGE);
     } else {
         draw_grid_walls(RUR.BACKGROUND_CTX);
@@ -99,7 +99,7 @@ RUR.vis_world.draw_all = function () {
 
 RUR.vis_world.refresh = function () {
     "use strict";
-    var canvas, canvases, goal, world = RUR.get_world();
+    var canvas, canvases, goal, world = RUR.get_current_world();
 
     // This is not the most efficient way to do things; ideally, one
     // would keep track of changes (e.g. addition or deletion of objects)
@@ -380,7 +380,7 @@ function draw_tiles (tiles, ctx, goal){
 
 function draw_animated_images (){
     "use strict";
-    var i, flag, anims, canvas, canvases, obj, ctx, world = RUR.get_world();
+    var i, flag, anims, canvas, canvases, obj, ctx, world = RUR.get_current_world();
     clearTimeout(RUR.ANIMATION_FRAME_ID);
 
     canvases = ["TILES_ANIM_CTX", "BRIDGE_ANIM_CTX", "DECORATIVE_OBJECTS_ANIM_CTX",
@@ -521,7 +521,7 @@ function draw_coloured_tile (colour, i, j, ctx) {
 
 function draw_single_object (image, i, j, ctx, x_offset, y_offset) {
     var x, y, offset=RUR.WALL_THICKNESS/2, grid_size=RUR.WALL_LENGTH,
-        world = RUR.get_world();
+        world = RUR.get_current_world();
     if (x_offset === undefined) {
         x_offset = 0;
     }
@@ -580,12 +580,12 @@ function compile_info () {
     // compiles the information about objects and goal found at each
     // grid location, so that we can determine what should be
     // drawn - if anything.
-    var coords, obj, quantity, world = RUR.get_world();
+    var coords, obj, quantity, world = RUR.get_current_world();
     RUR.vis_world.information = {};
     RUR.vis_world.goal_information = {};
     RUR.vis_world.goal_present = false;
     if (world.goal !== undefined && world.goal.objects !== undefined) {
-        compile_partial_info(RUR.get_world().goal.objects,
+        compile_partial_info(RUR.get_current_world().goal.objects,
             RUR.vis_world.goal_information, 'goal');
             RUR.vis_world.goal_present = true;
     }

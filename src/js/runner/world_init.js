@@ -20,7 +20,7 @@ RUR.world_init = function () {
     "use strict";
     var coords, obj, objects, objects_here, nb, range, robot;
     var position, goal, total_nb_objects = {};
-    var world = RUR.get_world();
+    var world = RUR.get_current_world();
 
    // First, deal with objects
 

@@ -78,7 +78,7 @@ RUR.add_object = function (name, x, y, options) {
  */
 RUR.remove_object = function (name, x, y, options) {
     "use strict";
-    var args, k, keys, world = RUR.get_world();
+    var args, k, keys, world = RUR.get_current_world();
     args= {x:x, y:y, type:"objects", name:name};
     if (options !== undefined) {
         keys = Object.keys(options);

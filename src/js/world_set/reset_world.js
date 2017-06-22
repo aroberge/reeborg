@@ -2,7 +2,6 @@ require("./../rur.js");
 require("./../world_utils/import_world.js");
 require("./../drawing/visible_robot.js");
 require("./../drawing/visible_world.js");
-var clone_world = require("./../world_utils/clone_world.js").clone_world;
 
 //TODO: See if all defaults could be incorporated here, e.g. robot images, etc.
 
@@ -16,7 +15,7 @@ exports.reset_world = reset_world = function () {
     RUR.MAX_STEPS = 1000;
     RUR.ANIMATION_TIME = 120;
 
-    RUR.CURRENT_WORLD = clone_world(RUR.WORLD_BEFORE_ONLOAD);
+    RUR.set_current_world(RUR.clone_world(RUR.WORLD_BEFORE_ONLOAD));
     if (RUR.state.run_button_clicked) { // do not process_onload
         return;
     }

@@ -19,7 +19,7 @@ RUR.is_non_negative_integer = _is_non_negative_integer;
 RUR.is_positive_integer = _is_positive_integer;
 
 RUR.is_valid_position = function(x, y) {
-    var world = RUR.get_world();
+    var world = RUR.get_current_world();
     return (_is_positive_integer(x) && _is_positive_integer(y) &&
            x <= world.cols && y <= world.rows);
 };

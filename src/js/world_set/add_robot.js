@@ -3,7 +3,7 @@ require("./../recorder/record_frame.js");
 
 
 RUR.add_robot = function (robot) {
-    var world = RUR.get_world();
+    var world = RUR.get_current_world();
     if (world.robots === undefined){
         world.robots = [];
     }

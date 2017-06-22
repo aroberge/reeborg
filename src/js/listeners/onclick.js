@@ -7,7 +7,6 @@ require("./../rur.js");
 require("./../editors/create.js");
 require("./../programming_api/blockly.js");
 
-var export_world = require("./../world_utils/export_world.js").export_world;
 var record_id = require("./../../lang/msg.js").record_id;
 var record_value = require("./../../lang/msg.js").record_value;
 
@@ -110,8 +109,8 @@ var save_world_form = document.getElementById("save-world-form");
 save_world_form.addEventListener("submit", function(event) {
     event.preventDefault();
     var world_filename = document.getElementById("world-filename");
-    RUR.CURRENT_WORLD = RUR.update_world_from_editors(RUR.CURRENT_WORLD);
-    var blob = new Blob([export_world()], {
+    RUR.set_current_world(RUR.update_world_from_editors(RUR.get_current_world()));
+    var blob = new Blob([RUR.export_world()], {
         type: "text/javascript;charset=utf-8"
     });
     saveAs(blob, (world_filename.value || world_filename.placeholder) + ".json", true);
@@ -138,7 +137,7 @@ $("#load-library-btn").on("click", function (evt) {
 
 
 function toggle_content (name, obj) {
-    var world = RUR.get_world();
+    var world = RUR.get_current_world();
     record_id("add-" + name + "-to-world-btn");
     record_id("add-" + name + "-ok");
     record_id("add-" + name + "-not-ok");

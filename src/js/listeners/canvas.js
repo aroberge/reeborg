@@ -19,7 +19,7 @@ function handleMouseMove(evt) {
     var x, y, hit, position, world, robot, mouse_above_robot, image, nb_obj;
     var size = 40, objects_carried;
 
-    world = RUR.get_world();
+    world = RUR.get_current_world();
     x = evt.pageX - $("#robot-anim-canvas").offset().left;
     y = evt.pageY - $("#robot-anim-canvas").offset().top;
     position = RUR.calculate_grid_position();

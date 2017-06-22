@@ -11,7 +11,7 @@ test_utils.set_human_language = function (lang) {
 };
 
 test_utils.reset = function () {
-    RUR.CURRENT_WORLD = RUR.world_utils.clone_world(test_utils.empty_world);
+    RUR.CURRENT_WORLD = RUR.clone_world(test_utils.empty_world);
     RUR._reset();
     RUR.state.code_evaluated = false;
     RUR.state.highlight = false;

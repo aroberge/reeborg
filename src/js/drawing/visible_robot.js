@@ -314,7 +314,7 @@ RUR.vis_robot.update_trace_history = function (robot) {
 
     offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
 
-    if(RUR.get_world().small_tiles) {
+    if(RUR.get_current_world().small_tiles) {
         offset = [[12, 12], [12, 12], [12, 12], [12, 12]];
         trace_segment["thickness"] = 2;
     } else if (robot._trace_style === "thick") {

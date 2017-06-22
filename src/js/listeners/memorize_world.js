@@ -2,7 +2,6 @@
 require("./../rur.js");
 require("./../storage/storage.js");
 var record_id = require("./../../lang/msg.js").record_id;
-var clone_world = require("./../world_utils/clone_world.js").clone_world;
 
 var memorize_button = document.getElementById("memorize-world");
 record_id("memorize-world", "Save world in browser");
@@ -50,7 +49,7 @@ dialog.find("form").on("submit", function( event ) {
 });
 
 save_world = function () {
-    RUR.CURRENT_WORLD = RUR.update_world_from_editors(RUR.CURRENT_WORLD);
+    RUR.set_current_world(RUR.update_world_from_editors(RUR.get_current_world));
     RUR.storage._save_world($("#world-name").val().trim());
     dialog.dialog("close");
     $('#delete-world').show();

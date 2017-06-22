@@ -4,10 +4,9 @@ require("./reset.js");
 require("./../programming_api/exceptions.js");
 require("./../playback/show_immediate.js");
 require("./../utils/supplant.js");
-var clone_world = require("./../world_utils/clone_world.js").clone_world;
 
 function update_trace_history() {
-    var world = RUR.get_world();
+    var world = RUR.get_current_world();
     if (world.robots !== undefined){
         for (robot of world.robots) { // jshint ignore:line
             RUR.vis_robot.update_trace_history(robot);
@@ -82,7 +81,7 @@ RUR.record_frame = function (name, obj) {
     }
 
     update_trace_history();
-    frame.world = clone_world();
+    frame.world = RUR.clone_world();
 
     if (name && obj) {
         frame[name] = obj;

@@ -95,7 +95,7 @@ RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_p
  */
 RUR.set_nb_artefact = function (args) {
     "use strict";
-    var base, coords, world = RUR.get_world();
+    var base, coords, world = RUR.get_current_world();
 
     ensure_common_required_args_present(args);
     if (args.number === undefined) {
@@ -180,7 +180,7 @@ RUR.set_nb_artefact = function (args) {
  */
 RUR.add_artefact = function (args) {
     "use strict";
-    var base, coords, world = RUR.get_world();
+    var base, coords, world = RUR.get_current_world();
 
     ensure_common_required_args_present(args);
     base = world;
@@ -265,7 +265,7 @@ RUR.add_artefact = function (args) {
  */
 RUR.get_nb_artefact = function(args) {
     "use strict";
-    var coords, container, world = RUR.get_world();
+    var coords, container, world = RUR.get_current_world();
 
     ensure_common_required_args_present(args);
 
@@ -342,7 +342,7 @@ RUR.get_nb_artefact = function(args) {
  */
 RUR.get_artefacts = function(args) {
     "use strict";
-    var base, coords, container, world = RUR.get_world();
+    var base, coords, container, world = RUR.get_current_world();
 
     ensure_valid_position(args);
     if (args.type === undefined) {
@@ -429,7 +429,7 @@ RUR.get_artefacts = function(args) {
  */
 RUR.remove_artefact = function (args) {
     "use strict";
-    var base, container, coords, index, number, world = RUR.get_world();
+    var base, container, coords, index, number, world = RUR.get_current_world();
 
     // Calling get_nb_artefact will do all the required validation of basic arguments
     if (RUR.get_nb_artefact(args) === 0) {

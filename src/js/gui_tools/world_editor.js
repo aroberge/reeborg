@@ -263,7 +263,7 @@ RUR.create_and_activate_dialogs( $("#edit-world"), $("#edit-world-panel"),
 
 function place_robot () {
     "use strict";
-    var position, world=RUR.get_world(), robot, arr=[], pos, present=false;
+    var position, world=RUR.get_current_world(), robot, arr=[], pos, present=false;
     position = RUR.calculate_grid_position();
     if (world.robots !== undefined){
         if (world.robots.length >0) {
@@ -296,7 +296,7 @@ function place_robot () {
     }
 
     if (arr.length===0){
-        RUR.get_world().robots = [];
+        RUR.get_current_world().robots = [];
         edit_robot_menu.toggle();
         return;
     }
@@ -317,8 +317,8 @@ function give_objects_to_robot (specific_object){
 
 
 RUR.we.turn_robot = function (orientation) { // function used on reeborg.html
-    RUR.get_world().robots[0]._orientation = orientation;
-    RUR.get_world().robots[0]._prev_orientation = orientation;
+    RUR.get_current_world().robots[0]._orientation = orientation;
+    RUR.get_current_world().robots[0]._prev_orientation = orientation;
     RUR.vis_world.refresh_world_edited();
 };
 
@@ -435,7 +435,7 @@ function add_goal_object (specific_object){
 RUR.we.set_goal_position = function (home){
     // will remove the position if clicked again.
     "use strict";
-    var position, world=RUR.get_world(), robot, arr=[], pos, present=false, goal;
+    var position, world=RUR.get_current_world(), robot, arr=[], pos, present=false, goal;
 
     $("#cmd-result").html(RUR.translate("Click on world to set home position for robot.")).effect("highlight", {color: "gold"}, 1500);
 
@@ -477,10 +477,10 @@ RUR.we.set_goal_position = function (home){
     goal.possible_final_positions = arr;
 
     if (arr.length === 0) {
-        delete RUR.get_world().goal.position;
-        delete RUR.get_world().goal.possible_final_positions;
-        if (Object.keys(RUR.get_world().goal).length === 0) {
-            delete RUR.get_world().goal;
+        delete RUR.get_current_world().goal.position;
+        delete RUR.get_current_world().goal.possible_final_positions;
+        if (Object.keys(RUR.get_current_world().goal).length === 0) {
+            delete RUR.get_current_world().goal;
         }
         $("#edit-world-turn").hide();
     }

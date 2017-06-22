@@ -11,7 +11,6 @@ require("./../editors/create.js");
 require("./../recorder/record_frame.js");
 
 var identical = require("./../utils/identical.js").identical;
-var clone_world = require("./../world_utils/clone_world.js").clone_world;
 
 RUR.rec = {};
 
@@ -89,7 +88,7 @@ RUR.rec.display_frame = function () {
         RUR.pause(frame.pause.pause_time);
         return "pause";
     } else if (frame.error !== undefined) {
-        RUR.CURRENT_WORLD = frame.world;
+        RUR.set_current_world(frame.world);
         RUR.vis_world.refresh();
         return RUR.rec.handle_error(frame);
     }
@@ -117,7 +116,7 @@ RUR.rec.display_frame = function () {
         $("#Reeborg-watches").dialog("open");
     }
 
-    RUR.CURRENT_WORLD = frame.world;
+    RUR.set_current_world(frame.world);
     if (frame.sound_id !== undefined){
         RUR._play_sound(frame.sound_id);
     }
@@ -132,7 +131,7 @@ RUR.rec.conclude = function () {
     }
     if (frame === undefined) {
         frame = {};
-        frame.world = clone_world();
+        frame.world = RUR.clone_world();
     }
     if (frame.world.goal !== undefined){
         goal_status = RUR.rec.check_goal(frame);
@@ -190,7 +189,7 @@ RUR.rec.handle_error = function (frame) {
 RUR.rec.check_current_world_status = function() {
     // this function is to check goals from the Python console.
     frame = {};
-    frame.world = RUR.CURRENT_WORLD;
+    frame.world = RUR.get_current_world();
     if (frame.world.goal === undefined){
         RUR.show_feedback("#Reeborg-concludes",
                              "<p class='center'>" +

@@ -51,7 +51,7 @@ RUR.set_nb_goal_object_at_position = function (specific_object, x, y, nb){
     }
 
     coords = x + "," + y;
-    cw = RUR.get_world();
+    cw = RUR.get_current_world();
 
     RUR.utils.ensure_key_for_obj_exists(cw, "goal");
     RUR.utils.ensure_key_for_obj_exists(cw.goal, "objects");

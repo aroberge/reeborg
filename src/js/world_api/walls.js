@@ -45,7 +45,7 @@ that lists the walls, and must be handled separately.
  *
  */
 RUR.get_walls = function(x, y, goal) {
-    // var world = RUR.get_world();
+    // var world = RUR.get_current_world();
     var args = {x:x, y:y, goal:goal, type:"walls"}, walls;
 
     walls = RUR.get_artefacts(args); // gets "east" and "north" if present
@@ -189,7 +189,7 @@ RUR.add_wall = function(orientation, x, y, goal) {
  *
  */
 RUR.remove_wall = function(orientation, x, y, goal) {
-    var args, world=RUR.get_world();
+    var args, world=RUR.get_current_world();
     // the following function call will raise an exception if
     // the orientation or the position is not valid
     wall_here = RUR.is_wall(orientation, x, y, goal);

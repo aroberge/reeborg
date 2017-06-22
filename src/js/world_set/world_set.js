@@ -15,7 +15,7 @@ var set_dimension_form;
 
 
 function trim_world (new_max_x, new_max_y, old_max_x, old_max_y) {
-    var x, y, coords, world=RUR.get_world();
+    var x, y, coords, world=RUR.get_current_world();
     // remove stuff from outside new boundaries
 
     for (x = new_max_x+1; x <= old_max_x; x++) {
@@ -41,7 +41,7 @@ function trim_world (new_max_x, new_max_y, old_max_x, old_max_y) {
 }
 
 function remove_all_at_location (coords) {
-    var world = RUR.get_world();
+    var world = RUR.get_current_world();
     // trading efficiency for clarity
     if (world.tiles !== undefined) {
         if (world.tiles[coords] !== undefined){
@@ -118,7 +118,7 @@ RUR.world_set.dialog_set_dimensions = $("#dialog-set-dimensions").dialog({
 });
 function set_dimension () {
     "use strict";
-    var max_x, max_y, world = RUR.get_world();
+    var max_x, max_y, world = RUR.get_current_world();
     max_x = parseInt($("#input-max-x").val(), 10);
     max_y = parseInt($("#input-max-y").val(), 10);
     world.small_tiles = $("#use-small-tiles").prop("checked");

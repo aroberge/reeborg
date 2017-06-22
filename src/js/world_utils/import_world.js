@@ -8,7 +8,6 @@ require("./create_empty_world.js");
 require("./../world_api/animated_images.js");
 
 var edit_robot_menu = require("./../ui/edit_robot_menu.js");
-var clone_world = require("./clone_world.js").clone_world;
 
 RUR.world_utils.import_world = function (json_string) {
     "use strict";
@@ -151,7 +150,7 @@ function start_process_onload() {
         window.setTimeout(start_process_onload, 200);
     }
     else {
-        RUR.WORLD_BEFORE_ONLOAD = clone_world();
+        RUR.WORLD_BEFORE_ONLOAD = RUR.clone_world();
         process_onload();
     }
 }
@@ -191,7 +190,7 @@ process_onload = function () {
         RUR.nb_frames = 0;
         RUR.current_frame_no = 0;
     }
-    RUR.WORLD_AFTER_ONLOAD = clone_world();
+    RUR.WORLD_AFTER_ONLOAD = RUR.clone_world();
     RUR.vis_world.draw_all();
 
 };

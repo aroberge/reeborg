@@ -184,13 +184,13 @@ RUR.control._robot_put_down_object = function (robot, obj) {
         delete robot.objects[obj];
     }
 
-    RUR.utils.ensure_key_for_obj_exists(RUR.get_world(), "objects");
+    RUR.utils.ensure_key_for_obj_exists(RUR.get_current_world(), "objects");
     coords = robot.x + "," + robot.y;
-    RUR.utils.ensure_key_for_obj_exists(RUR.get_world().objects, coords);
-    if (RUR.get_world().objects[coords][obj] === undefined) {
-        RUR.get_world().objects[coords][obj] = 1;
+    RUR.utils.ensure_key_for_obj_exists(RUR.get_current_world().objects, coords);
+    if (RUR.get_current_world().objects[coords][obj] === undefined) {
+        RUR.get_current_world().objects[coords][obj] = 1;
     } else {
-        RUR.get_world().objects[coords][obj] += 1;
+        RUR.get_current_world().objects[coords][obj] += 1;
     }
 
     RUR.transform_tile(obj, robot.x, robot.y); // TODO: testing needed
@@ -241,15 +241,15 @@ RUR.control._take_object_and_give_to_robot = function (robot, obj) {
     var objects_here, coords;
     obj = RUR.translate_to_english(obj);
     coords = robot.x + "," + robot.y;
-    RUR.get_world().objects[coords][obj] -= 1;
+    RUR.get_current_world().objects[coords][obj] -= 1;
 
-    if (RUR.get_world().objects[coords][obj] === 0){
-        delete RUR.get_world().objects[coords][obj];
+    if (RUR.get_current_world().objects[coords][obj] === 0){
+        delete RUR.get_current_world().objects[coords][obj];
         // WARNING: do not change this silly comparison to false
         // to anything else ... []==false is true  but []==[] is false
         // and ![] is false
         if (RUR.world_get.object_at_robot_position(robot) == false){ // jshint ignore:line
-            delete RUR.get_world().objects[coords];
+            delete RUR.get_current_world().objects[coords];
         }
     }
     RUR.utils.ensure_key_for_obj_exists(robot, "objects");
@@ -349,7 +349,7 @@ RUR.control.think = function (delay) {
 };
 
 RUR.control.at_goal = function (robot) {
-    var goal = RUR.get_world().goal;
+    var goal = RUR.get_current_world().goal;
     if (goal !== undefined){
         if (goal.position !== undefined) {
             return (robot.x === goal.position.x && robot.y === goal.position.y);
@@ -423,7 +423,7 @@ RUR.control.get_colour_at_position = function (x, y) {
     if (RUR.world_get.tile_at_position(x, y)===false) {
         return null;
     } else if (RUR.world_get.tile_at_position(x, y)===undefined){
-        return RUR.get_world().tiles[x + "," + y];
+        return RUR.get_current_world().tiles[x + "," + y];
     } else {
         return null;
     }

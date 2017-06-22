@@ -24,7 +24,7 @@ require("./../utils/validator.js");
  */
 
 RUR.give_object_to_robot = function (obj, nb, robot) {
-    var _nb, world=RUR.get_world(), translated_arg=RUR.translate_to_english(obj);
+    var _nb, world=RUR.get_current_world(), translated_arg=RUR.translate_to_english(obj);
 
     if (RUR.KNOWN_THINGS.indexOf(translated_arg) == -1){
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj: obj}));

@@ -29,7 +29,7 @@ set_background_image = function () {
     if (!url) {
         url = '';
     }
-    RUR.get_world().background_image = url;
+    RUR.get_current_world().background_image = url;
     RUR.BACKGROUND_IMAGE.src = url;
     RUR.BACKGROUND_IMAGE.onload = RUR.vis_world.draw_all;
     dialog.dialog("close");

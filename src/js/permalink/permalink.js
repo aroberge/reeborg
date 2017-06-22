@@ -7,7 +7,6 @@ require("./../listeners/programming_mode.js");
 require("./../utils/parseuri.js");
 require("./../editors/create.js");
 
-var export_world = require("./../world_utils/export_world.js").export_world;
 var record_id = require("./../../lang/msg.js").record_id;
 
 record_id("save-permalink", "Save");
@@ -36,7 +35,7 @@ RUR.permalink.__create = function () {
     }
     permalink += url_query.path;
     proglang = RUR.state.programming_language + "-" + RUR.state.human_language;
-    world = encodeURIComponent(export_world());
+    world = encodeURIComponent(RUR.export_world());
     _editor = encodeURIComponent(editor.getValue());
     if (RUR.state.programming_language == "python") {
         _library = encodeURIComponent(library.getValue());

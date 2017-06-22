@@ -8,7 +8,6 @@ require("./../recorder/recorder.js");
 require("./world_init.js");
 require("./../editors/create.js");
 require("./../utils/supplant.js");
-var clone_world = require("./../world_utils/clone_world.js").clone_world;
 
 //TODO: refactor this
 
@@ -30,9 +29,9 @@ RUR.runner.run = function (playback) {
     if (!RUR.state.code_evaluated) {
         if (RUR.state.editing_world) {
         // TODO: check that this is ok
-        RUR.WORLD_AFTER_ONLOAD = clone_world(RUR.CURRENT_WORLD);
+        RUR.WORLD_AFTER_ONLOAD = RUR.clone_world(RUR.get_current_world());
         }
-        RUR.CURRENT_WORLD = clone_world(RUR.WORLD_AFTER_ONLOAD);
+        RUR.set_current_world(RUR.clone_world(RUR.WORLD_AFTER_ONLOAD));
         RUR.world_init();
 
         if (!(RUR.state.programming_language === "python" && RUR.state.highlight) ) {

@@ -18,7 +18,7 @@ require("./../rur.js");
 
  RUR.is_robot = function (x, y) {
     "use strict";
-    var r, robot, world=RUR.get_world();
+    var r, robot, world=RUR.get_current_world();
 
     if (world.robots === undefined || world.robots.length === 0) {
         return false;
@@ -63,7 +63,7 @@ require("./../rur.js");
 
 RUR.get_robot_body_by_id = function (id) {
     "use strict";
-    var r, robot_body, world=RUR.get_world();
+    var r, robot_body, world=RUR.get_current_world();
 
     if (world.robots === undefined || world.robots.length === 0) {
         return null;
@@ -249,7 +249,7 @@ RUR.get_position_in_front = function (robot_body) {
 
 RUR.add_final_position = function (name, x, y) {
     "use strict";
-    var goal, pos, world=RUR.get_world();
+    var goal, pos, world=RUR.get_current_world();
 
     RUR.utils.ensure_key_for_obj_exists(world, "goal");
     goal = world.goal;
@@ -288,7 +288,7 @@ RUR.add_final_position = function (name, x, y) {
 
 RUR.add_initial_position = function (x, y) {
     "use strict";
-    var robot, pos, world=RUR.get_world();
+    var robot, pos, world=RUR.get_current_world();
     if (world.robots === undefined || world.robots.length === 0) {
         throw new ReeborgError("This world has no robot; cannot set initial position.");
     }

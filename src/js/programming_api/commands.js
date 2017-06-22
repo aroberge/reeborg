@@ -43,26 +43,26 @@ function user_no_highlight () {
 
 
 RUR._at_goal_ = function () {
-    return RUR.control.at_goal(RUR.get_world().robots[0]);
+    return RUR.control.at_goal(RUR.get_current_world().robots[0]);
 };
 
 RUR._build_wall_ = function() {
-    RUR.control.build_wall(RUR.get_world().robots[0]);
+    RUR.control.build_wall(RUR.get_current_world().robots[0]);
 };
 
 RUR._carries_object_ = function (arg) {
-    return RUR.control.carries_object(RUR.get_world().robots[0], arg);
+    return RUR.control.carries_object(RUR.get_current_world().robots[0], arg);
 };
 
 RUR._clear_print_ = RUR.output.clear_print;
 
 RUR._color_here_ = function () {
-    var robot = RUR.get_world().robots[0];
+    var robot = RUR.get_current_world().robots[0];
     return RUR.control.get_colour_at_position(robot.x, robot.y);
 };
 
 RUR._default_robot_body_ = function () { // simply returns body
-    return RUR.get_world().robots[0];
+    return RUR.get_current_world().robots[0];
 };
 
 RUR._dir_js_ = RUR.inspect;
@@ -70,16 +70,16 @@ RUR._dir_js_ = RUR.inspect;
 RUR._done_ = RUR.control.done;
 
 RUR._front_is_clear_ = function() {
-  return RUR.control.front_is_clear(RUR.get_world().robots[0]);
+  return RUR.control.front_is_clear(RUR.get_current_world().robots[0]);
 };
 
 
 RUR._is_facing_north_ = function () {
-    return RUR.control.is_facing_north(RUR.get_world().robots[0]);
+    return RUR.control.is_facing_north(RUR.get_current_world().robots[0]);
 };
 
 RUR._move_ = function () {
-    RUR.control.move(RUR.get_world().robots[0]);
+    RUR.control.move(RUR.get_current_world().robots[0]);
 };
 
 RUR._new_robot_images_ = RUR.new_robot_images;
@@ -87,13 +87,13 @@ RUR._new_robot_images_ = RUR.new_robot_images;
 RUR._no_highlight_ = user_no_highlight;
 
 RUR._object_here_ = function (arg) {
-    return RUR.world_get.object_at_robot_position(RUR.get_world().robots[0], arg);
+    return RUR.world_get.object_at_robot_position(RUR.get_current_world().robots[0], arg);
 };
 
 RUR._paint_square_ = function (color) {
     // note that this can do more than simply setting the color: it can also
     // set the tile type.
-    var robot = RUR.get_world().robots[0];
+    var robot = RUR.get_current_world().robots[0];
     RUR.add_background_tile(color, robot.x, robot.y);
 };
 
@@ -104,7 +104,7 @@ RUR._print_html_ = function (html, replace) {
 };
 
 RUR._put_ = function(arg) {
-    RUR.control.put(RUR.get_world().robots[0], arg);
+    RUR.control.put(RUR.get_current_world().robots[0], arg);
 };
 
 RUR._recording_ = function(bool) {
@@ -114,11 +114,11 @@ RUR._recording_ = function(bool) {
 };
 
 RUR._remove_robots_ = function () {
-    RUR.get_world().robots = [];
+    RUR.get_current_world().robots = [];
 };
 
 RUR._right_is_clear_ = function() {
-    return RUR.control.right_is_clear(RUR.get_world().robots[0]);
+    return RUR.control.right_is_clear(RUR.get_current_world().robots[0]);
 };
 
 RUR._set_max_nb_instructions_ = function(n){
@@ -126,29 +126,29 @@ RUR._set_max_nb_instructions_ = function(n){
 };
 
 RUR._set_trace_color_ = function(color){
-    RUR.get_world().robots[0]._trace_color = color;
+    RUR.get_current_world().robots[0]._trace_color = color;
 };
 
 RUR._set_trace_style_ = function(style){
-    RUR.get_world().robots[0]._trace_style = style;
+    RUR.get_current_world().robots[0]._trace_style = style;
 };
 
 RUR._sound_ = RUR.control.sound;
 
 RUR._take_ = function(arg) {
-    RUR.control.take(RUR.get_world().robots[0], arg);
+    RUR.control.take(RUR.get_current_world().robots[0], arg);
 };
 
 RUR._think_ = RUR.control.think;
 
 RUR._turn_left_ = function () {
-    RUR.control.turn_left(RUR.get_world().robots[0]);
+    RUR.control.turn_left(RUR.get_current_world().robots[0]);
 };
 
 RUR._view_source_js_ = RUR.output.view_source_js;
 
 RUR._wall_in_front_ = function() {
-    return RUR.control.wall_in_front(RUR.get_world().robots[0]);
+    return RUR.control.wall_in_front(RUR.get_current_world().robots[0]);
 };
 
 RUR._write_ = RUR.output.write;
@@ -156,7 +156,7 @@ RUR._write_ = RUR.output.write;
 RUR.__write_ = RUR.output._write;
 
 RUR._wall_on_right_ = function() {
-    return RUR.control.wall_on_right(RUR.get_world().robots[0]);
+    return RUR.control.wall_on_right(RUR.get_current_world().robots[0]);
 };
 
 RUR._MakeCustomMenu_ = RUR.custom_world_select.make;

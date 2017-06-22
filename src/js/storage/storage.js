@@ -15,11 +15,6 @@ require("./../rur.js");
 require("./../translator.js");
 require("./../ui/world_select.js");
 
-
-var export_world = require("./../world_utils/export_world.js").export_world;
-var clone_world = require("./../world_utils/clone_world.js").clone_world;
-
-
 RUR.storage = {};
 
 RUR.storage._save_world = function (name){
@@ -29,21 +24,21 @@ RUR.storage._save_world = function (name){
             return;
         }
         // replace existing
-        localStorage.setItem("user_world:"+ name, export_world(RUR.get_world()));
+        localStorage.setItem("user_world:"+ name, RUR.export_world(RUR.get_current_world()));
     } else {
         RUR.storage.save_world(name);
     }
     /* We make an assumption here that the onload code has not been run */
-    RUR.WORLD_BEFORE_ONLOAD = clone_world();
+    RUR.WORLD_BEFORE_ONLOAD = RUR.clone_world();
 };
 
 RUR.storage.save_world = function (name){
     "use strict";
     var url = "user_world:"+ name;
     if (RUR.state.editing_world) {
-        localStorage.setItem(url, export_world(RUR.get_world()));
+        localStorage.setItem(url, RUR.export_world(RUR.get_current_world()));
     } else {
-        localStorage.setItem(url, export_world(RUR.WORLD_BEFORE_ONLOAD));
+        localStorage.setItem(url, RUR.export_world(RUR.WORLD_BEFORE_ONLOAD));
     }
     RUR.storage.append_world_name(name);
 };
