@@ -12,7 +12,7 @@ require("./../world_api/things.js");
 
 RUR.world_get = {};
 
-RUR.world_get.tile_at_position = function (x, y) {
+RUR.world_get.tile_at_position = function (x, y) { // TODO: still needed or move elswhere?
     "use strict";
     var coords = x + "," + y;
     if (RUR.CURRENT_WORLD.tiles === undefined) return false;
@@ -21,7 +21,7 @@ RUR.world_get.tile_at_position = function (x, y) {
 };
 
 
-RUR.world_get.object_at_robot_position = function (robot, obj) {
+RUR.world_get.object_at_robot_position = function (robot, obj) { // TODO: still needed or move elswhere?
     return object_of_type_here(robot, obj, RUR.CURRENT_WORLD.objects);
 };
 

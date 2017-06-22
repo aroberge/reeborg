@@ -21,6 +21,7 @@ require("./../world_utils/get_world.js");
  * @todo add test
  * @todo add better examples
  * @todo deal with translation
+ * @todo Make sure we cover the case of two or more obstacles at a given location
  * @example
  * // shows how to set various tiles;
  * // the mode will be set to Python and the highlighting
@@ -48,7 +49,7 @@ RUR.add_obstacle = function (name, x, y) {
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no background tile to remove
  *        at that location
- *        
+ *
  * @todo add test
  * @todo add examples
  * @todo deal with translation
@@ -82,6 +83,7 @@ RUR.remove_obstacle = function (name, x, y) {
  * @todo add test
  * @todo add proper examples
  * @todo deal with translation
+ * @todo deal properly with cases of two or more obstacles
  *
  * @example
  * // shows how to set various tiles;
@@ -103,7 +105,7 @@ RUR.get_obstacles = function (x, y) {
 };
 
 // TODO: this may not be needed after more general functions written
-// i.e. instead of looking for specific obstacle, look for 
+// i.e. instead of looking for specific obstacle, look for
 // obstacle with properties.
 RUR.is_obstacle = function (name, x, y) {
     "use strict";
@@ -115,6 +117,10 @@ RUR.is_obstacle = function (name, x, y) {
     }
 };
 
+// TODO: include get_obstacle which would return all
+// obstacles at a given location ... although is_obstacle_safe
+// may cover this case appropriately.
+
 RUR.get_solid_obstacle = function (x, y) {
     "use strict";
     var obs, obstacles = RUR.get_obstacles(x, y);
@@ -123,7 +129,7 @@ RUR.get_solid_obstacle = function (x, y) {
     }
     for (obs of obstacles) {
         if (RUR.TILES[obs].solid) {
-            return RUR.TILES[obs];
+            return RUR.TILES[obs]; //TODO: return array of obstacles
         }
     }
     return false;
@@ -137,7 +143,7 @@ RUR.get_fatal_obstacle = function (x, y) {
     }
     for (obs of obstacles) {
         if (RUR.TILES[obs].fatal) {
-            return RUR.TILES[obs];
+            return RUR.TILES[obs]; //TODO: return array of obstacles
         }
     }
     return false;
@@ -151,7 +157,7 @@ RUR.get_fatal_detectable_obstacle = function (x, y) {
     }
     for (obs of obstacles) {
         if (RUR.TILES[obs].fatal && RUR.TILES[obs].detectable) {
-            return RUR.TILES[obs];
+            return RUR.TILES[obs]; //TODO: return array of obstacles
         }
     }
     return false;
@@ -166,13 +172,13 @@ RUR.is_obstacle_safe = function (x, y) {
     if (obstacles === null) {
         return false;
     }
-    for (obs of obstacles) {
+    for (obs of obstacles) { //TODO: change to make sure that all obstacles are included
         if (RUR.TILES[obs].fatal) {
             return false;
         }
         if (RUR.TILES[obs].safe) {
             safe_found = true;
-        }        
+        }
     }
     return safe_found;
 };

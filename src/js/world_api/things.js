@@ -147,7 +147,7 @@ function create_images(obj) {
     if (obj.url) {
         obj.image = new Image();
         obj.image.src = obj.url;
-        RUR.images_onload(obj.image);
+        obj.image.onload = RUR.onload_new_image;
     } else if (obj.images) {
         RUR.animate_images(obj);
     } else {

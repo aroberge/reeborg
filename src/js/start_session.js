@@ -2,7 +2,6 @@
 require("./rur.js");
 /* Requiring the following just to get things started */
 require("./listeners/add_listeners.js");
-require("./splash_screen.js");
 /* --- */
 
 require("./programming_api/blockly.js");
@@ -28,6 +27,8 @@ require("./world_api/obstacles.js");
 require("./world_api/pushables.js");
 require("./world_api/robot.js");
 require("./world_api/walls.js");
+
+
 
 brython({debug:1, pythonpath:[RUR._BASE_URL + '/src/python']});
 if (__BRYTHON__.__MAGIC__ != "3.2.7") {

@@ -12,6 +12,7 @@ function conditions_satisfied (conditions, x, y) {
     var c, cond, fn, name;
     if (Object.prototype.toString.call(conditions) != "[object Array]" ||
         conditions.length === 0) {
+        console.log(conditions);
         throw new ReeborgError("Invalid conditions when attempting an automatic object transformation.");
     }
     try {
@@ -24,8 +25,9 @@ function conditions_satisfied (conditions, x, y) {
             }
         }
     return true;
-    } catch (e) {
-        throw new ReeborgError("Invalid conditions when attempting an automatic object transformation.");
+} catch (e) {
+    console.log(e);
+    throw new ReeborgError("Invalid conditions when attempting an automatic object transformation.");
     }
 }
 
@@ -34,6 +36,7 @@ function do_transformations (actions, x, y) {
     var a, act, fn, name;
     if (Object.prototype.toString.call(actions) != "[object Array]" ||
         actions.length === 0) {
+        console.log(actions);
         throw new ReeborgError("Invalid actions when attempting an automatic object transformation.");
     }
     try {
@@ -44,12 +47,13 @@ function do_transformations (actions, x, y) {
             fn(name, x, y);
         }
     } catch (e) {
+        console.log(e);
         throw new ReeborgError("Invalid actions when attempting an automatic object transformation.");
     }
 }
 
 
-RUR.transform_tile = function (name, x, y, type) {
+RUR.transform_tile = function (name, x, y) {
     "use strict";
     var t, transf, transformations, recording_state;
     if (RUR.TILES[name].transform === undefined) {

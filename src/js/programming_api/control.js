@@ -59,7 +59,7 @@ RUR.control.move = function (robot) {
             throw new RUR.ReeborgError(RUR.translate("Something is blocking the way!"));
         } else {
             RUR.push_pushable(pushable_in_the_way, next_x, next_y, x_beyond, y_beyond);
-            RUR.transform_tile(pushable_in_the_way, x_beyond, y_beyond, "pushables");
+            RUR.transform_tile(pushable_in_the_way, x_beyond, y_beyond);
         }
     }
 
@@ -194,9 +194,8 @@ RUR.control._robot_put_down_object = function (robot, obj) {
     } else {
         RUR.get_world().objects[coords][obj] += 1;
     }
-    // automatic transformation of tiles
-    // TODO: implement new methods for objects layer
-    // RUR.transform_tile(robot.x, robot.y, obj, "objects");
+
+    RUR.transform_tile(obj, robot.x, robot.y); // TODO: testing needed
 
     RUR.record_frame("put", [robot.__id, obj]);
 };

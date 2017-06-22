@@ -14,6 +14,13 @@
 require("./../rur.js");
 require("./../world_api/things.js");
 
+// the following four requirements are for automatic transformations
+// via the ".transform" attribute
+require("./../world_api/background_tile.js");
+require("./../world_api/pushables.js");
+require("./../world_api/obstacles.js");
+require("./../world_api/objects.js");
+
 var home_message, obj, tile;
 
 tile = {name: "mud",
@@ -140,6 +147,7 @@ RUR.TILES.east.y_offset = -2;
 RUR.TILES.north.x_offset = -2;
 RUR.TILES.north.y_offset = -2;
 
+// goal walls treated above
 function _add_static_wall(name, x_offset, y_offset) {
     "use strict";
     var url;
@@ -160,24 +168,55 @@ RUR.TILES.box.name = "box";
 RUR.TILES.box.transform = [
     {conditions: [[RUR.is_background_tile, "water"],
                   [RUR.is_pushable, "box"]],
-    actions: [[RUR.remove_pushable, "box"],
+     actions: [[RUR.remove_pushable, "box"],
               [RUR.add_bridge, "bridge"]]
     },
     {conditions: [[RUR.is_background_tile, "mud"],
                   [RUR.is_pushable, "box"]],
-    actions: [[RUR.remove_pushable, "box"],
+     actions: [[RUR.remove_pushable, "box"],
               [RUR.add_bridge, "bridge"]]
     },
     {conditions: [[RUR.is_background_tile, "fire"],
                   [RUR.is_pushable, "box"]],
-    actions: [[RUR.remove_pushable, "box"]]
+     actions: [[RUR.remove_pushable, "box"]]
     },
     {conditions: [[RUR.is_obstacle, "fire"],
                   [RUR.is_pushable, "box"]],
-    actions: [[RUR.remove_pushable, "box"]]
+     actions: [[RUR.remove_pushable, "box"]]
     }
 ];
 
+tile = {
+    name: "bucket",
+    info: "A bucket full of water, useful to put out fires.",
+    url: RUR._BASE_URL + '/src/images/water_bucket.png'
+};
+RUR.add_new_thing(tile);
+RUR.TILES.bucket.transform = [
+    {conditions: [[RUR.is_background_tile, "fire"],
+                  [RUR.is_object, "bucket"]],
+     actions: [[RUR.remove_object, "bucket"],
+              [RUR.remove_background_tile, "fire"]]
+    },
+    {conditions: [[RUR.is_obstacle, "fire"],
+                  [RUR.is_object, "bucket"]],
+     actions: [[RUR.remove_object, "bucket"],
+              [RUR.remove_obstacle, "fire"]]
+    },
+    {conditions: [[RUR.is_object, "bulb"],
+                  [RUR.is_object, "bucket"]],
+     actions: [[RUR.remove_object, "bucket"],
+              [RUR.remove_object, "bulb"],
+              [RUR.add_object, "tulip"]]
+    }
+];
+
+tile = {
+    name: "bulb",
+    info: "Tulip bulb: might grow into a nice tulip with some water from a bucket.",
+    url: RUR._BASE_URL + '/src/images/seed.png'
+};
+RUR.add_new_thing(tile);
 
 tile = {
     name: "bridge",
@@ -187,7 +226,7 @@ tile = {
 };
 RUR.add_new_thing(tile);
 
-obj = {"name": 'beeper',
+tile = {"name": 'beeper',
     "selection_method": 'ordered',
     "images": [RUR._BASE_URL + '/src/images/beeper0.png',
             RUR._BASE_URL + '/src/images/beeper1.png',
@@ -195,42 +234,22 @@ obj = {"name": 'beeper',
             RUR._BASE_URL + '/src/images/beeper3.png'],
     "goal": {'url': RUR._BASE_URL + '/src/images/beeper_goal.png'}
 };
-RUR.add_new_thing(obj);
+RUR.add_new_thing(tile);
 
-add_new_obstacle_type = function (name, url, fatal) {
-    var obj = RUR.TILES;
-    obj[name] = {};
-    obj[name].name = name;
-    obj[name].fatal = fatal;
-    obj[name].solid = true;
-    obj[name].detectable = true;
-    obj[name].ctx = RUR.OBSTACLES_CTX;
-    obj[name].image = new Image();
-    if (url) {
-        obj[name].url = url;
-    } else {
-        obj[name].url = RUR._BASE_URL + '/src/images/' + name + '.png';
-    }
-    obj[name].image.src = obj[name].url;
-
-    obj[name].image.onload = RUR._incremented_loaded_images;
-    RUR._NB_IMAGES_TO_LOAD += 1;
-    RUR.KNOWN_TILES.push(name);
+add_fence = function (name) {
+    var obj = {};
+    obj.name = name;
+    obj.fatal = "fence";
+    obj.solid = true;
+    obj.detectable = true;
+    obj.message = "I hit a fence!";
+    obj.info = "Fence: Reeborg <b>can</b> detect this but will be stopped by it.";
+    obj.url = RUR._BASE_URL + '/src/images/' + name + '.png';
+    RUR.add_new_thing(obj);
 };
 
+add_fence("fence_right");
+add_fence("fence_left");
+add_fence("fence_double");
+add_fence("fence_vertical");
 
-add_new_obstacle_type("fence_right", false, "fence");
-RUR.TILES.fence_right.message = "I hit a fence!";
-RUR.TILES.fence_right.info = "Fence: Reeborg <b>can</b> detect this but will be stopped by it.";
-
-add_new_obstacle_type("fence_left", false, "fence");
-RUR.TILES.fence_left.message = RUR.TILES.fence_right.message;
-RUR.TILES.fence_left.info = RUR.TILES.fence_right.info;
-
-add_new_obstacle_type("fence_double", false, "fence");
-RUR.TILES.fence_double.message = RUR.TILES.fence_right.message;
-RUR.TILES.fence_double.info = RUR.TILES.fence_right.info;
-
-add_new_obstacle_type("fence_vertical", false, "fence");
-RUR.TILES.fence_vertical.message = RUR.TILES.fence_right.message;
-RUR.TILES.fence_vertical.info = RUR.TILES.fence_right.info;

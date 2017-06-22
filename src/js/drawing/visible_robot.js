@@ -14,7 +14,7 @@ RUR.vis_robot.nb_images = 0;
 RUR._BASE_URL = RUR._BASE_URL || '';
 
 
-function set_images(images, refresh) {
+function set_images(images) {
     var default_images, east, west, north, south, robot, model = images.model;
 
     default_images = {east: RUR._BASE_URL + '/src/images/robot_e.png',
@@ -34,18 +34,22 @@ function set_images(images, refresh) {
         robot = RUR.vis_robot.images[model];
     }
 
-    robot.robot_e_img.src = images.east || default_images.east;
-    robot.robot_w_img.src = images.west || default_images.west;
-    robot.robot_n_img.src = images.north || default_images.north;
-    robot.robot_s_img.src = images.south || default_images.south;
-
-    if (refresh) {
-        robot.robot_e_img.onload = function() { RUR.vis_world.refresh(); }
-        robot.robot_w_img.onload = function() { RUR.vis_world.refresh(); }
-        robot.robot_n_img.onload = function() { RUR.vis_world.refresh(); }
-        robot.robot_s_img.onload = function() { RUR.vis_world.refresh(); }
+    if (robot.robot_e_img.src != images.east) {
+        robot.robot_e_img.src = images.east || default_images.east;
+        robot.robot_e_img.onload = RUR.onload_new_image;
     }
-
+    if (robot.robot_n_img.src != images.north) {
+        robot.robot_n_img.src = images.north || default_images.north;
+        robot.robot_n_img.onload = RUR.onload_new_image;
+    }
+    if (robot.robot_w_img.src != images.west) {
+        robot.robot_w_img.src = images.west || default_images.west;
+        robot.robot_w_img.onload = RUR.onload_new_image;
+    }
+    if (robot.robot_s_img.src != images.south) {
+        robot.robot_s_img.src = images.south || default_images.south;
+        robot.robot_s_img.onload = RUR.onload_new_image;
+    }
 }
 
 RUR.reset_default_robot_images = function () {
@@ -399,7 +403,7 @@ RUR.new_robot_images = function (images) {
     }
     RUR.state.reset_default_robot_images_needed = true;
 
-    set_images(images, true);
+    set_images(images);
 
     // change the image displayed in the html file.
     if (model < 4) {

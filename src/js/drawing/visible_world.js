@@ -85,9 +85,6 @@ RUR.vis_world.draw_all = function () {
         return;
     }
 
-    // For robot worlds, we do not need to redraw
-    // the background or the grid walls, nor the coordinates
-    // at each time the world is updated
     RUR.BACKGROUND_CTX.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     if (RUR.get_world().background_image !== undefined) {
         draw_background_image(RUR.BACKGROUND_IMAGE);

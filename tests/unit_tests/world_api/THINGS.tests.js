@@ -34,10 +34,6 @@ test('RUR.add_new_thing: adding new tile type', function (assert) {
     assert.equal(RUR.KNOWN_TILES[0], 'this name', "tile added");
     assert.equal(this_obj.image.src, 'URL', "url for tile ok");
     assert.equal(this_obj.goal.image.src, 'GOAL', "url for goal ok");
-    assert.equal(RUR._NB_IMAGES_TO_LOAD, 2, "two images to load.");
-    this_obj.image.onload();
-    this_obj.goal.image.onload();
-    assert.equal(RUR._NB_IMAGES_LOADED, 2, "two images loaded.");
     assert.end();
 });
 

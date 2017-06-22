@@ -13,33 +13,19 @@ RUR.animated_images_init = function () {
     RUR.ANIMATION_TIME = 120;
 };
 
-RUR._NB_IMAGES_TO_LOAD = 0;
-RUR._NB_IMAGES_LOADED = 0;
-RUR._incremented_loaded_images = function () {
-    RUR._NB_IMAGES_LOADED += 1;
-};
+// RUR._NB_IMAGES_TO_LOAD = 0;
+// RUR._NB_IMAGES_LOADED = 0;
+// RUR._incremented_loaded_images = function () {
+//     RUR._NB_IMAGES_LOADED += 1;
+// };
 
-/* Important: we need to use a method from visible_world.js ONLY after
-   the session is initialized; at that point, we know that visible_world.js
-   has been loaded and we know it will be available even if we don't
-   put it as a formal requirement.  If we were to put it as a requirement,
-   we would end up with a circular requirement (e.g. animated_images.js require
-   visible_world.js which require animated_images.js) with unpredictable consequences.
-*/
-RUR.images_onload = function (image) {
-    if (RUR.vis_world !== undefined) {
-        image.onload = RUR.vis_world.refresh;
-    } else {
-        RUR._NB_IMAGES_TO_LOAD += 1;
-        image.onload = RUR._incremented_loaded_images;
-    }
-};
+
 
 RUR.animate_images = function (obj) {
     for (i=0; i < obj.images.length; i++){
         obj["image"+i] = new Image();
         obj["image"+i].src = obj.images[i];
-        RUR.images_onload(obj["image"+i]);
+        obj["image"+i].onload = RUR.onload_new_image;
     }
     if (obj.selection_method === "sync") {
         obj.choose_image = function (id) {

@@ -47,6 +47,7 @@ RUR.state.programming_language = "python";
 RUR.state.playback = false;
 RUR.state.prevent_playback = false;
 RUR.state.reset_default_robot_images_needed = false;
+RUR.state.refresh_needed = false;
 RUR.state.run_button_clicked = false;
 RUR.state.running_program = false;
 RUR.state.session_initialized = false;
@@ -59,6 +60,21 @@ RUR.state.x = undefined;
 RUR.state.y = undefined;
 RUR.state.changed_cells = [];
 RUR.state.visible_grid = false;
+
+RUR.onload_new_image = function  () {
+    if (RUR.vis_world === undefined) { // not ready yet
+        return;
+    }
+    try {
+        requestAnimationFrame(RUR.vis_world.draw_all);
+    }
+    catch(e) {
+        console.log("requestAnimationFrame failed in rur.js.");
+    }
+};
+
+
+
 
 
 // TODO: see if worthwhile to create RUR.state.do_highlight()
