@@ -33,17 +33,10 @@ require("./listeners/stop.js");
 require("./listeners/toggle_highlight.js");
 require("./listeners/toggle_watch.js");
 
-/* Nothing else depends on the following module. */
-require("./world_api/decorative_objects.js"); // not required by anything else
-                                              // need to do integration test
-
 brython({debug:1, pythonpath:[RUR.BASE_URL + '/src/python']});
 if (__BRYTHON__.__MAGIC__ != "3.2.7") {
     alert("Expecting Brython version 3.2.7 and got " + __BRYTHON__.__MAGIC__);
 }
-
-
-
 
 /* Once everything is loaded, we need to decide which UI to show.
    The priority is determined by:

@@ -14,12 +14,14 @@
 require("./../rur.js");
 require("./../world_api/things.js");
 
-// the following four requirements are for automatic transformations
+// the following requirements are for automatic transformations
 // via the ".transform" attribute
 require("./../world_api/background_tile.js");
 require("./../world_api/pushables.js");
 require("./../world_api/obstacles.js");
 require("./../world_api/objects.js");
+require("./../world_api/decorative_objects.js");
+
 
 var home_message, obj, tile;
 
@@ -83,11 +85,19 @@ RUR.add_new_thing(tile);
 
 // fire adapted from https://commons.wikimedia.org/wiki/File:Icon-Campfire.svg
 tile = {name: "fire",
-    url: RUR.BASE_URL + '/src/images/fire.png',
+    images: [RUR.BASE_URL + '/src/images/fire.png',
+        RUR.BASE_URL + '/src/images/fire1.png',
+        RUR.BASE_URL + '/src/images/fire2.png'],
     info: "fire: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it.",
     message: "My joints are melting!",
     detectable: true,
     fatal: "fire"
+};
+RUR.add_new_thing(tile);
+
+tile = {name: "logs",
+    url: RUR.BASE_URL + '/src/images/logs.png',
+    info: "Some harmless, slightly burnt logs",
 };
 RUR.add_new_thing(tile);
 
@@ -196,12 +206,14 @@ RUR.THINGS.bucket.transform = [
     {conditions: [[RUR.is_background_tile, "fire"],
                   [RUR.is_object, "bucket"]],
      actions: [[RUR.remove_object, "bucket"],
-              [RUR.remove_background_tile, "fire"]]
+              [RUR.remove_background_tile, "fire"],
+              [RUR.add_decorative_object, "logs"]]
     },
     {conditions: [[RUR.is_obstacle, "fire"],
                   [RUR.is_object, "bucket"]],
      actions: [[RUR.remove_object, "bucket"],
-              [RUR.remove_obstacle, "fire"]]
+              [RUR.remove_obstacle, "fire"],
+              [RUR.add_decorative_object, "logs"]]
     },
     {conditions: [[RUR.is_object, "bulb"],
                   [RUR.is_object, "bucket"]],
