@@ -3,6 +3,8 @@ require("./../programming_api/exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
 require("./../utils/validator.js");
+require("./../utils/supplant.js");
+
 
 /** @function give_object_to_robot
  * @memberof RUR

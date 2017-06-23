@@ -288,53 +288,6 @@ RUR.vis_robot.draw_random = function (robot) {
 };
 
 
-
-
-// TODO: extract to its own file, to reduce dependencies
-RUR.vis_robot.update_trace_history = function (robot) {
-    var offset, prev_offset, trace_segment={};
-    // if we keep track of the trace during world editing tests,
-    // it can end up saving a world with a trace history
-    // defined.
-    if (RUR.state.editing_world) {
-        robot._trace_history = [];
-        return;
-    }
-    if (robot._prev_x == robot.x &&
-        robot._prev_y == robot.y &&
-        robot._prev_orientation == robot._orientation) {
-            return;
-        }
-
-    if (robot._trace_style == "invisible" || !robot._is_leaky) {
-        trace_segment["color"] = "rgba(0,0,0,0)";
-    } else {
-        trace_segment["color"] = robot._trace_color;
-    }
-
-    offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
-
-    if(RUR.get_current_world().small_tiles) {
-        offset = [[12, 12], [12, 12], [12, 12], [12, 12]];
-        trace_segment["thickness"] = 2;
-    } else if (robot._trace_style === "thick") {
-        offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
-        trace_segment["thickness"] = 4;
-    }  else if (robot._trace_style === "default") {
-        trace_segment["thickness"] = 1;
-    } // else, invisible and we do not care.
-
-    prev_offset = offset[robot._prev_orientation%4];
-    offset = offset[robot._orientation%4];
-
-    trace_segment["prev_x"] = robot._prev_x * RUR.WALL_LENGTH + prev_offset[0];
-    trace_segment["x"] = robot.x * RUR.WALL_LENGTH + offset[0];
-    trace_segment["prev_y"] = RUR.HEIGHT - (robot._prev_y+1) * RUR.WALL_LENGTH + prev_offset[1];
-    trace_segment["y"] = RUR.HEIGHT - (robot.y+1) * RUR.WALL_LENGTH + offset[1];
-
-    robot._trace_history.push(trace_segment);
-};
-
 RUR.vis_robot.draw_trace_history  = function(robot) {
     var segment;
     for (segment of robot._trace_history) { //jshint ignore:line

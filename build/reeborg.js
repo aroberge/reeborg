@@ -835,53 +835,6 @@ RUR.vis_robot.draw_random = function (robot) {
 };
 
 
-
-
-// TODO: extract to its own file, to reduce dependencies
-RUR.vis_robot.update_trace_history = function (robot) {
-    var offset, prev_offset, trace_segment={};
-    // if we keep track of the trace during world editing tests,
-    // it can end up saving a world with a trace history
-    // defined.
-    if (RUR.state.editing_world) {
-        robot._trace_history = [];
-        return;
-    }
-    if (robot._prev_x == robot.x &&
-        robot._prev_y == robot.y &&
-        robot._prev_orientation == robot._orientation) {
-            return;
-        }
-
-    if (robot._trace_style == "invisible" || !robot._is_leaky) {
-        trace_segment["color"] = "rgba(0,0,0,0)";
-    } else {
-        trace_segment["color"] = robot._trace_color;
-    }
-
-    offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
-
-    if(RUR.get_current_world().small_tiles) {
-        offset = [[12, 12], [12, 12], [12, 12], [12, 12]];
-        trace_segment["thickness"] = 2;
-    } else if (robot._trace_style === "thick") {
-        offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
-        trace_segment["thickness"] = 4;
-    }  else if (robot._trace_style === "default") {
-        trace_segment["thickness"] = 1;
-    } // else, invisible and we do not care.
-
-    prev_offset = offset[robot._prev_orientation%4];
-    offset = offset[robot._orientation%4];
-
-    trace_segment["prev_x"] = robot._prev_x * RUR.WALL_LENGTH + prev_offset[0];
-    trace_segment["x"] = robot.x * RUR.WALL_LENGTH + offset[0];
-    trace_segment["prev_y"] = RUR.HEIGHT - (robot._prev_y+1) * RUR.WALL_LENGTH + prev_offset[1];
-    trace_segment["y"] = RUR.HEIGHT - (robot.y+1) * RUR.WALL_LENGTH + offset[1];
-
-    robot._trace_history.push(trace_segment);
-};
-
 RUR.vis_robot.draw_trace_history  = function(robot) {
     var segment;
     for (segment of robot._trace_history) { //jshint ignore:line
@@ -7378,7 +7331,6 @@ RUR.reset_definitions_fr = function () {
 },{"./../rur.js":52,"./commands.js":40}],46:[function(require,module,exports){
 
 require("./../rur.js");
-require("./reset.js");
 require("./../programming_api/exceptions.js");
 require("./../playback/show_immediate.js");
 require("./../utils/supplant.js");
@@ -7387,10 +7339,55 @@ function update_trace_history() {
     var world = RUR.get_current_world();
     if (world.robots !== undefined){
         for (robot of world.robots) { // jshint ignore:line
-            RUR.vis_robot.update_trace_history(robot);
+            update_robot_trace_history(robot);
         }
     }
 }
+
+update_robot_trace_history = function (robot) {
+    var offset, prev_offset, trace_segment={};
+    // if we keep track of the trace during world editing tests,
+    // it can end up saving a world with a trace history
+    // defined.
+    if (RUR.state.editing_world) {
+        robot._trace_history = [];
+        return;
+    }
+    if (robot._prev_x == robot.x &&
+        robot._prev_y == robot.y &&
+        robot._prev_orientation == robot._orientation) {
+            return;
+        }
+
+    if (robot._trace_style == "invisible" || !robot._is_leaky) {
+        trace_segment["color"] = "rgba(0,0,0,0)";
+    } else {
+        trace_segment["color"] = robot._trace_color;
+    }
+
+    offset = [[30, 30], [30, 20], [20, 20], [20, 30]];
+
+    if(RUR.get_current_world().small_tiles) {
+        offset = [[12, 12], [12, 12], [12, 12], [12, 12]];
+        trace_segment["thickness"] = 2;
+    } else if (robot._trace_style === "thick") {
+        offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
+        trace_segment["thickness"] = 4;
+    }  else if (robot._trace_style === "default") {
+        trace_segment["thickness"] = 1;
+    } // else, invisible and we do not care.
+
+    prev_offset = offset[robot._prev_orientation%4];
+    offset = offset[robot._orientation%4];
+
+    trace_segment["prev_x"] = robot._prev_x * RUR.WALL_LENGTH + prev_offset[0];
+    trace_segment["x"] = robot.x * RUR.WALL_LENGTH + offset[0];
+    trace_segment["prev_y"] = RUR.HEIGHT - (robot._prev_y+1) * RUR.WALL_LENGTH + prev_offset[1];
+    trace_segment["y"] = RUR.HEIGHT - (robot.y+1) * RUR.WALL_LENGTH + offset[1];
+
+    robot._trace_history.push(trace_segment);
+};
+
 
 RUR.record_frame = function (name, obj) {
     "use strict";
@@ -7493,7 +7490,7 @@ RUR.record_frame = function (name, obj) {
 };
 
 
-},{"./../playback/show_immediate.js":38,"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../utils/supplant.js":64,"./reset.js":48}],47:[function(require,module,exports){
+},{"./../playback/show_immediate.js":38,"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../utils/supplant.js":64}],47:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../drawing/visible_world.js");
@@ -11524,6 +11521,8 @@ require("./../rur.js");
 require("./../translator.js");
 require("./animated_images.js");
 require("./../programming_api/exceptions.js");
+require("./../utils/supplant.js");
+
 
 /** @function add_new_thing
  * @memberof RUR
@@ -11830,7 +11829,7 @@ RUR.add_new_object_type = function (name, url, url_goal) {
  */
 RUR.add_object_image = RUR.add_new_object_type; // Vincent Maille's book.
 
-},{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../translator.js":55,"./animated_images.js":66}],78:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../translator.js":55,"./../utils/supplant.js":64,"./animated_images.js":66}],78:[function(require,module,exports){
 require("./../rur.js");
 require("./../translator.js");
 require("./../programming_api/exceptions.js");
@@ -12373,6 +12372,8 @@ require("./../programming_api/exceptions.js");
 require("./../utils/key_exist.js");
 require("./../translator.js");
 require("./../utils/validator.js");
+require("./../utils/supplant.js");
+
 
 /** @function give_object_to_robot
  * @memberof RUR
@@ -12418,7 +12419,7 @@ RUR.give_object_to_robot = function (obj, nb, robot) {
     }
 };
 
-},{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../translator.js":55,"./../utils/key_exist.js":62,"./../utils/validator.js":65}],82:[function(require,module,exports){
+},{"./../programming_api/exceptions.js":42,"./../rur.js":52,"./../translator.js":55,"./../utils/key_exist.js":62,"./../utils/supplant.js":64,"./../utils/validator.js":65}],82:[function(require,module,exports){
 require("./../rur.js");
 require("./../world_utils/import_world.js");
 require("./../drawing/visible_robot.js");

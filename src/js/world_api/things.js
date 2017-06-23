@@ -2,6 +2,8 @@ require("./../rur.js");
 require("./../translator.js");
 require("./animated_images.js");
 require("./../programming_api/exceptions.js");
+require("./../utils/supplant.js");
+
 
 /** @function add_new_thing
  * @memberof RUR
