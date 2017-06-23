@@ -4,7 +4,7 @@ require("./../rur.js");
    functional tests. It is not documented with JSdoc as it should not
    be required for normal world creation; the recommended practice being
    to start with an existing world. */
-RUR.world_utils.create_empty_world = function (blank_canvas) {
+RUR.create_empty_world = function (blank_canvas) {
     "use strict";
     var world = {};
     if (blank_canvas) {
@@ -20,4 +20,4 @@ RUR.world_utils.create_empty_world = function (blank_canvas) {
 
     return world;
 };
-RUR.set_current_world(RUR.world_utils.create_empty_world());
+RUR.set_current_world(RUR.create_empty_world());

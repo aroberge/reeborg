@@ -13,14 +13,6 @@ RUR.animated_images_init = function () {
     RUR.ANIMATION_TIME = 120;
 };
 
-// RUR._NB_IMAGES_TO_LOAD = 0;
-// RUR._NB_IMAGES_LOADED = 0;
-// RUR._incremented_loaded_images = function () {
-//     RUR._NB_IMAGES_LOADED += 1;
-// };
-
-
-
 RUR.animate_images = function (obj) {
     for (i=0; i < obj.images.length; i++){
         obj["image"+i] = new Image();

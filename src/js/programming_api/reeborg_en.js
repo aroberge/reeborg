@@ -1,5 +1,6 @@
 require("./../rur.js");
 require("./commands.js");
+require("./../world_set/add_robot.js");
 
 /* Since Javascript is a dynamic language, a user or world creator could
     (possibly accidently) redefine a basic function, which could lead to some

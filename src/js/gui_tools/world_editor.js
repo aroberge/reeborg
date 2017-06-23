@@ -1,6 +1,4 @@
 /* Menu driven world editor */
-
-
 require("./../translator.js");
 require("./../rur.js");
 require("./../default_tiles/tiles.js");

@@ -14,7 +14,7 @@ RUR.record_frame = function () {};
 test('adding known object', function (assert) {
     require("../../../src/js/world_api/obstacles.js");
     assert.plan(1);
-    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
     RUR.THINGS = {'a':true};
     RUR.untranslated['a'] = true;
     global.RUR.add_obstacle('a', 2, 3);
@@ -26,12 +26,12 @@ test('adding and removing known solid object', function (assert) {
     var identical = require("../../../src/js/utils/identical.js").identical;
     require("../../../src/js/world_api/obstacles.js");
     assert.plan(1);
-    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
     RUR.THINGS = {'a':true};
     RUR.untranslated['a'] = true;
     RUR.add_obstacle('a', 2, 3);
     RUR.remove_obstacle('a', 2, 3);
-    assert.ok(identical(RUR.CURRENT_WORLD, RUR.world_utils.create_empty_world()), "no obstacle left");
+    assert.ok(identical(RUR.CURRENT_WORLD, RUR.create_empty_world()), "no obstacle left");
     assert.end();
 });
 
@@ -39,7 +39,7 @@ test('adding two and removing one known solid objects', function (assert) {
     var identical = require("../../../src/js/utils/identical.js").identical;
     require("../../../src/js/world_api/obstacles.js");
     assert.plan(1);
-    RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
     RUR.THINGS = {'a':true, 'b': true};
     RUR.untranslated['a'] = true;
     RUR.untranslated['b'] = true;
@@ -56,7 +56,7 @@ test('adding two and removing one known solid objects', function (assert) {
 //     silencer.disable();
 //     assert.plan(4);
 //     require("../../../src/js/world_api/obstacles.js");
-//     RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
+//     RUR.CURRENT_WORLD = RUR.create_empty_world();
 //     RUR.THINGS = [];
 //     RUR.translation = {};
 //     try {

@@ -2648,8 +2648,6 @@ function add_onclick(id, fn, arg, record, enter) {
 
 },{"./../../lang/msg.js":87,"./../dialogs/create.js":3,"./../listeners/editors_tabs.js":20,"./../rur.js":52,"./../translator.js":55}],15:[function(require,module,exports){
 /* Menu driven world editor */
-
-
 require("./../translator.js");
 require("./../rur.js");
 require("./../default_tiles/tiles.js");
@@ -3207,17 +3205,14 @@ $("#robot-anim-canvas").on("click", function (evt) {
 /* require this module that will automatically modify a global object*/
 require("./utils/cors.js");
 
-require("./programming_api/commands.js"); // to control Reeborg's actions
 require("./gui_tools/world_editor.js"); // the world editor is not required by other modules
 require("./start_session.js");
 
-// TODO: animated robots/ decorative objects, objects
-// TODO: document all world-editing functions, make them directly available as methods of RUR.
 // TODO: Use jsdoc and put on site.
 // TODO: add turtle mode (see blockly for comparing with expected solution); ensure a blockly counterpart
 // TODO: implement paint() and colour_here() in Blockly
 
-},{"./gui_tools/world_editor.js":15,"./programming_api/commands.js":40,"./start_session.js":53,"./utils/cors.js":60}],17:[function(require,module,exports){
+},{"./gui_tools/world_editor.js":15,"./start_session.js":53,"./utils/cors.js":60}],17:[function(require,module,exports){
 /*
  * jQuery UI Dialog 1.8.16
  * w/ Minimize & Maximize Support
@@ -7162,6 +7157,7 @@ RUR.output.view_source_js = function(fn) {
 },{"./../recorder/record_frame.js":46,"./../rur.js":52}],44:[function(require,module,exports){
 require("./../rur.js");
 require("./commands.js");
+require("./../world_set/add_robot.js");
 
 /* Since Javascript is a dynamic language, a user or world creator could
     (possibly accidently) redefine a basic function, which could lead to some
@@ -7310,9 +7306,10 @@ RUR.reset_definitions_en = function () {
     window.facing_north = is_facing_north;
 };
 
-},{"./../rur.js":52,"./commands.js":40}],45:[function(require,module,exports){
+},{"./../rur.js":52,"./../world_set/add_robot.js":80,"./commands.js":40}],45:[function(require,module,exports){
 require("./../rur.js");
 require("./commands.js");
+require("./../world_set/add_robot.js");
 
 /* See reeborg_en.js for an explanation about the purpose of this file. */
 
@@ -7445,7 +7442,7 @@ RUR.reset_definitions_fr = function () {
     RUR.UsedRobot = RobotUsage;
 };
 
-},{"./../rur.js":52,"./commands.js":40}],46:[function(require,module,exports){
+},{"./../rur.js":52,"./../world_set/add_robot.js":80,"./commands.js":40}],46:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../programming_api/exceptions.js");
@@ -8766,32 +8763,10 @@ require("./rur.js");
 /* Requiring the following just to get things started */
 require("./listeners/add_listeners.js");
 /* --- */
-
-require("./programming_api/blockly.js");
-
-require("./default_tiles/tiles.js");
-
-require("./utils/parseuri.js");
-require("./world_utils/import_world.js");
-require("./storage/storage.js");
-
-require("./permalink/permalink.js");
-require("./editors/create.js");
-
-// ensure that all world_api methods are defined, even though they
-// might be already imported by the menu-driven world editor.
 //
 // TODO: Add functional test ensuring that each type is appropriately loaded
-require("./world_api/background_tile.js");
 require("./world_api/bridges.js");
 require("./world_api/decorative_objects.js");
-require("./world_api/objects.js");
-require("./world_api/obstacles.js");
-require("./world_api/pushables.js");
-require("./world_api/robot.js");
-require("./world_api/walls.js");
-
-
 
 brython({debug:1, pythonpath:[RUR.BASE_URL + '/src/python']});
 if (__BRYTHON__.__MAGIC__ != "3.2.7") {
@@ -8874,7 +8849,7 @@ function set_world(url_query) {
     }
 }
 
-},{"./default_tiles/tiles.js":1,"./editors/create.js":11,"./listeners/add_listeners.js":18,"./permalink/permalink.js":35,"./programming_api/blockly.js":39,"./rur.js":52,"./storage/storage.js":54,"./utils/parseuri.js":63,"./world_api/background_tile.js":68,"./world_api/bridges.js":69,"./world_api/decorative_objects.js":71,"./world_api/objects.js":73,"./world_api/obstacles.js":74,"./world_api/pushables.js":75,"./world_api/robot.js":76,"./world_api/walls.js":78,"./world_utils/import_world.js":84}],54:[function(require,module,exports){
+},{"./listeners/add_listeners.js":18,"./rur.js":52,"./world_api/bridges.js":69,"./world_api/decorative_objects.js":71}],54:[function(require,module,exports){
 /* This file documents methods used to save worlds to and retrieve them
    from a browser's local storage.
 
@@ -9541,14 +9516,6 @@ RUR.animated_images_init = function () {
     RUR._CYCLE_REMOVE = {};
     RUR.ANIMATION_TIME = 120;
 };
-
-// RUR._NB_IMAGES_TO_LOAD = 0;
-// RUR._NB_IMAGES_LOADED = 0;
-// RUR._incremented_loaded_images = function () {
-//     RUR._NB_IMAGES_LOADED += 1;
-// };
-
-
 
 RUR.animate_images = function (obj) {
     for (i=0; i < obj.images.length; i++){
@@ -12568,7 +12535,7 @@ require("./../rur.js");
    functional tests. It is not documented with JSdoc as it should not
    be required for normal world creation; the recommended practice being
    to start with an existing world. */
-RUR.world_utils.create_empty_world = function (blank_canvas) {
+RUR.create_empty_world = function (blank_canvas) {
     "use strict";
     var world = {};
     if (blank_canvas) {
@@ -12584,7 +12551,7 @@ RUR.world_utils.create_empty_world = function (blank_canvas) {
 
     return world;
 };
-RUR.set_current_world(RUR.world_utils.create_empty_world());
+RUR.set_current_world(RUR.create_empty_world());
 },{"./../rur.js":52}],84:[function(require,module,exports){
 require("./../translator.js");
 require("./../rur.js");
@@ -12608,13 +12575,13 @@ RUR.world_utils.import_world = function (json_string) {
     RUR.animated_images_init();
     if (typeof json_string == "string"){
         try {
-            RUR.CURRENT_WORLD = JSON.parse(json_string) || RUR.world_utils.create_empty_world();
+            RUR.CURRENT_WORLD = JSON.parse(json_string) || RUR.create_empty_world();
         } catch (e) {
             alert("Exception caught in import_world; see console for details.");
             console.warn("Exception caught in import_world.");
             console.log("First 80 characters of json_string = ", json_string.substring(0, 80));
             console.log("Error = ", e);
-            RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
+            RUR.CURRENT_WORLD = RUR.create_empty_world();
         }
     } else {  // already parsed into a Javascript Object
         RUR.CURRENT_WORLD = json_string;
@@ -12712,9 +12679,7 @@ RUR.world_utils.import_world = function (json_string) {
 
     if (RUR.CURRENT_WORLD.background_image !== undefined) {
         RUR.BACKGROUND_IMAGE.src = RUR.CURRENT_WORLD.background_image;
-        RUR.BACKGROUND_IMAGE.onload = function () {
-            RUR.vis_world.draw_all();
-        };
+        RUR.BACKGROUND_IMAGE.onload = RUR.onload_new_image;
     } else {
         RUR.BACKGROUND_IMAGE.src = '';
     }

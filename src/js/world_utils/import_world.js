@@ -20,13 +20,13 @@ RUR.world_utils.import_world = function (json_string) {
     RUR.animated_images_init();
     if (typeof json_string == "string"){
         try {
-            RUR.CURRENT_WORLD = JSON.parse(json_string) || RUR.world_utils.create_empty_world();
+            RUR.CURRENT_WORLD = JSON.parse(json_string) || RUR.create_empty_world();
         } catch (e) {
             alert("Exception caught in import_world; see console for details.");
             console.warn("Exception caught in import_world.");
             console.log("First 80 characters of json_string = ", json_string.substring(0, 80));
             console.log("Error = ", e);
-            RUR.CURRENT_WORLD = RUR.world_utils.create_empty_world();
+            RUR.CURRENT_WORLD = RUR.create_empty_world();
         }
     } else {  // already parsed into a Javascript Object
         RUR.CURRENT_WORLD = json_string;
@@ -124,9 +124,7 @@ RUR.world_utils.import_world = function (json_string) {
 
     if (RUR.CURRENT_WORLD.background_image !== undefined) {
         RUR.BACKGROUND_IMAGE.src = RUR.CURRENT_WORLD.background_image;
-        RUR.BACKGROUND_IMAGE.onload = function () {
-            RUR.vis_world.draw_all();
-        };
+        RUR.BACKGROUND_IMAGE.onload = RUR.onload_new_image;
     } else {
         RUR.BACKGROUND_IMAGE.src = '';
     }

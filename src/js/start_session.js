@@ -3,32 +3,8 @@ require("./rur.js");
 /* Requiring the following just to get things started */
 require("./listeners/add_listeners.js");
 /* --- */
-
-require("./programming_api/blockly.js");
-
-require("./default_tiles/tiles.js");
-
-require("./utils/parseuri.js");
-require("./world_utils/import_world.js");
-require("./storage/storage.js");
-
-require("./permalink/permalink.js");
-require("./editors/create.js");
-
-// ensure that all world_api methods are defined, even though they
-// might be already imported by the menu-driven world editor.
-//
-// TODO: Add functional test ensuring that each type is appropriately loaded
-require("./world_api/background_tile.js");
-require("./world_api/bridges.js");
-require("./world_api/decorative_objects.js");
-require("./world_api/objects.js");
-require("./world_api/obstacles.js");
-require("./world_api/pushables.js");
-require("./world_api/robot.js");
-require("./world_api/walls.js");
-
-
+require("./world_api/decorative_objects.js"); // not required by anything else
+                                              // need to do integration test
 
 brython({debug:1, pythonpath:[RUR.BASE_URL + '/src/python']});
 if (__BRYTHON__.__MAGIC__ != "3.2.7") {

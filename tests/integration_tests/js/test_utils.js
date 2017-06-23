@@ -145,7 +145,7 @@ test_utils.playback = function() {
     return true;
 };
 
-test_utils.initial_world = RUR.world_utils.create_empty_world();
+test_utils.initial_world = RUR.create_empty_world();
 test_utils.empty_world = {robots: [],
         objects: {},
         walls: {},
