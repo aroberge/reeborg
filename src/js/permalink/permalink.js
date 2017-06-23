@@ -6,6 +6,7 @@ require("./../translator.js");
 require("./../listeners/programming_mode.js");
 require("./../utils/parseuri.js");
 require("./../editors/create.js");
+// depends on filesaver.js loaded in main html page
 
 var record_id = require("./../../lang/msg.js").record_id;
 

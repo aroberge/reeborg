@@ -6,6 +6,7 @@ require("./../editors/update.js");
 require("./../rur.js");
 require("./../editors/create.js");
 require("./../programming_api/blockly.js");
+// depends on filesaver.js loaded in main html page
 
 var record_id = require("./../../lang/msg.js").record_id;
 var record_value = require("./../../lang/msg.js").record_value;

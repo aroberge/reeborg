@@ -65,7 +65,6 @@ RUR.world_get.world_info = function (no_grid) {
     "use strict";
     // shows the information about a given grid position
     // when the user clicks on the canvas at that grid position.
-    // enabled in zz_dr_onclick.js
     var position, tile, obj, information, x, y, coords, obj_here, obj_type, goals;
     var topic, no_object, r, robot, robots;
     var tiles, tilename, fence_noted = false;
