@@ -8,7 +8,6 @@ require("./pause.js");
 require("./programming_mode.js");
 require("./reload.js");
 require("./reverse_step.js");
-require("./robot_model.js");
 require("./run.js");
 require("./select_world_change.js");
 require("./step.js");

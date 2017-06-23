@@ -10,7 +10,7 @@ require("./../editors/update.js");
 require("./../drawing/visible_world.js");
 require("./../programming_api/exceptions.js");
 require("./../world_get/world_get.js");
-require("./../world_set/world_set.js");
+require("./../dialogs/set_dimensions.js");
 require("./../dialogs/create.js");
 require("./../listeners/canvas.js");
 require("./../editors/create.js");
@@ -219,7 +219,7 @@ RUR.we.select = function (choice) {
             }
         break;
         case "set":
-            RUR.world_set.dialog_set_dimensions.dialog('open');
+            RUR.dialog_set_dimensions.dialog('open');
             break;
     }
 };

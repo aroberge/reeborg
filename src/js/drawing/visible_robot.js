@@ -1,6 +1,11 @@
 
 require("./../rur.js");
 require("./../utils/validator.js");
+var record_id = require("./../../lang/msg.js").record_id;
+record_id("robot0");
+record_id("robot1");
+record_id("robot2");
+record_id("robot3");
 
 RUR.vis_robot = {};
 RUR.vis_robot.images = [];
@@ -9,7 +14,7 @@ RUR.vis_robot.images = [];
 RUR.vis_robot.loaded_images = 0;
 RUR.vis_robot.nb_images = 0;
 
-// elable changing defaults for unit tests or if put on different server location
+// enable changing defaults for unit tests or if put on different server location
 RUR.BASE_URL = RUR.BASE_URL || '';
 
 
@@ -135,6 +140,22 @@ RUR.select_default_robot_model = function (arg) {
 
     localStorage.setItem("robot_default_model", style);
 };
+$("#robot0").on("click", function (evt) {
+    RUR.select_default_robot_model(0);
+});
+
+$("#robot1").on("click", function (evt) {
+    RUR.select_default_robot_model(1);
+});
+
+$("#robot2").on("click", function (evt) {
+    RUR.select_default_robot_model(2);
+});
+
+$("#robot3").on("click", function (evt) {
+    RUR.select_default_robot_model(3);
+});
+
 RUR.reset_default_robot_images();
 // the following is to try to ensure that the images are loaded before the "final"
 // original drawing is made

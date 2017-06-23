@@ -1,16 +1,7 @@
-/* In some ways, this is the counterpart of world_get/world_get.js
-*/
 require("./../rur.js");
-require("./../default_tiles/tiles.js");
-require("./../programming_api/exceptions.js");
-require("./../drawing/visible_world.js");
-require("./../recorder/recorder.js"); // TODO: investigate if needed.
-require("./../utils/key_exist.js");
+require("./../drawing/visible_world.js"); // for RUR.set_world_size
 
 var msg = require("./../../lang/msg.js");
-
-RUR.world_set = {};
-
 var set_dimension_form;
 
 
@@ -99,7 +90,7 @@ msg.record_id("input-max-x-text", "Maximum x value:");
 msg.record_id("input-max-y-text", "Maximum y value:");
 msg.record_id("use-small-tiles-text", "Use small tiles");
 
-RUR.world_set.dialog_set_dimensions = $("#dialog-set-dimensions").dialog({
+RUR.dialog_set_dimensions = $("#dialog-set-dimensions").dialog({
     autoOpen: false,
     height: 400,
     width: 500,
@@ -109,7 +100,7 @@ RUR.world_set.dialog_set_dimensions = $("#dialog-set-dimensions").dialog({
             set_dimension();
         },
         Cancel: function() {
-            RUR.world_set.dialog_set_dimensions.dialog("close");
+            RUR.dialog_set_dimensions.dialog("close");
         }
     },
     close: function() {
@@ -125,10 +116,10 @@ function set_dimension () {
 
     trim_world(max_x, max_y, RUR.MAX_X, RUR.MAX_Y);   // remove extra objects
     RUR.set_world_size(max_x, max_y);
-    RUR.world_set.dialog_set_dimensions.dialog("close");
+    RUR.dialog_set_dimensions.dialog("close");
     return true;
 }
-set_dimension_form = RUR.world_set.dialog_set_dimensions.find("form").on("submit", function( event ) {
+set_dimension_form = RUR.dialog_set_dimensions.find("form").on("submit", function( event ) {
     event.preventDefault();
     set_dimension();
 });

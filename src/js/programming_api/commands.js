@@ -18,7 +18,6 @@ require("./../file_io/file_io.js");
 require("./output.js");
 require("./../drawing/visible_robot.js");
 require("./../editors/update.js");
-require("./../world_set/world_set.js");
 require("./../world_api/background_tile.js");
 
 RUR.inspect = function (obj){

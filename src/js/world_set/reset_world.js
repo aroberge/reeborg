@@ -1,7 +1,6 @@
 require("./../rur.js");
 require("./../world_utils/import_world.js");
 require("./../drawing/visible_robot.js");
-require("./../drawing/visible_world.js");
 
 //TODO: See if all defaults could be incorporated here, e.g. robot images, etc.
 
