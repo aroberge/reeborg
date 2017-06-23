@@ -273,6 +273,18 @@ def put(obj=None):  #py:put
         RUR._put_(obj)
 
 
+def throw(obj=None):
+    """
+    Reeborg throws an object on the square in front of its current position.
+    If Reeborg carries more than one type of objects,
+    the type must be specified as an argument, otherwise an exception
+    will be raised.
+    """
+    if obj is None:
+        RUR._throw_()
+    else:
+        RUR._throw_(obj)
+
 def recording(bool):  #py:recording
     """
     Stops or starts recording changes occuring in the world.
@@ -624,6 +636,18 @@ class UsedRobot(object):  #py:UR
             RUR._UR.put_(self.body)
         else:
             RUR._UR.put_(self.body, obj)
+
+    def throw(self, obj=None):
+        """
+        Reeborg throws an object on the square in front of its current position.
+        If Reeborg carries more than one type of objects,
+        the type must be specified as an argument, otherwise an exception
+        will be raised.
+        """
+        if obj is None:
+            RUR._UR.throw_(self.body)
+        else:
+            RUR._UR.throw_(self.body, obj)
 
     def right_is_clear(self):  #py:UR.right_is_clear
         """

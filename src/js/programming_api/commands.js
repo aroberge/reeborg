@@ -64,7 +64,7 @@ RUR._default_robot_body_ = function () { // simply returns body
     return RUR.get_current_world().robots[0];
 };
 
-RUR._dir_js_ = RUR.inspect;
+RUR._dir_js_ = RUR.inspect; // defined above
 
 RUR._done_ = RUR.control.done;
 
@@ -81,9 +81,9 @@ RUR._move_ = function () {
     RUR.control.move(RUR.get_current_world().robots[0]);
 };
 
-RUR._new_robot_images_ = RUR.new_robot_images;
+RUR._new_robot_images_ = RUR.new_robot_images; // defined in visible_robot.js
 
-RUR._no_highlight_ = user_no_highlight;
+RUR._no_highlight_ = user_no_highlight; // defined above
 
 RUR._object_here_ = function (arg) {
     return RUR.world_get.object_at_robot_position(RUR.get_current_world().robots[0], arg);
@@ -106,6 +106,10 @@ RUR._put_ = function(arg) {
     RUR.control.put(RUR.get_current_world().robots[0], arg);
 };
 
+RUR._throw_ = function(arg) {
+    RUR.control.throw(RUR.get_current_world().robots[0], arg);
+};
+
 RUR._recording_ = function(bool) {
     var current = !RUR.state.do_not_record;
     RUR.state.do_not_record = !bool;
@@ -125,11 +129,11 @@ RUR._set_max_nb_instructions_ = function(n){
 };
 
 RUR._set_trace_color_ = function(color){
-    RUR.get_current_world().robots[0]._trace_color = color;
+    RUR.control.set_trace_color(RUR.get_current_world().robots[0], color);
 };
 
 RUR._set_trace_style_ = function(style){
-    RUR.get_current_world().robots[0]._trace_style = style;
+    RUR.control.set_trace_style(RUR.get_current_world().robots[0], style);
 };
 
 RUR._sound_ = RUR.control.sound;
@@ -196,6 +200,10 @@ RUR._UR.object_here_ = function (robot, obj) {
 
 RUR._UR.put_ = function (robot, obj) {
     RUR.control.put(robot, obj);
+};
+
+RUR._UR.throw_ = function (robot, obj) {
+    RUR.control.throw(robot, obj);
 };
 
 RUR._UR.right_is_clear_ = function (robot) {

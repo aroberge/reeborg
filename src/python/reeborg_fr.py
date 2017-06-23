@@ -280,6 +280,21 @@ def depose(obj=None):  #py:put
         RUR._put_(obj)
 
 
+def lance(obj=None):
+    """
+    Reeborg lance un objet vers la case devant lui.
+
+    Args:
+        string: le nom de l'objet (optionel).
+        Si Reeborg transporte plus d'un type d'objet,
+        on doit spécifier lequel sinon ceci causera une exception.
+    """
+    if obj is None:
+        RUR._throw_()
+    else:
+        RUR._throw_(obj)
+
+
 def enregistrement(bool):  #py:recording
     """
     Arrête ou redémarre les enregistrement d'actions de Reeborg.
@@ -641,6 +656,21 @@ class RobotUsage(object):  #py:UR
             RUR._UR.put_(self.body)
         else:
             RUR._UR.put_(self.body, obj)
+
+
+    def lance(self, obj=None):
+        """
+        Reeborg lance un objet vers la case devant lui.
+
+        Args:
+            string: le nom de l'objet (optionel).
+            Si Reeborg transporte plus d'un type d'objet,
+            on doit spécifier lequel sinon ceci causera une exception."""
+        if obj is None:
+            RUR._UR.throw_(self.body)
+        else:
+            RUR._UR.throw_(self.body, obj)
+
 
     def rien_a_droite(self):  #py:UR.right_is_clear
         """
