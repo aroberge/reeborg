@@ -4,7 +4,6 @@ require("./animated_images.js");
 require("./../programming_api/exceptions.js");
 require("./../utils/supplant.js");
 
-
 /** @function add_new_thing
  * @memberof RUR
  * @instance
@@ -121,7 +120,7 @@ RUR.add_new_thing = function (thing) {
     if (RUR.KNOWN_THINGS.indexOf(name) != -1) {
         if (original_arg == RUR.THINGS[name].original_arg) {
             // use concatenation in log and warn, for comparison with unit tests.
-            if (RUR.UnitTest !== undefined && RUR.UnitTest.logtest !== undefined){
+            if (RUR.UnitTest.logtest !== undefined){
                 console.log(name + " is already known; no need to recreate.");
             }
             return;
@@ -291,21 +290,11 @@ RUR.get_property = function (name, property) {
 
 /*=============================
 /
-/   Deprecated methods below
+/   Deprecated methods below; likely used in Vincent Maille's book
 /
 /===========================*/
 
-/** @function add_new_object_type
- * @memberof RUR
- * @instance
- * @deprecated Use {@link RUR#add_new_thing} instead.
- */
 RUR.add_new_object_type = function (name, url, url_goal) {
     RUR.add_new_thing({"name": name, "url": url, "goal": {"url": url_goal}});
 };
-/** @function add_object_image
- * @memberof RUR
- * @instance
- * @deprecated Use {@link RUR#add_new_thing} instead.
- */
-RUR.add_object_image = RUR.add_new_object_type; // Vincent Maille's book.
+RUR.add_object_image = RUR.add_new_object_type;

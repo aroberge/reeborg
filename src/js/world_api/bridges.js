@@ -7,14 +7,14 @@ require("./artefact.js");
 /** @function add_bridge
  * @memberof RUR
  * @instance
- * @summary This function sets a named tile as a bridge at that location.
+ * @summary This function sets a named "thing" as a bridge at that location.
  *          If a bridge was already located there, it will be replaced by
  *          this new bridge.
  *
- * @param {string} name The name of a tile. If a new tile
+ * @param {string} name The name of a bridge. If a new bridge
  *    is set at that location, it replaces the pre-existing one.
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
@@ -26,7 +26,7 @@ require("./artefact.js");
 RUR.add_bridge = function (name, x, y) {
     "use strict";
     var args = {name: name, x:x, y:y, type:"bridge", single:true};
-    RUR.add_artefact(args);
+    RUR._add_artefact(args);
     RUR.record_frame("RUR.set_bridge", args);
 };
 
@@ -36,8 +36,8 @@ RUR.add_bridge = function (name, x, y) {
  * @summary This function removes a bridge at a location.
  *
  * @param {string} name
- * @param {integer} x  Position.
- * @param {integer} y  Position.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no such named bridge to remove
@@ -52,7 +52,7 @@ RUR.remove_bridge = function (name, x, y) {
     var args;
     args= {x:x, y:y, type:"bridge", name:name};
     try {
-        RUR.remove_artefact(args);
+        RUR._remove_artefact(args);
     } catch (e) {
         if (e.message == "No artefact to remove") {
             throw new ReeborgError("No bridge to remove here.");
@@ -71,8 +71,8 @@ RUR.remove_bridge = function (name, x, y) {
  *    If nothing is found at that location,
  *    `null` is returned (which is converted to `None` in Python programs.)
  *
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
@@ -90,7 +90,7 @@ RUR.remove_bridge = function (name, x, y) {
 RUR.get_bridge = function (x, y) {
     "use strict";
     var tile, args = {x:x, y:y, type:"bridge"};
-    tile = RUR.get_artefacts(args);
+    tile = RUR._get_artefacts(args);
     if (tile === null) {
         return null;
     } else {
@@ -104,8 +104,8 @@ RUR.get_bridge = function (x, y) {
  * @summary This function indicates if a named bridge is present at a given location
  *
  * @param {string} name The name of the bridge
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
@@ -137,8 +137,8 @@ RUR.is_bridge = function (name, x, y) {
  *    If nothing is found at that location,
  *    `null` is returned (which is converted to `None` in Python programs.)
  *
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @returns {Array} An array of strings, each string being a protection

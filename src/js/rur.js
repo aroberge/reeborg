@@ -12,6 +12,7 @@ window.RUR = RUR || {}; // RUR should be already defined in the html file;
 RUR.utils = {};
 RUR.world_utils = {};
 RUR.FuncTest = {};
+RUR.UnitTest = {};
 
 RUR.THINGS = {}; // javascript objects which can be drawn, like "token"
 RUR.KNOWN_THINGS = []; // keeping track of their names only
@@ -69,19 +70,35 @@ RUR.state.y = undefined;
 RUR.state.changed_cells = [];
 RUR.state.visible_grid = false;
 
+
+/* Every time we load an image elsewhere, we should have defined the
+   onload method to be RUR.onload_new_image.
+*/
+RUR.last_drawing_time = Date.now();
 RUR.onload_new_image = function  () {
     // we do not require the file in which it is defined
     // to avoid a circular import.
     if (RUR.vis_world === undefined) { // not ready yet
         return;
     }
-    try {
-        requestAnimationFrame(RUR.vis_world.draw_all);
-    }
-    catch(e) {
-        console.log("requestAnimationFrame failed in rur.js.");
-    }
+    redraw_all();
 };
+
+function redraw_all() {
+    // redraws everything with intervals at least greater than 200 ms
+    // to avoid consuming a lot of time redrawing the world initially
+    // every time an image is loaded.
+    var now, elapsed;
+    now = Date.now();
+    elapsed = now - RUR.last_drawing_time;
+    if (elapsed > 200) {
+        clearTimeout(RUR._initial_drawing_timer);
+        RUR.vis_world.draw_all();
+        RUR.last_drawing_time = now;
+    } else { // the last image loaded may never be drawn if we do not do this:
+        RUR._initial_drawing_timer = setTimeout(redraw_all, 200);
+    }
+}
 
 
 
@@ -241,12 +258,12 @@ RUR.CURRENT_WORLD = null; // needs to be created explicitly
  *  internal structure of worlds is subject to change, it is
  *  not advised to make use of this function inside a world definition.
  *
- *  However, **when using javascript**, it can be useful as a means to explore
+ *  However, **when using Javascript**, it can be useful as a means to explore
  *  the world structure, or assign advanced students to write their own
  *  functions based on the world structure (for example: find
  *  the shortest path in a maze using various search algorithms.)
  *
- * **When using Python, see instead `SatelliteInfo()`.
+ * **When using Python, see instead `SatelliteInfo()`.**
  */
 RUR.get_current_world = function () {
     return RUR.CURRENT_WORLD;
@@ -259,7 +276,7 @@ RUR.set_current_world = function (world) {
 
 RUR.export_world = function (world) {
     if (world === undefined) {
-        return JSON.stringify(RUR.CURRENT_WORLD, null, 2);
+        return JSON.stringify(RUR.get_current_world(), null, 2);
     } else {
         return JSON.stringify(world, null, 2);
     }
@@ -267,7 +284,7 @@ RUR.export_world = function (world) {
 
 RUR.clone_world = function (world) {
     if (world === undefined) {
-        return JSON.parse(JSON.stringify(RUR.CURRENT_WORLD));
+        return JSON.parse(JSON.stringify(RUR.get_current_world()));
     } else {
         return JSON.parse(JSON.stringify(world));
     }

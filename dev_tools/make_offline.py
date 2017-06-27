@@ -66,6 +66,7 @@ qunit_scripts = """
     var test_utils = {};
 </script>
 <script type="text/javascript" src="qunit-2.3.2.js"></script>
+<script>QUnit.config.notrycatch = true;</script>
 <script type="text/javascript" src="js/test_utils.js" defer></script>
 <script type="text/javascript" src="js/test_world_creation.js" defer></script>
 <script type="text/javascript" src="js/all_qunit_tests.js" defer></script>

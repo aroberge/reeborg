@@ -134,3 +134,7 @@ If the very first character of the code is `#`, it is assumed instead that
 the code is written in Python, and the code is evaluated using Python's `exec`.
 However, this has not been as fully tested and may not be as reliable as
 using Javascript code.
+
+## Main tutorial guide
+
+See {@tutorial how}.

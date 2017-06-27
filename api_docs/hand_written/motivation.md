@@ -13,3 +13,8 @@ Let's face it: older teenagers and young adults may not like to be treated as yo
 ## More advanced students
 
 Often, programming environments such as Reeborg's World are used to teach beginners, but then abandoned as more advanced concepts are taught, often in a more abstract way. To me, that is a mistake. Once the students have become familiar with a programming environment, especially one that can give visual feedback, it only make sense to revisit this environment to illustrate programming concepts. Beyond simple control flow (`if/else, while, for,` etc.), Reeborg's World can be used to assign problems exploring Object Oriented Programming, including inheritance and composition, data structures (lists/arrays and dict/hash tables in particular), and can even be used to look at various search algorithms (depth-first _vs_ breadth first, A*, etc.).
+
+
+## Main tutorial guide
+
+See {@tutorial how}.

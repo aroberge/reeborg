@@ -16,3 +16,8 @@ Currently, 5 different types of animations are supported.
 * Give reference to relevant functions in the documentation.
 
 For more information, see <a href="./rur.html#add_new_thing__anchor">RUR.add_new_thing()</a>.
+
+
+## Main tutorial guide
+
+See {@tutorial how}.

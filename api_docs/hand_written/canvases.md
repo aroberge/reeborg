@@ -61,3 +61,7 @@ Each world change (addition or removal of object, movement of robot, etc.) norma
     recording(True)
     call record_frame() explicitly
 
+
+## Main tutorial guide
+
+See {@tutorial how}.

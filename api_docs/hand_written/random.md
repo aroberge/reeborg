@@ -76,3 +76,7 @@ Later, when the program is executed with this world as a starting point, the ver
 ![random2][random2]
 
 [random2]: ../../src/images/random2.gif
+
+## Main tutorial guide
+
+See {@tutorial how}.

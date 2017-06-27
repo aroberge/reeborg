@@ -22,3 +22,7 @@ Javascript does not appear to make a distinction between the two.
 Automatically converting the non-breaking spaces into regular spaces prior to
 execution makes it easier for you to try out the code samples provided in this
 documentation by simply copy-pasting them into the editor.
+
+## Main tutorial guide
+
+See {@tutorial how}.

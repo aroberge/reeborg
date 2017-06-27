@@ -49,7 +49,7 @@ dialog.find("form").on("submit", function( event ) {
 });
 
 save_world = function () {
-    RUR.set_current_world(RUR.update_world_from_editors(RUR.get_current_world));
+    RUR.set_current_world(RUR.update_world_from_editors(RUR.get_current_world()));
     RUR.storage._save_world($("#world-name").val().trim());
     dialog.dialog("close");
     $('#delete-world').show();

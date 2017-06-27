@@ -132,3 +132,7 @@ RUR._done_()  ## cheating!!
 If you have read carefully the content of the **Pre** editor for
 the `simple_path_explain` world, you might have been able to
 guess that using `RUR._done_()` was a way to cheat for this world.
+
+## Main tutorial guide
+
+See {@tutorial how}.

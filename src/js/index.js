@@ -5,7 +5,7 @@ require("./utils/cors.js");
 require("./rur.js");
 
 /* The menu-driven world editor is not required by any other module,
-   but it depends on many of them */
+   but it depends on many of them and will take care of loading them */
 
 require("./gui_tools/world_editor.js");
 
@@ -16,6 +16,9 @@ require("./gui_tools/world_editor.js");
    those that are required by other non-listeners module and would thus
    be automatically loaded.
    */
+
+// TODO: refactor so that code fromlisteners not required here can be
+// put with the calling module - when there is a single such module.
 //require("./listeners/canvas.js");
 //require("./listeners/editors_tabs.js");
 require("./listeners/frame_slider.js");
@@ -32,6 +35,10 @@ require("./listeners/step.js");
 require("./listeners/stop.js");
 require("./listeners/toggle_highlight.js");
 require("./listeners/toggle_watch.js");
+
+// the following is not required by any other module
+require("./world_api/decorative_objects.js");
+
 
 brython({debug:1, pythonpath:[RUR.BASE_URL + '/src/python']});
 if (__BRYTHON__.__MAGIC__ != "3.2.7") {

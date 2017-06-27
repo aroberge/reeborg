@@ -145,3 +145,7 @@ while not at_goal():
     move()
 ```
 
+
+## Main tutorial guide
+
+See {@tutorial how}.

@@ -10,10 +10,23 @@ require("./artefact.js");
  * @summary This function adds one or more of a given object at a location.
  *
  * @param {string} name Name of the object
- * @param {integer} x  Position of the object.
- * @param {integer} y  Position of the object.
- * @param {object} options  Need to include: `goal`, `number`, `replace`,
- * `min`, `max`
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
+ * @param {object} [options] A Javascript object (or Python dict) containing
+ * additional arguments
+ * @param {boolean} [options.goal] If `true`, this will represent a goal
+ * i.e. the number of object that must be put at that location.
+ * @param {integer} [options.number] The number of objects to add at that
+ * location; it is 1 by default.
+ * @param {boolean} [options.replace] If `true`, the specified number
+ * (default=1) will replace the existing number of objects at that location.
+ * @param {integer} [options.min] Specifies the minimum of objects to be
+ * put at that location; together with `options.max`, it is used to choose
+ * a random number of objects to be found at that location.
+ * @param {integer} [options.max] Specifies the maximum number of objects to be
+ * put at that location; together with `options.min`, it is used to choose
+ * a random number of objects to be found at that location.
+ *
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
@@ -50,9 +63,9 @@ RUR.add_object = function (name, x, y, options) {
         }
     }
     if (args.replace) {
-        RUR.set_nb_artefact(args);
+        RUR._set_nb_artefact(args);
     } else {
-        RUR.add_artefact(args);
+        RUR._add_artefact(args);
     }
     RUR.record_frame("RUR.add_object", args);
 };
@@ -64,8 +77,8 @@ RUR.add_object = function (name, x, y, options) {
  * @summary This function removes an object at a location.
  *
  * @param {string} name Name of the object
- * @param {integer} x  Position of the object.
- * @param {integer} y  Position of the object.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  * @param {object} options  Need to include: `goal`, `number`, `all`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
@@ -87,7 +100,7 @@ RUR.remove_object = function (name, x, y, options) {
         }
     }
     try {
-        RUR.remove_artefact(args);
+        RUR._remove_artefact(args);
     } catch (e) {
         if (e.message == "No artefact to remove") {
             throw new ReeborgError("No object to remove here.");
@@ -104,13 +117,16 @@ RUR.remove_object = function (name, x, y, options) {
 /** @function get_objects
  * @memberof RUR
  * @instance
- * @summary This function returns a Javascript Object/Python dict containing
+ * @summary This function returns a Javascript Object containing
  * the names of the objects found at that location.
+ * When using from Python, it should be explictly converted into a `dict`
+ * using `dict(RUR.get_objects(x, y))`.
+ *
  * If nothing is found at that location,
  * `null` is returned (which is converted to `None` in Python programs.)
  *
- * @param {integer} x  Position on the grid.
- * @param {integer} y  Position on the grid.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
@@ -123,7 +139,7 @@ RUR.remove_object = function (name, x, y, options) {
 
 RUR.get_objects = function (x, y) {
     "use strict";
-    return RUR.get_artefacts({x:x, y:y, type:"objects"});
+    return RUR._get_artefacts({x:x, y:y, type:"objects"});
 };
 
 RUR.is_object = function (name, x, y, options) {
@@ -132,7 +148,7 @@ RUR.is_object = function (name, x, y, options) {
     if (options !== undefined && options.goal !== undefined) {
         args.goal = options.goal;
     }
-    nb = RUR.get_nb_artefact(args);
+    nb = RUR._get_nb_artefact(args);
     if (nb === 0) {
         return false;
     } else {
@@ -141,20 +157,8 @@ RUR.is_object = function (name, x, y, options) {
 };
 
 
-/** @function add_object_at_position
- * @memberof RUR
- * @instance
- *
- * @deprecated Use {@link RUR#add_object} instead.
- */
+/* The following is deprecated. Some worlds may have been created
+  using it (e.g. in Vincent Maille's book) */
 RUR.add_object_at_position = function(name, x, y, number) { // Vincent Maille's book
     RUR.add_object(name, x, y, {number:number});
 }
-
-
-/** @function add_goal_object_at_position
- * @memberof RUR
- * @instance
- *
- * @deprecated Use {@link RUR#add_object} instead.
- */

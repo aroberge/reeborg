@@ -76,3 +76,7 @@ It is possible to get a path with fewer hint, as shown below:
 
 At the end, we reset the model number to the default value,
 `r.set_model(0)` so that we could show Reeborg reaching the final position.
+
+## Main tutorial guide
+
+See {@tutorial how}.

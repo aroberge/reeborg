@@ -8,7 +8,12 @@ the graphical world editor to create your own worlds.
 You should start by reading {@tutorial getting_started} and
 possibly {@tutorial editors}.  After doing this, and if you had already
 created worlds before reading this documentation, you might be able
-to read the various sections in almost any order.
+to read the various sections in almost any order. The topics covered in
+{@tutorial getting_started} include
+  - Using the menu-driven world editor
+  - Creating a world using programming methods
+  - {@link RUR#add_wall} and {@link RUR#add_final_position}
+
 
 You may have noticed that this documentation does **not** include a list
 of available commands for Reeborg, such as `move()`, `put()`,
@@ -17,12 +22,20 @@ explains how to do this, after going through a brief explanation of
 the basic naming convention followed for some functions described
 in the rest of this documentation. Note that the `help()` function mentioned
 as available from the Python REPL can also be used in a program
-written in the code editor.
+written in the code editor. The topics covered include
+  - Basic naming convention (`is_TYPE`, `add_TYPE` and `remove_TYPE`).
+  - Find available "things" using {@link RUR#show_all_things}
+  - Find documentation on robot commands using the Python REPL and `help()`.
 
 Using the menu-driven world editor, it is easy to add objects and specify
 goals for Reeborg. {@tutorial objects} explains how to do the same thing
 using the advanced programming interface. You need to know how to do
 this if you want to learn to add your own objects later on.
+The topics covered include
+  - Adding a number of objects at a location, or adding a wall
+  - Adding objects or walls as goal
+  - Configuration helper for colour blind users
+  - {@link RUR#add_object}, {@link RUR#add_wall} and {@link RUR#configure_red_green}
 
 Using the menu-driven world editor, some dialogs give you the possibility
 to specify random values, such as a range of objects possibly found

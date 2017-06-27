@@ -20,8 +20,6 @@ require("./../world_api/background_tile.js");
 require("./../world_api/pushables.js");
 require("./../world_api/obstacles.js");
 require("./../world_api/objects.js");
-require("./../world_api/decorative_objects.js");
-
 
 var home_message, obj, tile;
 
@@ -207,13 +205,14 @@ RUR.THINGS.bucket.transform = [
                   [RUR.is_object, "bucket"]],
      actions: [[RUR.remove_object, "bucket"],
               [RUR.remove_background_tile, "fire"],
-              [RUR.add_decorative_object, "logs"]]
+              [RUR.add_obstacle, "logs"]] // added as obstacle so that "info"
+              // can be shown when clicking on canvas.
     },
     {conditions: [[RUR.is_obstacle, "fire"],
                   [RUR.is_object, "bucket"]],
      actions: [[RUR.remove_object, "bucket"],
               [RUR.remove_obstacle, "fire"],
-              [RUR.add_decorative_object, "logs"]]
+              [RUR.add_obstacle, "logs"]]
     },
     {conditions: [[RUR.is_object, "bulb"],
                   [RUR.is_object, "bucket"]],

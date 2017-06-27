@@ -86,3 +86,7 @@ From either the editor or the Python REPL, you can also get some _help_:
 ## Note about the word "thing"
 
 In Reeborg's World, the word _object_ has been used for many years to describe "things" with which Reeborg can interact and is used in some functions like `object_here()`. The word _type_ refers to a certain classification of "things" described above. The word _artefact_ is used in the code for many basic functions. If these were not already used, I would have chosen any one of them instead of using "thing", as in `show_all_objects()` instead of `show_all_things()`... If you have any suggestion for a better term than "thing", feel free to contact me.
+
+## Main tutorial guide
+
+See {@tutorial how}.

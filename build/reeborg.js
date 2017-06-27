@@ -21,8 +21,6 @@ require("./../world_api/background_tile.js");
 require("./../world_api/pushables.js");
 require("./../world_api/obstacles.js");
 require("./../world_api/objects.js");
-require("./../world_api/decorative_objects.js");
-
 
 var home_message, obj, tile;
 
@@ -208,13 +206,14 @@ RUR.THINGS.bucket.transform = [
                   [RUR.is_object, "bucket"]],
      actions: [[RUR.remove_object, "bucket"],
               [RUR.remove_background_tile, "fire"],
-              [RUR.add_decorative_object, "logs"]]
+              [RUR.add_obstacle, "logs"]] // added as obstacle so that "info"
+              // can be shown when clicking on canvas.
     },
     {conditions: [[RUR.is_obstacle, "fire"],
                   [RUR.is_object, "bucket"]],
      actions: [[RUR.remove_object, "bucket"],
               [RUR.remove_obstacle, "fire"],
-              [RUR.add_decorative_object, "logs"]]
+              [RUR.add_obstacle, "logs"]]
     },
     {conditions: [[RUR.is_object, "bulb"],
                   [RUR.is_object, "bucket"]],
@@ -267,7 +266,7 @@ add_fence("fence_double");
 add_fence("fence_vertical");
 
 
-},{"./../rur.js":51,"./../world_api/background_tile.js":66,"./../world_api/decorative_objects.js":69,"./../world_api/objects.js":71,"./../world_api/obstacles.js":72,"./../world_api/pushables.js":73,"./../world_api/things.js":75}],2:[function(require,module,exports){
+},{"./../rur.js":51,"./../world_api/background_tile.js":66,"./../world_api/objects.js":71,"./../world_api/obstacles.js":72,"./../world_api/pushables.js":73,"./../world_api/things.js":75}],2:[function(require,module,exports){
 /* Dialog used by the Interactive world editor to add objects to the world.
 */
 
@@ -3221,7 +3220,7 @@ require("./utils/cors.js");
 require("./rur.js");
 
 /* The menu-driven world editor is not required by any other module,
-   but it depends on many of them */
+   but it depends on many of them and will take care of loading them */
 
 require("./gui_tools/world_editor.js");
 
@@ -3232,6 +3231,9 @@ require("./gui_tools/world_editor.js");
    those that are required by other non-listeners module and would thus
    be automatically loaded.
    */
+
+// TODO: refactor so that code fromlisteners not required here can be
+// put with the calling module - when there is a single such module.
 //require("./listeners/canvas.js");
 //require("./listeners/editors_tabs.js");
 require("./listeners/frame_slider.js");
@@ -3248,6 +3250,10 @@ require("./listeners/step.js");
 require("./listeners/stop.js");
 require("./listeners/toggle_highlight.js");
 require("./listeners/toggle_watch.js");
+
+// the following is not required by any other module
+require("./world_api/decorative_objects.js");
+
 
 brython({debug:1, pythonpath:[RUR.BASE_URL + '/src/python']});
 if (__BRYTHON__.__MAGIC__ != "3.2.7") {
@@ -3334,7 +3340,7 @@ function set_world(url_query) {
 // TODO: add turtle mode (see blockly for comparing with expected solution); ensure a blockly counterpart
 // TODO: implement paint() and colour_here() in Blockly
 
-},{"./gui_tools/world_editor.js":15,"./listeners/frame_slider.js":20,"./listeners/human_language.js":21,"./listeners/memorize_world.js":22,"./listeners/onclick.js":23,"./listeners/reload.js":26,"./listeners/reverse_step.js":27,"./listeners/run.js":28,"./listeners/select_world_change.js":29,"./listeners/step.js":30,"./listeners/stop.js":31,"./listeners/toggle_highlight.js":32,"./listeners/toggle_watch.js":33,"./rur.js":51,"./utils/cors.js":58}],17:[function(require,module,exports){
+},{"./gui_tools/world_editor.js":15,"./listeners/frame_slider.js":20,"./listeners/human_language.js":21,"./listeners/memorize_world.js":22,"./listeners/onclick.js":23,"./listeners/reload.js":26,"./listeners/reverse_step.js":27,"./listeners/run.js":28,"./listeners/select_world_change.js":29,"./listeners/step.js":30,"./listeners/stop.js":31,"./listeners/toggle_highlight.js":32,"./listeners/toggle_watch.js":33,"./rur.js":51,"./utils/cors.js":58,"./world_api/decorative_objects.js":69}],17:[function(require,module,exports){
 /*
  * jQuery UI Dialog 1.8.16
  * w/ Minimize & Maximize Support
@@ -4759,7 +4765,7 @@ dialog.find("form").on("submit", function( event ) {
 });
 
 save_world = function () {
-    RUR.set_current_world(RUR.update_world_from_editors(RUR.get_current_world));
+    RUR.set_current_world(RUR.update_world_from_editors(RUR.get_current_world()));
     RUR.storage._save_world($("#world-name").val().trim());
     dialog.dialog("close");
     $('#delete-world').show();
@@ -5709,7 +5715,6 @@ RUR._play_sound = function (sound_id) {
 },{}],37:[function(require,module,exports){
 
 require("./../drawing/visible_world.js");
-require("./../programming_api/exceptions.js");
 /* if the REPL is active, we do not record anything, and show immediately
    the updated world */
 
@@ -5726,7 +5731,7 @@ RUR._show_immediate = function (name, obj) {
     }
 };
 
-},{"./../drawing/visible_world.js":10,"./../programming_api/exceptions.js":41}],38:[function(require,module,exports){
+},{"./../drawing/visible_world.js":10}],38:[function(require,module,exports){
 /* jshint -W069 */
 require("./../rur.js");
 require("./../translator.js");
@@ -7053,12 +7058,12 @@ RUR.control.wall_in_front = function (robot) {
 };
 
 RUR.control.wall_on_right = function (robot) {
-    var result;
-    RUR._recording_(false);
+    var result, saved_recording_state;
+    saved_recording_state = RUR._recording_(false);
     RUR.control.__turn_right(robot);
     result = RUR.control.wall_in_front(robot);
     RUR.control.turn_left(robot);
-    RUR._recording_(true);
+    RUR._recording_(saved_recording_state);
     return result;
 };
 
@@ -7081,12 +7086,12 @@ RUR.control.front_is_clear = function(robot){
 };
 
 RUR.control.right_is_clear = function(robot){
-    var result;
-    RUR._recording_(false);
+    var result, saved_recording_state;
+    saved_recording_state = RUR._recording_(false);
     RUR.control.__turn_right(robot);
     result = RUR.control.front_is_clear(robot);
     RUR.control.turn_left(robot);
-    RUR._recording_(true);
+    RUR._recording_(saved_recording_state);
     return result;
 };
 
@@ -8669,19 +8674,35 @@ RUR.state.y = undefined;
 RUR.state.changed_cells = [];
 RUR.state.visible_grid = false;
 
+
+/* Every time we load an image elsewhere, we should have defined the
+   onload method to be RUR.onload_new_image.
+*/
+RUR.last_drawing_time = Date.now();
 RUR.onload_new_image = function  () {
     // we do not require the file in which it is defined
     // to avoid a circular import.
     if (RUR.vis_world === undefined) { // not ready yet
         return;
     }
-    try {
-        requestAnimationFrame(RUR.vis_world.draw_all);
-    }
-    catch(e) {
-        console.log("requestAnimationFrame failed in rur.js.");
-    }
+    redraw_all();
 };
+
+function redraw_all() {
+    // redraws everything with intervals at least greater than 200 ms
+    // to avoid consuming a lot of time redrawing the world initially
+    // every time an image is loaded.
+    var now, elapsed;
+    now = Date.now();
+    elapsed = now - RUR.last_drawing_time;
+    if (elapsed > 200) {
+        clearTimeout(RUR._initial_drawing_timer);
+        RUR.vis_world.draw_all();
+        RUR.last_drawing_time = now;
+    } else { // the last image loaded may never be drawn if we do not do this:
+        RUR._initial_drawing_timer = setTimeout(redraw_all, 200);
+    }
+}
 
 
 
@@ -8841,12 +8862,12 @@ RUR.CURRENT_WORLD = null; // needs to be created explicitly
  *  internal structure of worlds is subject to change, it is
  *  not advised to make use of this function inside a world definition.
  *
- *  However, **when using javascript**, it can be useful as a means to explore
+ *  However, **when using Javascript**, it can be useful as a means to explore
  *  the world structure, or assign advanced students to write their own
  *  functions based on the world structure (for example: find
  *  the shortest path in a maze using various search algorithms.)
  *
- * **When using Python, see instead `SatelliteInfo()`.
+ * **When using Python, see instead `SatelliteInfo()`.**
  */
 RUR.get_current_world = function () {
     return RUR.CURRENT_WORLD;
@@ -8859,7 +8880,7 @@ RUR.set_current_world = function (world) {
 
 RUR.export_world = function (world) {
     if (world === undefined) {
-        return JSON.stringify(RUR.CURRENT_WORLD, null, 2);
+        return JSON.stringify(RUR.get_current_world(), null, 2);
     } else {
         return JSON.stringify(world, null, 2);
     }
@@ -8867,7 +8888,7 @@ RUR.export_world = function (world) {
 
 RUR.clone_world = function (world) {
     if (world === undefined) {
-        return JSON.parse(JSON.stringify(RUR.CURRENT_WORLD));
+        return JSON.parse(JSON.stringify(RUR.get_current_world()));
     } else {
         return JSON.parse(JSON.stringify(world));
     }
@@ -9710,15 +9731,10 @@ function ensure_common_required_args_present(args) {
     "use strict";
     ensure_valid_position(args);
     if (args.type === undefined) {
-        throw new Error("Object type must be specified.");
+        throw new RUR.ReeborgError("Object type must be specified.");
     }
     if (args.name === undefined) {
-        throw new Error("Object name must be specified.");
-    }
-    if (args.valid_names !== undefined) {
-        if (args.valid_names.indexOf(args.name) === -1) {
-            throw new Error("Invalid name");
-        }
+        throw new RUR.ReeborgError("Object name must be specified.");
     }
 }
 
@@ -9728,11 +9744,10 @@ if (RUR.UnitTest === undefined) {
 }
 RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_present;
 
-/** @function set_nb_artefact
+/** @function _set_nb_artefact
  * @memberof RUR
  * @instance
- * @summary **This function is intended for private use by developers.
- * It should not be called directly**
+ * @summary **This function is intended for private use by developers.**
  *
  *    This function sets a specified number of a named artefact of a
  *    specified type (e.g. object, goal object) at a given location.
@@ -9764,11 +9779,6 @@ RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_p
  *                        must be set.
  *
  *
- * @param {string} [args.valid_names] A list containing the name of the
- *                        acceptable objects. If this argument is specified,
- *                        `args.name` must be found in that list, otherwise an
- *                        error will be thrown.
- *
  *
  * @throws Will throw an error if `name` attribute is not specified.
  * @throws Will throw an error if `type` attribute is not specified.
@@ -9777,13 +9787,13 @@ RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_p
  *
  *
  */
-RUR.set_nb_artefact = function (args) {
+RUR._set_nb_artefact = function (args) {
     "use strict";
     var base, coords, world = RUR.get_current_world();
 
     ensure_common_required_args_present(args);
     if (args.number === undefined) {
-        throw new Error("Number of objects must be specified.");
+        throw new RUR.ReeborgError("Number of objects must be specified.");
     }
 
     coords = args.x + "," + args.y;
@@ -9815,7 +9825,7 @@ RUR.set_nb_artefact = function (args) {
 };
 
 
-/** @function add_artefact
+/** @function _add_artefact
  * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
@@ -9843,10 +9853,6 @@ RUR.set_nb_artefact = function (args) {
  *                        or is not an integer, an error will be thrown.
  *
  *
- * @param {string} [args.valid_names] A list containing the name of the
- *                        acceptable objects. If this argument is specified,
- *                        `args.name` must be found in that list, otherwise an
- *                        error will be thrown.
  *
  * @param {boolean} [args.single] Specifies if only one of a given kind of
  *                        artefact is permitted at a given location.
@@ -9862,7 +9868,7 @@ RUR.set_nb_artefact = function (args) {
  *
  *
  */
-RUR.add_artefact = function (args) {
+RUR._add_artefact = function (args) {
     "use strict";
     var base, coords, world = RUR.get_current_world();
 
@@ -9879,7 +9885,7 @@ RUR.add_artefact = function (args) {
     if (args.single && base[args.type] !== undefined &&
                base[args.type][coords] !== undefined &&
                base[args.type][coords].length > 1) {
-        throw new Error("Cannot replace: more than one artefact present.");
+        throw new RUR.ReeborgError("Cannot replace: more than one artefact present.");
     }
 
     RUR.utils.ensure_key_for_obj_exists(base, args.type);
@@ -9906,7 +9912,7 @@ RUR.add_artefact = function (args) {
 };
 
 
-/** @function get_nb_artefact
+/** @function _get_nb_artefact
  * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
@@ -9935,10 +9941,6 @@ RUR.add_artefact = function (args) {
  * @param {boolean} [args.goal] If specified, indicates that it is a goal-type
  *                        object that must be found.
  *
- * @param {array} [args.valid_names] A list containing the name of the
- *                        acceptable objects. If this argument is specified,
- *                        `args.name` must be found in that list, otherwise an
- *                        error will be thrown.
  *
  * @returns {integer} The number of object found at that location (could be 0).
  * @throws Will throw an error if `name` attribute is not specified.
@@ -9947,7 +9949,7 @@ RUR.add_artefact = function (args) {
  *
  *
  */
-RUR.get_nb_artefact = function(args) {
+RUR._get_nb_artefact = function(args) {
     "use strict";
     var coords, container, world = RUR.get_current_world();
 
@@ -9982,11 +9984,11 @@ RUR.get_nb_artefact = function(args) {
             return 1;
         }
     } else { // should never happen
-        throw new Error("Unknown container type; need Object or Array");
+        throw new RUR.ReeborgError("Unknown container type; need Object or Array");
     }
 };
 
-/** @function get_artefacts
+/** @function _get_artefacts
  * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
@@ -10024,13 +10026,13 @@ RUR.get_nb_artefact = function(args) {
  *
  *
  */
-RUR.get_artefacts = function(args) {
+RUR._get_artefacts = function(args) {
     "use strict";
     var base, coords, container, world = RUR.get_current_world();
 
     ensure_valid_position(args);
     if (args.type === undefined) {
-        throw new Error("Object type must be specified.");
+        throw new RUR.ReeborgError("Object type must be specified.");
     }
 
     coords = args.x + "," + args.y;
@@ -10054,7 +10056,7 @@ RUR.get_artefacts = function(args) {
 
 
 
-/** @function remove_artefact
+/** @function _remove_artefact
  * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
@@ -10111,13 +10113,13 @@ RUR.get_artefacts = function(args) {
  * @todo Need to add full tests for `args.number`
  *
  */
-RUR.remove_artefact = function (args) {
+RUR._remove_artefact = function (args) {
     "use strict";
     var base, container, coords, index, number, world = RUR.get_current_world();
 
-    // Calling get_nb_artefact will do all the required validation of basic arguments
-    if (RUR.get_nb_artefact(args) === 0) {
-        throw new Error("No artefact to remove");
+    // Calling _get_nb_artefact will do all the required validation of basic arguments
+    if (RUR._get_nb_artefact(args) === 0) {
+        throw new RUR.ReeborgError("No artefact to remove");
     }
 
     base = world;
@@ -10128,6 +10130,8 @@ RUR.remove_artefact = function (args) {
     container = base[args.type][coords];
     if (args.number) {
         number = args.number;
+    } else if (args.all) {
+        number = container[args.name];
     } else {
         number = 1;
     }
@@ -10151,7 +10155,7 @@ RUR.remove_artefact = function (args) {
             return;
         }
     } else { // should never happen
-        throw new Error("Unknown container type; need Object or Array");
+        throw new RUR.ReeborgError("Unknown container type; need Object or Array");
     }
 
     // remove any empty remaining JS object, up to world.
@@ -10212,9 +10216,8 @@ RUR.fill_background = function(name) {
  *    tile name is not recognized, it is assumed to be a colour. If a new tile
  *    is set at that location, it replaces the pre-existing one.
  *
- * @param {string} name Name of the tile
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
@@ -10244,7 +10247,7 @@ RUR.fill_background = function(name) {
 RUR.add_background_tile = function (name, x, y) {
     "use strict";
     var args = {name: name, x:x, y:y, type:"tiles", single:true};
-    RUR.add_artefact(args);
+    RUR._add_artefact(args);
     RUR.record_frame("RUR.add_background_tile", args);
 };
 
@@ -10255,8 +10258,8 @@ RUR.add_background_tile = function (name, x, y) {
  * @summary This function removes a background tile at a location.
  *
  * @param {string} name Name of the tile
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no background tile to remove
@@ -10271,7 +10274,7 @@ RUR.remove_background_tile = function (name, x, y) {
     var args;
     args= {x:x, y:y, type:"tiles", name:name};
     try {
-        RUR.remove_artefact(args);
+        RUR._remove_artefact(args);
     } catch (e) {
         if (e.message == "No artefact to remove") {
             throw new ReeborgError("No tile to remove here.");
@@ -10289,9 +10292,12 @@ RUR.remove_background_tile = function (name, x, y) {
  * @summary This function gets the tile name found at given location. Note that
  *    this could be an HTML colour.  If nothing is found at that location,
  *    `null` is returned (which is converted to `None` in Python programs.)
+ *  **Important** `RUR.get_background_tile` uses the singular form, instead
+ * of the plural (i.e. `tile` instead of `tiles`) since there only one tile
+ * can be found at a given location.
  *
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  * @returns {string} The name of the tile found at that location or `null/None`.
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
@@ -10310,7 +10316,7 @@ RUR.remove_background_tile = function (name, x, y) {
 RUR.get_background_tile = function (x, y) {
     "use strict";
     var tiles, args = {x:x, y:y, type:"tiles"};
-    tiles = RUR.get_artefacts(args);
+    tiles = RUR._get_artefacts(args);
     if (tiles === null) {
         return null;
     } else {
@@ -10322,6 +10328,9 @@ RUR.get_background_tile = function (x, y) {
 /** @function is_background_tile
  * @memberof RUR
  * @instance
+ *
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @todo finish writing documentation
  * @todo check all other is_XXX for documentation
@@ -10362,14 +10371,14 @@ require("./artefact.js");
 /** @function add_bridge
  * @memberof RUR
  * @instance
- * @summary This function sets a named tile as a bridge at that location.
+ * @summary This function sets a named "thing" as a bridge at that location.
  *          If a bridge was already located there, it will be replaced by
  *          this new bridge.
  *
- * @param {string} name The name of a tile. If a new tile
+ * @param {string} name The name of a bridge. If a new bridge
  *    is set at that location, it replaces the pre-existing one.
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
@@ -10381,7 +10390,7 @@ require("./artefact.js");
 RUR.add_bridge = function (name, x, y) {
     "use strict";
     var args = {name: name, x:x, y:y, type:"bridge", single:true};
-    RUR.add_artefact(args);
+    RUR._add_artefact(args);
     RUR.record_frame("RUR.set_bridge", args);
 };
 
@@ -10391,8 +10400,8 @@ RUR.add_bridge = function (name, x, y) {
  * @summary This function removes a bridge at a location.
  *
  * @param {string} name
- * @param {integer} x  Position.
- * @param {integer} y  Position.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no such named bridge to remove
@@ -10407,7 +10416,7 @@ RUR.remove_bridge = function (name, x, y) {
     var args;
     args= {x:x, y:y, type:"bridge", name:name};
     try {
-        RUR.remove_artefact(args);
+        RUR._remove_artefact(args);
     } catch (e) {
         if (e.message == "No artefact to remove") {
             throw new ReeborgError("No bridge to remove here.");
@@ -10426,8 +10435,8 @@ RUR.remove_bridge = function (name, x, y) {
  *    If nothing is found at that location,
  *    `null` is returned (which is converted to `None` in Python programs.)
  *
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
@@ -10445,7 +10454,7 @@ RUR.remove_bridge = function (name, x, y) {
 RUR.get_bridge = function (x, y) {
     "use strict";
     var tile, args = {x:x, y:y, type:"bridge"};
-    tile = RUR.get_artefacts(args);
+    tile = RUR._get_artefacts(args);
     if (tile === null) {
         return null;
     } else {
@@ -10459,8 +10468,8 @@ RUR.get_bridge = function (x, y) {
  * @summary This function indicates if a named bridge is present at a given location
  *
  * @param {string} name The name of the bridge
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
@@ -10492,8 +10501,8 @@ RUR.is_bridge = function (name, x, y) {
  *    If nothing is found at that location,
  *    `null` is returned (which is converted to `None` in Python programs.)
  *
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @returns {Array} An array of strings, each string being a protection
@@ -10611,16 +10620,14 @@ require("./artefact.js");
 /** @function add_decorative_object
  * @memberof RUR
  * @instance
- * @summary This function sets a named tile as background at a location.
+ * @summary This function adds a decorative object at a specified location.
  *
- * @param {string} name The name of a tile **or** a colour recognized by JS/HTML.
+ * @param {string} name The name of an object **or** a colour recognized by JS/HTML.
  *    No check is performed to ensure that the value given is valid; it the
- *    tile name is not recognized, it is assumed to be a colour. If a new tile
- *    is set at that location, it replaces the pre-existing one.
+ *    name is not recognized, it is assumed to be a colour.
  *
- * @param {string} name Name of the tile
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
@@ -10637,7 +10644,7 @@ require("./artefact.js");
 RUR.add_decorative_object = function (name, x, y) {
     "use strict";
     var args = {name: name, x:x, y:y, type:"decorative_objects"};
-    RUR.add_artefact(args);
+    RUR._add_artefact(args);
     RUR.record_frame("RUR.add_decorative_object", args);
 };
 
@@ -10648,8 +10655,8 @@ RUR.add_decorative_object = function (name, x, y) {
  * @summary This function removes a background tile at a location.
  *
  * @param {string} name Name of the tile
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no background tile to remove
@@ -10664,7 +10671,7 @@ RUR.remove_decorative_object = function (name, x, y) {
     var args;
     args= {x:x, y:y, type:"decorative_objects", name:name};
     try {
-        RUR.remove_artefact(args);
+        RUR._remove_artefact(args);
     } catch (e) {
         if (e.message == "No artefact to remove") {
             throw new ReeborgError("No tile to remove here.");
@@ -10676,15 +10683,16 @@ RUR.remove_decorative_object = function (name, x, y) {
 };
 
 
-/** @function get_decorative_object
+/** @function get_decorative_objects
  * @memberof RUR
  * @instance
- * @summary This function gets the tile name found at given location. Note that
- *    this could be an HTML colour.  If nothing is found at that location,
+ * @summary This function gets the names of the decorative objects found
+ * at a given position.
+ * If nothing is found at that location,
  *    `null` is returned (which is converted to `None` in Python programs.)
  *
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
@@ -10699,28 +10707,16 @@ RUR.remove_decorative_object = function (name, x, y) {
  *
  */
 
-RUR.get_decorative_object = function (x, y) {
+RUR.get_decorative_objects = function (x, y) {
     "use strict";
-    var tile, args = {x:x, y:y, type:"decorative_objects"};
-    tile = RUR.get_artefacts(args);
-    if (tile === null) {
-        return null;
-    } else {
-        return RUR.THINGS[tile[0]];
-    }
+    var args = {x:x, y:y, type:"decorative_objects"};
+    return RUR._get_artefacts(args);
 };
 
 RUR.is_decorative_object = function (name, x, y) {
     "use strict";
-    var tile, args = {x:x, y:y, type:"decorative_objects"};
-    tile = RUR.get_artefacts(args);
-    if (tile === null) {
-        return false;
-    } else if (tile[0] == name){
-        return true;
-    } else {
-        return false;
-    }
+    var args = {name: name, x:x, y:y, type:"decorative_objects"};
+    return RUR._get_nb_artefact(args) == 1;
 };
 
 
@@ -10763,6 +10759,9 @@ RUR.get_protections = function (robot) {
 /** @function is_fatal_position
  * @memberof RUR
  * @instance
+ *
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @desc This needs to be documented
  *
@@ -10810,6 +10809,9 @@ RUR.is_fatal_position = function (x, y, robot){
  * @memberof RUR
  * @instance
  *
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
+ *
  * @desc This needs to be documented
  *
  * @returns The message to show.
@@ -10843,6 +10845,7 @@ RUR.is_detectable = function (x, y){
  *
  * @desc This needs to be documented
  *
+ *
  * @returns The message to show.
  */
 RUR.is_fatal_thing = function (name){
@@ -10865,10 +10868,23 @@ require("./artefact.js");
  * @summary This function adds one or more of a given object at a location.
  *
  * @param {string} name Name of the object
- * @param {integer} x  Position of the object.
- * @param {integer} y  Position of the object.
- * @param {object} options  Need to include: `goal`, `number`, `replace`,
- * `min`, `max`
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
+ * @param {object} [options] A Javascript object (or Python dict) containing
+ * additional arguments
+ * @param {boolean} [options.goal] If `true`, this will represent a goal
+ * i.e. the number of object that must be put at that location.
+ * @param {integer} [options.number] The number of objects to add at that
+ * location; it is 1 by default.
+ * @param {boolean} [options.replace] If `true`, the specified number
+ * (default=1) will replace the existing number of objects at that location.
+ * @param {integer} [options.min] Specifies the minimum of objects to be
+ * put at that location; together with `options.max`, it is used to choose
+ * a random number of objects to be found at that location.
+ * @param {integer} [options.max] Specifies the maximum number of objects to be
+ * put at that location; together with `options.min`, it is used to choose
+ * a random number of objects to be found at that location.
+ *
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
@@ -10905,9 +10921,9 @@ RUR.add_object = function (name, x, y, options) {
         }
     }
     if (args.replace) {
-        RUR.set_nb_artefact(args);
+        RUR._set_nb_artefact(args);
     } else {
-        RUR.add_artefact(args);
+        RUR._add_artefact(args);
     }
     RUR.record_frame("RUR.add_object", args);
 };
@@ -10919,8 +10935,8 @@ RUR.add_object = function (name, x, y, options) {
  * @summary This function removes an object at a location.
  *
  * @param {string} name Name of the object
- * @param {integer} x  Position of the object.
- * @param {integer} y  Position of the object.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  * @param {object} options  Need to include: `goal`, `number`, `all`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
@@ -10942,7 +10958,7 @@ RUR.remove_object = function (name, x, y, options) {
         }
     }
     try {
-        RUR.remove_artefact(args);
+        RUR._remove_artefact(args);
     } catch (e) {
         if (e.message == "No artefact to remove") {
             throw new ReeborgError("No object to remove here.");
@@ -10959,13 +10975,16 @@ RUR.remove_object = function (name, x, y, options) {
 /** @function get_objects
  * @memberof RUR
  * @instance
- * @summary This function returns a Javascript Object/Python dict containing
+ * @summary This function returns a Javascript Object containing
  * the names of the objects found at that location.
+ * When using from Python, it should be explictly converted into a `dict`
+ * using `dict(RUR.get_objects(x, y))`.
+ *
  * If nothing is found at that location,
  * `null` is returned (which is converted to `None` in Python programs.)
  *
- * @param {integer} x  Position on the grid.
- * @param {integer} y  Position on the grid.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
@@ -10978,7 +10997,7 @@ RUR.remove_object = function (name, x, y, options) {
 
 RUR.get_objects = function (x, y) {
     "use strict";
-    return RUR.get_artefacts({x:x, y:y, type:"objects"});
+    return RUR._get_artefacts({x:x, y:y, type:"objects"});
 };
 
 RUR.is_object = function (name, x, y, options) {
@@ -10987,7 +11006,7 @@ RUR.is_object = function (name, x, y, options) {
     if (options !== undefined && options.goal !== undefined) {
         args.goal = options.goal;
     }
-    nb = RUR.get_nb_artefact(args);
+    nb = RUR._get_nb_artefact(args);
     if (nb === 0) {
         return false;
     } else {
@@ -10996,23 +11015,12 @@ RUR.is_object = function (name, x, y, options) {
 };
 
 
-/** @function add_object_at_position
- * @memberof RUR
- * @instance
- *
- * @deprecated Use {@link RUR#add_object} instead.
- */
+/* The following is deprecated. Some worlds may have been created
+  using it (e.g. in Vincent Maille's book) */
 RUR.add_object_at_position = function(name, x, y, number) { // Vincent Maille's book
     RUR.add_object(name, x, y, {number:number});
 }
 
-
-/** @function add_goal_object_at_position
- * @memberof RUR
- * @instance
- *
- * @deprecated Use {@link RUR#add_object} instead.
- */
 },{"./../recorder/record_frame.js":45,"./../rur.js":51,"./../utils/key_exist.js":60,"./../utils/validator.js":63,"./artefact.js":65}],72:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
@@ -11023,13 +11031,13 @@ require("./artefact.js");
 /** @function add_obstacle
  * @memberof RUR
  * @instance
- * @summary This function sets a named tile as background at a location.
+ * @summary This function sets a named "thing" as an obstacle at that location
  *
- * @param {string} name The name of a the tile representing the obstacle.
+ * @param {string} name The name of a the "thing" representing the obstacle.
  *
  *
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
@@ -11046,8 +11054,8 @@ require("./artefact.js");
  */
 RUR.add_obstacle = function (name, x, y) {
     "use strict";
-    var args = {name: name, x:x, y:y, type:"obstacles", valid_names:Object.keys(RUR.THINGS)};
-    RUR.add_artefact(args);
+    var args = {name: name, x:x, y:y, type:"obstacles"};
+    RUR._add_artefact(args);
     RUR.record_frame("RUR.add_obstacle", args);
 };
 
@@ -11058,8 +11066,8 @@ RUR.add_obstacle = function (name, x, y) {
  * @summary This function removes an obstacle at a location.
  *
  *
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no background tile to remove
@@ -11077,8 +11085,8 @@ RUR.remove_obstacle = function (name, x, y) {
     if (obstacles === null) {
         throw new ReeborgError("No obstacles to remove here.");
     }
-    args= {x:x, y:y, type:"obstacles", name:name, valid_names:Object.keys(RUR.THINGS)};
-    RUR.remove_artefact(args);
+    args= {x:x, y:y, type:"obstacles", name:name};
+    RUR._remove_artefact(args);
     RUR.record_frame("RUR.remove_obstacle", args);
 };
 
@@ -11086,14 +11094,15 @@ RUR.remove_obstacle = function (name, x, y) {
 /** @function get_obstacles
  * @memberof RUR
  * @instance
- * @summary This function gets the tile name found at given location. Note that
- *    this could be an HTML colour.  If nothing is found at that location,
- *    `null` is returned (which is converted to `None` in Python programs.)
+ * @summary This function gets the obstacles at given location and return
+ * their names in an array/list.
  *
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
- * @throws Will throw an error if `(x, y)` is not a valid location..
+ * @return {list} A list of strings representing the name of the obstacles.
+ *
+ * @throws Will throw an error if `(x, y)` is not a valid location.
  *
  * @todo add test
  * @todo add proper examples
@@ -11111,7 +11120,7 @@ RUR.remove_obstacle = function (name, x, y) {
 RUR.get_obstacles = function (x, y) {
     "use strict";
     var tiles, args = {x:x, y:y, type:"obstacles"};
-    tiles = RUR.get_artefacts(args);
+    tiles = RUR._get_artefacts(args);
     if (tiles === null) {
         return null;
     } else {
@@ -11122,10 +11131,14 @@ RUR.get_obstacles = function (x, y) {
 // TODO: this may not be needed after more general functions written
 // i.e. instead of looking for specific obstacle, look for
 // obstacle with properties.
+
+
+
+
 RUR.is_obstacle = function (name, x, y) {
     "use strict";
     var args={name:name, x:x, y:y, type:"obstacles"};
-    if (RUR.get_nb_artefact(args) > 0) {
+    if (RUR._get_nb_artefact(args) > 0) {
         return true;
     } else {
         return false;
@@ -11210,11 +11223,10 @@ require("./artefact.js");
  * @instance
  * @summary This function adds a named pushable at a location.
  *
- * @param {string} name The name of a the tile representing the pushable.
+ * @param {string} name The name of a the thing representing the pushable.
  *
- * @param {string} name Name.
- * @param {integer} x  Position.
- * @param {integer} y  Position.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is another pushable already at that location.
@@ -11232,12 +11244,12 @@ require("./artefact.js");
  */
 RUR.add_pushable = function (name, x, y) {
     "use strict";
-    var pushable, args = {name: name, x:x, y:y, type:"pushables", valid_names:Object.keys(RUR.THINGS)};
+    var pushable, args = {name: name, x:x, y:y, type:"pushables"};
     pushable = RUR.get_pushable(x, y);
     if (pushable !== null) {
         throw new ReeborgError("There can be at most one pushable object at a given location.");
     }
-    RUR.add_artefact(args);
+    RUR._add_artefact(args);
     RUR.record_frame("RUR.add_pushable", args);
 };
 
@@ -11249,8 +11261,8 @@ RUR.add_pushable = function (name, x, y) {
  *
  * **Assumption**: only one pushable allowed at a given location.
  *
- * @param {integer} x  Position.
- * @param {integer} y  Position.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no pushable
@@ -11268,8 +11280,8 @@ RUR.remove_pushable = function (name, x, y) {
     if (pushable === null) {
         throw new ReeborgError("No pushable to remove here.");
     }
-    args= {x:x, y:y, type:"pushables", name:name, valid_names:Object.keys(RUR.THINGS)};
-    RUR.remove_artefact(args);
+    args= {x:x, y:y, type:"pushables", name:name};
+    RUR._remove_artefact(args);
     RUR.record_frame("RUR.remove_pushable", args);
 };
 
@@ -11283,8 +11295,8 @@ RUR.remove_pushable = function (name, x, y) {
  *          If nothing is found at that location,`null` is returned
  *          (which is converted to `None` in Python programs.)
  *
- * @param {integer} x  Position.
- * @param {integer} y  Position.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  * @returns {string} The name of the pushable at that location, or `null`.
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
@@ -11304,7 +11316,7 @@ RUR.remove_pushable = function (name, x, y) {
 RUR.get_pushable = function (x, y) {
     "use strict";
     var tiles, args = {x:x, y:y, type:"pushables"};
-    tiles = RUR.get_artefacts(args);
+    tiles = RUR._get_artefacts(args);
     if (tiles === null) {
         return null;
     } else {
@@ -11320,8 +11332,8 @@ RUR.get_pushable = function (x, y) {
  *          If nothing is found at that location,`null` is returned
  *          (which is converted to `None` in Python programs.)
  *
- * @param {integer} x  Position.
- * @param {integer} y  Position.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  * @returns {string} The name of the pushable at that location, or `null`.
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
@@ -11341,7 +11353,7 @@ RUR.get_pushable = function (x, y) {
 RUR.is_pushable = function (name, x, y) {
     "use strict";
     var tile, args = {x:x, y:y, type:"pushables"};
-    tile = RUR.get_artefacts(args);
+    tile = RUR._get_artefacts(args);
     return tile == name;
 };
 
@@ -11958,24 +11970,14 @@ RUR.get_property = function (name, property) {
 
 /*=============================
 /
-/   Deprecated methods below
+/   Deprecated methods below; likely used in Vincent Maille's book
 /
 /===========================*/
 
-/** @function add_new_object_type
- * @memberof RUR
- * @instance
- * @deprecated Use {@link RUR#add_new_thing} instead.
- */
 RUR.add_new_object_type = function (name, url, url_goal) {
     RUR.add_new_thing({"name": name, "url": url, "goal": {"url": url_goal}});
 };
-/** @function add_object_image
- * @memberof RUR
- * @instance
- * @deprecated Use {@link RUR#add_new_thing} instead.
- */
-RUR.add_object_image = RUR.add_new_object_type; // Vincent Maille's book.
+RUR.add_object_image = RUR.add_new_object_type;
 
 },{"./../programming_api/exceptions.js":41,"./../rur.js":51,"./../translator.js":53,"./../utils/supplant.js":62,"./animated_images.js":64}],76:[function(require,module,exports){
 require("./../rur.js");
@@ -12028,7 +12030,7 @@ RUR.get_walls = function(x, y, goal) {
     // var world = RUR.get_current_world();
     var args = {x:x, y:y, goal:goal, type:"walls"}, walls;
 
-    walls = RUR.get_artefacts(args); // gets "east" and "north" if present
+    walls = RUR._get_artefacts(args); // gets "east" and "north" if present
     if (walls === null) {
         walls = [];
     }
@@ -12080,7 +12082,7 @@ RUR.is_wall = function(orientation, x, y, goal) {
     args = convert_position(orientation, x, y);
     args.goal = goal;
     args.type = "walls";
-    if (RUR.get_nb_artefact(args) === 0) {
+    if (RUR._get_nb_artefact(args) === 0) {
         return false;
     } else {
         return true;
@@ -12138,7 +12140,7 @@ RUR.add_wall = function(orientation, x, y, goal) {
     args = convert_position(orientation, x, y);
     args.goal = goal;
     args.type = "walls";
-    RUR.add_artefact(args);
+    RUR._add_artefact(args);
     RUR.record_frame("add_wall", args);
 };
 
@@ -12180,7 +12182,7 @@ RUR.remove_wall = function(orientation, x, y, goal) {
     args = convert_position(orientation, x, y);
     args.goal = goal;
     args.type = "walls";
-    RUR.remove_artefact(args);
+    RUR._remove_artefact(args);
     // For historical reason, worlds are always created with a "walls" attribute
     RUR.utils.ensure_key_for_obj_exists(world, "walls");
     RUR.record_frame("remove_wall", args);

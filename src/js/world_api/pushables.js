@@ -10,11 +10,10 @@ require("./artefact.js");
  * @instance
  * @summary This function adds a named pushable at a location.
  *
- * @param {string} name The name of a the tile representing the pushable.
+ * @param {string} name The name of a the thing representing the pushable.
  *
- * @param {string} name Name.
- * @param {integer} x  Position.
- * @param {integer} y  Position.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is another pushable already at that location.
@@ -32,12 +31,12 @@ require("./artefact.js");
  */
 RUR.add_pushable = function (name, x, y) {
     "use strict";
-    var pushable, args = {name: name, x:x, y:y, type:"pushables", valid_names:Object.keys(RUR.THINGS)};
+    var pushable, args = {name: name, x:x, y:y, type:"pushables"};
     pushable = RUR.get_pushable(x, y);
     if (pushable !== null) {
         throw new ReeborgError("There can be at most one pushable object at a given location.");
     }
-    RUR.add_artefact(args);
+    RUR._add_artefact(args);
     RUR.record_frame("RUR.add_pushable", args);
 };
 
@@ -49,8 +48,8 @@ RUR.add_pushable = function (name, x, y) {
  *
  * **Assumption**: only one pushable allowed at a given location.
  *
- * @param {integer} x  Position.
- * @param {integer} y  Position.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no pushable
@@ -68,8 +67,8 @@ RUR.remove_pushable = function (name, x, y) {
     if (pushable === null) {
         throw new ReeborgError("No pushable to remove here.");
     }
-    args= {x:x, y:y, type:"pushables", name:name, valid_names:Object.keys(RUR.THINGS)};
-    RUR.remove_artefact(args);
+    args= {x:x, y:y, type:"pushables", name:name};
+    RUR._remove_artefact(args);
     RUR.record_frame("RUR.remove_pushable", args);
 };
 
@@ -83,8 +82,8 @@ RUR.remove_pushable = function (name, x, y) {
  *          If nothing is found at that location,`null` is returned
  *          (which is converted to `None` in Python programs.)
  *
- * @param {integer} x  Position.
- * @param {integer} y  Position.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  * @returns {string} The name of the pushable at that location, or `null`.
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
@@ -104,7 +103,7 @@ RUR.remove_pushable = function (name, x, y) {
 RUR.get_pushable = function (x, y) {
     "use strict";
     var tiles, args = {x:x, y:y, type:"pushables"};
-    tiles = RUR.get_artefacts(args);
+    tiles = RUR._get_artefacts(args);
     if (tiles === null) {
         return null;
     } else {
@@ -120,8 +119,8 @@ RUR.get_pushable = function (x, y) {
  *          If nothing is found at that location,`null` is returned
  *          (which is converted to `None` in Python programs.)
  *
- * @param {integer} x  Position.
- * @param {integer} y  Position.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  * @returns {string} The name of the pushable at that location, or `null`.
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
@@ -141,7 +140,7 @@ RUR.get_pushable = function (x, y) {
 RUR.is_pushable = function (name, x, y) {
     "use strict";
     var tile, args = {x:x, y:y, type:"pushables"};
-    tile = RUR.get_artefacts(args);
+    tile = RUR._get_artefacts(args);
     return tile == name;
 };
 

@@ -126,3 +126,7 @@ As we mentioned, while we can use arbitrary "things" as objects, it might not
 always make sense.  Then again...
 Perhaps one could design a world where `take()` is replaced by `shovel()` and
 Reeborg must shovel out some gravel to clean a path.
+
+## Main tutorial guide
+
+See {@tutorial how}.

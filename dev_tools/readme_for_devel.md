@@ -60,6 +60,11 @@ or
 
 I included both versions so as to not have to worry about typos.
 
+It may also be useful to run the batch file unit_test.bat  (or write a similar shell
+script for Mac/Linux) as it is a more reliable way to ensure that
+proper requirements are included in each file being tested, since using
+the global RUR namespace can hide some missing dependencies.
+
 ### Integration tests with qunit
 
 See below under the **More complete build** section.
@@ -131,20 +136,17 @@ scripts not mentioned here.
 ### Simple build
 
 To simply create a new version of reeborg.js (found in the folder /build),
-from a terminal, type:
+from a terminal, one can type
 
     npm run only-build
 
 This will use browserify to concatenate all the relevant javscript files
-into a single one (reeborg.js).
-
-### Unit tests first then build
-
-Type
+into a single one (reeborg.js). However, I would recommend instead to type
 
     npm run build
 
 to first run some unit tests followed by a new build using browserify.
+
 
 ### Documenting some individual Javascript modules
 
@@ -178,9 +180,10 @@ So, qunit will run automated tests with the fully complete reeborg.html file,
 loading worlds, executing programs, testing results, etc.  The entire test suite
 currently (June 2017) takes approximately 40 seconds to run.
 
-**Important** When running the entire qunit tests, most often one of the tests
-(`"Storm 3; also tests library"`) fails.
-However, if run in isolation, the tests pass.
+**Important** When running the entire qunit tests, a few tests
+(including `"Storm 3; also tests library"`) fail.
+However, if run in isolation, the tests pass. (You should make sure that this
+is the case.)
 I have not been able to track down the cause of this but I am guessing that this
 is due to an async process not terminated when running the full test suite.
 

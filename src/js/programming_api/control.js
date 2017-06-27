@@ -332,12 +332,12 @@ RUR.control.wall_in_front = function (robot) {
 };
 
 RUR.control.wall_on_right = function (robot) {
-    var result;
-    RUR._recording_(false);
+    var result, saved_recording_state;
+    saved_recording_state = RUR._recording_(false);
     RUR.control.__turn_right(robot);
     result = RUR.control.wall_in_front(robot);
     RUR.control.turn_left(robot);
-    RUR._recording_(true);
+    RUR._recording_(saved_recording_state);
     return result;
 };
 
@@ -360,12 +360,12 @@ RUR.control.front_is_clear = function(robot){
 };
 
 RUR.control.right_is_clear = function(robot){
-    var result;
-    RUR._recording_(false);
+    var result, saved_recording_state;
+    saved_recording_state = RUR._recording_(false);
     RUR.control.__turn_right(robot);
     result = RUR.control.front_is_clear(robot);
     RUR.control.turn_left(robot);
-    RUR._recording_(true);
+    RUR._recording_(saved_recording_state);
     return result;
 };
 

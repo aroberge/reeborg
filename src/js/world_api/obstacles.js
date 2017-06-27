@@ -7,13 +7,13 @@ require("./artefact.js");
 /** @function add_obstacle
  * @memberof RUR
  * @instance
- * @summary This function sets a named tile as background at a location.
+ * @summary This function sets a named "thing" as an obstacle at that location
  *
- * @param {string} name The name of a the tile representing the obstacle.
+ * @param {string} name The name of a the "thing" representing the obstacle.
  *
  *
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
  *
@@ -30,8 +30,8 @@ require("./artefact.js");
  */
 RUR.add_obstacle = function (name, x, y) {
     "use strict";
-    var args = {name: name, x:x, y:y, type:"obstacles", valid_names:Object.keys(RUR.THINGS)};
-    RUR.add_artefact(args);
+    var args = {name: name, x:x, y:y, type:"obstacles"};
+    RUR._add_artefact(args);
     RUR.record_frame("RUR.add_obstacle", args);
 };
 
@@ -42,8 +42,8 @@ RUR.add_obstacle = function (name, x, y) {
  * @summary This function removes an obstacle at a location.
  *
  *
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no background tile to remove
@@ -61,8 +61,8 @@ RUR.remove_obstacle = function (name, x, y) {
     if (obstacles === null) {
         throw new ReeborgError("No obstacles to remove here.");
     }
-    args= {x:x, y:y, type:"obstacles", name:name, valid_names:Object.keys(RUR.THINGS)};
-    RUR.remove_artefact(args);
+    args= {x:x, y:y, type:"obstacles", name:name};
+    RUR._remove_artefact(args);
     RUR.record_frame("RUR.remove_obstacle", args);
 };
 
@@ -70,14 +70,15 @@ RUR.remove_obstacle = function (name, x, y) {
 /** @function get_obstacles
  * @memberof RUR
  * @instance
- * @summary This function gets the tile name found at given location. Note that
- *    this could be an HTML colour.  If nothing is found at that location,
- *    `null` is returned (which is converted to `None` in Python programs.)
+ * @summary This function gets the obstacles at given location and return
+ * their names in an array/list.
  *
- * @param {integer} x  Position of the tile.
- * @param {integer} y  Position of the tile.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
  *
- * @throws Will throw an error if `(x, y)` is not a valid location..
+ * @return {list} A list of strings representing the name of the obstacles.
+ *
+ * @throws Will throw an error if `(x, y)` is not a valid location.
  *
  * @todo add test
  * @todo add proper examples
@@ -95,7 +96,7 @@ RUR.remove_obstacle = function (name, x, y) {
 RUR.get_obstacles = function (x, y) {
     "use strict";
     var tiles, args = {x:x, y:y, type:"obstacles"};
-    tiles = RUR.get_artefacts(args);
+    tiles = RUR._get_artefacts(args);
     if (tiles === null) {
         return null;
     } else {
@@ -106,10 +107,14 @@ RUR.get_obstacles = function (x, y) {
 // TODO: this may not be needed after more general functions written
 // i.e. instead of looking for specific obstacle, look for
 // obstacle with properties.
+
+
+
+
 RUR.is_obstacle = function (name, x, y) {
     "use strict";
     var args={name:name, x:x, y:y, type:"obstacles"};
-    if (RUR.get_nb_artefact(args) > 0) {
+    if (RUR._get_nb_artefact(args) > 0) {
         return true;
     } else {
         return false;

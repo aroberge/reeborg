@@ -26,29 +26,24 @@ function ensure_common_required_args_present(args) {
     "use strict";
     ensure_valid_position(args);
     if (args.type === undefined) {
-        throw new Error("Object type must be specified.");
+        throw new RUR.ReeborgError("Object type must be specified.");
     }
     if (args.name === undefined) {
-        throw new Error("Object name must be specified.");
+        throw new RUR.ReeborgError("Object name must be specified.");
     }
     if (args.valid_names !== undefined) {
         if (args.valid_names.indexOf(args.name) === -1) {
-            throw new Error("Invalid name");
+            throw new RUR.ReeborgError("Invalid name");
         }
-    }
+     }
 }
 
-// for testing purpose
-if (RUR.UnitTest === undefined) {
-    RUR.UnitTest = {};
-}
 RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_present;
 
-/** @function set_nb_artefact
+/** @function _set_nb_artefact
  * @memberof RUR
  * @instance
- * @summary **This function is intended for private use by developers.
- * It should not be called directly**
+ * @summary **This function is intended for private use by developers.**
  *
  *    This function sets a specified number of a named artefact of a
  *    specified type (e.g. object, goal object) at a given location.
@@ -80,11 +75,6 @@ RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_p
  *                        must be set.
  *
  *
- * @param {string} [args.valid_names] A list containing the name of the
- *                        acceptable objects. If this argument is specified,
- *                        `args.name` must be found in that list, otherwise an
- *                        error will be thrown.
- *
  *
  * @throws Will throw an error if `name` attribute is not specified.
  * @throws Will throw an error if `type` attribute is not specified.
@@ -93,13 +83,13 @@ RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_p
  *
  *
  */
-RUR.set_nb_artefact = function (args) {
+RUR._set_nb_artefact = function (args) {
     "use strict";
     var base, coords, world = RUR.get_current_world();
 
     ensure_common_required_args_present(args);
     if (args.number === undefined) {
-        throw new Error("Number of objects must be specified.");
+        throw new RUR.ReeborgError("Number of objects must be specified.");
     }
 
     coords = args.x + "," + args.y;
@@ -131,7 +121,7 @@ RUR.set_nb_artefact = function (args) {
 };
 
 
-/** @function add_artefact
+/** @function _add_artefact
  * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
@@ -159,10 +149,6 @@ RUR.set_nb_artefact = function (args) {
  *                        or is not an integer, an error will be thrown.
  *
  *
- * @param {string} [args.valid_names] A list containing the name of the
- *                        acceptable objects. If this argument is specified,
- *                        `args.name` must be found in that list, otherwise an
- *                        error will be thrown.
  *
  * @param {boolean} [args.single] Specifies if only one of a given kind of
  *                        artefact is permitted at a given location.
@@ -178,7 +164,7 @@ RUR.set_nb_artefact = function (args) {
  *
  *
  */
-RUR.add_artefact = function (args) {
+RUR._add_artefact = function (args) {
     "use strict";
     var base, coords, world = RUR.get_current_world();
 
@@ -195,7 +181,7 @@ RUR.add_artefact = function (args) {
     if (args.single && base[args.type] !== undefined &&
                base[args.type][coords] !== undefined &&
                base[args.type][coords].length > 1) {
-        throw new Error("Cannot replace: more than one artefact present.");
+        throw new RUR.ReeborgError("Cannot replace: more than one artefact present.");
     }
 
     RUR.utils.ensure_key_for_obj_exists(base, args.type);
@@ -222,7 +208,7 @@ RUR.add_artefact = function (args) {
 };
 
 
-/** @function get_nb_artefact
+/** @function _get_nb_artefact
  * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
@@ -251,10 +237,6 @@ RUR.add_artefact = function (args) {
  * @param {boolean} [args.goal] If specified, indicates that it is a goal-type
  *                        object that must be found.
  *
- * @param {array} [args.valid_names] A list containing the name of the
- *                        acceptable objects. If this argument is specified,
- *                        `args.name` must be found in that list, otherwise an
- *                        error will be thrown.
  *
  * @returns {integer} The number of object found at that location (could be 0).
  * @throws Will throw an error if `name` attribute is not specified.
@@ -263,7 +245,7 @@ RUR.add_artefact = function (args) {
  *
  *
  */
-RUR.get_nb_artefact = function(args) {
+RUR._get_nb_artefact = function(args) {
     "use strict";
     var coords, container, world = RUR.get_current_world();
 
@@ -298,11 +280,11 @@ RUR.get_nb_artefact = function(args) {
             return 1;
         }
     } else { // should never happen
-        throw new Error("Unknown container type; need Object or Array");
+        throw new RUR.ReeborgError("Unknown container type; need Object or Array");
     }
 };
 
-/** @function get_artefacts
+/** @function _get_artefacts
  * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
@@ -340,13 +322,13 @@ RUR.get_nb_artefact = function(args) {
  *
  *
  */
-RUR.get_artefacts = function(args) {
+RUR._get_artefacts = function(args) {
     "use strict";
     var base, coords, container, world = RUR.get_current_world();
 
     ensure_valid_position(args);
     if (args.type === undefined) {
-        throw new Error("Object type must be specified.");
+        throw new RUR.ReeborgError("Object type must be specified.");
     }
 
     coords = args.x + "," + args.y;
@@ -370,7 +352,7 @@ RUR.get_artefacts = function(args) {
 
 
 
-/** @function remove_artefact
+/** @function _remove_artefact
  * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
@@ -427,13 +409,13 @@ RUR.get_artefacts = function(args) {
  * @todo Need to add full tests for `args.number`
  *
  */
-RUR.remove_artefact = function (args) {
+RUR._remove_artefact = function (args) {
     "use strict";
     var base, container, coords, index, number, world = RUR.get_current_world();
 
-    // Calling get_nb_artefact will do all the required validation of basic arguments
-    if (RUR.get_nb_artefact(args) === 0) {
-        throw new Error("No artefact to remove");
+    // Calling _get_nb_artefact will do all the required validation of basic arguments
+    if (RUR._get_nb_artefact(args) === 0) {
+        throw new RUR.ReeborgError("No artefact to remove");
     }
 
     base = world;
@@ -444,6 +426,8 @@ RUR.remove_artefact = function (args) {
     container = base[args.type][coords];
     if (args.number) {
         number = args.number;
+    } else if (args.all) {
+        number = container[args.name];
     } else {
         number = 1;
     }
@@ -467,7 +451,7 @@ RUR.remove_artefact = function (args) {
             return;
         }
     } else { // should never happen
-        throw new Error("Unknown container type; need Object or Array");
+        throw new RUR.ReeborgError("Unknown container type; need Object or Array");
     }
 
     // remove any empty remaining JS object, up to world.

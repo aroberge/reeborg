@@ -37,6 +37,9 @@ RUR.get_protections = function (robot) {
  * @memberof RUR
  * @instance
  *
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
+ *
  * @desc This needs to be documented
  *
  * @returns The message to show.
@@ -83,6 +86,9 @@ RUR.is_fatal_position = function (x, y, robot){
  * @memberof RUR
  * @instance
  *
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
+ *
  * @desc This needs to be documented
  *
  * @returns The message to show.
@@ -115,6 +121,7 @@ RUR.is_detectable = function (x, y){
  * @instance
  *
  * @desc This needs to be documented
+ *
  *
  * @returns The message to show.
  */
