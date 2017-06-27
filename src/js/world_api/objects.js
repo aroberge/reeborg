@@ -29,7 +29,7 @@ require("./artefact.js");
  *
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
- *
+ * @throws Will throw an error if `name` is not a known thing.
  * @todo add test
  * @todo add better examples
  * @todo deal with translation
@@ -42,7 +42,7 @@ require("./artefact.js");
  */
 RUR.add_object = function (name, x, y, options) {
     "use strict";
-    var k, keys, args = {name: name, x:x, y:y, type:"objects"};
+    var k, keys, args = {name: name, x:x, y:y, type:"objects", valid_names: RUR.KNOWN_THINGS};
     if (options === undefined) {
         args.number = 1;
     } else {
@@ -82,6 +82,7 @@ RUR.add_object = function (name, x, y, options) {
  * @param {object} options  Need to include: `goal`, `number`, `all`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
+ * @throws Will throw an error if `name` is not a known thing.
  * @throws Will throw an error if there is no background object to remove
  *        at that location
  *
@@ -92,7 +93,7 @@ RUR.add_object = function (name, x, y, options) {
 RUR.remove_object = function (name, x, y, options) {
     "use strict";
     var args, k, keys, world = RUR.get_current_world();
-    args= {x:x, y:y, type:"objects", name:name};
+    args= {x:x, y:y, type:"objects", name:name, valid_names: RUR.KNOWN_THINGS};
     if (options !== undefined) {
         keys = Object.keys(options);
         for (k of keys) {
@@ -103,7 +104,7 @@ RUR.remove_object = function (name, x, y, options) {
         RUR._remove_artefact(args);
     } catch (e) {
         if (e.message == "No artefact to remove") {
-            throw new ReeborgError("No object to remove here.");
+            throw new RUR.ReeborgError("No object to remove here.");
         } else {
             throw e;
         }
@@ -144,7 +145,7 @@ RUR.get_objects = function (x, y) {
 
 RUR.is_object = function (name, x, y, options) {
     "use strict";
-    var nb, args = {x:x, y:y, name:name, type:"objects"};
+    var nb, args = {x:x, y:y, name:name, type:"objects", valid_names: RUR.KNOWN_THINGS};
     if (options !== undefined && options.goal !== undefined) {
         args.goal = options.goal;
     }

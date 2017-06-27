@@ -369,7 +369,7 @@ RUR.new_robot_images = function (images) {
     if (images.model !== undefined) {
         model = images.model;
         if (!RUR.is_non_negative_integer(model)) {
-            throw new ReeborgError(RUR.translate("Robot model must be a non-negative integer."));
+            throw new RUR.ReeborgError(RUR.translate("Robot model must be a non-negative integer."));
         }
     } else {
         model = 3;

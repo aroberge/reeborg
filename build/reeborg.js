@@ -1053,7 +1053,7 @@ RUR.new_robot_images = function (images) {
     if (images.model !== undefined) {
         model = images.model;
         if (!RUR.is_non_negative_integer(model)) {
-            throw new ReeborgError(RUR.translate("Robot model must be a non-negative integer."));
+            throw new RUR.ReeborgError(RUR.translate("Robot model must be a non-negative integer."));
         }
     } else {
         model = 3;
@@ -1435,14 +1435,14 @@ function draw_tiles (tiles, ctx, goal){
                     image = tile.goal.image;
                     if (image === undefined){
                         console.warn("problem in draw_tiles; tile =", tile, ctx);
-                        throw new ReeborgError("Problem in draw_tiles; goal image not defined.");
+                        throw new RUR.ReeborgError("Problem in draw_tiles; goal image not defined.");
                     }
                     draw_single_object(image, i, j, ctx, tile.x_offset, tile.y_offset);
                 } else if (tile.choose_image === undefined){
                     image = tile.image;
                     if (image === undefined){
                         console.warn("problem in draw_tiles; tile =", tile, ctx);
-                        throw new ReeborgError("Problem in draw_tiles; image not defined.");
+                        throw new RUR.ReeborgError("Problem in draw_tiles; image not defined.");
                     }
                     draw_single_object(image, i, j, ctx, tile.x_offset, tile.y_offset);
                 }
@@ -1572,7 +1572,7 @@ function _draw_single_animated (obj, coords, i, j, ctx, x_offset, y_offset){
     image = obj.choose_image(id);
     if (image === undefined){
         console.warn("problem in _draw_single_animated; obj =", obj);
-        throw new ReeborgError("Problem in _draw_single_animated at" + coords);
+        throw new RUR.ReeborgError("Problem in _draw_single_animated at" + coords);
     } else if (image == RUR.END_CYCLE) {
         return RUR.END_CYCLE;
     }
@@ -8617,6 +8617,7 @@ window.RUR = RUR || {}; // RUR should be already defined in the html file;
 RUR.utils = {};
 RUR.world_utils = {};
 RUR.FuncTest = {};
+RUR.UnitTest = {};
 
 RUR.THINGS = {}; // javascript objects which can be drawn, like "token"
 RUR.KNOWN_THINGS = []; // keeping track of their names only
@@ -9736,12 +9737,13 @@ function ensure_common_required_args_present(args) {
     if (args.name === undefined) {
         throw new RUR.ReeborgError("Object name must be specified.");
     }
+    if (args.valid_names !== undefined) {
+        if (args.valid_names.indexOf(args.name) === -1) {
+            throw new RUR.ReeborgError("Invalid name: " + args.name);
+        }
+     }
 }
 
-// for testing purpose
-if (RUR.UnitTest === undefined) {
-    RUR.UnitTest = {};
-}
 RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_present;
 
 /** @function _set_nb_artefact
@@ -10277,7 +10279,7 @@ RUR.remove_background_tile = function (name, x, y) {
         RUR._remove_artefact(args);
     } catch (e) {
         if (e.message == "No artefact to remove") {
-            throw new ReeborgError("No tile to remove here.");
+            throw new RUR.ReeborgError("No tile to remove here.");
         } else {
             throw e;
         }
@@ -10380,16 +10382,17 @@ require("./artefact.js");
  * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  *
- * @throws Will throw an error if `(x, y)` is not a valid location..
- *
- * @todo add test
+ * @throws Will throw an error if `(x, y)` is not a valid location.
+ * @throws Will throw an error if `name` is not a known thing.
+
+ * @see Unit tests are found in {@link UnitTest#test_add_bridge}
  * @todo add examples
  * @todo deal with translation
  *
  */
 RUR.add_bridge = function (name, x, y) {
     "use strict";
-    var args = {name: name, x:x, y:y, type:"bridge", single:true};
+    var args = {name: name, x:x, y:y, type:"bridge", single:true, valid_names: RUR.KNOWN_THINGS};
     RUR._add_artefact(args);
     RUR.record_frame("RUR.set_bridge", args);
 };
@@ -10404,6 +10407,8 @@ RUR.add_bridge = function (name, x, y) {
  * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
+ * @throws Will throw an error if `name` is not a known thing.
+
  * @throws Will throw an error if there is no such named bridge to remove
  *        at that location
  *
@@ -10414,12 +10419,12 @@ RUR.add_bridge = function (name, x, y) {
 RUR.remove_bridge = function (name, x, y) {
     "use strict";
     var args;
-    args= {x:x, y:y, type:"bridge", name:name};
+    args= {x:x, y:y, type:"bridge", name:name, valid_names: RUR.KNOWN_THINGS};
     try {
         RUR._remove_artefact(args);
     } catch (e) {
         if (e.message == "No artefact to remove") {
-            throw new ReeborgError("No bridge to remove here.");
+            throw new RUR.ReeborgError("No bridge to remove here.");
         } else {
             throw e;
         }
@@ -10548,7 +10553,7 @@ function conditions_satisfied (conditions, x, y) {
     if (Object.prototype.toString.call(conditions) != "[object Array]" ||
         conditions.length === 0) {
         console.log(conditions);
-        throw new ReeborgError("Invalid conditions when attempting an automatic object transformation.");
+        throw new RUR.ReeborgError("Invalid conditions when attempting an automatic object transformation.");
     }
     try {
         for (c=0; c < conditions.length; c++) {
@@ -10562,7 +10567,7 @@ function conditions_satisfied (conditions, x, y) {
     return true;
 } catch (e) {
     console.log(e);
-    throw new ReeborgError("Invalid conditions when attempting an automatic object transformation.");
+    throw new RUR.ReeborgError("Invalid conditions when attempting an automatic object transformation.");
     }
 }
 
@@ -10572,7 +10577,7 @@ function do_transformations (actions, x, y) {
     if (Object.prototype.toString.call(actions) != "[object Array]" ||
         actions.length === 0) {
         console.log(actions);
-        throw new ReeborgError("Invalid actions when attempting an automatic object transformation.");
+        throw new RUR.ReeborgError("Invalid actions when attempting an automatic object transformation.");
     }
     try {
         for (a=0; a < actions.length; a++) {
@@ -10583,7 +10588,7 @@ function do_transformations (actions, x, y) {
         }
     } catch (e) {
         console.log(e);
-        throw new ReeborgError("Invalid actions when attempting an automatic object transformation.");
+        throw new RUR.ReeborgError("Invalid actions when attempting an automatic object transformation.");
     }
 }
 
@@ -10643,7 +10648,7 @@ require("./artefact.js");
  */
 RUR.add_decorative_object = function (name, x, y) {
     "use strict";
-    var args = {name: name, x:x, y:y, type:"decorative_objects"};
+    var args = {name: name, x:x, y:y, type:"decorative_objects", valid_names: RUR.KNOWN_THINGS};
     RUR._add_artefact(args);
     RUR.record_frame("RUR.add_decorative_object", args);
 };
@@ -10669,12 +10674,12 @@ RUR.add_decorative_object = function (name, x, y) {
 RUR.remove_decorative_object = function (name, x, y) {
     "use strict";
     var args;
-    args= {x:x, y:y, type:"decorative_objects", name:name};
+    args= {x:x, y:y, type:"decorative_objects", name:name, valid_names: RUR.KNOWN_THINGS};
     try {
         RUR._remove_artefact(args);
     } catch (e) {
         if (e.message == "No artefact to remove") {
-            throw new ReeborgError("No tile to remove here.");
+            throw new RUR.ReeborgError("No decorative object to remove here.");
         } else {
             throw e;
         }
@@ -10887,7 +10892,7 @@ require("./artefact.js");
  *
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
- *
+ * @throws Will throw an error if `name` is not a known thing.
  * @todo add test
  * @todo add better examples
  * @todo deal with translation
@@ -10900,7 +10905,7 @@ require("./artefact.js");
  */
 RUR.add_object = function (name, x, y, options) {
     "use strict";
-    var k, keys, args = {name: name, x:x, y:y, type:"objects"};
+    var k, keys, args = {name: name, x:x, y:y, type:"objects", valid_names: RUR.KNOWN_THINGS};
     if (options === undefined) {
         args.number = 1;
     } else {
@@ -10940,6 +10945,7 @@ RUR.add_object = function (name, x, y, options) {
  * @param {object} options  Need to include: `goal`, `number`, `all`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
+ * @throws Will throw an error if `name` is not a known thing.
  * @throws Will throw an error if there is no background object to remove
  *        at that location
  *
@@ -10950,7 +10956,7 @@ RUR.add_object = function (name, x, y, options) {
 RUR.remove_object = function (name, x, y, options) {
     "use strict";
     var args, k, keys, world = RUR.get_current_world();
-    args= {x:x, y:y, type:"objects", name:name};
+    args= {x:x, y:y, type:"objects", name:name, valid_names: RUR.KNOWN_THINGS};
     if (options !== undefined) {
         keys = Object.keys(options);
         for (k of keys) {
@@ -10961,7 +10967,7 @@ RUR.remove_object = function (name, x, y, options) {
         RUR._remove_artefact(args);
     } catch (e) {
         if (e.message == "No artefact to remove") {
-            throw new ReeborgError("No object to remove here.");
+            throw new RUR.ReeborgError("No object to remove here.");
         } else {
             throw e;
         }
@@ -11002,7 +11008,7 @@ RUR.get_objects = function (x, y) {
 
 RUR.is_object = function (name, x, y, options) {
     "use strict";
-    var nb, args = {x:x, y:y, name:name, type:"objects"};
+    var nb, args = {x:x, y:y, name:name, type:"objects", valid_names: RUR.KNOWN_THINGS};
     if (options !== undefined && options.goal !== undefined) {
         args.goal = options.goal;
     }
@@ -11040,7 +11046,7 @@ require("./artefact.js");
  * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
- *
+ * @throws Will throw an error if `name` is not a known thing.
  * @todo add test
  * @todo add better examples
  * @todo deal with translation
@@ -11054,7 +11060,7 @@ require("./artefact.js");
  */
 RUR.add_obstacle = function (name, x, y) {
     "use strict";
-    var args = {name: name, x:x, y:y, type:"obstacles"};
+    var args = {name: name, x:x, y:y, type:"obstacles", valid_names: RUR.KNOWN_THINGS};
     RUR._add_artefact(args);
     RUR.record_frame("RUR.add_obstacle", args);
 };
@@ -11070,6 +11076,7 @@ RUR.add_obstacle = function (name, x, y) {
  * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
+ * @throws Will throw an error if `name` is not a known thing.
  * @throws Will throw an error if there is no background tile to remove
  *        at that location
  *
@@ -11081,11 +11088,7 @@ RUR.add_obstacle = function (name, x, y) {
 RUR.remove_obstacle = function (name, x, y) {
     "use strict";
     var args, obstacles;
-    obstacles = RUR.get_obstacles(x, y);
-    if (obstacles === null) {
-        throw new ReeborgError("No obstacles to remove here.");
-    }
-    args= {x:x, y:y, type:"obstacles", name:name};
+    args= {x:x, y:y, type:"obstacles", name:name, valid_names: RUR.KNOWN_THINGS};
     RUR._remove_artefact(args);
     RUR.record_frame("RUR.remove_obstacle", args);
 };
@@ -11244,10 +11247,10 @@ require("./artefact.js");
  */
 RUR.add_pushable = function (name, x, y) {
     "use strict";
-    var pushable, args = {name: name, x:x, y:y, type:"pushables"};
+    var pushable, args = {name: name, x:x, y:y, type:"pushables", valid_names: RUR.KNOWN_THINGS};
     pushable = RUR.get_pushable(x, y);
     if (pushable !== null) {
-        throw new ReeborgError("There can be at most one pushable object at a given location.");
+        throw new RUR.ReeborgError("There can be at most one pushable object at a given location.");
     }
     RUR._add_artefact(args);
     RUR.record_frame("RUR.add_pushable", args);
@@ -11275,12 +11278,8 @@ RUR.add_pushable = function (name, x, y) {
  */
 RUR.remove_pushable = function (name, x, y) {
     "use strict";
-    var args, pushable;
-    pushable = RUR.get_pushable(x, y);
-    if (pushable === null) {
-        throw new ReeborgError("No pushable to remove here.");
-    }
-    args= {x:x, y:y, type:"pushables", name:name};
+    var args;
+    args= {x:x, y:y, type:"pushables", name:name, valid_names: RUR.KNOWN_THINGS};
     RUR._remove_artefact(args);
     RUR.record_frame("RUR.remove_pushable", args);
 };
@@ -11627,7 +11626,7 @@ RUR.add_final_position = function (name, x, y) {
     for(var i=0; i<goal.possible_final_positions.length; i++) {
         pos = goal.possible_final_positions[i];
         if(pos[0]==x && pos[1]==y){
-            throw new ReeborgError("This final position is already included!");
+            throw new RUR.ReeborgError("This final position is already included!");
         }
     }
 
@@ -11658,7 +11657,7 @@ RUR.add_initial_position = function (x, y) {
     "use strict";
     var robot, pos, world=RUR.get_current_world();
     if (world.robots === undefined || world.robots.length === 0) {
-        throw new ReeborgError("This world has no robot; cannot set initial position.");
+        throw new RUR.ReeborgError("This world has no robot; cannot set initial position.");
     }
 
     robot = world.robots[0];
@@ -11669,7 +11668,7 @@ RUR.add_initial_position = function (x, y) {
     for(var i=0; i<robot.possible_initial_positions.length; i++) {
         pos = robot.possible_initial_positions[i];
         if(pos[0]==x && pos[1]==y){
-            throw new ReeborgError("This initial position is already included!");
+            throw new RUR.ReeborgError("This initial position is already included!");
         }
     }
 
@@ -11682,7 +11681,6 @@ require("./../translator.js");
 require("./animated_images.js");
 require("./../programming_api/exceptions.js");
 require("./../utils/supplant.js");
-
 
 /** @function add_new_thing
  * @memberof RUR
@@ -11800,7 +11798,7 @@ RUR.add_new_thing = function (thing) {
     if (RUR.KNOWN_THINGS.indexOf(name) != -1) {
         if (original_arg == RUR.THINGS[name].original_arg) {
             // use concatenation in log and warn, for comparison with unit tests.
-            if (RUR.UnitTest !== undefined && RUR.UnitTest.logtest !== undefined){
+            if (RUR.UnitTest.logtest !== undefined){
                 console.log(name + " is already known; no need to recreate.");
             }
             return;

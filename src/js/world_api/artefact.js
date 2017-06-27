@@ -33,7 +33,7 @@ function ensure_common_required_args_present(args) {
     }
     if (args.valid_names !== undefined) {
         if (args.valid_names.indexOf(args.name) === -1) {
-            throw new RUR.ReeborgError("Invalid name");
+            throw new RUR.ReeborgError("Invalid name: " + args.name);
         }
      }
 }

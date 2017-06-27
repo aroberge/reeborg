@@ -3,6 +3,9 @@ var tape_test = require('./../test_globals.js').tape_test;
 function test(test_name, fn) {
     tape_test("walls.js: ", test_name, fn);
 }
+function clone (world) {
+    return JSON.parse(JSON.stringify(world));
+}
 
 // intercepting record_frame
 var mock = require('mock-require');
@@ -197,5 +200,36 @@ test('Add two walls, remove one and list walls', function (assert) {
     RUR.add_wall("west", 3, 3);
     RUR.remove_wall("east", 3, 3);
     assert.deepEqual(RUR.get_walls(3, 3), ["west"], "one wall remaining");
+    assert.end();
+});
+
+test('is/add/remove walls', function (assert) {
+    var original_world;
+    assert.plan(5);
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    original_world = clone(RUR.CURRENT_WORLD);
+    assert.ok(RUR.CURRENT_WORLD.walls !== undefined, "confirm that key is present initially.");
+    assert.ok(RUR.is_wall("east", 2, 3)===false, "start with no walls.");
+    RUR.add_wall("east", 2, 3);
+    assert.ok(RUR.is_wall("east", 2, 3)===true, "confirm add_wall worked.");
+    RUR.remove_wall("east", 2, 3);
+    assert.ok(RUR.is_wall("east", 2, 3)===false, "confirm remove_wall worked.");
+    assert.deepEqual(RUR.CURRENT_WORLD, original_world, "confirm that we returned to original state.");
+    assert.end();
+});
+
+test('is/add/remove goal walls', function (assert) {
+    var original_world, goal=true;
+    assert.plan(6);
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    original_world = clone(RUR.CURRENT_WORLD);
+    assert.ok(RUR.CURRENT_WORLD.goal === undefined, "confirm that key is not present initially.");
+    assert.ok(RUR.is_wall("east", 2, 3, goal)===false, "start with no goal walls.");
+    RUR.add_wall("east", 2, 3, goal);
+    assert.ok(RUR.CURRENT_WORLD.goal !== undefined, "confirm that goal key is present.");
+    assert.ok(RUR.is_wall("east", 2, 3, goal)===true, "confirm add_wall for goal worked.");
+    RUR.remove_wall("east", 2, 3, goal);
+    assert.ok(RUR.is_wall("east", 2, 3, goal)===false, "confirm remove_wall for goal worked.");
+    assert.deepEqual(RUR.CURRENT_WORLD, original_world, "confirm that we returned to original state.");
     assert.end();
 });

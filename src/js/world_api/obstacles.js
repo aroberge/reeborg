@@ -16,7 +16,7 @@ require("./artefact.js");
  * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location..
- *
+ * @throws Will throw an error if `name` is not a known thing.
  * @todo add test
  * @todo add better examples
  * @todo deal with translation
@@ -30,7 +30,7 @@ require("./artefact.js");
  */
 RUR.add_obstacle = function (name, x, y) {
     "use strict";
-    var args = {name: name, x:x, y:y, type:"obstacles"};
+    var args = {name: name, x:x, y:y, type:"obstacles", valid_names: RUR.KNOWN_THINGS};
     RUR._add_artefact(args);
     RUR.record_frame("RUR.add_obstacle", args);
 };
@@ -46,6 +46,7 @@ RUR.add_obstacle = function (name, x, y) {
  * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
+ * @throws Will throw an error if `name` is not a known thing.
  * @throws Will throw an error if there is no background tile to remove
  *        at that location
  *
@@ -57,11 +58,7 @@ RUR.add_obstacle = function (name, x, y) {
 RUR.remove_obstacle = function (name, x, y) {
     "use strict";
     var args, obstacles;
-    obstacles = RUR.get_obstacles(x, y);
-    if (obstacles === null) {
-        throw new ReeborgError("No obstacles to remove here.");
-    }
-    args= {x:x, y:y, type:"obstacles", name:name};
+    args= {x:x, y:y, type:"obstacles", name:name, valid_names: RUR.KNOWN_THINGS};
     RUR._remove_artefact(args);
     RUR.record_frame("RUR.remove_obstacle", args);
 };

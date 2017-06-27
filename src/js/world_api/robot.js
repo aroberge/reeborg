@@ -259,7 +259,7 @@ RUR.add_final_position = function (name, x, y) {
     for(var i=0; i<goal.possible_final_positions.length; i++) {
         pos = goal.possible_final_positions[i];
         if(pos[0]==x && pos[1]==y){
-            throw new ReeborgError("This final position is already included!");
+            throw new RUR.ReeborgError("This final position is already included!");
         }
     }
 
@@ -290,7 +290,7 @@ RUR.add_initial_position = function (x, y) {
     "use strict";
     var robot, pos, world=RUR.get_current_world();
     if (world.robots === undefined || world.robots.length === 0) {
-        throw new ReeborgError("This world has no robot; cannot set initial position.");
+        throw new RUR.ReeborgError("This world has no robot; cannot set initial position.");
     }
 
     robot = world.robots[0];
@@ -301,7 +301,7 @@ RUR.add_initial_position = function (x, y) {
     for(var i=0; i<robot.possible_initial_positions.length; i++) {
         pos = robot.possible_initial_positions[i];
         if(pos[0]==x && pos[1]==y){
-            throw new ReeborgError("This initial position is already included!");
+            throw new RUR.ReeborgError("This initial position is already included!");
         }
     }
 

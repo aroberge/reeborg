@@ -12,7 +12,7 @@ function conditions_satisfied (conditions, x, y) {
     if (Object.prototype.toString.call(conditions) != "[object Array]" ||
         conditions.length === 0) {
         console.log(conditions);
-        throw new ReeborgError("Invalid conditions when attempting an automatic object transformation.");
+        throw new RUR.ReeborgError("Invalid conditions when attempting an automatic object transformation.");
     }
     try {
         for (c=0; c < conditions.length; c++) {
@@ -26,7 +26,7 @@ function conditions_satisfied (conditions, x, y) {
     return true;
 } catch (e) {
     console.log(e);
-    throw new ReeborgError("Invalid conditions when attempting an automatic object transformation.");
+    throw new RUR.ReeborgError("Invalid conditions when attempting an automatic object transformation.");
     }
 }
 
@@ -36,7 +36,7 @@ function do_transformations (actions, x, y) {
     if (Object.prototype.toString.call(actions) != "[object Array]" ||
         actions.length === 0) {
         console.log(actions);
-        throw new ReeborgError("Invalid actions when attempting an automatic object transformation.");
+        throw new RUR.ReeborgError("Invalid actions when attempting an automatic object transformation.");
     }
     try {
         for (a=0; a < actions.length; a++) {
@@ -47,7 +47,7 @@ function do_transformations (actions, x, y) {
         }
     } catch (e) {
         console.log(e);
-        throw new ReeborgError("Invalid actions when attempting an automatic object transformation.");
+        throw new RUR.ReeborgError("Invalid actions when attempting an automatic object transformation.");
     }
 }
 

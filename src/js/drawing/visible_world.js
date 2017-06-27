@@ -362,14 +362,14 @@ function draw_tiles (tiles, ctx, goal){
                     image = tile.goal.image;
                     if (image === undefined){
                         console.warn("problem in draw_tiles; tile =", tile, ctx);
-                        throw new ReeborgError("Problem in draw_tiles; goal image not defined.");
+                        throw new RUR.ReeborgError("Problem in draw_tiles; goal image not defined.");
                     }
                     draw_single_object(image, i, j, ctx, tile.x_offset, tile.y_offset);
                 } else if (tile.choose_image === undefined){
                     image = tile.image;
                     if (image === undefined){
                         console.warn("problem in draw_tiles; tile =", tile, ctx);
-                        throw new ReeborgError("Problem in draw_tiles; image not defined.");
+                        throw new RUR.ReeborgError("Problem in draw_tiles; image not defined.");
                     }
                     draw_single_object(image, i, j, ctx, tile.x_offset, tile.y_offset);
                 }
@@ -499,7 +499,7 @@ function _draw_single_animated (obj, coords, i, j, ctx, x_offset, y_offset){
     image = obj.choose_image(id);
     if (image === undefined){
         console.warn("problem in _draw_single_animated; obj =", obj);
-        throw new ReeborgError("Problem in _draw_single_animated at" + coords);
+        throw new RUR.ReeborgError("Problem in _draw_single_animated at" + coords);
     } else if (image == RUR.END_CYCLE) {
         return RUR.END_CYCLE;
     }

@@ -16,16 +16,17 @@ require("./artefact.js");
  * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  *
- * @throws Will throw an error if `(x, y)` is not a valid location..
- *
- * @todo add test
+ * @throws Will throw an error if `(x, y)` is not a valid location.
+ * @throws Will throw an error if `name` is not a known thing.
+
+ * @see Unit tests are found in {@link UnitTest#test_add_bridge}
  * @todo add examples
  * @todo deal with translation
  *
  */
 RUR.add_bridge = function (name, x, y) {
     "use strict";
-    var args = {name: name, x:x, y:y, type:"bridge", single:true};
+    var args = {name: name, x:x, y:y, type:"bridge", single:true, valid_names: RUR.KNOWN_THINGS};
     RUR._add_artefact(args);
     RUR.record_frame("RUR.set_bridge", args);
 };
@@ -40,6 +41,8 @@ RUR.add_bridge = function (name, x, y) {
  * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
+ * @throws Will throw an error if `name` is not a known thing.
+
  * @throws Will throw an error if there is no such named bridge to remove
  *        at that location
  *
@@ -50,12 +53,12 @@ RUR.add_bridge = function (name, x, y) {
 RUR.remove_bridge = function (name, x, y) {
     "use strict";
     var args;
-    args= {x:x, y:y, type:"bridge", name:name};
+    args= {x:x, y:y, type:"bridge", name:name, valid_names: RUR.KNOWN_THINGS};
     try {
         RUR._remove_artefact(args);
     } catch (e) {
         if (e.message == "No artefact to remove") {
-            throw new ReeborgError("No bridge to remove here.");
+            throw new RUR.ReeborgError("No bridge to remove here.");
         } else {
             throw e;
         }

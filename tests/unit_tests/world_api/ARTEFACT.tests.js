@@ -97,7 +97,7 @@ test('ensure_common_required_args_present: invalid name', function (assert) {
     try {
         RUR.UnitTest.ensure_common_required_args_present(args);
     } catch (e) {
-        assert.equal(e.message, "Invalid name", "error message ok");
+        assert.equal(e.message, "Invalid name: d", "error message ok");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();
@@ -117,7 +117,7 @@ test('get_nb_artefact: invalid name', function (assert) {
     try {
         RUR._get_nb_artefact(args);
     } catch (e) {
-        assert.equal(e.message, "Invalid name", "error message ok");
+        assert.equal(e.message, "Invalid name: A", "error message ok");
     }
     assert.end();
 });

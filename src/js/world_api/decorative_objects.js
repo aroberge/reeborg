@@ -30,7 +30,7 @@ require("./artefact.js");
  */
 RUR.add_decorative_object = function (name, x, y) {
     "use strict";
-    var args = {name: name, x:x, y:y, type:"decorative_objects"};
+    var args = {name: name, x:x, y:y, type:"decorative_objects", valid_names: RUR.KNOWN_THINGS};
     RUR._add_artefact(args);
     RUR.record_frame("RUR.add_decorative_object", args);
 };
@@ -56,12 +56,12 @@ RUR.add_decorative_object = function (name, x, y) {
 RUR.remove_decorative_object = function (name, x, y) {
     "use strict";
     var args;
-    args= {x:x, y:y, type:"decorative_objects", name:name};
+    args= {x:x, y:y, type:"decorative_objects", name:name, valid_names: RUR.KNOWN_THINGS};
     try {
         RUR._remove_artefact(args);
     } catch (e) {
         if (e.message == "No artefact to remove") {
-            throw new ReeborgError("No tile to remove here.");
+            throw new RUR.ReeborgError("No decorative object to remove here.");
         } else {
             throw e;
         }

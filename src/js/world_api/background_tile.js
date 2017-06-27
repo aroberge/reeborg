@@ -105,7 +105,7 @@ RUR.remove_background_tile = function (name, x, y) {
         RUR._remove_artefact(args);
     } catch (e) {
         if (e.message == "No artefact to remove") {
-            throw new ReeborgError("No tile to remove here.");
+            throw new RUR.ReeborgError("No tile to remove here.");
         } else {
             throw e;
         }

@@ -31,10 +31,10 @@ require("./artefact.js");
  */
 RUR.add_pushable = function (name, x, y) {
     "use strict";
-    var pushable, args = {name: name, x:x, y:y, type:"pushables"};
+    var pushable, args = {name: name, x:x, y:y, type:"pushables", valid_names: RUR.KNOWN_THINGS};
     pushable = RUR.get_pushable(x, y);
     if (pushable !== null) {
-        throw new ReeborgError("There can be at most one pushable object at a given location.");
+        throw new RUR.ReeborgError("There can be at most one pushable object at a given location.");
     }
     RUR._add_artefact(args);
     RUR.record_frame("RUR.add_pushable", args);
@@ -62,12 +62,8 @@ RUR.add_pushable = function (name, x, y) {
  */
 RUR.remove_pushable = function (name, x, y) {
     "use strict";
-    var args, pushable;
-    pushable = RUR.get_pushable(x, y);
-    if (pushable === null) {
-        throw new ReeborgError("No pushable to remove here.");
-    }
-    args= {x:x, y:y, type:"pushables", name:name};
+    var args;
+    args= {x:x, y:y, type:"pushables", name:name, valid_names: RUR.KNOWN_THINGS};
     RUR._remove_artefact(args);
     RUR.record_frame("RUR.remove_pushable", args);
 };
