@@ -229,6 +229,9 @@ robot_put_or_throw_object = function (robot, obj, action) {
     RUR.record_frame(action, [robot.__id, obj]);
 };
 
+function is_fatal_thing(thing) {
+    return RUR.get_property(thing, "fatal");
+}
 
 RUR.control.take = function(robot, arg){
     var translated_arg, objects_here, message;
@@ -244,9 +247,9 @@ RUR.control.take = function(robot, arg){
     if (arg !== undefined) {
         if (Array.isArray(objects_here) && objects_here.length === 0) {
             throw new RUR.MissingObjectError(RUR.translate("No object found here").supplant({obj: arg}));
-        }  else if(RUR.is_fatal_thing(arg)) {
+        }  else if(is_fatal_thing(arg)) {
             message = RUR.get_property(arg, 'message');
-            if (message == undefined) {
+            if (!message) {
                 message = "I picked up a fatal object.";
             }
             throw new RUR.ReeborgError(RUR.translate(message));
@@ -257,9 +260,9 @@ RUR.control.take = function(robot, arg){
         throw new RUR.MissingObjectError(RUR.translate("No object found here").supplant({obj: RUR.translate("object")}));
     }  else if (objects_here.length > 1){
         throw new RUR.MissingObjectError(RUR.translate("Many objects are here; I do not know which one to take!"));
-    }  else if(RUR.is_fatal_thing(objects_here[0])) {
+    }  else if(is_fatal_thing(objects_here[0])) {
         message = RUR.get_property(objects_here[0], 'message');
-        if (message == undefined) {
+        if (!message) {
             message = "I picked up a fatal object.";
         }
         throw new RUR.ReeborgError(RUR.translate(message));
@@ -352,7 +355,7 @@ RUR.control.front_is_clear = function(robot){
     next_y = position.y;
 
     if (RUR.is_fatal_position(next_x, next_y, robot) &&
-        RUR.is_detectable(next_x, next_y)) {
+        RUR.is_detectable_position(next_x, next_y)) {
         return false;
     }
 

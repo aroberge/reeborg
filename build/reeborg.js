@@ -6955,6 +6955,9 @@ robot_put_or_throw_object = function (robot, obj, action) {
     RUR.record_frame(action, [robot.__id, obj]);
 };
 
+function is_fatal_thing(thing) {
+    return RUR.get_property(thing, "fatal");
+}
 
 RUR.control.take = function(robot, arg){
     var translated_arg, objects_here, message;
@@ -6970,9 +6973,9 @@ RUR.control.take = function(robot, arg){
     if (arg !== undefined) {
         if (Array.isArray(objects_here) && objects_here.length === 0) {
             throw new RUR.MissingObjectError(RUR.translate("No object found here").supplant({obj: arg}));
-        }  else if(RUR.is_fatal_thing(arg)) {
+        }  else if(is_fatal_thing(arg)) {
             message = RUR.get_property(arg, 'message');
-            if (message == undefined) {
+            if (!message) {
                 message = "I picked up a fatal object.";
             }
             throw new RUR.ReeborgError(RUR.translate(message));
@@ -6983,9 +6986,9 @@ RUR.control.take = function(robot, arg){
         throw new RUR.MissingObjectError(RUR.translate("No object found here").supplant({obj: RUR.translate("object")}));
     }  else if (objects_here.length > 1){
         throw new RUR.MissingObjectError(RUR.translate("Many objects are here; I do not know which one to take!"));
-    }  else if(RUR.is_fatal_thing(objects_here[0])) {
+    }  else if(is_fatal_thing(objects_here[0])) {
         message = RUR.get_property(objects_here[0], 'message');
-        if (message == undefined) {
+        if (!message) {
             message = "I picked up a fatal object.";
         }
         throw new RUR.ReeborgError(RUR.translate(message));
@@ -7078,7 +7081,7 @@ RUR.control.front_is_clear = function(robot){
     next_y = position.y;
 
     if (RUR.is_fatal_position(next_x, next_y, robot) &&
-        RUR.is_detectable(next_x, next_y)) {
+        RUR.is_detectable_position(next_x, next_y)) {
         return false;
     }
 
@@ -9746,86 +9749,6 @@ function ensure_common_required_args_present(args) {
 
 RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_present;
 
-/** @function _set_nb_artefact
- * @memberof RUR
- * @instance
- * @summary **This function is intended for private use by developers.**
- *
- *    This function sets a specified number of a named artefact of a
- *    specified type (e.g. object, goal object) at a given location.
- *
- *
- * @param {Object} args A Javascript object (similar to a Python dict) that
- *                      holds the relevant attribute.
- *
- * @param {string} args.name  The name of the object to be added; an error
- *    will be thrown if it is missing.
- *
- * @param {integer|string} args.number  The number of artefacts to be set; an error
- * will be thrown if it is missing. If it is zero, any artefact already present
- * will be removed. String arguments are accepted so that `"all"` for
- * "objects as goals" and `"min-max"` for range of objects can be set.
- *
- * @param {string} args.type  The type of the object to be added; an error
- *    will be thrown if it is missing.
- *
- * @param {integer} args.x The `x` coordinate where the object should be found.
- *                        If it is missing, or not within the world boundaries,
- *                        or is not an integer, an error will be thrown.
- *
- * @param {integer} args.y The `y` coordinate where the object should be found.
- *                        If it is missing, or not within the world boundaries,
- *                        or is not an integer, an error will be thrown.
- *
- * @param {boolean} [args.goal] If specified, indicates that it is a goal that
- *                        must be set.
- *
- *
- *
- * @throws Will throw an error if `name` attribute is not specified.
- * @throws Will throw an error if `type` attribute is not specified.
- * @throws Will throw an error if `number` attribute is not specified.
- * @throws Will throw an error if a valid position is not specified.
- *
- *
- */
-RUR._set_nb_artefact = function (args) {
-    "use strict";
-    var base, coords, world = RUR.get_current_world();
-
-    ensure_common_required_args_present(args);
-    if (args.number === undefined) {
-        throw new RUR.ReeborgError("Number of objects must be specified.");
-    }
-
-    coords = args.x + "," + args.y;
-    base = world;
-    if (args.goal) {
-        RUR.utils.ensure_key_for_obj_exists(world, "goal");
-        base = world.goal;
-    }
-
-    // While it may not be as efficient, the logic
-    // is easier if we proceed as though we need to add
-    // artefact, and then remove and cleanup if the number
-    // of artefact is zero
-    RUR.utils.ensure_key_for_obj_exists(base, args.type);
-    RUR.utils.ensure_key_for_obj_exists(base[args.type], coords);
-    base[args.type][coords][args.name] = args.number;
-    if (args.number === 0) {
-        delete base[args.type][coords][args.name];
-        // remove any empty remaining JS object, up to world.
-        if (Object.keys(base[args.type]).length === 0) {
-            delete base[args.type];
-            if (args.goal) {
-                if (Object.keys(world.goal).length === 0){
-                    delete world.goal;
-                }
-            }
-        }
-    }
-};
-
 
 /** @function _add_artefact
  * @memberof RUR
@@ -9847,17 +9770,18 @@ RUR._set_nb_artefact = function (args) {
  *    will be thrown if it is missing.
  *
  * @param {integer} args.x The `x` coordinate where the object should be found.
- *                        If it is missing, or not within the world boundaries,
- *                        or is not an integer, an error will be thrown.
+ * If it is missing, or not within the world boundaries,
+ * or is not an integer, an error will be thrown.
  *
  * @param {integer} args.y The `y` coordinate where the object should be found.
- *                        If it is missing, or not within the world boundaries,
- *                        or is not an integer, an error will be thrown.
+ * If it is missing, or not within the world boundaries,
+ * or is not an integer, an error will be thrown.
  *
  *
  *
  * @param {boolean} [args.single] Specifies if only one of a given kind of
- *                        artefact is permitted at a given location.
+ * artefact is permitted at a given location. When set to True, adding a
+ * new artefact result in replacing the old one.
  *
  * @todo document number
  * @todo document range
@@ -9868,6 +9792,8 @@ RUR._set_nb_artefact = function (args) {
  * @throws Will throw an error if `single` is "true" but more than one kind
  * of artefact is found at that location.
  *
+ * @see {@link TestUnit#ARTEFACT_arg_checks} for unit tests checking valid arguments
+ * @see {@link TestUnit#ARTEFACT_add_artefact} for basic unit tests
  *
  */
 RUR._add_artefact = function (args) {
@@ -9882,7 +9808,7 @@ RUR._add_artefact = function (args) {
     }
     coords = args.x + "," + args.y;
 
-    // This should not happen if functions upstream always
+    // This should never happen if functions upstream always
     // use args.single consistently
     if (args.single && base[args.type] !== undefined &&
                base[args.type][coords] !== undefined &&
@@ -9913,82 +9839,6 @@ RUR._add_artefact = function (args) {
     }
 };
 
-
-/** @function _get_nb_artefact
- * @memberof RUR
- * @instance
- * @summary **This function is intended for private use by developers.**
- *
- *    This function returns the number of a specified (named) artefact of a
- *    specified type (e.g. object, background tile, wall, etc.) at
- *    a given location.
- *
- * @param {Object} args A Javascript object (similar to a Python dict) that
- *                      holds the relevant attribute.
- *
- * @param {string} args.name  The name of the object to be found; an error
- *    will be thrown if it is missing.
- *
- * @param {string} args.type  The type of the object to be found; an error
- *    will be thrown if it is missing.
- *
- * @param {integer} args.x The `x` coordinate where the object should be found.
- *                        If it is missing, or not within the world boundaries,
- *                        or is not an integer, an error will be thrown.
- *
- * @param {integer} args.y The `y` coordinate where the object should be found.
- *                        If it is missing, or not within the world boundaries,
- *                        or is not an integer, an error will be thrown.
- *
- * @param {boolean} [args.goal] If specified, indicates that it is a goal-type
- *                        object that must be found.
- *
- *
- * @returns {integer} The number of object found at that location (could be 0).
- * @throws Will throw an error if `name` attribute is not specified.
- * @throws Will throw an error if `type` attribute is not specified.
- * @throws Will throw an error if a valid position is not specified.
- *
- *
- */
-RUR._get_nb_artefact = function(args) {
-    "use strict";
-    var coords, container, world = RUR.get_current_world();
-
-    ensure_common_required_args_present(args);
-
-    coords = args.x + "," + args.y;
-    if (args.goal) {
-        if (world.goal === undefined ||
-            world.goal[args.type] === undefined ||
-            world.goal[args.type][coords] === undefined) {
-            return 0;
-        } else {
-            container = world.goal[args.type][coords];
-        }
-    } else if (world[args.type] === undefined ||
-               world[args.type][coords] === undefined) {
-        return 0;
-    } else {
-        container = world[args.type][coords];
-    }
-
-    if (Object.prototype.toString.call(container) == "[object Object]") {
-        if (Object.keys(container).indexOf(args.name) == -1) {
-            return 0;
-        } else {
-            return container[args.name];
-        }
-    } else if (Object.prototype.toString.call(container) == "[object Array]"){
-        if (container.indexOf(args.name) == -1) {
-            return 0;
-        } else {
-            return 1;
-        }
-    } else { // should never happen
-        throw new RUR.ReeborgError("Unknown container type; need Object or Array");
-    }
-};
 
 /** @function _get_artefacts
  * @memberof RUR
@@ -10057,6 +9907,82 @@ RUR._get_artefacts = function(args) {
 };
 
 
+/** @function _get_nb_artefact
+ * @memberof RUR
+ * @instance
+ * @summary **This function is intended for private use by developers.**
+ *
+ *    This function returns the number of a specified (named) artefact of a
+ *    specified type (e.g. object, background tile, wall, etc.) at
+ *    a given location.
+ *
+ * @param {Object} args A Javascript object (similar to a Python dict) that
+ *                      holds the relevant attribute.
+ *
+ * @param {string} args.name  The name of the object to be found; an error
+ *    will be thrown if it is missing.
+ *
+ * @param {string} args.type  The type of the object to be found; an error
+ *    will be thrown if it is missing.
+ *
+ * @param {integer} args.x The `x` coordinate where the object should be found.
+ *                        If it is missing, or not within the world boundaries,
+ *                        or is not an integer, an error will be thrown.
+ *
+ * @param {integer} args.y The `y` coordinate where the object should be found.
+ *                        If it is missing, or not within the world boundaries,
+ *                        or is not an integer, an error will be thrown.
+ *
+ * @param {boolean} [args.goal] If specified, indicates that it is a goal-type
+ *                        object that must be found.
+ *
+ *
+ * @returns {integer} The number of object found at that location (could be 0).
+ * @throws Will throw an error if `name` attribute is not specified.
+ * @throws Will throw an error if `type` attribute is not specified.
+ * @throws Will throw an error if a valid position is not specified.
+ *
+ * @see {@link TestUnit#ARTEFACT_arg_checks} for unit tests checking valid arguments
+ * @see {@link TestUnit#ARTEFACT_get_nb_artefacts} for basic unit tests
+ */
+RUR._get_nb_artefact = function(args) {
+    "use strict";
+    var coords, container, world = RUR.get_current_world();
+
+    ensure_common_required_args_present(args);
+
+    coords = args.x + "," + args.y;
+    if (args.goal) {
+        if (world.goal === undefined ||
+            world.goal[args.type] === undefined ||
+            world.goal[args.type][coords] === undefined) {
+            return 0;
+        } else {
+            container = world.goal[args.type][coords];
+        }
+    } else if (world[args.type] === undefined ||
+               world[args.type][coords] === undefined) {
+        return 0;
+    } else {
+        container = world[args.type][coords];
+    }
+
+    if (Object.prototype.toString.call(container) == "[object Object]") {
+        if (Object.keys(container).indexOf(args.name) == -1) {
+            return 0;
+        } else {
+            return container[args.name];
+        }
+    } else if (Object.prototype.toString.call(container) == "[object Array]"){
+        if (container.indexOf(args.name) == -1) {
+            return 0;
+        } else {
+            return 1;
+        }
+    } else { // should never happen
+        throw new RUR.ReeborgError("Unknown container type; need Object or Array");
+    }
+};
 
 /** @function _remove_artefact
  * @memberof RUR
@@ -10114,6 +10040,9 @@ RUR._get_artefacts = function(args) {
  * @todo Need to implement `args.number`
  * @todo Need to add full tests for `args.number`
  *
+ * @see {@link TestUnit#ARTEFACT_arg_checks} for unit tests checking valid arguments
+ * @see {@link TestUnit#ARTEFACT_remove_artefact} for basic unit tests
+ *
  */
 RUR._remove_artefact = function (args) {
     "use strict";
@@ -10166,6 +10095,88 @@ RUR._remove_artefact = function (args) {
         if (args.goal) {
             if (Object.keys(world.goal).length === 0){
                 delete world.goal;
+            }
+        }
+    }
+};
+
+/** @function _set_nb_artefact
+ * @memberof RUR
+ * @instance
+ * @summary **This function is intended for private use by developers.**
+ *
+ *    This function sets a specified number of a named artefact of a
+ *    specified type (e.g. object, goal object) at a given location.
+ *
+ *
+ * @param {Object} args A Javascript object (similar to a Python dict) that
+ *                      holds the relevant attribute.
+ *
+ * @param {string} args.name  The name of the object to be added; an error
+ *    will be thrown if it is missing.
+ *
+ * @param {integer|string} args.number  The number of artefacts to be set; an error
+ * will be thrown if it is missing. If it is zero, any artefact already present
+ * will be removed. String arguments are accepted so that `"all"` for
+ * "objects as goals" and `"min-max"` for range of objects can be set.
+ *
+ * @param {string} args.type  The type of the object to be added; an error
+ *    will be thrown if it is missing.
+ *
+ * @param {integer} args.x The `x` coordinate where the object should be found.
+ *                        If it is missing, or not within the world boundaries,
+ *                        or is not an integer, an error will be thrown.
+ *
+ * @param {integer} args.y The `y` coordinate where the object should be found.
+ *                        If it is missing, or not within the world boundaries,
+ *                        or is not an integer, an error will be thrown.
+ *
+ * @param {boolean} [args.goal] If specified, indicates that it is a goal that
+ *                        must be set.
+ *
+ *
+ *
+ * @throws Will throw an error if `name` attribute is not specified.
+ * @throws Will throw an error if `type` attribute is not specified.
+ * @throws Will throw an error if `number` attribute is not specified.
+ * @throws Will throw an error if a valid position is not specified.
+ *
+ * @see {@link TestUnit#ARTEFACT_arg_checks} for unit tests checking valid arguments
+ * @see {@link TestUnit#ARTEFACT_set_nb_artefacts} for basic unit tests
+ *
+ */
+RUR._set_nb_artefact = function (args) {
+    "use strict";
+    var base, coords, world = RUR.get_current_world();
+
+    ensure_common_required_args_present(args);
+    if (args.number === undefined) {
+        throw new RUR.ReeborgError("Number of objects must be specified.");
+    }
+
+    coords = args.x + "," + args.y;
+    base = world;
+    if (args.goal) {
+        RUR.utils.ensure_key_for_obj_exists(world, "goal");
+        base = world.goal;
+    }
+
+    // While it may not be as efficient, the logic
+    // is easier if we proceed as though we need to add
+    // artefact, and then remove and cleanup if the number
+    // of artefact is zero
+    RUR.utils.ensure_key_for_obj_exists(base, args.type);
+    RUR.utils.ensure_key_for_obj_exists(base[args.type], coords);
+    base[args.type][coords][args.name] = args.number;
+    if (args.number === 0) {
+        delete base[args.type][coords][args.name];
+        // remove any empty remaining JS object, up to world.
+        if (Object.keys(base[args.type]).length === 0) {
+            delete base[args.type];
+            if (args.goal) {
+                if (Object.keys(world.goal).length === 0){
+                    delete world.goal;
+                }
             }
         }
     }
@@ -10737,7 +10748,7 @@ require("./obstacles.js");
  *
  * @desc This needs to be documented
  *
- * @param {object} robot Determine if robot or robot body.
+ * @param {object} robot_body  robot body object
  *
  * @returns an array of protections
  */
@@ -10767,37 +10778,43 @@ RUR.get_protections = function (robot) {
  *
  * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
+ * @param {object} robot_body  robot body object
  *
  * @desc This needs to be documented
  *
- * @returns The message to show.
+ * @returns The message to show if it is a fatal position, otherwise `false`.
  */
 RUR.is_fatal_position = function (x, y, robot){
     "use strict";
-    // protections is from objects carried by the robot
-    var protections, tile, tiles;
+    var protections, obs, obstacles, tile;
 
+    // Objects carried can offer protection
+    // against some types of otherwise fatal obstacles
     protections = RUR.get_protections(robot);
-    /* Both obstacles and background tiles can be fatal;
-       we combine both in a single array here */
-
-    tiles = RUR.get_obstacles(x, y);
-    if (!tiles) {
-        tiles = [];
+    obstacles = RUR.get_obstacles(x, y);
+    if (obstacles) {
+        for (obs of obstacles) {
+            if (RUR.get_property(obs, "fatal")) {
+                if (protections.indexOf(RUR.get_property(obs, "fatal")) === -1) {
+                    if (RUR.THINGS[obs].message) {
+                        return RUR.THINGS[obs].message;
+                    } else {
+                        return "Fatal obstacle needs message defined";
+                    }
+                }
+            }
+        }
     }
+    // Both bridges and objects carried can offer protection
+    // against some types of otherwise fatal background tiles; so let's
+    // add any bridge protection
+    protections = protections.concat(RUR.get_bridge_protections(x, y));
     tile = RUR.get_background_tile(x, y);
+
     // tile is a name; it could be a colour, which is never fatal.
     if (tile && RUR.THINGS[tile] !== undefined) {
-        tiles.push(tile);
-    }
-
-    // both existing bridges and objects carried can offer protection
-    // against some types of otherwise fatal obstacles
-
-    protections = protections.concat(RUR.get_bridge_protections(x, y));
-    for (tile of tiles) {
         if (RUR.get_property(tile, "fatal")) {
-            if (protections.indexOf(RUR.THINGS[tile].fatal) === -1) {
+            if (protections.indexOf(RUR.get_property(tile, "fatal")) === -1) {
                 if (RUR.THINGS[tile].message) {
                     return RUR.THINGS[tile].message;
                 } else {
@@ -10806,11 +10823,12 @@ RUR.is_fatal_position = function (x, y, robot){
             }
         }
     }
+    // nothing fatal was found
     return false;
 };
 
 
-/** @function is_detectable
+/** @function is_detectable_position
  * @memberof RUR
  * @instance
  *
@@ -10819,9 +10837,9 @@ RUR.is_fatal_position = function (x, y, robot){
  *
  * @desc This needs to be documented
  *
- * @returns The message to show.
+ * @returns `true` if this position is detectable by the robot, `false` otherwise
  */
-RUR.is_detectable = function (x, y){
+RUR.is_detectable_position = function (x, y){
     "use strict";
     var detectable, tile, tiles;
 
@@ -10844,22 +10862,6 @@ RUR.is_detectable = function (x, y){
     return false;
 };
 
-/** @function is_fatal_thing
- * @memberof RUR
- * @instance
- *
- * @desc This needs to be documented
- *
- *
- * @returns The message to show.
- */
-RUR.is_fatal_thing = function (name){
-    name = RUR.translate_to_english(name);
-    if (RUR.get_property(name, 'fatal')) {
-        return true;
-    }
-    return false;
-}
 },{"./../rur.js":51,"./background_tile.js":66,"./bridges.js":67,"./obstacles.js":72}],71:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
@@ -11771,7 +11773,7 @@ require("./../utils/supplant.js");
  * @throws Will throw an error if no image is supplied (either via the `url`
  *         or the `images` attribute) and `color` does not evaluate to true.
  *
- * @see Unit tests are found in {@link UnitTest#test_add_new_thing}
+ * @see Unit tests are found in {@link RUR.UnitTest#test_add_new_thing}
  * @example
  * // This first example shows how to set various "things";
  * // the mode will be set to Python and the highlighting
@@ -11929,6 +11931,7 @@ RUR.show_all_things = function (property) {
  * write(RUR.has_property("water", "fatal"))
  */
 RUR.has_property = function (name, property) {
+    name = RUR.translate_to_english(name);
     if (RUR.THINGS[name] === undefined) {
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj:name}));
     }
@@ -11948,6 +11951,9 @@ RUR.has_property = function (name, property) {
  * translation exists and might appear in other contexts, like the
  * "World Info".
  *
+ * If the property is undefined, `null` will be returned (which will be
+ * converted to `None` if Python is used).
+ *
  * @param {string} name The name of the "thing".
  *
  * @param {string} property
@@ -11959,10 +11965,19 @@ RUR.has_property = function (name, property) {
  * write(RUR.get_property("water", "fatal"))  // Javascript
  */
 RUR.get_property = function (name, property) {
+    var property;
+    name = RUR.translate_to_english(name);
+
     if (RUR.THINGS[name] === undefined) {
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj:name}));
     }
-    return RUR.THINGS[name][property];
+
+    property = RUR.THINGS[name][property];
+    if (property === undefined) {
+        return null;
+    } else {
+        return property;
+    }
 };
 
 
@@ -12528,17 +12543,11 @@ require("./../utils/supplant.js");
  * @summary Give a specified number of object to a robot (body). If the robot,
  *     is not specified, the default robot is used.
  *
- * @desc Donne un nombre d'objet à transporter par le robot (robot.body).
- *    Si le robot n'est pas spécifié, le robot par défaut est utilisé.
  *
- * @param {string} obj The name of the object type ; e.g. "token" <br>
- *                        _Le nom du type de l'objet; par exemple, "jeton"._
+ * @param {string} obj The name of the object type ; e.g. "token"
  * @param {integer} nb - Number of objects at that location;
  *           a value of zero is used to remove objects.
- *           <br> _Nombre d'objets à cet endroit;
- *           une valeur de zéro est utilisée pour supprimer les objets._
- * @param {robot.body} [robot] - Optional argument
- *                    <br> _argument optionnel_
+ * @param {robot.body} [robot_body]
  */
 
 RUR.give_object_to_robot = function (obj, nb, robot) {
@@ -12554,7 +12563,7 @@ RUR.give_object_to_robot = function (obj, nb, robot) {
     }
     RUR.utils.ensure_key_for_obj_exists(robot, "objects");
 
-    _nb = RUR.utils.filterInt(nb);
+    _nb = RUR.utils.filterInt(nb); // required for the menu-driven world editor
     if (_nb >= 0) {
         if (_nb !== 0) {
             robot.objects[obj] = _nb;

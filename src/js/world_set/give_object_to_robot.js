@@ -12,17 +12,11 @@ require("./../utils/supplant.js");
  * @summary Give a specified number of object to a robot (body). If the robot,
  *     is not specified, the default robot is used.
  *
- * @desc Donne un nombre d'objet à transporter par le robot (robot.body).
- *    Si le robot n'est pas spécifié, le robot par défaut est utilisé.
  *
- * @param {string} obj The name of the object type ; e.g. "token" <br>
- *                        _Le nom du type de l'objet; par exemple, "jeton"._
+ * @param {string} obj The name of the object type ; e.g. "token"
  * @param {integer} nb - Number of objects at that location;
  *           a value of zero is used to remove objects.
- *           <br> _Nombre d'objets à cet endroit;
- *           une valeur de zéro est utilisée pour supprimer les objets._
- * @param {robot.body} [robot] - Optional argument
- *                    <br> _argument optionnel_
+ * @param {robot.body} [robot_body]
  */
 
 RUR.give_object_to_robot = function (obj, nb, robot) {
@@ -38,7 +32,7 @@ RUR.give_object_to_robot = function (obj, nb, robot) {
     }
     RUR.utils.ensure_key_for_obj_exists(robot, "objects");
 
-    _nb = RUR.utils.filterInt(nb);
+    _nb = RUR.utils.filterInt(nb); // required for the menu-driven world editor
     if (_nb >= 0) {
         if (_nb !== 0) {
             robot.objects[obj] = _nb;

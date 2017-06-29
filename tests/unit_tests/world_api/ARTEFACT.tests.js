@@ -8,6 +8,15 @@ function test(test_name, fn) {
 require("../../../src/js/world_api/artefact.js");
 
 
+/**
+ * @name ARTEFACT_arg_checks
+ * @memberof TestUnit
+ * @instance
+ *
+ * Fake jsdoc entry so that we can document that the tests exist.
+ *
+ */
+
 /* =============================================
 
                   Testing exceptions
@@ -28,7 +37,6 @@ require("../../../src/js/world_api/artefact.js");
 */
 
 /* ============= Invalid positions ===============*/
-
 // Do a single test that checks all the output
 test('ensure_common_required_args_present: invalid position', function (assert) {
     var args = {x:0, y:0, name:'a', type: 'b'};
@@ -164,80 +172,14 @@ test('add_artefact: inconsistent use of single', function (assert) {
                 Testing functionality
 ---------------------------------------------------------------*/
 
-test('get_nb_artefact: confirm missing, unknown type', function (assert) {
-    var args = {x:2, y:2, valid_names: ['a'], name: 'a', type:'unknown'};
-    assert.plan(1);
-    // create_empty_world does not create world.unknown;
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
-    assert.equal(RUR._get_nb_artefact(args), 0, "no object found.");
-    assert.end();
-});
-
-test('get_nb_artefact: confirm present, object type added by hand', function (assert) {
-    var args = {x:2, y:3, valid_names: ['a'], name: 'a', type:'objects'};
-    assert.plan(1);
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
-    // create_empty_world does creates world.objects;
-    RUR.CURRENT_WORLD.objects["2,3"] = {'a': 1};
-    assert.equal(RUR._get_nb_artefact(args), 1, 'one object added by hand');
-    assert.end();
-});
-
-test('get_nb_artefact: confirm goal present, object type added by hand', function (assert) {
-    var args = {x:2, y:3, valid_names: ['a'], name: 'a', type:'objects', goal:true};
-    assert.plan(1);
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
-    RUR.CURRENT_WORLD.goal = {};
-    RUR.CURRENT_WORLD.goal.objects = {};
-    RUR.CURRENT_WORLD.goal.objects["2,3"] = {'a': 1};
-    assert.equal(RUR._get_nb_artefact(args), 1, 'one goal object added by hand');
-    assert.end();
-});
-
-test('get_nb_artefact: confirm present, array type added by hand', function (assert) {
-    var args_a = {x:2, y:3, name: 'a', type:'objects'};
-    var args_c = {x:2, y:3, name: 'c', type:'objects'};
-    assert.plan(2);
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
-    RUR.CURRENT_WORLD.objects["2,3"] = ['a', 'b'];
-    assert.equal(RUR._get_nb_artefact(args_a), 1, 'one object added by hand');
-    assert.equal(RUR._get_nb_artefact(args_c), 0, 'not an object added by hand');
-    assert.end();
-});
-
-test('get_nb_artefact: confirm goal present, array type added by hand', function (assert) {
-    var args_a = {x:2, y:3, name: 'a', type:'objects', goal:true};
-    var args_c = {x:2, y:3, name: 'c', type:'objects', goal:true};
-    assert.plan(2);
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
-    RUR.CURRENT_WORLD.goal = {};
-    RUR.CURRENT_WORLD.goal.objects = {};
-    RUR.CURRENT_WORLD.goal.objects["2,3"] = ['a', 'b'];
-    assert.equal(RUR._get_nb_artefact(args_a), 1, 'one goal object added by hand');
-    assert.equal(RUR._get_nb_artefact(args_c), 0, 'not a goal object added by hand');
-    assert.end();
-});
-
-
-test('set_nb_artefact: add to unknown type', function (assert) {
-    var args = {x:2, y:2, valid_names: ['a'], name: 'a', type:'unknown', number:12};
-    assert.plan(2);
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
-    RUR._set_nb_artefact(args);
-    assert.equal(RUR._get_nb_artefact(args), 12, "12 artefacts of one kind added.");
-    assert.deepEqual(RUR.CURRENT_WORLD.unknown["2,2"], {'a':12}, 'direct comparison with expected ok.');
-    assert.end();
-});
-
-test('set_nb_artefact: adding goal object', function (assert) {
-    var args = {x:2, y:3, name: 'a', type:'objects', goal:true, number:3};
-    assert.plan(2);
-    RUR.CURRENT_WORLD = RUR.create_empty_world();
-    RUR._set_nb_artefact(args);
-    assert.equal(RUR._get_nb_artefact(args), 3, 'goal objects added correctly.');
-    assert.deepEqual(RUR.CURRENT_WORLD.goal.objects["2,3"], {'a':3}, 'direct comparison with expected ok.');
-    assert.end();
-});
+/**
+ * @name ARTEFACT_add_artefact
+ * @memberof TestUnit
+ * @instance
+ *
+ * Fake jsdoc entry so that we can document that the tests exist.
+ *
+ */
 
 test('add_artefact: add to unknown type', function (assert) {
     var args = {x:2, y:2, valid_names: ['a'], name: 'a', type:'unknown'};
@@ -270,6 +212,15 @@ test('add_artefact: replace ok', function (assert) {
     assert.deepEqual(RUR.CURRENT_WORLD.unknown["2,2"], ['b'], 'direct comparison with expected ok.');
     assert.end();
 });
+
+/**
+ * @name ARTEFACT_get_artefacts
+ * @memberof TestUnit
+ * @instance
+ *
+ * Fake jsdoc entry so that we can document that the tests exist.
+ *
+ */
 
 test('get_artefacts: confirm object present, array type added by hand', function (assert) {
     var args_a = {x:2, y:3, type:'objects'};
@@ -344,6 +295,79 @@ test('get_artefacts: confirm goal present, array type added by function', functi
     assert.end();
 });
 
+/**
+ * @name ARTEFACT_get_nb_artefacts
+ * @memberof TestUnit
+ * @instance
+ *
+ * Fake jsdoc entry so that we can document that the tests exist.
+ *
+ */
+
+
+test('get_nb_artefact: confirm missing, unknown type', function (assert) {
+    var args = {x:2, y:2, valid_names: ['a'], name: 'a', type:'unknown'};
+    assert.plan(1);
+    // create_empty_world does not create world.unknown;
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    assert.equal(RUR._get_nb_artefact(args), 0, "no object found.");
+    assert.end();
+});
+
+test('get_nb_artefact: confirm present, object type added by hand', function (assert) {
+    var args = {x:2, y:3, valid_names: ['a'], name: 'a', type:'objects'};
+    assert.plan(1);
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    // create_empty_world does creates world.objects;
+    RUR.CURRENT_WORLD.objects["2,3"] = {'a': 1};
+    assert.equal(RUR._get_nb_artefact(args), 1, 'one object added by hand');
+    assert.end();
+});
+
+test('get_nb_artefact: confirm goal present, object type added by hand', function (assert) {
+    var args = {x:2, y:3, valid_names: ['a'], name: 'a', type:'objects', goal:true};
+    assert.plan(1);
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD.goal = {};
+    RUR.CURRENT_WORLD.goal.objects = {};
+    RUR.CURRENT_WORLD.goal.objects["2,3"] = {'a': 1};
+    assert.equal(RUR._get_nb_artefact(args), 1, 'one goal object added by hand');
+    assert.end();
+});
+
+test('get_nb_artefact: confirm present, array type added by hand', function (assert) {
+    var args_a = {x:2, y:3, name: 'a', type:'objects'};
+    var args_c = {x:2, y:3, name: 'c', type:'objects'};
+    assert.plan(2);
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD.objects["2,3"] = ['a', 'b'];
+    assert.equal(RUR._get_nb_artefact(args_a), 1, 'one object added by hand');
+    assert.equal(RUR._get_nb_artefact(args_c), 0, 'not an object added by hand');
+    assert.end();
+});
+
+test('get_nb_artefact: confirm goal present, array type added by hand', function (assert) {
+    var args_a = {x:2, y:3, name: 'a', type:'objects', goal:true};
+    var args_c = {x:2, y:3, name: 'c', type:'objects', goal:true};
+    assert.plan(2);
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.CURRENT_WORLD.goal = {};
+    RUR.CURRENT_WORLD.goal.objects = {};
+    RUR.CURRENT_WORLD.goal.objects["2,3"] = ['a', 'b'];
+    assert.equal(RUR._get_nb_artefact(args_a), 1, 'one goal object added by hand');
+    assert.equal(RUR._get_nb_artefact(args_c), 0, 'not a goal object added by hand');
+    assert.end();
+});
+
+/**
+ * @name ARTEFACT_remove_artefact
+ * @memberof TestUnit
+ * @instance
+ *
+ * Fake jsdoc entry so that we can document that the tests exist.
+ *
+ */
+
 test('remove_artefact: add 2 remove 1 to array type.', function (assert) {
     var args_a = {x:2, y:3, name:'a', type:'objects'},
         args_b = {x:2, y:3, name:'b', type:'objects'};
@@ -411,5 +435,35 @@ test('remove_artefact: add 1 remove 1 to object type.', function (assert) {
     RUR._set_nb_artefact(args_a);
     RUR._remove_artefact(args_a);
     assert.deepEqual(RUR.CURRENT_WORLD.objects, undefined, 'nothing left');
+    assert.end();
+});
+
+
+/**
+ * @name ARTEFACT_set_nb_artefacts
+ * @memberof TestUnit
+ * @instance
+ *
+ * Fake jsdoc entry so that we can document that the tests exist.
+ *
+ */
+
+test('set_nb_artefact: add to unknown type', function (assert) {
+    var args = {x:2, y:2, valid_names: ['a'], name: 'a', type:'unknown', number:12};
+    assert.plan(2);
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR._set_nb_artefact(args);
+    assert.equal(RUR._get_nb_artefact(args), 12, "12 artefacts of one kind added.");
+    assert.deepEqual(RUR.CURRENT_WORLD.unknown["2,2"], {'a':12}, 'direct comparison with expected ok.');
+    assert.end();
+});
+
+test('set_nb_artefact: adding goal object', function (assert) {
+    var args = {x:2, y:3, name: 'a', type:'objects', goal:true, number:3};
+    assert.plan(2);
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR._set_nb_artefact(args);
+    assert.equal(RUR._get_nb_artefact(args), 3, 'goal objects added correctly.');
+    assert.deepEqual(RUR.CURRENT_WORLD.goal.objects["2,3"], {'a':3}, 'direct comparison with expected ok.');
     assert.end();
 });

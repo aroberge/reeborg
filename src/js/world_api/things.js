@@ -93,7 +93,7 @@ require("./../utils/supplant.js");
  * @throws Will throw an error if no image is supplied (either via the `url`
  *         or the `images` attribute) and `color` does not evaluate to true.
  *
- * @see Unit tests are found in {@link UnitTest#test_add_new_thing}
+ * @see Unit tests are found in {@link RUR.UnitTest#test_add_new_thing}
  * @example
  * // This first example shows how to set various "things";
  * // the mode will be set to Python and the highlighting
@@ -251,6 +251,7 @@ RUR.show_all_things = function (property) {
  * write(RUR.has_property("water", "fatal"))
  */
 RUR.has_property = function (name, property) {
+    name = RUR.translate_to_english(name);
     if (RUR.THINGS[name] === undefined) {
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj:name}));
     }
@@ -270,6 +271,9 @@ RUR.has_property = function (name, property) {
  * translation exists and might appear in other contexts, like the
  * "World Info".
  *
+ * If the property is undefined, `null` will be returned (which will be
+ * converted to `None` if Python is used).
+ *
  * @param {string} name The name of the "thing".
  *
  * @param {string} property
@@ -281,10 +285,19 @@ RUR.has_property = function (name, property) {
  * write(RUR.get_property("water", "fatal"))  // Javascript
  */
 RUR.get_property = function (name, property) {
+    var property;
+    name = RUR.translate_to_english(name);
+
     if (RUR.THINGS[name] === undefined) {
         throw new RUR.ReeborgError(RUR.translate("Unknown object").supplant({obj:name}));
     }
-    return RUR.THINGS[name][property];
+
+    property = RUR.THINGS[name][property];
+    if (property === undefined) {
+        return null;
+    } else {
+        return property;
+    }
 };
 
 

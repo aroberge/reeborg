@@ -9,7 +9,7 @@ require("./obstacles.js");
  *
  * @desc This needs to be documented
  *
- * @param {object} robot Determine if robot or robot body.
+ * @param {object} robot_body  robot body object
  *
  * @returns an array of protections
  */
@@ -39,37 +39,43 @@ RUR.get_protections = function (robot) {
  *
  * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
+ * @param {object} robot_body  robot body object
  *
  * @desc This needs to be documented
  *
- * @returns The message to show.
+ * @returns The message to show if it is a fatal position, otherwise `false`.
  */
 RUR.is_fatal_position = function (x, y, robot){
     "use strict";
-    // protections is from objects carried by the robot
-    var protections, tile, tiles;
+    var protections, obs, obstacles, tile;
 
+    // Objects carried can offer protection
+    // against some types of otherwise fatal obstacles
     protections = RUR.get_protections(robot);
-    /* Both obstacles and background tiles can be fatal;
-       we combine both in a single array here */
-
-    tiles = RUR.get_obstacles(x, y);
-    if (!tiles) {
-        tiles = [];
+    obstacles = RUR.get_obstacles(x, y);
+    if (obstacles) {
+        for (obs of obstacles) {
+            if (RUR.get_property(obs, "fatal")) {
+                if (protections.indexOf(RUR.get_property(obs, "fatal")) === -1) {
+                    if (RUR.THINGS[obs].message) {
+                        return RUR.THINGS[obs].message;
+                    } else {
+                        return "Fatal obstacle needs message defined";
+                    }
+                }
+            }
+        }
     }
+    // Both bridges and objects carried can offer protection
+    // against some types of otherwise fatal background tiles; so let's
+    // add any bridge protection
+    protections = protections.concat(RUR.get_bridge_protections(x, y));
     tile = RUR.get_background_tile(x, y);
+
     // tile is a name; it could be a colour, which is never fatal.
     if (tile && RUR.THINGS[tile] !== undefined) {
-        tiles.push(tile);
-    }
-
-    // both existing bridges and objects carried can offer protection
-    // against some types of otherwise fatal obstacles
-
-    protections = protections.concat(RUR.get_bridge_protections(x, y));
-    for (tile of tiles) {
         if (RUR.get_property(tile, "fatal")) {
-            if (protections.indexOf(RUR.THINGS[tile].fatal) === -1) {
+            if (protections.indexOf(RUR.get_property(tile, "fatal")) === -1) {
                 if (RUR.THINGS[tile].message) {
                     return RUR.THINGS[tile].message;
                 } else {
@@ -78,11 +84,12 @@ RUR.is_fatal_position = function (x, y, robot){
             }
         }
     }
+    // nothing fatal was found
     return false;
 };
 
 
-/** @function is_detectable
+/** @function is_detectable_position
  * @memberof RUR
  * @instance
  *
@@ -91,9 +98,9 @@ RUR.is_fatal_position = function (x, y, robot){
  *
  * @desc This needs to be documented
  *
- * @returns The message to show.
+ * @returns `true` if this position is detectable by the robot, `false` otherwise
  */
-RUR.is_detectable = function (x, y){
+RUR.is_detectable_position = function (x, y){
     "use strict";
     var detectable, tile, tiles;
 
@@ -115,20 +122,3 @@ RUR.is_detectable = function (x, y){
     }
     return false;
 };
-
-/** @function is_fatal_thing
- * @memberof RUR
- * @instance
- *
- * @desc This needs to be documented
- *
- *
- * @returns The message to show.
- */
-RUR.is_fatal_thing = function (name){
-    name = RUR.translate_to_english(name);
-    if (RUR.get_property(name, 'fatal')) {
-        return true;
-    }
-    return false;
-}
