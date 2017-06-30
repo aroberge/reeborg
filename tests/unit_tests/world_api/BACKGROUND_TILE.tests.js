@@ -13,6 +13,31 @@ var mock = require('mock-require');
 mock("../../../src/js/recorder/record_frame.js", {});
 RUR.record_frame = function () {};
 
+
+/**
+ * @name BACKGROUND_TILE_add_invalid_position
+ * @memberof TestUnit
+ * @instance
+ *
+ * Fake jsdoc entry so that we can document that the tests exist.
+ *
+ */
+
+test('invalid position', function (assert) {
+    require("../../../src/js/world_api/background_tile.js");
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    assert.plan(3);
+    try {
+        RUR.add_background_tile('a', 0, 0);
+    } catch (e) {
+        assert.equal(e.message, "(0, 0) is an invalid position.", "error message ok");
+        assert.equal(e.reeborg_shouts, "(0, 0) is an invalid position.", "reeborg_shouts");
+        assert.equal(e.name, "ReeborgError", "error name ok");
+    }
+    assert.end();
+});
+
+
 test('adding known tile', function (assert) {
     require("../../../src/js/world_api/background_tile.js");
     assert.plan(1);

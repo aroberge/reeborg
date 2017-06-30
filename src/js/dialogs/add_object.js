@@ -30,6 +30,7 @@ exports.dialog_add_object = dialog_add_object = $("#dialog-add-object").dialog({
     },
     close: function() {
         add_object_form[0].reset();
+        $(this).dialog('destroy');
     }
 });
 

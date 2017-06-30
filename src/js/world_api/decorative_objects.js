@@ -16,7 +16,7 @@ require("./artefact.js");
  * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  *
- * @throws Will throw an error if `(x, y)` is not a valid location..
+ * @throws Will throw an error if `(x, y)` is not a valid location.
  *
  * @todo add test
  * @todo add better examples
@@ -81,7 +81,7 @@ RUR.remove_decorative_object = function (name, x, y) {
  * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  *
- * @throws Will throw an error if `(x, y)` is not a valid location..
+ * @throws Will throw an error if `(x, y)` is not a valid location.
  *
  * @todo add test
  * @todo add proper examples

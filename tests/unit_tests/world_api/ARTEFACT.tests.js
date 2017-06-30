@@ -213,6 +213,23 @@ test('add_artefact: replace ok', function (assert) {
     assert.end();
 });
 
+test('add_artefact: add after range was set', function (assert) {
+    var args_set = {x:2, y:2, name: 'a', type:'unknown', number: "3-9"},
+        args_add = {x:2, y:2, name: 'a', type:'unknown'};
+    assert.plan(1);
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR._set_nb_artefact(args_set);
+    try {
+        RUR._add_artefact(args_add);
+    } catch (e) {
+        assert.equal(e.message, "Expected an array.");
+        //assert.equal(e.message, "Cannot add number (integer) to range (string)", "error message ok");
+    }
+    assert.end();
+});
+
+
+
 /**
  * @name ARTEFACT_get_artefacts
  * @memberof TestUnit

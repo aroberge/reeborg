@@ -8,7 +8,6 @@ body {
 
 /** Collecting all z-indices for easier maintenance */
 header                 {z-index: 100;}
-#splash-screen         {z-index: 1000;}
 #background-canvas     {z-index: 1;} /* 1 */
 #tiles-canvas          {z-index: 10;} /* 2 */
 #tiles-canvas-anim     {z-index: 11;} /* 3 */
@@ -35,10 +34,12 @@ ensure that it replaces #robot-anim-canvas in world_editor.js and canvas.js */
 #Reeborg-concludes     {z-index: 211;}
 #Reeborg-shouts        {z-index: 211;}
 #World-info            {z-index: 205;}
-#url-input             {z-index: 300;}
 #world-panel           {z-index: 120}
 #editor-panel.active   {z-index: 200;}
-#keyboard-buttons ul li {z-index:230;}
+#keyboard-buttons ul li {z-index: 230;}
+/* to ensure that dialogs are on top - this did not used to be required... */
+.ui-front { z-index: 1000 }
+.ui-dialog { z-index: 1001 }
 
 button:focus, a:focus {
     outline: none;
@@ -551,23 +552,6 @@ li.failure:after {
 
 #cmd-result {
     color: green;
-}
-
-#url-input {
-    position: absolute;
-    top: 100px;
-    left: 100px;
-    display: none;
-    border: 2px solid blue;
-    border-radius: 10px;
-    background-color: white;
-}
-
-#save-permalink,
-#copy-permalink,
-#replace-permalink,
-#cancel-permalink {
-    margin-left: 10px;
 }
 
 #canvas-wrapper {

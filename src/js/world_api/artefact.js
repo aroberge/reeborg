@@ -57,6 +57,9 @@ RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_p
  * @param {string} args.name  The name of the object to be found; an error
  *    will be thrown if it is missing.
  *
+ * @param {integer} [options.number] The number of objects to add at that
+ * location; it is 1 by default.
+ *
  * @param {string} args.type  The type of the object to be found; an error
  *    will be thrown if it is missing.
  *
@@ -74,14 +77,14 @@ RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_p
  * artefact is permitted at a given location. When set to True, adding a
  * new artefact result in replacing the old one.
  *
- * @todo document number
- * @todo document range
  * @returns {integer} The number of object found at that location (could be 0).
  * @throws Will throw an error if `name` attribute is not specified.
  * @throws Will throw an error if `type` attribute is not specified.
  * @throws Will throw an error if a valid position is not specified.
  * @throws Will throw an error if `single` is "true" but more than one kind
  * of artefact is found at that location.
+ * @throws Will throw an error if called after a range of values has already
+ * been specified for that object at that location.
  *
  * @see {@link TestUnit#ARTEFACT_arg_checks} for unit tests checking valid arguments
  * @see {@link TestUnit#ARTEFACT_add_artefact} for basic unit tests
@@ -115,6 +118,10 @@ RUR._add_artefact = function (args) {
         RUR.utils.ensure_key_for_obj_exists(base[args.type], coords);
         if (base[args.type][coords][args.name] === undefined) {
             base[args.type][coords][args.name] = args.number;
+        } else if (typeof RUR._get_nb_artefact(args) === "string") {
+            // string values are used to represent range, as in "3-7".
+            // These values should have been set in
+            throw new RUR.ReeborgError("Cannot add number (integer) to range (string)");
         } else {
             base[args.type][coords][args.name] += args.number;
         }
@@ -228,7 +235,7 @@ RUR._get_artefacts = function(args) {
  *                        object that must be found.
  *
  *
- * @returns {integer} The number of object found at that location (could be 0).
+ * @returns The number (integer) or range (string) of object found at that location (could be 0).
  * @throws Will throw an error if `name` attribute is not specified.
  * @throws Will throw an error if `type` attribute is not specified.
  * @throws Will throw an error if a valid position is not specified.
