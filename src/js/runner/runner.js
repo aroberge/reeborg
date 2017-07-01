@@ -9,8 +9,6 @@ require("./world_init.js");
 require("./../editors/create.js");
 require("./../utils/supplant.js");
 
-//TODO: refactor this
-
 RUR.runner = {};
 
 /* A user program is evaluated when the user clicks on "run" or "step" for

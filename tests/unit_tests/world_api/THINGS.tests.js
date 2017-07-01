@@ -16,8 +16,6 @@ function test(test_name, fn) {
 
 function set_defaults() {
     RUR.KNOWN_THINGS = [];
-    RUR._NB_IMAGES_LOADED = 0;
-    RUR._NB_IMAGES_TO_LOAD = 0;
     RUR.THINGS = {};
 }
 

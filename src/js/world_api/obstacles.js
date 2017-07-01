@@ -101,12 +101,6 @@ RUR.get_obstacles = function (x, y) {
     }
 };
 
-// TODO: this may not be needed after more general functions written
-// i.e. instead of looking for specific obstacle, look for
-// obstacle with properties.
-
-
-
 
 RUR.is_obstacle = function (name, x, y) {
     "use strict";
@@ -118,9 +112,6 @@ RUR.is_obstacle = function (name, x, y) {
     }
 };
 
-// TODO: include get_obstacle which would return all
-// obstacles at a given location ... although is_obstacle_safe
-// may cover this case appropriately.
 
 RUR.get_solid_obstacle = function (x, y) {
     "use strict";
@@ -134,52 +125,4 @@ RUR.get_solid_obstacle = function (x, y) {
         }
     }
     return false;
-};
-
-RUR.get_fatal_obstacle = function (x, y) {
-    "use strict";
-    var obs, obstacles = RUR.get_obstacles(x, y);
-    if (obstacles === null) {
-        return false;
-    }
-    for (obs of obstacles) {
-        if (RUR.THINGS[obs].fatal) {
-            return RUR.THINGS[obs]; //TODO: return array of obstacles
-        }
-    }
-    return false;
-};
-
-RUR.get_fatal_detectable_obstacle = function (x, y) {
-    "use strict";
-    var obs, obstacles = RUR.get_obstacles(x, y);
-    if (obstacles === null) {
-        return false;
-    }
-    for (obs of obstacles) {
-        if (RUR.THINGS[obs].fatal && RUR.THINGS[obs].detectable) {
-            return RUR.THINGS[obs]; //TODO: return array of obstacles
-        }
-    }
-    return false;
-};
-
-// TODO: modify this to take into account bridges.
-// safe obstacles only protect from fatal background tiles,
-// but not from fatal obstacles
-RUR.is_obstacle_safe = function (x, y) {
-    "use strict";
-    var obs, safe_found = false, obstacles = RUR.get_obstacles(x, y);
-    if (obstacles === null) {
-        return false;
-    }
-    for (obs of obstacles) { //TODO: change to make sure that all obstacles are included
-        if (RUR.THINGS[obs].fatal) {
-            return false;
-        }
-        if (RUR.THINGS[obs].safe) {
-            safe_found = true;
-        }
-    }
-    return safe_found;
 };

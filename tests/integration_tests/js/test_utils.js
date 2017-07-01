@@ -114,8 +114,6 @@ test_utils.run_world = function(world_url, language) {
 };
 
 
-
-
 test_utils.run_javascript = function (world_url, program_url) {
     return test_utils.run_program(world_url, program_url, "javascript");
 };

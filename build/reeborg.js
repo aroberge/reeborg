@@ -8137,8 +8137,6 @@ require("./world_init.js");
 require("./../editors/create.js");
 require("./../utils/supplant.js");
 
-//TODO: refactor this
-
 RUR.runner = {};
 
 /* A user program is evaluated when the user clicks on "run" or "step" for
@@ -9559,35 +9557,35 @@ RUR.animate_images = function (obj) {
     }
     if (obj.selection_method === "sync") {
         obj.choose_image = function (id) {
-            return RUR._sync(obj, obj.images.length, id);
+            return _sync(obj, obj.images.length, id);
         };
     } else if (obj.selection_method === "ordered") {
         obj.choose_image = function (id) {
-            return RUR._ordered(obj, obj.images.length, id);
+            return _ordered(obj, obj.images.length, id);
         };
     } else if (obj.selection_method === "cycle stay") {
         obj.choose_image = function (id) {
-            return RUR._cycle_stay(obj, obj.images.length, id);
+            return _cycle_stay(obj, obj.images.length, id);
         };
     } else if (obj.selection_method === "cycle remove") {
         obj.choose_image = function (id) {
-            return RUR._cycle_remove(obj, obj.images.length, id);
+            return _cycle_remove(obj, obj.images.length, id);
         };
     } else {
         obj.choose_image = function (id) {
-            return RUR._random(obj, obj.images.length);
+            return _random(obj, obj.images.length);
         };
     }
 };
 
 
-RUR._random = function (obj, nb) {
+function _random (obj, nb) {
     // each animated image is given a random value at all iteration
     var choice = Math.floor(Math.random() * nb);
     return obj["image" + choice];
-};
+}
 
-RUR._ordered = function (obj, nb, id) {
+function _ordered (obj, nb, id) {
     // each animated image is given a random initial value but then goes in order
     if (RUR._ORDERED[obj.name] === undefined) {
         RUR._ORDERED[obj.name] = {};
@@ -9599,9 +9597,9 @@ RUR._ordered = function (obj, nb, id) {
         RUR._ORDERED[obj.name][id] %= nb;
     }
     return obj["image" + RUR._ORDERED[obj.name][id]];
-};
+}
 
-RUR._cycle_stay = function (obj, nb, id) {
+function _cycle_stay (obj, nb, id) {
     // each animated image starts with its first image,
     // cycles through all the values once, displaying the last
     // image as a permanent one.
@@ -9615,9 +9613,9 @@ RUR._cycle_stay = function (obj, nb, id) {
         RUR._CYCLE_STAY[obj.name][id] = Math.min(nb-1, RUR._CYCLE_STAY[obj.name][id]);
     }
     return obj["image" + RUR._CYCLE_STAY[obj.name][id]];
-};
+}
 
-RUR._cycle_remove = function (obj, nb, id) {
+function _cycle_remove (obj, nb, id) {
     // each animated image starts with its first image,
     // cycles through all the values once, and, after displaying the last
     // image, returns a "flag" instructing the calling function
@@ -9634,9 +9632,9 @@ RUR._cycle_remove = function (obj, nb, id) {
         return RUR.END_CYCLE;
     }
     return obj["image" + RUR._CYCLE_REMOVE[obj.name][id]];
-};
+}
 
-RUR._sync = function (obj, nb, id) {
+function _sync (obj, nb, id) {
     // every animated image of this type is kept in sync
     if (RUR._SYNC[obj.name] === undefined) {
         RUR._SYNC[obj.name] = [];
@@ -9649,7 +9647,7 @@ RUR._sync = function (obj, nb, id) {
     }
     RUR._SYNC[obj.name].push(id);
     return obj["image" + RUR._SYNC_VALUE[obj.name]];
-};
+}
 
 },{"./../rur.js":51}],65:[function(require,module,exports){
 /*  This file contains generic methods called by more specialized methods
@@ -11087,12 +11085,6 @@ RUR.get_obstacles = function (x, y) {
     }
 };
 
-// TODO: this may not be needed after more general functions written
-// i.e. instead of looking for specific obstacle, look for
-// obstacle with properties.
-
-
-
 
 RUR.is_obstacle = function (name, x, y) {
     "use strict";
@@ -11104,9 +11096,6 @@ RUR.is_obstacle = function (name, x, y) {
     }
 };
 
-// TODO: include get_obstacle which would return all
-// obstacles at a given location ... although is_obstacle_safe
-// may cover this case appropriately.
 
 RUR.get_solid_obstacle = function (x, y) {
     "use strict";
@@ -11122,53 +11111,6 @@ RUR.get_solid_obstacle = function (x, y) {
     return false;
 };
 
-RUR.get_fatal_obstacle = function (x, y) {
-    "use strict";
-    var obs, obstacles = RUR.get_obstacles(x, y);
-    if (obstacles === null) {
-        return false;
-    }
-    for (obs of obstacles) {
-        if (RUR.THINGS[obs].fatal) {
-            return RUR.THINGS[obs]; //TODO: return array of obstacles
-        }
-    }
-    return false;
-};
-
-RUR.get_fatal_detectable_obstacle = function (x, y) {
-    "use strict";
-    var obs, obstacles = RUR.get_obstacles(x, y);
-    if (obstacles === null) {
-        return false;
-    }
-    for (obs of obstacles) {
-        if (RUR.THINGS[obs].fatal && RUR.THINGS[obs].detectable) {
-            return RUR.THINGS[obs]; //TODO: return array of obstacles
-        }
-    }
-    return false;
-};
-
-// TODO: modify this to take into account bridges.
-// safe obstacles only protect from fatal background tiles,
-// but not from fatal obstacles
-RUR.is_obstacle_safe = function (x, y) {
-    "use strict";
-    var obs, safe_found = false, obstacles = RUR.get_obstacles(x, y);
-    if (obstacles === null) {
-        return false;
-    }
-    for (obs of obstacles) { //TODO: change to make sure that all obstacles are included
-        if (RUR.THINGS[obs].fatal) {
-            return false;
-        }
-        if (RUR.THINGS[obs].safe) {
-            safe_found = true;
-        }
-    }
-    return safe_found;
-};
 },{"./../recorder/record_frame.js":45,"./../rur.js":51,"./../utils/key_exist.js":60,"./../utils/validator.js":63,"./artefact.js":65}],73:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
@@ -12594,9 +12536,12 @@ RUR.world_utils.import_world = function (json_string) {
     "use strict";
     var body, editor_content, library_content, i, keys, more_keys, coord, index, obstacles;
 
-    if (json_string === undefined){
+    if (json_string === undefined || json_string === "undefined"){
+        RUR.show_feedback("#Reeborg-shouts",
+            RUR.translate("Problem in RUR.world_utils.import_world: world not defined."));
         console.log("Problem: no argument passed to RUR.world_utils.import_world");
-        return {};
+        RUR.CURRENT_WORLD = RUR.create_empty_world();
+        return;
     }
     RUR.animated_images_init();
     if (typeof json_string == "string"){
@@ -12626,89 +12571,7 @@ RUR.world_utils.import_world = function (json_string) {
         }
     }
 
-    //TODO: put the conversion into new function
-
-    // Backward compatibility following change done on Jan 5, 2016
-    // top_tiles has been renamed obstacles (and prior to that [or after?],
-    // they were known as solid_objects); to ensure compatibility of
-    // worlds created before, we change the old name
-    // following http://stackoverflow.com/a/14592469/558799
-    // thus ensuring that if a new world is created from an old one,
-    // it will have the new syntax.
-    if (RUR.CURRENT_WORLD.top_tiles !== undefined) {
-        Object.defineProperty(RUR.CURRENT_WORLD, "obstacles",
-            Object.getOwnPropertyDescriptor(RUR.CURRENT_WORLD, "top_tiles"));
-        delete RUR.CURRENT_WORLD.top_tiles;
-    } else if (RUR.CURRENT_WORLD.solid_objects !== undefined) {
-        Object.defineProperty(RUR.CURRENT_WORLD, "obstacles",
-            Object.getOwnPropertyDescriptor(RUR.CURRENT_WORLD, "solid_objects"));
-        delete RUR.CURRENT_WORLD.solid_objects;
-    }
-
-    // Backward compatibility change done on December 29, 2016.
-    // tiles were written as e.g. "water"; need to be written as ["water"]
-    if (RUR.CURRENT_WORLD.tiles !== undefined) {
-        keys = Object.keys(RUR.CURRENT_WORLD.tiles);
-        for (i=0; i < keys.length; i++) {
-            coord = keys[i];
-            if (typeof RUR.CURRENT_WORLD.tiles[coord] == "string") {
-                RUR.CURRENT_WORLD.tiles[coord] = [RUR.CURRENT_WORLD.tiles[coord]];
-            } else {
-                break;
-            }
-        }
-    }
-    // and obstacles were written in the form {fence:1} and need to be simply
-    // ["fence"]
-    if (RUR.CURRENT_WORLD.obstacles !== undefined) {
-        keys = Object.keys(RUR.CURRENT_WORLD.obstacles);
-        for (i=0; i < keys.length; i++) {
-            coord = keys[i];
-            if (Object.prototype.toString.call(RUR.CURRENT_WORLD.obstacles[coord]) == "[object Object]") {
-                obstacles = Object.keys(RUR.CURRENT_WORLD.obstacles[coord]);
-                // also convert from the old names to the new ones
-                index = obstacles.indexOf("fence4");
-                if (index !== -1) {
-                    obstacles[index] = "fence_right";
-                }
-                index = obstacles.indexOf("fence5");
-                if (index !== -1) {
-                    obstacles[index] = "fence_left";
-                }
-                index = obstacles.indexOf("fence6");
-                if (index !== -1) {
-                    obstacles[index] = "fence_double";
-                }
-                index = obstacles.indexOf("fence7");
-                if (index !== -1) {
-                    obstacles[index] = "fence_vertical";
-                }
-                RUR.CURRENT_WORLD.obstacles[coord] = obstacles;
-            } else {
-                break;
-            }
-        }
-    }
-
-
-    // Backward compatibility change done on March 28, 2016, where
-    // "pre_code" and "post_code" were simplified to "pre" and "post"
-    // for consistency with other editor contents.
-    if (RUR.CURRENT_WORLD.pre_code !== undefined) {
-        RUR.CURRENT_WORLD.pre = RUR.CURRENT_WORLD.pre_code;
-        delete RUR.CURRENT_WORLD.pre_code;
-    }
-    if (RUR.CURRENT_WORLD.post_code !== undefined) {
-        RUR.CURRENT_WORLD.post = RUR.CURRENT_WORLD.post_code;
-        delete RUR.CURRENT_WORLD.post_code;
-    }
-
-    if (RUR.CURRENT_WORLD.background_image !== undefined) {
-        RUR.BACKGROUND_IMAGE.src = RUR.CURRENT_WORLD.background_image;
-        RUR.BACKGROUND_IMAGE.onload = RUR.onload_new_image;
-    } else {
-        RUR.BACKGROUND_IMAGE.src = '';
-    }
+    convert_old_worlds();
 
     RUR.CURRENT_WORLD.small_tiles = RUR.CURRENT_WORLD.small_tiles || false;
     RUR.CURRENT_WORLD.rows = RUR.CURRENT_WORLD.rows || RUR.MAX_Y_DEFAULT;
@@ -12776,9 +12639,92 @@ process_onload = function () {
 RUR.world_utils.process_onload = process_onload;
 
 function convert_old_worlds () {
-    // TODO: add code here
-    // TODO: convert goal.possible_positions to goal.possible_final_positions
-    // TODO: convert start_positions to possible_initial_positions
+    // TODO: convert goal.possible_positions to goal.possible_final_positions ?
+    // TODO: convert start_positions to possible_initial_positions ?
+
+    // Backward compatibility following change done on Jan 5, 2016
+    // top_tiles has been renamed obstacles (and prior to that [or after?],
+    // they were known as solid_objects); to ensure compatibility of
+    // worlds created before, we change the old name
+    // following http://stackoverflow.com/a/14592469/558799
+    // thus ensuring that if a new world is created from an old one,
+    // it will have the new syntax.
+    if (RUR.CURRENT_WORLD.top_tiles !== undefined) {
+        Object.defineProperty(RUR.CURRENT_WORLD, "obstacles",
+            Object.getOwnPropertyDescriptor(RUR.CURRENT_WORLD, "top_tiles"));
+        delete RUR.CURRENT_WORLD.top_tiles;
+    } else if (RUR.CURRENT_WORLD.solid_objects !== undefined) {
+        Object.defineProperty(RUR.CURRENT_WORLD, "obstacles",
+            Object.getOwnPropertyDescriptor(RUR.CURRENT_WORLD, "solid_objects"));
+        delete RUR.CURRENT_WORLD.solid_objects;
+    }
+
+    // Backward compatibility change done on December 29, 2016.
+    // tiles were written as e.g. "water"; need to be written as ["water"]
+    if (RUR.CURRENT_WORLD.tiles !== undefined) {
+        keys = Object.keys(RUR.CURRENT_WORLD.tiles);
+        for (i=0; i < keys.length; i++) {
+            coord = keys[i];
+            if (typeof RUR.CURRENT_WORLD.tiles[coord] == "string") {
+                RUR.CURRENT_WORLD.tiles[coord] = [RUR.CURRENT_WORLD.tiles[coord]];
+            } else {
+                break;
+            }
+        }
+    }
+
+    // and obstacles were written in the form {fence:1} and need to be simply
+    // ["fence"]
+    if (RUR.CURRENT_WORLD.obstacles !== undefined) {
+        keys = Object.keys(RUR.CURRENT_WORLD.obstacles);
+        for (i=0; i < keys.length; i++) {
+            coord = keys[i];
+            if (Object.prototype.toString.call(RUR.CURRENT_WORLD.obstacles[coord]) == "[object Object]") {
+                obstacles = Object.keys(RUR.CURRENT_WORLD.obstacles[coord]);
+                // also convert from the old names to the new ones
+                index = obstacles.indexOf("fence4");
+                if (index !== -1) {
+                    obstacles[index] = "fence_right";
+                }
+                index = obstacles.indexOf("fence5");
+                if (index !== -1) {
+                    obstacles[index] = "fence_left";
+                }
+                index = obstacles.indexOf("fence6");
+                if (index !== -1) {
+                    obstacles[index] = "fence_double";
+                }
+                index = obstacles.indexOf("fence7");
+                if (index !== -1) {
+                    obstacles[index] = "fence_vertical";
+                }
+                RUR.CURRENT_WORLD.obstacles[coord] = obstacles;
+            } else {
+                break;
+            }
+        }
+    }
+
+
+    // Backward compatibility change done on March 28, 2016, where
+    // "pre_code" and "post_code" were simplified to "pre" and "post"
+    // for consistency with other editor contents.
+    if (RUR.CURRENT_WORLD.pre_code !== undefined) {
+        RUR.CURRENT_WORLD.pre = RUR.CURRENT_WORLD.pre_code;
+        delete RUR.CURRENT_WORLD.pre_code;
+    }
+    if (RUR.CURRENT_WORLD.post_code !== undefined) {
+        RUR.CURRENT_WORLD.post = RUR.CURRENT_WORLD.post_code;
+        delete RUR.CURRENT_WORLD.post_code;
+    }
+
+    if (RUR.CURRENT_WORLD.background_image !== undefined) {
+        RUR.BACKGROUND_IMAGE.src = RUR.CURRENT_WORLD.background_image;
+        RUR.BACKGROUND_IMAGE.onload = RUR.onload_new_image;
+    } else {
+        RUR.BACKGROUND_IMAGE.src = '';
+    }
+
 }
 
 },{"./../drawing/visible_world.js":10,"./../editors/create.js":11,"./../programming_api/exceptions.js":41,"./../robot/robot.js":48,"./../rur.js":51,"./../translator.js":53,"./../ui/edit_robot_menu.js":55,"./../world_api/animated_images.js":64,"./create_empty_world.js":81}],83:[function(require,module,exports){

@@ -21,35 +21,35 @@ RUR.animate_images = function (obj) {
     }
     if (obj.selection_method === "sync") {
         obj.choose_image = function (id) {
-            return RUR._sync(obj, obj.images.length, id);
+            return _sync(obj, obj.images.length, id);
         };
     } else if (obj.selection_method === "ordered") {
         obj.choose_image = function (id) {
-            return RUR._ordered(obj, obj.images.length, id);
+            return _ordered(obj, obj.images.length, id);
         };
     } else if (obj.selection_method === "cycle stay") {
         obj.choose_image = function (id) {
-            return RUR._cycle_stay(obj, obj.images.length, id);
+            return _cycle_stay(obj, obj.images.length, id);
         };
     } else if (obj.selection_method === "cycle remove") {
         obj.choose_image = function (id) {
-            return RUR._cycle_remove(obj, obj.images.length, id);
+            return _cycle_remove(obj, obj.images.length, id);
         };
     } else {
         obj.choose_image = function (id) {
-            return RUR._random(obj, obj.images.length);
+            return _random(obj, obj.images.length);
         };
     }
 };
 
 
-RUR._random = function (obj, nb) {
+function _random (obj, nb) {
     // each animated image is given a random value at all iteration
     var choice = Math.floor(Math.random() * nb);
     return obj["image" + choice];
-};
+}
 
-RUR._ordered = function (obj, nb, id) {
+function _ordered (obj, nb, id) {
     // each animated image is given a random initial value but then goes in order
     if (RUR._ORDERED[obj.name] === undefined) {
         RUR._ORDERED[obj.name] = {};
@@ -61,9 +61,9 @@ RUR._ordered = function (obj, nb, id) {
         RUR._ORDERED[obj.name][id] %= nb;
     }
     return obj["image" + RUR._ORDERED[obj.name][id]];
-};
+}
 
-RUR._cycle_stay = function (obj, nb, id) {
+function _cycle_stay (obj, nb, id) {
     // each animated image starts with its first image,
     // cycles through all the values once, displaying the last
     // image as a permanent one.
@@ -77,9 +77,9 @@ RUR._cycle_stay = function (obj, nb, id) {
         RUR._CYCLE_STAY[obj.name][id] = Math.min(nb-1, RUR._CYCLE_STAY[obj.name][id]);
     }
     return obj["image" + RUR._CYCLE_STAY[obj.name][id]];
-};
+}
 
-RUR._cycle_remove = function (obj, nb, id) {
+function _cycle_remove (obj, nb, id) {
     // each animated image starts with its first image,
     // cycles through all the values once, and, after displaying the last
     // image, returns a "flag" instructing the calling function
@@ -96,9 +96,9 @@ RUR._cycle_remove = function (obj, nb, id) {
         return RUR.END_CYCLE;
     }
     return obj["image" + RUR._CYCLE_REMOVE[obj.name][id]];
-};
+}
 
-RUR._sync = function (obj, nb, id) {
+function _sync (obj, nb, id) {
     // every animated image of this type is kept in sync
     if (RUR._SYNC[obj.name] === undefined) {
         RUR._SYNC[obj.name] = [];
@@ -111,4 +111,4 @@ RUR._sync = function (obj, nb, id) {
     }
     RUR._SYNC[obj.name].push(id);
     return obj["image" + RUR._SYNC_VALUE[obj.name]];
-};
+}
