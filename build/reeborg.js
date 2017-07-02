@@ -1,23 +1,11 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-/* A bit of history ...
-
-  Initially, Reeborg's World only contained "objects", starting with a
-  single one (beeper, which became token) and slowly increasing the number
-  and characteristics (e.g. animated object).  The first objects were
-  drawn on the canvas; eventually they were replaced by square images.
-
-  In parallel, background images, known as tiles could be added on the grid
-  to create worlds that could be more visually appealing.
-
-  Eventually, all custom canvas drawings were replaced by square images for
-  simplicity and consistency. */
-
 require("./../rur.js");
 require("./../world_api/things.js");
 
 // the following requirements are for automatic transformations
 // via the ".transform" attribute
 require("./../world_api/background_tile.js");
+require("./../world_api/bridges.js");
 require("./../world_api/pushables.js");
 require("./../world_api/obstacles.js");
 require("./../world_api/objects.js");
@@ -176,7 +164,8 @@ _add_object_type("box");
 RUR.THINGS.box.name = "box";
 RUR.THINGS.box.transform = [
     {conditions: [[RUR.is_background_tile, "water"],
-                  [RUR.is_pushable, "box"]],
+                  [RUR.is_pushable, "box"],
+                  [RUR.is_bridge, "bridge", "not"]],
      actions: [[RUR.remove_pushable, "box"],
               [RUR.add_bridge, "bridge"]]
     },
@@ -266,7 +255,7 @@ add_fence("fence_double");
 add_fence("fence_vertical");
 
 
-},{"./../rur.js":51,"./../world_api/background_tile.js":66,"./../world_api/objects.js":71,"./../world_api/obstacles.js":72,"./../world_api/pushables.js":73,"./../world_api/things.js":75}],2:[function(require,module,exports){
+},{"./../rur.js":51,"./../world_api/background_tile.js":66,"./../world_api/bridges.js":67,"./../world_api/objects.js":71,"./../world_api/obstacles.js":72,"./../world_api/pushables.js":73,"./../world_api/things.js":75}],2:[function(require,module,exports){
 /* Dialog used by the Interactive world editor to add objects to the world.
 */
 
@@ -3311,6 +3300,11 @@ function set_library() {
 }
 
 function get_red_green () {
+    /* When objects need to be placed at a given location in the world,
+       green is used to indicate numbers of objects properly position
+       and red for numbers of objects incorrect.  Users can choose their
+       own colour scheme and, if it was done before, their choices are
+       retrieved from the browser's local storage. */
     var red, green;
     if (localStorage.getItem("userchoice_red") && localStorage.getItem("userchoice_green")){
         red = localStorage.getItem("userchoice_red");
@@ -10514,7 +10508,7 @@ function conditions_satisfied (conditions, x, y) {
     var c, cond, fn, name;
     if (Object.prototype.toString.call(conditions) != "[object Array]" ||
         conditions.length === 0) {
-        console.log(conditions);
+        console.log("conditions = ", conditions);
         throw new RUR.ReeborgError("Invalid conditions when attempting an automatic object transformation.");
     }
     try {
@@ -10522,12 +10516,17 @@ function conditions_satisfied (conditions, x, y) {
             cond = conditions[c];
             fn = cond[0];
             name = cond[1];
-            if (!fn(name, x, y)) {
+            if (cond[2] == "not") {
+                if (fn(name, x, y)) {
+                    return false;
+                }
+            } else if (!fn(name, x, y)) {
                 return false;
             }
         }
     return true;
 } catch (e) {
+    console.log("conditions = ", conditions);
     console.log(e);
     throw new RUR.ReeborgError("Invalid conditions when attempting an automatic object transformation.");
     }
@@ -10538,7 +10537,7 @@ function do_transformations (actions, x, y) {
     var a, act, fn, name;
     if (Object.prototype.toString.call(actions) != "[object Array]" ||
         actions.length === 0) {
-        console.log(actions);
+        console.log("actions = ", actions);
         throw new RUR.ReeborgError("Invalid actions when attempting an automatic object transformation.");
     }
     try {
@@ -10549,6 +10548,7 @@ function do_transformations (actions, x, y) {
             fn(name, x, y);
         }
     } catch (e) {
+        console.log("actions = ", actions);
         console.log(e);
         throw new RUR.ReeborgError("Invalid actions when attempting an automatic object transformation.");
     }
@@ -13186,14 +13186,6 @@ ui_en["ONLOAD"] = "Onload";
 ui_en["HIGHLIGHT IMPOSSIBLE"] = "A problem with your code has caused me to turn off the code highlighting.";
 ui_en["COMMAND RESULT"] = "Select action to perform from menu below.";
 
-ui_en["COPY"] = "Copy";
-ui_en["COPY PERMALINK EXPLAIN"] = "Copy the permalink to the clipboard.";
-ui_en["Save"] = "Save";
-ui_en["Save permalink explanation"] = "Saves a copy of the permalink to a file.";
-ui_en["REPLACE PERMALINK"] = "Replace";
-ui_en["REPLACE PERMALINK EXPLAIN"] = "Replace the content above by a different permalink and click on Replace";
-ui_en["CANCEL"] = "Cancel";
-
 ui_en["DELETE WORLD TEXT"] = "The following refers to worlds currently stored in your browser which you can delete:";
 ui_en["PYTHON ONLY"] = "Python only";
 ui_en["COLLABORATION"] = "Collaboration";
@@ -13541,15 +13533,6 @@ ui_fr["ONLOAD"] = "Onload";
 
 ui_fr["HIGHLIGHT IMPOSSIBLE"] = "Un problème non-identifié avec votre code a fait en sorte que j'ai arrêté le surlignage du code dans l'éditeur.";
 ui_fr["COMMAND RESULT"] = "Sélectionnez l'action à performer dans le menu ci-dessous.";
-
-ui_fr["PERMALINK"] = "Permalien";
-ui_fr["COPY"] = "Copier";
-ui_fr["COPY PERMALINK EXPLAIN"] = "Copie le permalien dans le presse-papier.";
-ui_fr["Save"] = "Sauvegarder";
-ui_fr["Save permalink explanation"] = "Sauvegarde une copie du permalien dans un fichier.";
-ui_fr["REPLACE PERMALINK"] = "Remplacer";
-ui_fr["REPLACE PERMALINK EXPLAIN"] = "Remplacez le contenu ci-dessus par un nouveau permalien puis cliquez sur Remplacer.";
-ui_fr["CANCEL"] = "Annuler";
 
 ui_fr["DELETE WORLD TEXT"] = "En cliquant sur un bouton, éliminez un monde connu de la mémoire de votre nagivageur.";
 ui_fr["PYTHON ONLY"] = "Python seulement";
@@ -13899,15 +13882,6 @@ ui_ko["ONLOAD"] = "Onload";
 
 ui_ko["HIGHLIGHT IMPOSSIBLE"] = "구문 강조를 꺼서 문제가 발생했습니다.";
 ui_ko["COMMAND RESULT"] = "아래 메뉴에서 수행할 작업을 선택합니다.";
-
-ui_ko["PERMALINK"] = "퍼머링크";
-ui_ko["COPY"] = "복사";
-ui_ko["COPY PERMALINK EXPLAIN"] = "퍼머링크를 클립보드로 복사하기.";
-ui_ko["Save"] = "저장";
-ui_ko["Save permalink explanation"] = "퍼머링크의 복사본을 파일로 저장합니다.";
-ui_ko["REPLACE PERMALINK"] = "되돌리기";
-ui_ko["REPLACE PERMALINK EXPLAIN"] = "위의 내용을 퍼머링크로 교체하고 교체를 클릭합니다.";
-ui_ko["CANCEL"] = "취소";
 
 ui_ko["DELETE WORLD TEXT"] = "버튼을 클릭하면 브라우져의 메모리에 저장된 월드를 제거합니다:";
 ui_ko["PYTHON ONLY"] = "파이썬 전용";

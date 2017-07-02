@@ -46,6 +46,17 @@ ko_to_en["삼각형"] = "triangle";
 ui_ko["tulip"] = "튤립";
 ko_to_en["튤립"] = "tulip";
 
+ui_ko["mud"] = "진흙";
+ko_to_en["진흙"] = "mud";
+ui_ko["water"] = "물";
+ko_to_en["물"] = "water";
+ui_ko["grass"] = "잔디";
+ko_to_en["잔디"] = "grass";
+ui_ko["gravel"] = "자갈";
+ko_to_en["자갈"] = "gravel";
+ui_ko["ice"] = "얼음";
+ko_to_en["얼음"] = "ice";
+
 ui_ko["Problem with onload code."] = "유효하지 않은 자바스크립트 onload 코드입니다; 이 월드의 제작자에게 연락하세요.";
 
 ui_ko["Too many steps:"] = "너무 많은 steps: {max_steps}<br>Use <code>set_max_nb_instructions(nb)</code> to increase the limit.";
@@ -113,11 +124,7 @@ ui_ko["Enter number of objects to give to robot."] = "로봇에게 주기 위해
 ui_ko["Special information about this location:"] = "이 위치에 대한 특별한 정보:";
 ui_ko["Click on world to toggle tile."] = "<code>{obj}</code> 타일을 달기 위해 월드를 클릭하세요.";
 ui_ko["Click on desired tile below."] = "아래에서 원하는 타일을 클릭합니다. (or color selector)";
-ui_ko["mud"] = "진흙";
-ui_ko["water"] = "물";
-ui_ko["grass"] = "잔디";
-ui_ko["gravel"] = "자갈";
-ui_ko["ice"] = "얼음";
+
 ui_ko["A wall must be built east of this location."] = "벽은 이 위치의 동쪽에 지어져야 합니다.";
 ui_ko["A wall must be built north of this location."] = "벽은 이 위치의 북쪽에 지어져야 합니다.";
 ui_ko["A wall must be built west of this location."] = "벽은 이 위치의 서쪽에 지어져야 합니다.";
@@ -241,15 +248,6 @@ ui_ko["ONLOAD"] = "Onload";
 
 ui_ko["HIGHLIGHT IMPOSSIBLE"] = "구문 강조를 꺼서 문제가 발생했습니다.";
 ui_ko["COMMAND RESULT"] = "아래 메뉴에서 수행할 작업을 선택합니다.";
-
-ui_ko["PERMALINK"] = "퍼머링크";
-ui_ko["COPY"] = "복사";
-ui_ko["COPY PERMALINK EXPLAIN"] = "퍼머링크를 클립보드로 복사하기.";
-ui_ko["Save"] = "저장";
-ui_ko["Save permalink explanation"] = "퍼머링크의 복사본을 파일로 저장합니다.";
-ui_ko["REPLACE PERMALINK"] = "되돌리기";
-ui_ko["REPLACE PERMALINK EXPLAIN"] = "위의 내용을 퍼머링크로 교체하고 교체를 클릭합니다.";
-ui_ko["CANCEL"] = "취소";
 
 ui_ko["DELETE WORLD TEXT"] = "버튼을 클릭하면 브라우져의 메모리에 저장된 월드를 제거합니다:";
 ui_ko["PYTHON ONLY"] = "파이썬 전용";

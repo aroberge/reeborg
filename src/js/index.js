@@ -95,6 +95,11 @@ function set_library() {
 }
 
 function get_red_green () {
+    /* When objects need to be placed at a given location in the world,
+       green is used to indicate numbers of objects properly position
+       and red for numbers of objects incorrect.  Users can choose their
+       own colour scheme and, if it was done before, their choices are
+       retrieved from the browser's local storage. */
     var red, green;
     if (localStorage.getItem("userchoice_red") && localStorage.getItem("userchoice_green")){
         red = localStorage.getItem("userchoice_red");

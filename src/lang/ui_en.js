@@ -29,6 +29,12 @@ ui_en["tokens are Reeborg's favourite thing."] = "tokens are Reeborg's favourite
 ui_en["triangle"] = en_to_en["triangle"] = "triangle";
 ui_en["tulip"] = en_to_en["tulip"] = "tulip";
 
+ui_en["mud"] = en_to_en["mud"] = mud";
+ui_en["water"] = en_to_en["water"] = "water";
+ui_en["grass"] = en_to_en["grass"] = "grass";
+ui_en["gravel"] = en_to_en["gravel"] = "gravel";
+ui_en["ice"] = en_to_en["ice"] = "ice";
+
 ui_en["Problem with onload code."] = "Invalid Javascript onload code; contact the creator of this world.";
 
 ui_en["Too many steps:"] = "Too many steps: {max_steps}<br>Use <code>set_max_nb_instructions(nb)</code> to increase the limit.";
@@ -97,11 +103,6 @@ ui_en["Enter number of objects to give to robot."] = "Enter number of <code>{obj
 ui_en["Special information about this location:"] = "Special information about this location:";
 ui_en["Click on world to toggle tile."] = "Click on world to toggle <code>{obj}</code> tile.";
 ui_en["Click on desired tile below."] = "Click on desired tile below or on the colour selector.";
-ui_en["mud"] = "mud";
-ui_en["water"] = "water";
-ui_en["grass"] = "grass";
-ui_en["gravel"] = "gravel";
-ui_en["ice"] = "ice";
 ui_en["A wall must be built east of this location."] = "A wall must be built east of this location.";
 ui_en["A wall must be built north of this location."] = "A wall must be built north of this location.";
 ui_en["A wall must be built west of this location."] = "A wall must be built west of this location.";
@@ -223,14 +224,6 @@ ui_en["ONLOAD"] = "Onload";
 
 ui_en["HIGHLIGHT IMPOSSIBLE"] = "A problem with your code has caused me to turn off the code highlighting.";
 ui_en["COMMAND RESULT"] = "Select action to perform from menu below.";
-
-ui_en["COPY"] = "Copy";
-ui_en["COPY PERMALINK EXPLAIN"] = "Copy the permalink to the clipboard.";
-ui_en["Save"] = "Save";
-ui_en["Save permalink explanation"] = "Saves a copy of the permalink to a file.";
-ui_en["REPLACE PERMALINK"] = "Replace";
-ui_en["REPLACE PERMALINK EXPLAIN"] = "Replace the content above by a different permalink and click on Replace";
-ui_en["CANCEL"] = "Cancel";
 
 ui_en["DELETE WORLD TEXT"] = "The following refers to worlds currently stored in your browser which you can delete:";
 ui_en["PYTHON ONLY"] = "Python only";

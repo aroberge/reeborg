@@ -77,6 +77,12 @@ RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_p
  * artefact is permitted at a given location. When set to True, adding a
  * new artefact result in replacing the old one.
  *
+ * @todo Add `args.replace` to have the same semantics as `args.single`
+ * currently has.  Use `args.replace` for background tiles.  Then change
+ * `args.single` to ensure that only one type of artefact is present.
+ * Use it for bridges - raise an error when trying to add a bridge to
+ * an existing location.
+ *
  * @returns {integer} The number of object found at that location (could be 0).
  * @throws Will throw an error if `name` attribute is not specified.
  * @throws Will throw an error if `type` attribute is not specified.

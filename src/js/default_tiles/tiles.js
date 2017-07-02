@@ -1,22 +1,10 @@
-/* A bit of history ...
-
-  Initially, Reeborg's World only contained "objects", starting with a
-  single one (beeper, which became token) and slowly increasing the number
-  and characteristics (e.g. animated object).  The first objects were
-  drawn on the canvas; eventually they were replaced by square images.
-
-  In parallel, background images, known as tiles could be added on the grid
-  to create worlds that could be more visually appealing.
-
-  Eventually, all custom canvas drawings were replaced by square images for
-  simplicity and consistency. */
-
 require("./../rur.js");
 require("./../world_api/things.js");
 
 // the following requirements are for automatic transformations
 // via the ".transform" attribute
 require("./../world_api/background_tile.js");
+require("./../world_api/bridges.js");
 require("./../world_api/pushables.js");
 require("./../world_api/obstacles.js");
 require("./../world_api/objects.js");
@@ -175,12 +163,14 @@ _add_object_type("box");
 RUR.THINGS.box.name = "box";
 RUR.THINGS.box.transform = [
     {conditions: [[RUR.is_background_tile, "water"],
-                  [RUR.is_pushable, "box"]],
+                  [RUR.is_pushable, "box"],
+                  [RUR.is_bridge, "bridge", "not"]],
      actions: [[RUR.remove_pushable, "box"],
               [RUR.add_bridge, "bridge"]]
     },
     {conditions: [[RUR.is_background_tile, "mud"],
-                  [RUR.is_pushable, "box"]],
+                  [RUR.is_pushable, "box"],
+                  [RUR.is_bridge, "bridge", "not"]],
      actions: [[RUR.remove_pushable, "box"],
               [RUR.add_bridge, "bridge"]]
     },

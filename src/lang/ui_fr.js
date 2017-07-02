@@ -45,6 +45,17 @@ fr_to_en["triangle"] = "triangle";
 ui_fr["tulip"] = "tulipe";
 fr_to_en["tulipe"] = "tulip";
 
+ui_fr["mud"] = "boue";
+fr_to_en["boue"] = "mud";
+ui_fr["water"] = "eau";
+fr_to_en["eau"] = "water";
+ui_fr["grass"] = "gazon";
+fr_to_en["gazon"] = "grass";
+ui_fr["gravel"] = "gravier";
+fr_to_en["gravier"] = "gravel";
+ui_fr["ice"] = "glace";
+fr_to_en["glace"] = "ice";
+
 ui_fr["Problem with onload code."] = "Code Javascript 'onload' non valide; veuillez contacter le créateur de ce monde.";
 
 ui_fr["Too many steps:"] = "Trop d'instructions: {max_steps}<br>Utilisez <code>max_nb_instructions()(nb)</code> pour augmenter la limite.";
@@ -111,11 +122,7 @@ ui_fr["Enter number of objects to give to robot."] = "Quel nombre de <code>{obj}
 ui_fr["Special information about this location:"] = "Information particulière au sujet de cet endroit:";
 ui_fr["Click on world to toggle tile."] = "Cliquez sur le monde pour ajouter/supprimer l'image: <code>{obj}</code>.";
 ui_fr["Click on desired tile below."] = "Cliquez sur l'image désirée ci-dessous ou sur le sélecteur de couleur.";
-ui_fr["mud"] = "boue";
-ui_fr["water"] = "eau";
-ui_fr["grass"] = "gazon";
-ui_fr["gravel"] = "gravier";
-ui_fr["ice"] = "glace";
+
 ui_fr["A wall must be built east of this location."] = "Un mur doit être construit à l'est de cet endroit.";
 ui_fr["A wall must be built north of this location."] = "Un mur doit être construit au nord de cet endroit.";
 ui_fr["A wall must be built west of this location."] = "Un mur doit être construit à l'ouest de cet endroit.";
@@ -241,15 +248,6 @@ ui_fr["ONLOAD"] = "Onload";
 
 ui_fr["HIGHLIGHT IMPOSSIBLE"] = "Un problème non-identifié avec votre code a fait en sorte que j'ai arrêté le surlignage du code dans l'éditeur.";
 ui_fr["COMMAND RESULT"] = "Sélectionnez l'action à performer dans le menu ci-dessous.";
-
-ui_fr["PERMALINK"] = "Permalien";
-ui_fr["COPY"] = "Copier";
-ui_fr["COPY PERMALINK EXPLAIN"] = "Copie le permalien dans le presse-papier.";
-ui_fr["Save"] = "Sauvegarder";
-ui_fr["Save permalink explanation"] = "Sauvegarde une copie du permalien dans un fichier.";
-ui_fr["REPLACE PERMALINK"] = "Remplacer";
-ui_fr["REPLACE PERMALINK EXPLAIN"] = "Remplacez le contenu ci-dessus par un nouveau permalien puis cliquez sur Remplacer.";
-ui_fr["CANCEL"] = "Annuler";
 
 ui_fr["DELETE WORLD TEXT"] = "En cliquant sur un bouton, éliminez un monde connu de la mémoire de votre nagivageur.";
 ui_fr["PYTHON ONLY"] = "Python seulement";
