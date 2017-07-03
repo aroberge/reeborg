@@ -170,7 +170,8 @@ RUR.THINGS.box.transform = [
               [RUR.add_bridge, "bridge"]]
     },
     {conditions: [[RUR.is_background_tile, "mud"],
-                  [RUR.is_pushable, "box"]],
+                  [RUR.is_pushable, "box"],
+                  [RUR.is_bridge, "bridge", "not"]],
      actions: [[RUR.remove_pushable, "box"],
               [RUR.add_bridge, "bridge"]]
     },
@@ -1200,6 +1201,9 @@ RUR.vis_world.refresh = function () {
 
     if (world.goal !== undefined){
         goal = true;
+        if (world.goal.pushables !== undefined){
+            draw_tiles(world.goal.pushables, RUR.GOAL_CTX, goal);
+        }
         if (world.goal.objects !== undefined){
             draw_tiles(world.goal.objects, RUR.GOAL_CTX, goal);
         }
@@ -6926,7 +6930,8 @@ RUR.control.take = function(robot, arg){
     }  else if (objects_here.length > 1){
         throw new RUR.MissingObjectError(RUR.translate("Many objects are here; I do not know which one to take!"));
     }  else if(is_fatal_thing(objects_here[0])) {
-        message = RUR.get_property(objects_here[0], 'message');
+        // use _get_property since objects_here[0] will be the english name
+        message = RUR._get_property(objects_here[0], 'message');
         if (!message) {
             message = "I picked up a fatal object.";
         }
@@ -7943,6 +7948,16 @@ RUR.rec.check_goal = function (frame) {
             goal_status.success = false;
         }
     }
+    if (g.pushables !== undefined) {
+        result = identical(g.pushables, world.pushables, true);
+        if (result){
+            goal_status.message += RUR.translate("<li class='success'>All objects are at the correct location.</li>");
+        } else {
+            goal_status.message += RUR.translate("<li class='failure'>One or more objects are not at the correct location.</li>");
+            goal_status.success = false;
+        }
+    }
+
     if (g.objects !== undefined) {
         result = identical(g.objects, world.objects, true);
         if (result){
@@ -9717,8 +9732,6 @@ RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_p
  * If it is missing, or not within the world boundaries,
  * or is not an integer, an error will be thrown.
  *
- *
- *
  * @param {boolean} [args.single] Specifies if only one of a given kind of
  * artefact is permitted at a given location. When set to True, adding a
  * new artefact result in replacing the old one.
@@ -9753,7 +9766,8 @@ RUR._add_artefact = function (args) {
     if (args.single && base[args.type] !== undefined &&
                base[args.type][coords] !== undefined &&
                base[args.type][coords].length > 1) {
-        throw new RUR.ReeborgError("Cannot replace: more than one artefact present.");
+        throw new RUR.ReeborgError(
+            "Inconsistent state: single type with more than one artefact present.");
     }
 
     RUR.utils.ensure_key_for_obj_exists(base, args.type);
@@ -9772,7 +9786,6 @@ RUR._add_artefact = function (args) {
             base[args.type][coords][args.name] += args.number;
         }
     }
-
     else {
         RUR.utils.ensure_key_for_array_exists(base[args.type], coords);
         if (args.single) {
@@ -10162,7 +10175,6 @@ RUR.fill_background = function(name) {
 };
 
 
-
 /** @function add_background_tile
  * @memberof RUR
  * @instance
@@ -10330,8 +10342,7 @@ require("./artefact.js");
  * @memberof RUR
  * @instance
  * @summary This function sets a named "thing" as a bridge at that location.
- *          If a bridge was already located there, it will be replaced by
- *          this new bridge.
+ * There can be only one bridge at a given location.
  *
  * @param {string} name The name of a bridge. If a new bridge
  *    is set at that location, it replaces the pre-existing one.
@@ -10340,6 +10351,7 @@ require("./artefact.js");
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if `name` is not a known thing.
+ * @throws Will throw an error if there is already a bridge at that location.
 
  * @see Unit tests are found in {@link UnitTest#test_add_bridge}
  * @todo add examples
@@ -10349,6 +10361,9 @@ require("./artefact.js");
 RUR.add_bridge = function (name, x, y) {
     "use strict";
     var args = {name: name, x:x, y:y, type:"bridge", single:true, valid_names: RUR.KNOWN_THINGS};
+    if (RUR.get_bridge(x, y)) {
+        throw new RUR.ReeborgError("There is already a bridge here.");
+    }
     RUR._add_artefact(args);
     RUR.record_frame("RUR.set_bridge", args);
 };
@@ -10376,14 +10391,10 @@ RUR.remove_bridge = function (name, x, y) {
     "use strict";
     var args;
     args= {x:x, y:y, type:"bridge", name:name, valid_names: RUR.KNOWN_THINGS};
-    try {
+    if (RUR.get_bridge(x, y) == name) {
         RUR._remove_artefact(args);
-    } catch (e) {
-        if (e.message == "No artefact to remove") {
-            throw new RUR.ReeborgError("No bridge to remove here.");
-        } else {
-            throw e;
-        }
+    } else {
+        throw new RUR.ReeborgError("No bridge named <code>" + name + "</code>to remove here.");
     }
     RUR.record_frame("RUR.remove_bridge", args);
 };
@@ -10447,11 +10458,7 @@ RUR.get_bridge = function (x, y) {
 
 
 RUR.is_bridge = function (name, x, y) {
-    if (RUR.get_bridge(x, y) == name) {
-        return true;
-    } else {
-        return false;
-    }
+    return RUR.get_bridge(x, y) == name;
 };
 
 
@@ -10503,6 +10510,29 @@ require("./artefact.js");
 require("./obstacles.js");
 require("./background_tile.js");
 
+
+RUR.transform_tile = function (name, x, y) {
+    "use strict";
+    var t, transf, transformations, recording_state;
+    if (RUR.THINGS[name].transform === undefined) {
+        return false;
+    }
+    transformations = RUR.THINGS[name].transform;
+    for (t=0; t < transformations.length; t++) {
+        transf = transformations[t];
+        if (conditions_satisfied(transf.conditions, x, y)) {
+
+            recording_state = RUR.state.do_not_record;
+            RUR.state.do_not_record = true;
+
+            do_transformations(transf.actions, x, y);
+
+            RUR.state.do_not_record = recording_state;
+            return;
+        }
+    }
+};
+
 function conditions_satisfied (conditions, x, y) {
     "use strict";
     var c, cond, fn, name;
@@ -10553,29 +10583,6 @@ function do_transformations (actions, x, y) {
         throw new RUR.ReeborgError("Invalid actions when attempting an automatic object transformation.");
     }
 }
-
-
-RUR.transform_tile = function (name, x, y) {
-    "use strict";
-    var t, transf, transformations, recording_state;
-    if (RUR.THINGS[name].transform === undefined) {
-        return false;
-    }
-    transformations = RUR.THINGS[name].transform;
-    for (t=0; t < transformations.length; t++) {
-        transf = transformations[t];
-        if (conditions_satisfied(transf.conditions, x, y)) {
-
-            recording_state = RUR.state.do_not_record;
-            RUR.state.do_not_record = true;
-
-            do_transformations(transf.actions, x, y);
-
-            RUR.state.do_not_record = recording_state;
-            return;
-        }
-    }
-};
 
 },{"./../recorder/record_frame.js":45,"./../rur.js":51,"./../utils/key_exist.js":60,"./../utils/validator.js":63,"./artefact.js":65,"./background_tile.js":66,"./obstacles.js":72}],69:[function(require,module,exports){
 require("./../rur.js");
@@ -10714,7 +10721,6 @@ RUR.get_protections = function (robot) {
 
     protections = [];
     for(obj_type of Object.keys(objects_carried)){
-        obj_type = RUR.translate_to_english(obj_type);
         if (RUR.THINGS[obj_type] !== undefined && RUR.THINGS[obj_type].protections !== undefined) {
             protections = protections.concat(RUR.THINGS[obj_type].protections);
         }
@@ -10737,7 +10743,7 @@ RUR.get_protections = function (robot) {
  */
 RUR.is_fatal_position = function (x, y, robot){
     "use strict";
-    var protections, obs, obstacles, tile;
+    var protections, obs, obstacles, tile, english=true;
 
     // Objects carried can offer protection
     // against some types of otherwise fatal obstacles
@@ -10745,8 +10751,8 @@ RUR.is_fatal_position = function (x, y, robot){
     obstacles = RUR.get_obstacles(x, y);
     if (obstacles) {
         for (obs of obstacles) {
-            if (RUR.get_property(obs, "fatal")) {
-                if (protections.indexOf(RUR.get_property(obs, "fatal")) === -1) {
+            if (RUR._get_property(obs, "fatal")) {
+                if (protections.indexOf(RUR._get_property(obs, "fatal")) === -1) {
                     if (RUR.THINGS[obs].message) {
                         return RUR.THINGS[obs].message;
                     } else {
@@ -10764,8 +10770,8 @@ RUR.is_fatal_position = function (x, y, robot){
 
     // tile is a name; it could be a colour, which is never fatal.
     if (tile && RUR.THINGS[tile] !== undefined) {
-        if (RUR.get_property(tile, "fatal")) {
-            if (protections.indexOf(RUR.get_property(tile, "fatal")) === -1) {
+        if (RUR._get_property(tile, "fatal", english)) {
+            if (protections.indexOf(RUR._get_property(tile, "fatal")) === -1) {
                 if (RUR.THINGS[tile].message) {
                     return RUR.THINGS[tile].message;
                 } else {
@@ -10806,7 +10812,7 @@ RUR.is_detectable_position = function (x, y){
         tiles.push(tile);
     }
     for (tile of tiles) {
-        if (RUR.get_property(tile, "detectable")) {
+        if (RUR._get_property(tile, "detectable")) {
             return true;
         }
     }
@@ -11143,12 +11149,14 @@ require("./artefact.js");
  * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
-RUR.add_pushable = function (name, x, y) {
+RUR.add_pushable = function (name, x, y, options) {
     "use strict";
-    var pushable, args = {name: name, x:x, y:y, type:"pushables", valid_names: RUR.KNOWN_THINGS};
-    pushable = RUR.get_pushable(x, y);
-    if (pushable !== null) {
+    var args = {name: name, x:x, y:y, type:"pushables", single:true, valid_names: RUR.KNOWN_THINGS};
+    if (RUR.get_pushable(x, y, options)) {
         throw new RUR.ReeborgError("There can be at most one pushable object at a given location.");
+    }
+    if (options && options.goal) {
+        args.goal = options.goal;
     }
     RUR._add_artefact(args);
     RUR.record_frame("RUR.add_pushable", args);
@@ -11174,10 +11182,13 @@ RUR.add_pushable = function (name, x, y) {
  *
  *
  */
-RUR.remove_pushable = function (name, x, y) {
+RUR.remove_pushable = function (name, x, y, options) {
     "use strict";
     var args;
     args= {x:x, y:y, type:"pushables", name:name, valid_names: RUR.KNOWN_THINGS};
+    if (options && options.goal) {
+        args.goal = options.goal;
+    }
     RUR._remove_artefact(args);
     RUR.record_frame("RUR.remove_pushable", args);
 };
@@ -11209,10 +11220,12 @@ RUR.remove_pushable = function (name, x, y) {
  * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
-
-RUR.get_pushable = function (x, y) {
+RUR.get_pushable = function (x, y, options) {
     "use strict";
     var tiles, args = {x:x, y:y, type:"pushables"};
+    if (options && options.goal) {
+        args.goal = options.goal;
+    }
     tiles = RUR._get_artefacts(args);
     if (tiles === null) {
         return null;
@@ -11220,6 +11233,8 @@ RUR.get_pushable = function (x, y) {
         return tiles[0];
     }
 };
+
+
 /** @function is_pushable
  * @memberof RUR
  * @instance
@@ -11247,9 +11262,12 @@ RUR.get_pushable = function (x, y) {
  *
  */
 
-RUR.is_pushable = function (name, x, y) {
+RUR.is_pushable = function (name, x, y, options) {
     "use strict";
     var tile, args = {x:x, y:y, type:"pushables"};
+    if (options && options.goal) {
+        args.goal = options.goal;
+    }
     tile = RUR._get_artefacts(args);
     return tile == name;
 };
@@ -11843,7 +11861,7 @@ RUR.has_property = function (name, property) {
  * @instance
  *
  * @summary This method returns the value of a given property for a "thing".
- * **Important:** the value shown will be the English default even if a
+ * **Important:** the returned value will be the English default even if a
  * translation exists and might appear in other contexts, like the
  * "World Info".
  *
@@ -11852,16 +11870,18 @@ RUR.has_property = function (name, property) {
  *
  * @param {string} name The name of the "thing".
  *
- * @param {string} property
+ * @param {string} property See the examples
+ *
  *
  * @example {@lang python}
- * print(RUR.get_property("water", "info"))  # Python
+ * print(RUR._get_property("water", "info"))  # Python
  *
  * @example {@lang javascript}
- * write(RUR.get_property("water", "fatal"))  // Javascript
+ * write(RUR._get_property("water", "fatal"))  // Javascript
  */
 RUR.get_property = function (name, property) {
     var property;
+
     name = RUR.translate_to_english(name);
 
     if (RUR.THINGS[name] === undefined) {
@@ -11875,6 +11895,13 @@ RUR.get_property = function (name, property) {
         return property;
     }
 };
+
+// Internal function used with name already translated into English;
+// we undo the translation to avoid having a warning for a missing
+// translation logged in the browser console.
+RUR._get_property = function (name, property) {
+    RUR.get_property(RUR.translate(name), property);
+}
 
 
 /*=============================
@@ -12284,7 +12311,7 @@ RUR.world_get.world_info = function (no_grid) {
                     information += "<br><br><b>" + RUR.translate("Objects found here:") + "</b>";
                 }
                 information += "<br>" + RUR.translate(obj_type) + ":" + obj_here[obj_type];
-                information += " " + RUR.translate(RUR.get_property(obj_type, "info"));
+                information += " " + RUR.translate(RUR._get_property(obj_type, "info"));
             }
         }
     }
@@ -12991,6 +13018,12 @@ ui_en["tokens are Reeborg's favourite thing."] = "tokens are Reeborg's favourite
 ui_en["triangle"] = en_to_en["triangle"] = "triangle";
 ui_en["tulip"] = en_to_en["tulip"] = "tulip";
 
+ui_en["mud"] = en_to_en["mud"] = "mud";
+ui_en["water"] = en_to_en["water"] = "water";
+ui_en["grass"] = en_to_en["grass"] = "grass";
+ui_en["gravel"] = en_to_en["gravel"] = "gravel";
+ui_en["ice"] = en_to_en["ice"] = "ice";
+
 ui_en["Problem with onload code."] = "Invalid Javascript onload code; contact the creator of this world.";
 
 ui_en["Too many steps:"] = "Too many steps: {max_steps}<br>Use <code>set_max_nb_instructions(nb)</code> to increase the limit.";
@@ -13059,11 +13092,6 @@ ui_en["Enter number of objects to give to robot."] = "Enter number of <code>{obj
 ui_en["Special information about this location:"] = "Special information about this location:";
 ui_en["Click on world to toggle tile."] = "Click on world to toggle <code>{obj}</code> tile.";
 ui_en["Click on desired tile below."] = "Click on desired tile below or on the colour selector.";
-ui_en["mud"] = "mud";
-ui_en["water"] = "water";
-ui_en["grass"] = "grass";
-ui_en["gravel"] = "gravel";
-ui_en["ice"] = "ice";
 ui_en["A wall must be built east of this location."] = "A wall must be built east of this location.";
 ui_en["A wall must be built north of this location."] = "A wall must be built north of this location.";
 ui_en["A wall must be built west of this location."] = "A wall must be built west of this location.";
@@ -13337,6 +13365,17 @@ fr_to_en["triangle"] = "triangle";
 ui_fr["tulip"] = "tulipe";
 fr_to_en["tulipe"] = "tulip";
 
+ui_fr["mud"] = "boue";
+fr_to_en["boue"] = "mud";
+ui_fr["water"] = "eau";
+fr_to_en["eau"] = "water";
+ui_fr["grass"] = "gazon";
+fr_to_en["gazon"] = "grass";
+ui_fr["gravel"] = "gravier";
+fr_to_en["gravier"] = "gravel";
+ui_fr["ice"] = "glace";
+fr_to_en["glace"] = "ice";
+
 ui_fr["Problem with onload code."] = "Code Javascript 'onload' non valide; veuillez contacter le créateur de ce monde.";
 
 ui_fr["Too many steps:"] = "Trop d'instructions: {max_steps}<br>Utilisez <code>max_nb_instructions()(nb)</code> pour augmenter la limite.";
@@ -13403,11 +13442,7 @@ ui_fr["Enter number of objects to give to robot."] = "Quel nombre de <code>{obj}
 ui_fr["Special information about this location:"] = "Information particulière au sujet de cet endroit:";
 ui_fr["Click on world to toggle tile."] = "Cliquez sur le monde pour ajouter/supprimer l'image: <code>{obj}</code>.";
 ui_fr["Click on desired tile below."] = "Cliquez sur l'image désirée ci-dessous ou sur le sélecteur de couleur.";
-ui_fr["mud"] = "boue";
-ui_fr["water"] = "eau";
-ui_fr["grass"] = "gazon";
-ui_fr["gravel"] = "gravier";
-ui_fr["ice"] = "glace";
+
 ui_fr["A wall must be built east of this location."] = "Un mur doit être construit à l'est de cet endroit.";
 ui_fr["A wall must be built north of this location."] = "Un mur doit être construit au nord de cet endroit.";
 ui_fr["A wall must be built west of this location."] = "Un mur doit être construit à l'ouest de cet endroit.";
@@ -13687,6 +13722,17 @@ ko_to_en["삼각형"] = "triangle";
 ui_ko["tulip"] = "튤립";
 ko_to_en["튤립"] = "tulip";
 
+ui_ko["mud"] = "진흙";
+ko_to_en["진흙"] = "mud";
+ui_ko["water"] = "물";
+ko_to_en["물"] = "water";
+ui_ko["grass"] = "잔디";
+ko_to_en["잔디"] = "grass";
+ui_ko["gravel"] = "자갈";
+ko_to_en["자갈"] = "gravel";
+ui_ko["ice"] = "얼음";
+ko_to_en["얼음"] = "ice";
+
 ui_ko["Problem with onload code."] = "유효하지 않은 자바스크립트 onload 코드입니다; 이 월드의 제작자에게 연락하세요.";
 
 ui_ko["Too many steps:"] = "너무 많은 steps: {max_steps}<br>Use <code>set_max_nb_instructions(nb)</code> to increase the limit.";
@@ -13754,11 +13800,7 @@ ui_ko["Enter number of objects to give to robot."] = "로봇에게 주기 위해
 ui_ko["Special information about this location:"] = "이 위치에 대한 특별한 정보:";
 ui_ko["Click on world to toggle tile."] = "<code>{obj}</code> 타일을 달기 위해 월드를 클릭하세요.";
 ui_ko["Click on desired tile below."] = "아래에서 원하는 타일을 클릭합니다. (or color selector)";
-ui_ko["mud"] = "진흙";
-ui_ko["water"] = "물";
-ui_ko["grass"] = "잔디";
-ui_ko["gravel"] = "자갈";
-ui_ko["ice"] = "얼음";
+
 ui_ko["A wall must be built east of this location."] = "벽은 이 위치의 동쪽에 지어져야 합니다.";
 ui_ko["A wall must be built north of this location."] = "벽은 이 위치의 북쪽에 지어져야 합니다.";
 ui_ko["A wall must be built west of this location."] = "벽은 이 위치의 서쪽에 지어져야 합니다.";

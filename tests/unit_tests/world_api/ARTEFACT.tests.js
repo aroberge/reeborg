@@ -118,7 +118,7 @@ test('ensure_common_required_args_present: invalid name', function (assert) {
         the validating function.
  -------------------------------------------------------------------------*/
 
-test('get_nb_artefact: invalid name', function (assert) {
+test('_get_nb_artefact: invalid name', function (assert) {
     var args = {x:2, y:2, valid_names: ['a'], name: 'A', type:'e', number:3};
     assert.plan(1);
     RUR.CURRENT_WORLD = RUR.create_empty_world();
@@ -129,7 +129,7 @@ test('get_nb_artefact: invalid name', function (assert) {
     }
     assert.end();
 });
-test('set_nb_artefact: missing name', function (assert) {
+test('_set_nb_artefact: missing name', function (assert) {
     var args = {x:2, y:2, type:'e', number:4};
     assert.plan(1);
     RUR.CURRENT_WORLD = RUR.create_empty_world();
@@ -140,7 +140,7 @@ test('set_nb_artefact: missing name', function (assert) {
     }
     assert.end();
 });
-test('set_nb_artefact: missing number', function (assert) {
+test('_set_nb_artefact: missing number', function (assert) {
     var args = {x:2, y:2, name: 'a', type:'unknown'};
     assert.plan(1);
     RUR.CURRENT_WORLD = RUR.create_empty_world();
@@ -152,7 +152,7 @@ test('set_nb_artefact: missing number', function (assert) {
     assert.end();
 });
 
-test('add_artefact: inconsistent use of single', function (assert) {
+test('_add_artefact: inconsistent use of single', function (assert) {
     var args_a = {x:2, y:2, valid_names: ['a'], name: 'a', type:'unknown', single:true},
         args_b = {x:2, y:2, valid_names: ['b'], name: 'b', type:'unknown'};
     assert.plan(1);
@@ -162,7 +162,9 @@ test('add_artefact: inconsistent use of single', function (assert) {
     try {
         RUR._add_artefact(args_a);
     } catch (e) {
-        assert.equal(e.message, "Cannot replace: more than one artefact present.", "error message ok");
+        assert.equal(e.message,
+            "Inconsistent state: single type with more than one artefact present.",
+            "error message ok");
     }
     assert.end();
 });
@@ -181,7 +183,7 @@ test('add_artefact: inconsistent use of single', function (assert) {
  *
  */
 
-test('add_artefact: add to unknown type', function (assert) {
+test('_add_artefact: add to unknown type', function (assert) {
     var args = {x:2, y:2, valid_names: ['a'], name: 'a', type:'unknown'};
     assert.plan(2);
     RUR.CURRENT_WORLD = RUR.create_empty_world();
@@ -191,7 +193,7 @@ test('add_artefact: add to unknown type', function (assert) {
     assert.end();
 });
 
-test('add_artefact: adding goal object', function (assert) {
+test('_add_artefact: adding goal object', function (assert) {
     var args = {x:2, y:3, name: 'a', type:'objects', goal:true};
     assert.plan(2);
     RUR.CURRENT_WORLD = RUR.create_empty_world();
@@ -201,7 +203,7 @@ test('add_artefact: adding goal object', function (assert) {
     assert.end();
 });
 
-test('add_artefact: replace ok', function (assert) {
+test('_add_artefact: replace ok', function (assert) {
     var args_a = {x:2, y:2, valid_names: ['a'], name: 'a', type:'unknown', single:true},
         args_b = {x:2, y:2, valid_names: ['b'], name: 'b', type:'unknown', single:true};
     assert.plan(2);
@@ -213,7 +215,7 @@ test('add_artefact: replace ok', function (assert) {
     assert.end();
 });
 
-test('add_artefact: add after range was set', function (assert) {
+test('_add_artefact: add after range was set', function (assert) {
     var args_set = {x:2, y:2, name: 'a', type:'unknown', number: "3-9"},
         args_add = {x:2, y:2, name: 'a', type:'unknown'};
     assert.plan(1);
@@ -239,7 +241,7 @@ test('add_artefact: add after range was set', function (assert) {
  *
  */
 
-test('get_artefacts: confirm object present, array type added by hand', function (assert) {
+test('_get_artefacts: confirm object present, array type added by hand', function (assert) {
     var args_a = {x:2, y:3, type:'objects'};
     assert.plan(3);
     RUR.CURRENT_WORLD = RUR.create_empty_world();
@@ -251,7 +253,7 @@ test('get_artefacts: confirm object present, array type added by hand', function
     assert.end();
 });
 
-test('get_artefacts: confirm objects present, array type added by function', function (assert) {
+test('_get_artefacts: confirm objects present, array type added by function', function (assert) {
     var args_a = {x:2, y:3, name:'a', type:'objects'},
         args_b = {x:2, y:3, name:'b', type:'objects'},
         args = {x:2, y:3,  type:'objects'};
@@ -266,7 +268,7 @@ test('get_artefacts: confirm objects present, array type added by function', fun
     assert.end();
 });
 
-test('get_artefacts: confirm objects present, object container type added by function', function (assert) {
+test('_get_artefacts: confirm objects present, object container type added by function', function (assert) {
     var args_a = {x:2, y:3, name:'a', number:4, type:'objects'},
         args_b = {x:2, y:3, name:'b', number:6, type:'objects'},
         args = {x:2, y:3,  type:'objects'};
@@ -282,7 +284,7 @@ test('get_artefacts: confirm objects present, object container type added by fun
 });
 
 
-test('get_artefacts: confirm goal present, array type added by hand', function (assert) {
+test('_get_artefacts: confirm goal present, array type added by hand', function (assert) {
     var args_a = {x:2, y:3, type:'objects', goal:true};
     assert.plan(4);
     RUR.CURRENT_WORLD = RUR.create_empty_world();
@@ -296,7 +298,7 @@ test('get_artefacts: confirm goal present, array type added by hand', function (
     assert.end();
 });
 
-test('get_artefacts: confirm goal present, array type added by function', function (assert) {
+test('_get_artefacts: confirm goal present, array type added by function', function (assert) {
     var args_a = {x:2, y:3, name:'a', type:'objects', goal:true},
         args_b = {x:2, y:3, name:'b', type:'objects', goal:true};
     assert.plan(4);
@@ -322,7 +324,7 @@ test('get_artefacts: confirm goal present, array type added by function', functi
  */
 
 
-test('get_nb_artefact: confirm missing, unknown type', function (assert) {
+test('_get_nb_artefact: confirm missing, unknown type', function (assert) {
     var args = {x:2, y:2, valid_names: ['a'], name: 'a', type:'unknown'};
     assert.plan(1);
     // create_empty_world does not create world.unknown;
@@ -331,7 +333,7 @@ test('get_nb_artefact: confirm missing, unknown type', function (assert) {
     assert.end();
 });
 
-test('get_nb_artefact: confirm present, object type added by hand', function (assert) {
+test('_get_nb_artefact: confirm present, object type added by hand', function (assert) {
     var args = {x:2, y:3, valid_names: ['a'], name: 'a', type:'objects'};
     assert.plan(1);
     RUR.CURRENT_WORLD = RUR.create_empty_world();
@@ -341,7 +343,7 @@ test('get_nb_artefact: confirm present, object type added by hand', function (as
     assert.end();
 });
 
-test('get_nb_artefact: confirm goal present, object type added by hand', function (assert) {
+test('_get_nb_artefact: confirm goal present, object type added by hand', function (assert) {
     var args = {x:2, y:3, valid_names: ['a'], name: 'a', type:'objects', goal:true};
     assert.plan(1);
     RUR.CURRENT_WORLD = RUR.create_empty_world();
@@ -352,7 +354,7 @@ test('get_nb_artefact: confirm goal present, object type added by hand', functio
     assert.end();
 });
 
-test('get_nb_artefact: confirm present, array type added by hand', function (assert) {
+test('_get_nb_artefact: confirm present, array type added by hand', function (assert) {
     var args_a = {x:2, y:3, name: 'a', type:'objects'};
     var args_c = {x:2, y:3, name: 'c', type:'objects'};
     assert.plan(2);
@@ -363,7 +365,7 @@ test('get_nb_artefact: confirm present, array type added by hand', function (ass
     assert.end();
 });
 
-test('get_nb_artefact: confirm goal present, array type added by hand', function (assert) {
+test('_get_nb_artefact: confirm goal present, array type added by hand', function (assert) {
     var args_a = {x:2, y:3, name: 'a', type:'objects', goal:true};
     var args_c = {x:2, y:3, name: 'c', type:'objects', goal:true};
     assert.plan(2);
@@ -385,7 +387,7 @@ test('get_nb_artefact: confirm goal present, array type added by hand', function
  *
  */
 
-test('remove_artefact: add 2 remove 1 to array type.', function (assert) {
+test('_remove_artefact: add 2 remove 1 to array type.', function (assert) {
     var args_a = {x:2, y:3, name:'a', type:'objects'},
         args_b = {x:2, y:3, name:'b', type:'objects'};
     assert.plan(1);
@@ -398,7 +400,7 @@ test('remove_artefact: add 2 remove 1 to array type.', function (assert) {
     assert.end();
 });
 
-test('remove_artefact: with goal, add 2 remove 1 to array type.', function (assert) {
+test('_remove_artefact: with goal, add 2 remove 1 to array type.', function (assert) {
     var args_a = {x:2, y:3, name:'a', type:'objects', goal:true},
         args_b = {x:2, y:3, name:'b', type:'objects', goal:true};
     assert.plan(1);
@@ -411,7 +413,7 @@ test('remove_artefact: with goal, add 2 remove 1 to array type.', function (asse
     assert.end();
 });
 
-test('remove_artefact: add 1 remove 1 to array type.', function (assert) {
+test('_remove_artefact: add 1 remove 1 to array type.', function (assert) {
     var args_a = {x:2, y:3, name:'a', type:'objects'};
     assert.plan(1);
     RUR.CURRENT_WORLD = RUR.create_empty_world();
@@ -421,7 +423,7 @@ test('remove_artefact: add 1 remove 1 to array type.', function (assert) {
     assert.end();
 });
 
-test('remove_artefact: add 12 of one kind remove 1 to object type.', function (assert) {
+test('_remove_artefact: add 12 of one kind remove 1 to object type.', function (assert) {
     var args_a = {x:2, y:3, name:'a', type:'objects', number:12};
     assert.plan(1);
     RUR.CURRENT_WORLD = RUR.create_empty_world();
@@ -432,7 +434,7 @@ test('remove_artefact: add 12 of one kind remove 1 to object type.', function (a
     assert.end();
 });
 
-test('remove_artefact: add 12 of one kind remove 1 to object type.', function (assert) {
+test('_remove_artefact: add 12 of one kind remove 1 to object type.', function (assert) {
     var args_a = {x:2, y:3, name:'a', type:'objects', number:1},
         args_b = {x:2, y:3, name:'b', type:'objects', number:3};
     assert.plan(2);
@@ -445,7 +447,7 @@ test('remove_artefact: add 12 of one kind remove 1 to object type.', function (a
     assert.end();
 });
 
-test('remove_artefact: add 1 remove 1 to object type.', function (assert) {
+test('_remove_artefact: add 1 remove 1 to object type.', function (assert) {
     var args_a = {x:2, y:3, name:'a', type:'objects', number:1};
     assert.plan(1);
     RUR.CURRENT_WORLD = RUR.create_empty_world();
@@ -465,7 +467,7 @@ test('remove_artefact: add 1 remove 1 to object type.', function (assert) {
  *
  */
 
-test('set_nb_artefact: add to unknown type', function (assert) {
+test('_set_nb_artefact: add to unknown type', function (assert) {
     var args = {x:2, y:2, valid_names: ['a'], name: 'a', type:'unknown', number:12};
     assert.plan(2);
     RUR.CURRENT_WORLD = RUR.create_empty_world();
@@ -475,7 +477,7 @@ test('set_nb_artefact: add to unknown type', function (assert) {
     assert.end();
 });
 
-test('set_nb_artefact: adding goal object', function (assert) {
+test('_set_nb_artefact: adding goal object', function (assert) {
     var args = {x:2, y:3, name: 'a', type:'objects', goal:true, number:3};
     assert.plan(2);
     RUR.CURRENT_WORLD = RUR.create_empty_world();

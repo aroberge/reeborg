@@ -8,8 +8,7 @@ require("./artefact.js");
  * @memberof RUR
  * @instance
  * @summary This function sets a named "thing" as a bridge at that location.
- *          If a bridge was already located there, it will be replaced by
- *          this new bridge.
+ * There can be only one bridge at a given location.
  *
  * @param {string} name The name of a bridge. If a new bridge
  *    is set at that location, it replaces the pre-existing one.
@@ -18,6 +17,7 @@ require("./artefact.js");
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if `name` is not a known thing.
+ * @throws Will throw an error if there is already a bridge at that location.
 
  * @see Unit tests are found in {@link UnitTest#test_add_bridge}
  * @todo add examples
@@ -27,6 +27,9 @@ require("./artefact.js");
 RUR.add_bridge = function (name, x, y) {
     "use strict";
     var args = {name: name, x:x, y:y, type:"bridge", single:true, valid_names: RUR.KNOWN_THINGS};
+    if (RUR.get_bridge(x, y)) {
+        throw new RUR.ReeborgError("There is already a bridge here.");
+    }
     RUR._add_artefact(args);
     RUR.record_frame("RUR.set_bridge", args);
 };
@@ -54,14 +57,10 @@ RUR.remove_bridge = function (name, x, y) {
     "use strict";
     var args;
     args= {x:x, y:y, type:"bridge", name:name, valid_names: RUR.KNOWN_THINGS};
-    try {
+    if (RUR.get_bridge(x, y) == name) {
         RUR._remove_artefact(args);
-    } catch (e) {
-        if (e.message == "No artefact to remove") {
-            throw new RUR.ReeborgError("No bridge to remove here.");
-        } else {
-            throw e;
-        }
+    } else {
+        throw new RUR.ReeborgError("No bridge named <code>" + name + "</code>to remove here.");
     }
     RUR.record_frame("RUR.remove_bridge", args);
 };
@@ -125,11 +124,7 @@ RUR.get_bridge = function (x, y) {
 
 
 RUR.is_bridge = function (name, x, y) {
-    if (RUR.get_bridge(x, y) == name) {
-        return true;
-    } else {
-        return false;
-    }
+    return RUR.get_bridge(x, y) == name;
 };
 
 

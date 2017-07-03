@@ -261,7 +261,8 @@ RUR.control.take = function(robot, arg){
     }  else if (objects_here.length > 1){
         throw new RUR.MissingObjectError(RUR.translate("Many objects are here; I do not know which one to take!"));
     }  else if(is_fatal_thing(objects_here[0])) {
-        message = RUR.get_property(objects_here[0], 'message');
+        // use _get_property since objects_here[0] will be the english name
+        message = RUR._get_property(objects_here[0], 'message');
         if (!message) {
             message = "I picked up a fatal object.";
         }

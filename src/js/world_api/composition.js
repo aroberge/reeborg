@@ -6,6 +6,29 @@ require("./artefact.js");
 require("./obstacles.js");
 require("./background_tile.js");
 
+
+RUR.transform_tile = function (name, x, y) {
+    "use strict";
+    var t, transf, transformations, recording_state;
+    if (RUR.THINGS[name].transform === undefined) {
+        return false;
+    }
+    transformations = RUR.THINGS[name].transform;
+    for (t=0; t < transformations.length; t++) {
+        transf = transformations[t];
+        if (conditions_satisfied(transf.conditions, x, y)) {
+
+            recording_state = RUR.state.do_not_record;
+            RUR.state.do_not_record = true;
+
+            do_transformations(transf.actions, x, y);
+
+            RUR.state.do_not_record = recording_state;
+            return;
+        }
+    }
+};
+
 function conditions_satisfied (conditions, x, y) {
     "use strict";
     var c, cond, fn, name;
@@ -56,26 +79,3 @@ function do_transformations (actions, x, y) {
         throw new RUR.ReeborgError("Invalid actions when attempting an automatic object transformation.");
     }
 }
-
-
-RUR.transform_tile = function (name, x, y) {
-    "use strict";
-    var t, transf, transformations, recording_state;
-    if (RUR.THINGS[name].transform === undefined) {
-        return false;
-    }
-    transformations = RUR.THINGS[name].transform;
-    for (t=0; t < transformations.length; t++) {
-        transf = transformations[t];
-        if (conditions_satisfied(transf.conditions, x, y)) {
-
-            recording_state = RUR.state.do_not_record;
-            RUR.state.do_not_record = true;
-
-            do_transformations(transf.actions, x, y);
-
-            RUR.state.do_not_record = recording_state;
-            return;
-        }
-    }
-};

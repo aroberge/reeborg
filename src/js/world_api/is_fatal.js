@@ -24,7 +24,6 @@ RUR.get_protections = function (robot) {
 
     protections = [];
     for(obj_type of Object.keys(objects_carried)){
-        obj_type = RUR.translate_to_english(obj_type);
         if (RUR.THINGS[obj_type] !== undefined && RUR.THINGS[obj_type].protections !== undefined) {
             protections = protections.concat(RUR.THINGS[obj_type].protections);
         }
@@ -55,8 +54,11 @@ RUR.is_fatal_position = function (x, y, robot){
     obstacles = RUR.get_obstacles(x, y);
     if (obstacles) {
         for (obs of obstacles) {
-            if (RUR.get_property(obs, "fatal")) {
-                if (protections.indexOf(RUR.get_property(obs, "fatal")) === -1) {
+            // Here, and below, we call RUR._get_property instead of
+            // RUR.get_property since this uses the internal english names;
+            // RUR.get_property assumes an untranslated argument.
+            if (RUR._get_property(obs, "fatal")) {
+                if (protections.indexOf(RUR._get_property(obs, "fatal")) === -1) {
                     if (RUR.THINGS[obs].message) {
                         return RUR.THINGS[obs].message;
                     } else {
@@ -74,8 +76,8 @@ RUR.is_fatal_position = function (x, y, robot){
 
     // tile is a name; it could be a colour, which is never fatal.
     if (tile && RUR.THINGS[tile] !== undefined) {
-        if (RUR.get_property(tile, "fatal")) {
-            if (protections.indexOf(RUR.get_property(tile, "fatal")) === -1) {
+        if (RUR._get_property(tile, "fatal")) {
+            if (protections.indexOf(RUR._get_property(tile, "fatal")) === -1) {
                 if (RUR.THINGS[tile].message) {
                     return RUR.THINGS[tile].message;
                 } else {
@@ -116,7 +118,7 @@ RUR.is_detectable_position = function (x, y){
         tiles.push(tile);
     }
     for (tile of tiles) {
-        if (RUR.get_property(tile, "detectable")) {
+        if (RUR._get_property(tile, "detectable")) {
             return true;
         }
     }

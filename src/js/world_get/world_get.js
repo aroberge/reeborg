@@ -155,7 +155,7 @@ RUR.world_get.world_info = function (no_grid) {
                     information += "<br><br><b>" + RUR.translate("Objects found here:") + "</b>";
                 }
                 information += "<br>" + RUR.translate(obj_type) + ":" + obj_here[obj_type];
-                information += " " + RUR.translate(RUR.get_property(obj_type, "info"));
+                information += " " + RUR.translate(RUR._get_property(obj_type, "info"));
             }
         }
     }

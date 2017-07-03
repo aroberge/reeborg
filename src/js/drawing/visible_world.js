@@ -137,6 +137,9 @@ RUR.vis_world.refresh = function () {
 
     if (world.goal !== undefined){
         goal = true;
+        if (world.goal.pushables !== undefined){
+            draw_tiles(world.goal.pushables, RUR.GOAL_CTX, goal);
+        }
         if (world.goal.objects !== undefined){
             draw_tiles(world.goal.objects, RUR.GOAL_CTX, goal);
         }

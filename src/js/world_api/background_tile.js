@@ -33,7 +33,6 @@ RUR.fill_background = function(name) {
 };
 
 
-
 /** @function add_background_tile
  * @memberof RUR
  * @instance

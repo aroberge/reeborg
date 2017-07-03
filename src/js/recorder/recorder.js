@@ -233,6 +233,16 @@ RUR.rec.check_goal = function (frame) {
             goal_status.success = false;
         }
     }
+    if (g.pushables !== undefined) {
+        result = identical(g.pushables, world.pushables, true);
+        if (result){
+            goal_status.message += RUR.translate("<li class='success'>All objects are at the correct location.</li>");
+        } else {
+            goal_status.message += RUR.translate("<li class='failure'>One or more objects are not at the correct location.</li>");
+            goal_status.success = false;
+        }
+    }
+
     if (g.objects !== undefined) {
         result = identical(g.objects, world.objects, true);
         if (result){

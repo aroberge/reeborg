@@ -29,12 +29,14 @@ require("./artefact.js");
  * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
-RUR.add_pushable = function (name, x, y) {
+RUR.add_pushable = function (name, x, y, options) {
     "use strict";
-    var pushable, args = {name: name, x:x, y:y, type:"pushables", valid_names: RUR.KNOWN_THINGS};
-    pushable = RUR.get_pushable(x, y);
-    if (pushable !== null) {
+    var args = {name: name, x:x, y:y, type:"pushables", single:true, valid_names: RUR.KNOWN_THINGS};
+    if (RUR.get_pushable(x, y, options)) {
         throw new RUR.ReeborgError("There can be at most one pushable object at a given location.");
+    }
+    if (options && options.goal) {
+        args.goal = options.goal;
     }
     RUR._add_artefact(args);
     RUR.record_frame("RUR.add_pushable", args);
@@ -60,10 +62,13 @@ RUR.add_pushable = function (name, x, y) {
  *
  *
  */
-RUR.remove_pushable = function (name, x, y) {
+RUR.remove_pushable = function (name, x, y, options) {
     "use strict";
     var args;
     args= {x:x, y:y, type:"pushables", name:name, valid_names: RUR.KNOWN_THINGS};
+    if (options && options.goal) {
+        args.goal = options.goal;
+    }
     RUR._remove_artefact(args);
     RUR.record_frame("RUR.remove_pushable", args);
 };
@@ -95,10 +100,12 @@ RUR.remove_pushable = function (name, x, y) {
  * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
-
-RUR.get_pushable = function (x, y) {
+RUR.get_pushable = function (x, y, options) {
     "use strict";
     var tiles, args = {x:x, y:y, type:"pushables"};
+    if (options && options.goal) {
+        args.goal = options.goal;
+    }
     tiles = RUR._get_artefacts(args);
     if (tiles === null) {
         return null;
@@ -106,6 +113,8 @@ RUR.get_pushable = function (x, y) {
         return tiles[0];
     }
 };
+
+
 /** @function is_pushable
  * @memberof RUR
  * @instance
@@ -133,9 +142,12 @@ RUR.get_pushable = function (x, y) {
  *
  */
 
-RUR.is_pushable = function (name, x, y) {
+RUR.is_pushable = function (name, x, y, options) {
     "use strict";
     var tile, args = {x:x, y:y, type:"pushables"};
+    if (options && options.goal) {
+        args.goal = options.goal;
+    }
     tile = RUR._get_artefacts(args);
     return tile == name;
 };

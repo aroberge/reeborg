@@ -29,7 +29,7 @@ ui_en["tokens are Reeborg's favourite thing."] = "tokens are Reeborg's favourite
 ui_en["triangle"] = en_to_en["triangle"] = "triangle";
 ui_en["tulip"] = en_to_en["tulip"] = "tulip";
 
-ui_en["mud"] = en_to_en["mud"] = mud";
+ui_en["mud"] = en_to_en["mud"] = "mud";
 ui_en["water"] = en_to_en["water"] = "water";
 ui_en["grass"] = en_to_en["grass"] = "grass";
 ui_en["gravel"] = en_to_en["gravel"] = "gravel";

@@ -71,17 +71,9 @@ RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_p
  * If it is missing, or not within the world boundaries,
  * or is not an integer, an error will be thrown.
  *
- *
- *
  * @param {boolean} [args.single] Specifies if only one of a given kind of
  * artefact is permitted at a given location. When set to True, adding a
  * new artefact result in replacing the old one.
- *
- * @todo Add `args.replace` to have the same semantics as `args.single`
- * currently has.  Use `args.replace` for background tiles.  Then change
- * `args.single` to ensure that only one type of artefact is present.
- * Use it for bridges - raise an error when trying to add a bridge to
- * an existing location.
  *
  * @returns {integer} The number of object found at that location (could be 0).
  * @throws Will throw an error if `name` attribute is not specified.
@@ -113,7 +105,8 @@ RUR._add_artefact = function (args) {
     if (args.single && base[args.type] !== undefined &&
                base[args.type][coords] !== undefined &&
                base[args.type][coords].length > 1) {
-        throw new RUR.ReeborgError("Cannot replace: more than one artefact present.");
+        throw new RUR.ReeborgError(
+            "Inconsistent state: single type with more than one artefact present.");
     }
 
     RUR.utils.ensure_key_for_obj_exists(base, args.type);
@@ -132,7 +125,6 @@ RUR._add_artefact = function (args) {
             base[args.type][coords][args.name] += args.number;
         }
     }
-
     else {
         RUR.utils.ensure_key_for_array_exists(base[args.type], coords);
         if (args.single) {

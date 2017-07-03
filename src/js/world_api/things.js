@@ -267,7 +267,7 @@ RUR.has_property = function (name, property) {
  * @instance
  *
  * @summary This method returns the value of a given property for a "thing".
- * **Important:** the value shown will be the English default even if a
+ * **Important:** the returned value will be the English default even if a
  * translation exists and might appear in other contexts, like the
  * "World Info".
  *
@@ -276,16 +276,18 @@ RUR.has_property = function (name, property) {
  *
  * @param {string} name The name of the "thing".
  *
- * @param {string} property
+ * @param {string} property See the examples
+ *
  *
  * @example {@lang python}
- * print(RUR.get_property("water", "info"))  # Python
+ * print(RUR._get_property("water", "info"))  # Python
  *
  * @example {@lang javascript}
- * write(RUR.get_property("water", "fatal"))  // Javascript
+ * write(RUR._get_property("water", "fatal"))  // Javascript
  */
 RUR.get_property = function (name, property) {
     var property;
+
     name = RUR.translate_to_english(name);
 
     if (RUR.THINGS[name] === undefined) {
@@ -299,6 +301,13 @@ RUR.get_property = function (name, property) {
         return property;
     }
 };
+
+// Internal function used with name already translated into English;
+// we undo the translation to avoid having a warning for a missing
+// translation logged in the browser console.
+RUR._get_property = function (name, property) {
+    RUR.get_property(RUR.translate(name), property);
+}
 
 
 /*=============================
