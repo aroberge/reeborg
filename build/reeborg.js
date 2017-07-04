@@ -8075,7 +8075,10 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     if (orientation === undefined){
         robot._orientation = RUR.EAST;
     } else {
-        switch (orientation.toLowerCase()){
+        try {
+            orientation = orientation.toLowerCase();
+        } catch (e) {}
+        switch (orientation){
         case "e":
         case RUR.translation.east:  /*TODO: see if we can get rid of this
                                             and have incoming in English */

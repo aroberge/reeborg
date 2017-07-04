@@ -52,6 +52,7 @@ RUR.state.input_method = "python";
 RUR.state.error_recorded = false;
 RUR.state.evaluating_onload = false;
 RUR.state.frame_insertion_called = false;
+RUR.state.onload_programming_mode = "javascript";
 RUR.state.programming_language = "python";
 RUR.state.playback = false;
 RUR.state.prevent_playback = false;

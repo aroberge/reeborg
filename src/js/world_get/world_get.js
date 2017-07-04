@@ -75,17 +75,22 @@ RUR.world_get.world_info = function (no_grid) {
 
     if (RUR.get_current_world().description) {
         description = RUR.get_current_world().description;
-        if (RUR.get_current_world().pre) { // can be either javascript or python code
+        if (RUR.get_current_world().pre) {
             insertion = "<pre class='world_info_source'>" + RUR.get_current_world().pre + "</pre>";
             to_replace = "INSERT_PRE";
             description = description.replace(to_replace, insertion);
         }
-        if (RUR.get_current_world().post) { // can be either javascript or python code
+        if (RUR.get_current_world().post) {
             insertion = "<pre class='world_info_source'>" + RUR.get_current_world().post + "</pre>";
             to_replace = "INSERT_POST";
             description = description.replace(to_replace, insertion);
         }
-        if (RUR.get_current_world().onload) { // only javascript, hence different class
+        if (RUR.get_current_world().onload) {
+            if (RUR.CURRENT_WORLD.onload[0]=="#") {
+                RUR.state.onload_programming_mode = "python";
+            } else {
+                RUR.state.onload_programming_mode = "javascript";
+            }
             insertion = "<pre class='world_info_onload'>" + RUR.get_current_world().onload + "</pre>";
             to_replace = "INSERT_ONLOAD";
             description = description.replace(to_replace, insertion);
@@ -268,7 +273,7 @@ RUR.world_get.world_info = function (no_grid) {
         $this.empty();
         var myCodeMirror = CodeMirror(this, {
             value: $code,
-            mode:  "javascript",
+            mode:  RUR.state.onload_programming_mode,
             lineNumbers: !$this.is('.inline'),
             readOnly: true,
             theme: 'reeborg-readonly'

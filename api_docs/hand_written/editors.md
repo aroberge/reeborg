@@ -118,6 +118,13 @@ with the `"path_explain"` world mentioned above, if you click on a grid square,
 you should at the very least get the information about which type of
 background (grass or gravel) is present at that location.
 
+### Add your own code
+
+If you want, you can add your own code and have it being styled
+(with the blue background, etc.), the same way that the code copied
+from the Onload, Pre and Post editors appear. Simply enclose it in
+an html pre with class as follows `<pre class='world_info_source'> ... </pre>`.
+
 ## The Onload editor
 
 Unless If the very first character of the code is `#`,
