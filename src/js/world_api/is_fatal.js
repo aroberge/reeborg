@@ -73,7 +73,6 @@ RUR.is_fatal_position = function (x, y, robot){
     // add any bridge protection
     protections = protections.concat(RUR.get_bridge_protections(x, y));
     tile = RUR.get_background_tile(x, y);
-
     // tile is a name; it could be a colour, which is never fatal.
     if (tile && RUR.THINGS[tile] !== undefined) {
         if (RUR._get_property(tile, "fatal")) {

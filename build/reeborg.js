@@ -82,6 +82,22 @@ tile = {name: "fire",
 };
 RUR.add_new_thing(tile);
 
+// // flame burst adapted from fire above
+tile = {name: "flame burst",
+    images: [RUR.BASE_URL + "/src/images/flame1.png",
+             RUR.BASE_URL + "/src/images/flame2.png",
+             RUR.BASE_URL + "/src/images/flame3.png",
+             RUR.BASE_URL + "/src/images/flame4.png",
+             RUR.BASE_URL + "/src/images/flame5.png",
+             RUR.BASE_URL + "/src/images/flame6.png"],
+  selection_method: "cycle remove",
+  x_offset: -4,
+  y_offset: -8
+};
+
+RUR.add_new_thing(tile)
+
+// logs adapted from fire above
 tile = {name: "logs",
     url: RUR.BASE_URL + '/src/images/logs.png',
     info: "Some harmless, slightly burnt logs",
@@ -177,11 +193,13 @@ RUR.THINGS.box.transform = [
     },
     {conditions: [[RUR.is_background_tile, "fire"],
                   [RUR.is_pushable, "box"]],
-     actions: [[RUR.remove_pushable, "box"]]
+     actions: [[RUR.remove_pushable, "box"],
+               [RUR.add_obstacle, "flame burst"]]
     },
     {conditions: [[RUR.is_obstacle, "fire"],
                   [RUR.is_pushable, "box"]],
-     actions: [[RUR.remove_pushable, "box"]]
+     actions: [[RUR.remove_pushable, "box"],
+               [RUR.add_obstacle, "flame burst"]]
     }
 ];
 
@@ -10743,7 +10761,7 @@ RUR.get_protections = function (robot) {
  */
 RUR.is_fatal_position = function (x, y, robot){
     "use strict";
-    var protections, obs, obstacles, tile, english=true;
+    var protections, obs, obstacles, tile;
 
     // Objects carried can offer protection
     // against some types of otherwise fatal obstacles
@@ -10751,6 +10769,9 @@ RUR.is_fatal_position = function (x, y, robot){
     obstacles = RUR.get_obstacles(x, y);
     if (obstacles) {
         for (obs of obstacles) {
+            // Here, and below, we call RUR._get_property instead of
+            // RUR.get_property since this uses the internal english names;
+            // RUR.get_property assumes an untranslated argument.
             if (RUR._get_property(obs, "fatal")) {
                 if (protections.indexOf(RUR._get_property(obs, "fatal")) === -1) {
                     if (RUR.THINGS[obs].message) {
@@ -10767,10 +10788,9 @@ RUR.is_fatal_position = function (x, y, robot){
     // add any bridge protection
     protections = protections.concat(RUR.get_bridge_protections(x, y));
     tile = RUR.get_background_tile(x, y);
-
     // tile is a name; it could be a colour, which is never fatal.
     if (tile && RUR.THINGS[tile] !== undefined) {
-        if (RUR._get_property(tile, "fatal", english)) {
+        if (RUR._get_property(tile, "fatal")) {
             if (protections.indexOf(RUR._get_property(tile, "fatal")) === -1) {
                 if (RUR.THINGS[tile].message) {
                     return RUR.THINGS[tile].message;
@@ -11900,7 +11920,7 @@ RUR.get_property = function (name, property) {
 // we undo the translation to avoid having a warning for a missing
 // translation logged in the browser console.
 RUR._get_property = function (name, property) {
-    RUR.get_property(RUR.translate(name), property);
+    return RUR.get_property(RUR.translate(name), property);
 }
 
 

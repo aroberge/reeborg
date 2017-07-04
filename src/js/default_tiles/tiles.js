@@ -81,6 +81,22 @@ tile = {name: "fire",
 };
 RUR.add_new_thing(tile);
 
+// // flame burst adapted from fire above
+tile = {name: "flame burst",
+    images: [RUR.BASE_URL + "/src/images/flame1.png",
+             RUR.BASE_URL + "/src/images/flame2.png",
+             RUR.BASE_URL + "/src/images/flame3.png",
+             RUR.BASE_URL + "/src/images/flame4.png",
+             RUR.BASE_URL + "/src/images/flame5.png",
+             RUR.BASE_URL + "/src/images/flame6.png"],
+  selection_method: "cycle remove",
+  x_offset: -4,
+  y_offset: -8
+};
+
+RUR.add_new_thing(tile)
+
+// logs adapted from fire above
 tile = {name: "logs",
     url: RUR.BASE_URL + '/src/images/logs.png',
     info: "Some harmless, slightly burnt logs",
@@ -176,11 +192,13 @@ RUR.THINGS.box.transform = [
     },
     {conditions: [[RUR.is_background_tile, "fire"],
                   [RUR.is_pushable, "box"]],
-     actions: [[RUR.remove_pushable, "box"]]
+     actions: [[RUR.remove_pushable, "box"],
+               [RUR.add_obstacle, "flame burst"]]
     },
     {conditions: [[RUR.is_obstacle, "fire"],
                   [RUR.is_pushable, "box"]],
-     actions: [[RUR.remove_pushable, "box"]]
+     actions: [[RUR.remove_pushable, "box"],
+               [RUR.add_obstacle, "flame burst"]]
     }
 ];
 
