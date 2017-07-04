@@ -9,7 +9,7 @@ $("#select-world").change(function() {
         return;
     }
     if ($(this).val() !== null) {
-        RUR.file_io.load_world_file($(this).val());
+        RUR.load_world_file($(this).val());
     }
     try {
         localStorage.setItem("world", $(this).find(':selected').text());

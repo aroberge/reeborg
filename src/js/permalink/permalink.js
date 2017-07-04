@@ -57,11 +57,11 @@ RUR.permalink.from_url = function(url_query) {
     } else {
         try { // see comment above
             if (url && name) {
-                RUR.file_io.load_world_from_program(url, name);
+                RUR._load_world_from_program(url, name);
             } else if (url) {
-                RUR.file_io.load_world_from_program(url);
+                RUR._load_world_from_program(url);
             } else {
-                RUR.file_io.load_world_from_program(name);
+                RUR._load_world_from_program(name);
             }
         } catch (e) {
             if (e.reeborg_concludes) {

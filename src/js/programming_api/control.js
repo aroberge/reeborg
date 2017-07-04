@@ -453,14 +453,3 @@ RUR.control.sound = function(on){
     }
     RUR.state.sound_on = true;
 };
-
-// TODO: this might be replaced by RUR.get_background_tile...
-RUR.control.get_colour_at_position = function (x, y) {
-    if (RUR.world_get.tile_at_position(x, y)===false) {
-        return null;
-    } else if (RUR.world_get.tile_at_position(x, y)===undefined){
-        return RUR.get_current_world().tiles[x + "," + y];
-    } else {
-        return null;
-    }
-};

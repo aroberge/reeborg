@@ -32,6 +32,8 @@ RUR.reset_definitions_en = function () {
     window.at_goal = RUR._at_goal_;
     window.build_wall = RUR._build_wall_;
     window.carries_object = RUR._carries_object_;
+    window.color_here = RUR._color_here_;
+    window.colour_here = RUR._color_here_;
     window.default_robot = function () {
         var r = Object.create(UsedRobot.prototype);
         r.body = RUR._default_robot_body_();
@@ -45,6 +47,7 @@ RUR.reset_definitions_en = function () {
     window.new_robot_images = RUR._new_robot_images_;
     window.object_here = RUR._object_here_;
     window.pause = RUR._pause_;
+    window.paint_square = RUR._paint_square_
     window.print_html = RUR._print_html_;
     window.put = RUR._put_;
     window.throw = RUR._throw_;
@@ -82,6 +85,11 @@ RUR.reset_definitions_en = function () {
         RUR._UR.carries_object_(this.body);
     };
 
+    UsedRobot.prototype.color_here = function() {
+        return RUR._UR.color_here_(this.body);
+    }
+    UsedRobot.prototype.colour_here = UsedRobot.prototype.color_here;
+
     UsedRobot.prototype.front_is_clear = function () {
         RUR._UR.front_is_clear_(this.body);
     };
@@ -96,6 +104,10 @@ RUR.reset_definitions_en = function () {
 
     UsedRobot.prototype.object_here = function (obj) {
         RUR._UR.object_here_(this.body, obj);
+    };
+
+    UsedRobot.prototype.paint_square = function (color) {
+        RUR._UR.paint_square_(color, this.body);
     };
 
     UsedRobot.prototype.put = function () {
@@ -113,11 +125,11 @@ RUR.reset_definitions_en = function () {
         RUR._UR.set_model_(this.body, model);
     };
 
-    UsedRobot.prototype.set_trace_color_ = function (robot, color) {
+    UsedRobot.prototype.set_trace_color = function (robot, color) {
         RUR._UR.set_trace_color_(robot, color);
     };
 
-    UsedRobot.prototype.set_trace_style_ = function (robot, style) {
+    UsedRobot.prototype.set_trace_style = function (robot, style) {
         RUR._UR.set_trace_style_(robot, style);
     };
 

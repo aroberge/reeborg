@@ -9,6 +9,7 @@ RUR.reset_definitions_fr = function () {
     window.au_but = RUR._at_goal_;
     window.construit_un_mur = RUR._build_wall_;
     window.transporte = RUR._carries_object_;
+    window.couleur_ici = RUR._color_here_;
     window.robot_par_defaut = function () {
         var r = Object.create(RobotUsage.prototype);
         r.body = RUR._default_robot_body_();
@@ -37,6 +38,7 @@ RUR.reset_definitions_fr = function () {
         RUR._new_robot_images_(images);
     };
     window.objet_ici = RUR._object_here_;
+    window.colorie = RUR._paint_square_
     window.pause = RUR._pause_;
     window.print_html = RUR._print_html_;
     window.depose = RUR._put_;
@@ -74,6 +76,10 @@ RUR.reset_definitions_fr = function () {
         RUR._UR.carries_object_(this.body);
     };
 
+    RobotUsage.prototype.couleur_ici = function() {
+        return RUR._UR.color_here_(this.body);
+    }
+
     RobotUsage.prototype.rien_devant = function () {
         RUR._UR.front_is_clear_(this.body);
     };
@@ -88,6 +94,11 @@ RUR.reset_definitions_fr = function () {
 
     RobotUsage.prototype.objet_ici = function (obj) {
         RUR._UR.object_here_(this.body, obj);
+    };
+
+
+    RobotUsage.prototype.colorie = function (color) {
+        RUR._UR.paint_square_(color, this.body);
     };
 
     RobotUsage.prototype.depose = function () {

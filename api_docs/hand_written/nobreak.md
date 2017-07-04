@@ -1,4 +1,4 @@
-Prior to excution by Python, non-breaking spaces are converted into regular space characters
+Prior to execution by Python, non-breaking spaces are converted into regular space characters
 to allow copy-pasting code samples from this documentation and have them
 viewed as valid Python code.
 

@@ -57,7 +57,7 @@ RUR._clear_print_ = RUR.output.clear_print;
 
 RUR._color_here_ = function () {
     var robot = RUR.get_current_world().robots[0];
-    return RUR.control.get_colour_at_position(robot.x, robot.y);
+    return RUR.get_background_tile(robot.x, robot.y);
 };
 
 RUR._default_robot_body_ = function () { // simply returns body
@@ -164,7 +164,7 @@ RUR._wall_on_right_ = function() {
 
 RUR._MakeCustomMenu_ = RUR.custom_world_select.make;
 
-RUR._World_ = RUR.file_io.load_world_from_program;
+RUR._World_ = RUR._load_world_from_program;
 
 /*  methods below */
 
@@ -182,6 +182,10 @@ RUR._UR.carries_object_ = function (robot, obj) {
     return RUR.control.carries_object(robot, obj);
 };
 
+RUR._UR.color_here_ = function (robot_body) {
+    return RUR.get_background_tile(robot_body.x, robot_body.y);
+};
+
 RUR._UR.front_is_clear_ = function (robot) {
     return RUR.control.front_is_clear(robot);
 };
@@ -197,6 +201,10 @@ RUR._UR.move_ = function (robot) {
 RUR._UR.object_here_ = function (robot, obj) {
     return RUR.world_get.object_at_robot_position(robot, obj);
 };
+
+RUR._UR.paint_square_ = function (color, robot_body) {
+    RUR.add_background_tile(color, robot_body.x, robot_body.y);
+}
 
 RUR._UR.put_ = function (robot, obj) {
     RUR.control.put(robot, obj);

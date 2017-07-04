@@ -29,8 +29,6 @@ ui_fr["dandelion"] = "pissenlit";
 fr_to_en["pissenlit"] = "dandelion";
 ui_fr["leaf"] = "feuille";
 fr_to_en["feuille"] = "leaf";
-ui_fr["orange"] = "orange";
-fr_to_en["orange"] = "orange";
 ui_fr.square = "carré";
 fr_to_en["carré"] = "square";
 ui_fr.star = "étoile";
@@ -89,8 +87,8 @@ ui_fr.west = "ouest";
 ui_fr.south = "sud";
 ui_fr["Unknown orientation for robot."] = "Orientation inconnue.";
 
-ui_en["Invalid position."] = "{pos} n'est pas une position valide.";
-ui_en["Invalid orientation."] = "'{orient}' est une orientation inconnue.";
+ui_fr["Invalid position."] = "{pos} n'est pas une position valide.";
+ui_fr["Invalid orientation."] = "'{orient}' est une orientation inconnue.";
 
 ui_fr["World selected"] = "Monde {world} choisi";
 ui_fr["Could not find world"] = "Je ne peux pas trouver {world}";

@@ -79,12 +79,18 @@ def efface_print():  #py:clear_print
     RUR._clear_print_()
 
 
+def couleur_ici():  #py:color_here
+    '''Retourne la valeur de la couleur trouvée à la position de Reeborg.'''
+    return RUR._color_here_()
+
+
 def robot_par_defaut():  #py:default_robot
     """Retourne un robot recréé pour correspondre au robot par défaut."""
     class Robot(RobotUsage):
         def __init__(self):
             self.body = RUR._default_robot_body_()
     return Robot()
+
 
 def robot_spécifique(numero_de_serie):  #py:default_robot
     """
@@ -295,7 +301,7 @@ def lance(obj=None):
         RUR._throw_(obj)
 
 
-def enregistrement(bool):  #py:recording
+def enregistrement(boolean):  #py:recording
     """
     Arrête ou redémarre les enregistrement d'actions de Reeborg.
 
@@ -305,7 +311,7 @@ def enregistrement(bool):  #py:recording
     Returns:
         La valeur de l'état d'enregistrement avant le changement.
     """
-    return RUR._recording_(bool)
+    return RUR._recording_(boolean)
 
 
 def plus_de_robots():  #py:remove_robots
@@ -380,9 +386,9 @@ def style_de_trace(style="normal"):  #py:set_trace_style
     RUR._set_trace_style_(style)
 
 
-def son(bool):  #py:sound
+def son(boolean):  #py:sound
     """Active ou désactive les effets sonores."""
-    RUR._sound_(bool)
+    RUR._sound_(boolean)
 
 
 def prend(obj=None):  #py:take
@@ -480,6 +486,7 @@ def Monde(url, nom=None):  #py:World
 
 
 class RobotUsage(object):  #py:UR
+    '''Reeborg en version Programmation Orientée Objet'''
     def __init__(self, x=1, y=1, orientation='est', jeton=None, **kwargs):  #py:UR.__init__
         """
         Créé un robot usagé.
@@ -580,6 +587,10 @@ class RobotUsage(object):  #py:UR
             else:
                 return 0
 
+    def couleur_ici(self):  #py:color_here
+        '''Retourne la valeur de la couleur trouvée à la position de Reeborg.'''
+        return RUR._UR.color_here_(self.body)
+
     def rien_devant(self):  #py:UR.front_is_clear
         """
         Indique si un obstacle (mur, clôture, eau, mur de brique, ) bloque
@@ -624,6 +635,10 @@ class RobotUsage(object):  #py:UR
             return list(RUR._UR.object_here_(self.body, obj))
         else:
             return list(RUR._UR.object_here_(self.body))
+
+    def colorie(self, couleur):  #py:paint_square
+        """Colorie la case où se trouve Reeborg avec la couleur spécifiée"""
+        RUR._UR.paint_square_(couleur, self.body)
 
 
     def position_ici(self):
@@ -787,6 +802,7 @@ class ReeborgOK(Exception):  #py:RE
 
     def __init__(self, message):  #py:RE.__init__
         self.reeborg_concludes = message
+        super().__init__(message)
 
     def __str__(self):  #py:RE.__str__
         return repr(self.reeborg_concludes)
@@ -816,6 +832,7 @@ class ReeborgError(Exception):  #py:RE
 
     def __init__(self, message):  #py:RE.__init__
         self.reeborg_shouts = message
+        super().__init__(message)
 
     def __str__(self):  #py:RE.__str__
         return repr(self.reeborg_shouts)

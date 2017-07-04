@@ -313,7 +313,6 @@ add_onclick_insert_object("kbd-carrot", "carrot");
 add_onclick_insert_object("kbd-daisy", "daisy");
 add_onclick_insert_object("kbd-dandelion", "dandelion");
 add_onclick_insert_object("kbd-leaf", "leaf");
-add_onclick_insert_object("kbd-orange", "orange");
 add_onclick_insert_object("kbd-square", "square");
 add_onclick_insert_object("kbd-star", "star");
 add_onclick_insert_object("kbd-strawberry", "strawberry");

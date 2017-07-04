@@ -495,22 +495,6 @@ RUR.blockly.init = function () {
       return [RUR.translate("banana")];
     };
 
-    Blockly.Blocks['_orange_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("orange"))
-            .appendField(new Blockly.FieldImage("/src/images/orange.png", 15, 15, RUR.translate("orange")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_orange_'] = function(block) {
-      return [RUR.translate("orange")];
-    };
-    Blockly.JavaScript['_orange_'] = function(block) {
-      return [RUR.translate("orange")];
-    };
-
     Blockly.Blocks['_tulip_'] = {
       init: function() {
         this.appendDummyInput()

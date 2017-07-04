@@ -87,26 +87,11 @@
             "4,3": {
                 "banana": 1
             },
-            "7,3": {
-                "orange": 1
-            },
-            "5,5": {
-                "orange": 1
-            },
             "6,5": {
                 "banana": 1
             },
             "3,6": {
                 "banana": 1
-            },
-            "5,6": {
-                "orange": 1
-            },
-            "7,6": {
-                "orange": 1
-            },
-            "6,8": {
-                "orange": 1
             },
             "8,8": {
                 "banana": 1
@@ -196,19 +181,19 @@
             "strawberry": 1
         },
         "5,5": {
-            "orange": 1
+            "strawberry": 1
         },
         "5,6": {
-            "orange": 1
+            "strawberry": 1
         },
         "7,6": {
-            "orange": 1
+            "strawberry": 1
         },
         "6,8": {
-            "orange": 1
+            "strawberry": 1
         },
         "7,3": {
-            "orange": 1
+            "strawberry": 1
         }
     }
 }

@@ -149,7 +149,6 @@ _add_object_type("apple");
 _add_object_type("leaf");
 _add_object_type("carrot");
 _add_object_type("dandelion");
-_add_object_type("orange");
 _add_object_type("daisy");
 _add_object_type("tulip");
 _add_object_type("east");

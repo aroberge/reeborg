@@ -75,6 +75,7 @@ def clear_print():  #py:clear_print
     RUR._clear_print_()
 
 def color_here():  #py:color_here
+    '''Returns the value of the color found at Reeborg's location'''
     return RUR._color_here_()
 colour_here = color_here
 
@@ -121,6 +122,7 @@ def front_is_clear():  #py:front_is_clear
        True if the path is clear (not blocked), False otherwise.
     """
     return RUR._front_is_clear_()
+
 
 def install_extra(url):
     """Install a module (single file) to be used from within Reeborg."""
@@ -285,7 +287,7 @@ def throw(obj=None):
     else:
         RUR._throw_(obj)
 
-def recording(bool):  #py:recording
+def recording(boolean):  #py:recording
     """
     Stops or starts recording changes occuring in the world.
 
@@ -294,7 +296,7 @@ def recording(bool):  #py:recording
 
     Returns: the previous recording state value.
     """
-    return RUR._recording_(bool)
+    return RUR._recording_(boolean)
 
 
 def remove_robots():  #py:remove_robots
@@ -464,6 +466,7 @@ def World(url, shortname=None):  #py:World
 
 
 class UsedRobot(object):  #py:UR
+    '''The OOP version of Reeborg'''
     def __init__(self, x=1, y=1, orientation='e', tokens=None, **kwargs):  #py:UR.__init__
         """
         Creates a UsedRobot.
@@ -563,6 +566,15 @@ class UsedRobot(object):  #py:UR
             else:
                 return 0
 
+    def color_here(self):  #py:color_here
+        '''Returns the value of the color found at Reeborg's location'''
+        return RUR._UR.color_here_(self.body)
+
+    def colour_here(self):
+        '''Returns the value of the color found at Reeborg's location'''
+        return self.color_here()
+
+
     def front_is_clear(self):  #py:UR.front_is_clear
         """
         Indicates if an obstacle (wall, fence, water, etc.) blocks the path.
@@ -606,6 +618,10 @@ class UsedRobot(object):  #py:UR
             return list(RUR._UR.object_here_(self.body, obj))
         else:
             return list(RUR._UR.object_here_(self.body))
+
+    def paint_square(self, color):
+        """Fills the grid square where Reeborg is located with the specified color"""
+        RUR._UR.paint_square_(color, self.body)
 
 
     def position_here(self):
@@ -759,6 +775,7 @@ class ReeborgOK(Exception):  #py:RE
 
     def __init__(self, message):  #py:RE.__init__
         self.reeborg_concludes = message
+        super().__init__(message)
 
     def __str__(self):  #py:RE.__str__
         return repr(self.reeborg_concludes)
@@ -788,6 +805,7 @@ class ReeborgError(Exception):  #py:RE
 
     def __init__(self, message):  #py:RE.__init__
         self.reeborg_shouts = message
+        super().__init__(message)
 
     def __str__(self):  #py:RE.__str__
         return repr(self.reeborg_shouts)
@@ -823,7 +841,7 @@ except:
 
 
 class SatelliteInfo():  #py:SI
-
+    '''Used to obtain a map of the world'''
     @property
     def world_map(self):  #py:SI.world_map
         '''Returns a dict containing information about world.
@@ -839,7 +857,7 @@ class SatelliteInfo():  #py:SI
 #py:obsolete
 # Do not tranlate the following
 
-def narration(html):
+def narration(html=None):
     '''Deprecated function; use print_html() instead'''
     raise ReeborgError("narration is obsolete; use print_html().")
 

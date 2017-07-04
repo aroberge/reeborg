@@ -150,7 +150,6 @@ _add_object_type("apple");
 _add_object_type("leaf");
 _add_object_type("carrot");
 _add_object_type("dandelion");
-_add_object_type("orange");
 _add_object_type("daisy");
 _add_object_type("tulip");
 _add_object_type("east");
@@ -2025,7 +2024,8 @@ $("#update-library-content-btn").on("click", function(evt) {
 });
 
 },{"./../../lang/msg.js":85,"./../programming_api/blockly.js":38,"./../rur.js":51,"./create.js":11}],13:[function(require,module,exports){
-
+require("./../rur.js");
+//TODO: review requirements
 require("./../programming_api/output.js");
 require("./../recorder/recorder.js");
 require("./../editors/update.js");
@@ -2037,34 +2037,46 @@ require("./../programming_api/exceptions.js");
 require("./../listeners/stop.js");
 require("./../utils/supplant.js");
 
-RUR.file_io = {};
+/**
+ * @function _load_world_from_program
+ * @memberof RUR
+ * @instance
+ *
+ * @desc Loads a world or permalink from a user's program.
+ * This function is intended for private use by developers;
+ * **you should use `World()` instead** [or `Monde()` in French].
+ *
+ * Possible choices include `World(shortname)`
+ * where shortname is an existing name in html select; for example
 
-RUR.file_io.load_world_from_program = function (url, shortname) {
-    /*  Loads a world or permalink from a user's program using World()
+        World ("Home 1")
 
-    Possible choices:
-        World(shortname)  where shortname is an existing name in html select
-            example:  World ("Home 1")
+ * Another case is where a world in saved in local storage;
+ * in this case, the url must be modified by the user by prefixing the name
+ * with `user_world:` as in
 
-            Another case is where a world in saved in local storage;
-            in this case, the url must be modified by the user as in
-            World("user_world:My World")
+        World("user_world:My World")
 
-        World(url)  where url is a world or permalink located elsewhere
-            example: World("http://personnel.usainteanne.ca/aroberge/reeborg/token.json")
-            In this case, the url will be used as a shortname to appear in the menu
+ * or `World(url)`
+ * where url is a world or permalink located elsewhere; for example
 
-        World(url, shortname) where url is a world or permalink located elsewhere
-            and shortname is the name to appear in the html select.
+        World("http://personnel.usainteanne.ca/aroberge/reeborg/token.json")
 
-        If "url" already exists and is the selected world BUT shortname is
-        different than the existing name, a call
+ * In this case, the url will be used as a shortname to appear in the menu
+
         World(url, shortname)
-        will result in the shortname being updated.
-    */
+
+ * where url is a world or permalink located elsewhere
+ * and shortname is the name to appear in the html select.
+ * If `url` already exists and is the selected world BUT shortname is
+ * different than the existing name, a call
+ * `World(url, shortname)` will result in the shortname being updated.
+ */
+RUR._load_world_from_program = function (url, shortname) {
+
     "use strict";
     var selected, possible_url, new_world=false, new_selection=false;
-    RUR.file_io.status = undefined;
+    RUR.file_io_status = undefined;
 
     //TODO: see if we can replace this by an exception, and get rid of
     //the RUR.output dependency.
@@ -2097,11 +2109,11 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
         new_world = shortname;
     }
 
-    RUR.file_io.load_world_file(url, shortname);
-    if (RUR.file_io.status === "no link") {
+    RUR.load_world_file(url, shortname);
+    if (RUR.file_io_status === "no link") {
         RUR.show_feedback("#Reeborg-shouts", RUR.translate("Could not find link: ") + url);
         throw new RUR.ReeborgError(RUR.translate("Could not find link: ") + url);
-    } else if (RUR.file_io.status === "success") {
+    } else if (RUR.file_io_status === "success") {
         RUR.state.prevent_playback = true;
         if (new_world) {
             RUR.world_select.append_world({url:url, shortname:new_world});
@@ -2112,34 +2124,34 @@ RUR.file_io.load_world_from_program = function (url, shortname) {
     }
 };
 
-RUR.file_io.last_url_loaded = undefined;
-RUR.file_io.last_shortname_loaded = undefined;
+RUR._last_url_loaded = undefined;
+RUR._last_shortname_loaded = undefined;
 
-RUR.file_io.load_world_file = function (url, shortname) {
+RUR.load_world_file = function (url, shortname) {
     /** Loads a bare world file (json) or more complex permalink */
     "use strict";
     var data;
-    if (RUR.file_io.last_url_loaded == url &&
-        RUR.file_io.last_shortname_loaded == shortname) {
+    if (RUR._last_url_loaded == url &&
+        RUR._last_shortname_loaded == shortname) {
             return;
     } else {
-        RUR.file_io.last_url_loaded = url;
-        RUR.file_io.last_shortname_loaded = shortname;
+        RUR._last_url_loaded = url;
+        RUR._last_shortname_loaded = shortname;
     }
     if (url.substring(0,11) === "user_world:"){
         data = localStorage.getItem(url);
         if (data === null) {
-            RUR.file_io.status = "no link";
+            RUR.file_io_status = "no link";
             return;
         }
         RUR.world_utils.import_world(data);
-        RUR.file_io.status = "success";
+        RUR.file_io_status = "success";
         RUR.frames = [];
     } else {
         $.ajax({url: url,
             async: false,
             error: function(e){
-                RUR.file_io.status = "no link";
+                RUR.file_io_status = "no link";
             },
             success: function(data){
                 if (typeof data == "string" && data.substring(0,4) == "http"){
@@ -2148,35 +2160,16 @@ RUR.file_io.load_world_file = function (url, shortname) {
                 } else {
                     RUR.world_utils.import_world(data);
                 }
-                RUR.file_io.status = "success";
+                RUR.file_io_status = "success";
             }
         });
     }
 };
 
-/**
- * `load_js_module` makes it possible to modify Reeborg's World
- * by loading any javascript code and having it executed. To load
- * from other sites, CORS is used.
- *
- * Note that the CORS server may cache the result beyond our local
- * control. A script writer might be surprised to see that
- * things are not working as expected.
- */
-RUR.load_js_module = function(url) {
-    loadFile(url, eval_js);
-};
 
-function eval_js () {
-    try {
-        eval(this.responseText); //jshint ignore:line
-    } catch (e) {
-        console.error("error in attempting to evaluated loaded module");
-        console.log(this.responseText);
-        console.error(e);
-    }
-}
-/* adapted from https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Synchronous_and_Asynchronous_Requests */
+
+/* The following is adapted from
+https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Synchronous_and_Asynchronous_Requests */
 
 function xhrSuccess () { this.callback.apply(this, this.arguments); }
 
@@ -2195,12 +2188,11 @@ function loadFile (sURL, fCallback) {
   oReq.send(null);
 }
 
-// TODO: move to load_modules  (see above code too)
-//       and ensure that it still works.
 // TODO: add (q)unit tests
 
 /* The purpose of install_extra is to enable extensions to Reeborg's World
-   to be added.
+   to be added. It is also available as `install_extra`, a simple Python
+   command.
 
    See also RUR.load_js_module()
 */
@@ -2228,7 +2220,7 @@ RUR.install_extra = function(url) {
 RUR.extra_python_content = function (python_code) {
     if (python_code) {
         $("#extra").html(python_code);
-    } else {
+    } else { // called from RUR.install_extra/loadFile
         $("#extra").html(this.responseText);
     }
 }
@@ -2239,7 +2231,7 @@ window.get_extra_content = function () {
 };
 
 
-},{"./../editors/update.js":12,"./../listeners/stop.js":31,"./../permalink/permalink.js":34,"./../programming_api/exceptions.js":41,"./../programming_api/output.js":42,"./../recorder/recorder.js":46,"./../translator.js":53,"./../ui/world_select.js":57,"./../utils/supplant.js":62,"./../world_utils/import_world.js":82}],14:[function(require,module,exports){
+},{"./../editors/update.js":12,"./../listeners/stop.js":31,"./../permalink/permalink.js":34,"./../programming_api/exceptions.js":41,"./../programming_api/output.js":42,"./../recorder/recorder.js":46,"./../rur.js":51,"./../translator.js":53,"./../ui/world_select.js":57,"./../utils/supplant.js":62,"./../world_utils/import_world.js":82}],14:[function(require,module,exports){
 /*  Handler of special on-screen keyboard
 */
 
@@ -2555,7 +2547,6 @@ add_onclick_insert_object("kbd-carrot", "carrot");
 add_onclick_insert_object("kbd-daisy", "daisy");
 add_onclick_insert_object("kbd-dandelion", "dandelion");
 add_onclick_insert_object("kbd-leaf", "leaf");
-add_onclick_insert_object("kbd-orange", "orange");
 add_onclick_insert_object("kbd-square", "square");
 add_onclick_insert_object("kbd-star", "star");
 add_onclick_insert_object("kbd-strawberry", "strawberry");
@@ -5447,7 +5438,7 @@ $("#select-world").change(function() {
         return;
     }
     if ($(this).val() !== null) {
-        RUR.file_io.load_world_file($(this).val());
+        RUR.load_world_file($(this).val());
     }
     try {
         localStorage.setItem("world", $(this).find(':selected').text());
@@ -5601,11 +5592,11 @@ RUR.permalink.from_url = function(url_query) {
     } else {
         try { // see comment above
             if (url && name) {
-                RUR.file_io.load_world_from_program(url, name);
+                RUR._load_world_from_program(url, name);
             } else if (url) {
-                RUR.file_io.load_world_from_program(url);
+                RUR._load_world_from_program(url);
             } else {
-                RUR.file_io.load_world_from_program(name);
+                RUR._load_world_from_program(name);
             }
         } catch (e) {
             if (e.reeborg_concludes) {
@@ -6190,22 +6181,6 @@ RUR.blockly.init = function () {
       return [RUR.translate("banana")];
     };
 
-    Blockly.Blocks['_orange_'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField(RUR.translate("orange"))
-            .appendField(new Blockly.FieldImage("/src/images/orange.png", 15, 15, RUR.translate("orange")));
-        this.setOutput(true, "String");
-        this.setColour(0);
-      }
-    };
-    Blockly.Python['_orange_'] = function(block) {
-      return [RUR.translate("orange")];
-    };
-    Blockly.JavaScript['_orange_'] = function(block) {
-      return [RUR.translate("orange")];
-    };
-
     Blockly.Blocks['_tulip_'] = {
       init: function() {
         this.appendDummyInput()
@@ -6503,7 +6478,7 @@ RUR._clear_print_ = RUR.output.clear_print;
 
 RUR._color_here_ = function () {
     var robot = RUR.get_current_world().robots[0];
-    return RUR.control.get_colour_at_position(robot.x, robot.y);
+    return RUR.get_background_tile(robot.x, robot.y);
 };
 
 RUR._default_robot_body_ = function () { // simply returns body
@@ -6610,7 +6585,7 @@ RUR._wall_on_right_ = function() {
 
 RUR._MakeCustomMenu_ = RUR.custom_world_select.make;
 
-RUR._World_ = RUR.file_io.load_world_from_program;
+RUR._World_ = RUR._load_world_from_program;
 
 /*  methods below */
 
@@ -6628,6 +6603,10 @@ RUR._UR.carries_object_ = function (robot, obj) {
     return RUR.control.carries_object(robot, obj);
 };
 
+RUR._UR.color_here_ = function (robot_body) {
+    return RUR.get_background_tile(robot_body.x, robot_body.y);
+};
+
 RUR._UR.front_is_clear_ = function (robot) {
     return RUR.control.front_is_clear(robot);
 };
@@ -6643,6 +6622,10 @@ RUR._UR.move_ = function (robot) {
 RUR._UR.object_here_ = function (robot, obj) {
     return RUR.world_get.object_at_robot_position(robot, obj);
 };
+
+RUR._UR.paint_square_ = function (color, robot_body) {
+    RUR.add_background_tile(color, robot_body.x, robot_body.y);
+}
 
 RUR._UR.put_ = function (robot, obj) {
     RUR.control.put(robot, obj);
@@ -7141,17 +7124,6 @@ RUR.control.sound = function(on){
     RUR.state.sound_on = true;
 };
 
-// TODO: this might be replaced by RUR.get_background_tile...
-RUR.control.get_colour_at_position = function (x, y) {
-    if (RUR.world_get.tile_at_position(x, y)===false) {
-        return null;
-    } else if (RUR.world_get.tile_at_position(x, y)===undefined){
-        return RUR.get_current_world().tiles[x + "," + y];
-    } else {
-        return null;
-    }
-};
-
 },{"./../default_tiles/tiles.js":1,"./../recorder/record_frame.js":45,"./../rur.js":51,"./../translator.js":53,"./../utils/key_exist.js":60,"./../utils/supplant.js":62,"./../world_api/background_tile.js":66,"./../world_api/composition.js":68,"./../world_api/is_fatal.js":70,"./../world_api/obstacles.js":72,"./../world_api/pushables.js":73,"./../world_api/robot.js":74,"./../world_api/walls.js":76,"./../world_get/world_get.js":77,"./exceptions.js":41,"./output.js":42}],41:[function(require,module,exports){
 
 require("./../rur.js");
@@ -7306,6 +7278,8 @@ RUR.reset_definitions_en = function () {
     window.at_goal = RUR._at_goal_;
     window.build_wall = RUR._build_wall_;
     window.carries_object = RUR._carries_object_;
+    window.color_here = RUR._color_here_;
+    window.colour_here = RUR._color_here_;
     window.default_robot = function () {
         var r = Object.create(UsedRobot.prototype);
         r.body = RUR._default_robot_body_();
@@ -7319,6 +7293,7 @@ RUR.reset_definitions_en = function () {
     window.new_robot_images = RUR._new_robot_images_;
     window.object_here = RUR._object_here_;
     window.pause = RUR._pause_;
+    window.paint_square = RUR._paint_square_
     window.print_html = RUR._print_html_;
     window.put = RUR._put_;
     window.throw = RUR._throw_;
@@ -7356,6 +7331,11 @@ RUR.reset_definitions_en = function () {
         RUR._UR.carries_object_(this.body);
     };
 
+    UsedRobot.prototype.color_here = function() {
+        return RUR._UR.color_here_(this.body);
+    }
+    UsedRobot.prototype.colour_here = UsedRobot.prototype.color_here;
+
     UsedRobot.prototype.front_is_clear = function () {
         RUR._UR.front_is_clear_(this.body);
     };
@@ -7370,6 +7350,10 @@ RUR.reset_definitions_en = function () {
 
     UsedRobot.prototype.object_here = function (obj) {
         RUR._UR.object_here_(this.body, obj);
+    };
+
+    UsedRobot.prototype.paint_square = function (color) {
+        RUR._UR.paint_square_(color, this.body);
     };
 
     UsedRobot.prototype.put = function () {
@@ -7387,11 +7371,11 @@ RUR.reset_definitions_en = function () {
         RUR._UR.set_model_(this.body, model);
     };
 
-    UsedRobot.prototype.set_trace_color_ = function (robot, color) {
+    UsedRobot.prototype.set_trace_color = function (robot, color) {
         RUR._UR.set_trace_color_(robot, color);
     };
 
-    UsedRobot.prototype.set_trace_style_ = function (robot, style) {
+    UsedRobot.prototype.set_trace_style = function (robot, style) {
         RUR._UR.set_trace_style_(robot, style);
     };
 
@@ -7439,6 +7423,7 @@ RUR.reset_definitions_fr = function () {
     window.au_but = RUR._at_goal_;
     window.construit_un_mur = RUR._build_wall_;
     window.transporte = RUR._carries_object_;
+    window.couleur_ici = RUR._color_here_;
     window.robot_par_defaut = function () {
         var r = Object.create(RobotUsage.prototype);
         r.body = RUR._default_robot_body_();
@@ -7467,6 +7452,7 @@ RUR.reset_definitions_fr = function () {
         RUR._new_robot_images_(images);
     };
     window.objet_ici = RUR._object_here_;
+    window.colorie = RUR._paint_square_
     window.pause = RUR._pause_;
     window.print_html = RUR._print_html_;
     window.depose = RUR._put_;
@@ -7504,6 +7490,10 @@ RUR.reset_definitions_fr = function () {
         RUR._UR.carries_object_(this.body);
     };
 
+    RobotUsage.prototype.couleur_ici = function() {
+        return RUR._UR.color_here_(this.body);
+    }
+
     RobotUsage.prototype.rien_devant = function () {
         RUR._UR.front_is_clear_(this.body);
     };
@@ -7518,6 +7508,11 @@ RUR.reset_definitions_fr = function () {
 
     RobotUsage.prototype.objet_ici = function (obj) {
         RUR._UR.object_here_(this.body, obj);
+    };
+
+
+    RobotUsage.prototype.colorie = function (color) {
+        RUR._UR.paint_square_(color, this.body);
     };
 
     RobotUsage.prototype.depose = function () {
@@ -13029,7 +13024,6 @@ ui_en["carrot"] = en_to_en["carrot"] = "carrot";
 ui_en["daisy"] = en_to_en["daisy"] = "daisy";
 ui_en["dandelion"] = en_to_en["dandelion"] = "dandelion";
 ui_en["leaf"] = en_to_en["leaf"] = "leaf";
-ui_en["orange"] = en_to_en["orange"] = "orange";
 ui_en["square"] = en_to_en["square"] = "square";
 ui_en["star"] = en_to_en["star"] = "star";
 ui_en["strawberry"] = en_to_en["strawberry"] = "strawberry";
@@ -13369,8 +13363,6 @@ ui_fr["dandelion"] = "pissenlit";
 fr_to_en["pissenlit"] = "dandelion";
 ui_fr["leaf"] = "feuille";
 fr_to_en["feuille"] = "leaf";
-ui_fr["orange"] = "orange";
-fr_to_en["orange"] = "orange";
 ui_fr.square = "carré";
 fr_to_en["carré"] = "square";
 ui_fr.star = "étoile";
@@ -13429,8 +13421,8 @@ ui_fr.west = "ouest";
 ui_fr.south = "sud";
 ui_fr["Unknown orientation for robot."] = "Orientation inconnue.";
 
-ui_en["Invalid position."] = "{pos} n'est pas une position valide.";
-ui_en["Invalid orientation."] = "'{orient}' est une orientation inconnue.";
+ui_fr["Invalid position."] = "{pos} n'est pas une position valide.";
+ui_fr["Invalid orientation."] = "'{orient}' est une orientation inconnue.";
 
 ui_fr["World selected"] = "Monde {world} choisi";
 ui_fr["Could not find world"] = "Je ne peux pas trouver {world}";
@@ -13726,8 +13718,6 @@ ui_ko["dandelion"] = "민들레";
 ko_to_en["민들레"] = "dandelion";
 ui_ko["leaf"] = "잎";
 ko_to_en["잎"] = "leaf";
-ui_ko["orange"] = "귤";
-ko_to_en["귤"] = "orange";
 ui_ko.square = "사각형";
 ko_to_en["사각형"] = "square";
 ui_ko.star = "별";
@@ -13735,7 +13725,7 @@ ko_to_en["별"] = "star";
 ui_ko["strawberry"] = "딸기";
 ko_to_en["딸기"] = "strawberry";
 ui_ko.token = "토큰";
-ui_en["tokens are Reeborg's favourite thing."] = "토큰 are Reeborg's favourite thing.";
+ui_ko["tokens are Reeborg's favourite thing."] = "토큰 are Reeborg's favourite thing.";
 ko_to_en["토큰"] = "token";
 ui_ko.triangle = "삼각형";
 ko_to_en["삼각형"] = "triangle";
@@ -13772,7 +13762,7 @@ ui_ko["No object found here"] = "여기서 <code>{obj}</code> 를 찾을 수 없
 ui_ko["object"] = "객체";
 ui_ko["I don't have any object to put down!"] = "나는 집어넣을 <code>{obj}</code> 가 없어요!";
 ui_ko["There is already a wall here!"] = "벽이 여기에 이미 있어요!";
-ui_en["There is no wall to remove!"] = "There is no wall to remove!";
+ui_ko["There is no wall to remove!"] = "There is no wall to remove!";
 ui_ko["Ouch! I hit a wall!"] = "아으, 아파요! 저는 벽을 부딪혔어요!";
 ui_ko["Done!"] = "끝!";
 ui_ko["There is no position as a goal in this world!"] = "위치에 대한 목표가 없어요!";
@@ -13786,8 +13776,8 @@ ui_ko.west = "서쪽";
 ui_ko.south = "남쪽";
 ui_ko["Unknown orientation for robot."] = "로봇의 방향을 알 수 없습니다.";
 
-ui_en["Invalid position."] = "{pos} is an invalid position.";
-ui_en["Invalid orientation."] = "'{orient}' is an unknown orientation.";
+ui_ko["Invalid position."] = "{pos} is an invalid position.";
+ui_ko["Invalid orientation."] = "'{orient}' is an unknown orientation.";
 
 ui_ko["World selected"] = "월드 {world} 가 선택되었습니다";
 ui_ko["Could not find world"] = "월드를 찾을 수 없습니다. {world}";

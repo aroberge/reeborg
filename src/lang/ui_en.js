@@ -20,7 +20,6 @@ ui_en["carrot"] = en_to_en["carrot"] = "carrot";
 ui_en["daisy"] = en_to_en["daisy"] = "daisy";
 ui_en["dandelion"] = en_to_en["dandelion"] = "dandelion";
 ui_en["leaf"] = en_to_en["leaf"] = "leaf";
-ui_en["orange"] = en_to_en["orange"] = "orange";
 ui_en["square"] = en_to_en["square"] = "square";
 ui_en["star"] = en_to_en["star"] = "star";
 ui_en["strawberry"] = en_to_en["strawberry"] = "strawberry";
