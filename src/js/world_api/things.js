@@ -97,11 +97,13 @@ require("./../utils/supplant.js");
  * @example
  * // This first example shows how to set various "things";
  * // the mode will be set to Python and the highlighting
- * // will be turned off
+ * // will be turned off. Click on World Info for details
  * World("/worlds/examples/thing1.json", "Example 1")
  *
- * // A second example shows how one can change "things" behaviour.
- * World("/worlds/examples/thing2.json", "Example 2")
+ * // A second example, showing how to set different types of
+ * // animated images; the mode will be set to Javascript.
+ * // Also click on World Info for details.
+ * World("/worlds/examples/animated_all.json", "Example 2")
  */
 
 RUR.add_new_thing = function (thing) {

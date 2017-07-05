@@ -43,6 +43,8 @@ ui_ko.triangle = "삼각형";
 ko_to_en["삼각형"] = "triangle";
 ui_ko["tulip"] = "튤립";
 ko_to_en["튤립"] = "tulip";
+ui_ko["bucket"] = "물통"; // bucket of water
+ko_to_en["물통"] = "bucket";
 
 ui_ko["mud"] = "진흙";
 ko_to_en["진흙"] = "mud";

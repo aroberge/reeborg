@@ -42,6 +42,8 @@ ui_fr.triangle = "triangle";
 fr_to_en["triangle"] = "triangle";
 ui_fr["tulip"] = "tulipe";
 fr_to_en["tulipe"] = "tulip";
+ui_fr["bucket"] = "seau d'eau";
+fr_to_en["seau d'eau"] = "bucket";
 
 ui_fr["mud"] = "boue";
 fr_to_en["boue"] = "mud";
