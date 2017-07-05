@@ -9,6 +9,7 @@ record_id("robot3");
 
 RUR.vis_robot = {};
 RUR.vis_robot.images = [];
+RUR.vis_robot.animated_robots = [];
 
 // we will keep track if we have loaded all images
 RUR.vis_robot.loaded_images = 0;
@@ -177,6 +178,38 @@ RUR.vis_robot.s_img.onload = function () {
 };
 RUR.vis_robot.nb_images += 1;
 
+/**@function animate_robot
+ * @member RUR
+ * @instance
+ *
+ * @desc Description to be added.
+ */
+
+RUR.animate_robot = function (models, robot) {
+    if (robot === undefined) {
+        robot = RUR.get_current_world().robots[0];
+    }
+    RUR.vis_robot.animated_robots.push({
+        robot_id: robot.__id,
+        index: 0
+    })
+    robot.models_cycle = models;
+    RUR.record_frame("animate robot", robot.__id);
+};
+
+function update_model(robot) {
+    var animated_robots = RUR.vis_robot.animated_robots,
+        nb_robots = RUR.vis_robot.animated_robots.length,
+        nb_models = robot.models_cycle.length;
+    for (var r = 0; r < nb_robots; r++) {
+        if (animated_robots[r].robot_id == robot.__id) {
+            animated_robots[r].index += 1;
+            animated_robots[r].index %= nb_models;
+            robot.model = robot.models_cycle[animated_robots[r].index];
+            return;
+        }
+    }
+};
 
 
 RUR.vis_robot.draw = function (robot) {
@@ -202,6 +235,10 @@ RUR.vis_robot.draw = function (robot) {
 
     x = robot.x*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
     y = RUR.HEIGHT - (robot.y+1)*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
+
+    if (robot.models_cycle) {
+        update_model(robot);
+    }
 
     switch(robot._orientation){
         case RUR.EAST:

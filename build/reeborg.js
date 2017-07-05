@@ -718,6 +718,7 @@ record_id("robot3");
 
 RUR.vis_robot = {};
 RUR.vis_robot.images = [];
+RUR.vis_robot.animated_robots = [];
 
 // we will keep track if we have loaded all images
 RUR.vis_robot.loaded_images = 0;
@@ -886,6 +887,38 @@ RUR.vis_robot.s_img.onload = function () {
 };
 RUR.vis_robot.nb_images += 1;
 
+/**@function animate_robot
+ * @member RUR
+ * @instance
+ *
+ * @desc Description to be added.
+ */
+
+RUR.animate_robot = function (models, robot) {
+    if (robot === undefined) {
+        robot = RUR.get_current_world().robots[0];
+    }
+    RUR.vis_robot.animated_robots.push({
+        robot_id: robot.__id,
+        index: 0
+    })
+    robot.models_cycle = models;
+    RUR.record_frame("animate robot", robot.__id);
+};
+
+function update_model(robot) {
+    var animated_robots = RUR.vis_robot.animated_robots,
+        nb_robots = RUR.vis_robot.animated_robots.length,
+        nb_models = robot.models_cycle.length;
+    for (var r = 0; r < nb_robots; r++) {
+        if (animated_robots[r].robot_id == robot.__id) {
+            animated_robots[r].index += 1;
+            animated_robots[r].index %= nb_models;
+            robot.model = robot.models_cycle[animated_robots[r].index];
+            return;
+        }
+    }
+};
 
 
 RUR.vis_robot.draw = function (robot) {
@@ -911,6 +944,10 @@ RUR.vis_robot.draw = function (robot) {
 
     x = robot.x*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
     y = RUR.HEIGHT - (robot.y+1)*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
+
+    if (robot.models_cycle) {
+        update_model(robot);
+    }
 
     switch(robot._orientation){
         case RUR.EAST:
@@ -8685,8 +8722,8 @@ function redraw_all() {
     var now, elapsed;
     now = Date.now();
     elapsed = now - RUR.last_drawing_time;
+    clearTimeout(RUR._initial_drawing_timer);
     if (elapsed > 200) {
-        clearTimeout(RUR._initial_drawing_timer);
         RUR.vis_world.draw_all();
         RUR.last_drawing_time = now;
     } else { // the last image loaded may never be drawn if we do not do this:
@@ -8835,6 +8872,7 @@ RUR.PLAYBACK_TIME_PER_FRAME = 300;
 RUR.DEFAULT_TRACE_COLOR = "seagreen";
 
 RUR.ANIMATION_TIME = 120;
+RUR.ROBOT_ANIMATION_TIME = 250;
 RUR.END_CYCLE = "end cycle"; // for animated images
 
 RUR.BACKGROUND_IMAGE = new Image();
@@ -11727,11 +11765,13 @@ require("./../utils/supplant.js");
  * @example
  * // This first example shows how to set various "things";
  * // the mode will be set to Python and the highlighting
- * // will be turned off
+ * // will be turned off. Click on World Info for details
  * World("/worlds/examples/thing1.json", "Example 1")
  *
- * // A second example shows how one can change "things" behaviour.
- * World("/worlds/examples/thing2.json", "Example 2")
+ * // A second example, showing how to set different types of
+ * // animated images; the mode will be set to Javascript.
+ * // Also click on World Info for details.
+ * World("/worlds/examples/animated_all.json", "Example 2")
  */
 
 RUR.add_new_thing = function (thing) {
@@ -12555,6 +12595,7 @@ exports.reset_world = reset_world = function () {
     }
     RUR.MAX_STEPS = 1000;
     RUR.ANIMATION_TIME = 120;
+    RUR.vis_robot.animated_robots = [];
 
     RUR.set_current_world(RUR.clone_world(RUR.WORLD_BEFORE_ONLOAD));
     if (RUR.state.run_button_clicked) { // do not process_onload
@@ -13057,6 +13098,7 @@ ui_en["token"] = en_to_en["token"] = "token";
 ui_en["tokens are Reeborg's favourite thing."] = "tokens are Reeborg's favourite thing.";
 ui_en["triangle"] = en_to_en["triangle"] = "triangle";
 ui_en["tulip"] = en_to_en["tulip"] = "tulip";
+ui_en["bucket"] = en_to_en["bucket"] = "bucket";
 
 ui_en["mud"] = en_to_en["mud"] = "mud";
 ui_en["water"] = en_to_en["water"] = "water";
@@ -13402,6 +13444,8 @@ ui_fr.triangle = "triangle";
 fr_to_en["triangle"] = "triangle";
 ui_fr["tulip"] = "tulipe";
 fr_to_en["tulipe"] = "tulip";
+ui_fr["bucket"] = "seau d'eau";
+fr_to_en["seau d'eau"] = "bucket";
 
 ui_fr["mud"] = "boue";
 fr_to_en["boue"] = "mud";
@@ -13757,6 +13801,8 @@ ui_ko.triangle = "삼각형";
 ko_to_en["삼각형"] = "triangle";
 ui_ko["tulip"] = "튤립";
 ko_to_en["튤립"] = "tulip";
+ui_ko["bucket"] = "물통"; // bucket of water
+ko_to_en["물통"] = "bucket";
 
 ui_ko["mud"] = "진흙";
 ko_to_en["진흙"] = "mud";

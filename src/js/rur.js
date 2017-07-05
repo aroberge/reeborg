@@ -92,8 +92,8 @@ function redraw_all() {
     var now, elapsed;
     now = Date.now();
     elapsed = now - RUR.last_drawing_time;
+    clearTimeout(RUR._initial_drawing_timer);
     if (elapsed > 200) {
-        clearTimeout(RUR._initial_drawing_timer);
         RUR.vis_world.draw_all();
         RUR.last_drawing_time = now;
     } else { // the last image loaded may never be drawn if we do not do this:
@@ -242,6 +242,7 @@ RUR.PLAYBACK_TIME_PER_FRAME = 300;
 RUR.DEFAULT_TRACE_COLOR = "seagreen";
 
 RUR.ANIMATION_TIME = 120;
+RUR.ROBOT_ANIMATION_TIME = 250;
 RUR.END_CYCLE = "end cycle"; // for animated images
 
 RUR.BACKGROUND_IMAGE = new Image();
