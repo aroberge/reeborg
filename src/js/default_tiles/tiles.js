@@ -81,7 +81,7 @@ tile = {name: "fire",
 };
 RUR.add_new_thing(tile);
 
-// // flame burst adapted from fire above
+// flame burst adapted from fire above
 tile = {name: "flame burst",
     images: [RUR.BASE_URL + "/src/images/flame1.png",
              RUR.BASE_URL + "/src/images/flame2.png",
@@ -102,6 +102,22 @@ tile = {name: "logs",
     info: "Some harmless, slightly burnt logs",
 };
 RUR.add_new_thing(tile);
+
+// smoke adapted from https://opengameart.org/content/animated-fireball
+
+tile = {name: "smoke",
+    images: [RUR.BASE_URL + "/src/images/smoke1.png",
+             RUR.BASE_URL + "/src/images/smoke2.png",
+             RUR.BASE_URL + "/src/images/smoke3.png",
+             RUR.BASE_URL + "/src/images/smoke4.png",
+             RUR.BASE_URL + "/src/images/smoke5.png",
+             RUR.BASE_URL + "/src/images/smoke6.png"],
+  selection_method: "cycle remove",
+  y_offset: -8
+};
+
+RUR.add_new_thing(tile)
+
 
 /*--- home tiles ---*/
 
@@ -212,14 +228,15 @@ RUR.THINGS.bucket.transform = [
                   [RUR.is_object, "bucket"]],
      actions: [[RUR.remove_object, "bucket"],
               [RUR.remove_background_tile, "fire"],
-              [RUR.add_obstacle, "logs"]] // added as obstacle so that "info"
-              // can be shown when clicking on canvas.
+              [RUR.add_obstacle, "logs"], // added as obstacle so that "info"
+              [RUR.add_obstacle, "smoke"]] // can be shown when clicking on canvas.
     },
     {conditions: [[RUR.is_obstacle, "fire"],
                   [RUR.is_object, "bucket"]],
      actions: [[RUR.remove_object, "bucket"],
               [RUR.remove_obstacle, "fire"],
-              [RUR.add_obstacle, "logs"]]
+              [RUR.add_obstacle, "logs"],
+              [RUR.add_obstacle, "smoke"]]
     },
     {conditions: [[RUR.is_object, "bulb"],
                   [RUR.is_object, "bucket"]],
