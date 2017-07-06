@@ -717,7 +717,7 @@ record_id("robot2");
 record_id("robot3");
 
 RUR.vis_robot = {};
-RUR.vis_robot.images = [];
+RUR.vis_robot.images = {};
 RUR.vis_robot.animated_robots = [];
 
 // we will keep track if we have loaded all images
@@ -888,7 +888,7 @@ RUR.vis_robot.s_img.onload = function () {
 RUR.vis_robot.nb_images += 1;
 
 /**@function animate_robot
- * @member RUR
+ * @memberof RUR
  * @instance
  *
  * @desc Description to be added.
@@ -904,6 +904,7 @@ RUR.animate_robot = function (models, robot) {
     })
     robot.models_cycle = models;
     RUR.record_frame("animate robot", robot.__id);
+    RUR.state.animated_robots = true;
 };
 
 function update_model(robot) {
@@ -1050,7 +1051,7 @@ RUR.vis_robot.draw_random = function (robot) {
             image = RUR.vis_robot.e_img;
             console.warn("default should not happen in RUR.vis_robot.draw_random.");
         }
-    RUR.ROBOT_ANIM_CTX.drawImage(image, x, y, width, height);
+    RUR.ROBOT_CTX.drawImage(image, x, y, width, height);
     RUR.state.random_robot = true;
 };
 
@@ -1131,6 +1132,38 @@ RUR.new_robot_images = function (images) {
 
     RUR.select_default_robot_model(model);
 };
+
+/** @function show_all_robots
+ * @memberof RUR
+ * @instance
+ *
+ * @summary This method shows all known robot models in a table.
+ *
+ */
+RUR.show_all_robots = function () {
+    var info, model, east, north, west, south;
+    info = "<table border='1'><tr><th>model</th><th>east</th><th>north</th><th>west</th><th>south</th></tr>";
+
+    for (model in RUR.vis_robot.images) {
+        if (RUR.vis_robot.images.hasOwnProperty(model)) {
+            east = RUR.vis_robot.images[model].robot_e_img.src;
+            north = RUR.vis_robot.images[model].robot_n_img.src;
+            west = RUR.vis_robot.images[model].robot_w_img.src;
+            south = RUR.vis_robot.images[model].robot_s_img.src;
+
+            info += "<tr><td>" +  model + "</td>";
+            info += "<td><img src = '" + east + "'></td>";
+            info += "<td><img src = '" + north + "'></td>";
+            info += "<td><img src = '" + west + "'></td>";
+            info += "<td><img src = '" + south + "'></td></tr>";
+        }
+    }
+
+    info += "</table>";
+    RUR._print_html_(info, true); // true will replace existing content
+    return null; // for the python repl
+};
+
 
 },{"./../../lang/msg.js":85,"./../rur.js":51,"./../utils/validator.js":63}],10:[function(require,module,exports){
 require("./../rur.js");
@@ -1257,7 +1290,10 @@ RUR.vis_world.refresh = function () {
     draw_tiles(world.objects, RUR.OBJECTS_CTX);
 
     draw_info();     // on ROBOT_CTX
-    draw_robots(world.robots);  // on ROBOT_CTX; also draws the trace
+    if (RUR.ROBOT_ANIMATION_FRAME_ID) {
+        clearTimeout(RUR.ROBOT_ANIMATION_FRAME_ID);
+    }
+    draw_robots();  // on ROBOT_CTX; also draws the trace
 
     // Animated images are redrawn according to their own schedule
     // If we have not drawn any yet, we should see if we need to draw some
@@ -1366,9 +1402,9 @@ function draw_border (ctx) {
 }
 
 
-function draw_robots (robots) {
+function draw_robots () {
     "use strict";
-    var body, robot;
+    var body, robot, robots = RUR.get_current_world().robots;
     if (!robots || robots[0] === undefined) {
         return;
     }
@@ -1383,6 +1419,11 @@ function draw_robots (robots) {
             RUR.vis_robot.draw(body); // draws trace automatically
         }
     }
+
+    if (RUR.state.animated_robots) {
+        RUR.ROBOT_ANIMATION_FRAME_ID = setTimeout(draw_robots,
+            RUR.ROBOT_ANIMATION_TIME);
+    }
 }
 
 function draw_random_robots (robots) {
@@ -1391,6 +1432,8 @@ function draw_random_robots (robots) {
     if (!robots || robots[0] === undefined) {
         return;
     }
+    RUR["ROBOT_CTX"].clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
     for (robot=0; robot < robots.length; robot++){
         body = robots[robot];
         if (body._orientation != -1) { // not random
@@ -1409,8 +1452,8 @@ function draw_robot_clones (robot, random){
     "use strict";
     var i, clone;
     if (random) {
-        RUR.ROBOT_ANIM_CTX.save();
-        RUR.ROBOT_ANIM_CTX.globalAlpha = 0.4;
+        RUR.ROBOT_CTX.save();
+        RUR.ROBOT_CTX.globalAlpha = 0.4;
     } else {
         RUR.ROBOT_CTX.save();
         RUR.ROBOT_CTX.globalAlpha = 0.4;
@@ -1429,7 +1472,7 @@ function draw_robot_clones (robot, random){
         }
     }
     if (random) {
-        RUR.ROBOT_ANIM_CTX.restore();
+        RUR.ROBOT_CTX.restore();
     } else {
         RUR.ROBOT_CTX.restore();
     }
@@ -1523,7 +1566,7 @@ function draw_animated_images (){
 
     canvases = ["TILES_ANIM_CTX", "BRIDGE_ANIM_CTX", "DECORATIVE_OBJECTS_ANIM_CTX",
                 "OBSTACLES_ANIM_CTX", "GOAL_ANIM_CTX", "OBJECTS_ANIM_CTX",
-                "PUSHABLES_ANIM_CTX", "ROBOT_ANIM_CTX"];
+                "PUSHABLES_ANIM_CTX"];
     for (canvas of canvases) {
         RUR[canvas].clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     }
@@ -3039,8 +3082,8 @@ RUR.we.turn_robot = function (orientation) { // function used on reeborg.html
 
 function calculate_wall_position () {
     var ctx, x, y, orientation, remain_x, remain_y, del_x, del_y;
-    x = RUR.mouse_x - $("#robot-anim-canvas").offset().left;
-    y = RUR.mouse_y - $("#robot-anim-canvas").offset().top;
+    x = RUR.mouse_x - $("#robot-canvas").offset().left;
+    y = RUR.mouse_y - $("#robot-canvas").offset().top;
 
     y = RUR.BACKGROUND_CANVAS.height - y;  // count from bottom
 
@@ -3262,7 +3305,7 @@ function toggle_obstacle (obj){
 
 
 // mouse clicks also requested in listeners/canvas.js
-$("#robot-anim-canvas").on("click", function (evt) {
+$("#robot-canvas").on("click", function (evt) {
     if (RUR.state.editing_world && RUR.we.edit_world_flag !== undefined) {
         RUR.we.edit_world();
     }
@@ -4427,12 +4470,12 @@ $.extend($.ui.dialog.overlay.prototype, {
 },{}],18:[function(require,module,exports){
 require("./../rur.js");
 
-$("#robot-anim-canvas").mousemove(function (evt) {
+$("#robot-canvas").mousemove(function (evt) {
     RUR.mouse_x = evt.pageX;
     RUR.mouse_y = evt.pageY;
     handleMouseMove(evt);
 });
-$("#robot-anim-canvas").on("click", function (evt) {
+$("#robot-canvas").on("click", function (evt) {
     RUR.mouse_x = evt.pageX;
     RUR.mouse_y = evt.pageY;
 }); // mouse clicks also requested in world_editor.js (at bottom)
@@ -4447,8 +4490,8 @@ function handleMouseMove(evt) {
     var size = 40, objects_carried;
 
     world = RUR.get_current_world();
-    x = evt.pageX - $("#robot-anim-canvas").offset().left;
-    y = evt.pageY - $("#robot-anim-canvas").offset().top;
+    x = evt.pageX - $("#robot-canvas").offset().left;
+    y = evt.pageY - $("#robot-canvas").offset().top;
     position = RUR.calculate_grid_position();
     tooltip.canvas.style.left = "-200px";
     if (!tooltip.mouse_contained) {
@@ -4506,8 +4549,8 @@ function handleMouseMove(evt) {
 
 RUR.calculate_grid_position = function () {
     var ctx, x, y;
-    x = RUR.mouse_x - $("#robot-anim-canvas").offset().left;
-    y = RUR.mouse_y - $("#robot-anim-canvas").offset().top;
+    x = RUR.mouse_x - $("#robot-canvas").offset().left;
+    y = RUR.mouse_y - $("#robot-canvas").offset().top;
 
     x /= RUR.WALL_LENGTH;
     x = Math.floor(x);
@@ -8672,6 +8715,8 @@ try {
  */
 RUR.state = {};
 
+RUR.state.animated_robots = false;
+RUR.state.animated_robot_timer = null;
 RUR.state.code_evaluated = false;
 RUR.state.do_not_record = false;
 RUR.state.do_not_draw_info = false;
@@ -8841,9 +8886,6 @@ function set_canvases () {
 
     RUR.ROBOT_CANVAS = document.getElementById("robot-canvas"); //19
     create_ctx(RUR.ROBOT_CANVAS, "ROBOT_CTX");
-
-    RUR.ROBOT_ANIM_CANVAS = document.getElementById("robot-anim-canvas"); //20
-    create_ctx(RUR.ROBOT_ANIM_CANVAS, "ROBOT_ANIM_CTX");
 }
 
 // We immediately create the canvases.
@@ -8872,7 +8914,7 @@ RUR.PLAYBACK_TIME_PER_FRAME = 300;
 RUR.DEFAULT_TRACE_COLOR = "seagreen";
 
 RUR.ANIMATION_TIME = 120;
-RUR.ROBOT_ANIMATION_TIME = 250;
+RUR.ROBOT_ANIMATION_TIME = 150;
 RUR.END_CYCLE = "end cycle"; // for animated images
 
 RUR.BACKGROUND_IMAGE = new Image();
@@ -12596,6 +12638,7 @@ exports.reset_world = reset_world = function () {
     RUR.MAX_STEPS = 1000;
     RUR.ANIMATION_TIME = 120;
     RUR.vis_robot.animated_robots = [];
+    RUR.state.animated_robots = false;
 
     RUR.set_current_world(RUR.clone_world(RUR.WORLD_BEFORE_ONLOAD));
     if (RUR.state.run_button_clicked) { // do not process_onload

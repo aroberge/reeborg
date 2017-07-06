@@ -8,7 +8,7 @@ record_id("robot2");
 record_id("robot3");
 
 RUR.vis_robot = {};
-RUR.vis_robot.images = [];
+RUR.vis_robot.images = {};
 RUR.vis_robot.animated_robots = [];
 
 // we will keep track if we have loaded all images
@@ -179,7 +179,7 @@ RUR.vis_robot.s_img.onload = function () {
 RUR.vis_robot.nb_images += 1;
 
 /**@function animate_robot
- * @member RUR
+ * @memberof RUR
  * @instance
  *
  * @desc Description to be added.
@@ -195,6 +195,7 @@ RUR.animate_robot = function (models, robot) {
     })
     robot.models_cycle = models;
     RUR.record_frame("animate robot", robot.__id);
+    RUR.state.animated_robots = true;
 };
 
 function update_model(robot) {
@@ -341,7 +342,7 @@ RUR.vis_robot.draw_random = function (robot) {
             image = RUR.vis_robot.e_img;
             console.warn("default should not happen in RUR.vis_robot.draw_random.");
         }
-    RUR.ROBOT_ANIM_CTX.drawImage(image, x, y, width, height);
+    RUR.ROBOT_CTX.drawImage(image, x, y, width, height);
     RUR.state.random_robot = true;
 };
 
@@ -422,3 +423,35 @@ RUR.new_robot_images = function (images) {
 
     RUR.select_default_robot_model(model);
 };
+
+/** @function show_all_robots
+ * @memberof RUR
+ * @instance
+ *
+ * @summary This method shows all known robot models in a table.
+ *
+ */
+RUR.show_all_robots = function () {
+    var info, model, east, north, west, south;
+    info = "<table border='1'><tr><th>model</th><th>east</th><th>north</th><th>west</th><th>south</th></tr>";
+
+    for (model in RUR.vis_robot.images) {
+        if (RUR.vis_robot.images.hasOwnProperty(model)) {
+            east = RUR.vis_robot.images[model].robot_e_img.src;
+            north = RUR.vis_robot.images[model].robot_n_img.src;
+            west = RUR.vis_robot.images[model].robot_w_img.src;
+            south = RUR.vis_robot.images[model].robot_s_img.src;
+
+            info += "<tr><td>" +  model + "</td>";
+            info += "<td><img src = '" + east + "'></td>";
+            info += "<td><img src = '" + north + "'></td>";
+            info += "<td><img src = '" + west + "'></td>";
+            info += "<td><img src = '" + south + "'></td></tr>";
+        }
+    }
+
+    info += "</table>";
+    RUR._print_html_(info, true); // true will replace existing content
+    return null; // for the python repl
+};
+

@@ -14,6 +14,7 @@ exports.reset_world = reset_world = function () {
     RUR.MAX_STEPS = 1000;
     RUR.ANIMATION_TIME = 120;
     RUR.vis_robot.animated_robots = [];
+    RUR.state.animated_robots = false;
 
     RUR.set_current_world(RUR.clone_world(RUR.WORLD_BEFORE_ONLOAD));
     if (RUR.state.run_button_clicked) { // do not process_onload

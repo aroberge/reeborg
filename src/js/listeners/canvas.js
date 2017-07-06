@@ -1,11 +1,11 @@
 require("./../rur.js");
 
-$("#robot-anim-canvas").mousemove(function (evt) {
+$("#robot-canvas").mousemove(function (evt) {
     RUR.mouse_x = evt.pageX;
     RUR.mouse_y = evt.pageY;
     handleMouseMove(evt);
 });
-$("#robot-anim-canvas").on("click", function (evt) {
+$("#robot-canvas").on("click", function (evt) {
     RUR.mouse_x = evt.pageX;
     RUR.mouse_y = evt.pageY;
 }); // mouse clicks also requested in world_editor.js (at bottom)
@@ -20,8 +20,8 @@ function handleMouseMove(evt) {
     var size = 40, objects_carried;
 
     world = RUR.get_current_world();
-    x = evt.pageX - $("#robot-anim-canvas").offset().left;
-    y = evt.pageY - $("#robot-anim-canvas").offset().top;
+    x = evt.pageX - $("#robot-canvas").offset().left;
+    y = evt.pageY - $("#robot-canvas").offset().top;
     position = RUR.calculate_grid_position();
     tooltip.canvas.style.left = "-200px";
     if (!tooltip.mouse_contained) {
@@ -79,8 +79,8 @@ function handleMouseMove(evt) {
 
 RUR.calculate_grid_position = function () {
     var ctx, x, y;
-    x = RUR.mouse_x - $("#robot-anim-canvas").offset().left;
-    y = RUR.mouse_y - $("#robot-anim-canvas").offset().top;
+    x = RUR.mouse_x - $("#robot-canvas").offset().left;
+    y = RUR.mouse_y - $("#robot-canvas").offset().top;
 
     x /= RUR.WALL_LENGTH;
     x = Math.floor(x);

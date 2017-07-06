@@ -42,6 +42,8 @@ try {
  */
 RUR.state = {};
 
+RUR.state.animated_robots = false;
+RUR.state.animated_robot_timer = null;
 RUR.state.code_evaluated = false;
 RUR.state.do_not_record = false;
 RUR.state.do_not_draw_info = false;
@@ -211,9 +213,6 @@ function set_canvases () {
 
     RUR.ROBOT_CANVAS = document.getElementById("robot-canvas"); //19
     create_ctx(RUR.ROBOT_CANVAS, "ROBOT_CTX");
-
-    RUR.ROBOT_ANIM_CANVAS = document.getElementById("robot-anim-canvas"); //20
-    create_ctx(RUR.ROBOT_ANIM_CANVAS, "ROBOT_ANIM_CTX");
 }
 
 // We immediately create the canvases.
@@ -242,7 +241,7 @@ RUR.PLAYBACK_TIME_PER_FRAME = 300;
 RUR.DEFAULT_TRACE_COLOR = "seagreen";
 
 RUR.ANIMATION_TIME = 120;
-RUR.ROBOT_ANIMATION_TIME = 250;
+RUR.ROBOT_ANIMATION_TIME = 150;
 RUR.END_CYCLE = "end cycle"; // for animated images
 
 RUR.BACKGROUND_IMAGE = new Image();

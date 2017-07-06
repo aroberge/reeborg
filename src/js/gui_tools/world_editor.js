@@ -322,8 +322,8 @@ RUR.we.turn_robot = function (orientation) { // function used on reeborg.html
 
 function calculate_wall_position () {
     var ctx, x, y, orientation, remain_x, remain_y, del_x, del_y;
-    x = RUR.mouse_x - $("#robot-anim-canvas").offset().left;
-    y = RUR.mouse_y - $("#robot-anim-canvas").offset().top;
+    x = RUR.mouse_x - $("#robot-canvas").offset().left;
+    y = RUR.mouse_y - $("#robot-canvas").offset().top;
 
     y = RUR.BACKGROUND_CANVAS.height - y;  // count from bottom
 
@@ -545,7 +545,7 @@ function toggle_obstacle (obj){
 
 
 // mouse clicks also requested in listeners/canvas.js
-$("#robot-anim-canvas").on("click", function (evt) {
+$("#robot-canvas").on("click", function (evt) {
     if (RUR.state.editing_world && RUR.we.edit_world_flag !== undefined) {
         RUR.we.edit_world();
     }

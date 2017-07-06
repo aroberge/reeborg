@@ -122,7 +122,10 @@ RUR.vis_world.refresh = function () {
     draw_tiles(world.objects, RUR.OBJECTS_CTX);
 
     draw_info();     // on ROBOT_CTX
-    draw_robots(world.robots);  // on ROBOT_CTX; also draws the trace
+    if (RUR.ROBOT_ANIMATION_FRAME_ID) {
+        clearTimeout(RUR.ROBOT_ANIMATION_FRAME_ID);
+    }
+    draw_robots();  // on ROBOT_CTX; also draws the trace
 
     // Animated images are redrawn according to their own schedule
     // If we have not drawn any yet, we should see if we need to draw some
@@ -231,9 +234,9 @@ function draw_border (ctx) {
 }
 
 
-function draw_robots (robots) {
+function draw_robots () {
     "use strict";
-    var body, robot;
+    var body, robot, robots = RUR.get_current_world().robots;
     if (!robots || robots[0] === undefined) {
         return;
     }
@@ -248,6 +251,11 @@ function draw_robots (robots) {
             RUR.vis_robot.draw(body); // draws trace automatically
         }
     }
+
+    if (RUR.state.animated_robots) {
+        RUR.ROBOT_ANIMATION_FRAME_ID = setTimeout(draw_robots,
+            RUR.ROBOT_ANIMATION_TIME);
+    }
 }
 
 function draw_random_robots (robots) {
@@ -256,6 +264,8 @@ function draw_random_robots (robots) {
     if (!robots || robots[0] === undefined) {
         return;
     }
+    RUR["ROBOT_CTX"].clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+
     for (robot=0; robot < robots.length; robot++){
         body = robots[robot];
         if (body._orientation != -1) { // not random
@@ -274,8 +284,8 @@ function draw_robot_clones (robot, random){
     "use strict";
     var i, clone;
     if (random) {
-        RUR.ROBOT_ANIM_CTX.save();
-        RUR.ROBOT_ANIM_CTX.globalAlpha = 0.4;
+        RUR.ROBOT_CTX.save();
+        RUR.ROBOT_CTX.globalAlpha = 0.4;
     } else {
         RUR.ROBOT_CTX.save();
         RUR.ROBOT_CTX.globalAlpha = 0.4;
@@ -294,7 +304,7 @@ function draw_robot_clones (robot, random){
         }
     }
     if (random) {
-        RUR.ROBOT_ANIM_CTX.restore();
+        RUR.ROBOT_CTX.restore();
     } else {
         RUR.ROBOT_CTX.restore();
     }
@@ -388,7 +398,7 @@ function draw_animated_images (){
 
     canvases = ["TILES_ANIM_CTX", "BRIDGE_ANIM_CTX", "DECORATIVE_OBJECTS_ANIM_CTX",
                 "OBSTACLES_ANIM_CTX", "GOAL_ANIM_CTX", "OBJECTS_ANIM_CTX",
-                "PUSHABLES_ANIM_CTX", "ROBOT_ANIM_CTX"];
+                "PUSHABLES_ANIM_CTX"];
     for (canvas of canvases) {
         RUR[canvas].clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     }
