@@ -213,6 +213,9 @@ function set_canvases () {
 
     RUR.ROBOT_CANVAS = document.getElementById("robot-canvas"); //19
     create_ctx(RUR.ROBOT_CANVAS, "ROBOT_CTX");
+
+    RUR.ROBOT_ANIM_CANVAS = document.getElementById("robot-anim-canvas"); //20
+    create_ctx(RUR.ROBOT_ANIM_CANVAS, "ROBOT_ANIM_CTX");
 }
 
 // We immediately create the canvases.

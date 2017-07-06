@@ -13,7 +13,7 @@ Nonetheless, for completeness, here is the ordering of the canvases, from top to
 
 1. overlay animation layer [not implemented yet]
 2. overlay layer [not implemented yet]
-3. robot animation [not implemented yet]
+3. robot animation [for initial random orientation only]
 4. robots
 5. wall
 6. animated pushable object
@@ -48,6 +48,20 @@ Pushable objects, when pushed onto a given tile (background or obstacle), can tr
   - add example: box+water = bridge; box+fire=fire (box disappear)  (Maybe make the fire temporarily bigger).
 
 ## Controlling the frame update
+
+**Note** Use example of two robots moving simultaneously
+
+  RUR.animate_robot([0, 7, 8])
+  reeborg = UsedRobot(1, 2)
+  def move_together():
+      recording(False)
+      move()
+      reeborg.move()
+      recording(True)
+      RUR.record_frame()
+
+  while front_is_clear():
+      move_together()
 
 Each world change (addition or removal of object, movement of robot, etc.) normally results in a frame being recorded, so that only one thing changes from one frame to the next.  Sometimes, this might not be desirable. For example, with the default objects, if Reeborg moves (frame recorded) pushing a box (remove the box from one location: frame recorded; add to another location: frame recorded) onto a water tile (remove the box: frame recorded; add a bridge: frame recorded) ... the display would not look right. Instead, we want to have all these appear to be done simultaneously.  For your own code, this can be done with the `recording()` function call. In pseudo-code, the above example would be done as follows:
 

@@ -1051,7 +1051,7 @@ RUR.vis_robot.draw_random = function (robot) {
             image = RUR.vis_robot.e_img;
             console.warn("default should not happen in RUR.vis_robot.draw_random.");
         }
-    RUR.ROBOT_CTX.drawImage(image, x, y, width, height);
+    RUR.ROBOT_ANIM_CTX.drawImage(image, x, y, width, height);
     RUR.state.random_robot = true;
 };
 
@@ -1432,8 +1432,6 @@ function draw_random_robots (robots) {
     if (!robots || robots[0] === undefined) {
         return;
     }
-    RUR["ROBOT_CTX"].clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-
     for (robot=0; robot < robots.length; robot++){
         body = robots[robot];
         if (body._orientation != -1) { // not random
@@ -1452,8 +1450,8 @@ function draw_robot_clones (robot, random){
     "use strict";
     var i, clone;
     if (random) {
-        RUR.ROBOT_CTX.save();
-        RUR.ROBOT_CTX.globalAlpha = 0.4;
+        RUR.ROBOT_ANIM_CTX.save();
+        RUR.ROBOT_ANIM_CTX.globalAlpha = 0.4;
     } else {
         RUR.ROBOT_CTX.save();
         RUR.ROBOT_CTX.globalAlpha = 0.4;
@@ -1472,7 +1470,7 @@ function draw_robot_clones (robot, random){
         }
     }
     if (random) {
-        RUR.ROBOT_CTX.restore();
+        RUR.ROBOT_ANIM_CTX.restore();
     } else {
         RUR.ROBOT_CTX.restore();
     }
@@ -1566,7 +1564,7 @@ function draw_animated_images (){
 
     canvases = ["TILES_ANIM_CTX", "BRIDGE_ANIM_CTX", "DECORATIVE_OBJECTS_ANIM_CTX",
                 "OBSTACLES_ANIM_CTX", "GOAL_ANIM_CTX", "OBJECTS_ANIM_CTX",
-                "PUSHABLES_ANIM_CTX"];
+                "PUSHABLES_ANIM_CTX", "ROBOT_ANIM_CTX"];
     for (canvas of canvases) {
         RUR[canvas].clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     }
@@ -3082,8 +3080,8 @@ RUR.we.turn_robot = function (orientation) { // function used on reeborg.html
 
 function calculate_wall_position () {
     var ctx, x, y, orientation, remain_x, remain_y, del_x, del_y;
-    x = RUR.mouse_x - $("#robot-canvas").offset().left;
-    y = RUR.mouse_y - $("#robot-canvas").offset().top;
+    x = RUR.mouse_x - $("#robot-anim-canvas").offset().left;
+    y = RUR.mouse_y - $("#robot-anim-canvas").offset().top;
 
     y = RUR.BACKGROUND_CANVAS.height - y;  // count from bottom
 
@@ -3305,7 +3303,7 @@ function toggle_obstacle (obj){
 
 
 // mouse clicks also requested in listeners/canvas.js
-$("#robot-canvas").on("click", function (evt) {
+$("#robot-anim-canvas").on("click", function (evt) {
     if (RUR.state.editing_world && RUR.we.edit_world_flag !== undefined) {
         RUR.we.edit_world();
     }
@@ -4470,12 +4468,12 @@ $.extend($.ui.dialog.overlay.prototype, {
 },{}],18:[function(require,module,exports){
 require("./../rur.js");
 
-$("#robot-canvas").mousemove(function (evt) {
+$("#robot-anim-canvas").mousemove(function (evt) {
     RUR.mouse_x = evt.pageX;
     RUR.mouse_y = evt.pageY;
     handleMouseMove(evt);
 });
-$("#robot-canvas").on("click", function (evt) {
+$("#robot-anim-canvas").on("click", function (evt) {
     RUR.mouse_x = evt.pageX;
     RUR.mouse_y = evt.pageY;
 }); // mouse clicks also requested in world_editor.js (at bottom)
@@ -4490,8 +4488,8 @@ function handleMouseMove(evt) {
     var size = 40, objects_carried;
 
     world = RUR.get_current_world();
-    x = evt.pageX - $("#robot-canvas").offset().left;
-    y = evt.pageY - $("#robot-canvas").offset().top;
+    x = evt.pageX - $("#robot-anim-canvas").offset().left;
+    y = evt.pageY - $("#robot-anim-canvas").offset().top;
     position = RUR.calculate_grid_position();
     tooltip.canvas.style.left = "-200px";
     if (!tooltip.mouse_contained) {
@@ -4549,8 +4547,8 @@ function handleMouseMove(evt) {
 
 RUR.calculate_grid_position = function () {
     var ctx, x, y;
-    x = RUR.mouse_x - $("#robot-canvas").offset().left;
-    y = RUR.mouse_y - $("#robot-canvas").offset().top;
+    x = RUR.mouse_x - $("#robot-anim-canvas").offset().left;
+    y = RUR.mouse_y - $("#robot-anim-canvas").offset().top;
 
     x /= RUR.WALL_LENGTH;
     x = Math.floor(x);
@@ -8886,6 +8884,9 @@ function set_canvases () {
 
     RUR.ROBOT_CANVAS = document.getElementById("robot-canvas"); //19
     create_ctx(RUR.ROBOT_CANVAS, "ROBOT_CTX");
+
+    RUR.ROBOT_ANIM_CANVAS = document.getElementById("robot-anim-canvas"); //20
+    create_ctx(RUR.ROBOT_ANIM_CANVAS, "ROBOT_ANIM_CTX");
 }
 
 // We immediately create the canvases.

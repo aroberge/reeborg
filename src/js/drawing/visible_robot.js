@@ -342,7 +342,7 @@ RUR.vis_robot.draw_random = function (robot) {
             image = RUR.vis_robot.e_img;
             console.warn("default should not happen in RUR.vis_robot.draw_random.");
         }
-    RUR.ROBOT_CTX.drawImage(image, x, y, width, height);
+    RUR.ROBOT_ANIM_CTX.drawImage(image, x, y, width, height);
     RUR.state.random_robot = true;
 };
 

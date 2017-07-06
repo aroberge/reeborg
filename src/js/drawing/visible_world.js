@@ -264,8 +264,6 @@ function draw_random_robots (robots) {
     if (!robots || robots[0] === undefined) {
         return;
     }
-    RUR["ROBOT_CTX"].clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
-
     for (robot=0; robot < robots.length; robot++){
         body = robots[robot];
         if (body._orientation != -1) { // not random
@@ -284,8 +282,8 @@ function draw_robot_clones (robot, random){
     "use strict";
     var i, clone;
     if (random) {
-        RUR.ROBOT_CTX.save();
-        RUR.ROBOT_CTX.globalAlpha = 0.4;
+        RUR.ROBOT_ANIM_CTX.save();
+        RUR.ROBOT_ANIM_CTX.globalAlpha = 0.4;
     } else {
         RUR.ROBOT_CTX.save();
         RUR.ROBOT_CTX.globalAlpha = 0.4;
@@ -304,7 +302,7 @@ function draw_robot_clones (robot, random){
         }
     }
     if (random) {
-        RUR.ROBOT_CTX.restore();
+        RUR.ROBOT_ANIM_CTX.restore();
     } else {
         RUR.ROBOT_CTX.restore();
     }
@@ -398,7 +396,7 @@ function draw_animated_images (){
 
     canvases = ["TILES_ANIM_CTX", "BRIDGE_ANIM_CTX", "DECORATIVE_OBJECTS_ANIM_CTX",
                 "OBSTACLES_ANIM_CTX", "GOAL_ANIM_CTX", "OBJECTS_ANIM_CTX",
-                "PUSHABLES_ANIM_CTX"];
+                "PUSHABLES_ANIM_CTX", "ROBOT_ANIM_CTX"];
     for (canvas of canvases) {
         RUR[canvas].clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
     }
