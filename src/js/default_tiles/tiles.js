@@ -219,32 +219,33 @@ RUR.THINGS.box.transform = [
 
 tile = {
     name: "bucket",
-    info: "A bucket full of water, useful to put out fires.",
-    url: RUR.BASE_URL + '/src/images/water_bucket.png'
+    info: "A bucket full of water.",
+    url: RUR.BASE_URL + '/src/images/water_bucket.png',
+    transform: [
+        {conditions: [[RUR.is_background_tile, "fire"],
+                    [RUR.is_object, "bucket"]],
+        actions: [[RUR.remove_object, "bucket"],
+                [RUR.remove_background_tile, "fire"],
+                [RUR.add_obstacle, "logs"], // added as obstacle so that "info"
+                [RUR.add_obstacle, "smoke"]] // can be shown when clicking on canvas.
+        },
+        {conditions: [[RUR.is_obstacle, "fire"],
+                    [RUR.is_object, "bucket"]],
+        actions: [[RUR.remove_object, "bucket"],
+                [RUR.remove_obstacle, "fire"],
+                [RUR.add_obstacle, "logs"],
+                [RUR.add_obstacle, "smoke"]]
+        },
+        {conditions: [[RUR.is_object, "bulb"],
+                    [RUR.is_object, "bucket"]],
+        actions: [[RUR.remove_object, "bucket"],
+                [RUR.remove_object, "bulb"],
+                [RUR.add_object, "tulip"]]
+        }
+    ]
 };
 RUR.add_new_thing(tile);
-RUR.THINGS.bucket.transform = [
-    {conditions: [[RUR.is_background_tile, "fire"],
-                  [RUR.is_object, "bucket"]],
-     actions: [[RUR.remove_object, "bucket"],
-              [RUR.remove_background_tile, "fire"],
-              [RUR.add_obstacle, "logs"], // added as obstacle so that "info"
-              [RUR.add_obstacle, "smoke"]] // can be shown when clicking on canvas.
-    },
-    {conditions: [[RUR.is_obstacle, "fire"],
-                  [RUR.is_object, "bucket"]],
-     actions: [[RUR.remove_object, "bucket"],
-              [RUR.remove_obstacle, "fire"],
-              [RUR.add_obstacle, "logs"],
-              [RUR.add_obstacle, "smoke"]]
-    },
-    {conditions: [[RUR.is_object, "bulb"],
-                  [RUR.is_object, "bucket"]],
-     actions: [[RUR.remove_object, "bucket"],
-              [RUR.remove_object, "bulb"],
-              [RUR.add_object, "tulip"]]
-    }
-];
+
 
 tile = {
     name: "bulb",

@@ -93,13 +93,23 @@ RUR.add_wall("west", 4, 2)
 RUR.add_final_position("house", 4, 2)
 ```
    You do not need to execute this code. The content of the Onload editor is
-   automatically executed whenever a world is loaded or reloaded.
+   automatically executed whenever a world is loaded or reloaded **except**
+   when in editing mode.
 4. Make sure that the option to save the content of the Onload editor
-   is selected, and save the world in the browser.
-5. Like in the previous cases, by saving it in the browser, the world has now been added to the html selector.
-6. [optional] Save the world in a .json file, with a different
-name as the previous ones.
-
+   is selected, and save the world in the browser while still in the
+   editing mode.
+5. [optional] Save the world in a .json file, with a different
+   name as the previous ones.
+6. Like in the previous cases, by saving it in the browser, the world has now been added to the html selector.
+   However, while editing a world, the code in the Onlad editor is not automatically run.
+   To see its effect, use the html world selector to change the world
+   (perhaps to the **Alone** default) and change it back to the world you have
+   just created: this time, the code in the Onload editor should run.
+   **Important** Note that, if you attempt to save the world at this point,
+   you may end up with a world with twice the number of artefacts as the
+   world save will include the content of the Onload editor **and** the
+   artefacts created from that code. In some cases, like adding walls,
+   this would raise an exception.
 
 If you switch between each of the three worlds you have saved in your browser,
 they should all look the same, no matter which method was used to create it.

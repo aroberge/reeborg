@@ -44,6 +44,9 @@ ui_fr["tulip"] = "tulipe";
 fr_to_en["tulipe"] = "tulip";
 ui_fr["bucket"] = "seau d'eau";
 fr_to_en["seau d'eau"] = "bucket";
+ui_fr["bulb"] = "bulbe de tulipe";
+fr_to_en["bulbe de tulipe"] = "bulb";
+ui_fr["Tulip bulb: might grow into a nice tulip with some water from a bucket."] = "Bulbe de tulipe : pourrait devenir une belle tulipe avec un seau d'eau.";
 
 ui_fr["mud"] = "boue";
 fr_to_en["boue"] = "mud";
@@ -55,6 +58,17 @@ ui_fr["gravel"] = "gravier";
 fr_to_en["gravier"] = "gravel";
 ui_fr["ice"] = "glace";
 fr_to_en["glace"] = "ice";
+ui_fr["fire"] = "feu";
+fr_to_en["feu"] = "fire";
+
+ui_fr["fence_right"] = "clôture_droite";
+fr_to_en["clôture_droite"] = "fence_right";
+ui_fr["fence_left"] = "clôture_gauche";
+fr_to_en["clôture_gauche"] = "fence_left";
+ui_fr["fence_double"] = "clôture_double";
+fr_to_en["clôture_double"] = "fence_double";
+ui_fr["fence_vertical"] = "clôture_verticale";
+fr_to_en["clôture_verticale"] = "fence_vertical";
 
 ui_fr["Problem with onload code."] = "Code Javascript 'onload' non valide; veuillez contacter le créateur de ce monde.";
 
@@ -163,6 +177,9 @@ ui_fr["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he at
 ui_fr["I hit a fence!"] = "J'ai frappé une clôture!";
 ui_fr["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "Clôture: Reeborg <b>peut</b> détecter ceci mais il ne peut pas passer au travers.";
 ui_fr["Bridge:Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Pont: Reeborg <b>peut</b> détecter ceci et sait que cela lui permettra de traverser l'eau en sureté.";
+ui_fr["My joints are melting!"] = "Mes articulations fondent !";
+ui_fr["A bucket full of water"] = "Un seau rempli d'eau."
+
 
 fr_to_en["pont"] = "bridge";
 ui_fr["Something is blocking the way!"] = "Quelque chose bloque le chemin!";
@@ -171,11 +188,6 @@ ui_fr["green home tile:"] = "tuile verte pour l'arrivée :";
 ui_fr["home:"] = "la maison :";
 ui_fr["racing flag:"] = "drapeau d'arrivée :";
 ui_fr["house:"] = "maison :";
-
-ui_fr["fence_right"] = "clôture_droite";
-ui_fr["fence_left"] = "clôture_gauche";
-ui_fr["fence_double"] = "clôture_double";
-ui_fr["fence_vertical"] = "clôture_verticale";
 
 ui_fr["Local variables"] = "Variables locales";
 ui_fr["Global variables"] = "Variables globales";

@@ -759,3 +759,51 @@ QUnit.test("API: Testing add/remove/is/get",
     assert.equal(last_frame.error.reeborg_shouts, "Done!", "Task run correctly.");
     done();
 });
+
+QUnit.test("API: Protection given by bridges",
+           function(assert) {
+    "use strict";
+    var last_frame, done = assert.async();
+    test_utils.load_world_file(test_utils.base_url + "protection_bridge.json");
+    // The code we wish to test is in the Pre editor; we
+    // run a simple program as a test.
+    RUR.runner.eval("done()");
+    // 10 frames below is a lower bound; we chose this number as a sign
+    // that the test has run correctly, but without making this test
+    // "brittle", having to update it for something inconsequential
+    // every time we make changes.
+    assert.ok(RUR.frames.length > 10, "Pre has been executed.")
+    last_frame = RUR.frames[RUR.frames.length - 1];
+    assert.equal(last_frame.error.reeborg_shouts, "Done!", "Task run correctly.");
+    done();
+});
+
+QUnit.test("API: Protection given by carried objects",
+           function(assert) {
+    "use strict";
+    var last_frame, done = assert.async();
+    test_utils.load_world_file(test_utils.base_url + "protection_objects.json");
+    // The code we wish to test is in the Pre editor; we
+    // run a simple program as a test.
+    RUR.runner.eval("example()");
+    // 5 frames below is a lower bound; we chose this number as a sign
+    // that the test has run correctly, but without making this test
+    // "brittle", having to update it for something inconsequential
+    // every time we make changes.
+    assert.ok(RUR.frames.length > 10, "Pre has been executed.")
+    last_frame = RUR.frames[RUR.frames.length - 1];
+    assert.equal(last_frame.error.reeborg_shouts, "The wicked witch got me.", "Task run correctly.");
+    done();
+});
+
+QUnit.test("API: Protection given by carried objects - second test function",
+           function(assert) {
+    "use strict";
+    var last_frame, done = assert.async();
+    test_utils.load_world_file(test_utils.base_url + "protection_objects.json");
+    RUR.runner.eval("test_front_is_clear()");
+    assert.ok(RUR.frames.length > 10, "Pre has been executed.")
+    last_frame = RUR.frames[RUR.frames.length - 1];
+    assert.equal(last_frame.error.reeborg_shouts, "The wicked witch got me.", "Task run correctly.");
+    done();
+});

@@ -229,8 +229,17 @@ robot_put_or_throw_object = function (robot, obj, action) {
     RUR.record_frame(action, [robot.__id, obj]);
 };
 
-function is_fatal_thing(thing) {
-    return RUR.get_property(thing, "fatal");
+function is_fatal_thing(thing, robot) {
+    var protections;
+
+    protections = RUR.get_protections(robot);
+
+    if (RUR.get_property(thing, "fatal")) {
+        if (protections.indexOf(RUR.get_property(thing, "fatal")) === -1) {
+            return true;
+        }
+    }
+    return false;
 }
 
 RUR.control.take = function(robot, arg){
@@ -247,7 +256,7 @@ RUR.control.take = function(robot, arg){
     if (arg !== undefined) {
         if (Array.isArray(objects_here) && objects_here.length === 0) {
             throw new RUR.MissingObjectError(RUR.translate("No object found here").supplant({obj: arg}));
-        }  else if(is_fatal_thing(arg)) {
+        }  else if(is_fatal_thing(arg, robot)) {
             message = RUR.get_property(arg, 'message');
             if (!message) {
                 message = "I picked up a fatal object.";
@@ -260,9 +269,8 @@ RUR.control.take = function(robot, arg){
         throw new RUR.MissingObjectError(RUR.translate("No object found here").supplant({obj: RUR.translate("object")}));
     }  else if (objects_here.length > 1){
         throw new RUR.MissingObjectError(RUR.translate("Many objects are here; I do not know which one to take!"));
-    }  else if(is_fatal_thing(objects_here[0])) {
-        // use _get_property since objects_here[0] will be the english name
-        message = RUR._get_property(objects_here[0], 'message');
+    }  else if(is_fatal_thing(objects_here[0], robot)) {
+        message = RUR.get_property(objects_here[0], 'message');
         if (!message) {
             message = "I picked up a fatal object.";
         }
@@ -282,7 +290,7 @@ take_object_and_give_to_robot = function (robot, obj) {
         delete RUR.get_current_world().objects[coords][obj];
         // WARNING: do not change this silly comparison to false
         // to anything else ... []==false is true  but []==[] is false
-        // and ![] is false
+        // and ![] is false ... Python is so much nicer than Javascript.
         if (RUR.world_get.object_at_robot_position(robot) == false){ // jshint ignore:line
             delete RUR.get_current_world().objects[coords];
         }

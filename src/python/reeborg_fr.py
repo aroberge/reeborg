@@ -802,10 +802,11 @@ class ReeborgOK(Exception):  #py:RE
 
     def __init__(self, message):  #py:RE.__init__
         self.reeborg_concludes = message
+        self.message = message
         super().__init__(message)
 
     def __str__(self):  #py:RE.__str__
-        return repr(self.reeborg_concludes)
+        return self.reeborg_concludes
 try:
     window['ReeborgOK'] = ReeborgOK
 except:
@@ -832,10 +833,11 @@ class ReeborgError(Exception):  #py:RE
 
     def __init__(self, message):  #py:RE.__init__
         self.reeborg_shouts = message
+        self.message = message
         super().__init__(message)
 
     def __str__(self):  #py:RE.__str__
-        return repr(self.reeborg_shouts)
+        return self.reeborg_shouts
 try:
     window['ReeborgError'] = ReeborgError
 except:

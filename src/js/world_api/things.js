@@ -282,10 +282,10 @@ RUR.has_property = function (name, property) {
  *
  *
  * @example {@lang python}
- * print(RUR._get_property("water", "info"))  # Python
+ * print(RUR.get_property("water", "info"))  # Python
  *
  * @example {@lang javascript}
- * write(RUR._get_property("water", "fatal"))  // Javascript
+ * write(RUR.get_property("water", "fatal"))  // Javascript
  */
 RUR.get_property = function (name, property) {
     var property;

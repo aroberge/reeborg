@@ -2,7 +2,7 @@
 "how": {
     "title": "A guide to world creation",
     "children": ["getting_started", "editors", "naming_convention", "objects", "random", "background",
-    "custom_goals", "show_path", "animated", "motivation", "nobreak", "canvases"]
+    "custom_goals", "show_path", "animated", "protection", "motivation", "nobreak", "canvases"]
 },
     "getting_started": {
         "title": "Advanced world creation: Start here"
@@ -30,6 +30,9 @@
     },
     "animated": {
         "title": "Animated images"
+    },
+    "protection": {
+        "title": "Protection against fatalities"
     },
     "motivation": {
         "title": "Motivation: why create more complex worlds?"

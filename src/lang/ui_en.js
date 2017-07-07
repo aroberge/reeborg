@@ -28,12 +28,20 @@ ui_en["tokens are Reeborg's favourite thing."] = "tokens are Reeborg's favourite
 ui_en["triangle"] = en_to_en["triangle"] = "triangle";
 ui_en["tulip"] = en_to_en["tulip"] = "tulip";
 ui_en["bucket"] = en_to_en["bucket"] = "bucket";
+ui_en["bulb"] = en_to_en["bulb"] = "bulb";
 
 ui_en["mud"] = en_to_en["mud"] = "mud";
 ui_en["water"] = en_to_en["water"] = "water";
 ui_en["grass"] = en_to_en["grass"] = "grass";
 ui_en["gravel"] = en_to_en["gravel"] = "gravel";
 ui_en["ice"] = en_to_en["ice"] = "ice";
+ui_en["fire"] = en_to_en["fire"] = "fire";
+
+ui_en["fence_right"] = en_to_en["fence_right"] = "fence_right";
+ui_en["fence_left"] = en_to_en["fence_left"] = "fence_left";
+ui_en["fence_vertical"] = en_to_en["fence_vertical"] = "fence_vertical";
+ui_en["fence_double"] = en_to_en["fence_double"] = "fence_double";
+
 
 ui_en["Problem with onload code."] = "Invalid Javascript onload code; contact the creator of this world.";
 
@@ -142,6 +150,10 @@ ui_en["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he at
 ui_en["I hit a fence!"] = "I hit a fence!";
 ui_en["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "Fence: Reeborg <b>can</b> detect this but will be stopped by it.";
 ui_en["Bridge:Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Bridge: Reeborg <b>can</b> detect this and will know that it allows safe passage over water.";
+ui_en["My joints are melting!"] = "My joints are melting!";
+ui_en["A bucket full of water."] = "A bucket full of water.";
+ui_en["Tulip bulb: might grow into a nice tulip with some water from a bucket."] = "Tulip bulb: might grow into a nice tulip with some water from a bucket.";
+
 
 ui_en["Something is blocking the way!"] = "Something is blocking the way!";
 ui_en["Reeborg <b>can</b> detect this tile using at_goal()."] = "Reeborg <b>can</b> detect this using at_goal().";
@@ -149,11 +161,6 @@ ui_en["green home tile:"] = "green home tile:";
 ui_en["home:"] = "home:";
 ui_en["racing flag:"] = "racing flag:";
 ui_en["house:"] = "house:";
-
-ui_en["fence_right"] = "fence";
-ui_en["fence_left"] = "fence";
-ui_en["fence_double"] = "fence";
-ui_en["fence_vertical"] = "fence";
 
 ui_en["Local variables"] = "Local variables";
 ui_en["Global variables"] = "Global variables";

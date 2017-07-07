@@ -220,32 +220,33 @@ RUR.THINGS.box.transform = [
 
 tile = {
     name: "bucket",
-    info: "A bucket full of water, useful to put out fires.",
-    url: RUR.BASE_URL + '/src/images/water_bucket.png'
+    info: "A bucket full of water.",
+    url: RUR.BASE_URL + '/src/images/water_bucket.png',
+    transform: [
+        {conditions: [[RUR.is_background_tile, "fire"],
+                    [RUR.is_object, "bucket"]],
+        actions: [[RUR.remove_object, "bucket"],
+                [RUR.remove_background_tile, "fire"],
+                [RUR.add_obstacle, "logs"], // added as obstacle so that "info"
+                [RUR.add_obstacle, "smoke"]] // can be shown when clicking on canvas.
+        },
+        {conditions: [[RUR.is_obstacle, "fire"],
+                    [RUR.is_object, "bucket"]],
+        actions: [[RUR.remove_object, "bucket"],
+                [RUR.remove_obstacle, "fire"],
+                [RUR.add_obstacle, "logs"],
+                [RUR.add_obstacle, "smoke"]]
+        },
+        {conditions: [[RUR.is_object, "bulb"],
+                    [RUR.is_object, "bucket"]],
+        actions: [[RUR.remove_object, "bucket"],
+                [RUR.remove_object, "bulb"],
+                [RUR.add_object, "tulip"]]
+        }
+    ]
 };
 RUR.add_new_thing(tile);
-RUR.THINGS.bucket.transform = [
-    {conditions: [[RUR.is_background_tile, "fire"],
-                  [RUR.is_object, "bucket"]],
-     actions: [[RUR.remove_object, "bucket"],
-              [RUR.remove_background_tile, "fire"],
-              [RUR.add_obstacle, "logs"], // added as obstacle so that "info"
-              [RUR.add_obstacle, "smoke"]] // can be shown when clicking on canvas.
-    },
-    {conditions: [[RUR.is_obstacle, "fire"],
-                  [RUR.is_object, "bucket"]],
-     actions: [[RUR.remove_object, "bucket"],
-              [RUR.remove_obstacle, "fire"],
-              [RUR.add_obstacle, "logs"],
-              [RUR.add_obstacle, "smoke"]]
-    },
-    {conditions: [[RUR.is_object, "bulb"],
-                  [RUR.is_object, "bucket"]],
-     actions: [[RUR.remove_object, "bucket"],
-              [RUR.remove_object, "bulb"],
-              [RUR.add_object, "tulip"]]
-    }
-];
+
 
 tile = {
     name: "bulb",
@@ -6994,8 +6995,17 @@ robot_put_or_throw_object = function (robot, obj, action) {
     RUR.record_frame(action, [robot.__id, obj]);
 };
 
-function is_fatal_thing(thing) {
-    return RUR.get_property(thing, "fatal");
+function is_fatal_thing(thing, robot) {
+    var protections;
+
+    protections = RUR.get_protections(robot);
+
+    if (RUR.get_property(thing, "fatal")) {
+        if (protections.indexOf(RUR.get_property(thing, "fatal")) === -1) {
+            return true;
+        }
+    }
+    return false;
 }
 
 RUR.control.take = function(robot, arg){
@@ -7012,7 +7022,7 @@ RUR.control.take = function(robot, arg){
     if (arg !== undefined) {
         if (Array.isArray(objects_here) && objects_here.length === 0) {
             throw new RUR.MissingObjectError(RUR.translate("No object found here").supplant({obj: arg}));
-        }  else if(is_fatal_thing(arg)) {
+        }  else if(is_fatal_thing(arg, robot)) {
             message = RUR.get_property(arg, 'message');
             if (!message) {
                 message = "I picked up a fatal object.";
@@ -7025,9 +7035,8 @@ RUR.control.take = function(robot, arg){
         throw new RUR.MissingObjectError(RUR.translate("No object found here").supplant({obj: RUR.translate("object")}));
     }  else if (objects_here.length > 1){
         throw new RUR.MissingObjectError(RUR.translate("Many objects are here; I do not know which one to take!"));
-    }  else if(is_fatal_thing(objects_here[0])) {
-        // use _get_property since objects_here[0] will be the english name
-        message = RUR._get_property(objects_here[0], 'message');
+    }  else if(is_fatal_thing(objects_here[0], robot)) {
+        message = RUR.get_property(objects_here[0], 'message');
         if (!message) {
             message = "I picked up a fatal object.";
         }
@@ -7047,7 +7056,7 @@ take_object_and_give_to_robot = function (robot, obj) {
         delete RUR.get_current_world().objects[coords][obj];
         // WARNING: do not change this silly comparison to false
         // to anything else ... []==false is true  but []==[] is false
-        // and ![] is false
+        // and ![] is false ... Python is so much nicer than Javascript.
         if (RUR.world_get.object_at_robot_position(robot) == false){ // jshint ignore:line
             delete RUR.get_current_world().objects[coords];
         }
@@ -10859,7 +10868,6 @@ RUR.get_protections = function (robot) {
 RUR.is_fatal_position = function (x, y, robot){
     "use strict";
     var protections, obs, obstacles, tile;
-
     // Objects carried can offer protection
     // against some types of otherwise fatal obstacles
     protections = RUR.get_protections(robot);
@@ -11993,10 +12001,10 @@ RUR.has_property = function (name, property) {
  *
  *
  * @example {@lang python}
- * print(RUR._get_property("water", "info"))  # Python
+ * print(RUR.get_property("water", "info"))  # Python
  *
  * @example {@lang javascript}
- * write(RUR._get_property("water", "fatal"))  // Javascript
+ * write(RUR.get_property("water", "fatal"))  // Javascript
  */
 RUR.get_property = function (name, property) {
     var property;
@@ -13143,12 +13151,20 @@ ui_en["tokens are Reeborg's favourite thing."] = "tokens are Reeborg's favourite
 ui_en["triangle"] = en_to_en["triangle"] = "triangle";
 ui_en["tulip"] = en_to_en["tulip"] = "tulip";
 ui_en["bucket"] = en_to_en["bucket"] = "bucket";
+ui_en["bulb"] = en_to_en["bulb"] = "bulb";
 
 ui_en["mud"] = en_to_en["mud"] = "mud";
 ui_en["water"] = en_to_en["water"] = "water";
 ui_en["grass"] = en_to_en["grass"] = "grass";
 ui_en["gravel"] = en_to_en["gravel"] = "gravel";
 ui_en["ice"] = en_to_en["ice"] = "ice";
+ui_en["fire"] = en_to_en["fire"] = "fire";
+
+ui_en["fence_right"] = en_to_en["fence_right"] = "fence_right";
+ui_en["fence_left"] = en_to_en["fence_left"] = "fence_left";
+ui_en["fence_vertical"] = en_to_en["fence_vertical"] = "fence_vertical";
+ui_en["fence_double"] = en_to_en["fence_double"] = "fence_double";
+
 
 ui_en["Problem with onload code."] = "Invalid Javascript onload code; contact the creator of this world.";
 
@@ -13257,6 +13273,10 @@ ui_en["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he at
 ui_en["I hit a fence!"] = "I hit a fence!";
 ui_en["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "Fence: Reeborg <b>can</b> detect this but will be stopped by it.";
 ui_en["Bridge:Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Bridge: Reeborg <b>can</b> detect this and will know that it allows safe passage over water.";
+ui_en["My joints are melting!"] = "My joints are melting!";
+ui_en["A bucket full of water."] = "A bucket full of water.";
+ui_en["Tulip bulb: might grow into a nice tulip with some water from a bucket."] = "Tulip bulb: might grow into a nice tulip with some water from a bucket.";
+
 
 ui_en["Something is blocking the way!"] = "Something is blocking the way!";
 ui_en["Reeborg <b>can</b> detect this tile using at_goal()."] = "Reeborg <b>can</b> detect this using at_goal().";
@@ -13264,11 +13284,6 @@ ui_en["green home tile:"] = "green home tile:";
 ui_en["home:"] = "home:";
 ui_en["racing flag:"] = "racing flag:";
 ui_en["house:"] = "house:";
-
-ui_en["fence_right"] = "fence";
-ui_en["fence_left"] = "fence";
-ui_en["fence_double"] = "fence";
-ui_en["fence_vertical"] = "fence";
 
 ui_en["Local variables"] = "Local variables";
 ui_en["Global variables"] = "Global variables";
@@ -13490,6 +13505,9 @@ ui_fr["tulip"] = "tulipe";
 fr_to_en["tulipe"] = "tulip";
 ui_fr["bucket"] = "seau d'eau";
 fr_to_en["seau d'eau"] = "bucket";
+ui_fr["bulb"] = "bulbe de tulipe";
+fr_to_en["bulbe de tulipe"] = "bulb";
+ui_fr["Tulip bulb: might grow into a nice tulip with some water from a bucket."] = "Bulbe de tulipe : pourrait devenir une belle tulipe avec un seau d'eau.";
 
 ui_fr["mud"] = "boue";
 fr_to_en["boue"] = "mud";
@@ -13501,6 +13519,17 @@ ui_fr["gravel"] = "gravier";
 fr_to_en["gravier"] = "gravel";
 ui_fr["ice"] = "glace";
 fr_to_en["glace"] = "ice";
+ui_fr["fire"] = "feu";
+fr_to_en["feu"] = "fire";
+
+ui_fr["fence_right"] = "clôture_droite";
+fr_to_en["clôture_droite"] = "fence_right";
+ui_fr["fence_left"] = "clôture_gauche";
+fr_to_en["clôture_gauche"] = "fence_left";
+ui_fr["fence_double"] = "clôture_double";
+fr_to_en["clôture_double"] = "fence_double";
+ui_fr["fence_vertical"] = "clôture_verticale";
+fr_to_en["clôture_verticale"] = "fence_vertical";
 
 ui_fr["Problem with onload code."] = "Code Javascript 'onload' non valide; veuillez contacter le créateur de ce monde.";
 
@@ -13609,6 +13638,9 @@ ui_fr["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he at
 ui_fr["I hit a fence!"] = "J'ai frappé une clôture!";
 ui_fr["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "Clôture: Reeborg <b>peut</b> détecter ceci mais il ne peut pas passer au travers.";
 ui_fr["Bridge:Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "Pont: Reeborg <b>peut</b> détecter ceci et sait que cela lui permettra de traverser l'eau en sureté.";
+ui_fr["My joints are melting!"] = "Mes articulations fondent !";
+ui_fr["A bucket full of water"] = "Un seau rempli d'eau."
+
 
 fr_to_en["pont"] = "bridge";
 ui_fr["Something is blocking the way!"] = "Quelque chose bloque le chemin!";
@@ -13617,11 +13649,6 @@ ui_fr["green home tile:"] = "tuile verte pour l'arrivée :";
 ui_fr["home:"] = "la maison :";
 ui_fr["racing flag:"] = "drapeau d'arrivée :";
 ui_fr["house:"] = "maison :";
-
-ui_fr["fence_right"] = "clôture_droite";
-ui_fr["fence_left"] = "clôture_gauche";
-ui_fr["fence_double"] = "clôture_double";
-ui_fr["fence_vertical"] = "clôture_verticale";
 
 ui_fr["Local variables"] = "Variables locales";
 ui_fr["Global variables"] = "Variables globales";
@@ -13845,7 +13872,7 @@ ui_ko.triangle = "삼각형";
 ko_to_en["삼각형"] = "triangle";
 ui_ko["tulip"] = "튤립";
 ko_to_en["튤립"] = "tulip";
-ui_ko["bucket"] = "물통"; // bucket of water
+ui_ko["bucket"] = "물통"; // bucket of water; translated using google
 ko_to_en["물통"] = "bucket";
 
 ui_ko["mud"] = "진흙";
@@ -13858,6 +13885,25 @@ ui_ko["gravel"] = "자갈";
 ko_to_en["자갈"] = "gravel";
 ui_ko["ice"] = "얼음";
 ko_to_en["얼음"] = "ice";
+ui_ko["fire"] = "불";
+ko_to_en["불"] = "fire"; // translated using google
+// the following need translations; I do not trust google based
+// on its recommendation for the French translation.
+ui_ko["bulb"] = "tulip bulb";
+ko_to_en["tulip bulb"] = "bulb";
+ui_ko["Tulip bulb: might grow into a nice tulip with some water from a bucket."] = "Tulip bulb: might grow into a nice tulip with some water from a bucket.";
+
+// more translations needed
+ui_ko["fence_right"] = "울타리 right";
+ko_to_en["울타리 right"] = "fence_right";
+ui_ko["fence_left"] = "울타리";
+ko_to_en["울타리 left"] = "fence_left";
+ui_ko["fence_double"] = "울타리";
+ko_to_en["울타리 double"] = "fence_double";
+ui_ko["fence_vertical"] = "울타리";
+ko_to_en["울타리 vertical"] = "fence_vertical";
+
+
 
 ui_ko["Problem with onload code."] = "유효하지 않은 자바스크립트 onload 코드입니다; 이 월드의 제작자에게 연락하세요.";
 
@@ -13966,6 +14012,8 @@ ui_ko["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he at
 ui_ko["I hit a fence!"] = "I hit a fence!";
 ui_ko["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "울타리: 리보그는 이것을  <b>can</b> 탐지 할 수 있지만 그것에 의해 중지됩니다.";
 ui_ko["Bridge:Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "리보그는 이것을 탐지 할 수 <b>있으며</b> 이 물 위에서 안전한 통행을 허용하는것을 알게 될 것입니다.";
+ui_ko["My joints are melting!"] = "내 관절이 녹고있어."; // translated using google
+ui_ko["A bucket full of water."] = "A bucket full of water.";
 
 ui_ko["Something is blocking the way!"] = "뭔가가 길을 막고 있어요!";
 ui_ko["Reeborg <b>can</b> detect this tile using at_goal()."] = "리보그는 at_goal() 를 사용해서 탐지 할 수 <b>있어요</b>.";
@@ -13973,11 +14021,6 @@ ui_ko["green home tile:"] = "초록색 홈 타일:";
 ui_ko["home:"] = "홈:";
 ui_ko["racing flag:"] = "레이싱 깃발:";
 ui_ko["house:"] = "집:";
-
-ui_ko["fence_right"] = "울타리";
-ui_ko["fence_left"] = "울타리";
-ui_ko["fence_double"] = "울타리";
-ui_ko["fence_vertical"] = "울타리";
 
 ui_ko["Local variables"] = "지역 변수";
 ui_ko["Global variables"] = "전역 변수";

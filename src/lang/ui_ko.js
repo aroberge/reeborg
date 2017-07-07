@@ -43,7 +43,7 @@ ui_ko.triangle = "삼각형";
 ko_to_en["삼각형"] = "triangle";
 ui_ko["tulip"] = "튤립";
 ko_to_en["튤립"] = "tulip";
-ui_ko["bucket"] = "물통"; // bucket of water
+ui_ko["bucket"] = "물통"; // bucket of water; translated using google
 ko_to_en["물통"] = "bucket";
 
 ui_ko["mud"] = "진흙";
@@ -56,6 +56,25 @@ ui_ko["gravel"] = "자갈";
 ko_to_en["자갈"] = "gravel";
 ui_ko["ice"] = "얼음";
 ko_to_en["얼음"] = "ice";
+ui_ko["fire"] = "불";
+ko_to_en["불"] = "fire"; // translated using google
+// the following need translations; I do not trust google based
+// on its recommendation for the French translation.
+ui_ko["bulb"] = "tulip bulb";
+ko_to_en["tulip bulb"] = "bulb";
+ui_ko["Tulip bulb: might grow into a nice tulip with some water from a bucket."] = "Tulip bulb: might grow into a nice tulip with some water from a bucket.";
+
+// more translations needed
+ui_ko["fence_right"] = "울타리 right";
+ko_to_en["울타리 right"] = "fence_right";
+ui_ko["fence_left"] = "울타리";
+ko_to_en["울타리 left"] = "fence_left";
+ui_ko["fence_double"] = "울타리";
+ko_to_en["울타리 double"] = "fence_double";
+ui_ko["fence_vertical"] = "울타리";
+ko_to_en["울타리 vertical"] = "fence_vertical";
+
+
 
 ui_ko["Problem with onload code."] = "유효하지 않은 자바스크립트 onload 코드입니다; 이 월드의 제작자에게 연락하세요.";
 
@@ -164,6 +183,8 @@ ui_ko["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he at
 ui_ko["I hit a fence!"] = "I hit a fence!";
 ui_ko["Fence: Reeborg <b>can</b> detect this but will be stopped by it."] = "울타리: 리보그는 이것을  <b>can</b> 탐지 할 수 있지만 그것에 의해 중지됩니다.";
 ui_ko["Bridge:Reeborg <b>can</b> detect this and will know that it allows safe passage over water."] = "리보그는 이것을 탐지 할 수 <b>있으며</b> 이 물 위에서 안전한 통행을 허용하는것을 알게 될 것입니다.";
+ui_ko["My joints are melting!"] = "내 관절이 녹고있어."; // translated using google
+ui_ko["A bucket full of water."] = "A bucket full of water.";
 
 ui_ko["Something is blocking the way!"] = "뭔가가 길을 막고 있어요!";
 ui_ko["Reeborg <b>can</b> detect this tile using at_goal()."] = "리보그는 at_goal() 를 사용해서 탐지 할 수 <b>있어요</b>.";
@@ -171,11 +192,6 @@ ui_ko["green home tile:"] = "초록색 홈 타일:";
 ui_ko["home:"] = "홈:";
 ui_ko["racing flag:"] = "레이싱 깃발:";
 ui_ko["house:"] = "집:";
-
-ui_ko["fence_right"] = "울타리";
-ui_ko["fence_left"] = "울타리";
-ui_ko["fence_double"] = "울타리";
-ui_ko["fence_vertical"] = "울타리";
 
 ui_ko["Local variables"] = "지역 변수";
 ui_ko["Global variables"] = "전역 변수";

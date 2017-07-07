@@ -47,7 +47,6 @@ RUR.get_protections = function (robot) {
 RUR.is_fatal_position = function (x, y, robot){
     "use strict";
     var protections, obs, obstacles, tile;
-
     // Objects carried can offer protection
     // against some types of otherwise fatal obstacles
     protections = RUR.get_protections(robot);

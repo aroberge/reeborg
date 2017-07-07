@@ -1,0 +1,31 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 5,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": "<h3>Protection from objects carried</h3>\n<p>Objects carried can offer protection against \n    three types of otherwise fatal events \n    (stepping on a fatal\n    background tile or obstacle, or attempting to\n    pick up a fatal object). In this example, we\n    create a special object with protections against\n    standard fatal artefacts, and show how it works\n    in all three cases mentioned above.\n    We also add a new \"thing\" which has a different\n    fatal attribute so that Reeborg has no protection\n    against it.</p>\n<p> The code in the Onload editor is the following.</p>\nINSERT_ONLOAD\n<p> The code in the Pre editor is the following.<p>\nINSERT_PRE\n<p>It has been written with the idea of simplifying\n    automated unit testing while giving you the\n    opportunity to try out various additional\n    scenarios, like adding background tiles or\n    obstacles with the fatal poisoned apple, etc.</p>",
+  "small_tiles": false,
+  "rows": 10,
+  "cols": 10,
+  "pre": "# Two simple functions to run, demonstrating how\n# protections work ... and fail when the required\n# protection is missing.\n# Simply call one of them your code to see what happens.\n\ndef example():\n    while not wall_in_front():\n        if object_here():\n            take()\n        move()\n\n# Another function useful for unit tests.\n\ndef test_front_is_clear():\n    move()\n    if object_here():\n        take()\n    while front_is_clear():\n        if object_here():\n            take()\n        move()",
+  "onload": "# Python code in Onload\n\nRUR.onload_set_programming_language(\"python\")\n\n# Defining a new kind of object, protecting\n# against standard fatalities; note that the protection\n# corresponds to the value of the *fatal* attribute\n# of the object, and not its name.\n# By choice, all existing fences in Reeborg's World\n# are defined to have \"fence\" as their fatal attribute.\n\nRUR.add_new_thing({\"name\": \"magic token\",\n    \"url\": RUR.BASE_URL + \"/src/images/token.png\",\n    \"protections\": [\"fence\", \"fire\", \"mud\", \"water\"]\n    })\n\nRUR.add_new_thing({\"name\": \"poisoned apple\",\n    \"url\": RUR.BASE_URL + \"/src/images/apple.png\",                   \n    \"fatal\": \"poison\",\n    \"message\": \"The wicked witch got me.\"\n    })\n\nRUR.add_object(\"magic token\", 2, 1)\nRUR.add_background_tile(\"water\", 3, 1)\nRUR.add_background_tile(\"mud\", 4, 1)\nRUR.add_background_tile(\"fire\", 5, 1)\nRUR.add_obstacle(\"fence_vertical\", 6, 1)\nRUR.add_obstacle(\"fence_double\", 7, 1)\nRUR.add_object(\"fire\", 8, 1) # !!\nRUR.add_object(\"poisoned apple\", 9, 1)\n"
+}
