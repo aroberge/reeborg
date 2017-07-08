@@ -13,13 +13,6 @@ QUnit.module("World creation, loading, and format consistency", {
     test_utils.reset();
   }
 });
-QUnit.test( "Empty worlds", function(assert) {
-    assert.deepEqual(test_utils.initial_world, test_utils.empty_world, "Empty world initially created." );
-    RUR.create_empty_world();
-    assert.deepEqual(remove_robot_id(RUR.CURRENT_WORLD), test_utils.empty_world, "Empty world explicitly created.");
-    assert.ok(RUR.FuncTest.object_identical(remove_robot_id(RUR.CURRENT_WORLD), test_utils.empty_world),
-        "Empty world explictly created; compare with my own object-comparison method." );
-});
 QUnit.test("import_world", function(assert) {
     RUR.world_utils.import_world(test_utils.empty_world);
     assert.deepEqual(remove_robot_id(RUR.CURRENT_WORLD), test_utils.empty_world, "Empty world created by importing empty world as object." );

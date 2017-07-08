@@ -33,5 +33,3 @@ exports.identical = identical = function (a, b) {
     return JSON.stringify(sort(a)) === JSON.stringify(sort(b));
 };
 
-require("./../rur.js");
-RUR.FuncTest.object_identical = identical; // for automated testing.

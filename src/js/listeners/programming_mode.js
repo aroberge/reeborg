@@ -317,9 +317,3 @@ function hide_console() {
     $("#reload").show();
     $("#reload2").hide();
 }
-
-/* Ensure that CodeMirror editors are set up properly
-   even if not to be used initially
-*/
-show_editor("python");
-// see start_session.js for initialization.

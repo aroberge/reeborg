@@ -25,3 +25,7 @@ and picking up fatal objects, load up the following and click on **World Info** 
 prior to running the program:
 
     World("worlds/examples/protection_bridge.json")
+
+## Main tutorial guide
+
+See {@tutorial how}.

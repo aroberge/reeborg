@@ -12,12 +12,12 @@ test_utils.set_human_language = function (lang) {
 
 test_utils.reset = function () {
     RUR.CURRENT_WORLD = RUR.clone_world(test_utils.empty_world);
-    RUR._reset();
     RUR.state.code_evaluated = false;
     RUR.state.highlight = false;
     RUR.state.prevent_playback = false;
     test_utils.feedback_element = undefined;
     test_utils.content = undefined;
+    RUR.reset_world();
     test_utils.set_mocks();
 };
 

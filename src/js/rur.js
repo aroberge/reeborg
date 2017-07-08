@@ -11,10 +11,9 @@ window.RUR = RUR || {}; // RUR should be already defined in the html file;
                         // however, it might not when running tests.
 RUR.utils = {};
 RUR.world_utils = {};
-RUR.FuncTest = {};
-RUR.UnitTest = {};
+RUR.UnitTest = {}; // Mostly used to document unit tests
 
-RUR.THINGS = {}; // javascript objects which can be drawn, like "token"
+RUR.THINGS = {}; // something which can be drawn, like "token"
 RUR.KNOWN_THINGS = []; // keeping track of their names only
 
 /* In order to make it easier to have a version of Reeborg's World
@@ -59,7 +58,6 @@ RUR.state.programming_language = "python";
 RUR.state.playback = false;
 RUR.state.prevent_playback = false;
 RUR.state.reset_default_robot_images_needed = false;
-RUR.state.refresh_needed = false;
 RUR.state.run_button_clicked = false;
 RUR.state.running_program = false;
 RUR.state.session_initialized = false;
@@ -70,14 +68,12 @@ RUR.state.stop_called = false;
 RUR.state.watch_vars = false;
 RUR.state.x = undefined;
 RUR.state.y = undefined;
-RUR.state.changed_cells = [];
 RUR.state.visible_grid = false;
 
 
 /* Every time we load an image elsewhere, we should have defined the
    onload method to be RUR.onload_new_image.
 */
-RUR.last_drawing_time = Date.now();
 RUR.onload_new_image = function  () {
     // we do not require the file in which it is defined
     // to avoid a circular import.
@@ -87,26 +83,25 @@ RUR.onload_new_image = function  () {
     redraw_all();
 };
 
+var initial_drawing_timer, last_drawing_time = Date.now();
 function redraw_all() {
     // redraws everything with intervals at least greater than 200 ms
     // to avoid consuming a lot of time redrawing the world initially
     // every time an image is loaded.
     var now, elapsed;
     now = Date.now();
-    elapsed = now - RUR.last_drawing_time;
-    clearTimeout(RUR._initial_drawing_timer);
+    elapsed = now - last_drawing_time;
+    clearTimeout(initial_drawing_timer);
     if (elapsed > 200) {
-        RUR.vis_world.draw_all();
-        RUR.last_drawing_time = now;
+        try{
+            RUR.vis_world.draw_all();
+            last_drawing_time = now;
+        } catch (e) {}
     } else { // the last image loaded may never be drawn if we do not do this:
-        RUR._initial_drawing_timer = setTimeout(redraw_all, 200);
+        initial_drawing_timer = setTimeout(redraw_all, 200);
     }
 }
 
-
-
-// TODO: see if worthwhile to create RUR.state.do_highlight()
-// this would be to combine all the flags required to have highlighting on
 
 // TODO: after simplifying the permalink, see if RUR.state.prevent_playback
 // is still needed.
@@ -236,15 +231,16 @@ RUR.USE_SMALL_TILES = false;
 
 RUR.COORDINATES_COLOR = "black";
 RUR.AXIS_LABEL_COLOR = "brown";
+RUR.DEFAULT_TRACE_COLOR = "seagreen";
 
 RUR.MAX_STEPS = 1000;
 RUR.MIN_TIME_SOUND = 250;
-RUR.PLAYBACK_TIME_PER_FRAME = 300;
 
-RUR.DEFAULT_TRACE_COLOR = "seagreen";
+// Three basic time frames
+RUR.PLAYBACK_TIME_PER_FRAME = 300; // ajustable by a program via think()
+RUR.ANIMATION_TIME = 120;  // most animated images
+RUR.ROBOT_ANIMATION_TIME = 150;  // robot animation
 
-RUR.ANIMATION_TIME = 120;
-RUR.ROBOT_ANIMATION_TIME = 150;
 RUR.END_CYCLE = "end cycle"; // for animated images
 
 RUR.BACKGROUND_IMAGE = new Image();

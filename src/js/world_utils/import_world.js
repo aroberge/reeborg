@@ -82,11 +82,6 @@ function show_onload_feedback (e) {
 }
 
 process_onload = function () {
-    // TODO: review everything that needs to be reset and puts it here
-    // or put in reset_world.js and make sure to call it.
-    RUR.state.visible_grid = false;
-    RUR.state.do_not_draw_info = false;
-    //
     if (RUR.CURRENT_WORLD.onload !== undefined && !RUR.state.editing_world) {
         RUR.state.evaluating_onload = true; // affects the way errors are treated
         if (RUR.CURRENT_WORLD.onload[0]=="#") {
