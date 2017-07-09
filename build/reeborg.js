@@ -7386,6 +7386,10 @@ RUR.reset_definitions_en = function () {
     window.object_here = RUR._object_here_;
     window.pause = RUR._pause_;
     window.paint_square = RUR._paint_square_
+    window.position_here = function () {
+        var body = RUR._default_robot_body_();
+        return [body.x, body.y];
+    }
     window.print_html = RUR._print_html_;
     window.put = RUR._put_;
     window.throw = RUR._throw_;
@@ -7412,7 +7416,7 @@ RUR.reset_definitions_en = function () {
     };
 
     UsedRobot.prototype.at_goal = function () {
-        RUR._UR.at_goal_(this.body);
+        return RUR._UR.at_goal_(this.body);
     };
 
     UsedRobot.prototype.build_wall = function () {
@@ -7420,7 +7424,7 @@ RUR.reset_definitions_en = function () {
     };
 
     UsedRobot.prototype.carries_object = function () {
-        RUR._UR.carries_object_(this.body);
+        return RUR._UR.carries_object_(this.body);
     };
 
     UsedRobot.prototype.color_here = function() {
@@ -7429,11 +7433,11 @@ RUR.reset_definitions_en = function () {
     UsedRobot.prototype.colour_here = UsedRobot.prototype.color_here;
 
     UsedRobot.prototype.front_is_clear = function () {
-        RUR._UR.front_is_clear_(this.body);
+        return RUR._UR.front_is_clear_(this.body);
     };
 
     UsedRobot.prototype.is_facing_north = function () {
-        RUR._UR.is_facing_north_(this.body);
+        return RUR._UR.is_facing_north_(this.body);
     };
 
     UsedRobot.prototype.move = function () {
@@ -7441,11 +7445,15 @@ RUR.reset_definitions_en = function () {
     };
 
     UsedRobot.prototype.object_here = function (obj) {
-        RUR._UR.object_here_(this.body, obj);
+        return RUR._UR.object_here_(this.body, obj);
     };
 
     UsedRobot.prototype.paint_square = function (color) {
         RUR._UR.paint_square_(color, this.body);
+    };
+
+    UsedRobot.prototype.position_here = function () {
+        return [this.body.x, this.body.y];
     };
 
     UsedRobot.prototype.put = function () {
@@ -7456,7 +7464,7 @@ RUR.reset_definitions_en = function () {
     };
 
     UsedRobot.prototype.right_is_clear = function () {
-        RUR._UR.right_is_clear_(this.body);
+        return RUR._UR.right_is_clear_(this.body);
     };
 
     UsedRobot.prototype.set_model = function(model) {
@@ -7481,11 +7489,11 @@ RUR.reset_definitions_en = function () {
     };
 
     UsedRobot.prototype.wall_in_front = function () {
-        RUR._UR.wall_in_front_(this.body);
+        return RUR._UR.wall_in_front_(this.body);
     };
 
     UsedRobot.prototype.wall_on_right = function () {
-        RUR._UR.wall_on_right_(this.body);
+        return RUR._UR.wall_on_right_(this.body);
     };
 
     // make prototype available with known English name in RUR namespace
@@ -7556,6 +7564,10 @@ RUR.reset_definitions_fr = function () {
     window.son = RUR._sound_;
     window.prend = RUR._take_;
     window.pense = RUR._think_;
+    window.position_ici = function () {
+        var body = RUR._default_robot_body_();
+        return [body.x, body.y];
+    }
     window.tourne_a_gauche = RUR._turn_left_;
     window.voir_source_js = RUR._view_source_js_;
     window.mur_devant = RUR._wall_in_front_;
@@ -7571,7 +7583,7 @@ RUR.reset_definitions_fr = function () {
         RUR.add_robot(this.body);
     };
     RobotUsage.prototype.au_but = function () {
-        RUR._UR.at_goal_(this.body);
+        return RUR._UR.at_goal_(this.body);
     };
 
     RobotUsage.prototype.construit_un_mur = function () {
@@ -7579,7 +7591,7 @@ RUR.reset_definitions_fr = function () {
     };
 
     RobotUsage.prototype.transporte = function () {
-        RUR._UR.carries_object_(this.body);
+        return RUR._UR.carries_object_(this.body);
     };
 
     RobotUsage.prototype.couleur_ici = function() {
@@ -7587,11 +7599,11 @@ RUR.reset_definitions_fr = function () {
     }
 
     RobotUsage.prototype.rien_devant = function () {
-        RUR._UR.front_is_clear_(this.body);
+        return RUR._UR.front_is_clear_(this.body);
     };
 
     RobotUsage.prototype.est_face_au_nord = function () {
-        RUR._UR.is_facing_north_(this.body);
+        return RUR._UR.is_facing_north_(this.body);
     };
 
     RobotUsage.prototype.avance = function () {
@@ -7599,9 +7611,12 @@ RUR.reset_definitions_fr = function () {
     };
 
     RobotUsage.prototype.objet_ici = function (obj) {
-        RUR._UR.object_here_(this.body, obj);
+        return RUR._UR.object_here_(this.body, obj);
     };
 
+    RobotUsage.prototype.position_ici = function () {
+        return [this.body.x, this.body.y];
+    };
 
     RobotUsage.prototype.colorie = function (color) {
         RUR._UR.paint_square_(color, this.body);
@@ -7616,15 +7631,11 @@ RUR.reset_definitions_fr = function () {
     };
 
     RobotUsage.prototype.rien_a_droite = function () {
-        RUR._UR.right_is_clear_(this.body);
+        return RUR._UR.right_is_clear_(this.body);
     };
 
     RobotUsage.prototype.modele = function(model) {
         RUR._UR.set_model_(this.body, model);
-    };
-
-    RobotUsage.prototype.mur_devant = function () {
-        RUR.control.wall_in_front(this.body); //TODO: remove control
     };
 
     RobotUsage.prototype.couleur_de_trace = function (robot, color) {
@@ -7644,11 +7655,11 @@ RUR.reset_definitions_fr = function () {
     };
 
     RobotUsage.prototype.mur_devant = function () {
-        RUR._UR.wall_in_front_(this.body);
+        return RUR._UR.wall_in_front_(this.body);
     };
 
     RobotUsage.prototype.mur_a_droite = function () {
-        RUR._UR.wall_on_right_(this.body);
+        return RUR._UR.wall_on_right_(this.body);
     };
 
     // make prototype available with known English name in RUR namespace

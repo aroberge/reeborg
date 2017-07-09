@@ -16,8 +16,6 @@
 
 7. Document `RUR.get_TYPE...`.
 
-8. Ensure that "obstacles" are either solid or fatal, or both.
-
 9. figure out how to combine insert frame and voice narration for people
    with visual challenges.
 
@@ -30,9 +28,6 @@
 
 12. Explain how to work without an internet connection or if CORS problems
     arise - for world, but not extra images unfortunately.
-
-13. Explore the possibility of adding `here()` which would return a tuple
-    `(x, y)` in Python, and an array in Javascript.
 
 14. World to create and document
 ```python
@@ -125,3 +120,7 @@ while right_is_clear():
     go_back()
 eat_row()
 ```
+
+15. Add page listing images and source
+
+16. Add page listing all worlds, and brief summary for each

@@ -48,6 +48,10 @@ RUR.reset_definitions_en = function () {
     window.object_here = RUR._object_here_;
     window.pause = RUR._pause_;
     window.paint_square = RUR._paint_square_
+    window.position_here = function () {
+        var body = RUR._default_robot_body_();
+        return [body.x, body.y];
+    }
     window.print_html = RUR._print_html_;
     window.put = RUR._put_;
     window.throw = RUR._throw_;
@@ -74,7 +78,7 @@ RUR.reset_definitions_en = function () {
     };
 
     UsedRobot.prototype.at_goal = function () {
-        RUR._UR.at_goal_(this.body);
+        return RUR._UR.at_goal_(this.body);
     };
 
     UsedRobot.prototype.build_wall = function () {
@@ -82,7 +86,7 @@ RUR.reset_definitions_en = function () {
     };
 
     UsedRobot.prototype.carries_object = function () {
-        RUR._UR.carries_object_(this.body);
+        return RUR._UR.carries_object_(this.body);
     };
 
     UsedRobot.prototype.color_here = function() {
@@ -91,11 +95,11 @@ RUR.reset_definitions_en = function () {
     UsedRobot.prototype.colour_here = UsedRobot.prototype.color_here;
 
     UsedRobot.prototype.front_is_clear = function () {
-        RUR._UR.front_is_clear_(this.body);
+        return RUR._UR.front_is_clear_(this.body);
     };
 
     UsedRobot.prototype.is_facing_north = function () {
-        RUR._UR.is_facing_north_(this.body);
+        return RUR._UR.is_facing_north_(this.body);
     };
 
     UsedRobot.prototype.move = function () {
@@ -103,11 +107,15 @@ RUR.reset_definitions_en = function () {
     };
 
     UsedRobot.prototype.object_here = function (obj) {
-        RUR._UR.object_here_(this.body, obj);
+        return RUR._UR.object_here_(this.body, obj);
     };
 
     UsedRobot.prototype.paint_square = function (color) {
         RUR._UR.paint_square_(color, this.body);
+    };
+
+    UsedRobot.prototype.position_here = function () {
+        return [this.body.x, this.body.y];
     };
 
     UsedRobot.prototype.put = function () {
@@ -118,7 +126,7 @@ RUR.reset_definitions_en = function () {
     };
 
     UsedRobot.prototype.right_is_clear = function () {
-        RUR._UR.right_is_clear_(this.body);
+        return RUR._UR.right_is_clear_(this.body);
     };
 
     UsedRobot.prototype.set_model = function(model) {
@@ -143,11 +151,11 @@ RUR.reset_definitions_en = function () {
     };
 
     UsedRobot.prototype.wall_in_front = function () {
-        RUR._UR.wall_in_front_(this.body);
+        return RUR._UR.wall_in_front_(this.body);
     };
 
     UsedRobot.prototype.wall_on_right = function () {
-        RUR._UR.wall_on_right_(this.body);
+        return RUR._UR.wall_on_right_(this.body);
     };
 
     // make prototype available with known English name in RUR namespace
