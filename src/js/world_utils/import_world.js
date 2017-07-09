@@ -74,7 +74,13 @@ function start_process_onload() {
     }
 }
 
-function show_onload_feedback (e) {
+function show_onload_feedback (e, lang) {
+    var lang_info;
+    if (lang == "python") {
+        lang_info = "Invalid Python code in Onload editor";
+    } else {
+        lang_info = "Invalid Javascript code in Onload editor";
+    }
     RUR.show_feedback("#Reeborg-shouts", e.message + "<br>" +
         RUR.translate("Problem with onload code.") + "<pre>" +
         RUR.CURRENT_WORLD.onload + "</pre>");
@@ -86,15 +92,21 @@ process_onload = function () {
         RUR.state.evaluating_onload = true; // affects the way errors are treated
         if (RUR.CURRENT_WORLD.onload[0]=="#") {
             try {
+                onload_editor.setOption("mode", {name: "python", version: 3});
+            } catch (e){}
+            try {
                window.translate_python(RUR.CURRENT_WORLD.onload);
             } catch (e) {
-                show_onload_feedback(e);
+                show_onload_feedback(e, "python");
             }
         } else {
             try {
+                onload_editor.setOption("mode", "javascript");
+            } catch (e){}
+            try {
                 eval(RUR.CURRENT_WORLD.onload);  // jshint ignore:line
             } catch (e) {
-                show_onload_feedback(e);
+                show_onload_feedback(e, "javascript");
             }
         }
 

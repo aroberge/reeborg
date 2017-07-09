@@ -129,18 +129,24 @@ an html pre with class as follows `<pre class='world_info_source'> ... </pre>`.
 
 Unless If the very first character of the code is `#`,
 the content of this editor is assumed to be some **Javascript code**.
-The syntax highlighting mode for this editor is set to Javascript and cannot be changed.
+
+The syntax highlighting mode for this editor is initially set to be the same
+as the programming language; if code is present, the syntax highlighting
+is changed whether or not the first character is `#`.
 
 Whenever a world is loaded, or reloaded, this code is normally executed
-using Javascript's `eval()`.  This can be used to specify which
-programming language or programming mode must be used for a given world,
+using either Javascript's `eval()` or Python/Brython's `exec()`, again based
+on whether or not the first character is `#`.
+This onload code can be used to specify which programming language or
+programming mode must be used for a given world,
 as well as for dynamically creating world features, including new objects
 represented by custom images.
 
-If the very first character of the code is `#`, it is assumed instead that
-the code is written in Python, and the code is evaluated using Python's `exec`.
-However, this has not been as fully tested and may not be as reliable as
-using Javascript code.
+Unless some custom code is included in the other code editors
+(Pre, Post, main editor, and possibly library), you should not set the
+programming language or mode in the editor; this way, a learner could
+use your world with programs written in all of the available modes.
+
 
 ## Main tutorial guide
 

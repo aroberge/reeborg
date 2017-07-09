@@ -87,9 +87,9 @@ RUR.world_get.world_info = function (no_grid) {
         }
         if (RUR.get_current_world().onload) {
             if (RUR.CURRENT_WORLD.onload[0]=="#") {
-                RUR.state.onload_programming_mode = "python";
+                RUR.state.onload_programming_language = "python";
             } else {
-                RUR.state.onload_programming_mode = "javascript";
+                RUR.state.onload_programming_language = "javascript";
             }
             insertion = "<pre class='world_info_onload'>" + RUR.get_current_world().onload + "</pre>";
             to_replace = "INSERT_ONLOAD";
@@ -273,7 +273,7 @@ RUR.world_get.world_info = function (no_grid) {
         $this.empty();
         var myCodeMirror = CodeMirror(this, {
             value: $code,
-            mode:  RUR.state.onload_programming_mode,
+            mode:  RUR.state.onload_programming_language,
             lineNumbers: !$this.is('.inline'),
             readOnly: true,
             theme: 'reeborg-readonly'

@@ -246,12 +246,14 @@ function show_editor(lang) {
 
 function show_javascript_editor () {
     editor.setOption("mode", "javascript");
+    onload_editor.setOption("mode", "javascript"); // could be changed in import_world
     pre_code_editor.setOption("mode", "javascript");
     post_code_editor.setOption("mode", "javascript");
 }
 
 function show_python_editor () {
     editor.setOption("mode", {name: "python", version: 3});
+    onload_editor.setOption("mode", {name: "python", version: 3}); // could be changed in import_world
     pre_code_editor.setOption("mode", {name: "python", version: 3});
     post_code_editor.setOption("mode", {name: "python", version: 3});
 

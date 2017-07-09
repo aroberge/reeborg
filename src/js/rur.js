@@ -94,9 +94,6 @@ set_canvases(); // defined below and hoisted by javascript. It can
 RUR.MAX_Y = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
 RUR.MAX_X = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
 
-RUR.state.onload_programming_mode = "javascript";
-
-
 /*========================================================
   User session configuration
 
@@ -118,6 +115,7 @@ RUR.state.session_initialized = false; // when first loading the site
 RUR.state.human_language = "en";
 RUR.state.input_method = "python";
 RUR.state.programming_language = "python";
+RUR.state.onload_programming_language = "python"; // language is determined by content of editor
 
 RUR.state.x = undefined; // recorded mouse clicks
 RUR.state.y = undefined;

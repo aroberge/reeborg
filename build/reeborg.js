@@ -5335,12 +5335,14 @@ function show_editor(lang) {
 
 function show_javascript_editor () {
     editor.setOption("mode", "javascript");
+    onload_editor.setOption("mode", "javascript"); // could be changed in import_world
     pre_code_editor.setOption("mode", "javascript");
     post_code_editor.setOption("mode", "javascript");
 }
 
 function show_python_editor () {
     editor.setOption("mode", {name: "python", version: 3});
+    onload_editor.setOption("mode", {name: "python", version: 3}); // could be changed in import_world
     pre_code_editor.setOption("mode", {name: "python", version: 3});
     post_code_editor.setOption("mode", {name: "python", version: 3});
 
@@ -8763,9 +8765,6 @@ set_canvases(); // defined below and hoisted by javascript. It can
 RUR.MAX_Y = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
 RUR.MAX_X = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
 
-RUR.state.onload_programming_mode = "javascript";
-
-
 /*========================================================
   User session configuration
 
@@ -8787,6 +8786,7 @@ RUR.state.session_initialized = false; // when first loading the site
 RUR.state.human_language = "en";
 RUR.state.input_method = "python";
 RUR.state.programming_language = "python";
+RUR.state.onload_programming_language = "python"; // language is determined by content of editor
 
 RUR.state.x = undefined; // recorded mouse clicks
 RUR.state.y = undefined;
@@ -12435,9 +12435,9 @@ RUR.world_get.world_info = function (no_grid) {
         }
         if (RUR.get_current_world().onload) {
             if (RUR.CURRENT_WORLD.onload[0]=="#") {
-                RUR.state.onload_programming_mode = "python";
+                RUR.state.onload_programming_language = "python";
             } else {
-                RUR.state.onload_programming_mode = "javascript";
+                RUR.state.onload_programming_language = "javascript";
             }
             insertion = "<pre class='world_info_onload'>" + RUR.get_current_world().onload + "</pre>";
             to_replace = "INSERT_ONLOAD";
@@ -12621,7 +12621,7 @@ RUR.world_get.world_info = function (no_grid) {
         $this.empty();
         var myCodeMirror = CodeMirror(this, {
             value: $code,
-            mode:  RUR.state.onload_programming_mode,
+            mode:  RUR.state.onload_programming_language,
             lineNumbers: !$this.is('.inline'),
             readOnly: true,
             theme: 'reeborg-readonly'
@@ -12796,7 +12796,13 @@ function start_process_onload() {
     }
 }
 
-function show_onload_feedback (e) {
+function show_onload_feedback (e, lang) {
+    var lang_info;
+    if (lang == "python") {
+        lang_info = "Invalid Python code in Onload editor";
+    } else {
+        lang_info = "Invalid Javascript code in Onload editor";
+    }
     RUR.show_feedback("#Reeborg-shouts", e.message + "<br>" +
         RUR.translate("Problem with onload code.") + "<pre>" +
         RUR.CURRENT_WORLD.onload + "</pre>");
@@ -12808,15 +12814,21 @@ process_onload = function () {
         RUR.state.evaluating_onload = true; // affects the way errors are treated
         if (RUR.CURRENT_WORLD.onload[0]=="#") {
             try {
+                onload_editor.setOption("mode", {name: "python", version: 3});
+            } catch (e){}
+            try {
                window.translate_python(RUR.CURRENT_WORLD.onload);
             } catch (e) {
-                show_onload_feedback(e);
+                show_onload_feedback(e, "python");
             }
         } else {
             try {
+                onload_editor.setOption("mode", "javascript");
+            } catch (e){}
+            try {
                 eval(RUR.CURRENT_WORLD.onload);  // jshint ignore:line
             } catch (e) {
-                show_onload_feedback(e);
+                show_onload_feedback(e, "javascript");
             }
         }
 
@@ -13198,8 +13210,8 @@ ui_en["fence_left"] = en_to_en["fence_left"] = "fence_left";
 ui_en["fence_vertical"] = en_to_en["fence_vertical"] = "fence_vertical";
 ui_en["fence_double"] = en_to_en["fence_double"] = "fence_double";
 
-
-ui_en["Problem with onload code."] = "Invalid Javascript onload code; contact the creator of this world.";
+ui_en["Invalid Javascript code in Onload editor"] = "Invalid Javascript onload code; contact the creator of this world.";
+ui_en["Invalid Python code in Onload editor"] = "Invalid Python onload code; contact the creator of this world.";
 
 ui_en["Too many steps:"] = "Too many steps: {max_steps}<br>Use <code>set_max_nb_instructions(nb)</code> to increase the limit.";
 ui_en["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg is at the correct x position.</li>";
@@ -13564,7 +13576,8 @@ fr_to_en["clôture_double"] = "fence_double";
 ui_fr["fence_vertical"] = "clôture_verticale";
 fr_to_en["clôture_verticale"] = "fence_vertical";
 
-ui_fr["Problem with onload code."] = "Code Javascript 'onload' non valide; veuillez contacter le créateur de ce monde.";
+ui_fr["Invalid Javascript code in Onload editor"] = "Code Javascript 'onload' non valide; veuillez contacter le créateur de ce monde.";
+ui_fr["Invalid Python code in Onload editor"] = "Code Python 'onload' non valide; veuillez contacter le créateur de ce monde.";
 
 ui_fr["Too many steps:"] = "Trop d'instructions: {max_steps}<br>Utilisez <code>max_nb_instructions(nb)</code> pour augmenter la limite.";
 ui_fr["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg est à la bonne coordonnée x.</li>";
@@ -13936,9 +13949,8 @@ ko_to_en["울타리 double"] = "fence_double";
 ui_ko["fence_vertical"] = "울타리";
 ko_to_en["울타리 vertical"] = "fence_vertical";
 
-
-
-ui_ko["Problem with onload code."] = "유효하지 않은 자바스크립트 onload 코드입니다; 이 월드의 제작자에게 연락하세요.";
+ui_ko["Invalid Javascript code in Onload editor"] = "유효하지 않은 자바스크립트 onload 코드입니다; 이 월드의 제작자에게 연락하세요.";
+ui_ko["Invalid Python code in Onload editor"] = "유효하지 않은 파이썬 onload 코드입니다; 이 월드의 제작자에게 연락하세요.";
 
 ui_ko["Too many steps:"] = "너무 많은 steps: {max_steps}<br>Use <code>set_max_nb_instructions(nb)</code> to increase the limit.";
 ui_ko["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>리보그는 올바른 x 위치에 있습니다. </li>";

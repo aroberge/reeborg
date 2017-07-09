@@ -42,8 +42,8 @@ ui_en["fence_left"] = en_to_en["fence_left"] = "fence_left";
 ui_en["fence_vertical"] = en_to_en["fence_vertical"] = "fence_vertical";
 ui_en["fence_double"] = en_to_en["fence_double"] = "fence_double";
 
-
-ui_en["Problem with onload code."] = "Invalid Javascript onload code; contact the creator of this world.";
+ui_en["Invalid Javascript code in Onload editor"] = "Invalid Javascript onload code; contact the creator of this world.";
+ui_en["Invalid Python code in Onload editor"] = "Invalid Python onload code; contact the creator of this world.";
 
 ui_en["Too many steps:"] = "Too many steps: {max_steps}<br>Use <code>set_max_nb_instructions(nb)</code> to increase the limit.";
 ui_en["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>Reeborg is at the correct x position.</li>";

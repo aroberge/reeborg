@@ -114,6 +114,10 @@ RUR.add_final_position("house", 4, 2)
 If you switch between each of the three worlds you have saved in your browser,
 they should all look the same, no matter which method was used to create it.
 
+Note that, if the first character in the Onload editor is `#`, the code is
+assumed to be written using Python; otherwise, the code is assumed to be
+written using Javascript.
+
 ## Main tutorial guide
 
 See {@tutorial how}.
