@@ -224,7 +224,7 @@ test('_add_artefact: add after range was set', function (assert) {
     try {
         RUR._add_artefact(args_add);
     } catch (e) {
-        assert.equal(e.message, "Expected an array.");
+        assert.equal(e.message, 'Expected an array in RUR.utils.ensure_key_for_array_exists.');
         //assert.equal(e.message, "Cannot add number (integer) to range (string)", "error message ok");
     }
     assert.end();

@@ -1,7 +1,7 @@
 
 require("./../rur.js");
 var set_ui_ready_to_run = require("./../ui/set_ready_to_run.js").set_ui_ready_to_run;
-var rec_reset = require("./../recorder/reset.js").reset;
+require("./../recorder/reset.js");
 //var reset_world = require("./../world_set/reset_world.js").reset_world;
 var record_id = require("./../../lang/msg.js").record_id;
 
@@ -27,8 +27,7 @@ RUR.reload2 = function() {
     // then open at the top left of the window
     $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes", position:{my: "center", at: "center", of: $("#robot-canvas")}});
     $("#Reeborg-shouts").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot-canvas")}});
-    //reset_world();
-    rec_reset();
+    RUR.reset_world();
     if (RUR.state.input_method == "py-repl") {
         try {
             restart_repl();

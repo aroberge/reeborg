@@ -1,6 +1,5 @@
 
 require("./../rur.js");
-require("./../programming_api/exceptions.js");
 
 _is_integer = function(n) {
     return typeof n==='number' && (n%1)===0;

@@ -4,15 +4,6 @@
 
 require("./../rur.js");
 
-RUR.animated_images_init = function () {
-    RUR._ORDERED = {};
-    RUR._SYNC = {};
-    RUR._SYNC_VALUE = {};
-    RUR._CYCLE_STAY = {};
-    RUR._CYCLE_REMOVE = {};
-    RUR.ANIMATION_TIME = 120;
-};
-
 RUR.animate_images = function (obj) {
     for (i=0; i < obj.images.length; i++){
         obj["image"+i] = new Image();

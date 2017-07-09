@@ -88,7 +88,7 @@ RUR.onload_set_programming_mode = function(mode) {
 
     /* When a world is imported from a program using World() or Monde(),
        and the onload editor contains a call to RUR.set_programming_mode,
-       it is useful to delay its execution so that any error thrown
+       it might be useful to delay its execution so that any error thrown
        (e.g. info about changed world) be handled properly by the language
        used to run the original program.
      */
@@ -97,7 +97,7 @@ RUR.onload_set_programming_mode = function(mode) {
         // the following will ensure that "python" is used as default if
         // the mode is not recognized as a valid one.
         $("#programming-mode").change();
-    }, 600);
+    }, 100);
 };
 
 $("#programming-mode").change(function() {

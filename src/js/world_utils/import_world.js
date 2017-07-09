@@ -20,7 +20,7 @@ RUR.world_utils.import_world = function (json_string) {
         RUR.CURRENT_WORLD = RUR.create_empty_world();
         return;
     }
-    RUR.animated_images_init();
+    RUR.reset_animated_images();
     if (typeof json_string == "string"){
         try {
             RUR.CURRENT_WORLD = JSON.parse(json_string) || RUR.create_empty_world();

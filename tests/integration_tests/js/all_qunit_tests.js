@@ -36,19 +36,31 @@ QUnit.module("Failing Python programs", {
   beforeEach: function() {
     test_utils.reset();  }
 });
-QUnit.test("Centre 1", function(assert) {
+QUnit.test("Centre 1 - failing English", function(assert) {
     var world_url = "/src/worlds/tutorial_en/center1.json";
     var done = assert.async();
     test_utils.set_human_language("en");
     assert.notOk(test_utils.eval_python(world_url, "/tests/integration_tests/programs/test_center1_fail.py").success, "Failing program recognized as such.");
+    done();
+});
+QUnit.test("failing English program - syntax error", function(assert) {
+    var world_url = "/src/worlds/tutorial_en/center1.json";
+    var done = assert.async();
+    test_utils.set_human_language("en");
     assert.notOk(test_utils.eval_python(world_url, "/tests/integration_tests/programs/test_syntax_fail.py").success, "Failing program (syntax error) recognized as such.");
     done();
 });
-QUnit.test("Centre 1", function(assert) {
+QUnit.test("Centre 1 - failing French", function(assert) {
     var world_url = "/src/worlds/tutorial_en/center1.json";
     var done = assert.async();
     test_utils.set_human_language("fr");
     assert.notOk(test_utils.eval_python(world_url, "/tests/integration_tests/programs/test_center1_fail_fr.py").success, "Failing program recognized as such.");
+    done();
+});
+QUnit.test("Failing French program - syntax error", function(assert) {
+    var world_url = "/src/worlds/tutorial_en/center1.json";
+    var done = assert.async();
+    test_utils.set_human_language("fr");
     assert.notOk(test_utils.eval_python(world_url, "/tests/integration_tests/programs/test_syntax_fail_fr.py").success, "Failing program (syntax error) recognized as such.");
     done();
 });

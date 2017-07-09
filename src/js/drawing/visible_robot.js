@@ -9,7 +9,6 @@ record_id("robot3");
 
 RUR.vis_robot = {};
 RUR.vis_robot.images = {};
-RUR.vis_robot.animated_robots = [];
 
 // we will keep track if we have loaded all images
 RUR.vis_robot.loaded_images = 0;
@@ -42,18 +41,22 @@ function set_images(images) {
     if (robot.robot_e_img.src != images.east) {
         robot.robot_e_img.src = images.east || default_images.east;
         robot.robot_e_img.onload = RUR.onload_new_image;
+        RUR.state.reset_default_robot_images_needed = true;
     }
     if (robot.robot_n_img.src != images.north) {
         robot.robot_n_img.src = images.north || default_images.north;
         robot.robot_n_img.onload = RUR.onload_new_image;
+        RUR.state.reset_default_robot_images_needed = true;
     }
     if (robot.robot_w_img.src != images.west) {
         robot.robot_w_img.src = images.west || default_images.west;
         robot.robot_w_img.onload = RUR.onload_new_image;
+        RUR.state.reset_default_robot_images_needed = true;
     }
     if (robot.robot_s_img.src != images.south) {
         robot.robot_s_img.src = images.south || default_images.south;
         robot.robot_s_img.onload = RUR.onload_new_image;
+        RUR.state.reset_default_robot_images_needed = true;
     }
 }
 
@@ -189,7 +192,7 @@ RUR.animate_robot = function (models, robot) {
     if (robot === undefined) {
         robot = RUR.get_current_world().robots[0];
     }
-    RUR.vis_robot.animated_robots.push({
+    RUR._ANIMATED_ROBOTS.push({
         robot_id: robot.__id,
         index: 0
     })
@@ -199,8 +202,8 @@ RUR.animate_robot = function (models, robot) {
 };
 
 function update_model(robot) {
-    var animated_robots = RUR.vis_robot.animated_robots,
-        nb_robots = RUR.vis_robot.animated_robots.length,
+    var animated_robots = RUR._ANIMATED_ROBOTS,
+        nb_robots = RUR._ANIMATED_ROBOTS.length,
         nb_models = robot.models_cycle.length;
     for (var r = 0; r < nb_robots; r++) {
         if (animated_robots[r].robot_id == robot.__id) {
@@ -412,7 +415,6 @@ RUR.new_robot_images = function (images) {
     } else {
         model = 3;
     }
-    RUR.state.reset_default_robot_images_needed = true;
 
     set_images(images);
 

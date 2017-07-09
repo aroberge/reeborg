@@ -1,30 +1,19 @@
 /** @namespace RUR
  * @desc The namespace reserved for all the core Reeborg World methods.
- *
  */
-
-/*====================================================
- Yes, I know, global variables are a terrible thing.
-======================================================*/
 
 window.RUR = RUR || {}; // RUR should be already defined in the html file;
                         // however, it might not when running tests.
-RUR.utils = {};
-RUR.world_utils = {};
-RUR.UnitTest = {}; // Mostly used to document unit tests
-
-RUR.THINGS = {}; // something which can be drawn, like "token"
-RUR.KNOWN_THINGS = []; // keeping track of their names only
 
 /* In order to make it easier to have a version of Reeborg's World
    installed on different servers, or from different location with
-   respect to the base directory, we introduce a global variables that
+   respect to the base directory, we use RUR.BASE_URL as global variables that
    is used to obtain the relative path to use when loading various
    files elsewhere */
 var pathname;
 try {
     pathname = window.location.pathname;  // not defined for unit tests
-    if (pathname.indexOf("qunit") !== -1 ){  // running functional/qunit test
+    if (pathname.indexOf("qunit") !== -1 ){  // running integration/qunit test
         RUR.BASE_URL = '../..';
     } else {
         RUR.BASE_URL = window.location.pathname.substr(0, window.location.pathname.lastIndexOf('/'));
@@ -33,42 +22,193 @@ try {
     RUR.BASE_URL = '';
 }
 
-/* Reeborg's World can be in different states (running a program,
- * editing a world, etc.) and the behaviour of some features can be affected
- * (e.g. enabled or disabled) depending on that state.
- * RUR.state is the name space used to group all constants describing
- * these various states
- */
-RUR.state = {};
 
-RUR.state.animated_robots = false;
-RUR.state.animated_robot_timer = null;
-RUR.state.code_evaluated = false;
-RUR.state.do_not_record = false;
-RUR.state.do_not_draw_info = false;
-RUR.state.editing_world = false;
-RUR.state.highlight = true;
+/*========================================================
+  Namespaces
+==========================================================*/
+
+RUR.utils = {};
+RUR.world_utils = {};
+RUR.UnitTest = {}; // Mostly used to document unit tests
+RUR.state = {};    /* Reeborg's World can be in different states
+                      (running a program, editing a world, etc.) and the
+                      behaviour of some features can be affected (
+                      e.g. enabled or disabled) depending on that state.*/
+
+
+/*========================================================
+  Global containers
+
+  These are never reset; they only grow
+==========================================================*/
+
+RUR.THINGS = {}; // something which can be drawn, like "token"
+RUR.KNOWN_THINGS = []; // keeping track of their names only
+RUR.CANVASES = []; // html canvases ...
+RUR.ALL_CTX = [];  // and their corresponding 2d context
+
+
+/*========================================================
+  Constants
+==========================================================*/
+
+RUR.EAST = 0;
+RUR.NORTH = 1;
+RUR.WEST = 2;
+RUR.SOUTH = 3;
+RUR.TILE_SIZE = RUR.DEFAULT_WALL_LENGTH = 40;
+RUR.DEFAULT_WALL_THICKNESS = 4;
+RUR.COORDINATES_COLOR = "black";
+RUR.AXIS_LABEL_COLOR = "brown";
+RUR.DEFAULT_TRACE_COLOR = "seagreen";
+RUR.MAX_X_DEFAULT = 14; // These two values are used in the dialog used to resize
+RUR.MAX_Y_DEFAULT = 12; // a world, hard-coded in the html dialog #dialog-set-dimensions.
+RUR.END_CYCLE = "end cycle"; // for animated images
+
+
+/*========================================================
+  World contants
+
+  These can take different values based on world definition,
+  but are otherwise constant within a given world.
+==========================================================*/
+
+RUR.USE_SMALL_TILES = false;
+// The non-default values below can be cut in half when using worlds with small tiles.
+RUR.SCALE = 1;
+RUR.WALL_LENGTH = RUR.DEFAULT_WALL_LENGTH;
+RUR.WALL_THICKNESS = RUR.DEFAULT_WALL_THICKNESS;
+
+RUR.CURRENT_WORLD = null; // needs to be created explicitly
+    // Note that, if at all possible, RUR.CURRENT_WORLD should not be used
+    // directly in other javascript functions; some of the functions
+    // defined near the end of this file should be used instead.
+
+RUR.BACKGROUND_IMAGE = new Image();  // Background image whose src attribute
+   // is set when importing a world.
+
+RUR.HEIGHT = 550;
+RUR.WIDTH = 625;
+set_canvases(); // defined below and hoisted by javascript. It can
+                // redefine RUR.HEIGHT and RUR.WIDTH
+RUR.MAX_Y = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
+RUR.MAX_X = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
+
+RUR.state.onload_programming_mode = "javascript";
+
+
+/*========================================================
+  User session configuration
+
+  If changed, saved in the browser's local storage for use
+  in later sessions.
+==========================================================*/
+
+RUR.GREEN = "green"; // for colour blind people; see
+RUR.RED = "red";     // RUR.configure_red_green() below
+
+/*========================================================
+
+   Configuration through UI interaction including URL: default values
+
+==========================================================*/
+
+RUR.state.session_initialized = false; // when first loading the site
+
 RUR.state.human_language = "en";
 RUR.state.input_method = "python";
-RUR.state.error_recorded = false;
-RUR.state.evaluating_onload = false;
-RUR.state.frame_insertion_called = false;
-RUR.state.onload_programming_mode = "javascript";
 RUR.state.programming_language = "python";
-RUR.state.playback = false;
-RUR.state.prevent_playback = false;
-RUR.state.reset_default_robot_images_needed = false;
-RUR.state.run_button_clicked = false;
-RUR.state.running_program = false;
-RUR.state.session_initialized = false;
-RUR.state.sound_id = undefined;
-RUR.state.sound_on = false;
-RUR.state.specific_object = undefined;
-RUR.state.stop_called = false;
-RUR.state.watch_vars = false;
-RUR.state.x = undefined;
+
+RUR.state.x = undefined; // recorded mouse clicks
 RUR.state.y = undefined;
-RUR.state.visible_grid = false;
+
+RUR.state.run_button_clicked = false;
+RUR.state.stop_called = false;
+RUR.state.playback = false;  // from pause/play/stop
+RUR.state.highlight = true;
+RUR.state.watch_vars = false;
+RUR.state.editing_world = false;
+
+
+
+
+/*========================================================
+
+   Animated images
+
+==========================================================*/
+
+// when user add new robot images or, more importantly, replace existing ones
+RUR.state.reset_default_robot_images_needed = false;
+
+
+RUR.reset_animated_images = function () {
+    // Per-program containers ensuring that proper animation sequence is respected
+    RUR._ORDERED = {};
+    RUR._SYNC = {};
+    RUR._SYNC_VALUE = {};
+    RUR._CYCLE_STAY = {};
+    RUR._CYCLE_REMOVE = {};
+    RUR.ANIMATION_TIME = 120; // time delay between each new image in animation
+    //
+    RUR._ANIMATED_ROBOTS = [];
+    RUR.ROBOT_ANIMATION_TIME = 150;
+    RUR.state.animated_robots = false; // set to true when we add animated robots
+};
+
+
+RUR.reset_pre_run_defaults = function () {
+
+    /* recording and playback values */
+    RUR.frames = [];
+    RUR.nb_frames = 0;
+    RUR.current_frame_no = 0;
+    RUR.current_line_no = undefined;
+    RUR.rec_line_numbers = [];
+    RUR.state.playback = false;
+    RUR.state.error_recorded = false;
+    RUR.state.do_not_record = false;
+    RUR.watched_expressions = [];
+    RUR.rec_previous_lines = [];
+    RUR._max_lineno_highlighted = 0;
+    clearTimeout(RUR._TIMER);
+    RUR.state.code_evaluated = false;
+        // sound has to be turned on explicitly, each time a program is run.
+    RUR.state.sound_id = undefined;
+    RUR.state.sound_on = false;
+        // When loading a file using a World() instruction in a program,
+        // we do not want the rest of the program to execute; this is then
+        // set to true.
+    RUR.state.prevent_playback = false;
+
+    /* Special drawing settings that can be set to true in a program */
+    RUR.state.visible_grid = false;
+    RUR.state.do_not_draw_info = false; // see document titled
+        // "How to show just the path followed by Reeborg"
+
+    /* Avoiding infinite loops */
+    RUR.MAX_STEPS = 1000; // maximum nb of instructions in a user program;
+                          // user-adjustable via max_nb_instructions() in French
+                          // or set_max_nb_instructions() in English
+
+    /* time frames */
+    RUR.PLAYBACK_TIME_PER_FRAME = 300; // ajustable by a program via think()
+    RUR.MIN_TIME_SOUND = 250; // if RUR.PLAYBACK_TIME_PER_FRAME is below
+                              // this value, no sound will be heard
+    RUR.reset_animated_images(); // see above; will reset RUR.ANIMATION_TIME and
+                                 // RUR.ROBOT_ANIMATION_TIME
+
+    /* extra frame insertion */
+    RUR.state.frame_insertion_called = false;
+    RUR.frame_insertion = undefined; // special function available to world creators
+
+    RUR.state.evaluating_onload = false; // true/false toggle in RUR.process_onload
+
+    RUR.state.specific_object = undefined; // used only in menu-driven world editor
+
+}
+
+RUR.reset_pre_run_defaults();
 
 
 /* Every time we load an image elsewhere, we should have defined the
@@ -103,43 +243,26 @@ function redraw_all() {
 }
 
 
-// TODO: after simplifying the permalink, see if RUR.state.prevent_playback
-// is still needed.
 
-RUR.EAST = 0;
-RUR.NORTH = 1;
-RUR.WEST = 2;
-RUR.SOUTH = 3;
 
-RUR.TILE_SIZE = 40;
 
-// current default canvas size; can be changed based on world definition.
-RUR.DEFAULT_HEIGHT = 550;
-RUR.DEFAULT_WIDTH = 625;
+/*----------------------------------------------------------------
+ We use multiple canvases to facilitate the drawing of objects
+ without having to worry much about the order in which we draw
+ the various types of objects.
 
-// The following non-default values can be cut in half
-// when using worlds with "small tiles".
-RUR.WALL_LENGTH = RUR.DEFAULT_WALL_LENGTH = 40;
-RUR.WALL_THICKNESS = RUR.DEFAULT_WALL_THICKNESS = 4;
+ The order in which the canvases are overlayed one on top of another
+ is set in the CSS file and should not be inferred from the
+ Javascript code below (even though we try to keep them in the same order)
 
-//----------------------------------------------------------------
-// We use multiple canvases to facilitate the drawing of objects
-// without having to worry much about the order in which we draw
-// the various types of objects.
-//
-// The order in which the canvases are overlayed one on top of another
-// is set in the CSS file and should not be inferred from the
-// Javascript code below.
-//
-// Note that, when doing unit tests (not functional tests), we do not
-// have canvases defined; so we enclose these definitions in a function
-// that does ignores canvases when appropriate.
+ When doing integration tests, the canvases are defined; when doing unit tests,
+ they are not. So we enclose these definitions in a function
+ that does ignores canvases when appropriate.
+*/
 function set_canvases () {
-    if (window.document === undefined) {
+    if (window.document === undefined) { // doing unit tests
         return;
     }
-    RUR.CANVASES = [];
-    RUR.ALL_CTX = [];
 
     function create_ctx(canvas, ctx) {
         RUR[ctx] = canvas.getContext("2d");
@@ -213,42 +336,16 @@ function set_canvases () {
     create_ctx(RUR.ROBOT_ANIM_CANVAS, "ROBOT_ANIM_CTX");
 }
 
-// We immediately create the canvases.
-set_canvases();
 
-RUR.MAX_Y = Math.floor(RUR.HEIGHT / RUR.WALL_LENGTH) - 1;
-RUR.MAX_X = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
 
-// The current default values of RUR.MAX_X and RUR.MAX_Y on the fixed-size
-// canvas work out to be 14 and 12 respectively: these seem to be appropriate
-// values for the lower entry screen resolution.  The following are meant
-// to be essentially synonymous - but are also meant to be used only if/when
-// specific values are not used in the "new" dialog that allows them to be specified
-// worlds created.  Everywhere else, RUR.MAX_X and RUR.MAX_Y should be used.
-RUR.MAX_X_DEFAULT = 14;
-RUR.MAX_Y_DEFAULT = 12;
-RUR.USE_SMALL_TILES = false;
 
-RUR.COORDINATES_COLOR = "black";
-RUR.AXIS_LABEL_COLOR = "brown";
-RUR.DEFAULT_TRACE_COLOR = "seagreen";
 
-RUR.MAX_STEPS = 1000;
-RUR.MIN_TIME_SOUND = 250;
 
-// Three basic time frames
-RUR.PLAYBACK_TIME_PER_FRAME = 300; // ajustable by a program via think()
-RUR.ANIMATION_TIME = 120;  // most animated images
-RUR.ROBOT_ANIMATION_TIME = 150;  // robot animation
 
-RUR.END_CYCLE = "end cycle"; // for animated images
 
-RUR.BACKGROUND_IMAGE = new Image();
-RUR.BACKGROUND_IMAGE.src = '';
 
-// RUR.CURRENT_WORLD should not be used in other javascript functions;
-// some of the functions defined below should be used instead.
-RUR.CURRENT_WORLD = null; // needs to be created explicitly
+
+
 
 /** @function get_current_world
  * @memberof RUR
@@ -263,7 +360,7 @@ RUR.CURRENT_WORLD = null; // needs to be created explicitly
  *  functions based on the world structure (for example: find
  *  the shortest path in a maze using various search algorithms.)
  *
- * **When using Python, see instead `SatelliteInfo()`.**
+ * **When using Python, see `SatelliteInfo()` instead.**
  */
 RUR.get_current_world = function () {
     return RUR.CURRENT_WORLD;
@@ -292,11 +389,8 @@ RUR.clone_world = function (world) {
 
 
 
-RUR.frame_insertion = undefined; // special function available to world creators
 
-// for colour blind people
-RUR.GREEN = "green";
-RUR.RED = "red";
+
 /** @function configure_red_green
  * @memberof RUR
  * @instance
