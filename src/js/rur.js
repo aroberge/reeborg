@@ -168,7 +168,7 @@ RUR.reset_pre_run_defaults = function () {
     RUR.state.do_not_record = false;
     RUR.watched_expressions = [];
     RUR.rec_previous_lines = [];
-    RUR._max_lineno_highlighted = 0;
+    //RUR._max_lineno_highlighted = 0; need to erase highlights first in RUR.reset_world
     clearTimeout(RUR._TIMER);
     RUR.state.code_evaluated = false;
         // sound has to be turned on explicitly, each time a program is run.
@@ -182,7 +182,7 @@ RUR.reset_pre_run_defaults = function () {
     /* Special drawing settings that can be set to true in a program */
     RUR.state.visible_grid = false;
     RUR.state.do_not_draw_info = false; // see document titled
-        // "How to show just the path followed by Reeborg"
+                    // "How to show just the path followed by Reeborg"
 
     /* Avoiding infinite loops */
     RUR.MAX_STEPS = 1000; // maximum nb of instructions in a user program;
@@ -200,10 +200,9 @@ RUR.reset_pre_run_defaults = function () {
     RUR.state.frame_insertion_called = false;
     RUR.frame_insertion = undefined; // special function available to world creators
 
+    /* others */
     RUR.state.evaluating_onload = false; // true/false toggle in RUR.process_onload
-
     RUR.state.specific_object = undefined; // used only in menu-driven world editor
-
 }
 
 RUR.reset_pre_run_defaults();

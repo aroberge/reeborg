@@ -37,9 +37,6 @@ ensure that it replaces #robot-anim-canvas in world_editor.js and canvas.js */
 #world-panel           {z-index: 120}
 #editor-panel.active   {z-index: 200;}
 #keyboard-buttons ul li {z-index: 230;}
-/* to ensure that dialogs are on top - this did not used to be required... */
-.ui-front { z-index: 1000 }
-.ui-dialog { z-index: 1001 }
 
 button:focus, a:focus {
     outline: none;

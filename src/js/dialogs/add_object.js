@@ -30,7 +30,6 @@ exports.dialog_add_object = dialog_add_object = $("#dialog-add-object").dialog({
     },
     close: function() {
         add_object_form[0].reset();
-        $(this).dialog('destroy');
     }
 });
 
@@ -47,5 +46,5 @@ function set_nb_object () {
 
 add_object_form = dialog_add_object.find("form").on("submit", function( event ) {
     event.preventDefault();
-    add_object();
+    set_nb_object();
 });

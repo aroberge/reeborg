@@ -324,7 +324,6 @@ exports.dialog_add_object = dialog_add_object = $("#dialog-add-object").dialog({
     },
     close: function() {
         add_object_form[0].reset();
-        $(this).dialog('destroy');
     }
 });
 
@@ -341,7 +340,7 @@ function set_nb_object () {
 
 add_object_form = dialog_add_object.find("form").on("submit", function( event ) {
     event.preventDefault();
-    add_object();
+    set_nb_object();
 });
 
 },{"./../../lang/msg.js":84,"./../drawing/visible_world.js":10,"./../rur.js":51,"./../world_api/objects.js":71}],3:[function(require,module,exports){
@@ -2992,13 +2991,12 @@ RUR.we.toggle_editing_mode = function () {
 
         RUR.state.editing_world = false;
         RUR.state.code_evaluated = false;
-        // RUR.WALL_COLOR = "brown";
-        // RUR.SHADOW_WALL_COLOR = "#f0f0f0";
         try {
             localStorage.setItem("editor", editor.getValue());
             localStorage.setItem("library", library.getValue());
         } catch (e) {}
         $("#editor-tab").trigger('click');
+        RUR.reload();
     } else {
         $("#pre-code-tab").parent().show();
         $("#post-code-tab").parent().show();
@@ -3006,8 +3004,6 @@ RUR.we.toggle_editing_mode = function () {
         $("#onload-editor-tab").parent().show();
         edit_robot_menu.toggle();
         RUR.state.editing_world = true;
-        // RUR.WALL_COLOR = "black";
-        // RUR.SHADOW_WALL_COLOR = "#ccd";
         $("#highlight").hide();
         $("#watch-variables-btn").hide();
     }
@@ -8139,6 +8135,7 @@ RUR.reset_world = function() {
             }catch (e) {console.log("diagnostic: error was raised while trying to removeLineClass", e);}
         }
     }
+    RUR._max_lineno_highlighted = 0;
 
     if (RUR.state.editing_world){
         return;
@@ -8850,7 +8847,7 @@ RUR.reset_pre_run_defaults = function () {
     RUR.state.do_not_record = false;
     RUR.watched_expressions = [];
     RUR.rec_previous_lines = [];
-    RUR._max_lineno_highlighted = 0;
+    //RUR._max_lineno_highlighted = 0; need to erase first in RUR.reset_world
     clearTimeout(RUR._TIMER);
     RUR.state.code_evaluated = false;
         // sound has to be turned on explicitly, each time a program is run.

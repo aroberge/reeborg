@@ -6,6 +6,44 @@ While I have no direct experience of teaching young students, the positive feedb
 
 The methods described in this documentation are intended to address this issue and offer some potential solutions, to make the learning environment even more appealing to young learners.
 
+Check by yourself:
+
+    World("worlds/examples/boring_path.json")
+
+![boring][boring]
+
+[boring]: ../../src/images/boring_path.png
+
+can be solved by
+
+```python
+def turn_right():
+    turn_left()
+    turn_left()
+    turn_left()
+
+while not at_goal():
+    if front_is_clear():
+        move()
+    elif right_is_clear():
+        turn_right()
+    else:
+        turn_left()
+```
+
+But so can
+
+    World("worlds/examples/nice_path.json")
+
+which has the exact same path available, but has a completely different
+and much more interesting appearance.
+
+![nice][nice]
+
+[nice]: ../../src/images/nice_path.png
+
+
+
 ## Not so young beginners
 
 Let's face it: older teenagers and young adults may not like to be treated as young children, but they too enjoy environments with better graphics than bland looking ones. Furthermore, they can appreciate an environment such as Reeborg's World that uses a real programming language (Python, or Javascript) and can present them with challenging (but doable) programming tasks with nice visual feedback.

@@ -1,0 +1,172 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 5,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {
+    "1,1": [
+      "north"
+    ],
+    "2,1": [
+      "north"
+    ],
+    "3,1": [
+      "north"
+    ],
+    "3,2": [
+      "east"
+    ],
+    "4,1": [
+      "east"
+    ],
+    "4,2": [
+      "east"
+    ],
+    "5,2": [
+      "north"
+    ],
+    "6,2": [
+      "north"
+    ],
+    "7,2": [
+      "north"
+    ],
+    "9,3": [
+      "north"
+    ],
+    "8,2": [
+      "north"
+    ],
+    "8,3": [
+      "east"
+    ],
+    "10,3": [
+      "north"
+    ],
+    "10,4": [
+      "east"
+    ],
+    "10,5": [
+      "east"
+    ],
+    "10,6": [
+      "east"
+    ],
+    "10,7": [
+      "east"
+    ],
+    "10,8": [
+      "east"
+    ],
+    "11,8": [
+      "north"
+    ],
+    "12,8": [
+      "north"
+    ],
+    "12,9": [
+      "east"
+    ],
+    "12,10": [
+      "east"
+    ],
+    "13,10": [
+      "north"
+    ],
+    "14,10": [
+      "north"
+    ],
+    "3,3": [
+      "east"
+    ],
+    "4,3": [
+      "north"
+    ],
+    "5,3": [
+      "north"
+    ],
+    "6,3": [
+      "north"
+    ],
+    "7,3": [
+      "north"
+    ],
+    "7,4": [
+      "east"
+    ],
+    "8,4": [
+      "north"
+    ],
+    "9,4": [
+      "north"
+    ],
+    "9,5": [
+      "east"
+    ],
+    "9,6": [
+      "east"
+    ],
+    "9,7": [
+      "east"
+    ],
+    "9,8": [
+      "east"
+    ],
+    "9,9": [
+      "east"
+    ],
+    "10,9": [
+      "north"
+    ],
+    "11,9": [
+      "north"
+    ],
+    "11,10": [
+      "east"
+    ],
+    "11,11": [
+      "east"
+    ],
+    "12,11": [
+      "north"
+    ],
+    "12,12": [
+      "east"
+    ]
+  },
+  "description": "A simple, empty world, ready for Reeborg to explore.",
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14,
+  "goal": {
+    "possible_final_positions": [
+      [
+        14,
+        12
+      ]
+    ],
+    "position": {
+      "image": "green_home_tile",
+      "x": 14,
+      "y": 12
+    }
+  }
+}

@@ -231,13 +231,12 @@ RUR.we.toggle_editing_mode = function () {
 
         RUR.state.editing_world = false;
         RUR.state.code_evaluated = false;
-        // RUR.WALL_COLOR = "brown";
-        // RUR.SHADOW_WALL_COLOR = "#f0f0f0";
         try {
             localStorage.setItem("editor", editor.getValue());
             localStorage.setItem("library", library.getValue());
         } catch (e) {}
         $("#editor-tab").trigger('click');
+        RUR.reload();
     } else {
         $("#pre-code-tab").parent().show();
         $("#post-code-tab").parent().show();
@@ -245,8 +244,6 @@ RUR.we.toggle_editing_mode = function () {
         $("#onload-editor-tab").parent().show();
         edit_robot_menu.toggle();
         RUR.state.editing_world = true;
-        // RUR.WALL_COLOR = "black";
-        // RUR.SHADOW_WALL_COLOR = "#ccd";
         $("#highlight").hide();
         $("#watch-variables-btn").hide();
     }

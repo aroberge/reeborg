@@ -24,6 +24,7 @@ RUR.reset_world = function() {
             }catch (e) {console.log("diagnostic: error was raised while trying to removeLineClass", e);}
         }
     }
+    RUR._max_lineno_highlighted = 0;
 
     if (RUR.state.editing_world){
         return;
