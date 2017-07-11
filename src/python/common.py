@@ -175,16 +175,18 @@ def generic_translate_python(src, highlight=False, var_watch=False, pre_code='',
         pre_code: code included with world definition and prepended to user code
         post_code: code included with world definition and appended to user code
     '''
-    # lib: string - language specific lib
-    #      (e.g. "library" in English, "biblio" in French)
-    #      already imported in html file
-    lib = window.RUR.library_name
-    # lang_import: something like "from reeborg_en import *"
-    lang_import = window.RUR.from_import
     sys.stdout.write = __write
     sys.stderr.write = __write_err
-    if lib in sys.modules:
-        del sys.modules[lib]
+
+    # reeborg_en and reeborg_fr define some attributes to window; these
+    # could have been redefined when running a Javascript program; so it
+    # is important to ensure that they have their proper definition by forcing
+    # a fresh import each time.
+    # Similarly, library or biblio's content might have changed by the user
+    # since the program was run last time
+    for mod in ["reeborg_en", "reeborg_fr" ,"library", "biblio"]:
+        if mod in sys.modules:
+            del sys.modules[mod]
 
     globals_ = {}
     globals_.update(globals())
@@ -202,8 +204,10 @@ def generic_translate_python(src, highlight=False, var_watch=False, pre_code='',
     if '\xa0' in src:
         src = src.replace('\xa0', ' ')
         window.console.warn("Some nonbreaking spaces were replaced in the Python code.")
+
+    # lang_import: something like "from reeborg_en import *" already defined in html file
+    lang_import = window.RUR.from_import
     exec(lang_import, globals_)
-    # globals_['system_default_vars'] = set([key for key in globals_])
 
     if highlight or var_watch:
         try:
