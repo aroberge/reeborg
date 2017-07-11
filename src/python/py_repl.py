@@ -5,8 +5,9 @@ import sys
 from browser import document, window
 RUR = window['RUR']
 
-def print_exc():
-    exc = __BRYTHON__.current_exception  # NOQA
+def print_exc(exc=None):
+    if exc is None:
+        exc = __BRYTHON__.current_exception  # NOQA
     if isinstance(exc, SyntaxError):
         print('\n module %s line %s' % (exc.args[1], exc.args[2]))
         offset = exc.args[3]
@@ -265,7 +266,11 @@ class Interpreter():
         except SyntaxError as msg:
             self.handle_syntax_error(msg)
         except NameError as e:
-            py_console.append("NameError\n")
+            py_console.append("NameError: %s\n" % e.args[0])
+            py_console.prompt()
+            self.status = "main"
+        except AttributeError as e:
+            py_console.append("AttributeError: %s\n" % e.args[0])
             py_console.prompt()
             self.status = "main"
         except Exception as e:
@@ -275,10 +280,11 @@ class Interpreter():
                 message = message.replace('<code>', '').replace('</code>', '')
                 py_console.append("{}: {}".format(e.__name__, message))  # NOQA
             elif hasattr(e, 'reeborg_concludes'):
+                window.console.log("yes, it has attribute reeborg_concludes")
                 message = RUR.translate(getattr(e, 'reeborg_concludes'))
                 py_console.append("{}: {}".format(e.__name__, message)) # NOQA
             else:
-                 print_exc()
+                 print_exc(exc)
             py_console.append("\n")
             py_console.prompt()
             self.status = "main"
