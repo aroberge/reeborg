@@ -14,8 +14,12 @@ body {
 
 
 code {
-  color: #468847;
-  font-weight: 700;
+    font-weight: bold;
+    border: 1px solid green;
+    border-radius: 5px;
+    padding-left: 2px;
+    padding-right: 2px;
+  color: green;
   font-size: 13pt;
   font-family: Consolas, Inconsolata, Monaco, "Courier New", Courier, monospace !important;
 }
@@ -7027,8 +7031,8 @@ footer {
   padding-top: 15px;
 }
 code {
-  background-color: none;
-  border: none;
+  /*background-color: none;
+  border: none;*/
 /*  color: orange; */
 }
 .buffered-name {

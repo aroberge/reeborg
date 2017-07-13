@@ -80,6 +80,16 @@ RUR.world_get.world_info = function (no_grid) {
             to_replace = "INSERT_PRE";
             description = description.replace(to_replace, insertion);
         }
+        if (RUR.get_current_world().editor) {
+            insertion = "<pre class='world_info_source'>" + RUR.get_current_world().editor + "</pre>";
+            to_replace = "INSERT_EDITOR";
+            description = description.replace(to_replace, insertion);
+        }
+        if (RUR.get_current_world().library) {
+            insertion = "<pre class='world_info_source'>" + RUR.get_current_world().library + "</pre>";
+            to_replace = "INSERT_LIBRARY";
+            description = description.replace(to_replace, insertion);
+        }
         if (RUR.get_current_world().post) {
             insertion = "<pre class='world_info_source'>" + RUR.get_current_world().post + "</pre>";
             to_replace = "INSERT_POST";

@@ -1,0 +1,32 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 4,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": "<p>An example showing how we can visually show\nwhat type of protection is offerred by an\n    object carried.</p>\n<p>The code in the Onload editor is</p>\nINSERT_ONLOAD\n<p>The code in the Pre editor is</p>\nINSERT_PRE\n<p>We suggest that you try to run the following program</p>\nINSERT_EDITOR\n",
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 12,
+  "pre": "# We redefine take() and put() so that we can change\n# the robot's appearance based on the type of\n# protection carried\n\nreeborg = default_robot()\nreeborg.set_model(0) # override user's choice\nold_take = take\ndef take(obj=None):\n    if carries_object():\n        raise ReeborgError(\"I can only carry a single object.\")\n    if obj is None:\n        old_take()\n    else:\n        old_take(obj)\n    if carries_object(\"water protection\"):\n        reeborg.set_model(7)\n    elif carries_object(\"fire protection\"):\n        reeborg.set_model(8)\n        \nold_put = put\ndef put(obj=None):\n    if obj is None:\n        old_put()\n    else:\n        old_put(obj)\n    reeborg.set_model(0)\n",
+  "onload": "# Python code in onload\nRUR.onload_set_programming_language(\"python\")\n\n# We re-use the token image for two new objects\nRUR.add_new_thing({\"name\": \"water protection\",\n    \"url\": \"src/images/token.png\",\n    \"protections\": [\"water\"]})\nRUR.add_new_thing({\"name\": \"fire protection\",\n    \"url\": \"src/images/token.png\",\n    \"protections\": [\"fire\"]})\n\nRUR.add_object(\"water protection\", 2, 1)\nRUR.add_background_tile(\"water\", 4, 1)\nRUR.add_object(\"fire protection\", 7, 1)\nRUR.add_background_tile(\"fire\", 9, 1)",
+  "editor": "move()\ntake()\nmove()\nmove()\nmove()\nput()\nmove()\nmove()\ntake()\nmove()\nmove()\nmove()\nput()\nmove()\n\n"
+}

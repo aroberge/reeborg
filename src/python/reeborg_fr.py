@@ -699,9 +699,6 @@ class RobotUsage(object):  #py:UR
     def modele(self, modele):  #py:UR.set_model
         """
         Permet de choisir le modèle du robot.
-
-           Args:
-              modele: un nombre de 0 à 3.
         """
         RUR._UR.set_model_(self.body, modele)
 

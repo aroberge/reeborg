@@ -30,7 +30,7 @@ record_id("programming-mode");
  * @example {@lang python}
  * # Execute the following and, after the world has loaded,
  * # click on **World Info** to see how this code is used.
- * World("worlds/examples/simple_path_explain.json")
+ * World("worlds/examples/simple_path_explained.json")
  */
 
 RUR.onload_set_programming_language = function(language) {

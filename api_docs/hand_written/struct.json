@@ -45,5 +45,8 @@
     },
 "todo" : {
     "title": "To do"
-    }
+    },
+"examples" : {
+    "title": "World examples"
+}
 }

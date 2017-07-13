@@ -14,7 +14,8 @@
 
 6. Add "traditional" exercises - possibly strings as examples
 
-7. Document `RUR.get_TYPE...`.
+8. Teaching - talk about Python tutor and explain watching variables including
+   add_watch()
 
 9. figure out how to combine insert frame and voice narration for people
    with visual challenges.
@@ -24,13 +25,13 @@
     c) discussions: understanding oriented
     d) reference: information oriented
 
-11. Document RUR.get_world
-
 12. Explain how to work without an internet connection or if CORS problems
     arise - for world, but not extra images unfortunately.
 
 14. World to create and document
 ```python
+# Adapted from a world created by Vincent Maille,
+# co-author of "Les robots".
 from random import randint
 max_x = randint(5, 10)
 max_y = randint(5, 10)
@@ -88,20 +89,21 @@ def take():
 
 add_watch("position_in_front()")
 
-while not is_facing_north():
-    turn_left()
-while front_is_clear():
-    move()
-turn_left()
-while front_is_clear():
-    move()
-turn_left()
-turn_left()
-
-def eat_row():
+def go_to_top_left():
+    while not is_facing_north():
+        turn_left()
     while front_is_clear():
-        if object_here():
-            eat()
+        move()
+    turn_left()
+    while front_is_clear():
+        move()
+    turn_left()
+    turn_left()
+
+def eat_row(food=None):
+    while front_is_clear():
+        if object_here(food):
+            eat(food)
         move()
     if object_here():
         eat()
@@ -115,8 +117,12 @@ def go_back():
     move()
     turn_left()
 
+# program here
+
+go_to_top_left()
+
 while right_is_clear():
-    eat_row()
+    eat_row() # try eat_row("cheese") instead
     go_back()
 eat_row()
 ```

@@ -678,9 +678,6 @@ class UsedRobot(object):  #py:UR
     def set_model(self, model):  #py:UR.set_model
         """
         Select the model (images) for the robot.
-
-           Args:
-              model: a number between 0 and 3.
         """
         RUR._UR.set_model_(self.body, model)
 

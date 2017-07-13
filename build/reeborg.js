@@ -5115,7 +5115,7 @@ record_id("programming-mode");
  * @example {@lang python}
  * # Execute the following and, after the world has loaded,
  * # click on **World Info** to see how this code is used.
- * World("worlds/examples/simple_path_explain.json")
+ * World("worlds/examples/simple_path_explained.json")
  */
 
 RUR.onload_set_programming_language = function(language) {
@@ -8847,7 +8847,7 @@ RUR.reset_pre_run_defaults = function () {
     RUR.state.do_not_record = false;
     RUR.watched_expressions = [];
     RUR.rec_previous_lines = [];
-    //RUR._max_lineno_highlighted = 0; need to erase first in RUR.reset_world
+    //RUR._max_lineno_highlighted = 0; need to erase highlights first in RUR.reset_world
     clearTimeout(RUR._TIMER);
     RUR.state.code_evaluated = false;
         // sound has to be turned on explicitly, each time a program is run.
@@ -8861,7 +8861,7 @@ RUR.reset_pre_run_defaults = function () {
     /* Special drawing settings that can be set to true in a program */
     RUR.state.visible_grid = false;
     RUR.state.do_not_draw_info = false; // see document titled
-        // "How to show just the path followed by Reeborg"
+                    // "How to show just the path followed by Reeborg"
 
     /* Avoiding infinite loops */
     RUR.MAX_STEPS = 1000; // maximum nb of instructions in a user program;
@@ -8879,10 +8879,9 @@ RUR.reset_pre_run_defaults = function () {
     RUR.state.frame_insertion_called = false;
     RUR.frame_insertion = undefined; // special function available to world creators
 
+    /* others */
     RUR.state.evaluating_onload = false; // true/false toggle in RUR.process_onload
-
     RUR.state.specific_object = undefined; // used only in menu-driven world editor
-
 }
 
 RUR.reset_pre_run_defaults();
@@ -9013,17 +9012,6 @@ function set_canvases () {
     create_ctx(RUR.ROBOT_ANIM_CANVAS, "ROBOT_ANIM_CTX");
 }
 
-
-
-
-
-
-
-
-
-
-
-
 /** @function get_current_world
  * @memberof RUR
  * @instance
@@ -9063,9 +9051,6 @@ RUR.clone_world = function (world) {
         return JSON.parse(JSON.stringify(world));
     }
 };
-
-
-
 
 
 /** @function configure_red_green
@@ -12434,6 +12419,16 @@ RUR.world_get.world_info = function (no_grid) {
         if (RUR.get_current_world().pre) {
             insertion = "<pre class='world_info_source'>" + RUR.get_current_world().pre + "</pre>";
             to_replace = "INSERT_PRE";
+            description = description.replace(to_replace, insertion);
+        }
+        if (RUR.get_current_world().editor) {
+            insertion = "<pre class='world_info_source'>" + RUR.get_current_world().editor + "</pre>";
+            to_replace = "INSERT_EDITOR";
+            description = description.replace(to_replace, insertion);
+        }
+        if (RUR.get_current_world().library) {
+            insertion = "<pre class='world_info_source'>" + RUR.get_current_world().library + "</pre>";
+            to_replace = "INSERT_LIBRARY";
             description = description.replace(to_replace, insertion);
         }
         if (RUR.get_current_world().post) {

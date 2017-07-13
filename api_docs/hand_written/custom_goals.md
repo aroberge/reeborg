@@ -85,26 +85,26 @@ In the case of the second example we have shown, here was the content of that ed
 when this document was written.
 
 ```xml
-Have Reeborg follow the gravel path as indicated.
-<br><img src='src/images/simple_path.gif'><br>
-Note that you are not allowed to use
-<code>done()</code> to end the execution of your program.
-<br>
+    Have Reeborg follow the gravel path as indicated.
+    <br><img src='src/images/simple_path.gif'><br>
+    Note that you are not allowed to use
+    <code>done()</code> to end the execution of your program.
+    <br>
 
-<h3>Explanation</h3>
+    <h3>Explanation</h3>
 
-This world contains some Python code.
-To ensure that the proper mode is selected, the onload editor
-contains the following code:
+    This world contains some Python code.
+    To ensure that the proper mode is selected, the onload editor
+    contains the following code:
 
-INSERT_ONLOAD
+    INSERT_ONLOAD
 
-To ensure that the correct path is followed, we have
-the following code in the pre editor
-INSERT_PRE
-running before the user's program, and the code
-INSERT_POST
-running after the user's program.
+    To ensure that the correct path is followed, we have
+    the following code in the pre editor
+    INSERT_PRE
+    running before the user's program, and the code
+    INSERT_POST
+    running after the user's program.
 ```
 
 The important thing to note here are the strings `INSERT_ONLOAD`, `INSERT_PRE` and `INSERT_POST`
@@ -129,9 +129,9 @@ move()
 RUR._done_()  ## cheating!!
 ```
 
-If you have read carefully the content of the **Pre** editor for
-the `simple_path_explain` world, you might have been able to
-guess that using `RUR._done_()` was a way to cheat for this world.
+With a dynamic language like Javascript powering Reeborg World, it is
+nearly impossible to find a way to prevent completely advanced enough
+students from bypassing any restriction you put in place.
 
 ## Main tutorial guide
 

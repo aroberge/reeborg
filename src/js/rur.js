@@ -333,17 +333,6 @@ function set_canvases () {
     create_ctx(RUR.ROBOT_ANIM_CANVAS, "ROBOT_ANIM_CTX");
 }
 
-
-
-
-
-
-
-
-
-
-
-
 /** @function get_current_world
  * @memberof RUR
  * @instance
@@ -383,9 +372,6 @@ RUR.clone_world = function (world) {
         return JSON.parse(JSON.stringify(world));
     }
 };
-
-
-
 
 
 /** @function configure_red_green
