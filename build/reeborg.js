@@ -2034,8 +2034,10 @@ function _update_user_editor (world, name, ed) {
         test_utils; // global variable defined for functional testing
         return;
     } catch (e) {}
-    // For blockly, editor and library, when not running tests,
+    // For blockly when not running tests,
     // the user is given the choice to update the content or to keep their own.
+    // This used to be the case as well for "editor" and library, but
+    // we have found that this was too error prone.
     if (world[name]) {
         set_button("name", true);
         $("#update-"+name+"-content").show();
@@ -2059,8 +2061,10 @@ function _update_world_editor (world, name, ed) {
 
 RUR.update_editors = function (world) {
     _update_user_editor(world, "blockly", RUR.blockly);
-    _update_user_editor(world, "editor", editor);
-    _update_user_editor(world, "library", library);
+    // an earlier version included the following
+    // _update_user_editor(world, "editor", editor);
+    // _update_user_editor(world, "library", library);
+    // However, we found that this was too error prone.
 
     _update_world_editor (world, "pre", pre_code_editor);
     _update_world_editor (world, "post", post_code_editor);
@@ -2071,12 +2075,13 @@ RUR.update_editors = function (world) {
 msg.record_id("update-blockly-content");
 msg.record_id("update-blockly-content-text", "UPDATE BLOCKLY CONTENT");
 msg.record_id("update-blockly-content-btn", "UPDATE BLOCKLY BUTTON");
-msg.record_id("update-editor-content");
-msg.record_id("update-editor-content-text", "UPDATE EDITOR CONTENT");
-msg.record_id("update-editor-content-btn", "UPDATE EDITOR BUTTON");
-msg.record_id("update-library-content");
-msg.record_id("update-library-content-text", "UPDATE LIBRARY CONTENT");
-msg.record_id("update-library-content-btn", "UPDATE LIBRARY BUTTON");
+// The following are kept in case
+// msg.record_id("update-editor-content");
+// msg.record_id("update-editor-content-text", "UPDATE EDITOR CONTENT");
+// msg.record_id("update-editor-content-btn", "UPDATE EDITOR BUTTON");
+// msg.record_id("update-library-content");
+// msg.record_id("update-library-content-text", "UPDATE LIBRARY CONTENT");
+// msg.record_id("update-library-content-btn", "UPDATE LIBRARY BUTTON");
 msg.record_id("dialog-update-editors-from-world");
 msg.record_title("ui-dialog-title-dialog-update-editors-from-world", "Contents from World");
 
@@ -13498,10 +13503,10 @@ ui_en["Unlimited:"] = "Unlimited:";
 ui_en["Give object to robot"] = "Give object to robot";
 ui_en["GIVE OBJECT EXPLAIN"] = "Choose a number of objects for the robot to carry. Click on the checkbox if you wish that number to be unlimited.";
 
-ui_en["UPDATE EDITOR CONTENT"] = "This world has some default content for the editor. To replace the current content of your editor, click on the button";
-ui_en["UPDATE EDITOR BUTTON"] = "Replace editor content";
-ui_en["UPDATE LIBRARY CONTENT"] = "This world has some default content for the library. To replace the current content of your library, click on the button";
-ui_en["UPDATE LIBRARY BUTTON"] = "Replace library content";
+// ui_en["UPDATE EDITOR CONTENT"] = "This world has some default content for the editor. To replace the current content of your editor, click on the button";
+// ui_en["UPDATE EDITOR BUTTON"] = "Replace editor content";
+// ui_en["UPDATE LIBRARY CONTENT"] = "This world has some default content for the library. To replace the current content of your library, click on the button";
+// ui_en["UPDATE LIBRARY BUTTON"] = "Replace library content";
 ui_en["UPDATE BLOCKLY CONTENT"] = "This world has some default content for the blocks workspace. To replace the current blocks content, click on the button";
 ui_en["UPDATE BLOCKLY BUTTON"] = "Replace existing blocks";
 ui_en["Contents from World"] = "Contents from World";
@@ -13867,10 +13872,10 @@ ui_fr["Unlimited:"] = "Nombre illimité ";
 ui_fr["Give object to robot"] = "Donner des objets à Reeborg";
 ui_fr["GIVE OBJECT EXPLAIN"] = "Choisissez un nombre d'objects que Reeborg aura en sa possession au début du programme. Cliquez sur la case à cocher si vous voulez un nombre illimité.";
 
-ui_fr["UPDATE EDITOR CONTENT"] = "Ce monde inclus un contenu pour l'éditeur qui est différent de celui qui s'y trouve présentement. Pour remplacer le contenu de l'éditeur par celui défini par le monde, cliquez sur le bouton.";
-ui_fr["UPDATE EDITOR BUTTON"] = "Remplacer le contenu de l'éditeur";
-ui_fr["UPDATE LIBRARY CONTENT"] = "Ce monde inclus un contenu pour la bibliothèque qui est différent de celui qui s'y trouve présentement. Pour remplacer le contenu de la bibliothèque par celui défini par le monde, cliquez sur le bouton.";
-ui_fr["UPDATE LIBRARY BUTTON"] = "Remplacer le contenu de la bibliothèque";
+// ui_fr["UPDATE EDITOR CONTENT"] = "Ce monde inclus un contenu pour l'éditeur qui est différent de celui qui s'y trouve présentement. Pour remplacer le contenu de l'éditeur par celui défini par le monde, cliquez sur le bouton.";
+// ui_fr["UPDATE EDITOR BUTTON"] = "Remplacer le contenu de l'éditeur";
+// ui_fr["UPDATE LIBRARY CONTENT"] = "Ce monde inclus un contenu pour la bibliothèque qui est différent de celui qui s'y trouve présentement. Pour remplacer le contenu de la bibliothèque par celui défini par le monde, cliquez sur le bouton.";
+// ui_fr["UPDATE LIBRARY BUTTON"] = "Remplacer le contenu de la bibliothèque";
 ui_fr["UPDATE BLOCKLY CONTENT"] = "Ce monde inclus des blocs différents de ceux qui s'y trouvent présentement. Pour remplacer les blocs présents par ceux définis par le monde, cliquez sur le bouton.";
 ui_fr["UPDATE BLOCKLY BUTTON"] = "Remplacer les blocs";
 ui_fr["Contents from World"] = "Remplacement de contenus";
@@ -14238,10 +14243,10 @@ ui_ko["Unlimited:"] = "Unlimited:";
 ui_ko["Give object to robot"] = "Give object to robot";
 ui_ko["GIVE OBJECT EXPLAIN"] = "로봇이 운반 할 객체의 수를 고르세요. 더 많은 수를 원한다면 체크박스를 클릭하세요.";
 
-ui_ko["UPDATE EDITOR CONTENT"] = "This world has some default content for the editor. To replace the current content of your editor, click on the button";
-ui_ko["UPDATE EDITOR BUTTON"] = "Replace editor content";
-ui_ko["UPDATE LIBRARY CONTENT"] = "This world has some default content for the library. To replace the current content of your library, click on the button";
-ui_ko["UPDATE LIBRARY BUTTON"] = "Replace library content";
+// ui_ko["UPDATE EDITOR CONTENT"] = "This world has some default content for the editor. To replace the current content of your editor, click on the button";
+// ui_ko["UPDATE EDITOR BUTTON"] = "Replace editor content";
+// ui_ko["UPDATE LIBRARY CONTENT"] = "This world has some default content for the library. To replace the current content of your library, click on the button";
+// ui_ko["UPDATE LIBRARY BUTTON"] = "Replace library content";
 ui_ko["UPDATE BLOCKLY CONTENT"] = "This world has some default content for the blocks workspace. To replace the current blocks content, click on the button";
 ui_ko["UPDATE BLOCKLY BUTTON"] = "Replace existing blocks";
 ui_ko["Contents from World"] = "Contents from World";
