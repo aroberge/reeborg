@@ -1,5 +1,5 @@
 // the following is used in a few places below
-var mac_user_save_files_fr = ' <b>Utilisateurs Mac:</b> consultez <a href="https://github.com/aroberge/reeborg/blob/master/known_problems.md" target="_blank" rel="noopener">Problèmes connus</a>.';
+var mac_user_save_files_fr = ' <b>Utilisateurs Mac:</b> consultez <a href="https://github.com/aroberge/reeborg/blob/master/dev_tools/known_problems.md" target="_blank" rel="noopener">Problèmes connus</a>.';
 
 exports.ui_fr = ui_fr = {};
 exports.fr_to_en = fr_to_en = {};

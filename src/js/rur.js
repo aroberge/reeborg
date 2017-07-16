@@ -47,6 +47,19 @@ RUR.KNOWN_THINGS = []; // keeping track of their names only
 RUR.CANVASES = []; // html canvases ...
 RUR.ALL_CTX = [];  // and their corresponding 2d context
 
+/** private_dict
+ * @var
+ * @memberof RUR
+ * @desc A Javascript object / Python dict that can be used to store
+ * values which are meant to be used globally. For example, one can
+ * define a value in the Onload editor, and use it when running a program.
+ *
+ * @example {@lang python}
+ * import random
+ * RUR.private_dict["choice"] = random.randint(1, 6)
+ */
+RUR.private_dict = {}; /* for use by world creators */
+
 
 /*========================================================
   Constants

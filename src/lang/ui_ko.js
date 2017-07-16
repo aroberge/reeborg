@@ -1,5 +1,5 @@
 // the following is used in a few places below
-var mac_user_save_files_ko = ' <b>Mac users:</b> please see <a href="https://github.com/aroberge/reeborg/blob/master/known_problems.md" target="_blank" rel="noopener">Known problems</a>.';
+var mac_user_save_files_ko = ' <b>Mac users:</b> please see <a href="https://github.com/aroberge/reeborg/blob/master/dev_tools/known_problems.md" target="_blank" rel="noopener">Known problems</a>.';
 
 exports.ui_ko = ui_ko = {};
 exports.ko_to_en = ko_to_en = {};

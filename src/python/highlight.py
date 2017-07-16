@@ -129,7 +129,7 @@ def is_assignment(line):
 def insert_highlight_info(src, highlight=True, var_watch=False):
     global _watch, _highlight
     if not src:
-        return '\n'
+        return '\n', False
     _watch = var_watch
     _highlight = highlight
     line_info = check_balanced_brackets(src)

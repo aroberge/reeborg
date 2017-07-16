@@ -28,7 +28,12 @@
 12. Explain how to work without an internet connection or if CORS problems
     arise - for world, but not extra images unfortunately.
 
+13. Better error checking from onload code; try adding wall twice or
+    initial position, or final position, or pushables, and make sure that
+    an error is shown.
+
 14. World to create and document
+
 ```python
 # Adapted from a world created by Vincent Maille,
 # co-author of "Les robots".

@@ -8731,6 +8731,8 @@ RUR.KNOWN_THINGS = []; // keeping track of their names only
 RUR.CANVASES = []; // html canvases ...
 RUR.ALL_CTX = [];  // and their corresponding 2d context
 
+RUR.private_dict = {}; /* for use by world creators */
+
 
 /*========================================================
   Constants
@@ -10351,13 +10353,11 @@ require("./artefact.js");
  */
 
 RUR.fill_background = function(name) {
-    var recording_state = RUR._recording_(false);
     for (x = 1; x <= RUR.MAX_X; x++) {
         for (y = 1; y <= RUR.MAX_Y; y++) {
             RUR.add_background_tile(name, x, y);
         }
     }
-    RUR._recording_(recording_state);
     RUR.record_frame("RUR.fill_background", name);
 };
 
@@ -13175,7 +13175,7 @@ record_id("kbd-repeat-not-keyword", "<code>repeat</code> is not a true Python ke
 
 },{}],85:[function(require,module,exports){
 // the following is used in a few places below
-var mac_user_save_files_en = ' <b>Mac users:</b> please see <a href="https://github.com/aroberge/reeborg/blob/master/known_problems.md" target="_blank" rel="noopener">Known problems</a>.';
+var mac_user_save_files_en = ' <b>Mac users:</b> please see <a href="https://github.com/aroberge/reeborg/blob/master/dev_tools/known_problems.md" target="_blank" rel="noopener">Known problems</a>.';
 
 exports.ui_en = ui_en = {};
 exports.en_to_en = en_to_en = {};
@@ -13513,7 +13513,7 @@ ui_en["Contents from World"] = "Contents from World";
 
 },{}],86:[function(require,module,exports){
 // the following is used in a few places below
-var mac_user_save_files_fr = ' <b>Utilisateurs Mac:</b> consultez <a href="https://github.com/aroberge/reeborg/blob/master/known_problems.md" target="_blank" rel="noopener">Problèmes connus</a>.';
+var mac_user_save_files_fr = ' <b>Utilisateurs Mac:</b> consultez <a href="https://github.com/aroberge/reeborg/blob/master/dev_tools/known_problems.md" target="_blank" rel="noopener">Problèmes connus</a>.';
 
 exports.ui_fr = ui_fr = {};
 exports.fr_to_en = fr_to_en = {};
@@ -13882,7 +13882,7 @@ ui_fr["Contents from World"] = "Remplacement de contenus";
 
 },{}],87:[function(require,module,exports){
 // the following is used in a few places below
-var mac_user_save_files_ko = ' <b>Mac users:</b> please see <a href="https://github.com/aroberge/reeborg/blob/master/known_problems.md" target="_blank" rel="noopener">Known problems</a>.';
+var mac_user_save_files_ko = ' <b>Mac users:</b> please see <a href="https://github.com/aroberge/reeborg/blob/master/dev_tools/known_problems.md" target="_blank" rel="noopener">Known problems</a>.';
 
 exports.ui_ko = ui_ko = {};
 exports.ko_to_en = ko_to_en = {};
