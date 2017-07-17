@@ -216,6 +216,8 @@ RUR.reset_pre_run_defaults = function () {
     /* others */
     RUR.state.evaluating_onload = false; // true/false toggle in RUR.process_onload
     RUR.state.specific_object = undefined; // used only in menu-driven world editor
+
+    RUR.__python_error = false; // used to catch Python error in custom format
 }
 
 RUR.reset_pre_run_defaults();

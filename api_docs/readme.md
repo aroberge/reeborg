@@ -35,8 +35,5 @@ name **robot** was used [see wikipedia:RUR](https://en.wikipedia.org/wiki/R.U.R.
 Please note that there are many more functions belonging to the `RUR` namespace
 than what is documented here.  As a general rule, you should not create additional functions belonging to this namespace; however, some suggested exceptions are mentioned later in this documentation.
 
-## Next
-
-We suggest you start with {@tutorial getting_started}.
 
 

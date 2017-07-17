@@ -1,26 +1,10 @@
 {
 "how": {
     "title": "A guide to world creation",
-    "children": ["getting_started", "editors", "naming_convention", "objects", "random", "background",
-    "custom_goals", "show_path", "animated", "protection", "motivation", "nobreak", "canvases"]
+    "children": ["random", "custom_goals", "show_path", "animated", "protection", "nobreak", "canvases"]
 },
-    "getting_started": {
-        "title": "Advanced world creation: Start here"
-    },
-    "editors" : {
-        "title": "The many different editors"
-    },
-    "naming_convention" : {
-        "title": "Naming convention"
-    },
-    "objects": {
-        "title": "How to add objects and goals"
-    },
     "random": {
         "title": "How to add some randomness"
-    },
-    "background" :{
-        "title": "How to work with Background tiles, obstacles and decorative objects"
     },
     "custom_goals": {
         "title": "How to set up a custom goal"
@@ -34,9 +18,6 @@
     "protection": {
         "title": "Protection against fatalities"
     },
-    "motivation": {
-        "title": "Motivation: why create more complex worlds?"
-    },
     "nobreak": {
         "title": "Why are non-breaking spaces removed in Python code?"
     },
@@ -45,8 +26,5 @@
     },
 "todo" : {
     "title": "To do"
-    },
-"world_examples" : {
-    "title": "World examples"
-}
+    }
 }

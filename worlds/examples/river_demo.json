@@ -1,0 +1,32 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 11,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": "<h2>Crossing the river</h2>\n<p>This world illustrates how one can create a world\n    with a seemingly impassible river, but one that\n    Reeborg can cross at a specific location, but one\n    which is chosen randomly each time the program\n    is run.</p>\n<p>The code in the Onload editor is:</p>\nINSERT_ONLOAD\n<p>and the code in the Pre editor is</p>\nINSERT_PRE\n<p>As you can see, a simple program that will guide\n    Reeborg to its desired destination is</p>\nINSERT_EDITOR",
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14,
+  "editor": "World(\"worlds/examples/river.json\", \"Crossing the river\")",
+  "pre": "# Let's write down a solution for easy testing\ndef turn_right():\n    for i in range(3):\n        turn_left()\n\ndef solution():\n    turn_left()\n    # seek the spot where water is not a fatal background\n    while not right_is_clear():\n        move()\n    turn_right()\n    move()\n    move()\n    turn_right()\n    while not at_goal():\n        move()\n",
+  "onload": "# Python code\nRUR.onload_set_programming_language(\"python\")\n\nimport random\npick = random.randint(1, 12)\n\nRUR.fill_background(\"grass\")\nRUR.add_final_position(\"house\", 3, 1)\nfor y in range(1, 13):  # add river\n    if y != pick:\n        RUR.add_background_tile(\"water\", 2, y)\n    else:\n        RUR.add_decorative_object(\"water\", 2, pick)"
+}
