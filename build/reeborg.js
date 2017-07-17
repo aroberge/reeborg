@@ -5415,7 +5415,6 @@ function hide_console() {
 require("./../rur.js");
 var set_ui_ready_to_run = require("./../ui/set_ready_to_run.js").set_ui_ready_to_run;
 require("./../recorder/reset.js");
-//var reset_world = require("./../world_set/reset_world.js").reset_world;
 var record_id = require("./../../lang/msg.js").record_id;
 
 var reload_button = document.getElementById("reload");
@@ -5433,13 +5432,8 @@ RUR.reload2 = function() {
     $("#stdout").html("");
     $(".view_source").remove();
     $("#print-html").html("");
-    $("#Reeborg-concludes").dialog("close");
-    $("#Reeborg-shouts").dialog("close");
+    RUR.hide_end_dialogs();
     $("#watch-variables").html("");
-    // reset the options in case the user has dragged the dialogs as it would
-    // then open at the top left of the window
-    $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "concludes", position:{my: "center", at: "center", of: $("#robot-canvas")}});
-    $("#Reeborg-shouts").dialog("option", {minimize: false, maximize: false, autoOpen:false, width:500, dialogClass: "alert", position:{my: "center", at: "center", of: $("#robot-canvas")}});
     RUR.reset_world();
     if (RUR.state.input_method == "py-repl") {
         try {
@@ -5453,7 +5447,16 @@ RUR.reload2 = function() {
 RUR.hide_end_dialogs = function () { // used in py_repl.py
     $("#Reeborg-concludes").dialog("close");
     $("#Reeborg-shouts").dialog("close");
+    // reset the options in case the user has dragged the dialogs as it would
+    // then open at the top left of the window
+    $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false,
+        autoOpen:false, width:500, dialogClass: "concludes",
+        position:{my: "center", at: "center", of: $("#robot-canvas")}});
+    $("#Reeborg-shouts").dialog("option", {minimize: false, maximize: false,
+        autoOpen:false, width:500, dialogClass: "alert",
+        position:{my: "center", at: "center", of: $("#robot-canvas")}});
 };
+
 reload_button.addEventListener("click", RUR.reload, false);
 reload2_button.addEventListener("click", RUR.reload2, false);
 
@@ -7226,8 +7229,11 @@ require("./../rur.js");
 // In this situation we make sure that these errors are not passed to Brython.
 
 RUR.ReeborgError = function (message) {
+    console.log("ReeborgError, message = ", message);
     if (RUR.state.input_method == "py-repl" ||
-        (RUR.state.programming_language == "python" && !RUR.state.evaluating_onload)){
+            (RUR.state.programming_language == "python" && !RUR.state.evaluating_onload) ||
+            (RUR.state.evaluating_onload || RUR.state.onload_programming_language == "python")
+        ){
         try { // see comment above
             return ReeborgError(message);
         } catch (e) {}
@@ -8731,6 +8737,17 @@ RUR.KNOWN_THINGS = []; // keeping track of their names only
 RUR.CANVASES = []; // html canvases ...
 RUR.ALL_CTX = [];  // and their corresponding 2d context
 
+/** private_dict
+ * @var
+ * @memberof RUR
+ * @desc A Javascript object / Python dict that can be used to store
+ * values which are meant to be used globally. For example, one can
+ * define a value in the Onload editor, and use it when running a program.
+ *
+ * @example {@lang python}
+ * import random
+ * RUR.private_dict["choice"] = random.randint(1, 6)
+ */
 RUR.private_dict = {}; /* for use by world creators */
 
 
@@ -10353,11 +10370,13 @@ require("./artefact.js");
  */
 
 RUR.fill_background = function(name) {
+    var recording_state = RUR._recording_(false);
     for (x = 1; x <= RUR.MAX_X; x++) {
         for (y = 1; y <= RUR.MAX_Y; y++) {
             RUR.add_background_tile(name, x, y);
         }
     }
+    RUR._recording_(recording_state);
     RUR.record_frame("RUR.fill_background", name);
 };
 
@@ -12814,27 +12833,31 @@ function show_onload_feedback (e, lang) {
     RUR.show_feedback("#Reeborg-shouts", e.message + "<br>" +
         RUR.translate("Problem with onload code.") + "<pre>" +
         RUR.CURRENT_WORLD.onload + "</pre>");
-    console.log("error in onload:", e);
 }
 
 process_onload = function () {
     if (RUR.CURRENT_WORLD.onload !== undefined && !RUR.state.editing_world) {
         RUR.state.evaluating_onload = true; // affects the way errors are treated
         if (RUR.CURRENT_WORLD.onload[0]=="#") {
+            RUR.state.onload_programming_language = "python"
             try {
                 onload_editor.setOption("mode", {name: "python", version: 3});
             } catch (e){}
             try {
                window.translate_python(RUR.CURRENT_WORLD.onload);
+               if (RUR.__python_error) {
+                    throw RUR.__python_error;
+                }
             } catch (e) {
                 show_onload_feedback(e, "python");
             }
         } else {
+            RUR.state.onload_programming_language = "javascript";
             try {
                 onload_editor.setOption("mode", "javascript");
             } catch (e){}
             try {
-                eval(RUR.CURRENT_WORLD.onload);  // jshint ignore:line
+                var result = eval(RUR.CURRENT_WORLD.onload);  // jshint ignore:line
             } catch (e) {
                 show_onload_feedback(e, "javascript");
             }

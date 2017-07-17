@@ -84,27 +84,31 @@ function show_onload_feedback (e, lang) {
     RUR.show_feedback("#Reeborg-shouts", e.message + "<br>" +
         RUR.translate("Problem with onload code.") + "<pre>" +
         RUR.CURRENT_WORLD.onload + "</pre>");
-    console.log("error in onload:", e);
 }
 
 process_onload = function () {
     if (RUR.CURRENT_WORLD.onload !== undefined && !RUR.state.editing_world) {
         RUR.state.evaluating_onload = true; // affects the way errors are treated
         if (RUR.CURRENT_WORLD.onload[0]=="#") {
+            RUR.state.onload_programming_language = "python"
             try {
                 onload_editor.setOption("mode", {name: "python", version: 3});
             } catch (e){}
             try {
                window.translate_python(RUR.CURRENT_WORLD.onload);
+               if (RUR.__python_error) {
+                    throw RUR.__python_error;
+                }
             } catch (e) {
                 show_onload_feedback(e, "python");
             }
         } else {
+            RUR.state.onload_programming_language = "javascript";
             try {
                 onload_editor.setOption("mode", "javascript");
             } catch (e){}
             try {
-                eval(RUR.CURRENT_WORLD.onload);  // jshint ignore:line
+                var result = eval(RUR.CURRENT_WORLD.onload);  // jshint ignore:line
             } catch (e) {
                 show_onload_feedback(e, "javascript");
             }

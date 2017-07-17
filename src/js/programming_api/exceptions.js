@@ -6,8 +6,11 @@ require("./../rur.js");
 // In this situation we make sure that these errors are not passed to Brython.
 
 RUR.ReeborgError = function (message) {
+    console.log("ReeborgError, message = ", message);
     if (RUR.state.input_method == "py-repl" ||
-        (RUR.state.programming_language == "python" && !RUR.state.evaluating_onload)){
+            (RUR.state.programming_language == "python" && !RUR.state.evaluating_onload) ||
+            (RUR.state.evaluating_onload || RUR.state.onload_programming_language == "python")
+        ){
         try { // see comment above
             return ReeborgError(message);
         } catch (e) {}
