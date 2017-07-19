@@ -106,8 +106,8 @@ RUR._put_ = function(arg) {
     RUR.control.put(RUR.get_current_world().robots[0], arg);
 };
 
-RUR._throw_ = function(arg) {
-    RUR.control.throw(RUR.get_current_world().robots[0], arg);
+RUR._toss_ = function(arg) {
+    RUR.control.toss(RUR.get_current_world().robots[0], arg);
 };
 
 RUR._recording_ = function(bool) {
@@ -210,8 +210,8 @@ RUR._UR.put_ = function (robot, obj) {
     RUR.control.put(robot, obj);
 };
 
-RUR._UR.throw_ = function (robot, obj) {
-    RUR.control.throw(robot, obj);
+RUR._UR.toss_ = function (robot, obj) {
+    RUR.control.toss(robot, obj);
 };
 
 RUR._UR.right_is_clear_ = function (robot) {

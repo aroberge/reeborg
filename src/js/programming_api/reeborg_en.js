@@ -54,7 +54,7 @@ RUR.reset_definitions_en = function () {
     }
     window.print_html = RUR._print_html_;
     window.put = RUR._put_;
-    window.throw = RUR._throw_;
+    window.toss = RUR._toss_;
     window.recording = RUR._recording_;
     window.remove_robots = RUR._remove_robots_;
     window.right_is_clear = RUR._right_is_clear_;
@@ -121,8 +121,8 @@ RUR.reset_definitions_en = function () {
     UsedRobot.prototype.put = function () {
         RUR._UR.put_(this.body);
     };
-    UsedRobot.prototype.throw = function () {
-        RUR._UR.throw_(this.body);
+    UsedRobot.prototype.toss = function () {
+        RUR._UR.toss_(this.body);
     };
 
     UsedRobot.prototype.right_is_clear = function () {

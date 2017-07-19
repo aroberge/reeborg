@@ -134,16 +134,16 @@ RUR.control.put = function(robot, arg){
     all_objects = get_names_of_objects_carried(robot.objects);
     put_check_for_error (arg, arg_in_english, all_objects, robot.objects);
     // no error, we can proceed
-    robot_put_or_throw_object(robot, arg_in_english, "put");
+    robot_put_or_toss_object(robot, arg_in_english, "put");
 };
 
-RUR.control.throw = function(robot, arg){
+RUR.control.toss = function(robot, arg){
     var arg_in_english, objects_carried, obj_type, all_objects;
     arg_in_english = confirm_object_is_known(arg);
     all_objects = get_names_of_objects_carried(robot.objects);
     put_check_for_error (arg, arg_in_english, all_objects, robot.objects);
     // no error, we can proceed
-    robot_put_or_throw_object(robot, arg_in_english, "throw");
+    robot_put_or_toss_object(robot, arg_in_english, "throw");
 };
 
 function confirm_object_is_known(arg) {
@@ -185,7 +185,7 @@ function put_check_for_error (arg, arg_in_english, all_objects, carried) {
     }
 };
 
-robot_put_or_throw_object = function (robot, obj, action) {
+robot_put_or_toss_object = function (robot, obj, action) {
     "use strict";
     var objects_carried, coords, obj_type, position, x, y;
 

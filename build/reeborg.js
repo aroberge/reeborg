@@ -6615,8 +6615,8 @@ RUR._put_ = function(arg) {
     RUR.control.put(RUR.get_current_world().robots[0], arg);
 };
 
-RUR._throw_ = function(arg) {
-    RUR.control.throw(RUR.get_current_world().robots[0], arg);
+RUR._toss_ = function(arg) {
+    RUR.control.toss(RUR.get_current_world().robots[0], arg);
 };
 
 RUR._recording_ = function(bool) {
@@ -6719,8 +6719,8 @@ RUR._UR.put_ = function (robot, obj) {
     RUR.control.put(robot, obj);
 };
 
-RUR._UR.throw_ = function (robot, obj) {
-    RUR.control.throw(robot, obj);
+RUR._UR.toss_ = function (robot, obj) {
+    RUR.control.toss(robot, obj);
 };
 
 RUR._UR.right_is_clear_ = function (robot) {
@@ -6892,16 +6892,16 @@ RUR.control.put = function(robot, arg){
     all_objects = get_names_of_objects_carried(robot.objects);
     put_check_for_error (arg, arg_in_english, all_objects, robot.objects);
     // no error, we can proceed
-    robot_put_or_throw_object(robot, arg_in_english, "put");
+    robot_put_or_toss_object(robot, arg_in_english, "put");
 };
 
-RUR.control.throw = function(robot, arg){
+RUR.control.toss = function(robot, arg){
     var arg_in_english, objects_carried, obj_type, all_objects;
     arg_in_english = confirm_object_is_known(arg);
     all_objects = get_names_of_objects_carried(robot.objects);
     put_check_for_error (arg, arg_in_english, all_objects, robot.objects);
     // no error, we can proceed
-    robot_put_or_throw_object(robot, arg_in_english, "throw");
+    robot_put_or_toss_object(robot, arg_in_english, "throw");
 };
 
 function confirm_object_is_known(arg) {
@@ -6943,7 +6943,7 @@ function put_check_for_error (arg, arg_in_english, all_objects, carried) {
     }
 };
 
-robot_put_or_throw_object = function (robot, obj, action) {
+robot_put_or_toss_object = function (robot, obj, action) {
     "use strict";
     var objects_carried, coords, obj_type, position, x, y;
 
@@ -7255,6 +7255,7 @@ RUR.ReeborgOK = function (message) {
     this.reeborg_concludes = message;
     this.message = message;
 };
+RUR.ReeborgOk = RUR.ReeborgOK; // preventing an annoying typo...
 
 
 RUR.WallCollisionError = function (message) {
@@ -7399,7 +7400,7 @@ RUR.reset_definitions_en = function () {
     }
     window.print_html = RUR._print_html_;
     window.put = RUR._put_;
-    window.throw = RUR._throw_;
+    window.toss = RUR._toss_;
     window.recording = RUR._recording_;
     window.remove_robots = RUR._remove_robots_;
     window.right_is_clear = RUR._right_is_clear_;
@@ -7466,8 +7467,8 @@ RUR.reset_definitions_en = function () {
     UsedRobot.prototype.put = function () {
         RUR._UR.put_(this.body);
     };
-    UsedRobot.prototype.throw = function () {
-        RUR._UR.throw_(this.body);
+    UsedRobot.prototype.toss = function () {
+        RUR._UR.toss_(this.body);
     };
 
     UsedRobot.prototype.right_is_clear = function () {
@@ -7563,7 +7564,7 @@ RUR.reset_definitions_fr = function () {
     window.pause = RUR._pause_;
     window.print_html = RUR._print_html_;
     window.depose = RUR._put_;
-    window.lance = RUR._throw_;
+    window.lance = RUR._toss_;
     window.enregistrement = RUR._recording_;
     window.plus_de_robots = RUR._remove_robots_;
     window.rien_a_droite = RUR._right_is_clear_;
@@ -7634,7 +7635,7 @@ RUR.reset_definitions_fr = function () {
     };
 
     RobotUsage.prototype.lance = function () {
-        RUR._UR.throw_(this.body);
+        RUR._UR.toss_(this.body);
     };
 
     RobotUsage.prototype.rien_a_droite = function () {

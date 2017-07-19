@@ -32,6 +32,7 @@ RUR.ReeborgOK = function (message) {
     this.reeborg_concludes = message;
     this.message = message;
 };
+RUR.ReeborgOk = RUR.ReeborgOK; // preventing an annoying typo...
 
 
 RUR.WallCollisionError = function (message) {

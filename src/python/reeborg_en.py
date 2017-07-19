@@ -275,7 +275,7 @@ def put(obj=None):  #py:put
         RUR._put_(obj)
 
 
-def throw(obj=None):
+def toss(obj=None):
     """
     Reeborg throws an object on the square in front of its current position.
     If Reeborg carries more than one type of objects,
@@ -283,9 +283,9 @@ def throw(obj=None):
     will be raised.
     """
     if obj is None:
-        RUR._throw_()
+        RUR._toss_()
     else:
-        RUR._throw_(obj)
+        RUR._toss_(obj)
 
 def recording(boolean):  #py:recording
     """
@@ -653,7 +653,7 @@ class UsedRobot(object):  #py:UR
         else:
             RUR._UR.put_(self.body, obj)
 
-    def throw(self, obj=None):
+    def toss(self, obj=None):
         """
         Reeborg throws an object on the square in front of its current position.
         If Reeborg carries more than one type of objects,
@@ -661,9 +661,9 @@ class UsedRobot(object):  #py:UR
         will be raised.
         """
         if obj is None:
-            RUR._UR.throw_(self.body)
+            RUR._UR.toss_(self.body)
         else:
-            RUR._UR.throw_(self.body, obj)
+            RUR._UR.toss_(self.body, obj)
 
     def right_is_clear(self):  #py:UR.right_is_clear
         """
@@ -766,8 +766,11 @@ def add_watch(expr):  #py:add_watch
 
 class ReeborgOK(Exception):  #py:RE
     """
-    Exceptions spécifique au monde de Reeborg. Utile pour indiquer qu'un
-    programme s'est terminé correctement.
+    Exception specific to Reeborg's World. Used to indicate that a
+    program ended with the correct result using a custom message.
+
+        Args:
+            message
     """
 
     def __init__(self, message):  #py:RE.__init__
@@ -779,9 +782,10 @@ class ReeborgOK(Exception):  #py:RE
         return self.reeborg_concludes
 try:
     window['ReeborgOK'] = ReeborgOK
+    window['ReeborgOk'] = ReeborgOK # preventing an annoying typo
 except:
     pass
-
+ReeborgOk = ReeborgOK  # preventing an annoying typo
 
 class ReeborgError(Exception):  #py:RE
     """

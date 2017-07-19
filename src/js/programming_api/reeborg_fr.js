@@ -42,7 +42,7 @@ RUR.reset_definitions_fr = function () {
     window.pause = RUR._pause_;
     window.print_html = RUR._print_html_;
     window.depose = RUR._put_;
-    window.lance = RUR._throw_;
+    window.lance = RUR._toss_;
     window.enregistrement = RUR._recording_;
     window.plus_de_robots = RUR._remove_robots_;
     window.rien_a_droite = RUR._right_is_clear_;
@@ -113,7 +113,7 @@ RUR.reset_definitions_fr = function () {
     };
 
     RobotUsage.prototype.lance = function () {
-        RUR._UR.throw_(this.body);
+        RUR._UR.toss_(this.body);
     };
 
     RobotUsage.prototype.rien_a_droite = function () {

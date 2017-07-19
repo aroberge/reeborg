@@ -106,7 +106,7 @@ def robot_spécifique(numero_de_serie):  #py:default_robot
         def __init__(self):
             self.body = r
     return Robot()
-
+robot_specifique = robot_spécifique
 
 def dir_js(obj):  #py:dir_js
     """Liste les attributs et méthodes d'un objet Javascript."""
@@ -284,6 +284,7 @@ def depose(obj=None):  #py:put
         RUR._put_()
     else:
         RUR._put_(obj)
+dépose = depose
 
 
 def lance(obj=None):
@@ -296,9 +297,9 @@ def lance(obj=None):
         on doit spécifier lequel sinon ceci causera une exception.
     """
     if obj is None:
-        RUR._throw_()
+        RUR._toss_()
     else:
-        RUR._throw_(obj)
+        RUR._toss_(obj)
 
 
 def enregistrement(boolean):  #py:recording
@@ -327,6 +328,7 @@ def rien_a_droite():  #py:right_is_clear
     Returns:
        True si un obstacle est à la droite, False autrement."""
     return RUR._right_is_clear_()
+rien_à_droite = rien_a_droite
 
 
 def max_nb_instructions(nb):  #py:set_max_nb_instructions
@@ -419,6 +421,7 @@ def pense(ms):  #py:think
 def tourne_a_gauche():  #py:turn_left
     """Reeborg tourne à sa gauche."""
     RUR._turn_left_()
+tourne_à_gauche = tourne_a_gauche
 
 
 def voir_source_js(fn):  #py:view_source_js
@@ -442,6 +445,7 @@ def mur_a_droite():  #py:wall_on_right
     Returns:
        True si un mur est à la droite, False autrement."""
     return RUR._wall_on_right_()
+mur_à_droite = mur_a_droite
 
 
 def MenuPersonnalise(contenu):  #py:MakeCustomMenu
@@ -449,6 +453,7 @@ def MenuPersonnalise(contenu):  #py:MakeCustomMenu
     À l'intention des éducateurs.  Permet de créer des menus de monde
     personalisés.  Voir la documentation pour plus de détails."""
     RUR._MakeCustomMenu_(contenu)
+MenuPersonnalisé = MenuPersonnalise
 
 
 def Monde(url, nom=None):  #py:World
@@ -671,6 +676,7 @@ class RobotUsage(object):  #py:UR
             RUR._UR.put_(self.body)
         else:
             RUR._UR.put_(self.body, obj)
+    dépose = depose
 
 
     def lance(self, obj=None):
@@ -682,9 +688,9 @@ class RobotUsage(object):  #py:UR
             Si Reeborg transporte plus d'un type d'objet,
             on doit spécifier lequel sinon ceci causera une exception."""
         if obj is None:
-            RUR._UR.throw_(self.body)
+            RUR._UR.toss_(self.body)
         else:
-            RUR._UR.throw_(self.body, obj)
+            RUR._UR.toss_(self.body, obj)
 
 
     def rien_a_droite(self):  #py:UR.right_is_clear
@@ -695,12 +701,16 @@ class RobotUsage(object):  #py:UR
         Returns:
            True si un obstacle est à la droite, False autrement."""
         return RUR._UR.right_is_clear_(self.body)
+    rien_à_droite = rien_a_droite
+
 
     def modele(self, modele):  #py:UR.set_model
         """
         Permet de choisir le modèle du robot.
         """
         RUR._UR.set_model_(self.body, modele)
+    modèle = modele
+
 
     def couleur_de_trace(self, couleur):  #py:UR.set_trace_color
         """
@@ -763,6 +773,8 @@ class RobotUsage(object):  #py:UR
     def tourne_a_gauche(self):  #py:UR.turn_left
         """Fait en sorte que Reeborg tourne à sa gauche."""
         RUR._UR.turn_left_(self.body)
+    tourne_à_gauche = tourne_a_gauche
+
 
     def mur_devant(self):  #py:UR.wall_in_front
         """
@@ -779,7 +791,9 @@ class RobotUsage(object):  #py:UR
         Returns:
            True si un mur est à la droite, False autrement."""
         return RUR._UR.wall_on_right_(self.body)
+    mur_à_droite = mur_a_droite
 
+RobotUsagé = RobotUsage
 
 #py:python_specific
 
@@ -795,6 +809,9 @@ class ReeborgOK(Exception):  #py:RE
     """
     Exception spécifique au monde de Reeborg; utilisée pour indiquer
     qu'un programme s'est terminé de façon satisfaisante.
+
+        Args:
+            message
     """
 
     def __init__(self, message):  #py:RE.__init__
@@ -806,8 +823,10 @@ class ReeborgOK(Exception):  #py:RE
         return self.reeborg_concludes
 try:
     window['ReeborgOK'] = ReeborgOK
+    window['ReeborgOk'] = ReeborgOK # preventing an annoying typo
 except:
     pass
+ReeborgOk = ReeborgOK  # preventing an annoying typo
 
 
 class ReeborgError(Exception):  #py:RE
