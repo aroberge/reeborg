@@ -166,7 +166,8 @@ RUR.get_background_tile = function (x, y) {
  * @example {@lang python}
  * no_highlight()
  * World("worlds/examples/simple_path.json", "simple_path")
- * x, y = position_in_front()
+ * while not at_goal():
+ *     x, y = position_in_front()
  *     if RUR.is_background_tile("gravel", x, y):
  *         move()
  *     else:

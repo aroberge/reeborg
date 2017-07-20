@@ -39,26 +39,16 @@ test('RUR.add_new_thing: replace tile type', function (assert) {
     require("../../../src/js/world_api/things.js");
     var obj = {}, this_obj;
     set_defaults();
-    silencer.reset();
-    silencer.disable('warn');
-    silencer.disable('log');
     obj.name = "this_name";
     obj.url = "old_URL";
     RUR.UnitTest.logtest = true;
     RUR.add_new_thing(obj);
     RUR.add_new_thing(obj);
-    assert.equal(silencer.getOutput('log')[0][0],
-                 "this_name is already known; no need to recreate.",
-                 "Console log ok.");
     obj.url = "URL";
     RUR.add_new_thing(obj);
     this_obj = RUR.THINGS["this_name"];
     assert.equal(RUR.KNOWN_THINGS[0], 'this_name', "tile replaced");
     assert.equal(this_obj.image.src, 'URL', "url for objects ok");
-    silencer.restore();
-    assert.equal(silencer.getOutput('warn')[0][0],
-                 "Warning: redefining this_name",
-                 "Console warning ok.");
     assert.end();
 });
 

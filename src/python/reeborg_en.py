@@ -149,11 +149,8 @@ def new_robot_images(images):  #py:new_robot_images
 
         Args:
             images: a Python dict
-            images[model]: The model number for the robot; it must
-            be a non-negative integer. If it is one of [0, 1, 2, 3],
-            it will take the place of one of the visible
-            robot images that can be selected by the user.
-            The default value is 3.
+            images[model]: The model name for the robot; if no value is
+                specified, the name will be set to "anonymous".
 
             images["east"]  A url for the source of the image to be used
             for the robot in the East orientation. If it is not specified, the

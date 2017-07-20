@@ -162,7 +162,6 @@ RUR.reset_animated_images = function () {
     RUR._CYCLE_REMOVE = {};
     RUR.ANIMATION_TIME = 120; // time delay between each new image in animation
     //
-    RUR._ANIMATED_ROBOTS = [];
     RUR.ROBOT_ANIMATION_TIME = 150;
     RUR.state.animated_robots = false; // set to true when we add animated robots
 };

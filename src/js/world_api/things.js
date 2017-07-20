@@ -108,31 +108,14 @@ require("./../utils/supplant.js");
 
 RUR.add_new_thing = function (thing) {
     "use strict";
-    var i, key, keys, name, original_arg;
+    var name;
     name = thing.name;
 
     if (name === undefined){
         throw new RUR.ReeborgError("RUR.add_new_thing(thing): thing.name attribute missing.");
     }
 
-    // avoid modifying the original object
-    original_arg = JSON.stringify(thing);  // for comparison below
-    thing = JSON.parse(original_arg);  // clone of original
-
-    if (RUR.KNOWN_THINGS.indexOf(name) != -1) {
-        if (original_arg == RUR.THINGS[name].original_arg) {
-            // use concatenation in log and warn, for comparison with unit tests.
-            if (RUR.UnitTest.logtest !== undefined){
-                console.log(name + " is already known; no need to recreate.");
-            }
-            return;
-        }
-        console.warn("Warning: redefining " + name);
-    } else {
-        RUR.KNOWN_THINGS.push(name);
-    }
-
-    thing.original_arg = original_arg;
+    RUR.KNOWN_THINGS.push(name);
     RUR.THINGS[name] = thing;
     if (thing.color) {
         return;

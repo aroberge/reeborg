@@ -152,11 +152,8 @@ def nouvelles_images_de_robot(images):  #py:new_robot_images
 
         Args:
             images: un "dict" Python
-            images[modèle]: Le numéro du modèle de robot; ceci doit être un
-            entier non-négatif.
-            Si une valeur parmi [0, 1, 2, 3] est spécifiée, le robot en question
-            remplacera les choix qui peuvent être sélectionné par un usager.
-            La valeur par défaut est 3.
+            images[modèle]: Le nom du modèle de robot; si aucun nom n'est
+              spécifié, le mot anglais "anonymous" sera utilisé.
 
             images["est"]  Un lien (url) pour la source de l'image à utiliser
             pour un robot dans l'orientation est (vers la droite de l'écran).
