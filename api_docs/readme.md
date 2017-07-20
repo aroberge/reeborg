@@ -14,26 +14,12 @@
 
 This documentation is written for people who wish to create new programming tasks, **going beyond what can be done using the Menu-driven World Editor included in Reeborg's World.** For example, you might want to use different images, including animation, or to add more capabilities to Reeborg's World._  People that simply wish to learn how to use Reeborg's World, or would like to follow a programming tutorial, should use [this link](http://reeborg.ca/docs/en) instead. [Please, note that the link points to a document available in English, French and Korean, with the language chosen using a selector on the right hand side.]
 
-Unlike [the tutorial](http://reeborg.ca/docs/en), this documentation is available only in English.
-If needed, you might want to use [http://translate.google.com](http://translate.google.com) to get a version in your own language.
-
-Other than the documents listed under the **Tutorials** menu above, and the information written on this page, this documentation has been generated utomatically using Jsdoc from **comments** included in javascript source files.
+This documentation has been generated utomatically using Jsdoc from **comments** included in javascript source files;
+unlike [the tutorial](http://reeborg.ca/docs/en), this documentation is available only in English.
 Since comments are **not** executed, it can happen that they do not reflect what the code is actually doing. If you find that the information provided here is incorrect, or if you have any question or suggestion, please do not hesitate to get in touch with me (Andre.Roberge@gmail.com).
 
-
-## About the RUR namespace
-
-Since the goal of Reeborg's World is to allow the user (student) to
-run their own programs, name clashes have to be avoided between functions
-created for Reeborg's World and those created by the student.
-The imperfect solution I have chosen is to try, as much as possible, to use
-a single global object or namespace,
-`RUR`, which can stand for **Reeborg the UsedRobot**, and is also valid
-in French as _le **Robot Usagé Reeborg**_. It also refers to the first time the
-name **robot** was used [see wikipedia:RUR](https://en.wikipedia.org/wiki/R.U.R.).
+The only relevant part is the `RUR` namespace; the information in the other namespaces is very incomplete and only updated and corrected occasionally.
 
 Please note that there are many more functions belonging to the `RUR` namespace
-than what is documented here.  As a general rule, you should not create additional functions belonging to this namespace; however, some suggested exceptions are mentioned later in this documentation.
-
-
-
+than what is documented here.  As a general rule, you should not create additional
+functions or other objects belonging to this namespace.
