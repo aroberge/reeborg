@@ -27,47 +27,5 @@
   "rows": 10,
   "cols": 10,
   "pre": "for _ in range(9):\n    try:\n        move()\n        x, y = position_here()\n        name = RUR.get_background_tile(x, y)\n        if name is not None:\n            print(\"I'm ok, safe from \", name)\n    except ReeborgError as e:\n        print(\"Normally fatal: \", e.message)\n",
-  "onload": "# Python code in Onload\n\n# Set Python as the programming language to be\n# used elsewhere\nRUR.onload_set_programming_language(\"python\")\n\n# Defining a new kind of bridge, protecting\n# against fire; note that the protection\n# corresponds to the value of the *fatal* attribute\n# of the object, and not its name.\n# In the case of \"fire\", both its name\n# and its fatal attribute have the same value.\n\nRUR.add_new_thing({\"name\": \"fire_bridge\",\n   \"url\": RUR.BASE_URL + \"/src/images/daisy.png\",\n   \"protections\": [\"fire\"]\n                   })\n\n\n# Adding \"normal\" bridge\nfor x in [3, 4, 5, 6, 7]:\n   RUR.add_bridge(\"bridge\", x, 1)\n\n# The usual bridge protects against water \n# and mud as background tiles\nRUR.add_background_tile(\"water\", 3, 1)\nRUR.add_background_tile(\"mud\", 4, 1)\n\n# But bridges cannot protect against obstacles\nRUR.add_obstacle(\"water\", 5, 1)\nRUR.add_obstacle(\"mud\", 6, 1)\n\n# Note that bridges are drawn on top of\n# background tiles, but below obstacles\n\n# The normal bridge cannot protect against fire\n# even as background tiles\nRUR.add_background_tile(\"fire\", 7, 1)\n\n# Add more fire but a different bridge\nRUR.add_background_tile(\"fire\", 9, 1)\nRUR.add_bridge(\"fire_bridge\", 9, 1)\n\n\n\n",
-  "bridge": {
-    "3,1": [
-      "bridge"
-    ],
-    "4,1": [
-      "bridge"
-    ],
-    "5,1": [
-      "bridge"
-    ],
-    "6,1": [
-      "bridge"
-    ],
-    "7,1": [
-      "bridge"
-    ],
-    "9,1": [
-      "fire_bridge"
-    ]
-  },
-  "tiles": {
-    "3,1": [
-      "water"
-    ],
-    "4,1": [
-      "mud"
-    ],
-    "7,1": [
-      "fire"
-    ],
-    "9,1": [
-      "fire"
-    ]
-  },
-  "obstacles": {
-    "5,1": [
-      "water"
-    ],
-    "6,1": [
-      "mud"
-    ]
-  }
+  "onload": "# Python code in Onload\n\n# Set Python as the programming language to be\n# used elsewhere\nRUR.onload_set_programming_language(\"python\")\n\n# Defining a new kind of bridge, protecting\n# against fire; note that the protection\n# corresponds to the value of the *fatal* attribute\n# of the object, and not its name.\n# In the case of \"fire\", both its name\n# and its fatal attribute have the same value.\n\nRUR.add_new_thing({\"name\": \"fire_bridge\",\n   \"url\": RUR.BASE_URL + \"/src/images/daisy.png\",\n   \"protections\": [\"fire\"]\n                   })\n\n\n# Adding \"normal\" bridge\nfor x in [3, 4, 5, 6, 7]:\n   RUR.add_bridge(\"bridge\", x, 1)\n\n# The usual bridge protects against water \n# and mud as background tiles\nRUR.add_background_tile(\"water\", 3, 1)\nRUR.add_background_tile(\"mud\", 4, 1)\n\n# But bridges cannot protect against obstacles\nRUR.add_obstacle(\"water\", 5, 1)\nRUR.add_obstacle(\"mud\", 6, 1)\n\n# Note that bridges are drawn on top of\n# background tiles, but below obstacles\n\n# The normal bridge cannot protect against fire\n# even as background tiles\nRUR.add_background_tile(\"fire\", 7, 1)\n\n# Add more fire but a different bridge\nRUR.add_background_tile(\"fire\", 9, 1)\nRUR.add_bridge(\"fire_bridge\", 9, 1)\n\n\n\n"
 }

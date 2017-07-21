@@ -91,6 +91,11 @@ RUR.robot.modernize = function (robot) {
         robot._orientation = robot.orientation;
         delete robot.orientation;
     }
+    // handling legacy styles in the simplest possible way
+    if (robot.model==0 || robot.model==1 || robot.model==2 || robot.model==3) {
+        robot.model = "classic";
+    }
+
     RUR.robot.set_private_defaults(robot);
 };
 

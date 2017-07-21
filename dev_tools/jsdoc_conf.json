@@ -15,7 +15,8 @@
         "destination": "./api_docs/advanced_world_creation/",
         "recurse": true,
         "readme": "./api_docs/readme.md",
-        "template": "../node_modules/ink-docstrap/template"
+        "template": "../node_modules/ink-docstrap/template",
+        "tutorials": "./api_docs/hand_written/"
     },
     "templates": {
       "default" : {

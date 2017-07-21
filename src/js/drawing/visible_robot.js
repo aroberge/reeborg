@@ -60,6 +60,7 @@ function set_images(images) {
 }
 
 RUR.reset_default_robot_images = function () {
+    var saved_model;
     set_images({model: "classic"}); // classic; uses default
     set_images({model: "2d red rover",
         east: RUR.BASE_URL + '/src/images/rover_e.png',
@@ -84,7 +85,13 @@ RUR.reset_default_robot_images = function () {
     $("#robot1 img").attr("src", RUR.vis_robot.images["2d red rover"].robot_e_img.src);
     $("#robot2 img").attr("src", RUR.vis_robot.images["3d red rover"].robot_e_img.src);
     $("#robot3 img").attr("src", RUR.vis_robot.images["solar panel"].robot_e_img.src);
-    RUR.select_default_robot_model(localStorage.getItem("robot_default_model"));
+
+    // handle situation where the user had saved values from old naming styles
+    saved_model = localStorage.getItem("robot_default_model");
+    if (saved_model==0 || saved_model==1 || saved_model==2 || saved_model==3) {
+        saved_model = "classic";
+    }
+    RUR.select_default_robot_model(saved_model);
 
     // additional robot images from rur-ple
     set_images({model: "blue",
@@ -222,6 +229,7 @@ RUR.vis_robot.draw = function (robot, start_cycle) {
         console.warn("RUR.vis_robot.draw called with no robot.");
         return;
     }
+
     // handling legacy Code
     if (robot.orientation !== undefined) {
         robot._orientation = robot.orientation;
@@ -246,28 +254,48 @@ RUR.vis_robot.draw = function (robot, start_cycle) {
     switch(robot._orientation){
         case RUR.EAST:
             if (robot.model !== undefined){
-                image = RUR.vis_robot.images[robot.model].robot_e_img;
+                try {
+                    image = RUR.vis_robot.images[robot.model].robot_e_img;
+                } catch (e) {
+                    console.log("robot model not defined: " + robot.model);
+                    image = RUR.vis_robot.e_img;
+                }
             } else {
                 image = RUR.vis_robot.e_img;
             }
             break;
         case RUR.NORTH:
             if (robot.model !== undefined){
-                image = RUR.vis_robot.images[robot.model].robot_n_img;
+                try {
+                    image = RUR.vis_robot.images[robot.model].robot_n_img;
+                } catch (e) {
+                    console.log("robot model not defined: " + robot.model);
+                    image = RUR.vis_robot.n_img;
+                }
             } else {
                 image = RUR.vis_robot.n_img;
             }
             break;
         case RUR.WEST:
             if (robot.model !== undefined){
-                image = RUR.vis_robot.images[robot.model].robot_w_img;
+                try {
+                    image = RUR.vis_robot.images[robot.model].robot_w_img;
+                } catch (e) {
+                    console.log("robot model not defined: " + robot.model);
+                    image = RUR.vis_robot.w_img;
+                }
             } else {
                 image = RUR.vis_robot.w_img;
             }
             break;
         case RUR.SOUTH:
             if (robot.model !== undefined){
-                image = RUR.vis_robot.images[robot.model].robot_s_img;
+                try {
+                    image = RUR.vis_robot.images[robot.model].robot_s_img;
+                } catch (e) {
+                    console.log("robot model not defined: " + robot.model);
+                    image = RUR.vis_robot.s_img;
+                }
             } else {
                 image = RUR.vis_robot.s_img;
             }
@@ -441,7 +469,7 @@ RUR.show_all_robots = function () {
     }
 
     info += "</table>";
-    RUR._print_html_(info, true); // true will replace existing content
+    console.log(info, true); // true will replace existing content
     return null; // for the python repl
 };
 
