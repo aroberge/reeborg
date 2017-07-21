@@ -243,7 +243,7 @@ function draw_robots (start_cycle) {
     }
     for (robot=0; robot < robots.length; robot++){
         body = robots[robot];
-        if (body._orientation == -1) { // skip random
+        if (body._orientation == RUR.RANDOM_ORIENTATION) {
             continue;
         }
         if (body.possible_initial_positions !== undefined && body.possible_initial_positions.length > 1){
@@ -267,7 +267,7 @@ function draw_random_robots (robots) {
     }
     for (robot=0; robot < robots.length; robot++){
         body = robots[robot];
-        if (body._orientation != -1) { // not random
+        if (body._orientation != RUR.RANDOM_ORIENTATION) {
             continue;
         }
         if (body.possible_initial_positions !== undefined && body.possible_initial_positions.length > 1){

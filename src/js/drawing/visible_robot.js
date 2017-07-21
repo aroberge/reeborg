@@ -26,6 +26,10 @@ function set_images(images) {
         south: RUR.BASE_URL + '/src/images/robot_s.png'
     }
 
+    if (RUR.KNOWN_ROBOT_MODELS.indexOf(model) == -1) {
+        RUR.KNOWN_ROBOT_MODELS.push(model);
+    }
+
     if (RUR.vis_robot.images[model] === undefined) {
         RUR.vis_robot.images[model] = {};
         robot = RUR.vis_robot.images[model];
@@ -251,54 +255,25 @@ RUR.vis_robot.draw = function (robot, start_cycle) {
         update_model(robot, start_cycle);
     }
 
+    if (robot.model == undefined) {
+        robot.model = "classic";
+    } else if (RUR.KNOWN_ROBOT_MODELS.indexOf(robot.model) == -1) {
+        console.warn("robot model not defined: " + robot.model);
+        robot.model = "classic";
+    }
+
     switch(robot._orientation){
         case RUR.EAST:
-            if (robot.model !== undefined){
-                try {
-                    image = RUR.vis_robot.images[robot.model].robot_e_img;
-                } catch (e) {
-                    console.log("robot model not defined: " + robot.model);
-                    image = RUR.vis_robot.e_img;
-                }
-            } else {
-                image = RUR.vis_robot.e_img;
-            }
+            image = RUR.vis_robot.images[robot.model].robot_e_img;
             break;
         case RUR.NORTH:
-            if (robot.model !== undefined){
-                try {
-                    image = RUR.vis_robot.images[robot.model].robot_n_img;
-                } catch (e) {
-                    console.log("robot model not defined: " + robot.model);
-                    image = RUR.vis_robot.n_img;
-                }
-            } else {
-                image = RUR.vis_robot.n_img;
-            }
+            image = RUR.vis_robot.images[robot.model].robot_n_img;
             break;
         case RUR.WEST:
-            if (robot.model !== undefined){
-                try {
-                    image = RUR.vis_robot.images[robot.model].robot_w_img;
-                } catch (e) {
-                    console.log("robot model not defined: " + robot.model);
-                    image = RUR.vis_robot.w_img;
-                }
-            } else {
-                image = RUR.vis_robot.w_img;
-            }
+            image = RUR.vis_robot.images[robot.model].robot_w_img;
             break;
         case RUR.SOUTH:
-            if (robot.model !== undefined){
-                try {
-                    image = RUR.vis_robot.images[robot.model].robot_s_img;
-                } catch (e) {
-                    console.log("robot model not defined: " + robot.model);
-                    image = RUR.vis_robot.s_img;
-                }
-            } else {
-                image = RUR.vis_robot.s_img;
-            }
+            image = RUR.vis_robot.images[robot.model].robot_s_img;
             break;
         case -1:
             RUR.vis_robot.draw_random(robot);

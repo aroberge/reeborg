@@ -308,3 +308,24 @@ RUR.add_initial_position = function (x, y) {
     robot.possible_initial_positions.push([x, y]);
     RUR.record_frame("add_initial_position", {x:x, y:y});
 };
+
+ /** @function set_random_orientation
+ *
+ * @memberof RUR
+ * @instance
+ * @summary This function sets the initial (starting) orientation so that it
+ * will be chosen randomly.
+ **/
+
+RUR.set_random_orientation = function () {
+    "use strict";
+    var robot, pos, world=RUR.get_current_world();
+    if (world.robots === undefined || world.robots.length === 0) {
+        throw new RUR.ReeborgError("This world has no robot; cannot set random orientation.");
+    }
+
+    robot = world.robots[0];
+    robot._orientation = RUR.RANDOM_ORIENTATION;
+    robot._prev_orientation = RUR.RANDOM_ORIENTATION;
+    RUR.record_frame("set_random_orientation");
+};

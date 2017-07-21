@@ -44,6 +44,7 @@ RUR.state = {};    /* Reeborg's World can be in different states
 
 RUR.THINGS = {}; // something which can be drawn, like "token"
 RUR.KNOWN_THINGS = []; // keeping track of their names only
+RUR.KNOWN_ROBOT_MODELS = [];
 RUR.CANVASES = []; // html canvases ...
 RUR.ALL_CTX = [];  // and their corresponding 2d context
 
@@ -69,6 +70,7 @@ RUR.EAST = 0;
 RUR.NORTH = 1;
 RUR.WEST = 2;
 RUR.SOUTH = 3;
+RUR.RANDOM_ORIENTATION = -1;
 RUR.TILE_SIZE = RUR.DEFAULT_WALL_LENGTH = 40;
 RUR.DEFAULT_WALL_THICKNESS = 4;
 RUR.COORDINATES_COLOR = "black";
@@ -252,10 +254,6 @@ function redraw_all() {
         initial_drawing_timer = setTimeout(redraw_all, 200);
     }
 }
-
-
-
-
 
 /*----------------------------------------------------------------
  We use multiple canvases to facilitate the drawing of objects

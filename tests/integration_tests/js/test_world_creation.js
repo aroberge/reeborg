@@ -36,6 +36,7 @@ QUnit.test("Load world", function(assert) {
                   "_trace_color": "seagreen",
                   "_trace_history": [],
                   "_trace_style": "default",
+                  "model": "classic",
                   "objects": {}
                 }
             ],
@@ -68,6 +69,7 @@ QUnit.test("Load world from url-permalink", function(assert) {
                   "_trace_color": "seagreen",
                   "_trace_history": [],
                   "_trace_style": "default",
+                  "model": "classic",
                   "objects": {}
                 }
             ],

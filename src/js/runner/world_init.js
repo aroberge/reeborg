@@ -100,9 +100,9 @@ RUR.world_init = function () {
             robot._prev_y = robot.y;
             delete robot.possible_initial_positions;
         }
-        if (robot._orientation == -1){
-            world.robots[0]._orientation = randint(0, 3);
-            world.robots[0]._prev_orientation = world.robots[0]._orientation;
+        if (robot._orientation == RUR.RANDOM_ORIENTATION){
+            robot._orientation = randint(0, 3);
+            robot._prev_orientation = robot._orientation;
         }
     }
 

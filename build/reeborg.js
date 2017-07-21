@@ -735,6 +735,10 @@ function set_images(images) {
         south: RUR.BASE_URL + '/src/images/robot_s.png'
     }
 
+    if (RUR.KNOWN_ROBOT_MODELS.indexOf(model) == -1) {
+        RUR.KNOWN_ROBOT_MODELS.push(model);
+    }
+
     if (RUR.vis_robot.images[model] === undefined) {
         RUR.vis_robot.images[model] = {};
         robot = RUR.vis_robot.images[model];
@@ -960,54 +964,25 @@ RUR.vis_robot.draw = function (robot, start_cycle) {
         update_model(robot, start_cycle);
     }
 
+    if (robot.model == undefined) {
+        robot.model = "classic";
+    } else if (RUR.KNOWN_ROBOT_MODELS.indexOf(robot.model) == -1) {
+        console.warn("robot model not defined: " + robot.model);
+        robot.model = "classic";
+    }
+
     switch(robot._orientation){
         case RUR.EAST:
-            if (robot.model !== undefined){
-                try {
-                    image = RUR.vis_robot.images[robot.model].robot_e_img;
-                } catch (e) {
-                    console.log("robot model not defined: " + robot.model);
-                    image = RUR.vis_robot.e_img;
-                }
-            } else {
-                image = RUR.vis_robot.e_img;
-            }
+            image = RUR.vis_robot.images[robot.model].robot_e_img;
             break;
         case RUR.NORTH:
-            if (robot.model !== undefined){
-                try {
-                    image = RUR.vis_robot.images[robot.model].robot_n_img;
-                } catch (e) {
-                    console.log("robot model not defined: " + robot.model);
-                    image = RUR.vis_robot.n_img;
-                }
-            } else {
-                image = RUR.vis_robot.n_img;
-            }
+            image = RUR.vis_robot.images[robot.model].robot_n_img;
             break;
         case RUR.WEST:
-            if (robot.model !== undefined){
-                try {
-                    image = RUR.vis_robot.images[robot.model].robot_w_img;
-                } catch (e) {
-                    console.log("robot model not defined: " + robot.model);
-                    image = RUR.vis_robot.w_img;
-                }
-            } else {
-                image = RUR.vis_robot.w_img;
-            }
+            image = RUR.vis_robot.images[robot.model].robot_w_img;
             break;
         case RUR.SOUTH:
-            if (robot.model !== undefined){
-                try {
-                    image = RUR.vis_robot.images[robot.model].robot_s_img;
-                } catch (e) {
-                    console.log("robot model not defined: " + robot.model);
-                    image = RUR.vis_robot.s_img;
-                }
-            } else {
-                image = RUR.vis_robot.s_img;
-            }
+            image = RUR.vis_robot.images[robot.model].robot_s_img;
             break;
         case -1:
             RUR.vis_robot.draw_random(robot);
@@ -1429,7 +1404,7 @@ function draw_robots (start_cycle) {
     }
     for (robot=0; robot < robots.length; robot++){
         body = robots[robot];
-        if (body._orientation == -1) { // skip random
+        if (body._orientation == RUR.RANDOM_ORIENTATION) {
             continue;
         }
         if (body.possible_initial_positions !== undefined && body.possible_initial_positions.length > 1){
@@ -1453,7 +1428,7 @@ function draw_random_robots (robots) {
     }
     for (robot=0; robot < robots.length; robot++){
         body = robots[robot];
-        if (body._orientation != -1) { // not random
+        if (body._orientation != RUR.RANDOM_ORIENTATION) {
             continue;
         }
         if (body.possible_initial_positions !== undefined && body.possible_initial_positions.length > 1){
@@ -8274,10 +8249,6 @@ RUR.robot.modernize = function (robot) {
         robot._orientation = robot.orientation;
         delete robot.orientation;
     }
-    // handling legacy styles in the simplest possible way
-    if (robot.model==0 || robot.model==1 || robot.model==2 || robot.model==3) {
-        robot.model = "classic";
-    }
 
     RUR.robot.set_private_defaults(robot);
 };
@@ -8690,9 +8661,9 @@ RUR.world_init = function () {
             robot._prev_y = robot.y;
             delete robot.possible_initial_positions;
         }
-        if (robot._orientation == -1){
-            world.robots[0]._orientation = randint(0, 3);
-            world.robots[0]._prev_orientation = world.robots[0]._orientation;
+        if (robot._orientation == RUR.RANDOM_ORIENTATION){
+            robot._orientation = randint(0, 3);
+            robot._prev_orientation = robot._orientation;
         }
     }
 
@@ -8757,6 +8728,7 @@ RUR.state = {};    /* Reeborg's World can be in different states
 
 RUR.THINGS = {}; // something which can be drawn, like "token"
 RUR.KNOWN_THINGS = []; // keeping track of their names only
+RUR.KNOWN_ROBOT_MODELS = [];
 RUR.CANVASES = []; // html canvases ...
 RUR.ALL_CTX = [];  // and their corresponding 2d context
 
@@ -8782,6 +8754,7 @@ RUR.EAST = 0;
 RUR.NORTH = 1;
 RUR.WEST = 2;
 RUR.SOUTH = 3;
+RUR.RANDOM_ORIENTATION = -1;
 RUR.TILE_SIZE = RUR.DEFAULT_WALL_LENGTH = 40;
 RUR.DEFAULT_WALL_THICKNESS = 4;
 RUR.COORDINATES_COLOR = "black";
@@ -8965,10 +8938,6 @@ function redraw_all() {
         initial_drawing_timer = setTimeout(redraw_all, 200);
     }
 }
-
-
-
-
 
 /*----------------------------------------------------------------
  We use multiple canvases to facilitate the drawing of objects
@@ -11822,6 +11791,27 @@ RUR.add_initial_position = function (x, y) {
 
     robot.possible_initial_positions.push([x, y]);
     RUR.record_frame("add_initial_position", {x:x, y:y});
+};
+
+ /** @function set_random_orientation
+ *
+ * @memberof RUR
+ * @instance
+ * @summary This function sets the initial (starting) orientation so that it
+ * will be chosen randomly.
+ **/
+
+RUR.set_random_orientation = function () {
+    "use strict";
+    var robot, pos, world=RUR.get_current_world();
+    if (world.robots === undefined || world.robots.length === 0) {
+        throw new RUR.ReeborgError("This world has no robot; cannot set random orientation.");
+    }
+
+    robot = world.robots[0];
+    robot._orientation = RUR.RANDOM_ORIENTATION;
+    robot._prev_orientation = RUR.RANDOM_ORIENTATION;
+    RUR.record_frame("set_random_orientation");
 };
 },{"./../rur.js":51}],75:[function(require,module,exports){
 require("./../rur.js");

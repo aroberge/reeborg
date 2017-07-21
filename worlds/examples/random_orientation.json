@@ -1,0 +1,41 @@
+{
+  "robots": [
+    {
+      "x": 4,
+      "y": 4,
+      "_prev_x": 4,
+      "_prev_y": 4,
+      "_prev_orientation": -1,
+      "objects": {},
+      "_orientation": -1,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 11,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          4
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": "A simple, empty world, ready for Reeborg to explore.",
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14
+}
