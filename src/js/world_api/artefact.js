@@ -84,8 +84,6 @@ RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_p
  * @throws Will throw an error if called after a range of values has already
  * been specified for that object at that location.
  *
- * @see {@link TestUnit#ARTEFACT_arg_checks} for unit tests checking valid arguments
- * @see {@link TestUnit#ARTEFACT_add_artefact} for basic unit tests
  *
  */
 RUR._add_artefact = function (args) {
@@ -238,8 +236,6 @@ RUR._get_artefacts = function(args) {
  * @throws Will throw an error if `type` attribute is not specified.
  * @throws Will throw an error if a valid position is not specified.
  *
- * @see {@link TestUnit#ARTEFACT_arg_checks} for unit tests checking valid arguments
- * @see {@link TestUnit#ARTEFACT_get_nb_artefacts} for basic unit tests
  */
 RUR._get_nb_artefact = function(args) {
     "use strict";
@@ -336,8 +332,6 @@ RUR._get_nb_artefact = function(args) {
  * @todo Need to implement `args.number`
  * @todo Need to add full tests for `args.number`
  *
- * @see {@link TestUnit#ARTEFACT_arg_checks} for unit tests checking valid arguments
- * @see {@link TestUnit#ARTEFACT_remove_artefact} for basic unit tests
  *
  */
 RUR._remove_artefact = function (args) {
@@ -437,8 +431,6 @@ RUR._remove_artefact = function (args) {
  * @throws Will throw an error if `number` attribute is not specified.
  * @throws Will throw an error if a valid position is not specified.
  *
- * @see {@link TestUnit#ARTEFACT_arg_checks} for unit tests checking valid arguments
- * @see {@link TestUnit#ARTEFACT_set_nb_artefacts} for basic unit tests
  *
  */
 RUR._set_nb_artefact = function (args) {

@@ -47,8 +47,6 @@ RUR.fill_background = function(name) {
  * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
- * [See {@link TestUnit#BACKGROUND_TILE_add_invalid_position} for a unit test.]
- *
  *
  * @example
  *

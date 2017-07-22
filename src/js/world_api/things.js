@@ -93,7 +93,6 @@ require("./../utils/supplant.js");
  * @throws Will throw an error if no image is supplied (either via the `url`
  *         or the `images` attribute) and `color` does not evaluate to true.
  *
- * @see Unit tests are found in {@link RUR.UnitTest#test_add_new_thing}
  * @example
  * // This first example shows how to set various "things";
  * // the mode will be set to Python and the highlighting

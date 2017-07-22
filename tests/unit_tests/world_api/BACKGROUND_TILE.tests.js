@@ -14,15 +14,6 @@ mock("../../../src/js/recorder/record_frame.js", {});
 RUR.record_frame = function () {};
 
 
-/**
- * @name BACKGROUND_TILE_add_invalid_position
- * @memberof TestUnit
- * @instance
- *
- * Fake jsdoc entry so that we can document that the tests exist.
- *
- */
-
 test('invalid position', function (assert) {
     require("../../../src/js/world_api/background_tile.js");
     RUR.CURRENT_WORLD = RUR.create_empty_world();

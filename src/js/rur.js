@@ -1,5 +1,7 @@
 /** @namespace RUR
- * @desc The namespace reserved for all the core Reeborg World methods.
+ * @desc The namespace reserved for all the Reeborg World methods.
+ *
+ * All the method documented here **must** be prefixed by `RUR`.
  */
 
 window.RUR = RUR || {}; // RUR should be already defined in the html file;
@@ -29,7 +31,7 @@ try {
 
 RUR.utils = {};
 RUR.world_utils = {};
-RUR.UnitTest = {}; // Mostly used to document unit tests
+RUR.UnitTest = {}; // used to provide links to function mused for unit tests
 RUR.state = {};    /* Reeborg's World can be in different states
                       (running a program, editing a world, etc.) and the
                       behaviour of some features can be affected (

@@ -7,16 +7,6 @@ function test(test_name, fn) {
 // main module to test
 require("../../../src/js/world_api/artefact.js");
 
-
-/**
- * @name ARTEFACT_arg_checks
- * @memberof TestUnit
- * @instance
- *
- * Fake jsdoc entry so that we can document that the tests exist.
- *
- */
-
 /* =============================================
 
                   Testing exceptions
@@ -174,15 +164,6 @@ test('_add_artefact: inconsistent use of single', function (assert) {
                 Testing functionality
 ---------------------------------------------------------------*/
 
-/**
- * @name ARTEFACT_add_artefact
- * @memberof TestUnit
- * @instance
- *
- * Fake jsdoc entry so that we can document that the tests exist.
- *
- */
-
 test('_add_artefact: add to unknown type', function (assert) {
     var args = {x:2, y:2, valid_names: ['a'], name: 'a', type:'unknown'};
     assert.plan(2);
@@ -229,17 +210,6 @@ test('_add_artefact: add after range was set', function (assert) {
     }
     assert.end();
 });
-
-
-
-/**
- * @name ARTEFACT_get_artefacts
- * @memberof TestUnit
- * @instance
- *
- * Fake jsdoc entry so that we can document that the tests exist.
- *
- */
 
 test('_get_artefacts: confirm object present, array type added by hand', function (assert) {
     var args_a = {x:2, y:3, type:'objects'};
@@ -314,16 +284,6 @@ test('_get_artefacts: confirm goal present, array type added by function', funct
     assert.end();
 });
 
-/**
- * @name ARTEFACT_get_nb_artefacts
- * @memberof TestUnit
- * @instance
- *
- * Fake jsdoc entry so that we can document that the tests exist.
- *
- */
-
-
 test('_get_nb_artefact: confirm missing, unknown type', function (assert) {
     var args = {x:2, y:2, valid_names: ['a'], name: 'a', type:'unknown'};
     assert.plan(1);
@@ -377,15 +337,6 @@ test('_get_nb_artefact: confirm goal present, array type added by hand', functio
     assert.equal(RUR._get_nb_artefact(args_c), 0, 'not a goal object added by hand');
     assert.end();
 });
-
-/**
- * @name ARTEFACT_remove_artefact
- * @memberof TestUnit
- * @instance
- *
- * Fake jsdoc entry so that we can document that the tests exist.
- *
- */
 
 test('_remove_artefact: add 2 remove 1 to array type.', function (assert) {
     var args_a = {x:2, y:3, name:'a', type:'objects'},
@@ -456,16 +407,6 @@ test('_remove_artefact: add 1 remove 1 to object type.', function (assert) {
     assert.deepEqual(RUR.CURRENT_WORLD.objects, undefined, 'nothing left');
     assert.end();
 });
-
-
-/**
- * @name ARTEFACT_set_nb_artefacts
- * @memberof TestUnit
- * @instance
- *
- * Fake jsdoc entry so that we can document that the tests exist.
- *
- */
 
 test('_set_nb_artefact: add to unknown type', function (assert) {
     var args = {x:2, y:2, valid_names: ['a'], name: 'a', type:'unknown', number:12};

@@ -1,11 +1,3 @@
-/**
- * @name THINGS_add_new_thing
- * @memberof TestUnit
- * @instance
- *
- * Fake jsdoc entry so that we can document that the tests exist.
- *
- */
 var tape_test = require('./../test_globals.js').tape_test;
 var silencer =  require('silencer');
 
