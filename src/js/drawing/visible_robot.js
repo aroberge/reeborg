@@ -93,8 +93,10 @@ RUR.reset_default_robot_images = function () {
     // handle situation where the user had saved values from old naming styles
     saved_model = localStorage.getItem("robot_default_model");
     if (saved_model==0 || saved_model==1 || saved_model==2 || saved_model==3) {
-        saved_model = "classic";
+        saved_model = RUR.reeborg_default_model;
+        localStorage.setItem("robot_default_model", model);
     }
+    RUR.user_selected_model = saved_model;
     RUR.select_default_robot_model(saved_model);
 
     // additional robot images from rur-ple
@@ -131,22 +133,30 @@ RUR.reset_default_robot_images = function () {
     RUR.state.reset_default_robot_images_needed = false;
 };
 
-RUR.vis_robot.style = "classic";
+RUR.select_default_robot_model = function (model) {
+    "use strict";
+    var robot;
 
-RUR.select_default_robot_model = function (style) {
-    if ( !(style == "clasic" || style== "2d red rover" || style=="3d red rover" || style=="solar panel")){
-        style = "classic";
+    if ( !(model == "classic" || model == "2d red rover"
+           || model == "3d red rover" || model == "solar panel")){
+        model = RUR.reeborg_default_model;
     }
-    RUR.vis_robot.style = style;
-    RUR.vis_robot.e_img = RUR.vis_robot.images[style].robot_e_img;
-    RUR.vis_robot.n_img = RUR.vis_robot.images[style].robot_n_img;
-    RUR.vis_robot.w_img = RUR.vis_robot.images[style].robot_w_img;
-    RUR.vis_robot.s_img = RUR.vis_robot.images[style].robot_s_img;
+    // the user could click on the robot model buttons when there are
+    // no robot present in the world.
+    try {
+        robot = RUR.get_current_world().robots[0];
+        robot.model = model;
+        RUR.user_selected_model = model;
+    } catch (e) {}
+
+    RUR.vis_robot.e_img = RUR.vis_robot.images[model].robot_e_img;
+    RUR.vis_robot.n_img = RUR.vis_robot.images[model].robot_n_img;
+    RUR.vis_robot.w_img = RUR.vis_robot.images[model].robot_w_img;
+    RUR.vis_robot.s_img = RUR.vis_robot.images[model].robot_s_img;
     if (RUR.vis_world !== undefined) {
         RUR.vis_world.refresh();
     }
-
-    localStorage.setItem("robot_default_model", style);
+    localStorage.setItem("robot_default_model", model);
 };
 $("#robot0").on("click", function (evt) {
     RUR.select_default_robot_model("classic");
@@ -209,11 +219,17 @@ RUR.animate_robot = function (models, robot) {
 };
 
 function update_model(robot, start_cycle) {
-    var nb_models = robot.models_cycle.length;
+    var default_robot, nb_models = robot.models_cycle.length;
+
     if (start_cycle) {
         robot.model_index = 0;
     }
     robot.model = robot.models_cycle[robot.model_index];
+
+    default_robot = RUR.get_current_world().robots[0];
+    if (default_robot.__id == robot.__id) {
+        RUR.user_selected_model = undefined;  // overrides the user's choice
+    }
     // do we cycle through the value; a model number of -1 ends a cycle
     if (robot.model_index == nb_models-2){
         if (robot.models_cycle[robot.model_index+1] == -1){
@@ -228,7 +244,7 @@ function update_model(robot, start_cycle) {
 
 RUR.vis_robot.draw = function (robot, start_cycle) {
     "use strict";
-    var x, y, width, height, image;
+    var x, y, width, height, image, default_robot;
     if (!robot) {
         console.warn("RUR.vis_robot.draw called with no robot.");
         return;
@@ -256,10 +272,17 @@ RUR.vis_robot.draw = function (robot, start_cycle) {
     }
 
     if (robot.model == undefined) {
-        robot.model = "classic";
+        robot.model = RUR.reeborg_default_model;
     } else if (RUR.KNOWN_ROBOT_MODELS.indexOf(robot.model) == -1) {
         console.warn("robot model not defined: " + robot.model);
-        robot.model = "classic";
+        robot.model = RUR.reeborg_default_model;
+    }
+
+    if (RUR.user_selected_model !== undefined) {
+        default_robot = RUR.get_current_world().robots[0];
+        if (default_robot.__id == robot.__id ) {
+            robot.model = RUR.user_selected_model;
+        }
     }
 
     switch(robot._orientation){

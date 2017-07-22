@@ -437,7 +437,12 @@ RUR.control.carries_object = function (robot, obj) {
 
 
 RUR.control.set_model = function(robot, model){
+    var default_robot;
     robot.model = model;
+    default_robot = RUR.get_current_world().robots[0];
+    if (default_robot.__id == robot.__id) {
+        RUR.user_selected_model = undefined;  // overrides the user's choice
+    }
     RUR.record_frame("set_model", robot.__id);
  };
 

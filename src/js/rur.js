@@ -168,8 +168,14 @@ RUR.reset_animated_images = function () {
     RUR.state.animated_robots = false; // set to true when we add animated robots
 };
 
+RUR.reeborg_default_model = "classic"; // global default; never reset
 
 RUR.reset_pre_run_defaults = function () {
+    // by contrast with RUR.reeborg_default_model above, the user selection can
+    // be temporarily overriden by a program; it is thus reset each time.
+    try { // localStorage not defined during unit tests
+        RUR.user_selected_model = localStorage.getItem("robot_default_model");
+    } catch (e) {}
 
     /* recording and playback values */
     RUR.frames = [];
@@ -220,7 +226,6 @@ RUR.reset_pre_run_defaults = function () {
 
     RUR.__python_error = false; // used to catch Python error in custom format
 }
-
 RUR.reset_pre_run_defaults();
 
 

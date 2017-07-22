@@ -10,7 +10,7 @@ RUR.robot.__ID = 1;
 
 RUR.robot.create_robot = function (x, y, orientation, tokens) {
     "use strict";
-    var robot = {};
+    var saved_model, robot = {};
     robot.x = x || 1;
     robot.y = y || 1;
     robot.objects = {};
@@ -21,6 +21,13 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
         }
     }
 
+    saved_model = localStorage.getItem("robot_default_model");
+    if (saved_model != undefined) {
+        robot.model = saved_model;
+    } else {
+        robot.model = RUR.reeborg_default_model;
+    }
+
     if (orientation === undefined){
         robot._orientation = RUR.EAST;
     } else {
@@ -29,8 +36,7 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
         } catch (e) {}
         switch (orientation){
         case "e":
-        case RUR.translation.east:  /*TODO: see if we can get rid of this
-                                            and have incoming in English */
+        case RUR.translation.east:
             robot._orientation = RUR.EAST;
             break;
         case "n":
@@ -48,7 +54,6 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
         default:
             throw new RUR.ReeborgError(RUR.translate("Unknown orientation for robot."));
         }
-    robot.__id = 0;
     }
     RUR.robot.set_private_defaults(robot);
 
