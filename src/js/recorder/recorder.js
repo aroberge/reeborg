@@ -15,9 +15,12 @@ var identical = require("./../utils/identical.js").identical;
 RUR.rec = {};
 
 
-RUR.set_lineno_highlight = function(lineno, frame) {
+RUR.set_lineno_highlight = function(lineno) {
     RUR.current_line_no = lineno;
-    RUR.record_frame("highlight");
+    if (RUR.current_line_no != RUR.prev_line_no) {
+        RUR.record_frame("highlight");
+    }
+    RUR.prev_line_no = RUR.current_line_no;
 };
 
 function update_editor_highlight() {

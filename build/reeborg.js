@@ -801,11 +801,11 @@ RUR.reset_default_robot_images = function () {
 
     // handle situation where the user had saved values from old naming styles
     saved_model = localStorage.getItem("robot_default_model");
-    RUR.user_selected_model = saved_model;
     if (saved_model==0 || saved_model==1 || saved_model==2 || saved_model==3) {
         saved_model = RUR.reeborg_default_model;
         localStorage.setItem("robot_default_model", model);
     }
+    RUR.user_selected_model = saved_model;
     RUR.select_default_robot_model(saved_model);
 
     // additional robot images from rur-ple
@@ -7758,9 +7758,6 @@ update_robot_trace_history = function (robot) {
 RUR.record_frame = function (name, obj) {
     "use strict";
     var py_err, frame = {}, robot;
-    if (RUR.__debug) {
-        console.log("from record_frame, name, obj=", name, obj);
-    }
 
     /* TODO: Document RUR.frame_insertion and put a link here.    */
 
@@ -7812,13 +7809,6 @@ RUR.record_frame = function (name, obj) {
           generating too many extra frames. */
         RUR.frames[RUR.nb_frames-1]["watch_variables"] = obj;
         return;
-    // } else if (name=="highlight" &&
-    //       RUR.current_line_no == RUR.rec_line_numbers [RUR.nb_frames-1]) {
-    //     // no highlighting change: do not include any extra frame
-    //     return;
-    } else if (name=="highlight" && RUR.nb_frames != 0) {
-        // no highlighting change: do not include any extra frame
-        return;
     }
 
     update_trace_history();
@@ -7841,7 +7831,6 @@ RUR.record_frame = function (name, obj) {
             RUR.rec_line_numbers [RUR.nb_frames] = [0];
         }
     }
-
     RUR.frames[RUR.nb_frames] = frame;
     RUR.nb_frames++;
     RUR.state.sound_id = undefined;
@@ -7874,9 +7863,12 @@ var identical = require("./../utils/identical.js").identical;
 RUR.rec = {};
 
 
-RUR.set_lineno_highlight = function(lineno, frame) {
+RUR.set_lineno_highlight = function(lineno) {
     RUR.current_line_no = lineno;
-    RUR.record_frame("highlight");
+    if (RUR.current_line_no != RUR.prev_line_no) {
+        RUR.record_frame("highlight");
+    }
+    RUR.prev_line_no = RUR.current_line_no;
 };
 
 function update_editor_highlight() {
@@ -8716,7 +8708,9 @@ RUR.world_init = function () {
 
 },{"./../drawing/visible_world.js":10,"./../rur.js":51}],51:[function(require,module,exports){
 /** @namespace RUR
- * @desc The namespace reserved for all the core Reeborg World methods.
+ * @desc The namespace reserved for all the Reeborg World methods.
+ *
+ * All the method documented here **must** be prefixed by `RUR`.
  */
 
 window.RUR = RUR || {}; // RUR should be already defined in the html file;
@@ -8746,7 +8740,7 @@ try {
 
 RUR.utils = {};
 RUR.world_utils = {};
-RUR.UnitTest = {}; // Mostly used to document unit tests
+RUR.UnitTest = {}; // used to provide links to function mused for unit tests
 RUR.state = {};    /* Reeborg's World can be in different states
                       (running a program, editing a world, etc.) and the
                       behaviour of some features can be affected (
@@ -9982,8 +9976,6 @@ RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_p
  * @throws Will throw an error if called after a range of values has already
  * been specified for that object at that location.
  *
- * @see {@link TestUnit#ARTEFACT_arg_checks} for unit tests checking valid arguments
- * @see {@link TestUnit#ARTEFACT_add_artefact} for basic unit tests
  *
  */
 RUR._add_artefact = function (args) {
@@ -10136,8 +10128,6 @@ RUR._get_artefacts = function(args) {
  * @throws Will throw an error if `type` attribute is not specified.
  * @throws Will throw an error if a valid position is not specified.
  *
- * @see {@link TestUnit#ARTEFACT_arg_checks} for unit tests checking valid arguments
- * @see {@link TestUnit#ARTEFACT_get_nb_artefacts} for basic unit tests
  */
 RUR._get_nb_artefact = function(args) {
     "use strict";
@@ -10234,8 +10224,6 @@ RUR._get_nb_artefact = function(args) {
  * @todo Need to implement `args.number`
  * @todo Need to add full tests for `args.number`
  *
- * @see {@link TestUnit#ARTEFACT_arg_checks} for unit tests checking valid arguments
- * @see {@link TestUnit#ARTEFACT_remove_artefact} for basic unit tests
  *
  */
 RUR._remove_artefact = function (args) {
@@ -10335,8 +10323,6 @@ RUR._remove_artefact = function (args) {
  * @throws Will throw an error if `number` attribute is not specified.
  * @throws Will throw an error if a valid position is not specified.
  *
- * @see {@link TestUnit#ARTEFACT_arg_checks} for unit tests checking valid arguments
- * @see {@link TestUnit#ARTEFACT_set_nb_artefacts} for basic unit tests
  *
  */
 RUR._set_nb_artefact = function (args) {
@@ -10426,8 +10412,6 @@ RUR.fill_background = function(name) {
  * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
- * [See {@link TestUnit#BACKGROUND_TILE_add_invalid_position} for a unit test.]
- *
  *
  * @example
  *
@@ -11947,7 +11931,6 @@ require("./../utils/supplant.js");
  * @throws Will throw an error if no image is supplied (either via the `url`
  *         or the `images` attribute) and `color` does not evaluate to true.
  *
- * @see Unit tests are found in {@link RUR.UnitTest#test_add_new_thing}
  * @example
  * // This first example shows how to set various "things";
  * // the mode will be set to Python and the highlighting

@@ -61,9 +61,6 @@ update_robot_trace_history = function (robot) {
 RUR.record_frame = function (name, obj) {
     "use strict";
     var py_err, frame = {}, robot;
-    if (RUR.__debug) {
-        console.log("from record_frame, name, obj=", name, obj);
-    }
 
     /* TODO: Document RUR.frame_insertion and put a link here.    */
 
@@ -115,13 +112,6 @@ RUR.record_frame = function (name, obj) {
           generating too many extra frames. */
         RUR.frames[RUR.nb_frames-1]["watch_variables"] = obj;
         return;
-    // } else if (name=="highlight" &&
-    //       RUR.current_line_no == RUR.rec_line_numbers [RUR.nb_frames-1]) {
-    //     // no highlighting change: do not include any extra frame
-    //     return;
-    } else if (name=="highlight" && RUR.nb_frames != 0) {
-        // no highlighting change: do not include any extra frame
-        return;
     }
 
     update_trace_history();
@@ -144,7 +134,6 @@ RUR.record_frame = function (name, obj) {
             RUR.rec_line_numbers [RUR.nb_frames] = [0];
         }
     }
-
     RUR.frames[RUR.nb_frames] = frame;
     RUR.nb_frames++;
     RUR.state.sound_id = undefined;

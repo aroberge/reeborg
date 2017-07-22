@@ -1,7 +1,6 @@
 # Inspired from https://code.google.com/p/pseudo-pdb/ by Jurgis Pralgauskis
 # However, bearing very little resemblance to the above
 #
-# MIT license like the rest of Reeborg's World code.
 # André Roberge
 
 try:
@@ -139,10 +138,15 @@ def insert_highlight_info(src, highlight=True, var_watch=False):
         return src, line_info
     src = src.replace('\t', '    ')
     lines = src.split("\n")
-    new_lines = [tracing_line('', [0])]
+    # if _watch:
+    #     new_lines = []
+    # else:
+    #     new_lines = [tracing_line('', [0])]
+    new_lines = []
     use_next_indent = False
     saved_lineno_group = None
-    skip_docstring = 0
+
+    prev_indent = '' # only used with _watch
 
     line_info.reverse()
     current_group = line_info.pop()
@@ -156,6 +160,11 @@ def insert_highlight_info(src, highlight=True, var_watch=False):
 
         line_wo_indent = line.lstrip()
         indent = line[:-len(line_wo_indent)]
+        if _watch:
+            if len(indent) < len(prev_indent):
+                # add watch vars info at end of block
+                new_lines.append(tracing_line(prev_indent, '', last_line=True))
+            prev_indent = indent
         first_word, remaining = extract_first_word(line_wo_indent, ' #=([{:\'"\\')
         if use_next_indent:
             if saved_lineno_group[-1] >= lineno:  # pylint: disable=E1136
@@ -167,7 +176,6 @@ def insert_highlight_info(src, highlight=True, var_watch=False):
         if first_word in 'def class'.split():
             new_lines.append(tracing_line(indent, current_group))
             new_lines.append(line)
-            skip_docstring = 2
         elif first_word in '''pass continue break if from import
                             del return raise try with yield'''.split():
             new_lines.append(tracing_line(indent, current_group))
@@ -191,11 +199,10 @@ def insert_highlight_info(src, highlight=True, var_watch=False):
         elif not first_word and remaining[0] == "#":
             new_lines.append(line)
         else:
-            if lineno == current_group[0] and skip_docstring <= 0:
+            if lineno == current_group[0]:
                 new_lines.append(tracing_line(indent, current_group))
             new_lines.append(line)
 
-        skip_docstring -= 1
 
     new_lines.append(tracing_line(indent, '', last_line=True))
     return '\n'.join(new_lines), False

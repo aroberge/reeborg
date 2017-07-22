@@ -59,8 +59,6 @@ def _watch_(default, loc={}, gl={}):
                 no_new_local = False
                 out.append(title % window.RUR.translate("Local variables"))
             value = html_escape(loc[arg])
-            # if hasattr(loc[arg], "body"):
-            #     print(loc[arg].body.x)
             current_watch_values[arg] = value
         append_watch(arg, value, out)
 
@@ -68,8 +66,8 @@ def _watch_(default, loc={}, gl={}):
     for arg in gl:
         if arg in default or arg in ignore:
             continue
-        elif arg in loc and (loc[arg] == gl[arg]):
-            continue
+        # elif arg in loc and (loc[arg] == gl[arg]):
+        #     continue
         else:
             if no_new_global:
                 no_new_global = False
