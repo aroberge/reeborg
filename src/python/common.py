@@ -66,7 +66,9 @@ def _watch_(default, loc={}, gl={}):
 
     no_new_global = True
     for arg in gl:
-        if arg in default or arg in loc or arg in ignore:
+        if arg in default or arg in ignore:
+            continue
+        elif arg in loc and (loc[arg] == gl[arg]):
             continue
         else:
             if no_new_global:
