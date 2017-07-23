@@ -14,27 +14,31 @@ var identical = require("./../utils/identical.js").identical;
 
 RUR.rec = {};
 
-
 RUR.set_lineno_highlight = function(lineno) {
     RUR.current_line_no = lineno;
     if (RUR.current_line_no != RUR.prev_line_no) {
-        RUR.record_frame("highlight");
+        RUR.record_frame("highlight", lineno);
     }
     RUR.prev_line_no = RUR.current_line_no;
 };
 
 function update_editor_highlight() {
     "use strict";
-    var i, next_frame_line_numbers;
+    var i, next_frame_line_numbers, current_frame_no;
+    if (RUR.rec.rec_previous_lines === undefined) {
+        current_frame_no = RUR.current_frame_no;
+    } else {
+        current_frame_no = RUR.current_frame_no + 1;
+    }
         //track line number and highlight line to be executed
     if (RUR.state.programming_language === "python" && RUR.state.highlight) {
         try {
-            for (i=0; i < RUR.rec_previous_lines.length; i++){
-                editor.removeLineClass(RUR.rec_previous_lines[i], 'background', 'editor-highlight');
+            for (i=0; i < editor.lineCount(); i++){
+                editor.removeLineClass(i, 'background', 'editor-highlight');
             }
         }catch (e) {console.log("diagnostic: error was raised while trying to removeLineClass", e);}
-        if (RUR.rec_line_numbers [RUR.current_frame_no+1] !== undefined){
-            next_frame_line_numbers = RUR.rec_line_numbers [RUR.current_frame_no+1];
+        if (RUR.rec_line_numbers [current_frame_no] !== undefined){
+            next_frame_line_numbers = RUR.rec_line_numbers [current_frame_no];
             for(i=0; i < next_frame_line_numbers.length; i++){
                 editor.addLineClass(next_frame_line_numbers[i], 'background', 'editor-highlight');
             }
@@ -42,7 +46,7 @@ function update_editor_highlight() {
             if (RUR._max_lineno_highlighted < next_frame_line_numbers[i]) {
                 RUR._max_lineno_highlighted = next_frame_line_numbers[i];
             }
-            RUR.rec_previous_lines = RUR.rec_line_numbers [RUR.current_frame_no+1];
+            RUR.rec_previous_lines = RUR.rec_line_numbers [current_frame_no];
         } else {
             try {  // try adding back to capture last line of program
                 for (i=0; i < RUR.rec_previous_lines.length; i++){
@@ -66,11 +70,10 @@ RUR.rec.display_frame = function () {
         return RUR.rec.conclude();
     }
 
-    update_editor_highlight();
-
     frame = RUR.frames[RUR.current_frame_no];
     RUR.update_frame_nb_info();
     RUR.current_frame_no++;
+    update_editor_highlight();
 
     if (frame === undefined){
         RUR.vis_world.refresh();

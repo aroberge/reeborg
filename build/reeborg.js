@@ -7700,6 +7700,7 @@ require("./../rur.js");
 require("./../programming_api/exceptions.js");
 require("./../playback/show_immediate.js");
 require("./../utils/supplant.js");
+var identical = require("./../utils/identical.js").identical;
 
 function update_trace_history() {
     var world = RUR.get_current_world();
@@ -7711,7 +7712,7 @@ function update_trace_history() {
 }
 
 update_robot_trace_history = function (robot) {
-    var offset, prev_offset, trace_segment={};
+    var offset, prev_offset, trace_segment={}, prev_trace_segment;
     // if we keep track of the trace during world editing tests,
     // it can end up saving a world with a trace history
     // defined.
@@ -7750,6 +7751,13 @@ update_robot_trace_history = function (robot) {
     trace_segment["x"] = robot.x * RUR.WALL_LENGTH + offset[0];
     trace_segment["prev_y"] = RUR.HEIGHT - (robot._prev_y+1) * RUR.WALL_LENGTH + prev_offset[1];
     trace_segment["y"] = RUR.HEIGHT - (robot.y+1) * RUR.WALL_LENGTH + offset[1];
+
+    if (robot._trace_history.length > 0) {
+        prev_trace_segment = robot._trace_history[robot._trace_history.length-1];
+        if (identical(prev_trace_segment, trace_segment)) {
+            return;
+        }
+    }
 
     robot._trace_history.push(trace_segment);
 };
@@ -7816,6 +7824,10 @@ RUR.record_frame = function (name, obj) {
 
     if (name && obj) {
         frame[name] = obj;
+    } else if (name) {
+        frame[name] = true;
+    } else {
+        frame["no name"] = true;
     }
 
     frame.delay = RUR.PLAYBACK_TIME_PER_FRAME;
@@ -7826,11 +7838,26 @@ RUR.record_frame = function (name, obj) {
 
     if (RUR.state.programming_language === "python" && RUR.state.highlight) {
         if (RUR.current_line_no !== undefined) {
-            RUR.rec_line_numbers [RUR.nb_frames] = RUR.current_line_no;
+            if (RUR.nb_frames > 1) {
+                if (RUR.rec_line_numbers [RUR.nb_frames-1] != RUR.current_line_no) {
+                    RUR.rec_line_numbers [RUR.nb_frames] = RUR.current_line_no;
+                } else {
+                    RUR.nb_frames--; // avoid highlighting same frame twice
+                }
+            } else {
+                RUR.rec_line_numbers [RUR.nb_frames] = RUR.current_line_no;
+            }
         } else{
             RUR.rec_line_numbers [RUR.nb_frames] = [0];
         }
     }
+
+    if (RUR.nb_frames > 0){
+        if (identical(RUR.frames[RUR.nb_frames-1], frame)) {
+            return;
+        }
+    }
+
     RUR.frames[RUR.nb_frames] = frame;
     RUR.nb_frames++;
     RUR.state.sound_id = undefined;
@@ -7845,7 +7872,7 @@ RUR.record_frame = function (name, obj) {
 };
 
 
-},{"./../playback/show_immediate.js":37,"./../programming_api/exceptions.js":41,"./../rur.js":51,"./../utils/supplant.js":62}],46:[function(require,module,exports){
+},{"./../playback/show_immediate.js":37,"./../programming_api/exceptions.js":41,"./../rur.js":51,"./../utils/identical.js":59,"./../utils/supplant.js":62}],46:[function(require,module,exports){
 
 require("./../rur.js");
 require("./../drawing/visible_world.js");
@@ -7862,27 +7889,31 @@ var identical = require("./../utils/identical.js").identical;
 
 RUR.rec = {};
 
-
 RUR.set_lineno_highlight = function(lineno) {
     RUR.current_line_no = lineno;
     if (RUR.current_line_no != RUR.prev_line_no) {
-        RUR.record_frame("highlight");
+        RUR.record_frame("highlight", lineno);
     }
     RUR.prev_line_no = RUR.current_line_no;
 };
 
 function update_editor_highlight() {
     "use strict";
-    var i, next_frame_line_numbers;
+    var i, next_frame_line_numbers, current_frame_no;
+    if (RUR.rec.rec_previous_lines === undefined) {
+        current_frame_no = RUR.current_frame_no;
+    } else {
+        current_frame_no = RUR.current_frame_no + 1;
+    }
         //track line number and highlight line to be executed
     if (RUR.state.programming_language === "python" && RUR.state.highlight) {
         try {
-            for (i=0; i < RUR.rec_previous_lines.length; i++){
-                editor.removeLineClass(RUR.rec_previous_lines[i], 'background', 'editor-highlight');
+            for (i=0; i < editor.lineCount(); i++){
+                editor.removeLineClass(i, 'background', 'editor-highlight');
             }
         }catch (e) {console.log("diagnostic: error was raised while trying to removeLineClass", e);}
-        if (RUR.rec_line_numbers [RUR.current_frame_no+1] !== undefined){
-            next_frame_line_numbers = RUR.rec_line_numbers [RUR.current_frame_no+1];
+        if (RUR.rec_line_numbers [current_frame_no] !== undefined){
+            next_frame_line_numbers = RUR.rec_line_numbers [current_frame_no];
             for(i=0; i < next_frame_line_numbers.length; i++){
                 editor.addLineClass(next_frame_line_numbers[i], 'background', 'editor-highlight');
             }
@@ -7890,7 +7921,7 @@ function update_editor_highlight() {
             if (RUR._max_lineno_highlighted < next_frame_line_numbers[i]) {
                 RUR._max_lineno_highlighted = next_frame_line_numbers[i];
             }
-            RUR.rec_previous_lines = RUR.rec_line_numbers [RUR.current_frame_no+1];
+            RUR.rec_previous_lines = RUR.rec_line_numbers [current_frame_no];
         } else {
             try {  // try adding back to capture last line of program
                 for (i=0; i < RUR.rec_previous_lines.length; i++){
@@ -7914,11 +7945,10 @@ RUR.rec.display_frame = function () {
         return RUR.rec.conclude();
     }
 
-    update_editor_highlight();
-
     frame = RUR.frames[RUR.current_frame_no];
     RUR.update_frame_nb_info();
     RUR.current_frame_no++;
+    update_editor_highlight();
 
     if (frame === undefined){
         RUR.vis_world.refresh();

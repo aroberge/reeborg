@@ -3,6 +3,7 @@ require("./../rur.js");
 require("./../programming_api/exceptions.js");
 require("./../playback/show_immediate.js");
 require("./../utils/supplant.js");
+var identical = require("./../utils/identical.js").identical;
 
 function update_trace_history() {
     var world = RUR.get_current_world();
@@ -14,7 +15,7 @@ function update_trace_history() {
 }
 
 update_robot_trace_history = function (robot) {
-    var offset, prev_offset, trace_segment={};
+    var offset, prev_offset, trace_segment={}, prev_trace_segment;
     // if we keep track of the trace during world editing tests,
     // it can end up saving a world with a trace history
     // defined.
@@ -53,6 +54,13 @@ update_robot_trace_history = function (robot) {
     trace_segment["x"] = robot.x * RUR.WALL_LENGTH + offset[0];
     trace_segment["prev_y"] = RUR.HEIGHT - (robot._prev_y+1) * RUR.WALL_LENGTH + prev_offset[1];
     trace_segment["y"] = RUR.HEIGHT - (robot.y+1) * RUR.WALL_LENGTH + offset[1];
+
+    if (robot._trace_history.length > 0) {
+        prev_trace_segment = robot._trace_history[robot._trace_history.length-1];
+        if (identical(prev_trace_segment, trace_segment)) {
+            return;
+        }
+    }
 
     robot._trace_history.push(trace_segment);
 };
@@ -119,6 +127,10 @@ RUR.record_frame = function (name, obj) {
 
     if (name && obj) {
         frame[name] = obj;
+    } else if (name) {
+        frame[name] = true;
+    } else {
+        frame["no name"] = true;
     }
 
     frame.delay = RUR.PLAYBACK_TIME_PER_FRAME;
@@ -129,11 +141,26 @@ RUR.record_frame = function (name, obj) {
 
     if (RUR.state.programming_language === "python" && RUR.state.highlight) {
         if (RUR.current_line_no !== undefined) {
-            RUR.rec_line_numbers [RUR.nb_frames] = RUR.current_line_no;
+            if (RUR.nb_frames > 1) {
+                if (RUR.rec_line_numbers [RUR.nb_frames-1] != RUR.current_line_no) {
+                    RUR.rec_line_numbers [RUR.nb_frames] = RUR.current_line_no;
+                } else {
+                    RUR.nb_frames--; // avoid highlighting same frame twice
+                }
+            } else {
+                RUR.rec_line_numbers [RUR.nb_frames] = RUR.current_line_no;
+            }
         } else{
             RUR.rec_line_numbers [RUR.nb_frames] = [0];
         }
     }
+
+    if (RUR.nb_frames > 0){
+        if (identical(RUR.frames[RUR.nb_frames-1], frame)) {
+            return;
+        }
+    }
+
     RUR.frames[RUR.nb_frames] = frame;
     RUR.nb_frames++;
     RUR.state.sound_id = undefined;

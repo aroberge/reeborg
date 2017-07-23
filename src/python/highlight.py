@@ -27,9 +27,8 @@ def tracing_line(indent, current_group, last_line=False):
     global _watch, _highlight
     tracecall_name = 'RUR.set_lineno_highlight'
     watch_string = "_watch_(system_default_vars, loc=locals(), gl=globals())\n"
-    record_string = "RUR.record_frame('watch')\n"
     if _watch:
-        watch_info = indent + watch_string + indent + record_string
+        watch_info = indent + watch_string
     else:
         watch_info = ''
     if last_line:
