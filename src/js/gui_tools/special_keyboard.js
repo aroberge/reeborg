@@ -318,6 +318,7 @@ add_onclick_insert_object("kbd-star", "star");
 add_onclick_insert_object("kbd-strawberry", "strawberry");
 add_onclick_insert_object("kbd-triangle", "triangle");
 add_onclick_insert_object("kbd-tulip", "tulip");
+add_onclick_insert_object("kbd-beeper", "beeper");
 
 add_onclick_insert_untranslated_statement("kbd-js-var", "var ");
 add_onclick_insert_untranslated("kbd-js-function", "function ? { \n\n}");

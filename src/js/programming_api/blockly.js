@@ -511,6 +511,22 @@ RUR.blockly.init = function () {
       return [RUR.translate("tulip")];
     };
 
+    Blockly.Blocks['_beeper_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("beeper"))
+            .appendField(new Blockly.FieldImage("/src/images/beeper0.png", 15, 15, RUR.translate("beeper")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_beeper_'] = function(block) {
+      return [RUR.translate("beeper")];
+    };
+    Blockly.JavaScript['_beeper_'] = function(block) {
+      return [RUR.translate("beeper")];
+    };
+
     Blockly.Blocks['_carries_object_or_here_'] = {
       init: function() {
         this.appendValueInput("action")

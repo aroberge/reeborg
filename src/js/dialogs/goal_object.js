@@ -29,7 +29,7 @@ exports.dialog_goal_object = dialog_goal_object = $("#dialog-goal-object").dialo
 });
 goal_objects = function () {
     "use strict";
-    var goal;
+    var goal = true;
     if ( $("#all-objects").prop("checked") ){
         goal =  "all";
     }

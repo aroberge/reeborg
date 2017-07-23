@@ -486,7 +486,7 @@ exports.dialog_goal_object = dialog_goal_object = $("#dialog-goal-object").dialo
 });
 goal_objects = function () {
     "use strict";
-    var goal;
+    var goal = true;
     if ( $("#all-objects").prop("checked") ){
         goal =  "all";
     }
@@ -2669,6 +2669,7 @@ add_onclick_insert_object("kbd-star", "star");
 add_onclick_insert_object("kbd-strawberry", "strawberry");
 add_onclick_insert_object("kbd-triangle", "triangle");
 add_onclick_insert_object("kbd-tulip", "tulip");
+add_onclick_insert_object("kbd-beeper", "beeper");
 
 add_onclick_insert_untranslated_statement("kbd-js-var", "var ");
 add_onclick_insert_untranslated("kbd-js-function", "function ? { \n\n}");
@@ -6298,6 +6299,22 @@ RUR.blockly.init = function () {
     };
     Blockly.JavaScript['_tulip_'] = function(block) {
       return [RUR.translate("tulip")];
+    };
+
+    Blockly.Blocks['_beeper_'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField(RUR.translate("beeper"))
+            .appendField(new Blockly.FieldImage("/src/images/beeper0.png", 15, 15, RUR.translate("beeper")));
+        this.setOutput(true, "String");
+        this.setColour(0);
+      }
+    };
+    Blockly.Python['_beeper_'] = function(block) {
+      return [RUR.translate("beeper")];
+    };
+    Blockly.JavaScript['_beeper_'] = function(block) {
+      return [RUR.translate("beeper")];
     };
 
     Blockly.Blocks['_carries_object_or_here_'] = {
