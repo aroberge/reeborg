@@ -15,8 +15,6 @@ require("./artefact.js");
  *    tile name is not recognized, it is assumed to be a colour. If a new tile
  *    is set at that location, it replaces the pre-existing one.
  *
- *
- * @todo add test
  * @todo add examples
  * @todo deal with translation
  */
@@ -48,6 +46,9 @@ RUR.fill_background = function(name) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  *
+ * @todo add examples
+ * @todo deal with translation
+ *
  * @example
  *
  * // Show how to set a color
@@ -58,16 +59,6 @@ RUR.fill_background = function(name) {
  * RUR.add_background_tile("rgba(255, 0, 0, 0.1)", 7, 8)
  * RUR.add_background_tile("hsl(24, 71%, 77%)", 9, 8)
  *
- * @example
- * // shows how to set various tiles;
- * // the mode will be set to Python
- * World("/worlds/examples/background1.json", "Background 1")
- *
- * @example
- * // Like Background 1 above, except that all the tiles
- * // are added in the Onload editor.  Click on World Info
- * // to see the code.
- * World("/worlds/examples/background2.json", "Background 2")
  *
  */
 RUR.add_background_tile = function (name, x, y) {
@@ -90,8 +81,6 @@ RUR.add_background_tile = function (name, x, y) {
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no background tile to remove
  *        at that location
- *
- * @todo add test
  * @todo add examples
  * @todo deal with translation
  */
@@ -128,14 +117,8 @@ RUR.remove_background_tile = function (name, x, y) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  *
- * @todo add test
  * @todo add proper examples
  * @todo deal with translation
- * @example
- * // shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
 
@@ -158,8 +141,9 @@ RUR.get_background_tile = function (x, y) {
  * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  *
- * @todo finish writing documentation
- * @todo check all other is_XXX for documentation
+ * @todo add examples
+ * @todo deal with translation
+ * @todo write summary
  *
  * @example {@lang python}
  * no_highlight()

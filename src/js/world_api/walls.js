@@ -34,14 +34,8 @@ that lists the walls, and must be handled separately.
  *
  * @throws Will throw an error if `x` or `y` is outside the world boundary.
  *
- * @example
- * // Execute the following instruction (either from Python or Javascript)
- * // to load a sample program
- *
- * World("worlds/examples/walls.json", "Wall example")
- *
- * // Then run the program; notice how the goal set (3 walls to build)
- * // is automatically verified at the end.
+ * @todo add examples
+ * @todo deal with translation
  *
  */
 RUR.get_walls = function(x, y, goal) {
@@ -78,14 +72,8 @@ RUR.get_walls = function(x, y, goal) {
  * @throws Will throw an error if `x` or `y` is outside the world boundary.
  * @throws Will throw an error if `orientation` is not a valid choice.
  *
- * @example
- * // Execute the following instruction (either from Python or Javascript)
- * // to load a sample program
- *
- * World("worlds/examples/walls.json", "Wall example")
- *
- * // Then run the program; notice how the goal set (3 walls to build)
- * // is automatically verified at the end.
+ * @todo add examples
+ * @todo deal with translation
  *
  */
 RUR.is_wall = function(orientation, x, y, goal) {
@@ -138,14 +126,8 @@ function is_boundary_wall(orientation, x, y) {
  * @throws Will throw an error if `orientation` is not a valid choice.
  * @throws Will throw an error if there is already a wall there.
  *
- * @example
- * // Execute the following instruction (either from Python or Javascript)
- * // to load a sample program
- *
- * World("worlds/examples/walls.json", "Wall example")
- *
- * // Then run the program; notice how the goal set (3 walls to build)
- * // is automatically verified at the end.
+ * @todo add examples
+ * @todo deal with translation
  *
  */
 RUR.add_wall = function(orientation, x, y, goal) {
@@ -178,14 +160,8 @@ RUR.add_wall = function(orientation, x, y, goal) {
  * @throws Will throw an error if `orientation` is not a valid choice.
  * @throws Will throw an error if there is no wall to remove.
  *
- * @example
- * // Execute the following instruction (either from Python or Javascript)
- * // to load a sample program
- *
- * World("worlds/examples/walls.json", "Wall example")
- *
- * // Then run the program; notice how the goal set (3 walls to build)
- * // is automatically verified at the end.
+ * @todo add examples
+ * @todo deal with translation
  *
  */
 RUR.remove_wall = function(orientation, x, y, goal) {

@@ -12,6 +12,9 @@ require("./obstacles.js");
  * @param {object} robot_body  robot body object
  *
  * @returns an array of protections
+ * @todo add examples
+ * @todo deal with translation
+ *
  */
 RUR.get_protections = function (robot) {
     "use strict";
@@ -41,6 +44,8 @@ RUR.get_protections = function (robot) {
  * @param {object} robot_body  robot body object
  *
  * @desc This needs to be documented
+ * @todo add examples
+ * @todo deal with translation
  *
  * @returns The message to show if it is a fatal position, otherwise `false`.
  */
@@ -97,7 +102,8 @@ RUR.is_fatal_position = function (x, y, robot){
  * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @desc This needs to be documented
- *
+ * @todo add examples
+ * @todo deal with translation
  * @returns `true` if this position is detectable by the robot, `false` otherwise
  */
 RUR.is_detectable_position = function (x, y){

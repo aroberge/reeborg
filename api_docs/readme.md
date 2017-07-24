@@ -4,7 +4,7 @@
 
 # About this documentation
 
-This documentation is written for people who wish to create new programming tasks, **going beyond what can be done using the Menu-driven World Editor included in Reeborg's World.** For example, you might want to use different images, including animation, or to add more capabilities to Reeborg's World._  People that simply wish to learn how to use Reeborg's World, or would like to follow a programming tutorial, should use [this link](http://reeborg.ca/docs/en) instead. [Please, note that the link points to a document available in English, French and Korean, with the language chosen using a selector on the right hand side.]
+This documentation is written for people who wish to create new programming tasks, **going beyond what can be done using the Menu-driven World Editor included in Reeborg's World.** For example, you might want to use different images, including animation, or to add more capabilities to Reeborg's World.  People that simply wish to learn how to use Reeborg's World, or would like to follow a programming tutorial, should use [this link](http://reeborg.ca/docs/en) instead. [Please, note that the link points to a document available in English, French and Korean, with the language chosen using a selector on the right hand side.]
 
 This documentation has been generated utomatically using Jsdoc from **comments** included in javascript source files;
 unlike [the tutorial](http://reeborg.ca/docs/en), this documentation is available only in English.

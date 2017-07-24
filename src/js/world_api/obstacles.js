@@ -17,15 +17,8 @@ require("./artefact.js");
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if `name` is not a known thing.
- * @todo add test
- * @todo add better examples
+ * @todo add examples
  * @todo deal with translation
- * @todo Make sure we cover the case of two or more obstacles at a given location
- * @example
- * // shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
 RUR.add_obstacle = function (name, x, y) {
@@ -50,7 +43,6 @@ RUR.add_obstacle = function (name, x, y) {
  * @throws Will throw an error if there is no background tile to remove
  *        at that location
  *
- * @todo add test
  * @todo add examples
  * @todo deal with translation
  *
@@ -77,16 +69,8 @@ RUR.remove_obstacle = function (name, x, y) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  *
- * @todo add test
  * @todo add proper examples
  * @todo deal with translation
- * @todo deal properly with cases of two or more obstacles
- *
- * @example
- * // shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
 

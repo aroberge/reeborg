@@ -89,20 +89,14 @@ require("./../utils/supplant.js");
  * number of pixel equal to `y_offset`. This is only valid for images - not for
  * colors.
  *
+ * @param {object} [things.transform] This needs to be documented.
+ *
  * @throws Will throw an error if `name` attribute is not specified.
  * @throws Will throw an error if no image is supplied (either via the `url`
  *         or the `images` attribute) and `color` does not evaluate to true.
  *
- * @example
- * // This first example shows how to set various "things";
- * // the mode will be set to Python and the highlighting
- * // will be turned off. Click on World Info for details
- * World("/worlds/examples/thing1.json", "Example 1")
- *
- * // A second example, showing how to set different types of
- * // animated images; the mode will be set to Javascript.
- * // Also click on World Info for details.
- * World("/worlds/examples/animated_all.json", "Example 2")
+ * @todo add examples
+ * @todo deal with translation
  */
 
 RUR.add_new_thing = function (thing) {

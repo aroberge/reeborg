@@ -30,14 +30,8 @@ require("./artefact.js");
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if `name` is not a known thing.
- * @todo add test
- * @todo add better examples
+ * @todo add examples
  * @todo deal with translation
- * @example
- * // shows how to set various objects;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/object1.json", "Example 1")
  *
  */
 RUR.add_object = function (name, x, y, options) {
@@ -87,7 +81,6 @@ RUR.add_object = function (name, x, y, options) {
  * @throws Will throw an error if there is no background object to remove
  *        at that location
  *
- * @todo add test
  * @todo add examples
  * @todo deal with translation
  */
@@ -132,7 +125,6 @@ RUR.remove_object = function (name, x, y, options) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  *
- * @todo add test
  * @todo add proper examples
  * @todo deal with translation
  * @todo make sure it returns the correct info

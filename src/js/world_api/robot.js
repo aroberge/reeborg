@@ -315,6 +315,9 @@ RUR.add_initial_position = function (x, y) {
  * @instance
  * @summary This function sets the initial (starting) orientation so that it
  * will be chosen randomly.
+ *
+ * @todo add examples
+ *
  **/
 
 RUR.set_random_orientation = function () {

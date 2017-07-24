@@ -327,12 +327,6 @@ RUR._get_nb_artefact = function(args) {
  * @throws Will throw an error if a valid position is not specified.
  * @throws Will throw an error if no such artefact is found at that location.
  *
- * @todo  Need to implement `args.all`
- * @todo  Need to implement tests for  `args.all`
- * @todo Need to implement `args.number`
- * @todo Need to add full tests for `args.number`
- *
- *
  */
 RUR._remove_artefact = function (args) {
     "use strict";
@@ -424,13 +418,10 @@ RUR._remove_artefact = function (args) {
  * @param {boolean} [args.goal] If specified, indicates that it is a goal that
  *                        must be set.
  *
- *
- *
  * @throws Will throw an error if `name` attribute is not specified.
  * @throws Will throw an error if `type` attribute is not specified.
  * @throws Will throw an error if `number` attribute is not specified.
  * @throws Will throw an error if a valid position is not specified.
- *
  *
  */
 RUR._set_nb_artefact = function (args) {

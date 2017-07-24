@@ -18,8 +18,6 @@ require("./artefact.js");
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if `name` is not a known thing.
  * @throws Will throw an error if there is already a bridge at that location.
-
- * @see Unit tests are found in {@link UnitTest#test_add_bridge}
  * @todo add examples
  * @todo deal with translation
  *
@@ -48,8 +46,6 @@ RUR.add_bridge = function (name, x, y) {
 
  * @throws Will throw an error if there is no such named bridge to remove
  *        at that location
- *
- * @todo add test
  * @todo add examples
  * @todo deal with translation
  */
@@ -78,14 +74,8 @@ RUR.remove_bridge = function (name, x, y) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  *
- * @todo add test
- * @todo add proper examples
+ * @todo add examples
  * @todo deal with translation
- * @example
- * // shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
 
@@ -111,14 +101,8 @@ RUR.get_bridge = function (x, y) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  *
- * @todo add test
- * @todo add proper examples
+ * @todo add examples
  * @todo deal with translation
- * @example
- * // shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
 
@@ -143,14 +127,8 @@ RUR.is_bridge = function (name, x, y) {
  *                 against a specific type of artefact; this could be
  *                 an empty array.
  *
- * @todo add test
- * @todo add proper examples
+ * @todo add examples
  * @todo deal with translation
- * @example
- * // shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
 

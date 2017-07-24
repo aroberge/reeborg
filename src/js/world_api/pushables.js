@@ -18,15 +18,8 @@ require("./artefact.js");
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is another pushable already at that location.
  *
- * @todo add test
- * @todo add better examples
+ * @todo add examples
  * @todo deal with translation
- * @todo **Important** Add goal for pushables
- * @example
- * // shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
 RUR.add_pushable = function (name, x, y, options) {
@@ -56,10 +49,8 @@ RUR.add_pushable = function (name, x, y, options) {
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no pushable
  *
- * @todo add test
  * @todo add examples
  * @todo deal with translation
- *
  *
  */
 RUR.remove_pushable = function (name, x, y, options) {
@@ -89,15 +80,8 @@ RUR.remove_pushable = function (name, x, y, options) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  *
- * @todo add test
- * @todo add proper examples
+ * @todo add examples
  * @todo deal with translation
- *
- * @example
- * // shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
 RUR.get_pushable = function (x, y, options) {
@@ -130,15 +114,9 @@ RUR.get_pushable = function (x, y, options) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  *
- * @todo add test
  * @todo add proper examples
  * @todo deal with translation
  *
- * @example
- * // shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
 
