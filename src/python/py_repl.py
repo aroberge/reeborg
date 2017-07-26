@@ -3,7 +3,9 @@
 
 import sys
 from browser import document, window
+from common import import_en, import_fr
 RUR = window['RUR']
+
 
 def print_exc(exc=None):
     if exc is None:
@@ -168,14 +170,14 @@ class Interpreter():
         except:
             lang = 'en'
         if lang == 'en':
-            exec("from reeborg_en import *", self.namespace)
+            import_en(self.namespace)
             self.namespace["done"] = self.done
             # in case "done" gets reassigned in the "pre" code of a world,
             # we keep another version available.
             self.namespace["Done"] = self.done
             self.namespace["World"] = self.world
         elif lang == 'fr':
-            exec("from reeborg_fr import *", self.namespace)
+            import_fr(self.namespace)
             self.namespace["termine"] = self.done
             self.namespace["Termine"] = self.done
             self.namespace["Monde"] = self.world
@@ -187,7 +189,6 @@ class Interpreter():
             self.run_pre()
 
     def run_pre(self):
-        window.console.log("executing pre from repl")
         if hasattr(RUR.CURRENT_WORLD, "pre"):
             try:
                 exec(RUR.CURRENT_WORLD.pre, self.namespace)

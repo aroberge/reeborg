@@ -12,6 +12,36 @@ exec("from reeborg_en import *", REEBORG_EN)
 REEBORG_FR = {}
 exec("from reeborg_fr import *", REEBORG_FR)
 
+def import_en(namespace):
+    ReeborgOK_saved = window['ReeborgOK_en']
+    ReeborgOk_saved = window['ReeborgOk_en']
+    ReeborgError_saved = window['ReeborgError_en']
+    WallCollisionError_saved = window['WallCollisionError_en']
+    MissingObjectError_saved = window['MissingObjectError_en']
+
+    namespace.update(REEBORG_EN)
+
+    window['ReeborgOK_en'] = ReeborgOK_saved
+    window['ReeborgOk_en'] = ReeborgOk_saved
+    window['ReeborgError_en'] = ReeborgError_saved
+    window['WallCollisionError_en'] = WallCollisionError_saved
+    window['MissingObjectError_en'] = MissingObjectError_saved
+
+def import_fr(namespace):
+    ReeborgOK_saved = window['ReeborgOK_fr']
+    ReeborgOk_saved = window['ReeborgOk_fr']
+    ReeborgError_saved = window['ReeborgError_fr']
+    WallCollisionError_saved = window['WallCollisionError_fr']
+    MissingObjectError_saved = window['MissingObjectError_fr']
+
+    namespace.update(REEBORG_FR)
+
+    window['ReeborgOK_fr'] = ReeborgOK_saved
+    window['ReeborgOk_fr'] = ReeborgOk_saved
+    window['ReeborgError_fr'] = ReeborgError_saved
+    window['WallCollisionError_fr'] = WallCollisionError_saved
+    window['MissingObjectError_fr'] = MissingObjectError_saved
+
 def _add_watch(expr):
     window.RUR.watched_expressions.append(expr)
 
