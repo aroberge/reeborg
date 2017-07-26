@@ -92,7 +92,7 @@ def make_qunit_version(infile, outfile):
             elif "src/" in line and not "brython" in line:
                 line = line.replace("src/", "../../src/")
             elif "build/" in line:
-                line = line.replace("build/", "../../build/")
+                line = line.replace("build/reeborg.js", "../../build/reeborg.js?v=%s" % time.time())
             elif "offline/" in line:
                 line = line.replace("offline/", "../../offline/")
             elif '</body>' in line:
