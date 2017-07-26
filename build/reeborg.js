@@ -6877,11 +6877,19 @@ RUR.control.move = function (robot) {
 
 RUR.control.turn_left = function(robot){
     "use strict";
-    robot._prev_orientation = robot._orientation;
+    var random;
+    if (robot._orientation == RUR.RANDOM_ORIENTATION) {
+        random = Math.floor(Math.random() * 4);
+        robot._orientation = random;
+        robot._prev_orientation = random;
+    } else {
+        robot._prev_orientation = robot._orientation;
+        robot._orientation ++;
+        robot._orientation %= 4;
+    }
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
-    robot._orientation += 1;  // could have used "++" instead of "+= 1"
-    robot._orientation %= 4;
+
     RUR.state.sound_id = "#turn-sound";
     if (robot._is_leaky !== undefined && !robot._is_leaky) {  // update to avoid drawing from previous point.
         robot._prev_orientation = robot._orientation;
@@ -7128,6 +7136,8 @@ RUR.control.wall_in_front = function (robot) {
         return RUR.is_wall("west", robot.x, robot.y);
     case RUR.SOUTH:
         return RUR.is_wall("south", robot.x, robot.y);
+    case RUR.RANDOM_ORIENTATION:
+        throw new RUR.ReeborgError(RUR.translate("I am too dizzy!"));
     default:
         throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.wall_in_front().");
     }
@@ -8300,6 +8310,9 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
         case RUR.translation.south:
             robot._orientation = RUR.SOUTH;
             break;
+        case "random":
+            robot._orientation = RUR.RANDOM_ORIENTATION;
+            break;
         default:
             throw new RUR.ReeborgError(RUR.translate("Unknown orientation for robot."));
         }
@@ -8659,7 +8672,7 @@ require("./../drawing/visible_world.js");
 require("./../rur.js");
 
 // Returns a random integer between min and max (both included)
-randint = function (min, max, previous) {
+randint = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
@@ -8675,7 +8688,7 @@ randint = function (min, max, previous) {
  */
 RUR.world_init = function () {
     "use strict";
-    var coords, obj, objects, objects_here, nb, range, robot;
+    var coords, i, obj, objects, objects_here, nb, range, robot;
     var position, goal, total_nb_objects = {};
     var world = RUR.get_current_world();
 
@@ -8747,24 +8760,27 @@ RUR.world_init = function () {
     }
 
     // next, initial position for robot
-    if (world.robots !== undefined && world.robots.length == 1){
-        robot = world.robots[0];
-        if (robot.possible_initial_positions !== undefined) {
-            position = robot.possible_initial_positions[randint(0, robot.possible_initial_positions.length-1)];
-            robot.x = position[0];
-            robot.y = position[1];
-            robot._prev_x = robot.x;
-            robot._prev_y = robot.y;
-            delete robot.possible_initial_positions;
-        }
-        if (robot._orientation == RUR.RANDOM_ORIENTATION){
-            robot._orientation = randint(0, 3);
-            robot._prev_orientation = robot._orientation;
+    // we can have many robots, with randomly chosen positions
+    if (world.robots !== undefined && world.robots.length >= 1){
+        for (i=0; i < world.robots.length; i++){
+            robot = world.robots[i];
+            if (robot.possible_initial_positions !== undefined) {
+                position = robot.possible_initial_positions[randint(0, robot.possible_initial_positions.length-1)];
+                robot.x = position[0];
+                robot.y = position[1];
+                robot._prev_x = robot.x;
+                robot._prev_y = robot.y;
+                delete robot.possible_initial_positions;
+            }
+            if (robot._orientation == RUR.RANDOM_ORIENTATION){
+                robot._orientation = randint(0, 3);
+                robot._prev_orientation = robot._orientation;
+            }
         }
     }
 
-    // then final position for robot
-
+    // then final position for robot; only makes sense for single robot
+    robot = world.robots[0];
     if (world.goal !== undefined &&
         world.goal.possible_final_positions !== undefined &&
         world.goal.possible_final_positions.length > 1) {
@@ -11587,7 +11603,7 @@ RUR.get_robot_by_id = function (id) {
     }
  };
 
- /** @function get_robot_position
+ /** @function get_robot_location
  *
  * @memberof RUR
  * @instance
@@ -11606,7 +11622,7 @@ RUR.get_robot_by_id = function (id) {
  *
  **/
 
-RUR.get_robot_position = function (robot_body) {
+RUR.get_robot_location = function (robot_body) {
     "use strict";
     var x, y, orientation;
     if (!robot_body || robot_body.x === undefined || robot_body.y === undefined ||
@@ -11627,6 +11643,8 @@ RUR.get_robot_position = function (robot_body) {
     case RUR.SOUTH:
         orientation = "south";
         break;
+    case RUR.RANDOM_ORIENTATION:
+        throw new RUR.ReeborgError(RUR.translate("I am too dizzy!"));
     default:
         throw new Error("Should not happen: unhandled case in RUR.get_location().");
     }
@@ -11667,7 +11685,7 @@ RUR.get_position_in_front = function (robot_body) {
     "use strict";
     var x, y;
     if (!robot_body || robot_body.x === undefined || robot_body.y === undefined) {
-        throw new Error("robot body needed as argument for RUR.get_location_in_front().");
+        throw new Error("robot body needed as argument for RUR.get_position_in_front().");
     }
     switch (robot_body._orientation){
     case RUR.EAST:
@@ -11686,8 +11704,10 @@ RUR.get_position_in_front = function (robot_body) {
         y = robot_body.y - 1;
         x = robot_body.x;
         break;
+    case RUR.RANDOM_ORIENTATION:
+        throw new RUR.ReeborgError(RUR.translate("I am too dizzy!"));
     default:
-        throw new Error("Should not happen: unhandled case in RUR.get_position_in_front().");
+        throw new Error("Missing _orientation attribute for robot_body in RUR.get_position_in_front().");
     }
     return {x:x, y:y};
 };
@@ -11817,7 +11837,7 @@ RUR.set_random_orientation = function (robot_body) {
     robot_body._orientation = RUR.RANDOM_ORIENTATION;
     robot_body._prev_orientation = RUR.RANDOM_ORIENTATION;
 
-    RUR.record_frame("set_random_orientation", robot.__id);
+    RUR.record_frame("set_random_orientation", robot_body.__id);
 };
 },{"./../rur.js":51}],75:[function(require,module,exports){
 require("./../rur.js");

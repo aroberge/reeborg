@@ -87,11 +87,19 @@ RUR.control.move = function (robot) {
 
 RUR.control.turn_left = function(robot){
     "use strict";
-    robot._prev_orientation = robot._orientation;
+    var random;
+    if (robot._orientation == RUR.RANDOM_ORIENTATION) {
+        random = Math.floor(Math.random() * 4);
+        robot._orientation = random;
+        robot._prev_orientation = random;
+    } else {
+        robot._prev_orientation = robot._orientation;
+        robot._orientation ++;
+        robot._orientation %= 4;
+    }
     robot._prev_x = robot.x;
     robot._prev_y = robot.y;
-    robot._orientation += 1;  // could have used "++" instead of "+= 1"
-    robot._orientation %= 4;
+
     RUR.state.sound_id = "#turn-sound";
     if (robot._is_leaky !== undefined && !robot._is_leaky) {  // update to avoid drawing from previous point.
         robot._prev_orientation = robot._orientation;
@@ -338,6 +346,8 @@ RUR.control.wall_in_front = function (robot) {
         return RUR.is_wall("west", robot.x, robot.y);
     case RUR.SOUTH:
         return RUR.is_wall("south", robot.x, robot.y);
+    case RUR.RANDOM_ORIENTATION:
+        throw new RUR.ReeborgError(RUR.translate("I am too dizzy!"));
     default:
         throw new RUR.ReeborgError("Should not happen: unhandled case in RUR.control.wall_in_front().");
     }

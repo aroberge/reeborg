@@ -2,7 +2,7 @@ require("./../drawing/visible_world.js");
 require("./../rur.js");
 
 // Returns a random integer between min and max (both included)
-randint = function (min, max, previous) {
+randint = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
@@ -18,7 +18,7 @@ randint = function (min, max, previous) {
  */
 RUR.world_init = function () {
     "use strict";
-    var coords, obj, objects, objects_here, nb, range, robot;
+    var coords, i, obj, objects, objects_here, nb, range, robot;
     var position, goal, total_nb_objects = {};
     var world = RUR.get_current_world();
 
@@ -90,24 +90,27 @@ RUR.world_init = function () {
     }
 
     // next, initial position for robot
-    if (world.robots !== undefined && world.robots.length == 1){
-        robot = world.robots[0];
-        if (robot.possible_initial_positions !== undefined) {
-            position = robot.possible_initial_positions[randint(0, robot.possible_initial_positions.length-1)];
-            robot.x = position[0];
-            robot.y = position[1];
-            robot._prev_x = robot.x;
-            robot._prev_y = robot.y;
-            delete robot.possible_initial_positions;
-        }
-        if (robot._orientation == RUR.RANDOM_ORIENTATION){
-            robot._orientation = randint(0, 3);
-            robot._prev_orientation = robot._orientation;
+    // we can have many robots, with randomly chosen positions
+    if (world.robots !== undefined && world.robots.length >= 1){
+        for (i=0; i < world.robots.length; i++){
+            robot = world.robots[i];
+            if (robot.possible_initial_positions !== undefined) {
+                position = robot.possible_initial_positions[randint(0, robot.possible_initial_positions.length-1)];
+                robot.x = position[0];
+                robot.y = position[1];
+                robot._prev_x = robot.x;
+                robot._prev_y = robot.y;
+                delete robot.possible_initial_positions;
+            }
+            if (robot._orientation == RUR.RANDOM_ORIENTATION){
+                robot._orientation = randint(0, 3);
+                robot._prev_orientation = robot._orientation;
+            }
         }
     }
 
-    // then final position for robot
-
+    // then final position for robot; only makes sense for single robot
+    robot = world.robots[0];
     if (world.goal !== undefined &&
         world.goal.possible_final_positions !== undefined &&
         world.goal.possible_final_positions.length > 1) {

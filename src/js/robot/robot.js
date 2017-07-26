@@ -51,6 +51,9 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
         case RUR.translation.south:
             robot._orientation = RUR.SOUTH;
             break;
+        case "random":
+            robot._orientation = RUR.RANDOM_ORIENTATION;
+            break;
         default:
             throw new RUR.ReeborgError(RUR.translate("Unknown orientation for robot."));
         }

@@ -496,8 +496,8 @@ class RobotUsage(object):  #py:UR
            Args:
                x: coordonnée horizontale; un entier supérieur ou égal à 1
                y: coordonnée vertical; un entier supérieur ou égal à 1
-               orientation: une des valeurs suivante: "nord", "sud",
-                            est", "ouest"
+               orientation: une des valeurs suivantes: "nord", "sud",
+                            est", "ouest", ou "random"
                jeton: nombre initial de jetons à donner au robot;
                       un entier positif, ou la chaîne "Infinity" pour un
                       nombre infini.

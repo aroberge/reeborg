@@ -472,8 +472,8 @@ class UsedRobot(object):  #py:UR
                x: horizontal coordinate; an integer greater or equal to 1.
                y: vertical coordinate; an integer greater or equal to 1.
                orientation (string):
-                            one of "e" or "east",
-                            "w" or "west", "n" or "north", "s" or "south".
+                            one of "e" or "east","w" or "west",
+                            "n" or "north", "s" or "south", or "random".
                tokens: Initial number of tokens to give to the robot;
                        its value must be a positive integer, or the string
                        "Infinity" to indicate an infinite quantity.

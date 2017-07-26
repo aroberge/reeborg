@@ -118,7 +118,7 @@ RUR.get_robot_by_id = function (id) {
     }
  };
 
- /** @function get_robot_position
+ /** @function get_robot_location
  *
  * @memberof RUR
  * @instance
@@ -137,7 +137,7 @@ RUR.get_robot_by_id = function (id) {
  *
  **/
 
-RUR.get_robot_position = function (robot_body) {
+RUR.get_robot_location = function (robot_body) {
     "use strict";
     var x, y, orientation;
     if (!robot_body || robot_body.x === undefined || robot_body.y === undefined ||
@@ -158,6 +158,8 @@ RUR.get_robot_position = function (robot_body) {
     case RUR.SOUTH:
         orientation = "south";
         break;
+    case RUR.RANDOM_ORIENTATION:
+        throw new RUR.ReeborgError(RUR.translate("I am too dizzy!"));
     default:
         throw new Error("Should not happen: unhandled case in RUR.get_location().");
     }
@@ -198,7 +200,7 @@ RUR.get_position_in_front = function (robot_body) {
     "use strict";
     var x, y;
     if (!robot_body || robot_body.x === undefined || robot_body.y === undefined) {
-        throw new Error("robot body needed as argument for RUR.get_location_in_front().");
+        throw new Error("robot body needed as argument for RUR.get_position_in_front().");
     }
     switch (robot_body._orientation){
     case RUR.EAST:
@@ -217,8 +219,10 @@ RUR.get_position_in_front = function (robot_body) {
         y = robot_body.y - 1;
         x = robot_body.x;
         break;
+    case RUR.RANDOM_ORIENTATION:
+        throw new RUR.ReeborgError(RUR.translate("I am too dizzy!"));
     default:
-        throw new Error("Should not happen: unhandled case in RUR.get_position_in_front().");
+        throw new Error("Missing _orientation attribute for robot_body in RUR.get_position_in_front().");
     }
     return {x:x, y:y};
 };
@@ -348,5 +352,5 @@ RUR.set_random_orientation = function (robot_body) {
     robot_body._orientation = RUR.RANDOM_ORIENTATION;
     robot_body._prev_orientation = RUR.RANDOM_ORIENTATION;
 
-    RUR.record_frame("set_random_orientation", robot.__id);
+    RUR.record_frame("set_random_orientation", robot_body.__id);
 };
