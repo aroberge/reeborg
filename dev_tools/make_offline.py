@@ -3,6 +3,7 @@
 
    Creates two other versions used to run some automated tests using QUnit.
 '''
+import time
 
 
 def make_offline():

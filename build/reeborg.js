@@ -2143,7 +2143,6 @@ $("#update-library-content-btn").on("click", function(evt) {
 },{"./../../lang/msg.js":84,"./../programming_api/blockly.js":38,"./../rur.js":51,"./create.js":11}],13:[function(require,module,exports){
 require("./../rur.js");
 //TODO: review requirements
-require("./../programming_api/output.js");
 require("./../recorder/recorder.js");
 require("./../editors/update.js");
 require("./../world_utils/import_world.js");
@@ -2154,51 +2153,16 @@ require("./../programming_api/exceptions.js");
 require("./../listeners/stop.js");
 require("./../utils/supplant.js");
 
-/**
- * @function _load_world_from_program
- * @memberof RUR
- * @instance
- *
- * @desc Loads a world or permalink from a user's program.
- * This function is intended for private use by developers;
- * **you should use `World()` instead** [or `Monde()` in French].
- *
- * Possible choices include `World(shortname)`
- * where shortname is an existing name in html select; for example
-
-        World ("Home 1")
-
- * Another case is where a world in saved in local storage;
- * in this case, the url must be modified by the user by prefixing the name
- * with `user_world:` as in
-
-        World("user_world:My World")
-
- * or `World(url)`
- * where url is a world or permalink located elsewhere; for example
-
-        World("http://personnel.usainteanne.ca/aroberge/reeborg/token.json")
-
- * In this case, the url will be used as a shortname to appear in the menu
-
-        World(url, shortname)
-
- * where url is a world or permalink located elsewhere
- * and shortname is the name to appear in the html select.
- * If `url` already exists and is the selected world BUT shortname is
- * different than the existing name, a call
- * `World(url, shortname)` will result in the shortname being updated.
- */
 RUR._load_world_from_program = function (url, shortname) {
 
     "use strict";
     var selected, possible_url, new_world=false, new_selection=false;
     RUR.file_io_status = undefined;
 
-    //TODO: see if we can replace this by an exception, and get rid of
-    //the RUR.output dependency.
+    //this is only for the Javascript version; Python will intercept
+    // a missing argument before this is called.
     if (url === undefined) {
-        RUR.output.write(RUR.translate("World() needs an argument."));
+        throw new RUR.ReeborgError(RUR.translate("World() needs an argument."));
         return;
     }
 
@@ -2348,7 +2312,7 @@ window.get_extra_content = function () {
 };
 
 
-},{"./../editors/update.js":12,"./../listeners/stop.js":31,"./../permalink/permalink.js":34,"./../programming_api/exceptions.js":41,"./../programming_api/output.js":42,"./../recorder/recorder.js":46,"./../rur.js":51,"./../translator.js":53,"./../ui/world_select.js":57,"./../utils/supplant.js":62,"./../world_utils/import_world.js":81}],14:[function(require,module,exports){
+},{"./../editors/update.js":12,"./../listeners/stop.js":31,"./../permalink/permalink.js":34,"./../programming_api/exceptions.js":41,"./../recorder/recorder.js":46,"./../rur.js":51,"./../translator.js":53,"./../ui/world_select.js":57,"./../utils/supplant.js":62,"./../world_utils/import_world.js":81}],14:[function(require,module,exports){
 /*  Handler of special on-screen keyboard
 */
 
