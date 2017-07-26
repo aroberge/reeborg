@@ -6598,7 +6598,7 @@ RUR._paint_square_ = function (color) {
     // note that this can do more than simply setting the color: it can also
     // set the tile type.
     var robot = RUR.get_current_world().robots[0];
-    RUR.add_background_tile(color, robot.x, robot.y);
+    RUR.add_colored_tile(color, robot.x, robot.y);
 };
 
 RUR._pause_ = RUR.control.pause;
@@ -6708,7 +6708,7 @@ RUR._UR.object_here_ = function (robot, obj) {
 };
 
 RUR._UR.paint_square_ = function (color, robot_body) {
-    RUR.add_background_tile(color, robot_body.x, robot_body.y);
+    RUR.add_colored_tile(color, robot_body.x, robot_body.y);
 }
 
 RUR._UR.put_ = function (robot, obj) {
@@ -10435,8 +10435,8 @@ RUR.fill_background = function(name) {
  * @instance
  * @summary This function sets a named tile as background at a location.
  *
- * @param {string} name The name of a tile  If a new tile
- *    is set at that location, it replaces the pre-existing one.
+ * @param {string} name The name of a tile.
+ * Any pre-existing tile or color at that location will be replaced by the new value.
  *
  * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
