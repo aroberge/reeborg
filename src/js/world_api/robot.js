@@ -232,6 +232,9 @@ RUR.get_position_in_front = function (robot_body) {
  * `x, y` positions; doing so will result in a final position chosen
  * randomly (among the choices recorded) each time a program is run.
  *
+ * If `x, y` had previously been set as a goal final position
+ * no change is being made and a message is logged in the browser's console.
+ *
  * @param {string} name The name of the object/image we wish to use to
  *  represent the final position of the robot. Only one
  *  image can be used for a given world, even if many possible
@@ -240,10 +243,11 @@ RUR.get_position_in_front = function (robot_body) {
  *  such argument that was previously recorded.
  *
  * @param {integer} x  The position on the grid
- * @param {integer} y
+ * @param {integer} y  The position on the grid
  *
  * @todo: put in argument verification code and note which error can be thrown
- * @throws Will throw an error if the final position is already included
+ * @throws Will throw an error if the final position is not valid [not implemented yet]
+ * @throws will throw an error if the name is not recognized [not implemented yet]
  **/
 
 
@@ -259,7 +263,8 @@ RUR.add_final_position = function (name, x, y) {
     for(var i=0; i<goal.possible_final_positions.length; i++) {
         pos = goal.possible_final_positions[i];
         if(pos[0]==x && pos[1]==y){
-            throw new RUR.ReeborgError("This final position is already included!");
+            console.log(x, y, ": this final position is already included!");
+            return;
         }
     }
 
@@ -279,11 +284,15 @@ RUR.add_final_position = function (name, x, y) {
  * with different `x, y` positions; doing so will result in a initial position
  * chosen randomly (among the choices recorded) each time a program is run.
  *
+ * If `x, y` had previously been set as a goal final position
+ * no change is being made and a message is logged in the browser's console.
+ *
  * @param {integer} x  The position on the grid
- * @param {integer} y
+ * @param {integer} y  The position on the grid
  *
  * @todo: put in argument verification code and note which error can be thrown
- * @throws Will throw an error if the final position is already included
+ * @throws Will throw an error if the the world does not contain a robot
+ * @throws Will throw an error if the initial position is not valid [not implemented yet]
  **/
 
 RUR.add_initial_position = function (x, y) {
@@ -301,7 +310,8 @@ RUR.add_initial_position = function (x, y) {
     for(var i=0; i<robot.possible_initial_positions.length; i++) {
         pos = robot.possible_initial_positions[i];
         if(pos[0]==x && pos[1]==y){
-            throw new RUR.ReeborgError("This initial position is already included!");
+            console.log(x, y, ": this initial position is already included!");
+            return;
         }
     }
 
@@ -309,6 +319,7 @@ RUR.add_initial_position = function (x, y) {
     RUR.record_frame("add_initial_position", {x:x, y:y});
 };
 
+// TODO: try to set it in the middle of a program to have Reeborg being "dizzy".
  /** @function set_random_orientation
  *
  * @memberof RUR
@@ -316,19 +327,26 @@ RUR.add_initial_position = function (x, y) {
  * @summary This function sets the initial (starting) orientation so that it
  * will be chosen randomly.
  *
- * @todo add examples
+ * @param {object} [robot_body]  Optional robot body object
  *
+ * @throws Will throw an error if it is called without an argument and
+ * the world does not contain a robot.
  **/
 
-RUR.set_random_orientation = function () {
+RUR.set_random_orientation = function (robot_body) {
     "use strict";
-    var robot, pos, world=RUR.get_current_world();
-    if (world.robots === undefined || world.robots.length === 0) {
-        throw new RUR.ReeborgError("This world has no robot; cannot set random orientation.");
+    var pos, world=RUR.get_current_world();
+    if (robot_body === undefined) {
+        if (world.robots === undefined || world.robots.length < 1) {
+            throw new RUR.ReeborgError("This world has no robot; cannot set random orientation.");
+        }
+        robot_body = world.robots[0];
+    } else if (robot_body.__id === undefined) {
+        throw new RUR.ReeborgError("Invalid robot_body argument in RUR.set_random_orientation.")
     }
 
-    robot = world.robots[0];
-    robot._orientation = RUR.RANDOM_ORIENTATION;
-    robot._prev_orientation = RUR.RANDOM_ORIENTATION;
-    RUR.record_frame("set_random_orientation");
+    robot_body._orientation = RUR.RANDOM_ORIENTATION;
+    robot_body._prev_orientation = RUR.RANDOM_ORIENTATION;
+
+    RUR.record_frame("set_random_orientation", robot.__id);
 };

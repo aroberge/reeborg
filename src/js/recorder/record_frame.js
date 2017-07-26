@@ -138,27 +138,37 @@ RUR.record_frame = function (name, obj) {
         frame.sound_id = RUR.state.sound_id;
     }
 
+/* In an earlier version, we only recorded values to RUR.rec_line_numbers if
+Python was selected and RUR.state.highlight was set to true. However,
+in order to avoid recording frames when nothing changed (no world state change,
+no change in the line being highlighted), the logic became rather convoluted.
+
+This new version always record a value for RUR.current_line_no; a valid value
+is an array of consecutive line numbers, like [2, 3, 4]. If highlighting is
+is not performed, we just set this to a string value "ignore" as a "code comment";
+with highlihting turned off, during playback, the content of RUR.rec_line_numbers
+will be ignored no matter what its content is.
+*/
 
     if (RUR.state.programming_language === "python" && RUR.state.highlight) {
-        if (RUR.current_line_no !== undefined) {
-            if (RUR.nb_frames > 1) {
-                if (RUR.rec_line_numbers [RUR.nb_frames-1] != RUR.current_line_no) {
-                    RUR.rec_line_numbers [RUR.nb_frames] = RUR.current_line_no;
-                } else {
-                    RUR.nb_frames--; // avoid highlighting same frame twice
-                }
-            } else {
-                RUR.rec_line_numbers [RUR.nb_frames] = RUR.current_line_no;
-            }
-        } else{
-            RUR.rec_line_numbers [RUR.nb_frames] = [0];
+        if (RUR.current_line_no === undefined) {
+            RUR.current_line_no = [0];
         }
+    } else {
+        RUR.current_line_no = "ignore";
     }
 
+
     if (RUR.nb_frames > 0){
-        if (identical(RUR.frames[RUR.nb_frames-1], frame)) {
-            return;
+        // avoid logging frames if nothing changed
+        if (identical(RUR.frames[RUR.nb_frames-1], frame) &&
+            RUR.rec_line_numbers [RUR.nb_frames-1] == RUR.current_line_no) {
+                return;
+        } else {
+            RUR.rec_line_numbers [RUR.nb_frames] = RUR.current_line_no;
         }
+    } else {
+        RUR.rec_line_numbers[0] = RUR.current_line_no;
     }
 
     RUR.frames[RUR.nb_frames] = frame;

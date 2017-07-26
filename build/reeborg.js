@@ -7852,27 +7852,37 @@ RUR.record_frame = function (name, obj) {
         frame.sound_id = RUR.state.sound_id;
     }
 
+/* In an earlier version, we only recorded values to RUR.rec_line_numbers if
+Python was selected and RUR.state.highlight was set to true. However,
+in order to avoid recording frames when nothing changed (no world state change,
+no change in the line being highlighted), the logic became rather convoluted.
+
+This new version always record a value for RUR.current_line_no; a valid value
+is an array of consecutive line numbers, like [2, 3, 4]. If highlighting is
+is not performed, we just set this to a string value "ignore" as a "code comment";
+with highlihting turned off, during playback, the content of RUR.rec_line_numbers
+will be ignored no matter what its content is.
+*/
 
     if (RUR.state.programming_language === "python" && RUR.state.highlight) {
-        if (RUR.current_line_no !== undefined) {
-            if (RUR.nb_frames > 1) {
-                if (RUR.rec_line_numbers [RUR.nb_frames-1] != RUR.current_line_no) {
-                    RUR.rec_line_numbers [RUR.nb_frames] = RUR.current_line_no;
-                } else {
-                    RUR.nb_frames--; // avoid highlighting same frame twice
-                }
-            } else {
-                RUR.rec_line_numbers [RUR.nb_frames] = RUR.current_line_no;
-            }
-        } else{
-            RUR.rec_line_numbers [RUR.nb_frames] = [0];
+        if (RUR.current_line_no === undefined) {
+            RUR.current_line_no = [0];
         }
+    } else {
+        RUR.current_line_no = "ignore";
     }
 
+
     if (RUR.nb_frames > 0){
-        if (identical(RUR.frames[RUR.nb_frames-1], frame)) {
-            return;
+        // avoid logging frames if nothing changed
+        if (identical(RUR.frames[RUR.nb_frames-1], frame) &&
+            RUR.rec_line_numbers [RUR.nb_frames-1] == RUR.current_line_no) {
+                return;
+        } else {
+            RUR.rec_line_numbers [RUR.nb_frames] = RUR.current_line_no;
         }
+    } else {
+        RUR.rec_line_numbers[0] = RUR.current_line_no;
     }
 
     RUR.frames[RUR.nb_frames] = frame;
@@ -8805,20 +8815,6 @@ RUR.KNOWN_THINGS = []; // keeping track of their names only
 RUR.KNOWN_ROBOT_MODELS = [];
 RUR.CANVASES = []; // html canvases ...
 RUR.ALL_CTX = [];  // and their corresponding 2d context
-
-/** private_dict
- * @var
- * @memberof RUR
- * @desc A Javascript object / Python dict that can be used to store
- * values which are meant to be used globally. For example, one can
- * define a value in the Onload editor, and use it when running a program.
- *
- * @example {@lang python}
- * import random
- * RUR.private_dict["choice"] = random.randint(1, 6)
- */
-RUR.private_dict = {}; /* for use by world creators */
-
 
 /*========================================================
   Constants
@@ -9938,7 +9934,13 @@ function _sync (obj, nb, id) {
 
 },{"./../rur.js":51}],65:[function(require,module,exports){
 /*  This file contains generic methods called by more specialized methods
-    used to create worlds. */
+    used to create worlds.
+
+IMPORTANT: the comments begin by "/*" instead of "/**" so as not to be
+processed by jsdoc and be included in the public documentation.
+
+*/
+
 
 require("./../rur.js");
 require("./../translator.js");
@@ -9980,7 +9982,7 @@ function ensure_common_required_args_present(args) {
 RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_present;
 
 
-/** @function _add_artefact
+/* @function _add_artefact
  * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
@@ -10073,7 +10075,7 @@ RUR._add_artefact = function (args) {
 };
 
 
-/** @function _get_artefacts
+/* @function _get_artefacts
  * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
@@ -10140,7 +10142,7 @@ RUR._get_artefacts = function(args) {
 };
 
 
-/** @function _get_nb_artefact
+/* @function _get_nb_artefact
  * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
@@ -10215,7 +10217,7 @@ RUR._get_nb_artefact = function(args) {
     }
 };
 
-/** @function _remove_artefact
+/* @function _remove_artefact
  * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
@@ -10265,12 +10267,6 @@ RUR._get_nb_artefact = function(args) {
  * @throws Will throw an error if `type` attribute is not specified.
  * @throws Will throw an error if a valid position is not specified.
  * @throws Will throw an error if no such artefact is found at that location.
- *
- * @todo  Need to implement `args.all`
- * @todo  Need to implement tests for  `args.all`
- * @todo Need to implement `args.number`
- * @todo Need to add full tests for `args.number`
- *
  *
  */
 RUR._remove_artefact = function (args) {
@@ -10329,7 +10325,7 @@ RUR._remove_artefact = function (args) {
     }
 };
 
-/** @function _set_nb_artefact
+/* @function _set_nb_artefact
  * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
@@ -10363,13 +10359,10 @@ RUR._remove_artefact = function (args) {
  * @param {boolean} [args.goal] If specified, indicates that it is a goal that
  *                        must be set.
  *
- *
- *
  * @throws Will throw an error if `name` attribute is not specified.
  * @throws Will throw an error if `type` attribute is not specified.
  * @throws Will throw an error if `number` attribute is not specified.
  * @throws Will throw an error if a valid position is not specified.
- *
  *
  */
 RUR._set_nb_artefact = function (args) {
@@ -10427,8 +10420,6 @@ require("./artefact.js");
  *    tile name is not recognized, it is assumed to be a colour. If a new tile
  *    is set at that location, it replaces the pre-existing one.
  *
- *
- * @todo add test
  * @todo add examples
  * @todo deal with translation
  */
@@ -10460,6 +10451,9 @@ RUR.fill_background = function(name) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  *
+ * @todo add examples
+ * @todo deal with translation
+ *
  * @example
  *
  * // Show how to set a color
@@ -10470,16 +10464,6 @@ RUR.fill_background = function(name) {
  * RUR.add_background_tile("rgba(255, 0, 0, 0.1)", 7, 8)
  * RUR.add_background_tile("hsl(24, 71%, 77%)", 9, 8)
  *
- * @example
- * // shows how to set various tiles;
- * // the mode will be set to Python
- * World("/worlds/examples/background1.json", "Background 1")
- *
- * @example
- * // Like Background 1 above, except that all the tiles
- * // are added in the Onload editor.  Click on World Info
- * // to see the code.
- * World("/worlds/examples/background2.json", "Background 2")
  *
  */
 RUR.add_background_tile = function (name, x, y) {
@@ -10502,8 +10486,6 @@ RUR.add_background_tile = function (name, x, y) {
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no background tile to remove
  *        at that location
- *
- * @todo add test
  * @todo add examples
  * @todo deal with translation
  */
@@ -10540,14 +10522,8 @@ RUR.remove_background_tile = function (name, x, y) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  *
- * @todo add test
  * @todo add proper examples
  * @todo deal with translation
- * @example
- * // shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
 
@@ -10570,8 +10546,9 @@ RUR.get_background_tile = function (x, y) {
  * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  *
- * @todo finish writing documentation
- * @todo check all other is_XXX for documentation
+ * @todo add examples
+ * @todo deal with translation
+ * @todo write summary
  *
  * @example {@lang python}
  * no_highlight()
@@ -10621,8 +10598,6 @@ require("./artefact.js");
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if `name` is not a known thing.
  * @throws Will throw an error if there is already a bridge at that location.
-
- * @see Unit tests are found in {@link UnitTest#test_add_bridge}
  * @todo add examples
  * @todo deal with translation
  *
@@ -10651,8 +10626,6 @@ RUR.add_bridge = function (name, x, y) {
 
  * @throws Will throw an error if there is no such named bridge to remove
  *        at that location
- *
- * @todo add test
  * @todo add examples
  * @todo deal with translation
  */
@@ -10681,14 +10654,8 @@ RUR.remove_bridge = function (name, x, y) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  *
- * @todo add test
- * @todo add proper examples
+ * @todo add examples
  * @todo deal with translation
- * @example
- * // shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
 
@@ -10714,14 +10681,8 @@ RUR.get_bridge = function (x, y) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  *
- * @todo add test
- * @todo add proper examples
+ * @todo add examples
  * @todo deal with translation
- * @example
- * // shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
 
@@ -10746,14 +10707,8 @@ RUR.is_bridge = function (name, x, y) {
  *                 against a specific type of artefact; this could be
  *                 an empty array.
  *
- * @todo add test
- * @todo add proper examples
+ * @todo add examples
  * @todo deal with translation
- * @example
- * // shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
 
@@ -10874,14 +10829,8 @@ require("./artefact.js");
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  *
- * @todo add test
- * @todo add better examples
+ * @todo add examples
  * @todo deal with translation
- * @example
- * // shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
 RUR.add_decorative_object = function (name, x, y) {
@@ -10905,7 +10854,6 @@ RUR.add_decorative_object = function (name, x, y) {
  * @throws Will throw an error if there is no background tile to remove
  *        at that location
  *
- * @todo add test
  * @todo add examples
  * @todo deal with translation
  */
@@ -10939,14 +10887,8 @@ RUR.remove_decorative_object = function (name, x, y) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  *
- * @todo add test
- * @todo add proper examples
+ * @todo add examples
  * @todo deal with translation
- * @example
- * // shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
 
@@ -10978,6 +10920,9 @@ require("./obstacles.js");
  * @param {object} robot_body  robot body object
  *
  * @returns an array of protections
+ * @todo add examples
+ * @todo deal with translation
+ *
  */
 RUR.get_protections = function (robot) {
     "use strict";
@@ -11007,6 +10952,8 @@ RUR.get_protections = function (robot) {
  * @param {object} robot_body  robot body object
  *
  * @desc This needs to be documented
+ * @todo add examples
+ * @todo deal with translation
  *
  * @returns The message to show if it is a fatal position, otherwise `false`.
  */
@@ -11063,7 +11010,8 @@ RUR.is_fatal_position = function (x, y, robot){
  * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @desc This needs to be documented
- *
+ * @todo add examples
+ * @todo deal with translation
  * @returns `true` if this position is detectable by the robot, `false` otherwise
  */
 RUR.is_detectable_position = function (x, y){
@@ -11122,14 +11070,8 @@ require("./artefact.js");
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if `name` is not a known thing.
- * @todo add test
- * @todo add better examples
+ * @todo add examples
  * @todo deal with translation
- * @example
- * // shows how to set various objects;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/object1.json", "Example 1")
  *
  */
 RUR.add_object = function (name, x, y, options) {
@@ -11179,7 +11121,6 @@ RUR.add_object = function (name, x, y, options) {
  * @throws Will throw an error if there is no background object to remove
  *        at that location
  *
- * @todo add test
  * @todo add examples
  * @todo deal with translation
  */
@@ -11224,7 +11165,6 @@ RUR.remove_object = function (name, x, y, options) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  *
- * @todo add test
  * @todo add proper examples
  * @todo deal with translation
  * @todo make sure it returns the correct info
@@ -11277,15 +11217,8 @@ require("./artefact.js");
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if `name` is not a known thing.
- * @todo add test
- * @todo add better examples
+ * @todo add examples
  * @todo deal with translation
- * @todo Make sure we cover the case of two or more obstacles at a given location
- * @example
- * // shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
 RUR.add_obstacle = function (name, x, y) {
@@ -11310,7 +11243,6 @@ RUR.add_obstacle = function (name, x, y) {
  * @throws Will throw an error if there is no background tile to remove
  *        at that location
  *
- * @todo add test
  * @todo add examples
  * @todo deal with translation
  *
@@ -11337,16 +11269,8 @@ RUR.remove_obstacle = function (name, x, y) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  *
- * @todo add test
  * @todo add proper examples
  * @todo deal with translation
- * @todo deal properly with cases of two or more obstacles
- *
- * @example
- * // shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
 
@@ -11408,15 +11332,8 @@ require("./artefact.js");
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is another pushable already at that location.
  *
- * @todo add test
- * @todo add better examples
+ * @todo add examples
  * @todo deal with translation
- * @todo **Important** Add goal for pushables
- * @example
- * // shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
 RUR.add_pushable = function (name, x, y, options) {
@@ -11446,10 +11363,8 @@ RUR.add_pushable = function (name, x, y, options) {
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no pushable
  *
- * @todo add test
  * @todo add examples
  * @todo deal with translation
- *
  *
  */
 RUR.remove_pushable = function (name, x, y, options) {
@@ -11479,15 +11394,8 @@ RUR.remove_pushable = function (name, x, y, options) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  *
- * @todo add test
- * @todo add proper examples
+ * @todo add examples
  * @todo deal with translation
- *
- * @example
- * // shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
 RUR.get_pushable = function (x, y, options) {
@@ -11520,15 +11428,9 @@ RUR.get_pushable = function (x, y, options) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  *
- * @todo add test
  * @todo add proper examples
  * @todo deal with translation
  *
- * @example
- * // shows how to set various tiles;
- * // the mode will be set to Python and the highlighting
- * // will be turned off
- * World("/worlds/examples/tile1.json", "Example 1")
  *
  */
 
@@ -11785,6 +11687,9 @@ RUR.get_position_in_front = function (robot_body) {
  * `x, y` positions; doing so will result in a final position chosen
  * randomly (among the choices recorded) each time a program is run.
  *
+ * If `x, y` had previously been set as a goal final position
+ * no change is being made and a message is logged in the browser's console.
+ *
  * @param {string} name The name of the object/image we wish to use to
  *  represent the final position of the robot. Only one
  *  image can be used for a given world, even if many possible
@@ -11793,10 +11698,11 @@ RUR.get_position_in_front = function (robot_body) {
  *  such argument that was previously recorded.
  *
  * @param {integer} x  The position on the grid
- * @param {integer} y
+ * @param {integer} y  The position on the grid
  *
  * @todo: put in argument verification code and note which error can be thrown
- * @throws Will throw an error if the final position is already included
+ * @throws Will throw an error if the final position is not valid [not implemented yet]
+ * @throws will throw an error if the name is not recognized [not implemented yet]
  **/
 
 
@@ -11812,7 +11718,8 @@ RUR.add_final_position = function (name, x, y) {
     for(var i=0; i<goal.possible_final_positions.length; i++) {
         pos = goal.possible_final_positions[i];
         if(pos[0]==x && pos[1]==y){
-            throw new RUR.ReeborgError("This final position is already included!");
+            console.log(x, y, ": this final position is already included!");
+            return;
         }
     }
 
@@ -11832,11 +11739,15 @@ RUR.add_final_position = function (name, x, y) {
  * with different `x, y` positions; doing so will result in a initial position
  * chosen randomly (among the choices recorded) each time a program is run.
  *
+ * If `x, y` had previously been set as a goal final position
+ * no change is being made and a message is logged in the browser's console.
+ *
  * @param {integer} x  The position on the grid
- * @param {integer} y
+ * @param {integer} y  The position on the grid
  *
  * @todo: put in argument verification code and note which error can be thrown
- * @throws Will throw an error if the final position is already included
+ * @throws Will throw an error if the the world does not contain a robot
+ * @throws Will throw an error if the initial position is not valid [not implemented yet]
  **/
 
 RUR.add_initial_position = function (x, y) {
@@ -11854,7 +11765,8 @@ RUR.add_initial_position = function (x, y) {
     for(var i=0; i<robot.possible_initial_positions.length; i++) {
         pos = robot.possible_initial_positions[i];
         if(pos[0]==x && pos[1]==y){
-            throw new RUR.ReeborgError("This initial position is already included!");
+            console.log(x, y, ": this initial position is already included!");
+            return;
         }
     }
 
@@ -11862,25 +11774,36 @@ RUR.add_initial_position = function (x, y) {
     RUR.record_frame("add_initial_position", {x:x, y:y});
 };
 
+// TODO: try to set it in the middle of a program to have Reeborg being "dizzy".
  /** @function set_random_orientation
  *
  * @memberof RUR
  * @instance
  * @summary This function sets the initial (starting) orientation so that it
  * will be chosen randomly.
+ *
+ * @param {object} [robot_body]  Optional robot body object
+ *
+ * @throws Will throw an error if it is called without an argument and
+ * the world does not contain a robot.
  **/
 
-RUR.set_random_orientation = function () {
+RUR.set_random_orientation = function (robot_body) {
     "use strict";
-    var robot, pos, world=RUR.get_current_world();
-    if (world.robots === undefined || world.robots.length === 0) {
-        throw new RUR.ReeborgError("This world has no robot; cannot set random orientation.");
+    var pos, world=RUR.get_current_world();
+    if (robot_body === undefined) {
+        if (world.robots === undefined || world.robots.length < 1) {
+            throw new RUR.ReeborgError("This world has no robot; cannot set random orientation.");
+        }
+        robot_body = world.robots[0];
+    } else if (robot_body.__id === undefined) {
+        throw new RUR.ReeborgError("Invalid robot_body argument in RUR.set_random_orientation.")
     }
 
-    robot = world.robots[0];
-    robot._orientation = RUR.RANDOM_ORIENTATION;
-    robot._prev_orientation = RUR.RANDOM_ORIENTATION;
-    RUR.record_frame("set_random_orientation");
+    robot_body._orientation = RUR.RANDOM_ORIENTATION;
+    robot_body._prev_orientation = RUR.RANDOM_ORIENTATION;
+
+    RUR.record_frame("set_random_orientation", robot.__id);
 };
 },{"./../rur.js":51}],75:[function(require,module,exports){
 require("./../rur.js");
@@ -11974,20 +11897,14 @@ require("./../utils/supplant.js");
  * number of pixel equal to `y_offset`. This is only valid for images - not for
  * colors.
  *
+ * @param {object} [things.transform] This needs to be documented.
+ *
  * @throws Will throw an error if `name` attribute is not specified.
  * @throws Will throw an error if no image is supplied (either via the `url`
  *         or the `images` attribute) and `color` does not evaluate to true.
  *
- * @example
- * // This first example shows how to set various "things";
- * // the mode will be set to Python and the highlighting
- * // will be turned off. Click on World Info for details
- * World("/worlds/examples/thing1.json", "Example 1")
- *
- * // A second example, showing how to set different types of
- * // animated images; the mode will be set to Javascript.
- * // Also click on World Info for details.
- * World("/worlds/examples/animated_all.json", "Example 2")
+ * @todo add examples
+ * @todo deal with translation
  */
 
 RUR.add_new_thing = function (thing) {
@@ -12227,14 +12144,8 @@ that lists the walls, and must be handled separately.
  *
  * @throws Will throw an error if `x` or `y` is outside the world boundary.
  *
- * @example
- * // Execute the following instruction (either from Python or Javascript)
- * // to load a sample program
- *
- * World("worlds/examples/walls.json", "Wall example")
- *
- * // Then run the program; notice how the goal set (3 walls to build)
- * // is automatically verified at the end.
+ * @todo add examples
+ * @todo deal with translation
  *
  */
 RUR.get_walls = function(x, y, goal) {
@@ -12271,14 +12182,8 @@ RUR.get_walls = function(x, y, goal) {
  * @throws Will throw an error if `x` or `y` is outside the world boundary.
  * @throws Will throw an error if `orientation` is not a valid choice.
  *
- * @example
- * // Execute the following instruction (either from Python or Javascript)
- * // to load a sample program
- *
- * World("worlds/examples/walls.json", "Wall example")
- *
- * // Then run the program; notice how the goal set (3 walls to build)
- * // is automatically verified at the end.
+ * @todo add examples
+ * @todo deal with translation
  *
  */
 RUR.is_wall = function(orientation, x, y, goal) {
@@ -12331,14 +12236,8 @@ function is_boundary_wall(orientation, x, y) {
  * @throws Will throw an error if `orientation` is not a valid choice.
  * @throws Will throw an error if there is already a wall there.
  *
- * @example
- * // Execute the following instruction (either from Python or Javascript)
- * // to load a sample program
- *
- * World("worlds/examples/walls.json", "Wall example")
- *
- * // Then run the program; notice how the goal set (3 walls to build)
- * // is automatically verified at the end.
+ * @todo add examples
+ * @todo deal with translation
  *
  */
 RUR.add_wall = function(orientation, x, y, goal) {
@@ -12371,14 +12270,8 @@ RUR.add_wall = function(orientation, x, y, goal) {
  * @throws Will throw an error if `orientation` is not a valid choice.
  * @throws Will throw an error if there is no wall to remove.
  *
- * @example
- * // Execute the following instruction (either from Python or Javascript)
- * // to load a sample program
- *
- * World("worlds/examples/walls.json", "Wall example")
- *
- * // Then run the program; notice how the goal set (3 walls to build)
- * // is automatically verified at the end.
+ * @todo add examples
+ * @todo deal with translation
  *
  */
 RUR.remove_wall = function(orientation, x, y, goal) {

@@ -1,5 +1,11 @@
 /*  This file contains generic methods called by more specialized methods
-    used to create worlds. */
+    used to create worlds.
+
+IMPORTANT: the comments begin by "/*" instead of "/**" so as not to be
+processed by jsdoc and be included in the public documentation.
+
+*/
+
 
 require("./../rur.js");
 require("./../translator.js");
@@ -41,7 +47,7 @@ function ensure_common_required_args_present(args) {
 RUR.UnitTest.ensure_common_required_args_present = ensure_common_required_args_present;
 
 
-/** @function _add_artefact
+/* @function _add_artefact
  * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
@@ -134,7 +140,7 @@ RUR._add_artefact = function (args) {
 };
 
 
-/** @function _get_artefacts
+/* @function _get_artefacts
  * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
@@ -201,7 +207,7 @@ RUR._get_artefacts = function(args) {
 };
 
 
-/** @function _get_nb_artefact
+/* @function _get_nb_artefact
  * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
@@ -276,7 +282,7 @@ RUR._get_nb_artefact = function(args) {
     }
 };
 
-/** @function _remove_artefact
+/* @function _remove_artefact
  * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**
@@ -384,7 +390,7 @@ RUR._remove_artefact = function (args) {
     }
 };
 
-/** @function _set_nb_artefact
+/* @function _set_nb_artefact
  * @memberof RUR
  * @instance
  * @summary **This function is intended for private use by developers.**

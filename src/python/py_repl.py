@@ -144,8 +144,10 @@ py_console.textarea.bind('click', myMouseClick)
 class Interpreter():
 
     def __init__(self):
+        self.initialized = False
         try:
             self.restart()
+            self.initialized = True
         except:
             py_console.append("Problem in attempting to (re)start Interpreter")
 
@@ -181,9 +183,11 @@ class Interpreter():
         self.namespace["init"] = window.RUR.world_init
         # Ensure my help replaces Brython's builtin
         exec("__BRYTHON__.builtins.help = Help", self.namespace)
-        self.run_pre()
+        if self.initialized:
+            self.run_pre()
 
     def run_pre(self):
+        window.console.log("executing pre from repl")
         if hasattr(RUR.CURRENT_WORLD, "pre"):
             try:
                 exec(RUR.CURRENT_WORLD.pre, self.namespace)

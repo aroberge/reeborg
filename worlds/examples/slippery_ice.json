@@ -1,0 +1,118 @@
+{
+  "robots": [
+    {
+      "x": 4,
+      "y": 1,
+      "_prev_x": 4,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 6,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          4,
+          1
+        ]
+      ]
+    }
+  ],
+  "description": "<h1>Almost home!</h1>\n<p>After a long walk, Reeborg is almost home.\n    Only a few more instructions, thinks Reeborg.</p>\nINSERT_EDITOR\n<p>Unknown to Reeborg, it rained earlier today and \n    parts of the street are covered in slippery ice.\n    Can Reeborg go home?\n</p>\n\n<h3>Explanation</h3>\n<p>Here is the code in the Onload editor</p>\nINSERT_ONLOAD\n<p> and in the Pre editor, where the ice\n    is made slippery.</p>\nINSERT_PRE",
+  "small_tiles": false,
+  "rows": 2,
+  "cols": 10,
+  "tiles": {
+    "1,1": [
+      "gravel"
+    ],
+    "1,2": [
+      "grass"
+    ],
+    "2,1": [
+      "gravel"
+    ],
+    "2,2": [
+      "grass"
+    ],
+    "3,1": [
+      "gravel"
+    ],
+    "3,2": [
+      "grass"
+    ],
+    "4,1": [
+      "gravel"
+    ],
+    "4,2": [
+      "grass"
+    ],
+    "5,1": [
+      "ice"
+    ],
+    "5,2": [
+      "grass"
+    ],
+    "6,1": [
+      "ice"
+    ],
+    "6,2": [
+      "grass"
+    ],
+    "7,1": [
+      "ice"
+    ],
+    "7,2": [
+      "grass"
+    ],
+    "8,1": [
+      "ice"
+    ],
+    "8,2": [
+      "grass"
+    ],
+    "9,1": [
+      "ice"
+    ],
+    "9,2": [
+      "grass"
+    ],
+    "10,1": [
+      "ice"
+    ],
+    "10,2": [
+      "grass"
+    ]
+  },
+  "walls": {
+    "4,1": [
+      "north"
+    ],
+    "3,1": [
+      "north"
+    ],
+    "2,1": [
+      "north"
+    ]
+  },
+  "goal": {
+    "possible_final_positions": [
+      [
+        5,
+        2
+      ]
+    ],
+    "position": {
+      "image": "house",
+      "x": 5,
+      "y": 2
+    }
+  },
+  "editor": "move()\n",
+  "pre": "def make_ice_slippery(fn):\n    def wrapper():\n        fn()\n        x, y = position_here()\n        while RUR.is_background_tile(\"ice\", x, y):\n            print(\"I'm slipping!\")\n            fn()\n            x, y = position_here()\n    return wrapper\n\nmove = make_ice_slippery(move)\n",
+  "onload": "RUR.onload_set_programming_language(\"python\")\n"
+}
