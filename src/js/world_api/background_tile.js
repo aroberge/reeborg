@@ -49,32 +49,56 @@ RUR.fill_background = function(name) {
  * @todo add examples
  * @todo deal with translation
  *
+ */
+RUR.add_background_tile = function (name, x, y) {
+    "use strict";
+    var args = {name: name, x:x, y:y, type:"tiles", single:true, valid_names: RUR.KNOWN_THINGS};
+    RUR._add_artefact(args);
+    RUR.record_frame("RUR.add_background_tile", args);
+};
+
+/** @function add_colored_tile
+ * @memberof RUR
+ * @instance
+ * @summary This function sets a uniform color as background at a location.
+ *
+ * @param {string} name The name of a colour recognized by JS/HTML.
+ *    No check is performed to ensure that the value given is valid; it the
+ *    tile name is not recognized, it is assumed to be a colour. If a new tile
+ *    is set at that location, it replaces the pre-existing one.
+ *
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
+ *
+ * @throws Will throw an error if `(x, y)` is not a valid location.
+ *
+ *
  * @example
  *
  * // Show how to set a color
  * World("Alone")
- * RUR.add_background_tile("blue", 1, 8)
- * RUR.add_background_tile("#00ff00", 3, 8)
- * RUR.add_background_tile("rgb(255, 0, 0)", 5, 8)
- * RUR.add_background_tile("rgba(255, 0, 0, 0.1)", 7, 8)
- * RUR.add_background_tile("hsl(24, 71%, 77%)", 9, 8)
+ * RUR.add_colored_tile("blue", 1, 8)
+ * RUR.add_colored_tile("#00ff00", 3, 8)
+ * RUR.add_colored_tile("rgb(255, 0, 0)", 5, 8)
+ * RUR.add_colored_tile("rgba(255, 0, 0, 0.1)", 7, 8)
+ * RUR.add_colored_tile("hsl(24, 71%, 77%)", 9, 8)
  *
  *
  */
-RUR.add_background_tile = function (name, x, y) {
+RUR.add_colored_tile = function (name, x, y) {
     "use strict";
     var args = {name: name, x:x, y:y, type:"tiles", single:true};
     RUR._add_artefact(args);
-    RUR.record_frame("RUR.add_background_tile", args);
+    RUR.record_frame("RUR.add_colored_tile", args);
 };
 
 
 /** @function remove_background_tile
  * @memberof RUR
  * @instance
- * @summary This function removes a background tile at a location.
+ * @summary This function removes a background tile (or a colored tile) at a location.
  *
- * @param {string} name Name of the tile
+ * @param {string} name Name of the tile or colored tile
  * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  *

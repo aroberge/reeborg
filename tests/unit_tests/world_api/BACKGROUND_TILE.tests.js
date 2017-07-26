@@ -40,17 +40,32 @@ test('adding known tile', function (assert) {
     assert.end();
 });
 
-test('adding unknown tile', function (assert) { // should not create any problems
+test('adding unknown tile', function (assert) {
+    require("../../../src/js/world_api/background_tile.js");
+    assert.plan(3);
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.KNOWN_THINGS = [];
+    RUR.untranslated['red'] = true;
+    try {
+        global.RUR.add_background_tile('red', 2, 3);
+    } catch (e) {
+        assert.equal(e.message, "Invalid name: red", "error message ok");
+        assert.equal(e.reeborg_shouts, "Invalid name: red", "reeborg_shouts");
+        assert.equal(e.name, "ReeborgError", "error name ok");
+    }
+    assert.end();
+});
+
+test('adding unknown color', function (assert) { // should not create any problems
     require("../../../src/js/world_api/background_tile.js");
     assert.plan(1);
     RUR.CURRENT_WORLD = RUR.create_empty_world();
     RUR.KNOWN_THINGS = [];
     RUR.untranslated['red'] = true;
-    global.RUR.add_background_tile('red', 2, 3);
-    assert.deepEqual(RUR.CURRENT_WORLD.tiles['2,3'], ["red"], "background_tiles ok");
+    global.RUR.add_colored_tile('red', 2, 3);
+    assert.deepEqual(RUR.CURRENT_WORLD.tiles['2,3'], ["red"], "colored tile ok");
     assert.end();
 });
-
 
 
 test('adding and removing known solid object', function (assert) {
