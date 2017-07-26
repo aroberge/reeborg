@@ -36,15 +36,14 @@ RUR.fill_background = function(name) {
  * @instance
  * @summary This function sets a named tile as background at a location.
  *
- * @param {string} name The name of a tile **or** a colour recognized by JS/HTML.
- *    No check is performed to ensure that the value given is valid; it the
- *    tile name is not recognized, it is assumed to be a colour. If a new tile
- *    is set at that location, it replaces the pre-existing one.
+ * @param {string} name The name of a tile.
+ * Any pre-existing tile or color at that location will be replaced by the new value.
  *
  * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
+ * @throws Will throw an error if `name` is not a known thing.
  *
  * @todo add examples
  * @todo deal with translation
@@ -62,16 +61,14 @@ RUR.add_background_tile = function (name, x, y) {
  * @instance
  * @summary This function sets a uniform color as background at a location.
  *
- * @param {string} name The name of a colour recognized by JS/HTML.
- *    No check is performed to ensure that the value given is valid; it the
- *    tile name is not recognized, it is assumed to be a colour. If a new tile
- *    is set at that location, it replaces the pre-existing one.
+ * @param {string} color A colour recognized by JS/HTML.
+ *    No check is performed to ensure that the value given is valid.
+ * Any pre-existing tile or color at that location will be replaced by the new value.
  *
  * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
- *
  *
  * @example
  *
@@ -85,9 +82,9 @@ RUR.add_background_tile = function (name, x, y) {
  *
  *
  */
-RUR.add_colored_tile = function (name, x, y) {
+RUR.add_colored_tile = function (color, x, y) {
     "use strict";
-    var args = {name: name, x:x, y:y, type:"tiles", single:true};
+    var args = {name: color, x:x, y:y, type:"tiles", single:true};
     RUR._add_artefact(args);
     RUR.record_frame("RUR.add_colored_tile", args);
 };
