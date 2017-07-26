@@ -7,7 +7,7 @@ def clear_row():
         move()
         while object_here("leaf"):
             take()
-            
+
 def go_to_next_row():
     turn_left()
     move()
@@ -20,7 +20,7 @@ while True:
     clear_row()
     try:
         go_to_next_row()
-    except ReeborgError:
+    except WallCollisionError:
         break
 turn_around()
 while front_is_clear():

@@ -819,8 +819,8 @@ class ReeborgOK(Exception):  #py:RE
     def __str__(self):  #py:RE.__str__
         return self.reeborg_concludes
 try:
-    window['ReeborgOK'] = ReeborgOK
-    window['ReeborgOk'] = ReeborgOK # preventing an annoying typo
+    window['ReeborgOK_fr'] = ReeborgOK
+    window['ReeborgOk_fr'] = ReeborgOK # preventing an annoying typo
 except:
     pass
 ReeborgOk = ReeborgOK  # preventing an annoying typo
@@ -852,7 +852,7 @@ class ReeborgError(Exception):  #py:RE
     def __str__(self):  #py:RE.__str__
         return self.reeborg_shouts
 try:
-    window['ReeborgError'] = ReeborgError
+    window['ReeborgError_fr'] = ReeborgError
 except:
     pass
 
@@ -865,7 +865,7 @@ class WallCollisionError(ReeborgError):  #py:WCE
     """
     pass
 try:
-    window['WallCollisionError'] = WallCollisionError
+    window['WallCollisionError_fr'] = WallCollisionError
 except:
     pass
 
@@ -877,7 +877,7 @@ class MissingObjectError(ReeborgError):
     """
     pass
 try:
-    window['MissingObjectError'] = MissingObjectError
+    window['MissingObjectError_fr'] = MissingObjectError
 except:
     pass
 

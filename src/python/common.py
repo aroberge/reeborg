@@ -7,6 +7,11 @@ except Exception as e:
 
 from preprocess import transform
 
+REEBORG_EN = {}
+exec("from reeborg_en import *", REEBORG_EN)
+REEBORG_FR = {}
+exec("from reeborg_fr import *", REEBORG_FR)
+
 def _add_watch(expr):
     window.RUR.watched_expressions.append(expr)
 
@@ -184,7 +189,7 @@ def generic_translate_python(src, highlight=False, var_watch=False, pre_code='',
     # a fresh import each time.
     # Similarly, library or biblio's content might have changed by the user
     # since the program was run last time
-    for mod in ["reeborg_en", "reeborg_fr" ,"library", "biblio"]:
+    for mod in ["library", "biblio"]:
         if mod in sys.modules:
             del sys.modules[mod]
 
@@ -207,7 +212,12 @@ def generic_translate_python(src, highlight=False, var_watch=False, pre_code='',
 
     # lang_import: something like "from reeborg_en import *" already defined in html file
     lang_import = window.RUR.from_import
-    exec(lang_import, globals_)
+    if lang_import == "from reeborg_en import *":
+        globals_.update(REEBORG_EN)
+    elif lang_import == "from reeborg_fr import *":
+        globals_.update(REEBORG_FR)
+    else:
+        raise Exception("unknown import %s" % lang_import)
 
     if highlight or var_watch:
         try:
