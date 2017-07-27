@@ -10398,6 +10398,7 @@ RUR._set_nb_artefact = function (args) {
 
 },{"./../programming_api/exceptions.js":41,"./../rur.js":51,"./../translator.js":53,"./../utils/key_exist.js":60,"./../utils/supplant.js":62,"./../utils/validator.js":63}],66:[function(require,module,exports){
 require("./../rur.js");
+require("./../translator.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
@@ -10414,15 +10415,13 @@ require("./artefact.js");
  *    tile name is not recognized, it is assumed to be a colour. If a new tile
  *    is set at that location, it replaces the pre-existing one.
  *
- * @todo add examples
- * @todo deal with translation
  */
 
 RUR.fill_background = function(name) {
     var recording_state = RUR._recording_(false);
     for (x = 1; x <= RUR.MAX_X; x++) {
         for (y = 1; y <= RUR.MAX_Y; y++) {
-            RUR.add_background_tile(name, x, y);
+            RUR.add_colored_tile(name, x, y);
         }
     }
     RUR._recording_(recording_state);
@@ -10444,13 +10443,12 @@ RUR.fill_background = function(name) {
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if `name` is not a known thing.
  *
- * @todo add examples
- * @todo deal with translation
- *
  */
 RUR.add_background_tile = function (name, x, y) {
     "use strict";
-    var args = {name: name, x:x, y:y, type:"tiles", single:true, valid_names: RUR.KNOWN_THINGS};
+    var args;
+    name = RUR.translate_to_english(name);
+    args = {name: name, x:x, y:y, type:"tiles", single:true, valid_names: RUR.KNOWN_THINGS};
     RUR._add_artefact(args);
     RUR.record_frame("RUR.add_background_tile", args);
 };
@@ -10483,7 +10481,9 @@ RUR.add_background_tile = function (name, x, y) {
  */
 RUR.add_colored_tile = function (color, x, y) {
     "use strict";
-    var args = {name: color, x:x, y:y, type:"tiles", single:true};
+    var args;
+    color = RUR.translate_to_english(color); // in case it is a named tile
+    args = {name: color, x:x, y:y, type:"tiles", single:true};
     RUR._add_artefact(args);
     RUR.record_frame("RUR.add_colored_tile", args);
 };
@@ -10501,12 +10501,11 @@ RUR.add_colored_tile = function (color, x, y) {
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if there is no background tile to remove
  *        at that location
- * @todo add examples
- * @todo deal with translation
  */
 RUR.remove_background_tile = function (name, x, y) {
     "use strict";
     var args;
+    name = RUR.translate_to_english(name);
     args= {x:x, y:y, type:"tiles", name:name};
     try {
         RUR._remove_artefact(args);
@@ -10537,9 +10536,6 @@ RUR.remove_background_tile = function (name, x, y) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  *
- * @todo add proper examples
- * @todo deal with translation
- *
  */
 
 RUR.get_background_tile = function (x, y) {
@@ -10549,7 +10545,7 @@ RUR.get_background_tile = function (x, y) {
     if (tiles === null) {
         return null;
     } else {
-        return tiles[0];
+        return RUR.translate(tiles[0]);
     }
 };
 
@@ -10558,15 +10554,18 @@ RUR.get_background_tile = function (x, y) {
  * @memberof RUR
  * @instance
  *
+ * @summary Use to find out if there is a tile (including color) with that
+ * name at a given location.
+ *
+ * @param {string} name The name of the tile; it could be a color.
  * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
+ * @returns `true/True` if there is such a named tile at that location,
+ * `false/False` otherwise.
  *
- * @todo add examples
- * @todo deal with translation
- * @todo write summary
  *
  * @example {@lang python}
- * no_highlight()
+ * # A very different solution ...
  * World("worlds/examples/simple_path.json", "simple_path")
  * while not at_goal():
  *     x, y = position_in_front()
@@ -10580,7 +10579,7 @@ RUR.get_background_tile = function (x, y) {
 RUR.is_background_tile = function (name, x, y) {
     "use strict";
     var tile, args = {x:x, y:y, type:"tiles"};
-    tile = RUR.get_background_tile(x, y);
+    tile = RUR.get_background_tile(x, y); // returns translated name
     if (tile === null) {
         return false;
     } else if (tile == name){
@@ -10592,7 +10591,7 @@ RUR.is_background_tile = function (name, x, y) {
 
 
 
-},{"./../recorder/record_frame.js":45,"./../rur.js":51,"./../utils/key_exist.js":60,"./../utils/validator.js":63,"./artefact.js":65}],67:[function(require,module,exports){
+},{"./../recorder/record_frame.js":45,"./../rur.js":51,"./../translator.js":53,"./../utils/key_exist.js":60,"./../utils/validator.js":63,"./artefact.js":65}],67:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
