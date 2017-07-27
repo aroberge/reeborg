@@ -2,6 +2,13 @@
  * @desc The namespace reserved for all the Reeborg World methods.
  *
  * All the method documented here **must** be prefixed by `RUR`.
+ *
+ * **IMPORTANT** When a `name` must be specified, and your language is set
+ * to something else than English (currently only French is supported), you
+ * must specify the French name.
+ *
+ * _Si vous utilisez l'interface française, assurez-vous de spécifier le nom
+ * des "choses" en français._
  */
 
 window.RUR = RUR || {}; // RUR should be already defined in the html file;
