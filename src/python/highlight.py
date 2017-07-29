@@ -22,12 +22,11 @@ def extract_first_word(mystr, separators):
     return mystr, ''
 
 
-def tracing_line(indent, current_group, last_line=False):
+def tracing_line(indent, current_group, last_line=False, skip_watch=False):
     '''Construct the tracing line'''
-    global _watch, _highlight
     tracecall_name = 'RUR.set_lineno_highlight'
     watch_string = "_watch_(system_default_vars, loc=locals(), gl=globals())\n"
-    if _watch:
+    if _watch and not skip_watch:
         watch_info = indent + watch_string
     else:
         watch_info = ''
@@ -190,7 +189,7 @@ def insert_highlight_info(src, highlight=True, var_watch=False):
             saved_lineno_group = current_group
         elif first_word == 'elif':
             new_lines.append(indent + first_word +
-                             tracing_line(' ', current_group) +
+                             tracing_line(' ', current_group, skip_watch=True) +
                              ' and' + remaining)
         elif is_assignment(line_wo_indent):
             new_lines.append(tracing_line(indent, current_group))

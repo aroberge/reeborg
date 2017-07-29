@@ -22,37 +22,17 @@ RUR.set_lineno_highlight = function(lineno) {
     RUR.prev_line_no = RUR.current_line_no;
 };
 
-function update_editor_highlight() {
+function update_editor_highlight(frame_no) {
     "use strict";
-    var i, next_frame_line_numbers, current_frame_no;
-    if (RUR.rec.rec_previous_lines === undefined) {
-        current_frame_no = RUR.current_frame_no;
-    } else {
-        current_frame_no = RUR.current_frame_no + 1;
-    }
-        //track line number and highlight line to be executed
-    if (RUR.state.programming_language === "python" && RUR.state.highlight) {
-        try {
-            for (i=0; i < editor.lineCount(); i++){
-                editor.removeLineClass(i, 'background', 'editor-highlight');
-            }
-        }catch (e) {console.log("diagnostic: error was raised while trying to removeLineClass", e);}
-        if (RUR.rec_line_numbers [current_frame_no] !== undefined){
-            next_frame_line_numbers = RUR.rec_line_numbers [current_frame_no];
-            for(i=0; i < next_frame_line_numbers.length; i++){
-                editor.addLineClass(next_frame_line_numbers[i], 'background', 'editor-highlight');
-            }
-            i = next_frame_line_numbers.length - 1;
-            if (RUR._max_lineno_highlighted < next_frame_line_numbers[i]) {
-                RUR._max_lineno_highlighted = next_frame_line_numbers[i];
-            }
-            RUR.rec_previous_lines = RUR.rec_line_numbers [current_frame_no];
-        } else {
-            try {  // try adding back to capture last line of program
-                for (i=0; i < RUR.rec_previous_lines.length; i++){
-                    editor.addLineClass(RUR.rec_previous_lines[i], 'background', 'editor-highlight');
-                }
-            }catch (e) {console.log("diagnostic: error was raised while trying to addLineClass", e);}
+    var i, frame;
+
+    frame = RUR.frames[frame_no];
+    if (frame !== undefined && frame.highlight !== undefined) {
+        for (i=0; i < editor.lineCount(); i++){
+            editor.removeLineClass(i, 'background', 'editor-highlight');
+        }
+        for(i=0; i < frame.highlight.length; i++){
+            editor.addLineClass(frame.highlight[i], 'background', 'editor-highlight');
         }
     }
 }
@@ -72,8 +52,10 @@ RUR.rec.display_frame = function () {
 
     frame = RUR.frames[RUR.current_frame_no];
     RUR.update_frame_nb_info();
+    if ((RUR.state.programming_language === "python" && RUR.state.highlight)) {
+        update_editor_highlight(RUR.current_frame_no);
+    }
     RUR.current_frame_no++;
-    update_editor_highlight();
 
     if (frame === undefined){
         RUR.vis_world.refresh();

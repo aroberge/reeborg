@@ -16,15 +16,11 @@ RUR.reset_world = function() {
     clearTimeout(RUR._TIMER);
 
     if (RUR.state.programming_language === "python" &&
-        RUR.state.highlight &&
-        RUR._max_lineno_highlighted !== undefined) {
-        for (var i=0; i <= RUR._max_lineno_highlighted; i++){
-            try {
-                editor.removeLineClass(i, 'background', 'editor-highlight');
-            }catch (e) {console.log("diagnostic: error was raised while trying to removeLineClass", e);}
+        RUR.state.highlight) {
+        for (i=0; i < editor.lineCount(); i++){
+            editor.removeLineClass(i, 'background', 'editor-highlight');
         }
     }
-    RUR._max_lineno_highlighted = 0;
 
     if (RUR.state.editing_world){
         return;

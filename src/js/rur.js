@@ -4,8 +4,11 @@
  * All the method documented here **must** be prefixed by `RUR`.
  *
  * **IMPORTANT** When a `name` must be specified, and your language is set
- * to something else than English (currently only French is supported), you
- * must specify the French name.
+ * to something else than English (currently only French is fully supported; and Korean
+ * is mostly supported for object names), you must specify the French (or Korean) name.
+ *
+ * To see what name to use, execute `RUR.show_all_things()` and see if a translated
+ * name exists for the language Reeborg's World is currently using.
  *
  * _Si vous utilisez l'interface française, assurez-vous de spécifier le nom
  * des "choses" en français._
@@ -182,7 +185,6 @@ RUR.reset_pre_run_defaults = function () {
     RUR.state.error_recorded = false;
     RUR.state.do_not_record = false;
     RUR.watched_expressions = [];
-    RUR.rec_previous_lines = [];
     //RUR._max_lineno_highlighted = 0; need to erase highlights first in RUR.reset_world
     clearTimeout(RUR._TIMER);
     RUR.state.code_evaluated = false;

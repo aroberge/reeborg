@@ -68,7 +68,11 @@ update_robot_trace_history = function (robot) {
 
 RUR.record_frame = function (name, obj) {
     "use strict";
-    var py_err, frame = {}, robot;
+    var py_err, frame = {}, prev_frame;
+
+    if (RUR.nb_frames > 0) {
+        prev_frame = RUR.frames[RUR.nb_frames-1];
+    }
 
     /* TODO: Document RUR.frame_insertion and put a link here.    */
 
@@ -115,10 +119,10 @@ RUR.record_frame = function (name, obj) {
         return RUR._show_immediate(name, obj);
     } else if ((RUR.state.do_not_record || RUR.state.prevent_playback) && name != "error") {
         return;
-    } else if (name == "watch_variables" && RUR.nb_frames >= 1) {
+    } else if (name == "watch_variables" && prev_frame !== undefined && prev_frame.highlight === undefined) {
         /* Watched variables are appended to previous frame so as to avoid
           generating too many extra frames. */
-        RUR.frames[RUR.nb_frames-1]["watch_variables"] = obj;
+        prev_frame["watch_variables"] = obj;
         return;
     }
 
@@ -154,21 +158,19 @@ will be ignored no matter what its content is.
         if (RUR.current_line_no === undefined) {
             RUR.current_line_no = [0];
         }
-    } else {
-        RUR.current_line_no = "ignore";
-    }
-
-
-    if (RUR.nb_frames > 0){
-        // avoid logging frames if nothing changed
-        if (identical(RUR.frames[RUR.nb_frames-1], frame) &&
-            RUR.rec_line_numbers [RUR.nb_frames-1] == RUR.current_line_no) {
+        if (RUR.nb_frames > 0){
+            // avoid logging frames if nothing changed
+            if (identical(prev_frame, frame) &&
+                RUR.rec_line_numbers [RUR.nb_frames-1] == RUR.current_line_no) {
+                    return;
+            } else if (frame.highlight !== undefined && prev_frame.highlight === undefined){
+                //RUR.rec_line_numbers [RUR.nb_frames-1] = RUR.current_line_no;
+                prev_frame.highlight = frame.highlight;
                 return;
+            }
         } else {
-            RUR.rec_line_numbers [RUR.nb_frames] = RUR.current_line_no;
+            RUR.rec_line_numbers[0] = RUR.current_line_no;
         }
-    } else {
-        RUR.rec_line_numbers[0] = RUR.current_line_no;
     }
 
     RUR.frames[RUR.nb_frames] = frame;
