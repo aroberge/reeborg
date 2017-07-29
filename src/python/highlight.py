@@ -79,11 +79,12 @@ def check_balanced_brackets(src):
     curly_count = 0
     triple_double = 0
     triple_single = 0
+    in_decorator = False
     for nb, line in enumerate(lines):
         if line.endswith("\\"):
             return "Continuation line with backslash"  # we do not handle this
         if (paren_count == square_count == curly_count ==
-                triple_double == triple_single == 0):
+                triple_double == triple_single == 0) and not in_decorator:
             new_group = []
         paren_count += line.count('(') - line.count(')')
         square_count += line.count('[') - line.count(']')
@@ -92,13 +93,28 @@ def check_balanced_brackets(src):
         triple_single %= 2
         triple_double += line.count('"""')
         triple_double %= 2
+
+        # we want to treat lines like
+        # @decorator_1
+        #  ...
+        # @decorator_n
+        # def ...
+        #
+        # as a single group, to avoid instructions being inserted between
+        # these lines
+
+        if in_decorator:
+            if line.strip().startswith("def "):
+                in_decorator = False
+        elif line.strip().startswith("@"):
+            in_decorator = True
         new_group.append(nb)
         if (paren_count == square_count == curly_count ==
-                triple_double == triple_single == 0):
+                triple_double == triple_single == 0) and not in_decorator:
             line_info.append(new_group)
 
     if (paren_count == square_count == curly_count ==
-            triple_double == triple_single == 0):
+            triple_double == triple_single == 0) and not in_decorator:
         return line_info
     else:
         return False
@@ -136,10 +152,6 @@ def insert_highlight_info(src, highlight=True, var_watch=False):
         return src, line_info
     src = src.replace('\t', '    ')
     lines = src.split("\n")
-    # if _watch:
-    #     new_lines = []
-    # else:
-    #     new_lines = [tracing_line('', [0])]
     new_lines = []
     use_next_indent = False
     saved_lineno_group = None
@@ -172,6 +184,9 @@ def insert_highlight_info(src, highlight=True, var_watch=False):
             use_next_indent = False
 
         if first_word in 'def class'.split():
+            if lineno <= current_group[-1]:  # likely inside a decorator group
+                new_lines.append(line)
+                continue
             new_lines.append(tracing_line(indent, current_group))
             new_lines.append(line)
         elif first_word in '''pass continue break if from import

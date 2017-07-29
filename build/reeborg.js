@@ -7919,9 +7919,6 @@ function update_editor_highlight(frame_no) {
     var i, frame;
 
     frame = RUR.frames[frame_no];
-    if (frame !== undefined) {
-        console.log("frame.highlight = ", frame.highlight);
-    }
     if (frame !== undefined && frame.highlight !== undefined) {
         for (i=0; i < editor.lineCount(); i++){
             editor.removeLineClass(i, 'background', 'editor-highlight');
@@ -8928,8 +8925,6 @@ RUR.reset_pre_run_defaults = function () {
     RUR.state.error_recorded = false;
     RUR.state.do_not_record = false;
     RUR.watched_expressions = [];
-    RUR.rec_previous_lines = [];
-    RUR.prev_frame_shown = 0;
     //RUR._max_lineno_highlighted = 0; need to erase highlights first in RUR.reset_world
     clearTimeout(RUR._TIMER);
     RUR.state.code_evaluated = false;
