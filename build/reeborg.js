@@ -10592,9 +10592,7 @@ require("./artefact.js");
  * @memberof RUR
  * @instance
  * @summary This function sets a named "thing" as a bridge at that location.
- * There can be only one bridge at a given location. If a new bridge
- * is set at that location, it replaces the pre-existing one, and a message
- * is written to the console.
+ * There can be only one bridge at a given location.
  *
  * @param {string} name The name of a bridge.
  * @param {integer} x  Position: `1 <= x <= max_x`
@@ -10602,6 +10600,10 @@ require("./artefact.js");
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if `name` is not a known thing.
+ * @throws Will throw an error if there is already a bridge at that location,
+ * unless this is done from code in the Onload editor in which case the
+ * new bridge replaces the old one and a message is written to the browser's
+ * console.
  *
  */
 RUR.add_bridge = function (name, x, y) {
@@ -10610,7 +10612,11 @@ RUR.add_bridge = function (name, x, y) {
     name = RUR.translate_to_english(name);
     args = {name: name, x:x, y:y, type:"bridge", single:true, valid_names: RUR.KNOWN_THINGS};
     if (RUR.get_bridge(x, y)) {
-        console.log(name + " is replacing " + RUR.translate(RUR.get_bridge(x, y)) + " as a bridge.");
+        if (RUR.state.evaluating_onload) {
+            console.log(name + " is replacing " + RUR.translate(RUR.get_bridge(x, y)) + " as a bridge.");
+        } else {
+            throw new RUR.ReeborgError(RUR.translate("There is already a bridge here."));
+        }
     }
     RUR._add_artefact(args);
     RUR.record_frame("RUR.set_bridge", args);

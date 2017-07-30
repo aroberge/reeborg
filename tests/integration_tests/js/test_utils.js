@@ -88,6 +88,9 @@ test_utils.eval_program = function(world_url, program_url, language) {
     }
     RUR.runner.eval(test_utils.program);
     last_frame = RUR.frames[RUR.frames.length - 1];
+    if (last_frame.error !== undefined) {
+        return false;
+    }
     try {
         return RUR.rec.check_goal(last_frame);
     } catch(e) {
