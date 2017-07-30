@@ -12,13 +12,14 @@
       "_trace_history": [],
       "_trace_style": "default",
       "_trace_color": "seagreen",
-      "__id": 11,
+      "__id": 6,
       "possible_initial_positions": [
         [
           1,
           1
         ]
-      ]
+      ],
+      "model": "classic"
     }
   ],
   "walls": {},
@@ -26,6 +27,6 @@
   "small_tiles": false,
   "rows": 10,
   "cols": 10,
-  "pre": "# Define a shorter synonym and use it\nadd = RUR.add_colored_tile\nadd(\"blue\", 1, 8)\nadd(\"#00ff00\", 3, 8)\nadd(\"rgb(255, 0, 0)\", 5, 8)\nadd(\"rgba(255, 0, 0, 0.3)\", 6, 8)\nadd(\"hsl(120, 100%, 25%)\", 8, 8)\nadd(\"hsla(120, 100%, 25%, 0.3)\", 9, 8)\n\n# Of course, we can also use some standard background\nadd(\"water\", 1, 6)\n\n# Instead of using the world creation API, \n# we can use some Reeborg built-ins\n# but only at the position where the robot is\n\npaint_square(\"orange\")\n\n# Use some assertion so that this world can\n# be also used in automated testing\nassert \"orange\" == color_here()\n\n# Alternative spelling for color/colour\nassert \"orange\" == colour_here()\n\n# OOP form\n\nreeborg = UsedRobot(2, 2)\nreeborg.paint_square(\"yellow\")\nassert \"yellow\" == reeborg.color_here()\nassert \"yellow\" == reeborg.colour_here()\n\n# For automated tests, we might as well include\n# the French version\n\nfrom reeborg_fr import colorie, couleur_ici, RobotUsage\n\nmove()\ncolorie(\"rgb(0, 125, 125)\")\nassert \"rgb(0, 125, 125)\" == couleur_ici()\n\n# We must specify the orientation in English;\n# by default, it would be the French value which\n# would not be recognized while running this\n# program in English\nborg = RobotUsage(3, 3, \"east\")\nborg.colorie(\"#3399cc\")\nassert \"#3399cc\" == borg.couleur_ici()\n\n# And non-colour backgrounds can also be used.\ncolorie(\"grass\")\n",
+  "pre": "# Define a shorter synonym and use it\nadd = RUR.add_colored_tile\nadd(\"blue\", 1, 8)\nadd(\"#00ff00\", 3, 8)\nadd(\"rgb(255, 0, 0)\", 5, 8)\nadd(\"rgba(255, 0, 0, 0.3)\", 6, 8)\nadd(\"hsl(120, 100%, 25%)\", 8, 8)\nadd(\"hsla(120, 100%, 25%, 0.3)\", 9, 8)\n\n# Instead of using the world creation API, \n# we can use some Reeborg built-ins\n# but only at the position where the robot is\n\npaint_square(\"orange\")\n\n# Use some assertion so that this world can\n# be also used in automated testing\nassert \"orange\" == color_here()\n\n# Alternative spelling for color/colour\nassert \"orange\" == colour_here()\n\n# OOP form\n\nreeborg = UsedRobot(2, 2)\nreeborg.paint_square(\"yellow\")\nassert \"yellow\" == reeborg.color_here()\nassert \"yellow\" == reeborg.colour_here()\n\n# For automated tests, we might as well include\n# the French version\n\nfrom reeborg_fr import colorie, couleur_ici, RobotUsage\n\nmove()\ncolorie(\"rgb(0, 125, 125)\")\nassert \"rgb(0, 125, 125)\" == couleur_ici()\n\n# We must specify the orientation in English;\n# by default, it would be the French value which\n# would not be recognized while running this\n# program in English\nborg = RobotUsage(3, 3, \"east\")\nborg.colorie(\"#3399cc\")\nassert \"#3399cc\" == borg.couleur_ici()\n\n",
   "onload": "RUR.onload_set_programming_language(\"python\")\n"
 }

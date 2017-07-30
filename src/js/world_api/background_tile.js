@@ -19,10 +19,15 @@ require("./artefact.js");
  */
 
 RUR.fill_background = function(name) {
-    var recording_state = RUR._recording_(false);
+    var add, recording_state = RUR._recording_(false);
+    if(RUR.KNOWN_THINGS.indexOf(RUR.translate_to_english(name)) === -1){
+        add = RUR.add_colored_tile;
+    } else {
+        add = RUR.add_background_tile;
+    }
     for (x = 1; x <= RUR.MAX_X; x++) {
         for (y = 1; y <= RUR.MAX_Y; y++) {
-            RUR.add_colored_tile(name, x, y);
+            add(name, x, y);
         }
     }
     RUR._recording_(recording_state);
@@ -58,10 +63,13 @@ RUR.add_background_tile = function (name, x, y) {
  * @memberof RUR
  * @instance
  * @summary This function sets a uniform color as background at a location.
+ * Any pre-existing tile or color at that location will be replaced by the new value.
  *
  * @param {string} color A colour recognized by JS/HTML.
- *    No check is performed to ensure that the value given is valid.
- * Any pre-existing tile or color at that location will be replaced by the new value.
+ * No check is performed to ensure that the value given is a valid color
+ * recognized by JS/HTML (see example below), **except** that the `color` specified
+ * cannot be a known "thing", which is the opposite of
+ * `RUR.add_background_tile`.
  *
  * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
@@ -78,12 +86,13 @@ RUR.add_background_tile = function (name, x, y) {
  * RUR.add_colored_tile("rgba(255, 0, 0, 0.1)", 7, 8)
  * RUR.add_colored_tile("hsl(24, 71%, 77%)", 9, 8)
  *
- *
  */
 RUR.add_colored_tile = function (color, x, y) {
     "use strict";
     var args;
-    color = RUR.translate_to_english(color); // in case it is a named tile
+    if(RUR.KNOWN_THINGS.indexOf(RUR.translate_to_english(color)) != -1){
+        throw new RUR.ReeborgError(color + RUR.translate(" is not a valid color."))
+    }
     args = {name: color, x:x, y:y, type:"tiles", single:true};
     RUR._add_artefact(args);
     RUR.record_frame("RUR.add_colored_tile", args);
