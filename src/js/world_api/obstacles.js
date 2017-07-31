@@ -54,9 +54,6 @@ RUR.add_obstacle = function (name, x, y) {
  * @throws Will throw an error if there is no background tile to remove
  *        at that location
  *
- * @todo add examples
- * @todo deal with translation
- *
  */
 RUR.remove_obstacle = function (name, x, y) {
     "use strict";

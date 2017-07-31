@@ -424,7 +424,6 @@ RUR.vis_robot.draw_trace_segment = function (segment) {
  * @param {string} [images.west]  Similar to `images.east`.
  * @param {string} [images.south]  Similar to `images.east`.
  *
- * @todo Add example
  */
 
 RUR.new_robot_images = function (images) {

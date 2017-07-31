@@ -417,12 +417,9 @@ function add_goal_object (specific_object){
     dialog_goal_object.dialog("open");
 }
 
-/** @function set_goal_position
- * @memberof RUR
- * @instance
- * @summary TODO This needs to be refactored and documented
- *
- * @desc Ceci doit être documenté
+/* TODO This should probably be rewritten to make use of
+ * RUR.add_final_position, but would also require that
+ * RUR.is_final_position be written and and RUR.remove_final_position as well.
  *
  */
 

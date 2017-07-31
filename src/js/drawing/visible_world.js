@@ -21,7 +21,6 @@ RUR.vis_world.refresh_world_edited = function () {
  * `cols` instead of `max_x`.
  * @param {integer} max_y The height of the world. Internally, we use
  * `rows` instead of `max_y`.
- * @todo Add example
  */
 
 RUR.set_world_size = function (max_x, max_y) {

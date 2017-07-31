@@ -1133,7 +1133,6 @@ RUR.vis_robot.draw_trace_segment = function (segment) {
  * @param {string} [images.west]  Similar to `images.east`.
  * @param {string} [images.south]  Similar to `images.east`.
  *
- * @todo Add example
  */
 
 RUR.new_robot_images = function (images) {
@@ -1205,7 +1204,6 @@ RUR.vis_world.refresh_world_edited = function () {
  * `cols` instead of `max_x`.
  * @param {integer} max_y The height of the world. Internally, we use
  * `rows` instead of `max_y`.
- * @todo Add example
  */
 
 RUR.set_world_size = function (max_x, max_y) {
@@ -3162,12 +3160,9 @@ function add_goal_object (specific_object){
     dialog_goal_object.dialog("open");
 }
 
-/** @function set_goal_position
- * @memberof RUR
- * @instance
- * @summary TODO This needs to be refactored and documented
- *
- * @desc Ceci doit être documenté
+/* TODO This should probably be rewritten to make use of
+ * RUR.add_final_position, but would also require that
+ * RUR.is_final_position be written and and RUR.remove_final_position as well.
  *
  */
 
@@ -10952,13 +10947,12 @@ require("./obstacles.js");
  * @memberof RUR
  * @instance
  *
- * @desc This needs to be documented
+ * @desc This return a list of protections carried by the robot
+ * against named fatalities.
  *
  * @param {object} robot_body  robot body object
  *
- * @returns an array of protections
- * @todo add examples
- * @todo deal with translation
+ * @returns an array of protections;
  *
  */
 RUR.get_protections = function (robot) {
@@ -10983,16 +10977,16 @@ RUR.get_protections = function (robot) {
 /** @function is_fatal_position
  * @memberof RUR
  * @instance
+ * @desc Indicates if the position would be fatal for the robot. A robot can
+ * carry protections against fatalities
  *
  * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  * @param {object} robot_body  robot body object
  *
- * @desc This needs to be documented
- * @todo add examples
- * @todo deal with translation
- *
- * @returns The message to show if it is a fatal position, otherwise `false`.
+ * @returns The message of the first `fatal` thing found
+ * [for which the robot has no protection]; if no such thing is found,
+ * `false/False` is returned.
  */
 RUR.is_fatal_position = function (x, y, robot){
     "use strict";
@@ -11042,13 +11036,14 @@ RUR.is_fatal_position = function (x, y, robot){
 /** @function is_detectable_position
  * @memberof RUR
  * @instance
+ * @desc For Reeborg to determine if a fatal "thing" is present (e.g., for
+ * `front_is_clear()  to return `false/False`), the "thing" must have a
+ * `detectable` attribute which evaluates to `true/True`.  This function returns
+ * `true/True` if there is as least such a detectable "thing" at that position.
  *
  * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  *
- * @desc This needs to be documented
- * @todo add examples
- * @todo deal with translation
  * @returns `true` if this position is detectable by the robot, `false` otherwise
  */
 RUR.is_detectable_position = function (x, y){
@@ -11290,9 +11285,6 @@ RUR.add_obstacle = function (name, x, y) {
  * @throws Will throw an error if `name` is not a known thing.
  * @throws Will throw an error if there is no background tile to remove
  *        at that location
- *
- * @todo add examples
- * @todo deal with translation
  *
  */
 RUR.remove_obstacle = function (name, x, y) {

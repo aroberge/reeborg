@@ -7,13 +7,12 @@ require("./obstacles.js");
  * @memberof RUR
  * @instance
  *
- * @desc This needs to be documented
+ * @desc This return a list of protections carried by the robot
+ * against named fatalities.
  *
  * @param {object} robot_body  robot body object
  *
- * @returns an array of protections
- * @todo add examples
- * @todo deal with translation
+ * @returns an array of protections;
  *
  */
 RUR.get_protections = function (robot) {
@@ -38,16 +37,16 @@ RUR.get_protections = function (robot) {
 /** @function is_fatal_position
  * @memberof RUR
  * @instance
+ * @desc Indicates if the position would be fatal for the robot. A robot can
+ * carry protections against fatalities
  *
  * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  * @param {object} robot_body  robot body object
  *
- * @desc This needs to be documented
- * @todo add examples
- * @todo deal with translation
- *
- * @returns The message to show if it is a fatal position, otherwise `false`.
+ * @returns The message of the first `fatal` thing found
+ * [for which the robot has no protection]; if no such thing is found,
+ * `false/False` is returned.
  */
 RUR.is_fatal_position = function (x, y, robot){
     "use strict";
@@ -97,13 +96,14 @@ RUR.is_fatal_position = function (x, y, robot){
 /** @function is_detectable_position
  * @memberof RUR
  * @instance
+ * @desc For Reeborg to determine if a fatal "thing" is present (e.g., for
+ * `front_is_clear()  to return `false/False`), the "thing" must have a
+ * `detectable` attribute which evaluates to `true/True`.  This function returns
+ * `true/True` if there is as least such a detectable "thing" at that position.
  *
  * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  *
- * @desc This needs to be documented
- * @todo add examples
- * @todo deal with translation
  * @returns `true` if this position is detectable by the robot, `false` otherwise
  */
 RUR.is_detectable_position = function (x, y){
