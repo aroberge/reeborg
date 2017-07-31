@@ -1,16 +1,17 @@
 /** @namespace RUR
  * @desc The namespace reserved for all the Reeborg World methods.
- *
  * All the method documented here **must** be prefixed by `RUR`.
  *
- * **IMPORTANT** When a `name` must be specified, and your language is set
+ * When a `name` must be specified, and your language is set
  * to something else than English (currently only French is fully supported; and Korean
- * is mostly supported for object names), you must specify the French (or Korean) name.
+ * is mostly supported for object names), you should specify the French (or Korean) name.
+ * Internally, the names are converted into English and missing translations are
+ * ignored so you might get away with using English names.
  *
  * To see what name to use, execute `RUR.show_all_things()` and see if a translated
  * name exists for the language Reeborg's World is currently using.
  *
- * _Si vous utilisez l'interface française, assurez-vous de spécifier le nom
+ * _Si vous utilisez l'interface française, il est recommander de spécifier le nom
  * des "choses" en français._
  */
 

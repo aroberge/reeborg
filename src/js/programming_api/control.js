@@ -55,7 +55,7 @@ RUR.control.move = function (robot) {
             robot.y = current_y;
             throw new RUR.ReeborgError(RUR.translate("Something is blocking the way!"));
         } else {
-            RUR.push_pushable(pushable_in_the_way, next_x, next_y, x_beyond, y_beyond);
+            RUR._push_pushable(pushable_in_the_way, next_x, next_y, x_beyond, y_beyond);
             RUR.transform_tile(pushable_in_the_way, x_beyond, y_beyond);
         }
     }

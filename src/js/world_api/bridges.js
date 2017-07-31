@@ -44,7 +44,7 @@ RUR.add_bridge = function (name, x, y) {
  * @instance
  * @summary This function removes a bridge at a location.
  *
- * @param {string} name
+ * @param {string} name The name of a the "thing" used as a bridge.
  * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  *
