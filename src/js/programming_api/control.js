@@ -48,7 +48,7 @@ RUR.control.move = function (robot) {
 
         if (RUR.control.wall_in_front(robot) ||
             RUR.get_pushable(x_beyond, y_beyond) ||
-            RUR.get_solid_obstacle(x_beyond, y_beyond) ||
+            RUR.is_solid_obstacle(x_beyond, y_beyond) ||
             RUR.is_robot(x_beyond, y_beyond)) {
             // reverse the move
             robot.x = current_x;
@@ -296,10 +296,11 @@ take_object_and_give_to_robot = function (robot, obj) {
 
     if (RUR.get_current_world().objects[coords][obj] === 0){
         delete RUR.get_current_world().objects[coords][obj];
-        // WARNING: do not change this silly comparison to false
-        // to anything else ... []==false is true  but []==[] is false
-        // and ![] is false ... Python is so much nicer than Javascript.
-        if (RUR.world_get.object_at_robot_position(robot) == false){ // jshint ignore:line
+        // Testing for empty array.
+        // In Javascript []==[] is false and ![] is false ...
+        // Python is so much nicer than Javascript.
+        objects_here = RUR.world_get.object_at_robot_position(robot);
+        if (Array.isArray(objects_here) && objects_here.length == 0){
             delete RUR.get_current_world().objects[coords];
         }
     }

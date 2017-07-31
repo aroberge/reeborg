@@ -24,7 +24,7 @@ test('adding known object', function (assert) {
     assert.end();
 });
 
-test('adding and removing known solid object', function (assert) {
+test('adding and removing known obstacle', function (assert) {
     var identical = require("../../../src/js/utils/identical.js").identical;
     require("../../../src/js/world_api/obstacles.js");
     assert.plan(1);
@@ -37,7 +37,7 @@ test('adding and removing known solid object', function (assert) {
     assert.end();
 });
 
-test('adding two and removing one known solid objects', function (assert) {
+test('adding two and removing one known obstacle', function (assert) {
     var identical = require("../../../src/js/utils/identical.js").identical;
     require("../../../src/js/world_api/obstacles.js");
     assert.plan(1);
@@ -66,5 +66,36 @@ test('is/add/remove obstacle', function (assert) {
     RUR.remove_obstacle("thing", 2, 3);
     assert.ok(RUR.is_obstacle("thing", 2, 3)===false, "confirm remove_obstacle worked.");
     assert.deepEqual(RUR.CURRENT_WORLD, original_world, "confirm that we returned to original state.");
+    assert.end();
+});
+
+test('attempting to add twice the same obstacle', function (assert) {
+    require("../../../src/js/world_api/obstacles.js");
+    assert.plan(3);
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.KNOWN_THINGS = ['a'];
+    RUR.untranslated['a'] = true;
+    RUR.add_obstacle('a', 2, 3);
+    try {
+        RUR.add_obstacle('a', 2, 3);
+    } catch(e) {
+        assert.equal(e.message, "There is already such an obstacle here: a", "error message");
+        assert.equal(e.reeborg_shouts, "There is already such an obstacle here: a", "reeborg_shouts");
+        assert.equal(e.name, "ReeborgError", "error name ok");
+    }
+    assert.end();
+});
+
+test('attempting to add twice the same obstacle in Onload', function (assert) {
+    require("../../../src/js/world_api/obstacles.js");
+    assert.plan(1);
+    RUR.CURRENT_WORLD = RUR.create_empty_world();
+    RUR.KNOWN_THINGS = ['a'];
+    RUR.untranslated['a'] = true;
+    RUR.state.evaluating_onload = true;
+    RUR.add_obstacle('a', 2, 3);
+    RUR.add_obstacle('a', 2, 3);
+    assert.ok(RUR.is_obstacle("a", 2, 3), "Confirm obstacle present.");
+    RUR.state.evaluating_onload = false;
     assert.end();
 });

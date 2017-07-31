@@ -6802,7 +6802,7 @@ RUR.control.move = function (robot) {
 
         if (RUR.control.wall_in_front(robot) ||
             RUR.get_pushable(x_beyond, y_beyond) ||
-            RUR.get_solid_obstacle(x_beyond, y_beyond) ||
+            RUR.is_solid_obstacle(x_beyond, y_beyond) ||
             RUR.is_robot(x_beyond, y_beyond)) {
             // reverse the move
             robot.x = current_x;
@@ -7050,10 +7050,11 @@ take_object_and_give_to_robot = function (robot, obj) {
 
     if (RUR.get_current_world().objects[coords][obj] === 0){
         delete RUR.get_current_world().objects[coords][obj];
-        // WARNING: do not change this silly comparison to false
-        // to anything else ... []==false is true  but []==[] is false
-        // and ![] is false ... Python is so much nicer than Javascript.
-        if (RUR.world_get.object_at_robot_position(robot) == false){ // jshint ignore:line
+        // Testing for empty array.
+        // In Javascript []==[] is false and ![] is false ...
+        // Python is so much nicer than Javascript.
+        objects_here = RUR.world_get.object_at_robot_position(robot);
+        if (Array.isArray(objects_here) && objects_here.length == 0){
             delete RUR.get_current_world().objects[coords];
         }
     }
@@ -11235,6 +11236,7 @@ RUR.add_object_at_position = function(name, x, y, number) { // Vincent Maille's 
 
 },{"./../recorder/record_frame.js":45,"./../rur.js":51,"./../utils/key_exist.js":60,"./../utils/validator.js":63,"./artefact.js":65}],72:[function(require,module,exports){
 require("./../rur.js");
+require("./../translator.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
@@ -11247,19 +11249,29 @@ require("./artefact.js");
  *
  * @param {string} name The name of a the "thing" representing the obstacle.
  *
- *
  * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if `name` is not a known thing.
- * @todo add examples
- * @todo deal with translation
+ * @throws Will throw an error if there is already such a named obstacle at that location,
+ * unless this is done from code in the Onload editor in which case the
+ * a message is written to the browser's console and the request is ignored.
  *
  */
 RUR.add_obstacle = function (name, x, y) {
     "use strict";
-    var args = {name: name, x:x, y:y, type:"obstacles", valid_names: RUR.KNOWN_THINGS};
+    var args;
+    if (RUR.is_obstacle(name, x, y)) {
+        if (RUR.state.evaluating_onload) {
+            console.log("Ignoring request to add obstacle " + name);
+            return;
+        } else {
+            throw new RUR.ReeborgError(RUR.translate("There is already such an obstacle here: ") + name);
+        }
+    }
+    args = {name: RUR.translate_to_english(name), x:x, y:y, type:"obstacles",
+            valid_names: RUR.KNOWN_THINGS};
     RUR._add_artefact(args);
     RUR.record_frame("RUR.add_obstacle", args);
 };
@@ -11285,10 +11297,40 @@ RUR.add_obstacle = function (name, x, y) {
  */
 RUR.remove_obstacle = function (name, x, y) {
     "use strict";
-    var args, obstacles;
-    args= {x:x, y:y, type:"obstacles", name:name, valid_names: RUR.KNOWN_THINGS};
+    var args;
+    if (!RUR.is_obstacle(name, x, y)) {
+        if (RUR.state.evaluating_onload) {
+            throw new RUR.ReeborgError(RUR.translate("There is no such an obstacle here: ") + name);
+        }
+    }
+    args= {x:x, y:y, type:"obstacles", name:RUR.translate_to_english(name), valid_names: RUR.KNOWN_THINGS};
     RUR._remove_artefact(args);
     RUR.record_frame("RUR.remove_obstacle", args);
+};
+
+
+/** @function is_obstacle
+ * @memberof RUR
+ * @instance
+ * @summary This function returns `true/True` if a named obstacle is present
+ * at a given location, `false/False` otherwise
+ *
+ * @param {string} name The name of the obstacle
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
+ *
+ * @throws Will throw an error if `(x, y)` is not a valid location.
+ *
+ */
+
+RUR.is_obstacle = function (name, x, y) {
+    "use strict";
+    var args={name:RUR.translate_to_english(name), x:x, y:y, type:"obstacles"};
+    if (RUR._get_nb_artefact(args) > 0) {
+        return true;
+    } else {
+        return false;
+    }
 };
 
 
@@ -11305,49 +11347,49 @@ RUR.remove_obstacle = function (name, x, y) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  *
- * @todo add proper examples
- * @todo deal with translation
- *
  */
 
 RUR.get_obstacles = function (x, y) {
     "use strict";
-    var tiles, args = {x:x, y:y, type:"obstacles"};
-    tiles = RUR._get_artefacts(args);
-    if (tiles === null) {
-        return null;
-    } else {
-        return tiles;
+    var i, obstacles, result = [], args = {x:x, y:y, type:"obstacles"};
+    obstacles = RUR._get_artefacts(args);
+    if (obstacles === null) {
+        return [];
     }
+    for(i=0; i < obstacles.length; i++) {
+        result.push(RUR.translate(obstacles[i]))
+    }
+    return result;
 };
 
+/** @function is_solid_obstacle
+ * @memberof RUR
+ * @instance
+ * @summary This function returns `true/True` if a solid obstacle is present
+ * at a given location, `false/False` otherwise
+ *
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
+ *
+ * @throws Will throw an error if `(x, y)` is not a valid location.
+ *
+ */
 
-RUR.is_obstacle = function (name, x, y) {
-    "use strict";
-    var args={name:name, x:x, y:y, type:"obstacles"};
-    if (RUR._get_nb_artefact(args) > 0) {
-        return true;
-    } else {
-        return false;
-    }
-};
-
-
-RUR.get_solid_obstacle = function (x, y) {
+RUR.is_solid_obstacle = function (x, y) {
     "use strict";
     var obs, obstacles = RUR.get_obstacles(x, y);
     if (obstacles === null) {
         return false;
     }
     for (obs of obstacles) {
-        if (RUR.THINGS[obs].solid) {
-            return RUR.THINGS[obs]; //TODO: return array of obstacles
+        if (RUR.THINGS[RUR.translate_to_english(obs)].solid) {
+            return true;
         }
     }
     return false;
 };
 
-},{"./../recorder/record_frame.js":45,"./../rur.js":51,"./../utils/key_exist.js":60,"./../utils/validator.js":63,"./artefact.js":65}],73:[function(require,module,exports){
+},{"./../recorder/record_frame.js":45,"./../rur.js":51,"./../translator.js":53,"./../utils/key_exist.js":60,"./../utils/validator.js":63,"./artefact.js":65}],73:[function(require,module,exports){
 require("./../rur.js");
 require("./../utils/key_exist.js");
 require("./../utils/validator.js");
