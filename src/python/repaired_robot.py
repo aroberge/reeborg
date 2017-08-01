@@ -1,5 +1,3 @@
-from reeborg_en import *
-
 class RepairedRobot(UsedRobot):
 
     def __init__(self, x=1, y=1, orientation='e', tokens=0, leaky=False):

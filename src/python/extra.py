@@ -1,4 +1,14 @@
 '''Before this can be imported, one needs to install code with
-   install_extra()'''
+   install_extra() or RUR.extra_python_code'''
 from browser import window
+from common import import_en, import_fr
+
+human_language = window['RUR'].state.human_language
+if human_language.endswith("en"):
+    import_en(globals())
+elif human_language.endswith("fr"):
+    import_fr(globals())
+else:
+    raise NotImplementedError("Unkown language %s" % human_language)
+
 exec(window.get_extra_content())
