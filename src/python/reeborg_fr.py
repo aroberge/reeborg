@@ -520,13 +520,13 @@ class RobotUsage(object):  #py:UR
         location = "({}, {})".format(self.body.x, self.body.y)
 
         if self.body._orientation == RUR.EAST:
-            facing = "est face à l'est"
+            facing = "fait face à l'est"
         elif self.body._orientation == RUR.WEST:
-            facing = "est face à l'ouest"
+            facing = "fait face à l'ouest"
         elif self.body._orientation == RUR.NORTH:
-            facing = "est face au nord"
+            facing = "fait face au nord"
         elif self.body._orientation == RUR.SOUTH:
-            facing = "est face au sud"
+            facing = "fait face au sud"
 
         carries = ''
         for obj in self.body.objects:

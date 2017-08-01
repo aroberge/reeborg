@@ -466,7 +466,7 @@ RUR.show_all_robots = function () {
     }
 
     info += "</table>";
-    console.log(info, true); // true will replace existing content
+    RUR._print_html_(info, true); // true will replace existing content
     return null; // for the python repl
 };
 

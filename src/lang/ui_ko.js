@@ -106,6 +106,10 @@ ui_ko.east = "동쪽";
 ui_ko.north = "북쪽";
 ui_ko.west = "서쪽";
 ui_ko.south = "남쪽";
+ko_to_en["동쪽"] = "east";
+ko_to_en["북쪽"] = "north";
+ko_to_en["서쪽"] = "west";
+ko_to_en["남쪽"] = "south";
 ui_ko["Unknown orientation for robot."] = "로봇의 방향을 알 수 없습니다.";
 
 ui_ko["Invalid position."] = "{pos} is an invalid position.";

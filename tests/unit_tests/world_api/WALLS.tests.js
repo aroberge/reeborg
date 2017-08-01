@@ -175,7 +175,7 @@ test('Add and get wall at', function (assert) {
 
 
 test('Add and list goal walls', function (assert) {
-    var goal = true;
+    var goal = {'goal': true};
     RUR.CURRENT_WORLD = RUR.create_empty_world();
     RUR.add_wall("east", 3, 3, goal);
     assert.deepEqual(RUR.get_walls(3, 3, goal), ["east"], "east wall");
@@ -219,7 +219,7 @@ test('is/add/remove walls', function (assert) {
 });
 
 test('is/add/remove goal walls', function (assert) {
-    var original_world, goal=true;
+    var original_world, goal={'goal':true};
     assert.plan(6);
     RUR.CURRENT_WORLD = RUR.create_empty_world();
     original_world = clone(RUR.CURRENT_WORLD);

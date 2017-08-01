@@ -20,37 +20,76 @@ all sides. However, these walls are not included in the data structure
 that lists the walls, and must be handled separately.
 */
 
+
+/** @function add_wall
+ * @memberof RUR
+ * @instance
+ * @summary This function adds a wall at the stated
+ * stated position and orientation if there is none already located there;
+ * otherwise, it raises an exception, except if this is done in the
+ * Onload phase in which case it simply logs in an exception.
+ *
+ * @param {string} orientation  One of `"east", "west", "north", "south"`.
+ * @param {integer} x  Position: `1 <= x <= max_x`
+ * @param {integer} y  Position: `1 <= y <= max_y`
+ * @param {bool} [options.goal] If `true`, get information about goal walls.
+ *
+ * @throws Will throw an error if `x` or `y` is outside the world boundary.
+ * @throws Will throw an error if `orientation` is not a valid choice.
+ * @throws Will throw an error if there is already a wall there,
+ * except if this is done in the
+ * Onload phase in which case it simply logs in an exception.
+ *
+ */
+RUR.add_wall = function(orientation, x, y, options) {
+    "use strict";
+    var args;
+
+    if (RUR.is_wall(orientation, x, y, options)){
+        if (RUR.state.evaluating_onload) {
+            console.log("Ignoring call to add a wall: ", orientation);
+        } else {
+            throw new RUR.ReeborgError(RUR.translate("There is already a wall here!"));
+        }
+    }
+    args = convert_position(RUR.translate_to_english(orientation), x, y);
+    if (options && options.goal) {
+        args.goal = options.goal;
+    }
+    args.type = "walls";
+    RUR._add_artefact(args);
+    RUR.record_frame("add_wall", args);
+};
+
+
 /** @function get_walls
  * @memberof RUR
  * @instance
  * @summary This function returns a list of walls at a location from within
- * the boundaries of a normal (rectangular) world. The order they are listed,
- * if present, are `"east"`, `"north"`, `"west"`, `"south"`.
+ * the boundaries of a normal (rectangular) world. The order in which they are
+ * listed, if present, is `"east"`, `"north"`, `"west"`, `"south"`.
  *
  * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
- * @param {bool} [goal] If `true`, list the goal walls found at that position
- *                      instead of regular walls.
+ * @param {bool} [options.goal] If `true`, list the goal walls found at that
+ * position instead of regular walls.
  *
  * @throws Will throw an error if `x` or `y` is outside the world boundary.
  *
- * @todo add examples
- * @todo deal with translation
- *
  */
-RUR.get_walls = function(x, y, goal) {
-    // var world = RUR.get_current_world();
-    var args = {x:x, y:y, goal:goal, type:"walls"}, walls;
-
-    walls = RUR._get_artefacts(args); // gets "east" and "north" if present
-    if (walls === null) {
-        walls = [];
+RUR.get_walls = function(x, y, options) {
+    var options, walls = [];
+    if (RUR.is_wall(RUR.translate("east"), x, y, options)) {
+        walls.push(RUR.translate("east"));
     }
-    if (RUR.is_wall("west", x, y, goal)) {
-        walls.push("west");
+    if (RUR.is_wall(RUR.translate("north"), x, y, options)) {
+        walls.push(RUR.translate("north"));
     }
-    if (RUR.is_wall("south", x, y, goal)) {
-        walls.push("south");
+    if (RUR.is_wall(RUR.translate("west"), x, y, options)) {
+        walls.push(RUR.translate("west"));
+    }
+    if (RUR.is_wall(RUR.translate("south"), x, y, options)) {
+        walls.push(RUR.translate("south"));
     }
     return walls;
 };
@@ -59,34 +98,33 @@ RUR.get_walls = function(x, y, goal) {
 /** @function is_wall
  * @memberof RUR
  * @instance
- * @summary This function returns `true` if a wall is found at the
- * stated position and orientation, and `false` otherwise.
+ * @summary This function returns `true/True` if a wall is found at the
+ * stated position and orientation, and `false/False` otherwise.
  *
  * @param {string} orientation  One of `"east", "west", "north", "south"`.
  * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
- * @param {bool} [goal] If `true`, get information about goal walls
+ * @param {bool} [options.goal] If `true/True`, get information about goal walls
  *                      instead of regular walls.
  *
  *
  * @throws Will throw an error if `x` or `y` is outside the world boundary.
  * @throws Will throw an error if `orientation` is not a valid choice.
  *
- * @todo add examples
- * @todo deal with translation
- *
  */
-RUR.is_wall = function(orientation, x, y, goal) {
+RUR.is_wall = function(orientation, x, y, options) {
     var args;
-    if (["east", "north", "west", "south"].indexOf(orientation) === -1) {
+    if (["east", "north", "west", "south"].indexOf(RUR.translate_to_english(orientation)) === -1) {
         throw new RUR.ReeborgError(
             RUR.translate("Invalid orientation.").supplant({orient:orientation}));
     }
-    if (is_boundary_wall(orientation, x, y)) {
+    if (is_boundary_wall(RUR.translate_to_english(orientation), x, y)) {
         return true;
     }
-    args = convert_position(orientation, x, y);
-    args.goal = goal;
+    args = convert_position(RUR.translate_to_english(orientation), x, y);
+    if (options && options.goal) {
+        args.goal = options.goal;
+    }
     args.type = "walls";
     if (RUR._get_nb_artefact(args) === 0) {
         return false;
@@ -110,40 +148,6 @@ function is_boundary_wall(orientation, x, y) {
 }
 
 
-/** @function add_wall
- * @memberof RUR
- * @instance
- * @summary This function adds a wall at the stated
- * stated position and orientation if there is none already located there;
- * otherwise, it raises an exception.
- *
- * @param {string} orientation  One of `"east", "west", "north", "south"`.
- * @param {integer} x  Position: `1 <= x <= max_x`
- * @param {integer} y  Position: `1 <= y <= max_y`
- * @param {bool} [goal] If `true`, get information about goal walls.
- *
- * @throws Will throw an error if `x` or `y` is outside the world boundary.
- * @throws Will throw an error if `orientation` is not a valid choice.
- * @throws Will throw an error if there is already a wall there.
- *
- * @todo add examples
- * @todo deal with translation
- *
- */
-RUR.add_wall = function(orientation, x, y, goal) {
-    "use strict";
-    var args;
-
-    if (RUR.is_wall(orientation, x, y, goal)){
-        throw new RUR.ReeborgError(RUR.translate("There is already a wall here!"));
-    }
-    args = convert_position(orientation, x, y);
-    args.goal = goal;
-    args.type = "walls";
-    RUR._add_artefact(args);
-    RUR.record_frame("add_wall", args);
-};
-
 /** @function remove_wall
  * @memberof RUR
  * @instance
@@ -160,24 +164,25 @@ RUR.add_wall = function(orientation, x, y, goal) {
  * @throws Will throw an error if `orientation` is not a valid choice.
  * @throws Will throw an error if there is no wall to remove.
  *
- * @todo add examples
- * @todo deal with translation
- *
  */
-RUR.remove_wall = function(orientation, x, y, goal) {
+RUR.remove_wall = function(orientation, x, y, options) {
     var args, world=RUR.get_current_world();
     // the following function call will raise an exception if
     // the orientation or the position is not valid
-    wall_here = RUR.is_wall(orientation, x, y, goal);
-    if (!RUR.is_wall(orientation, x, y, goal)){
+    wall_here = RUR.is_wall(orientation, x, y, options);
+    if (!RUR.is_wall(orientation, x, y, options)){
         throw new RUR.ReeborgError(RUR.translate("There is no wall to remove!"));
     }
 
-    args = convert_position(orientation, x, y);
-    args.goal = goal;
+    args = convert_position(RUR.translate_to_english(orientation), x, y);
+    if (options && options.goal) {
+        args.goal = options.goal;
+    }
     args.type = "walls";
     RUR._remove_artefact(args);
-    // For historical reason, worlds are always created with a "walls" attribute
+    // _remove_artefact can remove a container of a type of artefact if it
+    // is empty; however, for historical reason, worlds are always created
+    // with a "walls" attribute
     RUR.utils.ensure_key_for_obj_exists(world, "walls");
     RUR.record_frame("remove_wall", args);
 };

@@ -102,6 +102,10 @@ ui_fr.east = "est";
 ui_fr.north = "nord";
 ui_fr.west = "ouest";
 ui_fr.south = "sud";
+fr_to_en["est"] = "east";
+fr_to_en["nord"] = "north";
+fr_to_en["ouest"] = "west";
+fr_to_en["sud"] = "south";
 ui_fr["Unknown orientation for robot."] = "Orientation inconnue.";
 
 ui_fr["Invalid position."] = "{pos} n'est pas une position valide.";

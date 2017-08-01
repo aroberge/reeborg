@@ -70,10 +70,10 @@ ui_en["There is no goal in this world!"] = "There is no goal in this world!";
 ui_en["I carry too many different objects. I don't know which one to put down!"] = "I carry too many different objects. I don't know which one to put down!";
 ui_en["Many objects are here; I do not know which one to take!"] = "Many different objects are here; I do not know which one to take!";
 
-ui_en.east = "east";
-ui_en.north = "north";
-ui_en.west = "west";
-ui_en.south = "south";
+ui_en.east = en_to_en.east = "east";
+ui_en.north = en_to_en.north = "north";
+ui_en.west = en_to_en.west = "west";
+ui_en.south = en_to_en.south = "south";
 ui_en["Unknown orientation for robot."] = "Unknown orientation for robot.";
 
 ui_en["Invalid position."] = "{pos} is an invalid position.";

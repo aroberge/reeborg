@@ -11,7 +11,7 @@
  * To see what name to use, execute `RUR.show_all_things()` and see if a translated
  * name exists for the language Reeborg's World is currently using.
  *
- * _Si vous utilisez l'interface française, il est recommander de spécifier le nom
+ * _Si vous utilisez l'interface française, il est recommandé de spécifier le nom
  * des "choses" en français._
  */
 
