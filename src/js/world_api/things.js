@@ -89,14 +89,12 @@ require("./../utils/supplant.js");
  * number of pixel equal to `y_offset`. This is only valid for images - not for
  * colors.
  *
- * @param {object} [things.transform] This needs to be documented.
+ * @param {object} [things.transform] See the book
+ * **Reeborg's World: a Teacher's guide** for an explanation.
  *
  * @throws Will throw an error if `name` attribute is not specified.
  * @throws Will throw an error if no image is supplied (either via the `url`
  *         or the `images` attribute) and `color` does not evaluate to true.
- *
- * @todo add examples
- * @todo deal with translation
  */
 
 RUR.add_new_thing = function (thing) {

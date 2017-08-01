@@ -325,13 +325,15 @@ RUR._get_nb_artefact = function(args) {
  * need to be specified.  If a larger number of artefact are requested to
  * be removed than are present, an error will be raised.
  *
- * @param {string} [args.all] If true, all instances of the named artefact
- *       will be removed; otherwise, their number will simply be reduced by 1..
+ * @param {string} [args.all] If `true/True`, and `args.number` is not specified,
+ * all instances of the named artefact
+ * will be removed; otherwise, their number will simply be reduced by 1..
  *
  * @throws Will throw an error if `name` attribute is not specified.
  * @throws Will throw an error if `type` attribute is not specified.
  * @throws Will throw an error if a valid position is not specified.
  * @throws Will throw an error if no such artefact is found at that location.
+ * @throws Will throw an error if there are not enough artefact to remove.
  *
  */
 RUR._remove_artefact = function (args) {
@@ -341,6 +343,10 @@ RUR._remove_artefact = function (args) {
     // Calling _get_nb_artefact will do all the required validation of basic arguments
     if (RUR._get_nb_artefact(args) === 0) {
         throw new RUR.ReeborgError("No artefact to remove");
+    }
+
+    if (args.number != undefined && args.number > RUR._get_nb_artefact(args)) {
+        throw new RUR.ReeborgError("Not enough artefacts here to remove.")
     }
 
     base = world;
