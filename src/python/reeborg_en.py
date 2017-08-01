@@ -125,7 +125,14 @@ def front_is_clear():  #py:front_is_clear
 
 
 def install_extra(url):
-    """Install a module (single file) to be used from within Reeborg."""
+    """Install a module (single file) to be used from within Reeborg.
+
+       See also RUR.extra_python_code(code) which install a fake module
+       using a (triple-quote) Python string instead of an external file.
+
+       Args:
+           url: The url where the Python module must be retrieved from.
+    """
     RUR.install_extra(url)
 
 

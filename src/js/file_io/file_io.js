@@ -131,31 +131,26 @@ function loadFile (sURL, fCallback) {
 /* The purpose of install_extra is to enable extensions to Reeborg's World
    to be added. It is also available as `install_extra`, a simple Python
    command.
-
-   See also RUR.load_js_module()
 */
 RUR.install_extra = function(url) {
-    loadFile(url, RUR.extra_python_content);
+    loadFile(url, RUR.extra_python_code);
 };
 /**
- * @function extra_python_content
+ * @function extra_python_code
  * @memberof RUR
  * @instance
  *
  * @desc "Installs" a python module defined as a string parameter to
- * this function. Whereas it can be used from both a Javascript or Python code,
- * multi-line code samples are **much** easier to write using Python.
+ * this function.
  *
- * To be used as alternative to the Python function `install_extra` which
+ * To be used as a preferred alternative to the Python function `install_extra` which
  * install a python module named `extra` from a url.
  *
  * @param {string} python_code The Python code which is the content of the
  * desired module
  *
- * @todo add example
- * @todo add tutorial
  */
-RUR.extra_python_content = function (python_code) {
+RUR.extra_python_code = function (python_code) {
     if (python_code) {
         $("#extra").html(python_code);
     } else { // called from RUR.install_extra/loadFile

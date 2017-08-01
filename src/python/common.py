@@ -214,12 +214,14 @@ def generic_translate_python(src, highlight=False, var_watch=False, pre_code='',
     sys.stderr.write = __write_err
 
     # reeborg_en and reeborg_fr define some attributes to window; these
-    # could have been redefined when running a Javascript program; so it
+    # could have been redefined when importing a different language version -
+    # or, perhas even when running a Javascript version; so it
     # is important to ensure that they have their proper definition by forcing
-    # a fresh import each time.
+    # a fresh import each time such a request is made via something like
+    #     from reeborg_en import *
     # Similarly, library or biblio's content might have changed by the user
     # since the program was run last time
-    for mod in ["library", "biblio"]:
+    for mod in ["reeborg_en", "reeborg_fr", "library", "biblio", "extra"]:
         if mod in sys.modules:
             del sys.modules[mod]
 
@@ -240,14 +242,16 @@ def generic_translate_python(src, highlight=False, var_watch=False, pre_code='',
         src = src.replace('\xa0', ' ')
         window.console.warn("Some nonbreaking spaces were replaced in the Python code.")
 
-    # lang_import: something like "from reeborg_en import *" already defined in html file
-    lang_import = window.RUR.from_import
-    if lang_import == "from reeborg_en import *":
+    # Notwithstanding what is writte above regarding fresh imports,
+    # we simulate this here by doing a dict update, thus effectively using a
+    # cached version of a previous import  while ensuring that and
+    # global ("window") definition is done properly.
+    if window.RUR.from_import == "from reeborg_en import *":
         globals_.update(REEBORG_EN)
-    elif lang_import == "from reeborg_fr import *":
+    elif window.RUR.from_import == "from reeborg_fr import *":
         globals_.update(REEBORG_FR)
     else:
-        raise Exception("unknown import %s" % lang_import)
+        raise Exception("unknown import %s" % window.RUR.from_import)
 
     if highlight or var_watch:
         try:

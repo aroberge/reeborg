@@ -1,0 +1,32 @@
+{
+  "robots": [
+    {
+      "x": 3,
+      "y": 3,
+      "objects": {},
+      "model": "classic",
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_prev_x": 3,
+      "_prev_y": 3,
+      "_prev_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 3,
+      "possible_initial_positions": [
+        [
+          3,
+          3
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": "Example usage of <code>RUR.extra_python_code</code>\n<p>The content of the Onload editor is:</p>\nINSERT_ONLOAD\n<p>The Pre editor includes a function for you to test \n    the fake extra module:</p>\nINSERT_PRE\n",
+  "small_tiles": false,
+  "rows": 10,
+  "cols": 10,
+  "pre": "def test():\n    from extra import turn_right\n    for i in range(4):\n        move()\n        turn_right()",
+  "onload": "# Define a turn_right function that does not\n# mess up the leaky trace left by the robot\n# while doing a turn in a single frame\npython_code = '''\nfrom reeborg_en import *\ndef turn_right():\n    r = default_robot()\n    r.body._prev_orientation = r.body._orientation\n    r.body._prev_x = r.body.x\n    r.body._prev_y = r.body.y\n    r.body._prev_orientation += 2\n    r.body._prev_orientation %= 4\n    r.body._orientation += 3\n    r.body._orientation %= 4\n    RUR.record_frame()\n'''\nRUR.extra_python_code(python_code)\nRUR.onload_set_programming_language(\"python\")\n"
+}
