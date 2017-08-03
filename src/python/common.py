@@ -80,10 +80,14 @@ def append_watch(arg, value, out):
         out.append(div % (old % (arg, value)))
 
 
-def _watch_(default, loc={}, gl={}):
+def _watch_(default, loc=None, gl=None):
     global previous_watch_values
     ignore = ['system_default_vars', 'line_info']
     current_watch_values = {}
+    if loc is None:
+        loc = {}
+    if gl is None:
+        gl = {}
     out = []
     no_new_local = True
     for arg in loc:
@@ -101,8 +105,6 @@ def _watch_(default, loc={}, gl={}):
     for arg in gl:
         if arg in default or arg in ignore:
             continue
-        # elif arg in loc and (loc[arg] == gl[arg]):
-        #     continue
         else:
             if no_new_global:
                 no_new_global = False
@@ -271,7 +273,10 @@ def generic_translate_python(src, highlight=False, var_watch=False, pre_code='',
         window.console.log(src)
 
     # include v again to reset its value
-    _v_ = "system_default_vars = set(locals().keys())\n"
+    if var_watch:
+        _v_ = "system_default_vars = set(locals().keys())\n"
+    else:
+        _v_ = "\n"
     src = "help=Help\n" + pre_code + "\n" + _v_ + src + "\n" + post_code
     try:
         exec(src, globals_)

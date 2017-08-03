@@ -141,6 +141,7 @@ RUR.state.highlight = true;
 RUR.state.watch_vars = false;
 RUR.state.editing_world = false;
 
+RUR.state.extra_code_visible = false;
 
 
 

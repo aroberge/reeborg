@@ -189,6 +189,7 @@ function hide_everything () {
     $("#special-keyboard-button").hide();
     $("#python-additional-menu p button").attr("disabled", "true");
     $("#library-tab").parent().hide();
+    $("#extra-tab").parent().hide();
     $("#highlight").hide();
     $("#watch-variables-btn").hide();
     $("#Reeborg-watches").dialog("close");
@@ -241,6 +242,7 @@ function show_editor(lang) {
         $("#post-code-tab").parent().show();
         $("#description-tab").parent().show();
         $("#onload-editor-tab").parent().show();
+        $("#extra-tab").parent().hide();
     }
 }
 
@@ -259,6 +261,9 @@ function show_python_editor () {
 
     RUR.state.highlight = RUR.state.highlight || RUR.state._saved_highlight_value;
     $("#library-tab").parent().show();
+    if (RUR.state.extra_code_visible) {
+        $("#extra-tab").parent().show();
+    }
     $("#highlight").show();
     $("#watch-variables-btn").show();
     $("#python-additional-menu p button").removeAttr("disabled");

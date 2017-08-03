@@ -260,6 +260,7 @@ ui_ko["OBJECTS"] = "객체들";
 ui_ko["Python Code"] = "파이썬 코드";
 ui_ko["Javascript Code"] = "자바스크립트 코드";
 ui_ko["LIBRARY"] = "라이브러리";
+ui_ko["EXTRA"] = "extra";
 ui_ko["PRE"] = "전에";
 ui_ko["POST"] = "후";
 ui_ko["DESCRIPTION"] = "월드 정보";

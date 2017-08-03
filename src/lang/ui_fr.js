@@ -258,6 +258,7 @@ ui_fr["OBJECTS"] = "Objets";
 ui_fr["Python Code"] = "Code Python";
 ui_fr["Javascript Code"] = "Code Javascript";
 ui_fr["LIBRARY"] = "biblio";
+ui_fr["EXTRA"] = "extra";
 ui_fr["PRE"] = "Pre";
 ui_fr["POST"] = "Post";
 ui_fr["DESCRIPTION"] = "Desc.";

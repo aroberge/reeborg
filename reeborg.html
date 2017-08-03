@@ -220,6 +220,9 @@
           <a id="library-tab" href="#library"></a>
         </li>
         <li>
+          <a id="extra-tab" href="#extra"></a>
+        </li>
+        <li>
           <a id="pre-code-tab" href="#pre-code-div"></a>
         </li>
         <li>
@@ -243,6 +246,9 @@
       </div>
       <div id="library">
         <textarea id="library-code" name="library-code"></textarea>
+      </div>
+      <div id="extra">
+        <textarea id="extra-code" name="extra-code"></textarea>
       </div>
       <div id="pre-code-div">
         <textarea id="pre-code" name="pre-code"></textarea>
@@ -667,8 +673,11 @@
         <button class="blue-gradient" id="load-library-btn"></button>
         <span id="load-library-text"></span>
       </p>
+      <button onclick="RUR.reveal_extra()" class="blue-gradient">Update extra</button></br>
+      <div id="extra-styled"></div>
     </div>
   </div>
+
   <audio id="put-sound" preload>
     <source src="src/sounds/toc.wav" type="audio/x-wav">
   </audio>
@@ -946,7 +955,6 @@
     </div>
   </div>
 
-<div id="extra" style="display: none;"></div>
   <!--online-->
   <a style="display:none" href="http://clicky.com/100788691"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" /></a>
   <script type="text/javascript">

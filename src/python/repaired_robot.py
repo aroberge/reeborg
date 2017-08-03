@@ -22,7 +22,7 @@ class RepairedRobot(UsedRobot):
         self.body._prev_y = self.body.y
         self.body._orientation += 2
         self.body._orientation %= 4
-        RUR.record_frame
+        RUR.record_frame()
 
     def is_facing_south(self):
         return self.body._orientation == RUR.SOUTH
@@ -36,18 +36,22 @@ class RepairedRobot(UsedRobot):
     def face_south(self):
         self.body._orientation = RUR.SOUTH
         self.body._prev_orientation = self.body._orientation
+        RUR.record_frame()
 
     def face_east(self):
         self.body._orientation = RUR.EAST
         self.body._prev_orientation = self.body._orientation
+        RUR.record_frame()
 
     def face_north(self):
         self.body._orientation = RUR.NORTH
         self.body._prev_orientation = self.body._orientation
+        RUR.record_frame()
 
     def face_west(self):
         self.body._orientation = RUR.WEST
         self.body._prev_orientation = self.body._orientation
+        RUR.record_frame()
 
     def left_is_clear(self):
         self.turn_left(True)

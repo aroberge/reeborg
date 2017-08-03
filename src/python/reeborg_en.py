@@ -124,18 +124,6 @@ def front_is_clear():  #py:front_is_clear
     return RUR._front_is_clear_()
 
 
-def install_extra(url):
-    """Install a module (single file) to be used from within Reeborg.
-
-       See also RUR.extra_python_code(code) which install a fake module
-       using a (triple-quote) Python string instead of an external file.
-
-       Args:
-           url: The url where the Python module must be retrieved from.
-    """
-    RUR.install_extra(url)
-
-
 def is_facing_north():  #py:is_facing_north
     """Indicates if Reeborg is facing North (top of the screen) or not."""
     return RUR._is_facing_north_()

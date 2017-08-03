@@ -224,6 +224,7 @@ ui_en["OBJECTS"] = "Objects";
 ui_en["Python Code"] = "Python Code";
 ui_en["Javascript Code"] = "Javascript Code";
 ui_en["LIBRARY"] = "library";
+ui_en["EXTRA"] = "extra";
 ui_en["PRE"] = "Pre";
 ui_en["POST"] = "Post";
 ui_en["DESCRIPTION"] = "Desc.";

@@ -43,6 +43,19 @@ library.setOption("extraKeys", {
   "Shift-Tab": shiftTab
 });
 
+window.extra_editor = CodeMirror.fromTextArea(document.getElementById('extra-code'), {
+  mode: {
+    name: "python",
+    version: 3
+  },
+  lineNumbers: true,
+  readOnly: true,
+  theme: 'reeborg-readonly',
+  indentUnit: 4,
+  viewportMargin: Infinity
+});
+
+
 window.pre_code_editor = CodeMirror.fromTextArea(document.getElementById('pre-code'), {
   mode: {
     name: "python",

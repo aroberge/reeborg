@@ -1,0 +1,8 @@
+{
+  "robots": [],
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14,
+  "description": "An example of creating a custom world menu.\nThe code in the Onload editor is:\n\nINSERT_ONLOAD",
+  "onload": "contents = [\n    [\"/src/worlds/tutorial_en/home1.json\", \"Home 1\"],\n    [\"/src/worlds/tutorial_en/home2.json\", \"Home 2\"]]\nMakeCustomMenu(contents)\n"
+}

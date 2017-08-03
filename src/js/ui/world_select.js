@@ -81,7 +81,7 @@ RUR.world_select.append_world = function (arg) {
     }
 
     // allow for special styling of any url containing the string "menu".
-    if (url.indexOf('menu') != -1) {
+    if (url.toLowerCase().indexOf('menu') != -1) {
         option_elt = '<option class="select-menu"></option>';
     } else if (arg.local_storage !== undefined){
         option_elt = '<option class="select-local-storage"></option>';
