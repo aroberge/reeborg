@@ -106,19 +106,6 @@ RUR.set_extra_content = function (python_code, hide) {
     }
 };
 
-/*
- * @function get_extra_content
- * @memberof RUR
- * @instance
- *
- * @desc Returns the content of the extra editor as a string. This is used
- * internally and we currently do not know of any use case for an end-user
- * of the program which is why we do not include this in the public API.
- */
-RUR.get_extra_content = function () {
-    return extra_editor.getValue();
-};
-
 /**
  * @function get_editor_from_world
  * @memberof RUR
