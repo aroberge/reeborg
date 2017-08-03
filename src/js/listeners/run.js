@@ -22,6 +22,9 @@ function run () {
     $("#reload").attr("disabled", "true");
     $("#frame-selector").attr("disabled", "true").addClass("disabled").removeClass("enabled");
 
+    $("#highlight").attr("disabled", "true");
+    $("#watch-variables-btn").attr("disabled", "true");
+
     clearTimeout(RUR._TIMER);
     RUR.runner.run(RUR.play);
     RUR.state.run_button_clicked = false;

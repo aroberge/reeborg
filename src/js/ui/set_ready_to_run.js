@@ -9,6 +9,8 @@ exports.set_ui_ready_to_run = set_ui_ready_to_run = function () {
     $("#step").removeAttr("disabled");
     $("#reverse-step").attr("disabled", "true");
     $("#reload").attr("disabled", "true");
+    $("#highlight").removeAttr("disabled");
+    $("#watch-variables-btn").removeAttr("disabled");
 };
 
 set_ui_ready_to_run();

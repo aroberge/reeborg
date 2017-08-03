@@ -46,6 +46,8 @@ button[disabled] {
     background: #eee;
 }
 
+
+
 header {
     position: absolute;
     top: 0;
@@ -134,6 +136,9 @@ nav a:first-child {
 
 #highlight, #watch-variables-btn {
     height: 40px;
+}
+#highlight:disabled, #watch-variables-btn:disabled{
+    display: none !important;
 }
 
 button {

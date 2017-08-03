@@ -15,5 +15,9 @@ step = function () {
     $("#reverse-step").removeAttr("disabled");
     $("#frame-selector").removeAttr("disabled").addClass("enabled").removeClass("disabled");
     clearTimeout(RUR._TIMER);
+
+    $("#highlight").attr("disabled", "true");
+    $("#watch-variables-btn").attr("disabled", "true");
+
 };
 step_button.addEventListener("click", step, false);
