@@ -328,10 +328,6 @@ ui_en["Unlimited:"] = "Unlimited:";
 ui_en["Give object to robot"] = "Give object to robot";
 ui_en["GIVE OBJECT EXPLAIN"] = "Choose a number of objects for the robot to carry. Click on the checkbox if you wish that number to be unlimited.";
 
-// ui_en["UPDATE EDITOR CONTENT"] = "This world has some default content for the editor. To replace the current content of your editor, click on the button";
-// ui_en["UPDATE EDITOR BUTTON"] = "Replace editor content";
-// ui_en["UPDATE LIBRARY CONTENT"] = "This world has some default content for the library. To replace the current content of your library, click on the button";
-// ui_en["UPDATE LIBRARY BUTTON"] = "Replace library content";
 ui_en["UPDATE BLOCKLY CONTENT"] = "This world has some default content for the blocks workspace. To replace the current blocks content, click on the button";
 ui_en["UPDATE BLOCKLY BUTTON"] = "Replace existing blocks";
 ui_en["Contents from World"] = "Contents from World";

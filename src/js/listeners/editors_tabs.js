@@ -72,7 +72,7 @@ $("#extra-tab").on("click", function (evt) {
  *
  * @param {string} python_code The Python code which is the content of the
  * desired module, and shown in the **extra** editor tab.
- * @param {bool} [hide] If `true/True`, the **extra** editor tab (and its
+ * @param {bool} [hidden] If `true/True`, the **extra** editor tab (and its
  * content) will be hidden.
  *
  * @example {@lang python}
@@ -91,10 +91,10 @@ $("#extra-tab").on("click", function (evt) {
  * # similar to the above except for code in the library
  * RUR.set_extra_content(RUR.get_library_from_world)
  */
-RUR.set_extra_content = function (python_code, hide) {
+RUR.set_extra_content = function (python_code, hidden) {
     if (python_code) {
         extra_editor.setValue(python_code);
-        if (!hide) {
+        if (!hidden) {
             RUR.state.extra_code_visible = true;
             if (RUR.state.programming_language == "python" && !RUR.state.editing_world) {
                 $("#extra-tab").parent().show();

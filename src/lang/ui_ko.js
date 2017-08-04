@@ -365,10 +365,6 @@ ui_ko["Unlimited:"] = "Unlimited:";
 ui_ko["Give object to robot"] = "Give object to robot";
 ui_ko["GIVE OBJECT EXPLAIN"] = "로봇이 운반 할 객체의 수를 고르세요. 더 많은 수를 원한다면 체크박스를 클릭하세요.";
 
-// ui_ko["UPDATE EDITOR CONTENT"] = "This world has some default content for the editor. To replace the current content of your editor, click on the button";
-// ui_ko["UPDATE EDITOR BUTTON"] = "Replace editor content";
-// ui_ko["UPDATE LIBRARY CONTENT"] = "This world has some default content for the library. To replace the current content of your library, click on the button";
-// ui_ko["UPDATE LIBRARY BUTTON"] = "Replace library content";
 ui_ko["UPDATE BLOCKLY CONTENT"] = "This world has some default content for the blocks workspace. To replace the current blocks content, click on the button";
 ui_ko["UPDATE BLOCKLY BUTTON"] = "Replace existing blocks";
 ui_ko["Contents from World"] = "Contents from World";
