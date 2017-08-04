@@ -94,7 +94,7 @@ RUR.reset_default_robot_images = function () {
     saved_model = localStorage.getItem("robot_default_model");
     if (saved_model==0 || saved_model==1 || saved_model==2 || saved_model==3) {
         saved_model = RUR.reeborg_default_model;
-        localStorage.setItem("robot_default_model", model);
+        localStorage.setItem("robot_default_model", saved_model);
     }
     RUR.user_selected_model = saved_model;
     RUR.select_default_robot_model(saved_model);
