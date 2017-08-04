@@ -65,6 +65,7 @@ qunit_scripts = """
 </div>
 <script>
     var test_utils = {};
+    window.localStorage.clear();
 </script>
 <script type="text/javascript" src="qunit-2.3.2.js"></script>
 <script>QUnit.config.hidepassed = true;

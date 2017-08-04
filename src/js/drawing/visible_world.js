@@ -124,8 +124,7 @@ RUR.vis_world.refresh = function () {
     if (RUR.ROBOT_ANIMATION_FRAME_ID) {
         clearTimeout(RUR.ROBOT_ANIMATION_FRAME_ID);
     }
-    draw_robots(true);  // on ROBOT_CTX; also draws the trace
-        // true means to start a cycle
+    draw_robots();  // on ROBOT_CTX; also draws the trace
 
     // Animated images are redrawn according to their own schedule
     // If we have not drawn any yet, we should see if we need to draw some
@@ -234,7 +233,7 @@ function draw_border (ctx) {
 }
 
 
-function draw_robots (start_cycle) {
+function draw_robots () {
     "use strict";
     var body, robot, robots = RUR.get_current_world().robots;
     if (!robots || robots[0] === undefined) {
@@ -248,7 +247,7 @@ function draw_robots (start_cycle) {
         if (body.possible_initial_positions !== undefined && body.possible_initial_positions.length > 1){
             draw_robot_clones(body);
         } else {
-            RUR.vis_robot.draw(body, start_cycle); // draws trace automatically
+            RUR.vis_robot.draw(body); // draws trace automatically
         }
     }
 

@@ -18,6 +18,7 @@ RUR.vis_robot.nb_images = 0;
 RUR.BASE_URL = RUR.BASE_URL || '';
 
 function set_images(images) {
+    "use strict"
     var default_images, east, west, north, south, robot, model = images.model;
 
     default_images = {east: RUR.BASE_URL + '/src/images/robot_e.png',
@@ -64,6 +65,7 @@ function set_images(images) {
 }
 
 RUR.reset_default_robot_images = function () {
+    "use strict"
     var saved_model;
     set_images({model: "classic"}); // classic; uses default
     set_images({model: "2d red rover",
@@ -200,10 +202,11 @@ RUR.vis_robot.nb_images += 1;
  * @instance
  *
  * @desc Description to be added.
+ * @todo Add description
  */
 
 RUR.animate_robot = function (models, robot) {
-    var i, other, robot_list = [];
+    "use strict"
     if (robot === undefined) {
         robot = RUR.get_current_world().robots[0];
     }
@@ -218,10 +221,10 @@ RUR.animate_robot = function (models, robot) {
     RUR.state.animated_robots = true;
 };
 
-function update_model(robot, start_cycle) {
+function update_model(robot) {
     var default_robot, nb_models = robot.models_cycle.length;
 
-    if (start_cycle) {
+    if (robot.model_index == undefined) {
         robot.model_index = 0;
     }
     robot.model = robot.models_cycle[robot.model_index];
@@ -242,7 +245,7 @@ function update_model(robot, start_cycle) {
 };
 
 
-RUR.vis_robot.draw = function (robot, start_cycle) {
+RUR.vis_robot.draw = function (robot) {
     "use strict";
     var x, y, width, height, image, default_robot;
     if (!robot) {
@@ -268,7 +271,7 @@ RUR.vis_robot.draw = function (robot, start_cycle) {
     y = RUR.HEIGHT - (robot.y+1)*RUR.WALL_LENGTH + RUR.WALL_THICKNESS/2;
 
     if (robot.models_cycle) {
-        update_model(robot, start_cycle);
+        update_model(robot);
     }
 
     if (robot.model == undefined) {
