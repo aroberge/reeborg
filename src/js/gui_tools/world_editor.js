@@ -236,12 +236,16 @@ RUR.we.toggle_editing_mode = function () {
             localStorage.setItem("library", library.getValue());
         } catch (e) {}
         $("#editor-tab").trigger('click');
+        if (RUR.state.programming_language == "python" && RUR.state.extra_code_visible) {
+            $("#extra-tab").parent().show();
+        }
         RUR.reload();
     } else {
         $("#pre-code-tab").parent().show();
         $("#post-code-tab").parent().show();
         $("#description-tab").parent().show();
         $("#onload-editor-tab").parent().show();
+        $("#extra-tab").parent().hide();
         edit_robot_menu.toggle();
         RUR.state.editing_world = true;
         $("#highlight").hide();
