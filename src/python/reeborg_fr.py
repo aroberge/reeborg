@@ -213,7 +213,12 @@ def objet_ici(obj=None):  #py:object_here
 
 
 def position_ici():
-    '''Retourne un tuple (x, y) donnant les coordonnées du robot'''
+    '''
+    Retourne un tuple (x, y) donnant les coordonnées du robot.
+
+    La fonction correspondante en mode JavaScript retourne un "array"
+    avec les valeurs [x, y].
+    '''
     body = RUR._default_robot_body_()
     return (body.x, body.y)
 
@@ -223,6 +228,10 @@ def position_devant():
     Retourne un tuple (x, y) donnant les coordonnées de la position
     immédiatement devant le robot si la position est à l'intérieur
     des limites du monde, autrement un tuple nul est retourné.
+
+    La fonction correspondante en mode JavaScript retourne un "array"
+    avec les valeurs [x, y] ou "undefined" si la position n'est pas à
+    l'intérieur des limites du monde.
     '''
     body = RUR._default_robot_body_()
     pos = RUR.get_position_in_front(body)
@@ -640,7 +649,12 @@ class RobotUsage(object):  #py:UR
 
 
     def position_ici(self):
-        '''Retourne un tuple (x, y) donnant les coordonnées du robot'''
+        '''
+        Retourne un tuple (x, y) donnant les coordonnées du robot.
+
+        La fonction correspondante en mode JavaScript retourne un "array"
+        avec les valeurs [x, y].
+        '''
         return (self.body.x, self.body.y)
 
 
@@ -649,6 +663,10 @@ class RobotUsage(object):  #py:UR
         Retourne un tuple (x, y) donnant les coordonnées de la position
         immédiatement devant le robot si la position est à l'intérieur
         des limites du monde, autrement le tuple nul est retourné.
+
+        La fonction correspondante en mode JavaScript retourne un "array"
+        avec les valeurs [x, y] ou "undefined" si la position n'est pas à
+        l'intérieur des limites du monde.
         '''
         pos = RUR.get_position_in_front(self.body)
         if RUR.is_valid_position(pos["x"], pos["y"]):

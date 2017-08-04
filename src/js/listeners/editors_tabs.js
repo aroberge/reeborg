@@ -86,10 +86,10 @@ $("#extra-tab").on("click", function (evt) {
  *
  * # set the content from the code present in the editor
  * # when saving/creating the world
- * RUR.set_extra_content(RUR.get_editor_from_world)
+ * RUR.set_extra_content(RUR.get_editor_from_world())
  *
  * # similar to the above except for code in the library
- * RUR.set_extra_content(RUR.get_library_from_world)
+ * RUR.set_extra_content(RUR.get_library_from_world())
  */
 RUR.set_extra_content = function (python_code, hidden) {
     if (python_code) {
@@ -119,7 +119,7 @@ RUR.set_extra_content = function (python_code, hidden) {
  * extra editor/module.
  *
  * @example {@lang python}
- * RUR.set_extra_content(RUR.get_editor_from_world)
+ * RUR.set_extra_content(RUR.get_editor_from_world())
  *
  */
 RUR.get_editor_from_world = function () {
@@ -143,7 +143,7 @@ RUR.get_editor_from_world = function () {
  * extra editor/module.
  *
  * @example {@lang python}
- * RUR.set_extra_content(RUR.get_library_from_world)
+ * RUR.set_extra_content(RUR.get_library_from_world())
  *
  */
 RUR.get_library_from_world = function () {

@@ -52,6 +52,15 @@ RUR.reset_definitions_en = function () {
         var body = RUR._default_robot_body_();
         return [body.x, body.y];
     }
+    window.position_in_front = function () {
+        var pos, body = RUR._default_robot_body_();
+        pos = RUR.get_position_in_front(body)
+        if (RUR.is_valid_position(pos["x"], pos["y"])) {
+            return [pos["x"], pos["y"]];}
+        else {
+            return undefined;
+        }
+    }
     window.print_html = RUR._print_html_;
     window.put = RUR._put_;
     window.toss = RUR._toss_;
@@ -116,6 +125,15 @@ RUR.reset_definitions_en = function () {
 
     UsedRobot.prototype.position_here = function () {
         return [this.body.x, this.body.y];
+    };
+
+    UsedRobot.prototype.position_in_front = function () {
+        pos = RUR.get_position_in_front(this.body)
+        if (RUR.is_valid_position(pos["x"], pos["y"])) {
+            return [pos["x"], pos["y"]];}
+        else {
+            return undefined;
+        }
     };
 
     UsedRobot.prototype.put = function () {

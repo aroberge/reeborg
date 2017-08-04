@@ -41,7 +41,10 @@ require("./../rur.js");
  *
  * @memberof RUR
  * @instance
- * @summary This function indicates returns a robot "body" specified by
+ * @summary **IMPORTANT** This function should only be used for the advanced
+ * frame insertion technique.
+ *
+ * This function indicates returns a robot "body" specified by
  * its id, if a robot with such an id exists.  (The `id` is
  * like a serial number: it is a number unique for each robot created).
  * No error checking is performed on the argument.  If some exception is raised,
@@ -86,7 +89,9 @@ RUR.get_robot_body_by_id = function (id) {
  *
  * @memberof RUR
  * @instance
- * @summary This function indicates returns a Javascript UsedRobot instance
+ * @summary **IMPORTANT** This function should only be used for the advanced
+ * frame insertion technique.
+ * This function indicates returns a Javascript UsedRobot instance
  * specified by its id, if a robot with such an id exists.  (The `id` is
  * like a serial number: it is a number unique for each robot created).
  * No error checking is performed on the argument.
@@ -122,7 +127,13 @@ RUR.get_robot_by_id = function (id) {
  *
  * @memberof RUR
  * @instance
- * @summary This function returns the location of a robot.
+ * @desc **IMPORTANT** This function should only be used for the advanced
+ * frame insertion technique; in normal programs, used `position_here()`.
+ * Use `import reeborg_en` followed by `help(reeborg_en.position_here())`
+ * for details about the return values which are different from those of
+ * `RUR.get_robot_location()`.
+ *
+ * This function returns the location of a robot (position **and** orientation).
  *
  * @param {object} robot_body A robot body object, having the proper attribute
  *    for position (x, y coordinates) and orientation.  Note that you should
@@ -171,7 +182,11 @@ RUR.get_robot_location = function (robot_body) {
  *
  * @memberof RUR
  * @instance
- * @summary This function returns the location of a robot.
+ * @desc **IMPORTANT** This function should only be used for the advanced
+ * frame insertion technique; in normal programs, used `position_in_front()`.
+ * Use `import reeborg_en` followed by `help(reeborg_en.position_in_front())`
+ * for details about the return values which are different from those of
+ * `RUR.get_position_in_front()`.
  *
  * @param {object} robot_body A robot body object, having the proper attribute
  *    for position (x, y coordinates) and orientation.  Note that you should
@@ -180,19 +195,9 @@ RUR.get_robot_location = function (robot_body) {
  *    the internal names for the various attributes are subject to change.
  *
  * @returns {object} An object of the form
- *      `{x:x_value, y:y_value} where `x_value` and `y_value` are integers.
- *
- * @example {@lang python}
- * no_highlight()
- * World("worlds/examples/simple_path.json", "simple_path")
- * reeborg = default_robot()
- * while not at_goal():
- *     pos = RUR.get_position_in_front(reeborg.body)
- *     x, y = pos["x"], pos["y"]
- *     if RUR.is_background_tile("gravel", x, y):
- *         move()
- *     else:
- *         turn_left()
+ *      `{x:x_value, y:y_value} where `x_value` and `y_value` are integers and
+ * represent the position in front of the robot. If the position is not
+ * within the world boundaries, the object `{x:0, y:0}` is returned.
  *
  **/
 
@@ -224,7 +229,12 @@ RUR.get_position_in_front = function (robot_body) {
     default:
         throw new Error("Missing _orientation attribute for robot_body in RUR.get_position_in_front().");
     }
-    return {x:x, y:y};
+    if (RUR.is_valid_position(x, y)) {
+        return {x:x, y:y};
+    } else {
+        return {x:0, y:0};
+    }
+
 };
 
  /** @function add_final_position

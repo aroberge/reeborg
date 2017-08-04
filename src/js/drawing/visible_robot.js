@@ -201,27 +201,31 @@ RUR.vis_robot.nb_images += 1;
  * @memberof RUR
  * @instance
  *
- * @desc Description to be added.
- * @todo Add description
+ * @desc Robot animation is done by cycling through a list of robot models,
+ * each model having 4 images (one for each orientation).
+ *
+ * @param {array} models A list of robot models. If the list contains a single
+ * model, the animation is stopped.
+ * @param {object} robot_body A robot_body object.
  */
 
-RUR.animate_robot = function (models, robot) {
+RUR.animate_robot = function (models, robot_body) {
     "use strict"
-    if (robot === undefined) {
-        robot = RUR.get_current_world().robots[0];
+    if (robot_body === undefined) {
+        robot_body = RUR.get_current_world().robots[0];
     }
     if (models.length > 1) {
-        robot.models_cycle = models;
-        robot.model_index = 0;
+        robot_body.models_cycle = models;
+        robot_body.model_index = 0;
     } else {
-        robot.models_cycle = null;
-        robot.model = models[0];
+        robot_body.models_cycle = null;
+        robot_body.model = models[0];
     }
-    RUR.record_frame("animate robot", robot.__id);
+    RUR.record_frame("animate robot", robot_body.__id);
     RUR.state.animated_robots = true;
 };
 
-function update_model(robot) {
+function update_model(robot) { // robot == robot.body
     var default_robot, nb_models = robot.models_cycle.length;
 
     if (robot.model_index == undefined) {

@@ -54,6 +54,15 @@ RUR.reset_definitions_fr = function () {
         var body = RUR._default_robot_body_();
         return [body.x, body.y];
     }
+    window.position_devant = function () {
+        var pos, body = RUR._default_robot_body_();
+        pos = RUR.get_position_in_front(body)
+        if (RUR.is_valid_position(pos["x"], pos["y"])) {
+            return [pos["x"], pos["y"]];}
+        else {
+            return undefined;
+        }
+    }
     window.tourne_a_gauche = RUR._turn_left_;
     window.voir_source_js = RUR._view_source_js_;
     window.mur_devant = RUR._wall_in_front_;
@@ -102,6 +111,15 @@ RUR.reset_definitions_fr = function () {
 
     RobotUsage.prototype.position_ici = function () {
         return [this.body.x, this.body.y];
+    };
+
+    RobotUsage.prototype.position_ici = function () {
+        pos = RUR.get_position_in_front(this.body)
+        if (RUR.is_valid_position(pos["x"], pos["y"])) {
+            return [pos["x"], pos["y"]];}
+        else {
+            return undefined;
+        }
     };
 
     RobotUsage.prototype.colorie = function (color) {

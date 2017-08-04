@@ -221,7 +221,11 @@ def pause(ms=None):  #py:pause
 
 
 def position_here():
-    '''Returns a tuple (x, y) giving the coordinates of the robot'''
+    '''
+    Returns a tuple (x, y) giving the coordinates of the robot.
+
+    The corresponding JavaScript function returns an array [x, y].
+    '''
     body = RUR._default_robot_body_()
     return (body.x, body.y)
 
@@ -231,6 +235,9 @@ def position_in_front():
     Returns a tuple (x, y) giving the coordinates of position immediately
     in front of the robot if the position is within the world boundaries,
     otherwise returns an empty tuple.
+
+    The corresponding JavaScript function returns an array [x, y] or the value
+    undefined if the position is not within the world boundaries.
     '''
     body = RUR._default_robot_body_()
     pos = RUR.get_position_in_front(body)
@@ -617,7 +624,11 @@ class UsedRobot(object):  #py:UR
 
 
     def position_here(self):
-        '''Returns a tuple (x, y) giving the coordinates of the robot'''
+        '''
+        Returns a tuple (x, y) giving the coordinates of the robot.
+
+        The corresponding JavaScript function returns an array [x, y].
+        '''
         return (self.body.x, self.body.y)
 
 
@@ -626,6 +637,9 @@ class UsedRobot(object):  #py:UR
         Returns a tuple (x, y) giving the coordinates of position immediately
         in front of the robot if the position is within the world boundaries,
         otherwise returns an empty tuple.
+
+        The corresponding JavaScript function returns an array [x, y] or the
+        value undefined if the position is not within the world boundaries.
         '''
         pos = RUR.get_position_in_front(self.body)
         if RUR.is_valid_position(pos["x"], pos["y"]):

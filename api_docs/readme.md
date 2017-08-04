@@ -4,11 +4,14 @@
 
 # About this documentation
 
-This documentation is written for people who wish to create new programming tasks, **going beyond what can be done using the Menu-driven World Editor included in Reeborg's World.** For example, you might want to use different images, including animation, or to add more capabilities to Reeborg's World.  People that simply wish to learn how to use Reeborg's World, or would like to follow a programming tutorial, should use [this link](http://reeborg.ca/docs/en) instead. [Please, note that the link points to a document available in English, French and Korean, with the language chosen using a selector on the right hand side.]
+This documentation is written for people who alreday know how to program and wish to create new programming tasks, **going beyond what can be done using the Menu-driven World Editor included in Reeborg's World.** For example, you might want to use different images, including animation, or to add more capabilities to Reeborg's World.  This is **not** a programming tutorial.
 
 This documentation has been generated utomatically using Jsdoc from **comments** included in javascript source files;
-unlike [the tutorial](http://reeborg.ca/docs/en), this documentation is available only in English.
-Since comments are **not** executed, it can happen that they do not reflect what the code is actually doing. If you find that the information provided here is incorrect, or if you have any question or suggestion, please do not hesitate to get in touch with me (Andre.Roberge@gmail.com).
+unlike [the existing tutorial](http://reeborg.ca/docs/en),
+this documentation is available only in English.
+
+Since comments are **not** executed, it can happen that they do not reflect what the code is actually doing. If you find that the information provided here is incorrect, or if you have any question or suggestion, please do not hesitate to
+[submit a bug report](https://github.com/aroberge/reeborg/issues).
 
 Please note that there are many more functions belonging to the `RUR` namespace
 than what is documented here.  As a general rule, you should not create additional

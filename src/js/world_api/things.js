@@ -89,7 +89,7 @@ require("./../utils/supplant.js");
  * number of pixel equal to `y_offset`. This is only valid for images - not for
  * colors.
  *
- * @param {object} [things.transform] See the book
+ * @param {object} [thing.transform] See the book
  * **Reeborg's World: a Teacher's guide** for an explanation.
  *
  * @throws Will throw an error if `name` attribute is not specified.

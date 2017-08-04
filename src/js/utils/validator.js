@@ -17,6 +17,20 @@ RUR.is_integer = _is_integer;
 RUR.is_non_negative_integer = _is_non_negative_integer;
 RUR.is_positive_integer = _is_positive_integer;
 
+
+/** @function is_valid_position
+ * @memberof RUR
+ * @instance
+ * @summary This function indicates if the position is within the world's boundaries.
+ *
+ * @param {integer} x  Position
+ * @param {integer} y  Position
+ *
+ * @returns {bool} `true/True` if the position is within the world's boundaries,
+ * `false/False` otherwise.
+ *
+ **/
+
 RUR.is_valid_position = function(x, y) {
     var world = RUR.get_current_world();
     return (_is_positive_integer(x) && _is_positive_integer(y) &&
