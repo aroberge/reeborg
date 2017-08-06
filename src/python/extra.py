@@ -3,13 +3,13 @@
 from browser import window
 from common import import_en, import_fr
 
-# Defining _watch_ and system_default_vars is only needed
+# Defining __watch and system_default_vars is only needed
 # to prevent an error if a user defines some code for the extra module
 # using RUR.set_extra_content(python_code) with "watch variable" enabled
-# as some call to _watch_ may be added to python_code if it spans multiple
+# as some call to __watch may be added to python_code if it spans multiple
 # lines
 system_default_vars = None
-def _watch_(*arg, **kwd):
+def __watch(*arg, **kwd):
     pass
 
 

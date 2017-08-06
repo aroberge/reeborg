@@ -57,8 +57,46 @@ function object_of_type_here (robot, obj, object_type) {
     }
 }
 
-RUR.world_get.world_map = function () {
-    return JSON.stringify(RUR.get_current_world(), null, 2);
+/** @function world_map
+ * @memberof RUR
+ * @instance
+ *
+ * @desc Returns a JSON object representing the world and all
+ * its content.  For Python, use `SatelliteInfo.world_map` instead.
+ *
+ */
+
+RUR.world_map = function () {
+    "use strict"
+    var world, to_remove, i;
+    // clone the world so as not to modify the original
+    world = JSON.parse(JSON.stringify(RUR.get_current_world()));
+    to_remove = ["description", "editor", "library", "pre", "post", "onload"];
+    for (i=0; i < to_remove.length; i++) {
+        if (world[to_remove[i]] !== undefined) {
+            delete world[to_remove[i]];
+        }
+    }
+    return world;
+};
+
+/** @function print_world_map
+ * @memberof RUR
+ * @instance
+ *
+ * @desc Prints a formatted version of the world map.
+ * For Python, use `SatelliteInfo.print_world_map()` instead.
+ *
+ */
+
+RUR.print_world_map = function () {
+    RUR.output.write(JSON.stringify(RUR.world_map(), null, 2), "\n");
+};
+
+
+// Used by SatelliteInfo class in Python
+RUR._world_map = function () {
+    return JSON.stringify(RUR.world_map(), null, 2);
 };
 
 RUR.world_get.world_info = function (no_grid) {

@@ -9,7 +9,7 @@ try:
 except:
     pass
 
-_watch = False
+_watching = False
 _highlight = True
 
 def extract_first_word(mystr, separators):
@@ -25,8 +25,8 @@ def extract_first_word(mystr, separators):
 def tracing_line(indent, current_group, last_line=False, skip_watch=False):
     '''Construct the tracing line'''
     tracecall_name = 'RUR.set_lineno_highlight'
-    watch_string = "_watch_(system_default_vars, loc=locals(), gl=globals())\n"
-    if _watch and not skip_watch:
+    watch_string = "__watch(system_default_vars, loc=locals(), gl=globals())\n"
+    if _watching and not skip_watch:
         watch_info = indent + watch_string
     else:
         watch_info = ''
@@ -140,10 +140,10 @@ def is_assignment(line):
 
 
 def insert_highlight_info(src, highlight=True, var_watch=False):
-    global _watch, _highlight
+    global _watching, _highlight
     if not src:
         return '\n', False
-    _watch = var_watch
+    _watching = var_watch
     _highlight = highlight
     line_info = check_balanced_brackets(src)
     if not line_info:
@@ -155,8 +155,6 @@ def insert_highlight_info(src, highlight=True, var_watch=False):
     new_lines = []
     use_next_indent = False
     saved_lineno_group = None
-
-    prev_indent = '' # only used with _watch
 
     line_info.reverse()
     current_group = line_info.pop()
@@ -170,11 +168,6 @@ def insert_highlight_info(src, highlight=True, var_watch=False):
 
         line_wo_indent = line.lstrip()
         indent = line[:-len(line_wo_indent)]
-        if _watch:
-            if len(indent) < len(prev_indent):
-                # add watch vars info at end of block
-                new_lines.append(tracing_line(prev_indent, '', last_line=True))
-            prev_indent = indent
         first_word, remaining = extract_first_word(line_wo_indent, ' #=([{:\'"\\')
         if use_next_indent:
             if saved_lineno_group[-1] >= lineno:  # pylint: disable=E1136
@@ -217,7 +210,7 @@ def insert_highlight_info(src, highlight=True, var_watch=False):
             new_lines.append(line)
 
 
-    new_lines.append(tracing_line(indent, '', last_line=True))
+    new_lines.append(tracing_line('', '', last_line=True))
     return '\n'.join(new_lines), False
 
 if __name__ == '__main__':

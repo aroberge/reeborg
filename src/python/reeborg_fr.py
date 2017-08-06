@@ -17,6 +17,30 @@ except ImportError:
     print("\n --> Skipping importing from browser for sphinx.\n")
 
 
+def dir_py(obj, exclude=None):
+    '''Affiche tous les attributs "publics" d'un objet, un par ligne,
+       en identifiant lesquels sont invocables par l'addition de parenthèses
+       à la fin de leur nom.
+
+       Par attribut "public" on entend ceux dont le nom ne débute pas par
+       deux caractères de soulignement.'''
+    def html_escape(obj):
+        return str(obj).replace("&", "&amp").replace("<", "&lt;").replace(">", "&gt;")
+    out = []
+    for attr in dir(obj):
+        try:
+            if exclude:
+                if attr in exclude:
+                    continue
+            if not attr.startswith("__"):
+                if callable(getattr(obj, attr)):
+                    out.append(attr + "()")
+                else:
+                    out.append(attr)
+        except AttributeError:  # javascript extension, as in supplant()
+            pass              # string prototype extension, can cause problems
+    print_html(html_escape("\n".join(out)).replace("\n", "<br>"), True)
+
 # All functions from Javascript used below should have names of the form
 # RUR._xyz_ and be defined in commands.js; functions and methods should appear
 # in the same order as they appear in the English version.
@@ -270,7 +294,6 @@ def print_html(html, replace=False):  #py:print_html
             sinon, le nouveau contenu remplacera l'ancien.
     """
     RUR._print_html_(html, replace)
-window['print_html'] = print_html
 
 
 def depose(obj=None):  #py:put
@@ -905,11 +928,11 @@ class InfoSatellite():  #py:SI
         sujet du monde.
         """
         import json
-        return json.loads(RUR.world_get.world_map())
+        return json.loads(RUR._world_map())
 
     def imprime_carte(self):  #py:SI.print_world_map
         """Imprime une copie formattée de la carte"""
-        print(RUR.world_get.world_map())
+        print(RUR._world_map())
 
 
 #py:obsolete

@@ -1,11 +1,13 @@
+'''
+This module does most of the code processing to allow the execution of
+a Python program.
+
+The names defined here will be included in the globals namespace in which
+the user's program is executed.  We try to avoid names collisions by
+almost always using a double underscore as a prefix.
+'''
 import sys
 from browser import window, console
-try:
-    from highlight import insert_highlight_info
-except Exception as e:
-    print("problem in common.py")
-
-from preprocess import transform
 
 REEBORG_EN = {}
 exec("from reeborg_en import *", REEBORG_EN)
@@ -13,6 +15,10 @@ REEBORG_FR = {}
 exec("from reeborg_fr import *", REEBORG_FR)
 
 def import_en(namespace):
+    '''Does the clean equivalent of
+           from reeborg_en import *
+       into a namespace.
+    '''
     ReeborgOK_saved = window['ReeborgOK_en']
     ReeborgOk_saved = window['ReeborgOk_en']
     ReeborgError_saved = window['ReeborgError_en']
@@ -21,13 +27,17 @@ def import_en(namespace):
 
     namespace.update(REEBORG_EN)
 
-    window['ReeborgOK_en'] = ReeborgOK_saved
-    window['ReeborgOk_en'] = ReeborgOk_saved
-    window['ReeborgError_en'] = ReeborgError_saved
-    window['WallCollisionError_en'] = WallCollisionError_saved
-    window['MissingObjectError_en'] = MissingObjectError_saved
+    window['ReeborgOK'] = ReeborgOK_saved
+    window['ReeborgOk'] = ReeborgOk_saved
+    window['ReeborgError'] = ReeborgError_saved
+    window['WallCollisionError'] = WallCollisionError_saved
+    window['MissingObjectError'] = MissingObjectError_saved
 
 def import_fr(namespace):
+    '''Does the clean equivalent of
+           from reeborg_fr import *
+       into a namespace.
+    '''
     ReeborgOK_saved = window['ReeborgOK_fr']
     ReeborgOk_saved = window['ReeborgOk_fr']
     ReeborgError_saved = window['ReeborgError_fr']
@@ -36,19 +46,16 @@ def import_fr(namespace):
 
     namespace.update(REEBORG_FR)
 
-    window['ReeborgOK_fr'] = ReeborgOK_saved
-    window['ReeborgOk_fr'] = ReeborgOk_saved
-    window['ReeborgError_fr'] = ReeborgError_saved
-    window['WallCollisionError_fr'] = WallCollisionError_saved
-    window['MissingObjectError_fr'] = MissingObjectError_saved
+    window['ReeborgOK'] = ReeborgOK_saved
+    window['ReeborgOk'] = ReeborgOk_saved
+    window['ReeborgError'] = ReeborgError_saved
+    window['WallCollisionError'] = WallCollisionError_saved
+    window['MissingObjectError'] = MissingObjectError_saved
 
-def _add_watch(expr):
+def __add_watch(expr):
     window.RUR.watched_expressions.append(expr)
 
-window.RUR.add_watch = _add_watch
-
-def _write(data):
-    window.RUR.output._write(str(data))
+window.RUR.add_watch = __add_watch
 
 
 def __write(data):
@@ -58,30 +65,30 @@ def __write(data):
 def __write_err(data):
     window.RUR.output._write("<b style='color:red'>" + str(data) + "</b>")
 
-def html_escape(obj):
+def __html_escape(obj):
     return str(obj).replace("&", "&amp").replace("<", "&lt;").replace(">", "&gt;")
 
 
-old = "<span class='watch_name'>%s:</span> <span class='watch_value'>%s</span>"  # NOQA
-new = "<span class='changed_name'>%s:</span> <span class='changed_value'>%s</span>"  # NOQA
-changed = "<span class='watch_name'>%s:</span> <span class='changed_value'>%s</span>"  # NOQA
-div = "<div>%s</div>"
-title = "<span class='watch_title'>%s</span>"
-previous_watch_values = {}
+__old_vars = "<span class='watch_name'>%s:</span> <span class='watch_value'>%s</span>"  # NOQA
+__new_vars = "<span class='changed_name'>%s:</span> <span class='changed_value'>%s</span>"  # NOQA
+__changed_vars = "<span class='watch_name'>%s:</span> <span class='changed_value'>%s</span>"  # NOQA
+__html_div = "<div>%s</div>"
+__watch_title = "<span class='watch_title'>%s</span>"
+__previous_watch_values = {}
 
 
-def append_watch(arg, value, out):
-    global previous_watch_values
-    if arg not in previous_watch_values:
-        out.append(div % (new % (arg, value)))
-    elif value != previous_watch_values[arg]:
-        out.append(div % (changed % (arg, value)))
+def __append_watch(arg, value, out):
+    global __previous_watch_values
+    if arg not in __previous_watch_values:
+        out.append(__html_div % (__new_vars % (arg, value)))
+    elif value != __previous_watch_values[arg]:
+        out.append(__html_div % (__changed_vars % (arg, value)))
     else:
-        out.append(div % (old % (arg, value)))
+        out.append(__html_div % (__old_vars % (arg, value)))
 
 
-def _watch_(default, loc=None, gl=None):
-    global previous_watch_values
+def __watch(default, loc=None, gl=None):
+    global __previous_watch_values
     ignore = ['system_default_vars', 'line_info']
     current_watch_values = {}
     if loc is None:
@@ -96,10 +103,10 @@ def _watch_(default, loc=None, gl=None):
         else:
             if no_new_local:
                 no_new_local = False
-                out.append(title % window.RUR.translate("Local variables"))
-            value = html_escape(loc[arg])
+                out.append(__watch_title % window.RUR.translate("Local variables"))
+            value = __html_escape(loc[arg])
             current_watch_values[arg] = value
-        append_watch(arg, value, out)
+        __append_watch(arg, value, out)
 
     no_new_global = True
     for arg in gl:
@@ -110,29 +117,29 @@ def _watch_(default, loc=None, gl=None):
                 no_new_global = False
                 if not no_new_local:
                     out.append("")
-                out.append(title % window.RUR.translate("Global variables"))
-            value = html_escape(gl[arg])
+                out.append(__watch_title % window.RUR.translate("Global variables"))
+            value = __html_escape(gl[arg])
             current_watch_values[arg] = value
-        append_watch(arg, value, out)
+        __append_watch(arg, value, out)
 
     no_new_expr = True
     for arg in window.RUR.watched_expressions:
         if no_new_expr:
             no_new_expr = False
-            out.append(title % window.RUR.translate("Watched expressions"))
+            out.append(__watch_title % window.RUR.translate("Watched expressions"))
         try:
-            value = html_escape(eval(arg, gl, loc))
+            value = __html_escape(eval(arg, gl, loc))
         except Exception as e:
             value = repr(e)
         current_watch_values[arg] = value
-        append_watch(arg, value, out)
+        __append_watch(arg, value, out)
 
     window.RUR.output.watch_variables("".join(out))
-    previous_watch_values = current_watch_values
+    __previous_watch_values = current_watch_values
 
 
-def default_help():
-    '''list available commands'''
+def __default_help():
+    '''Lists available commands'''
     exclude = ["toString", "window", "RUR", "say", "face_au_nord", "narration"]
     lang = window.RUR.state.human_language
     if lang in ['en', 'fr_en', 'ko_en']:
@@ -149,11 +156,11 @@ def default_help():
 
 #TODO: use textwrap.dedent to improve format of help.
 
-def Help(obj=None):
-    '''Usage: help(obj)'''   # yes: lowercase!!!
+def __help(obj=None):
+    '''Usage: help(obj)'''   # yes: without the double underscore!!
     out = []
     if obj is None:
-        default_help()
+        __default_help()
         return
     try:
         out.append("<h2>{}</h2>".format(obj.__name__))
@@ -163,7 +170,7 @@ def Help(obj=None):
         else:
             out.append("<p>No docstring found.</p>")
     except Exception as e:
-        window.console.log("exception in Help", e.__name__)
+        window.console.log("exception in __help", e.__name__)
 
     for attr in dir(obj):
         if attr == "__class__" or attr.startswith("__"):
@@ -180,26 +187,7 @@ def Help(obj=None):
         raise AttributeError("This object has no docstring.")
     else:
         window.print_html("".join(out), True)
-window["Help"] = Help
-
-
-def dir_py(obj, exclude=None):
-    '''Prints all "public" attributes of an object, one per line, identifying
-       which ones are callable by appending parentheses to their name.'''
-    out = []
-    for attr in dir(obj):
-        try:
-            if exclude:
-                if attr in exclude:
-                    continue
-            if not attr.startswith("__"):
-                if callable(getattr(obj, attr)):
-                    out.append(attr + "()")
-                else:
-                    out.append(attr)
-        except AttributeError:  # javascript extension, as in supplant()
-            pass              # string prototype extension, can cause problems
-    window.print_html(html_escape("\n".join(out)).replace("\n", "<br>"), True)
+window["__help"] = __help
 
 
 def generic_translate_python(src, highlight=False, var_watch=False, pre_code='',
@@ -212,6 +200,8 @@ def generic_translate_python(src, highlight=False, var_watch=False, pre_code='',
         pre_code: code included with world definition and prepended to user code
         post_code: code included with world definition and appended to user code
     '''
+    from preprocess import transform # keeping out of global namespace
+    from highlight import insert_highlight_info
     sys.stdout.write = __write
     sys.stderr.write = __write_err
 
@@ -229,11 +219,9 @@ def generic_translate_python(src, highlight=False, var_watch=False, pre_code='',
 
     globals_ = {}
     globals_.update(globals())
-    globals_['dir_py'] = dir_py
-    globals_['Help'] = Help
-    globals_['_watch_'] = _watch_
-    globals_['_v_'] = None
-    globals_['previous_watch_values'] = {}
+    globals_['__help'] = __help
+    globals_['__watch'] = __watch
+    globals_['__previous_watch_values'] = {}
 
     src = transform(src)
     # sometimes, when copying from documentation displayed in the browsers
@@ -272,12 +260,11 @@ def generic_translate_python(src, highlight=False, var_watch=False, pre_code='',
         window.console.log("processed source:")
         window.console.log(src)
 
-    # include v again to reset its value
     if var_watch:
-        _v_ = "system_default_vars = set(locals().keys())\n"
+        system_vars = "system_default_vars = set(locals().keys())\n"
     else:
-        _v_ = "\n"
-    src = "help=Help\n" + pre_code + "\n" + _v_ + src + "\n" + post_code
+        system_vars = "\n"
+    src = "help=__help\n" + pre_code + "\n" + system_vars + src + "\n" + post_code
     try:
         exec(src, globals_)
     except Exception as e:

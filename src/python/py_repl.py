@@ -181,10 +181,10 @@ class Interpreter():
             self.namespace["termine"] = self.done
             self.namespace["Termine"] = self.done
             self.namespace["Monde"] = self.world
-        self.namespace["Help"] = window["Help"]
+        self.namespace["__help"] = window["__help"]
         self.namespace["init"] = window.RUR.world_init
         # Ensure my help replaces Brython's builtin
-        exec("__BRYTHON__.builtins.help = Help", self.namespace)
+        exec("__BRYTHON__.builtins.help = __help", self.namespace)
         if self.initialized:
             self.run_pre()
 

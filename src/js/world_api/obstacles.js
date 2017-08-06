@@ -51,7 +51,7 @@ RUR.add_obstacle = function (name, x, y) {
  *
  * @throws Will throw an error if `(x, y)` is not a valid location.
  * @throws Will throw an error if `name` is not a known thing.
- * @throws Will throw an error if there is no background tile to remove
+ * @throws Will throw an error if there is no obstacle to remove
  *        at that location
  *
  */

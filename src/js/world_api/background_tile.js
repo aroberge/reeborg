@@ -5,6 +5,24 @@ require("./../utils/validator.js");
 require("./../recorder/record_frame.js");
 require("./artefact.js");
 
+/** @function set_background
+ * @memberof RUR
+ * @instance
+ *
+ * @desc Uses a single image to fill the background. If the image is smaller
+ * than the world, it is stretched to fill the entire world.
+ * If it is larger than the world, it is cropped, with its bottom left corner
+ * coinciding with the bottom left corner of the world.
+ *
+ * @param {string} url The url where the image is located.
+ *
+ */
+RUR.set_background = function (url) {
+    RUR.get_current_world().background_image = url;
+    RUR.BACKGROUND_IMAGE.src = url;
+    RUR.record_frame("RUR.set_background", url);
+
+}
 
 /** @function fill_background
  * @memberof RUR
