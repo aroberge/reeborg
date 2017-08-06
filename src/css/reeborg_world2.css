@@ -856,3 +856,24 @@ input[type=range].disabled {
   cursor: not-allowed;
   color: red;
 }
+
+
+table {
+    border: solid 1px #dde;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font: normal 13px Arial, sans-serif;
+}
+th {
+    border: solid 1px #dde;
+    color: #248;
+    padding: 1em;
+    margin: 1em;
+    text-align: left;
+}
+td {
+    border: solid 1px #DDEEEE;
+    color: #333;
+    padding: 10px;
+}
+

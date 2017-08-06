@@ -46,19 +46,3 @@ RUR.output.watch_variables = function (arg) {
     RUR.record_frame("watch_variables", {"element": "#watch-variables", "message": arg});
 };
 
-
-RUR.output.view_source_js = function(fn) {
-    $("#Reeborg-explores").dialog("open");
-    RUR.show_feedback("#Reeborg-explores", "<pre class='view_source'>" + fn + "</pre>" );
-    $('.view_source').each(function() {
-        var $this = $(this), $code = $this.text();
-        $this.empty();
-        var myCodeMirror = CodeMirror(this, {
-            value: $code,
-            mode: 'javascript',
-            lineNumbers: !$this.is('.inline'),
-            readOnly: true,
-            theme: 'reeborg-readonly'
-        });
-    });
-};

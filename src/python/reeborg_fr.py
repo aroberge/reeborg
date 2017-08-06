@@ -16,31 +16,6 @@ except ImportError:
     window = defaultdict(str)
     print("\n --> Skipping importing from browser for sphinx.\n")
 
-
-def dir_py(obj, exclude=None):
-    '''Affiche tous les attributs "publics" d'un objet, un par ligne,
-       en identifiant lesquels sont invocables par l'addition de parenthèses
-       à la fin de leur nom.
-
-       Par attribut "public" on entend ceux dont le nom ne débute pas par
-       deux caractères de soulignement.'''
-    def html_escape(obj):
-        return str(obj).replace("&", "&amp").replace("<", "&lt;").replace(">", "&gt;")
-    out = []
-    for attr in dir(obj):
-        try:
-            if exclude:
-                if attr in exclude:
-                    continue
-            if not attr.startswith("__"):
-                if callable(getattr(obj, attr)):
-                    out.append(attr + "()")
-                else:
-                    out.append(attr)
-        except AttributeError:  # javascript extension, as in supplant()
-            pass              # string prototype extension, can cause problems
-    print_html(html_escape("\n".join(out)).replace("\n", "<br>"), True)
-
 # All functions from Javascript used below should have names of the form
 # RUR._xyz_ and be defined in commands.js; functions and methods should appear
 # in the same order as they appear in the English version.
@@ -131,11 +106,6 @@ def robot_spécifique(numero_de_serie):  #py:default_robot
             self.body = r
     return Robot()
 robot_specifique = robot_spécifique
-
-def dir_js(obj):  #py:dir_js
-    """Liste les attributs et méthodes d'un objet Javascript."""
-    RUR._dir_js_(obj)
-
 
 def termine():  #py:done
     """Termine l'exécution d'un programme."""
@@ -447,11 +417,6 @@ def tourne_a_gauche():  #py:turn_left
     """Reeborg tourne à sa gauche."""
     RUR._turn_left_()
 tourne_à_gauche = tourne_a_gauche
-
-
-def voir_source_js(fn):  #py:view_source_js
-    """Affiche le code source d'une fonction Javascript."""
-    RUR._view_source_js_(fn)
 
 
 def mur_devant():  #py:wall_in_front

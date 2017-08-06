@@ -20,16 +20,18 @@ require("./../drawing/visible_robot.js");
 require("./../editors/update.js");
 require("./../world_api/background_tile.js");
 
-RUR.inspect = function (obj){
-    var props, result = "";
+RUR._inspect_ = function (obj){
+    var props, result = "<table border='1'><tr><th>name</th><th>type</th></tr>";
     for (props in obj) {
-        if (typeof obj[props] === "function") {
-            result += props + "()\n";
-        } else{
-            result += props + "\n";
+        result += "<tr><td>" + props + "</td><td>"
+        if (Object.prototype.toString.call(obj[props]) == "Array") {
+            result += "[object Array]</td></tr>"
+        } else {
+            result += typeof(obj[props]) + "</td></tr>";
         }
     }
-    RUR.output._write(result);
+    result += "</table>";
+    RUR._print_html_(result, true); // true will replace existing content
 };
 
 function user_no_highlight () {
@@ -63,8 +65,6 @@ RUR._color_here_ = function () {
 RUR._default_robot_body_ = function () { // simply returns body
     return RUR.get_current_world().robots[0];
 };
-
-RUR._dir_js_ = RUR.inspect; // defined above
 
 RUR._done_ = RUR.control.done;
 
@@ -147,8 +147,6 @@ RUR._think_ = RUR.control.think;
 RUR._turn_left_ = function () {
     RUR.control.turn_left(RUR.get_current_world().robots[0]);
 };
-
-RUR._view_source_js_ = RUR.output.view_source_js;
 
 RUR._wall_in_front_ = function() {
     return RUR.control.wall_in_front(RUR.get_current_world().robots[0]);

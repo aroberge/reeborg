@@ -15,7 +15,7 @@ RUR.reset_definitions_fr = function () {
         r.body = RUR._default_robot_body_();
         return r;
     };
-    window.dir_js = RUR._dir_js_;
+    window.help_js = RUR._inspect_;
     window.termine = RUR._done_;
     window.rien_devant = RUR._front_is_clear_;
     window.est_face_au_nord = RUR._is_facing_north_;
@@ -64,7 +64,6 @@ RUR.reset_definitions_fr = function () {
         }
     }
     window.tourne_a_gauche = RUR._turn_left_;
-    window.voir_source_js = RUR._view_source_js_;
     window.mur_devant = RUR._wall_in_front_;
     window.mur_a_droite = RUR._wall_on_right_;
     window.ecrit = RUR._write_;

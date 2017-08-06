@@ -191,7 +191,7 @@ RUR.show_all_things = function (property) {
             info += "<img src = '" + RUR.THINGS[name].url + "'></td><td>";
         } else if (images !== undefined) {
             for(j=0; j<images.length; j++) {
-                info += "<img src = '" + images[j] + "'> - ";
+                info += "<img src = '" + images[j] + "'> &nbsp; ";
             }
             info += "</td><td>";
         } else {

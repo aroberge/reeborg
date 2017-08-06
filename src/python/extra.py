@@ -1,7 +1,7 @@
 '''Before this can be imported, one needs to install code with
    RUR.set_extra_content'''
 from browser import window
-from common import import_en, import_fr
+from common import __import_en, __import_fr
 
 # Defining __watch and system_default_vars is only needed
 # to prevent an error if a user defines some code for the extra module
@@ -15,9 +15,9 @@ def __watch(*arg, **kwd):
 
 human_language = window['RUR'].state.human_language
 if human_language.endswith("en"):
-    import_en(globals())
+    __import_en(globals())
 elif human_language.endswith("fr"):
-    import_fr(globals())
+    __import_fr(globals())
 else:
     raise NotImplementedError("Unkown language %s" % human_language)
 

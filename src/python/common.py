@@ -9,12 +9,34 @@ almost always using a double underscore as a prefix.
 import sys
 from browser import window, console
 
-REEBORG_EN = {}
-exec("from reeborg_en import *", REEBORG_EN)
-REEBORG_FR = {}
-exec("from reeborg_fr import *", REEBORG_FR)
+__REEBORG_EN = {}
+exec("from reeborg_en import *", __REEBORG_EN)
+__REEBORG_FR = {}
+exec("from reeborg_fr import *", __REEBORG_FR)
 
-def import_en(namespace):
+def dir_py(obj, exclude=None):
+    '''Prints all "public" attributes of an object, one per line, identifying
+       which ones are callable by appending parentheses to their name.
+       By "public" attributes, we mean those whose name does not start with
+       a double underscore.'''
+    def html_escape(obj):
+        return str(obj).replace("&", "&amp").replace("<", "&lt;").replace(">", "&gt;")
+    out = []
+    for attr in dir(obj):
+        try:
+            if exclude:
+                if attr in exclude:
+                    continue
+            if not attr.startswith("__"):
+                if callable(getattr(obj, attr)):
+                    out.append(attr + "()")
+                else:
+                    out.append(attr)
+        except AttributeError:  # javascript extension, as in supplant()
+            pass              # string prototype extension, can cause problems
+    window.RUR._print_html_(html_escape("\n".join(out)).replace("\n", "<br>"), True)
+
+def __import_en(namespace):
     '''Does the clean equivalent of
            from reeborg_en import *
        into a namespace.
@@ -25,7 +47,7 @@ def import_en(namespace):
     WallCollisionError_saved = window['WallCollisionError_en']
     MissingObjectError_saved = window['MissingObjectError_en']
 
-    namespace.update(REEBORG_EN)
+    namespace.update(__REEBORG_EN)
 
     window['ReeborgOK'] = ReeborgOK_saved
     window['ReeborgOk'] = ReeborgOk_saved
@@ -33,7 +55,7 @@ def import_en(namespace):
     window['WallCollisionError'] = WallCollisionError_saved
     window['MissingObjectError'] = MissingObjectError_saved
 
-def import_fr(namespace):
+def __import_fr(namespace):
     '''Does the clean equivalent of
            from reeborg_fr import *
        into a namespace.
@@ -44,7 +66,7 @@ def import_fr(namespace):
     WallCollisionError_saved = window['WallCollisionError_fr']
     MissingObjectError_saved = window['MissingObjectError_fr']
 
-    namespace.update(REEBORG_FR)
+    namespace.update(__REEBORG_FR)
 
     window['ReeborgOK'] = ReeborgOK_saved
     window['ReeborgOk'] = ReeborgOk_saved
@@ -140,15 +162,13 @@ def __watch(default, loc=None, gl=None):
 
 def __default_help():
     '''Lists available commands'''
-    exclude = ["toString", "window", "RUR", "say", "face_au_nord", "narration"]
+    exclude = ["toString"]
     lang = window.RUR.state.human_language
     if lang in ['en', 'fr_en', 'ko_en']:
         import reeborg_en  # NOQA
-        reeborg_en.dir_py = dir_py
         dir_py(reeborg_en, exclude=exclude)
     elif lang in ['fr', 'en_fr']:
         import reeborg_fr  # NOQA
-        reeborg_fr.dir_py = dir_py
         dir_py(reeborg_fr, exclude=exclude)
     else:
         print("Unrecognized language; please file an issue!")
@@ -190,7 +210,7 @@ def __help(obj=None):
 window["__help"] = __help
 
 
-def generic_translate_python(src, highlight=False, var_watch=False, pre_code='',
+def __generic_translate_python(src, highlight=False, var_watch=False, pre_code='',
                              post_code=''):
     ''' RUR.translate Python code into Javascript and execute
 
@@ -218,7 +238,7 @@ def generic_translate_python(src, highlight=False, var_watch=False, pre_code='',
             del sys.modules[mod]
 
     globals_ = {}
-    globals_.update(globals())
+    #globals_.update(globals())
     globals_['__help'] = __help
     globals_['__watch'] = __watch
     globals_['__previous_watch_values'] = {}
@@ -237,9 +257,9 @@ def generic_translate_python(src, highlight=False, var_watch=False, pre_code='',
     # cached version of a previous import  while ensuring that and
     # global ("window") definition is done properly.
     if window.RUR.from_import == "from reeborg_en import *":
-        globals_.update(REEBORG_EN)
+        globals_.update(__REEBORG_EN)
     elif window.RUR.from_import == "from reeborg_fr import *":
-        globals_.update(REEBORG_FR)
+        globals_.update(__REEBORG_FR)
     else:
         raise Exception("unknown import %s" % window.RUR.from_import)
 

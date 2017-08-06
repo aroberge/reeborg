@@ -16,30 +16,6 @@ except ImportError:
     window = defaultdict(str)
     print("\n --> Skipping importing from browser for sphinx.\n")
 
-
-def dir_py(obj, exclude=None):
-    '''Prints all "public" attributes of an object, one per line, identifying
-       which ones are callable by appending parentheses to their name.
-       By "public" attributes, we mean those whose name does not start with
-       a double underscore.'''
-    def html_escape(obj):
-        return str(obj).replace("&", "&amp").replace("<", "&lt;").replace(">", "&gt;")
-    out = []
-    for attr in dir(obj):
-        try:
-            if exclude:
-                if attr in exclude:
-                    continue
-            if not attr.startswith("__"):
-                if callable(getattr(obj, attr)):
-                    out.append(attr + "()")
-                else:
-                    out.append(attr)
-        except AttributeError:  # javascript extension, as in supplant()
-            pass              # string prototype extension, can cause problems
-    print_html(html_escape("\n".join(out)).replace("\n", "<br>"), True)
-
-
 # All functions from Javascript used below should have names of the form
 # RUR._xyz_ and be defined in commands.js and methods should have names of
 # the form RUR._UR.xyz_;  functions and methods should appear
@@ -125,12 +101,6 @@ def get_robot_by_id(serial_number):  #py:default_robot
         def __init__(self):
             self.body = r
     return Robot()
-
-
-def dir_js(obj):  #py:dir_js
-    """Lists attributes and methods of a Javascript object."""
-    # do not translate the name of this function
-    RUR._dir_js_(obj)
 
 
 def done():  #py:done
@@ -415,11 +385,6 @@ def think(ms):  #py:think
 def turn_left():  #py:turn_left
     """Reeborg turns to its left."""
     RUR._turn_left_()
-
-
-def view_source_js(fn):  #py:view_source_js
-    """Shows the source code of a Javascript function."""
-    RUR._view_source_js_(fn)
 
 
 def wall_in_front():  #py:wall_in_front
