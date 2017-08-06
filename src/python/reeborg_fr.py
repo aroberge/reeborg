@@ -933,26 +933,3 @@ class InfoSatellite():  #py:SI
     def imprime_carte(self):  #py:SI.print_world_map
         """Imprime une copie formattée de la carte"""
         print(RUR._world_map())
-
-
-#py:obsolete
-# Do not tranlate the following
-
-
-def nombre_d_instructions(nb):
-    '''Fonction désuète; utiliser max_nb_instructions().'''
-    raise ReeborgError(
-        "nombre_d_instructions() a été remplacé par max_nb_instructions().")
-
-
-def face_au_nord():
-    '''Fonction désuète; utilisez est_face_au_nord().'''
-    raise ReeborgError("face_au_nord() est désuet;" +
-                       " utilisez est_face_au_nord()")
-
-def repete(fn, n):
-    '''Fonction désuète mentionnée dans un vieux tutoriel; svp ne pas l'utiliser.'''
-    print("repete() ou répète() est désuète; SVP, ne pas l'utiliser.")
-    for i in range(n):
-        fn()
-répète = repete

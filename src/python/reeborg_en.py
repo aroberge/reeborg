@@ -884,16 +884,3 @@ class SatelliteInfo():  #py:SI
     def print_world_map(self):  #py:SI.print_world_map
         '''Prints a formatted copy of the world'''
         print(RUR._world_map())
-
-
-#py:obsolete
-# Do not tranlate the following
-
-def narration(html=None):
-    '''Deprecated function; use print_html() instead'''
-    raise ReeborgError("narration is obsolete; use print_html().")
-
-
-def say():
-    '''Deprecated function mentioned in an old tutorial. Use print().'''
-    raise ReeborgError("say() is no longer supported; use print() instead.")
