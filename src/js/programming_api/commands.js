@@ -21,16 +21,24 @@ require("./../editors/update.js");
 require("./../world_api/background_tile.js");
 
 RUR._inspect_ = function (obj){
-    var props, result = "<table border='1'><tr><th>name</th><th>type</th></tr>";
+    var props, result, head = "<table border='1'><tr><th>name</th><th>type</th></tr>";
+    result = head;
     for (props in obj) {
         result += "<tr><td>" + props + "</td><td>"
-        if (Object.prototype.toString.call(obj[props]) == "Array") {
-            result += "[object Array]</td></tr>"
+        if (Object.prototype.toString.call(obj[props]) == "[object Array]") {
+            result += "Array</td></tr>"
         } else {
             result += typeof(obj[props]) + "</td></tr>";
         }
     }
-    result += "</table>";
+    if (result == head) {
+        result = obj.toString().replace("\n", "<br>");
+        if (result == "[object Object]") {
+            result = "{}";
+        }
+    } else {
+        result += "</table>";
+    }
     RUR._print_html_(result, true); // true will replace existing content
 };
 
