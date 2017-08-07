@@ -99,6 +99,15 @@ __watch_title = "<span class='watch_title'>%s</span>"
 __previous_watch_values = {}
 
 
+def print_dir(obj):
+    '''print_dir(obj): prints public attributes of "obj", one per line.
+    '''
+    out = []
+    for item in dir(obj):
+        out.append(item)
+    print('\n'.join(out)) # avoid creating frames for each line.
+
+
 def __append_watch(arg, value, out):
     global __previous_watch_values
     if arg not in __previous_watch_values:
@@ -238,12 +247,12 @@ def __generic_translate_python(src, highlight=False, var_watch=False, pre_code='
             del sys.modules[mod]
 
     globals_ = {}
-    #globals_.update(globals())
     globals_['__help'] = __help
     globals_['__watch'] = __watch
     globals_['__previous_watch_values'] = {}
     globals_['window'] = window
     globals_['console'] = console
+    globals_['print_dir'] = print_dir
 
     src = transform(src)
     # sometimes, when copying from documentation displayed in the browsers

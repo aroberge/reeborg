@@ -3,7 +3,7 @@
 
 import sys
 from browser import document, window
-from common import __import_en, __import_fr
+from common import __import_en, __import_fr, print_dir
 RUR = window['RUR']
 
 
@@ -183,6 +183,7 @@ class Interpreter():
             self.namespace["Monde"] = self.world
         self.namespace["__help"] = window["__help"]
         self.namespace["init"] = window.RUR.world_init
+        self.namespace["print_dir"] = print_dir
         # Ensure my help replaces Brython's builtin
         exec("__BRYTHON__.builtins.help = __help", self.namespace)
         if self.initialized:
