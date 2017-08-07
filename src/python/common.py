@@ -242,6 +242,8 @@ def __generic_translate_python(src, highlight=False, var_watch=False, pre_code='
     globals_['__help'] = __help
     globals_['__watch'] = __watch
     globals_['__previous_watch_values'] = {}
+    globals_['window'] = window
+    globals_['console'] = console
 
     src = transform(src)
     # sometimes, when copying from documentation displayed in the browsers

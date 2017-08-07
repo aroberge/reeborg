@@ -32,9 +32,10 @@ RUR._inspect_ = function (obj){
         }
     }
     if (result == head) {
-        result = obj.toString().replace("\n", "<br>");
         if (result == "[object Object]") {
             result = "{}";
+        } else {
+            result = "<pre>" + obj.toString() + "</pre>";
         }
     } else {
         result += "</table>";

@@ -658,7 +658,7 @@ li.failure:after {
 
 .changed_value {
     display: inline-block;
-    color: red;
+    color: #c00;
     font-family: 'Roboto Mono', monospace;
     max-width: 500px;
     padding-left: 1em;
@@ -671,7 +671,7 @@ li.failure:after {
 }
 
 .changed_name {
-    color: red;
+    color: #c00;
     font-weight: bold;
     float: left;
 }
