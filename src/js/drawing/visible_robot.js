@@ -44,21 +44,25 @@ function set_images(images) {
 
     if (robot.robot_e_img.src != images.east) {
         robot.robot_e_img.src = images.east || default_images.east;
+        robot.e_url = images.east || '/src/images/robot_e.png';
         robot.robot_e_img.onload = RUR.onload_new_image;
         RUR.state.reset_default_robot_images_needed = true;
     }
     if (robot.robot_n_img.src != images.north) {
         robot.robot_n_img.src = images.north || default_images.north;
+        robot.n_url = images.north || '/src/images/robot_n.png';
         robot.robot_n_img.onload = RUR.onload_new_image;
         RUR.state.reset_default_robot_images_needed = true;
     }
     if (robot.robot_w_img.src != images.west) {
         robot.robot_w_img.src = images.west || default_images.west;
+        robot.w_url = images.west || '/src/images/robot_w.png';
         robot.robot_w_img.onload = RUR.onload_new_image;
         RUR.state.reset_default_robot_images_needed = true;
     }
     if (robot.robot_s_img.src != images.south) {
         robot.robot_s_img.src = images.south || default_images.south;
+        robot.s_url = images.south || '/src/images/robot_s.png';
         robot.robot_s_img.onload = RUR.onload_new_image;
         RUR.state.reset_default_robot_images_needed = true;
     }
@@ -454,7 +458,7 @@ RUR.new_robot_images = function (images) {
  *
  */
 RUR.show_all_robots = function () {
-    var info, model, east, north, west, south;
+    var info, model, east, north, west, south, e_url, w_url, s_url, n_url;
     info = "<table border='1'><tr><th>model</th><th>east</th><th>north</th><th>west</th><th>south</th></tr>";
 
     for (model in RUR.vis_robot.images) {
@@ -463,12 +467,16 @@ RUR.show_all_robots = function () {
             north = RUR.vis_robot.images[model].robot_n_img.src;
             west = RUR.vis_robot.images[model].robot_w_img.src;
             south = RUR.vis_robot.images[model].robot_s_img.src;
+            e_url = RUR.vis_robot.images[model].e_url;
+            n_url = RUR.vis_robot.images[model].n_url;
+            w_url = RUR.vis_robot.images[model].w_url;
+            s_url = RUR.vis_robot.images[model].s_url;
 
             info += "<tr><td>" +  model + "</td>";
-            info += "<td><img src = '" + east + "'></td>";
-            info += "<td><img src = '" + north + "'></td>";
-            info += "<td><img src = '" + west + "'></td>";
-            info += "<td><img src = '" + south + "'></td></tr>";
+            info += "<td><img src = '" + east + "'><br>" + e_url + "</td>";
+            info += "<td><img src = '" + north + "'><br>" + n_url + "</td>";
+            info += "<td><img src = '" + west + "'><br>" + w_url + "</td>";
+            info += "<td><img src = '" + south + "'><br>" + s_url + "</td></tr>";
         }
     }
 

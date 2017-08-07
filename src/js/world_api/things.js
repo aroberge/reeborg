@@ -188,17 +188,22 @@ RUR.show_all_things = function (property) {
             info +=  RUR.THINGS[name][property] + "</td><td>";
         }
         if (url !== undefined) {
-            info += "<img src = '" + RUR.THINGS[name].url + "'></td><td>";
+            info += "<img src = '" + RUR.THINGS[name].url + "'><br>" +
+                   RUR.THINGS[name].url + "</td><td>";
         } else if (images !== undefined) {
             for(j=0; j<images.length; j++) {
                 info += "<img src = '" + images[j] + "'> &nbsp; ";
+            }
+            for(j=0; j<images.length; j++) {
+                info += "<br>" + images[j];
             }
             info += "</td><td>";
         } else {
             info += "Missing image</td><td>";
         }
         if (RUR.THINGS[name].goal !== undefined) {
-            info += "<img src = '" + RUR.THINGS[name].goal.url + "'>";
+            info += "<img src = '" + RUR.THINGS[name].goal.url + "'><br>"
+                    + RUR.THINGS[name].goal.url;
         }
         info += "</td></tr>";
     }
