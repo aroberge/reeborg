@@ -127,7 +127,7 @@ RUR.record_frame = function (name, obj) {
     }
 
     update_trace_history();
-    frame.world = RUR.clone_world();
+    frame.world_map = RUR.world_map();
 
     if (name && obj) {
         frame[name] = obj;

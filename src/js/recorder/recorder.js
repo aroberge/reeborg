@@ -76,7 +76,7 @@ RUR.rec.display_frame = function () {
         RUR.pause(frame.pause.pause_time);
         return "pause";
     } else if (frame.error !== undefined) {
-        RUR.set_current_world(frame.world);
+        RUR.set_current_world(frame.world_map, true);
         RUR.vis_world.refresh();
         return RUR.rec.handle_error(frame);
     }
@@ -104,7 +104,7 @@ RUR.rec.display_frame = function () {
         $("#Reeborg-watches").dialog("open");
     }
 
-    RUR.set_current_world(frame.world);
+    RUR.set_current_world(frame.world_map, true);
     if (frame.sound_id !== undefined){
         RUR._play_sound(frame.sound_id);
     }
@@ -119,9 +119,9 @@ RUR.rec.conclude = function () {
     }
     if (frame === undefined) {
         frame = {};
-        frame.world = RUR.clone_world();
+        frame.world_map = RUR.world_map();
     }
-    if (frame.world.goal !== undefined){
+    if (frame.world_map.goal !== undefined){
         goal_status = RUR.rec.check_goal(frame);
         if (goal_status.success) {
             if (RUR.state.sound_on) {
@@ -150,7 +150,7 @@ RUR.rec.conclude = function () {
 RUR.rec.handle_error = function (frame) {
     var goal_status;
     if (frame.error.reeborg_shouts === RUR.translate("Done!")){
-        if (frame.world.goal !== undefined){
+        if (frame.world_map.goal !== undefined){
             return RUR.rec.conclude();
         } else {
             if (RUR.state.sound_on) {
@@ -177,8 +177,8 @@ RUR.rec.handle_error = function (frame) {
 RUR.rec.check_current_world_status = function() {
     // this function is to check goals from the Python console.
     frame = {};
-    frame.world = RUR.get_current_world();
-    if (frame.world.goal === undefined){
+    frame.world_map = RUR.get_current_world();
+    if (frame.world_map.goal === undefined){
         RUR.show_feedback("#Reeborg-concludes",
                              "<p class='center'>" +
                              RUR.translate("Last instruction completed!") +
@@ -195,7 +195,7 @@ RUR.rec.check_current_world_status = function() {
 
 RUR.rec.check_goal = function (frame) {
     var g, world, goal_status = {"success": true}, result;
-    g = frame.world.goal;
+    g = frame.world_map.goal;
     if (g === undefined) { // This is only needed for some
         return goal_status;        // functional which call check_goal directly
     } else if (Object.keys(g).length === 0) { // no real goal to check
@@ -205,7 +205,7 @@ RUR.rec.check_goal = function (frame) {
         return goal_status;
     }
 
-    world = frame.world;
+    world = frame.world_map;
     goal_status.message = "<ul>";
     if (g.position !== undefined){
         if (g.position.x === world.robots[0].x){

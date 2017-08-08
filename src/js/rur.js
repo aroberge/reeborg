@@ -79,6 +79,8 @@ RUR.MAX_X_DEFAULT = 14; // These two values are used in the dialog used to resiz
 RUR.MAX_Y_DEFAULT = 12; // a world, hard-coded in the html dialog #dialog-set-dimensions.
 RUR.END_CYCLE = "end cycle"; // for animated images
 
+// The following are editors (content) that can be part of a world.
+RUR.WORLD_EDITORS = ["description", "editor", "library", "pre", "post", "onload"];
 
 /*========================================================
   World contants
@@ -349,7 +351,16 @@ function set_canvases () {
     create_ctx(RUR.ROBOT_ANIM_CANVAS, "ROBOT_ANIM_CTX");
 }
 
-/** @function get_current_world
+/*-------------------------------------------
+ World-related functions;
+ Most of these are left without JSdoc-type comments as they are intended
+ only for internal usage.
+---------------------------------------------*/
+RUR.get_current_world = function () {
+    return RUR.CURRENT_WORLD;
+};
+
+/** @function world_map
  * @memberof RUR
  * @instance
  *
@@ -363,13 +374,37 @@ function set_canvases () {
  *  the shortest path in a maze using various search algorithms.)
  *
  * **When using Python, see `SatelliteInfo()` instead.**
+ *
  */
-RUR.get_current_world = function () {
-    return RUR.CURRENT_WORLD;
+
+RUR.world_map = function () {
+    "use strict"
+    var world, to_remove, i;
+    // clone the world so as not to modify the original
+    world = JSON.parse(JSON.stringify(RUR.get_current_world()));
+    // we don't need the editor content
+    for (i=0; i < RUR.WORLD_EDITORS.length; i++) {
+        if (world[RUR.WORLD_EDITORS[i]] !== undefined) {
+            delete world[RUR.WORLD_EDITORS[i]];
+        }
+    }
+    return world;
 };
 
-// No need to document this with JSDoc as it should not be called by external users.
-RUR.set_current_world = function (world) {
+
+RUR.set_current_world = function (world, merge_editors) {
+    "use strict";
+    var editor_name;
+    // merge_editor is used when a copy of the world was obtained
+    // using world_map, which removed the editor content.
+    if (merge_editors) {
+        for (i=0; i < RUR.WORLD_EDITORS.length; i++) {
+            editor_name = RUR.WORLD_EDITORS[i];
+            if (RUR.CURRENT_WORLD[editor_name] !== undefined) {
+                world[editor_name] = RUR.CURRENT_WORLD[editor_name];
+            }
+        }
+    }
     RUR.CURRENT_WORLD = world;
 }
 
@@ -387,6 +422,26 @@ RUR.clone_world = function (world) {
     } else {
         return JSON.parse(JSON.stringify(world));
     }
+};
+
+
+/** @function print_world_map
+ * @memberof RUR
+ * @instance
+ *
+ * @desc Prints a formatted version of the world map.
+ * For Python, use `SatelliteInfo.print_world_map()` instead.
+ *
+ */
+
+RUR.print_world_map = function () {
+    RUR.output.write(JSON.stringify(RUR.world_map(), null, 2), "\n");
+};
+
+
+// Used by SatelliteInfo class in Python
+RUR._world_map = function () {
+    return JSON.stringify(RUR.world_map(), null, 2);
 };
 
 
