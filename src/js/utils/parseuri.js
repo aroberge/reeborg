@@ -38,8 +38,13 @@ exports.update_url = update_url = function () {
        input mode.
     */
     "use strict";
-    var proglang, url_query, permalink;
-    url_query = parseUri(window.location.href);
+	var proglang, url_query, permalink;
+	if (window.location.href.indexOf("#&togetherjs") != -1) {
+		return;
+	}
+	url_query = parseUri(window.location.href);
+
+
     permalink = url_query.protocol + "://" + url_query.host;
     if (url_query.port){
         permalink += ":" + url_query.port;
