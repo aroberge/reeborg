@@ -120,5 +120,6 @@ RUR.world_init = function () {
         goal.position.y = position[1];
         delete goal.possible_final_positions;
     }
-    RUR.vis_world.refresh();
+    RUR.vis_world.draw_all(); // draw_all instead of refresh in case
+                              // small_tiles was set in the meantime
 };

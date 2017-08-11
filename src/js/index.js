@@ -36,9 +36,9 @@ require("./listeners/stop.js");
 require("./listeners/toggle_highlight.js");
 require("./listeners/toggle_watch.js");
 
-// the following is not required by any other module
+// the following are not required by any other module
 require("./world_api/decorative_objects.js");
-
+require("./utils/maze.js");
 
 brython({debug:1, pythonpath:[RUR.BASE_URL + '/src/python']});
 if (__BRYTHON__.__MAGIC__ != "3.2.7") {

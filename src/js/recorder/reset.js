@@ -4,6 +4,7 @@ require("./../world_utils/import_world.js"); // for process_onload
 require("./../drawing/visible_robot.js"); // for RUR.reset_default_robot_images
 
 RUR.reset_world = function() {
+    var world;
     RUR.reset_pre_run_defaults();
     if (RUR.state.reset_default_robot_images_needed) {
         RUR.reset_default_robot_images(); // will reset state/flag to false
@@ -27,6 +28,9 @@ RUR.reset_world = function() {
     }
 
     RUR.set_current_world(RUR.clone_world(RUR.WORLD_BEFORE_ONLOAD));
+    world = RUR.get_current_world();
+    RUR.set_world_size(world.cols, world.rows); // in case the size was changed
+                                        // dynamically in pre or main editor
 
     if (RUR.state.run_button_clicked) { // do not process_onload
         return;
