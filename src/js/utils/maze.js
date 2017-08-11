@@ -5,6 +5,29 @@ require("./../rur.js");
 // may want to use set_max_nb_instructions() to adjust number for larger mazes.
 //RUR.MAX_STEPS = 2000;   // may be needed for larger mazes
 
+/** @function create_maze
+ * @memberof RUR
+ * @instance
+ *
+ * @desc Creates a maze of a specified size. This is done with a
+ * depth-search wall removal algorith
+ *
+ * **Note**: for larger size mazes, you might want to increase the number
+ * of steps allowed to find a solution, by using `set_max_nb_steps()`.
+ *
+ * @param {integer} max_x The width of the world.
+ * @param {integer} max_y The height of the world.
+ * @param {object} [options]
+ * @param {bool} [options.small_tiles] Indicates if small tiles must be used.
+ * This is useful for larger mazes
+ * @param {bool} [options.recording] If `true`, the walls being removed
+ * will be shown as they are removed one by one, in a series of frames.
+ * This is only useful for demonstration, and will only visible if the
+ * maze is created as part of the Pre code or the main code - but not in
+ * the Onload phase.
+ */
+
+
 RUR.create_maze = function (max_x, max_y, options) {
     "use strict"
     var world;
@@ -94,8 +117,7 @@ function make_maze(w, h){
             walk(xx, yy);
         }
     }
-
-    walk(w/2, h/2);
+    walk(Math.floor(w/2), Math.floor(h/2));
 }
 
 

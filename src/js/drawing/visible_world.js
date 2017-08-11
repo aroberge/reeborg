@@ -185,7 +185,7 @@ function draw_grid_walls (ctx, edit){
 
     if (RUR.SCALE == 0.5) {  // small wall, adjust grid walls to be less visible
         ctx.save();
-        ctx.globalAlpha = 0.5;
+        ctx.globalAlpha = 0.3;
     }
 
     if (edit) {
