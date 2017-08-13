@@ -307,13 +307,13 @@ def right_is_clear():  #py:right_is_clear
     return RUR._right_is_clear_()
 
 
-def set_max_nb_instructions(nb):  #py:set_max_nb_instructions
+def set_max_nb_steps(nb):  #py:set_max_nb_steps
     """
     Intended primarily for world creators, this function allows
     to change the default maximum number of instructions executed in a
     program (1000) by a different value.
     """
-    RUR._set_max_nb_instructions_(nb)
+    RUR._set_max_nb_steps_(nb)
 
 
 def set_trace_color(color):  #py:set_trace_color

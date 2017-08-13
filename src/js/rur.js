@@ -208,7 +208,7 @@ RUR.reset_pre_run_defaults = function () {
     /* Avoiding infinite loops */
     RUR.MAX_STEPS = 1000; // maximum nb of instructions in a user program;
                           // user-adjustable via max_nb_instructions() in French
-                          // or set_max_nb_instructions() in English
+                          // or set_max_nb_steps() in English
 
     /* time frames */
     RUR.PLAYBACK_TIME_PER_FRAME = 300; // ajustable by a program via think()

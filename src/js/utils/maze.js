@@ -1,19 +1,61 @@
 require("./../rur.js");
-// Javascript random maze generation
+var palette, default_palette = {
+    'start': 'rgb(0, 190, 0)',
+    'one way': 'rgba(255, 255, 0, 0.2)',
+    'end': 'rgba(255, 0, 0, 0.7)',
+    'junction': 'rgba(0, 0, 255, 0.1)',
+    'four way': 'rgb(160, 0, 160)'
+}
+palette = {};
 
+function set_custom_palette(user_palette){
+    var i, key, keys;
+    keys = Object.keys(user_palette);
+    for(i=0; i < keys.length; i++) {
+        key = keys[i];
+        palette[key] = user_palette[key];
+    }
+}
 
-// may want to use set_max_nb_instructions() to adjust number for larger mazes.
-//RUR.MAX_STEPS = 2000;   // may be needed for larger mazes
+function next_color(x, y) {
+    var i, color;
+    switch (RUR.get_background_tile(x, y)){
+        case null:
+            color = palette['end'];
+            break;
+        case palette['start']:
+            color = palette['start'];
+            break;
+        case palette['end']:
+            color = palette['one way'];
+            break;
+        case palette['one way']:
+            color = palette['junction'];
+            break;
+        case palette['junction']:
+            color = palette['four way'];
+            break;
+        default:
+            color = 'black'
+    }
+    RUR.add_colored_tile(color, x, y);
+}
+
 
 /** @function create_maze
  * @memberof RUR
  * @instance
  *
  * @desc Creates a maze of a specified size. This is done with a
- * depth-search wall removal algorith
+ * depth-search wall removal algorithm.<br><br>
  *
- * **Note**: for larger size mazes, you might want to increase the number
- * of steps allowed to find a solution, by using `set_max_nb_steps()`.
+ * **Note**: When `options.recording` is set to `true`, the number of
+ * steps required to build and show the maze is `max_x * max_y + 3`;
+ * if required, use `set_max_nb_steps()` to increase the default limit
+ * of 1000.<br><br>
+ *
+ * **For the palette**: any color value recognized by html/javascript
+ * (i.e. `red`, `rgb(126, 230, 0)`, `#ffc356`, etc., can be used).
  *
  * @param {integer} max_x The width of the world.
  * @param {integer} max_y The height of the world.
@@ -25,15 +67,29 @@ require("./../rur.js");
  * This is only useful for demonstration, and will only visible if the
  * maze is created as part of the Pre code or the main code - but not in
  * the Onload phase.
- * @param {float} [options.remaining_fraction] When this factor is specified,
- * some additional walls are removed at random after the construction of
- * the maze. We must have `0 <= remaining_fraction <=1`.
+ * @param {bool} [options.show_colors] If `true`, the path construction will be
+ * shown using a pre-defined color scheme, indicating the starting point,
+ * and the branching points.
+ * @param {bool} [options.visible_grid] If `true`, the grid will be (possibly more) visible.
+ * This is equivalent to writing `RUR.state.visible_grid = true` in your program.
+ * This might be useful if you have `options.show_colors == true` and choose a
+ * custom palette with opaque colors.
+ * @param {obj} [options.palette] An optional color palette. You can replace
+ * any or all of the default colors.
+ * @param {string} [options.palette['start']] Color to use as starting point;
+ * the default value is 'rgb(0, 190, 0)'.
+ * @param {string} [options.palette['end']] Color used to indicate that we have
+ * reached a dead end. The default value is 'rgba(255, 0, 0, 0.7)'.
+ * @param {string} [options.palette['one way']] The default value is 'rgba(255, 255, 0, 0.2)'.
+ * @param {string} [options.palette['junction']] The default value is 'rgba(0, 0, 255, 0.1)'.
+ * @param {string} [options.palette['four way']] This rarely happens:
+ * it correspond to a grid square open on all sides. The default value is 'rgb(160, 0, 160)'.
+ *
  */
-
-
 RUR.create_maze = function (max_x, max_y, options) {
     "use strict"
-    var world, frac, to_remove, walls, i, x, y, coords, orientation;
+    var world, show_color=false;
+    set_custom_palette(default_palette);
     world = RUR.create_empty_world();
     if (options && options.small_tiles) {
         world.small_tiles = true;
@@ -42,38 +98,22 @@ RUR.create_maze = function (max_x, max_y, options) {
     RUR.set_world_size(max_x, max_y);
     RUR._recording_(false);
     fill_walls(max_x, max_y);
-    if (options && options.recording) {
-        RUR._recording_(true);
-        RUR.record_frame("create_maze", "wall filled");
-    }
-    remove_walls_dfs(max_x, max_y);
-    if (options && options.remaining_fraction) {
-        frac = options.remaining_fraction;
-        if (frac < 0 || frac > 1) {
-            throw new Error(frac + " is an invalid value in RUR.create_maze");
+    if (options) {
+        if (options.palette) {
+            set_custom_palette(options.palette);
         }
-        frac = 1-frac;
-        walls = Object.keys(world.walls);
-        to_remove = [];
-        for (i=0; i < walls.length; i++){
-            coords = walls[i].split(",");
-            x = parseInt(coords[0], 10);
-            y = parseInt(coords[1], 10);
-            if (world.walls[walls[i]].indexOf("east") != -1) {
-                to_remove.push(["east", x, y]);
-            }
-            if (world.walls[walls[i]].indexOf("north") != -1) {
-                to_remove.push(["north", x, y]);
-            }
+        if (options.show_colors) {
+            show_color = true;
         }
-        shuffle(to_remove);
-        for (i=0; i < to_remove.length * frac; i++) {
-            orientation = to_remove[i][0];
-            x = to_remove[i][1];
-            y = to_remove[i][2]
-            RUR.remove_wall(orientation, x, y);
+        if (options.recording) {
+            RUR._recording_(true);
+            RUR.record_frame("create_maze", "wall filled");
+        }
+        if (options.visible_grid) {
+            RUR.state.visible_grid = true;
         }
     }
+    remove_walls_dfs(max_x, max_y, show_color);
     RUR._recording_(true);
     RUR.record_frame("create_maze", "completed");
 };
@@ -126,8 +166,8 @@ Adapted from the Python version found at http://rosettacode.org/wiki/Maze_genera
    this is done until we backtract to the original cell.
 */
 
-function remove_walls_dfs(w, h){
-    var i, j, vis, temp;
+function remove_walls_dfs(w, h, show_color){
+    var i, j, vis, temp, x_init, y_init;
     vis = [];
     for(i = 0; i<w; i++){
         temp = [];
@@ -136,11 +176,16 @@ function remove_walls_dfs(w, h){
         }
         vis.push(temp);
     }
-    walk(randint(w-1)+1, randint(h-1)+1, vis); // 1. pick a random cell
+    x_init = randint(w); // 1. pick a random cell
+    y_init = randint(h);
+    if (show_color) {
+        RUR.add_colored_tile(palette['start'], x_init+1, y_init+1);
+    }
+    walk(x_init, y_init, vis, show_color);
 }
 
-function walk(x, y, vis){
-    var i, d, dd, xx, yy;
+function walk(x, y, vis, show_color){
+    var i, d, dd, xx, yy, recording_state;
     vis[x][y] = true; // 4. add start cell to visited
     d = [[x - 1, y], [x, y + 1], [x + 1, y], [x, y - 1]];
     shuffle(d);  // 2. randomize neighbours
@@ -154,12 +199,18 @@ function walk(x, y, vis){
         if (vis[xx] === undefined || vis[xx][yy] === undefined){
             continue; // not in the world
         }
+        if (show_color) {
+            recording_state = RUR._recording_(false);
+            next_color(x+1, y+1);
+            next_color(xx+1, yy+1);
+            RUR._recording_(recording_state);
+        }
         if (xx === x) {  // 4. remove wall ...
                 // add 1 to x & y compared with viz which is zero-based
             RUR.remove_wall("north", x+1, Math.min(y, yy)+1);
         } else {
             RUR.remove_wall("east", Math.min(x, xx)+1, y+1);
         }
-        walk(xx, yy, vis); // recursive call; push ahead
+        walk(xx, yy, vis, show_color); // recursive call; push ahead
     }
 } // end recursive call, effectively backtrack

@@ -133,7 +133,7 @@ RUR._right_is_clear_ = function() {
     return RUR.control.right_is_clear(RUR.get_current_world().robots[0]);
 };
 
-RUR._set_max_nb_instructions_ = function(n){
+RUR._set_max_nb_steps_ = function(n){
     RUR.MAX_STEPS = n;
 };
 

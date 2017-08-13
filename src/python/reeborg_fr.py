@@ -326,13 +326,13 @@ def rien_a_droite():  #py:right_is_clear
 rien_à_droite = rien_a_droite
 
 
-def max_nb_instructions(nb):  #py:set_max_nb_instructions
+def max_nb_instructions(nb):  #py:set_max_nb_steps
     """
     Surtout destiné aux créateurs de mondes,
     ceci permet de changer le nombre maximal d'instructions
     exécutées par un robot.
     """
-    RUR._set_max_nb_instructions_(nb)
+    RUR._set_max_nb_steps_(nb)
 
 
 def couleur_de_trace(couleur):  #py:set_trace_color

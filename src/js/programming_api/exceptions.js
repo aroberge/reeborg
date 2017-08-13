@@ -7,8 +7,8 @@ require("./../rur.js");
 
 RUR.ReeborgError = function (message) {
     if (RUR.state.input_method == "py-repl" ||
-            (RUR.state.programming_language == "python" && !RUR.state.evaluating_onload) ||
-            (RUR.state.evaluating_onload || RUR.state.onload_programming_language == "python")
+            (!RUR.state.evaluating_onload && RUR.state.programming_language == "python") ||
+            (RUR.state.evaluating_onload && RUR.state.onload_programming_language == "python")
         ){
         try { // see comment above
             if (["en", "fr-en", "ko-en"].indexOf(RUR.state.human_language) != -1) {
