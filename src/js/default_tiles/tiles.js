@@ -19,6 +19,12 @@ tile = {name: "mud",
 };
 RUR.add_new_thing(tile);
 
+tile = {name: "soil",
+    url: RUR.BASE_URL + '/src/images/mud.png',
+    info: "Soil: usually safe, but looks identical to mud."
+};
+RUR.add_new_thing(tile);
+
 tile = {name: "ice",
     url: RUR.BASE_URL + '/src/images/ice.png',
     info: "Ice: Reeborg <b>cannot</b> detect this and <em>might</em> slide and move to the next location if it moves to this location."

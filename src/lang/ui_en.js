@@ -31,6 +31,7 @@ ui_en["bucket"] = en_to_en["bucket"] = "bucket";
 ui_en["bulb"] = en_to_en["bulb"] = "bulb";
 
 ui_en["mud"] = en_to_en["mud"] = "mud";
+ui_en["soil"] = en_to_en["soil"] = "soil";
 ui_en["water"] = en_to_en["water"] = "water";
 ui_en["grass"] = en_to_en["grass"] = "grass";
 ui_en["gravel"] = en_to_en["gravel"] = "gravel";
@@ -138,6 +139,7 @@ ui_en["I cannot help you with this problem."] = "I cannot help you with this pro
 
 ui_en["I'm stuck in mud."] = "I'm stuck in mud.";
 ui_en["Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."] = "Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location.";
+ui_en["Soil: usually safe, but looks identical to mud."] = "Soil: usually safe, but looks identical to mud.";
 ui_en["I'm slipping on ice!"] = "I'm slipping on ice!";
 ui_en["Ice: Reeborg <b>cannot</b> detect this and <em>might</em> slide and move to the next location if it moves to this location."] = "Ice: Reeborg <b>cannot</b> detect this and <em>might</em> slide and move to the next location if it moves to this location.";
 ui_en["Grass: usually safe."] = "Grass: usually safe.";

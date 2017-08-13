@@ -50,6 +50,8 @@ ui_fr["Tulip bulb: might grow into a nice tulip with some water from a bucket."]
 
 ui_fr["mud"] = "boue";
 fr_to_en["boue"] = "mud";
+ui_fr["soil"] = "sol";
+fr_to_en["sol"] = "soil";
 ui_fr["water"] = "eau";
 fr_to_en["eau"] = "water";
 ui_fr["grass"] = "gazon";
@@ -170,6 +172,7 @@ ui_fr["I cannot help you with this problem."] = "Je ne peux pas vous aider avec 
 
 ui_fr["I'm stuck in mud."] = "Je suis immobilisé dans la boue.";
 ui_fr["Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."] = "Boue: Reeborg <b>ne peut pas</b> détecter ceci et y sera immobilisé s'il va à cet endroit.";
+ui_fr["Soil: usually safe, but looks identical to mud."] = "Sol: habituellement sans problèmes, mais ressemble visuellement à la boue.";
 ui_fr["I'm slipping on ice!"] = "Je glisse sur la glace!";
 ui_fr["Ice: Reeborg <b>cannot</b> detect this and <em>might</em> slide and move to the next location if it moves to this location."] = "Glace: Reeborg <b>ne peut pas</b> détecter ceci et pourrait glisser à la prochaine case.";
 ui_fr["Grass: usually safe."] = "Gazon: habituellement sans problèmes.";

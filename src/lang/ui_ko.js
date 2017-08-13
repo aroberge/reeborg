@@ -48,6 +48,8 @@ ko_to_en["물통"] = "bucket";
 
 ui_ko["mud"] = "진흙";
 ko_to_en["진흙"] = "mud";
+ui_ko["soil"] = "흙"; // translated using google
+ko_to_en["흙"] = "soil";
 ui_ko["water"] = "물";
 ko_to_en["물"] = "water";
 ui_ko["grass"] = "잔디";
@@ -174,6 +176,7 @@ ui_ko["I cannot help you with this problem."] = "I cannot help you with this pro
 
 ui_ko["I'm stuck in mud."] = "난 진흙에 걸렸어요.";
 ui_ko["Mud: Reeborg <b>cannot</b> detect this and will get stuck if it moves to this location."] = "진흙: 리보그는 이것을 탐지 <b>하지 못하고<b> 이 위치로 이동하게 되면 걸리게 됩니다.";
+ui_ko["Soil: usually safe, but looks identical to mud."] = "Soil: usually safe, but looks identical to mud.";
 ui_ko["I'm slipping on ice!"] = "저는 얼음에 미끄러지고 있어요!";
 ui_ko["Ice: Reeborg <b>cannot</b> detect this and <em>might</em> slide and move to the next location if it moves to this location."] = "얼음: 리보그는 이것을 탐지 <b>하지 못하고</b> 만약 이 위치로 이동하게 되면 미끄러지고 다음 위치로 이동하게 됩니다.";
 ui_ko["Grass: usually safe."] = "잔디: 보통 안전함.";
