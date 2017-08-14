@@ -226,6 +226,8 @@ RUR.reset_pre_run_defaults = function () {
     RUR.state.specific_object = undefined; // used only in menu-driven world editor
 
     RUR.__python_error = false; // used to catch Python error in custom format
+
+    RUR.current_maze = undefined; // special namespace when mazes are created
 }
 RUR.reset_pre_run_defaults();
 

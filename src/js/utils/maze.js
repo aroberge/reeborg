@@ -1,34 +1,69 @@
 require("./../rur.js");
-var palette, default_palette, palette, ROOMS;
+
+var default_palette;
 
 default_palette = {
     'start': 'rgb(0, 190, 0)',
-    'one way': 'rgba(255, 255, 0, 0.2)',
+    'two way': 'rgba(255, 255, 0, 0.2)',
     'end': 'rgba(255, 0, 0, 0.7)',
-    'junction': 'rgba(0, 0, 255, 0.1)',
+    'three way': 'rgba(0, 0, 255, 0.1)',
     'four way': 'rgb(160, 0, 160)',
     'in room': 'beige'
 }
-palette = {};
-ROOMS = [];
-START = {};
+function randint(max) {
+    // returns integer between 0 and max-1
+    return Math.floor(Math.random() * max);
+}
+
+// Fisher–Yates in-place shuffle as modified by Durstenfeld
+// https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+function shuffle(arr) {
+    var i, j, temp, n=arr.length;
+    for (i=n-1; i >= 1; i--) {
+        j = randint(i);
+        temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+}
+
 
 function set_custom_palette(user_palette){
+    "use strict"
     var i, key, keys;
     keys = Object.keys(user_palette);
     for(i=0; i < keys.length; i++) {
         key = keys[i];
-        palette[key] = user_palette[key];
+        RUR.current_maze.palette[key] = user_palette[key];
+    }
+}
+
+function color_tile(color, x, y) {
+    // accept either background tile or color for flexibility
+    if (RUR.current_maze.show_color == undefined) {
+        return;
+    }
+    if(RUR.KNOWN_THINGS.indexOf(RUR.translate_to_english(color)) != -1){
+        RUR.add_background_tile(color, x, y);
+    } else {
+        RUR.add_colored_tile(color, x, y);
     }
 }
 
 function update_color(x, y) {
     "use strict"
+    // update color at location based on characteristics:
+    // inside a room
+    // starting point (fixed color)
+    // number of walls surrounding the tile
     var color, walls;
+    if (RUR.current_maze.show_color == undefined) {
+        return;
+    }
     if (in_room(x, y)) {
-        color = palette["in room"];
-    } else if(x == START.x && y == START.y) {
-        color = palette ["start"];
+        color = RUR.current_maze.palette["in room"];
+    } else if(x == RUR.current_maze.start.x && y == RUR.current_maze.start.y) {
+        color = RUR.current_maze.palette["start"];
     } else {
         walls = 0;
         if (RUR.is_wall("north", x, y)) {
@@ -45,29 +80,30 @@ function update_color(x, y) {
         }
         switch (walls){
             case 1:
-                color = palette['junction'];
+                color = RUR.current_maze.palette['three way'];
                 break;
             case 2:
-                color = palette['one way'];
+                color = RUR.current_maze.palette['two way'];
                 break;
             case 3:
-                color = palette['end'];
+                color = RUR.current_maze.palette['end'];
                 break;
             case 0:
-                color = palette['four way'];
+                color = RUR.current_maze.palette['four way'];
                 break;
             default:
                 color = "black";
         }
     }
-    RUR.add_colored_tile(color, x, y);
+    color_tile(color, x, y);
 }
 
 function in_room(x, y) {
     "use strict"
+    // returns true if the point is within an existing room
     var r, room;
-    for (r=0; r < ROOMS.length; r++) {
-        room = ROOMS[r];
+    for (r=0; r < RUR.current_maze.rooms.length; r++) {
+        room = RUR.current_maze.rooms[r];
         if (x >= room.x_min && x < room.x_max && y >= room.y_min && y < room.y_max) {
             return true;
         }
@@ -87,47 +123,60 @@ function open_single_door(x, y, room, direction) {
         y = room.y_min;
     }
     try {
-        RUR.remove_wall(direction, x, y); // world boundary walls cannot be removed
-        return true;
-    } catch(e) {
+        RUR.remove_wall(direction, x, y);
+        return {direction: direction, x:x, y:y};
+    } catch(e) { // world boundary walls cannot be removed
         return false;
     }
 
 }
 
 
-function open_doors(room) {
+function open_doors(room, nb_doors_goal) {
     "use strict"
-    var directions, i, x, y, open = 0;
+    var directions, i, x, y, open = 0, door;
     x = room.x_min + randint(room.x_max-room.x_min);
     y = room.y_min + randint(room.y_max-room.y_min);
     directions = ["east", "west", "north", "south"];
     shuffle(directions);
     for (i=0; i < directions.length; i++) {
-        if (open_single_door(x, y, room, directions[i])) {
+        door = open_single_door(x, y, room, directions[i]);
+        if (door) {
+            room.doors.push(door);
             open++;
-            if (open==2) {
+            if (open==nb_doors_goal) {
                 return;
             }
         }
     }
 }
 
-function fit_non_overlapping_rooms(number, width, height, world_width, world_height) {
-    /* Makes 5*number^2 attempt to randomly find spaces for putting rooms that
-    are entirely contained with the world and do not overlap with each other */
+function fit_non_overlapping_rooms(world_width, world_height) {
+    /* Given a goal of N rooms, makes 5*N^2 attempt to randomly find spaces
+       for putting rooms that are entirely contained with the world and
+        do not overlap with each other */
     "use strict"
-    var i, nb_attempts, nb_rooms, overlap, room, x, y, xx, yy;
+    var i, nb_attempts, nb_rooms, nb_rooms_goal, overlap, room, x, y, xx, yy, width, height;
     i = 0;
     nb_rooms = 0;
-    nb_attempts = 5*number * number;
-    var attempts = [];
+    nb_rooms_goal = RUR.current_maze.nb_rooms_goal;
+    nb_attempts = 5 * nb_rooms_goal * nb_rooms_goal;
 
     while (i < nb_attempts) {
         i++;
+        if (RUR.current_maze.room_max_width) {
+            width = RUR.current_maze.room_width + randint(RUR.current_maze.room_max_width);
+        } else {
+            width = RUR.current_maze.room_width;
+        }
+        if (RUR.current_maze.room_max_height) {
+            height = RUR.current_maze.room_height + randint(RUR.current_maze.room_max_height);
+        } else {
+            height = RUR.current_maze.room_height;
+        }
+
         x = randint(world_width - width - 1) + 1;
         y = randint(world_height - height - 1) + 1;
-        attempts.push([x, y]);
         overlap = false;
         overlap_loop:
         for (xx=x-1; xx <= x+width; xx++){
@@ -139,13 +188,22 @@ function fit_non_overlapping_rooms(number, width, height, world_width, world_hei
             }
         }
         if (!overlap) {
-            ROOMS.push({x_min:x, y_min:y, x_max:x+width-1, y_max:y+height-1})
+            RUR.current_maze.rooms.push({x_min:x, y_min:y, x_max:x+width, y_max:y+height,
+            doors: []})
             nb_rooms++;
-            if (nb_rooms == number) {
+            if (nb_rooms == nb_rooms_goal) {
                 return;
             }
         }
     }
+}
+
+function init_current_maze() {
+    RUR.current_maze = {};
+    RUR.current_maze.rooms = [];
+    RUR.current_maze.in_room = in_room;
+    RUR.current_maze.start = {};
+    RUR.current_maze.palette = {};
 }
 
 /** @function create_maze
@@ -186,16 +244,16 @@ function fit_non_overlapping_rooms(number, width, height, world_width, world_hei
  * the default value is 'rgb(0, 190, 0)'.
  * @param {string} [options.palette['end']] Color used to indicate that we have
  * reached a dead end. The default value is 'rgba(255, 0, 0, 0.7)'.
- * @param {string} [options.palette['one way']] The default value is 'rgba(255, 255, 0, 0.2)'.
- * @param {string} [options.palette['junction']] The default value is 'rgba(0, 0, 255, 0.1)'.
+ * @param {string} [options.palette['two way']] The default value is 'rgba(255, 255, 0, 0.2)'.
+ * @param {string} [options.palette['three way']] The default value is 'rgba(0, 0, 255, 0.1)'.
  * @param {string} [options.palette['four way']] This rarely happens:
  * it correspond to a grid square open on all sides. The default value is 'rgb(160, 0, 160)'.
  *
  */
 RUR.create_maze = function (max_x, max_y, options) {
     "use strict"
-    var world, show_color=false;
-    ROOMS = [];
+    var world;
+    init_current_maze();
     set_custom_palette(default_palette);
     world = RUR.create_empty_world();
     if (options && options.small_tiles) {
@@ -210,7 +268,7 @@ RUR.create_maze = function (max_x, max_y, options) {
             set_custom_palette(options.palette);
         }
         if (options.show_colors) {
-            show_color = true;
+            RUR.current_maze.show_color = true;
         }
         if (options.recording) {
             RUR._recording_(true);
@@ -219,8 +277,32 @@ RUR.create_maze = function (max_x, max_y, options) {
         if (options.visible_grid) {
             RUR.state.visible_grid = true;
         }
+        if (options.nb_rooms_goal) {
+            RUR.current_maze.nb_rooms_goal = options.nb_rooms_goal;
+            if (options.room_width) {
+                RUR.current_maze.room_width = options.room_width;
+                if (options.room_max_width && options.room_max_width > options.room_width) {
+                    RUR.current_maze.room_max_width = options.room_max_width;
+                }
+            } else {
+                RUR.current_maze.room_width = 1;
+            }
+            if (options.room_height) {
+                RUR.current_maze.room_height = options.room_height;
+                if (options.room_max_height && options.room_max_height > options.room_height) {
+                    RUR.current_maze.room_max_height = options.room_max_height;
+                }
+            } else {
+                RUR.current_maze.room_height = 1;
+            }
+            if (options.nb_doors_goal) {
+                RUR.current_maze.nb_doors_goal = options.nb_doors_goal;
+            } else {
+                RUR.current_maze.nb_doors_goal = 0;
+            }
+        }
     }
-    remove_walls_dfs(max_x, max_y, show_color);
+    remove_walls_dfs(max_x, max_y);
     RUR._recording_(true);
     RUR.record_frame("create_maze", "completed");
 };
@@ -242,7 +324,8 @@ function fill_walls(max_x, max_y) {
 
 function make_room(room, vis) {
     "use strict"
-    var i, j, recording_state, x, y, x_max, y_max;
+    var i, j, in_room_color, recording_state, x, y, x_max, y_max;
+    in_room_color = RUR.current_maze.palette["in room"];
     x = room.x_min;
     x_max = room.x_max;
     y = room.y_min;
@@ -256,61 +339,44 @@ function make_room(room, vis) {
             try {
                 RUR.remove_wall("north", i, j);
             } catch (e) {}
-            RUR.add_colored_tile(palette["in room"], i, j);
+            color_tile(in_room_color, i, j);
             vis[i-1][j-1] = true;
         }
         try {
             RUR.remove_wall("east", i, y_max-1);
         } catch (e) {}
-        RUR.add_colored_tile(palette["in room"], i, y_max-1);
+        color_tile(in_room_color, i, y_max-1);
         vis[i-1][j-1] = true;
     }
     for(j=y; j < y_max-1; j++) {
         try {
             RUR.remove_wall("north", x_max-1, j);
         } catch (e) {}
-        RUR.add_colored_tile(palette["in room"], x_max-1, j);
+        color_tile(in_room_color, x_max-1, j);
         vis[i-1][j-1] = true;
     }
-    RUR.add_colored_tile(palette["in room"], x_max-1, y_max-1);
+    color_tile(in_room_color, x_max-1, y_max-1);
     vis[x_max-2][y_max-2] = true;
     RUR._recording_(recording_state);
 }
 
 
-function randint(max) {
-    return Math.floor(Math.random() * max);
-}
-
-
-// Fisher–Yates shuffle as modified by Durstenfeld
-// https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
-function shuffle(arr) {
-    var i, j, temp, n=arr.length;
-    for (i=n-1; i >= 1; i--) {
-        j = randint(i);
-        temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
-}
-
 /* Depth-first search wall removal
 
-See https://en.wikipedia.org/wiki/Maze_generation_algorithm
-Adapted from the Python version found at http://rosettacode.org/wiki/Maze_generation
+    See https://en.wikipedia.org/wiki/Maze_generation_algorithm
+    Adapted from the Python version found at http://rosettacode.org/wiki/Maze_generation
 
-1. We pick a random cell
-2. We select a random neighbouring cell ...
-3. ... that has not been visited
-4. We remove the wall between the two cells and add the neighbouring cell
-   to the list of cells having been visited.
-5. If there are no unvisited neighbouring cell, we backtrack to one that
-   has at least one unvisited neighbour;
-   this is done until we backtract to the original cell.
+    1. We pick a random cell
+    2. We select a random neighbouring cell ...
+    3. ... that has not been visited
+    4. We remove the wall between the two cells and add the neighbouring cell
+    to the list of cells having been visited.
+    5. If there are no unvisited neighbouring cell, we backtrack to one that
+    has at least one unvisited neighbour;
+    this is done until we backtract to the original cell.
 */
 
-function remove_walls_dfs(w, h, show_color){
+function remove_walls_dfs(w, h){
     var i, j, vis, temp, x_init, y_init;
     vis = [];
     for(i = 0; i<w; i++){
@@ -321,11 +387,14 @@ function remove_walls_dfs(w, h, show_color){
         vis.push(temp);
     }
 
-    fit_non_overlapping_rooms(3, 4, 5, w, h);
-    for(i=0; i < ROOMS.length; i++){
-        var room = ROOMS[i];
+    fit_non_overlapping_rooms(w, h);
+    for(i=0; i < RUR.current_maze.rooms.length; i++){
+        var room = RUR.current_maze.rooms[i];
         make_room(room, vis);
-        open_doors(room);
+        if (RUR.current_maze.nb_doors_goal) {
+            open_doors(room, RUR.current_maze.nb_doors_goal);
+        }
+
     }
 
     while (true) {
@@ -335,15 +404,13 @@ function remove_walls_dfs(w, h, show_color){
             break;
         }
     }
-    START.x = x_init+1;
-    START.y = y_init+1;
-    if (show_color) {
-        RUR.add_colored_tile(palette['start'], x_init+1, y_init+1);
-    }
-    walk(x_init, y_init, vis, show_color);
+    RUR.current_maze.start.x = x_init+1;
+    RUR.current_maze.start.y = y_init+1;
+    color_tile(RUR.current_maze.palette['start'], x_init+1, y_init+1);
+    walk(x_init, y_init, vis);
 }
 
-function walk(x, y, vis, show_color){
+function walk(x, y, vis){
     var i, d, dd, xx, yy, recording_state;
     vis[x][y] = true; // 4. add start cell to visited
     d = [[x - 1, y], [x, y + 1], [x + 1, y], [x, y - 1]];
@@ -359,26 +426,19 @@ function walk(x, y, vis, show_color){
             continue; // not in the world
         }
 
+        recording_state = RUR._recording_(false);
         if (xx === x) {  // 4. remove wall ...
             // add 1 to x & y compared with vis which is zero-based
-            recording_state = RUR._recording_(false);
             RUR.remove_wall("north", x+1, Math.min(y, yy)+1);
-            if (show_color) {
-                update_color(x+1, y+1);
-                update_color(x+1, yy+1);
-            }
-            RUR._recording_(recording_state);
-            RUR.record_frame("from maze, updating colors");
+            update_color(x+1, y+1);
+            update_color(x+1, yy+1);
         } else {
-            recording_state = RUR._recording_(false);
             RUR.remove_wall("east", Math.min(x, xx)+1, y+1);
-            if (show_color) {
-                update_color(x+1, y+1);
-                update_color(xx+1, y+1);
-            }
-            RUR._recording_(recording_state);
-            RUR.record_frame("from maze, updating colors");
+            update_color(x+1, y+1);
+            update_color(xx+1, y+1);
         }
-        walk(xx, yy, vis, show_color); // recursive call; push ahead
+        RUR._recording_(recording_state);
+        RUR.record_frame("from maze, updating colors");
+        walk(xx, yy, vis); // recursive call; push ahead
     }
 } // end recursive call, effectively backtrack
