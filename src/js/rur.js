@@ -446,6 +446,21 @@ RUR._world_map = function () {
     return JSON.stringify(RUR.world_map(), null, 2);
 };
 
+/** @function print_maze
+ * @memberof RUR
+ * @instance
+ *
+ * @desc Prints a formatted version of the current maze info if a maze exists.
+ *
+ */
+RUR.print_maze = function () {
+    var maze = RUR.world_map().maze;
+    if (maze == undefined) {
+        RUR.output.write("undefined\n");
+    } else {
+        RUR.output.write(JSON.stringify(maze, null, 2), "\n");
+    }
+}
 
 /** @function configure_red_green
  * @memberof RUR

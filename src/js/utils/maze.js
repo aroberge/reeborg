@@ -8,11 +8,11 @@ default_palette = {
     'end': 'rgba(255, 0, 0, 0.7)',
     'three way': 'rgba(0, 0, 255, 0.1)',
     'four way': 'rgb(160, 0, 160)',
-    'in room': 'beige'
+    'in room': 'gravel'
 }
 function randint(max) {
     // returns integer between 0 and max-1
-    return Math.floor(Math.random() * max);
+    return Math.max(0, Math.floor(Math.random() * max));
 }
 
 // Fisher–Yates in-place shuffle as modified by Durstenfeld
@@ -28,19 +28,20 @@ function shuffle(arr) {
 }
 
 
-function set_custom_palette(user_palette){
+function set_custom_palette(user_palette, maze){
     "use strict"
     var i, key, keys;
     keys = Object.keys(user_palette);
     for(i=0; i < keys.length; i++) {
         key = keys[i];
-        RUR.current_maze.palette[key] = user_palette[key];
+        maze.palette[key] = user_palette[key];
     }
 }
 
 function color_tile(color, x, y) {
     // accept either background tile or color for flexibility
-    if (RUR.current_maze.show_color == undefined) {
+    var maze = RUR.get_current_world().maze;
+    if (maze.use_colors == undefined) {
         return;
     }
     if(RUR.KNOWN_THINGS.indexOf(RUR.translate_to_english(color)) != -1){
@@ -56,14 +57,15 @@ function update_color(x, y) {
     // inside a room
     // starting point (fixed color)
     // number of walls surrounding the tile
-    var color, walls;
-    if (RUR.current_maze.show_color == undefined) {
+    var color, walls, maze;
+    maze = RUR.get_current_world().maze;
+    if (maze.use_colors == undefined) {
         return;
     }
-    if (in_room(x, y)) {
-        color = RUR.current_maze.palette["in room"];
-    } else if(x == RUR.current_maze.start.x && y == RUR.current_maze.start.y) {
-        color = RUR.current_maze.palette["start"];
+    if (RUR.in_room(x, y, maze.rooms)) {
+        color = maze.palette["in room"];
+    } else if(x == maze.start.x && y == maze.start.y) {
+        color = maze.palette["start"];
     } else {
         walls = 0;
         if (RUR.is_wall("north", x, y)) {
@@ -80,16 +82,16 @@ function update_color(x, y) {
         }
         switch (walls){
             case 1:
-                color = RUR.current_maze.palette['three way'];
+                color = maze.palette['three way'];
                 break;
             case 2:
-                color = RUR.current_maze.palette['two way'];
+                color = maze.palette['two way'];
                 break;
             case 3:
-                color = RUR.current_maze.palette['end'];
+                color = maze.palette['end'];
                 break;
             case 0:
-                color = RUR.current_maze.palette['four way'];
+                color = maze.palette['four way'];
                 break;
             default:
                 color = "black";
@@ -98,18 +100,48 @@ function update_color(x, y) {
     color_tile(color, x, y);
 }
 
-function in_room(x, y) {
+/** @function in_room
+ * @memberof RUR
+ * @instance
+ *
+ * @desc This is meant to be used with mazes.  Given an array of rooms,
+ * which for a maze is `maze.rooms`, this function returns `true` if the
+ * point `(x, y)` is within one of the rooms, and false otherwise.
+ */
+
+RUR.in_room = function (x, y, rooms) {
     "use strict"
     // returns true if the point is within an existing room
     var r, room;
-    for (r=0; r < RUR.current_maze.rooms.length; r++) {
-        room = RUR.current_maze.rooms[r];
+    for (r=0; r < rooms.length; r++) {
+        room = rooms[r];
         if (x >= room.x_min && x < room.x_max && y >= room.y_min && y < room.y_max) {
             return true;
         }
     }
     return false;
 }
+
+
+/** @function delete_maze_info
+ * @memberof RUR
+ * @instance
+ *
+ * @desc Selectively delete maze info. If not argument is included,
+ * the entire maze information is deleted from the world definition.
+ */
+
+RUR.delete_maze_info = function() {
+    var i, world = RUR.get_current_world();
+    if (arguments.length == 0) {
+        delete world.maze;
+        return;
+    }
+    for (i = 0; i < arguments.length; i++) {
+        delete world.maze[arguments[i]];
+    }
+}
+
 
 function open_single_door(x, y, room, direction) {
     "use strict"
@@ -156,39 +188,43 @@ function fit_non_overlapping_rooms(world_width, world_height) {
        for putting rooms that are entirely contained with the world and
         do not overlap with each other */
     "use strict"
-    var i, nb_attempts, nb_rooms, nb_rooms_goal, overlap, room, x, y, xx, yy, width, height;
+    var i, nb_attempts, nb_rooms, nb_rooms_goal, overlap, room, x, y, xx, yy, width, height,
+        maze;
+
+    maze = RUR.get_current_world().maze;
+
     i = 0;
     nb_rooms = 0;
-    nb_rooms_goal = RUR.current_maze.nb_rooms_goal;
+    nb_rooms_goal = maze.nb_rooms_goal;
     nb_attempts = 5 * nb_rooms_goal * nb_rooms_goal;
 
     while (i < nb_attempts) {
         i++;
-        if (RUR.current_maze.room_max_width) {
-            width = RUR.current_maze.room_width + randint(RUR.current_maze.room_max_width);
+        if (maze.room_max_width) {
+            width = maze.room_width + randint(maze.room_max_width);
         } else {
-            width = RUR.current_maze.room_width;
+            width = maze.room_width;
         }
-        if (RUR.current_maze.room_max_height) {
-            height = RUR.current_maze.room_height + randint(RUR.current_maze.room_max_height);
+        if (maze.room_max_height) {
+            height = maze.room_height + randint(maze.room_max_height);
         } else {
-            height = RUR.current_maze.room_height;
+            height = maze.room_height;
         }
 
-        x = randint(world_width - width - 1) + 1;
-        y = randint(world_height - height - 1) + 1;
+        x = randint(world_width - width + 1) + 1;
+        y = randint(world_height - height + 1) + 1;
         overlap = false;
         overlap_loop:
         for (xx=x-1; xx <= x+width; xx++){
             for (yy=y-1; yy <= y+height; yy++) {
-                if (in_room(xx, yy)) {
+                if (RUR.in_room(xx, yy, maze.rooms)) {
                     overlap = true;
                     break overlap_loop;
                 }
             }
         }
         if (!overlap) {
-            RUR.current_maze.rooms.push({x_min:x, y_min:y, x_max:x+width, y_max:y+height,
+            maze.rooms.push({x_min:x, y_min:y, x_max:x+width, y_max:y+height,
             doors: []})
             nb_rooms++;
             if (nb_rooms == nb_rooms_goal) {
@@ -198,12 +234,11 @@ function fit_non_overlapping_rooms(world_width, world_height) {
     }
 }
 
-function init_current_maze() {
-    RUR.current_maze = {};
-    RUR.current_maze.rooms = [];
-    RUR.current_maze.in_room = in_room;
-    RUR.current_maze.start = {};
-    RUR.current_maze.palette = {};
+function init_maze(world) {
+    world.maze = {};
+    world.maze.rooms = [];
+    world.maze.start = {};
+    world.maze.palette = {};
 }
 
 /** @function create_maze
@@ -231,44 +266,44 @@ function init_current_maze() {
  * This is only useful for demonstration, and will only visible if the
  * maze is created as part of the Pre code or the main code - but not in
  * the Onload phase.
- * @param {bool} [options.show_colors] If `true`, the path construction will be
+ * @param {bool} [options.use_colors] If `true`, the path construction will be
  * shown using a pre-defined color scheme, indicating the starting point,
  * and the branching points.
  * @param {bool} [options.visible_grid] If `true`, the grid will be (possibly more) visible.
  * This is equivalent to writing `RUR.state.visible_grid = true` in your program.
- * This might be useful if you have `options.show_colors == true` and choose a
+ * This might be useful if you have `options.use_colors == true` and choose a
  * custom palette with opaque colors.
  * @param {obj} [options.palette] An optional color palette. You can replace
  * any or all of the default colors.
- * @param {string} [options.palette['start']] Color to use as starting point;
- * the default value is 'rgb(0, 190, 0)'.
+ * @param {string} [options.palette['start']] Color to use as starting point.
  * @param {string} [options.palette['end']] Color used to indicate that we have
- * reached a dead end. The default value is 'rgba(255, 0, 0, 0.7)'.
- * @param {string} [options.palette['two way']] The default value is 'rgba(255, 255, 0, 0.2)'.
- * @param {string} [options.palette['three way']] The default value is 'rgba(0, 0, 255, 0.1)'.
- * @param {string} [options.palette['four way']] This rarely happens:
- * it correspond to a grid square open on all sides. The default value is 'rgb(160, 0, 160)'.
+ * reached a dead end.
+ * @param {string} [options.palette['two way']] Color to use in "corridors".
+ * @param {string} [options.palette['three way']] Color to use in simple junctions.
+ * @param {string} [options.palette['four way']] This happens relatively rarely:
+ * it correspond to a grid square not in a room but open on all sides.
  *
  */
 RUR.create_maze = function (max_x, max_y, options) {
     "use strict"
-    var world;
-    init_current_maze();
-    set_custom_palette(default_palette);
+    var world, available_area, max_area, room_max_width, room_max_height;
     world = RUR.create_empty_world();
     if (options && options.small_tiles) {
         world.small_tiles = true;
     }
     RUR.set_current_world(world);
+    init_maze(world);
     RUR.set_world_size(max_x, max_y);
     RUR._recording_(false);
     fill_walls(max_x, max_y);
     if (options) {
-        if (options.palette) {
-            set_custom_palette(options.palette);
-        }
-        if (options.show_colors) {
-            RUR.current_maze.show_color = true;
+        if (options.use_colors) {
+            world.maze.use_colors = true;
+            if (options.palette) {
+                set_custom_palette(options.palette, world.maze);
+            } else {
+                set_custom_palette(default_palette, world.maze);
+            }
         }
         if (options.recording) {
             RUR._recording_(true);
@@ -278,31 +313,44 @@ RUR.create_maze = function (max_x, max_y, options) {
             RUR.state.visible_grid = true;
         }
         if (options.nb_rooms_goal) {
-            RUR.current_maze.nb_rooms_goal = options.nb_rooms_goal;
+            world.maze.nb_rooms_goal = options.nb_rooms_goal;
+            room_max_width = 1;
+            room_max_height = 1;
             if (options.room_width) {
-                RUR.current_maze.room_width = options.room_width;
+                world.maze.room_width = options.room_width;
+                room_max_width = options.room_width;
                 if (options.room_max_width && options.room_max_width > options.room_width) {
-                    RUR.current_maze.room_max_width = options.room_max_width;
+                    world.maze.room_max_width = options.room_max_width;
+                    room_max_width = options.room_max_width;
                 }
             } else {
-                RUR.current_maze.room_width = 1;
+                world.maze.room_width = 1;
             }
             if (options.room_height) {
-                RUR.current_maze.room_height = options.room_height;
+                world.maze.room_height = options.room_height;
+                room_max_height = options.room_height;
                 if (options.room_max_height && options.room_max_height > options.room_height) {
-                    RUR.current_maze.room_max_height = options.room_max_height;
+                    world.maze.room_max_height = options.room_max_height;
+                    room_max_height = options.room_max_height;
                 }
             } else {
-                RUR.current_maze.room_height = 1;
+                world.maze.room_height = 1;
             }
+
+            available_area = max_x * max_y;
+            max_area = options.nb_rooms_goal * room_max_width * room_max_height;
+            if (max_area >= available_area) {
+                throw new RUR.ReeborgError("Invalid maze: too much space potentially occupied by rooms.")
+            }
+
             if (options.nb_doors_goal) {
-                RUR.current_maze.nb_doors_goal = options.nb_doors_goal;
+                world.maze.nb_doors_goal = options.nb_doors_goal;
             } else {
-                RUR.current_maze.nb_doors_goal = 0;
+                world.maze.nb_doors_goal = 0;
             }
         }
     }
-    remove_walls_dfs(max_x, max_y);
+    remove_walls_dfs(max_x, max_y, world.maze);
     RUR._recording_(true);
     RUR.record_frame("create_maze", "completed");
 };
@@ -324,8 +372,9 @@ function fill_walls(max_x, max_y) {
 
 function make_room(room, vis) {
     "use strict"
-    var i, j, in_room_color, recording_state, x, y, x_max, y_max;
-    in_room_color = RUR.current_maze.palette["in room"];
+    var i, j, in_room_color, recording_state, x, y, x_max, y_max, world;
+    world = RUR.get_current_world();
+    in_room_color = world.maze.palette["in room"];
     x = room.x_min;
     x_max = room.x_max;
     y = room.y_min;
@@ -376,7 +425,7 @@ function make_room(room, vis) {
     this is done until we backtract to the original cell.
 */
 
-function remove_walls_dfs(w, h){
+function remove_walls_dfs(w, h, maze){
     var i, j, vis, temp, x_init, y_init;
     vis = [];
     for(i = 0; i<w; i++){
@@ -388,11 +437,11 @@ function remove_walls_dfs(w, h){
     }
 
     fit_non_overlapping_rooms(w, h);
-    for(i=0; i < RUR.current_maze.rooms.length; i++){
-        var room = RUR.current_maze.rooms[i];
+    for(i=0; i < maze.rooms.length; i++){
+        var room = maze.rooms[i];
         make_room(room, vis);
-        if (RUR.current_maze.nb_doors_goal) {
-            open_doors(room, RUR.current_maze.nb_doors_goal);
+        if (maze.nb_doors_goal) {
+            open_doors(room, maze.nb_doors_goal);
         }
 
     }
@@ -404,11 +453,12 @@ function remove_walls_dfs(w, h){
             break;
         }
     }
-    RUR.current_maze.start.x = x_init+1;
-    RUR.current_maze.start.y = y_init+1;
-    color_tile(RUR.current_maze.palette['start'], x_init+1, y_init+1);
+    color_tile(maze.palette['start'], x_init+1, y_init+1);
+    maze.start.x = x_init+1;
+    maze.start.y = y_init+1;
     walk(x_init, y_init, vis);
 }
+
 
 function walk(x, y, vis){
     var i, d, dd, xx, yy, recording_state;
