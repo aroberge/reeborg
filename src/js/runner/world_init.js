@@ -108,9 +108,6 @@ RUR.world_init = function () {
             }
         }
     }
-
-    // then final position for robot; only makes sense for single robot
-    robot = world.robots[0];
     if (world.goal !== undefined &&
         world.goal.possible_final_positions !== undefined &&
         world.goal.possible_final_positions.length > 1) {

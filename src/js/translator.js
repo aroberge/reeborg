@@ -31,12 +31,18 @@ RUR.translation_to_english = RUR.en_to_en;
 RUR._translation_needed = {};
 RUR._translation_to_english_needed = {};
 
+function is_color(s) { // avoid giving warning about missing translation
+    if (s.startsWith("#") || s.startsWith("rgb")) {
+        return true;
+    }
+    return false;
+}
 
 RUR.translate = function (s) {
     if (s==undefined) {
         return "";
     }
-    if (RUR.untranslated[s]) {
+    if (RUR.untranslated[s] || is_color(s)) {
         return s;
     } else if (RUR.translation[s] !== undefined) {
         return RUR.translation[s];
@@ -50,7 +56,7 @@ RUR.translate = function (s) {
 };
 
 RUR.translate_to_english = function (s) {
-    if (RUR.untranslated[s]) {
+    if (RUR.untranslated[s] || is_color(s)) {
         return s;
     } else if (RUR.translation_to_english[s] !== undefined) {
         return RUR.translation_to_english[s];

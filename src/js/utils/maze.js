@@ -201,12 +201,12 @@ function fit_non_overlapping_rooms(world_width, world_height) {
     while (i < nb_attempts) {
         i++;
         if (maze.room_max_width) {
-            width = maze.room_width + randint(maze.room_max_width);
+            width = maze.room_width + randint(maze.room_max_width - maze.room_width);
         } else {
             width = maze.room_width;
         }
         if (maze.room_max_height) {
-            height = maze.room_height + randint(maze.room_max_height);
+            height = maze.room_height + randint(maze.room_max_height - maze.room_height);
         } else {
             height = maze.room_height;
         }
@@ -299,10 +299,9 @@ RUR.create_maze = function (max_x, max_y, options) {
     if (options) {
         if (options.use_colors) {
             world.maze.use_colors = true;
-            if (options.palette) {
+            set_custom_palette(default_palette, world.maze);
+            if (options.palette) { // selectively replace default colors
                 set_custom_palette(options.palette, world.maze);
-            } else {
-                set_custom_palette(default_palette, world.maze);
             }
         }
         if (options.recording) {
