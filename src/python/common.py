@@ -9,41 +9,10 @@ almost always using a double underscore as a prefix.
 import sys
 from browser import window, console
 
-class Container:
-    '''Generic container created for teaching purpose - not for efficiency'''
-
-    def __init__(self):
-        self._list = []
-
-    def __repr__(self):
-        return repr(self._list)
-
-    def __str__(self):
-        return str(self._list)
-
-    def append(self, item):
-        '''Adds an item at the end of the container'''
-        self._list.append(item)
-
-    def get_last(self):
-        '''Returns the last added item and removes it from the container'''
-        return self._list.pop()
-
-    def get_first(self):
-        '''Returns the first added item and removes it from the container'''
-        first = self._list[0]
-        del self._list[0]
-        return first
-
-    def is_empty(self):
-        return len(self._list) == 0
-
 __REEBORG_EN = {}
 exec("from reeborg_en import *", __REEBORG_EN)
-__REEBORG_EN["Container"] = Container
 __REEBORG_FR = {}
 exec("from reeborg_fr import *", __REEBORG_FR)
-__REEBORG_FR["Container"] = Container
 
 def dir_py(obj, exclude=None):
     '''Prints all "public" attributes of an object, one per line, identifying
@@ -284,7 +253,6 @@ def __generic_translate_python(src, highlight=False, var_watch=False, pre_code='
     globals_['window'] = window
     globals_['console'] = console
     globals_['print_dir'] = print_dir
-    globals_['Container'] = Container
 
     src = transform(src)
     # sometimes, when copying from documentation displayed in the browsers

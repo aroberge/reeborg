@@ -171,9 +171,7 @@ def nouvelles_images_de_robot(images):  #py:new_robot_images
 def pas_de_surlignement():  #py:no_highlight
     """
     Empêche le surlignement de lignes de code d'être effectué.
-    Pour véritablement éliminer tout effet lié au surlignement de
-    lignes de code, il peut être nécessaire d'exécuter un programme
-    à deux reprises."""
+    """
     RUR._no_highlight_()
 
 

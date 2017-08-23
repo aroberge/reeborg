@@ -162,9 +162,10 @@ def no_highlight():  #py:no_highlight
     button in Reeborg's World.
 
     Code highlighting occurs thanks to some extra code inserted in a
-    user's program prior to execution.  When disabling highlighting
-    using this function, the extra instructions are still present,
-    but they will not be if the program is run a second time.
+    user's program prior to execution.  If this function is called
+    with highlighting active, it will be disabled and the program will stop.
+    If highlighting is not active, calls to this function will have no
+    effect.
     """
     RUR._no_highlight_()
 
