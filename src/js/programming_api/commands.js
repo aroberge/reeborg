@@ -24,9 +24,9 @@ RUR._inspect_ = function (obj){
     var props, result, head = "<table border='1'><tr><th>name</th><th>type</th></tr>";
     result = head;
     for (props in obj) {
-        result += "<tr><td>" + props + "</td><td>"
+        result += "<tr><td>" + props + "</td><td>";
         if (Object.prototype.toString.call(obj[props]) == "[object Array]") {
-            result += "Array</td></tr>"
+            result += "Array</td></tr>";
         } else {
             result += typeof(obj[props]) + "</td></tr>";
         }
@@ -73,7 +73,13 @@ RUR._color_here_ = function () {
 };
 
 RUR._default_robot_body_ = function () { // simply returns body
-    return RUR.get_current_world().robots[0];
+    var body;
+    try {
+        body = RUR.get_current_world().robots[0];
+    } catch (e) {
+        body = {};
+    }
+    return body;
 };
 
 RUR._done_ = RUR.control.done;
@@ -164,7 +170,7 @@ RUR._wall_in_front_ = function() {
 
 RUR._write_ = RUR.output.write;
 
-RUR.__write_ = RUR.output._write;
+RUR._write_ln = RUR.output.write_ln;
 
 RUR._wall_on_right_ = function() {
     return RUR.control.wall_on_right(RUR.get_current_world().robots[0]);
@@ -212,7 +218,7 @@ RUR._UR.object_here_ = function (robot, obj) {
 
 RUR._UR.paint_square_ = function (color, robot_body) {
     RUR.add_colored_tile(color, robot_body.x, robot_body.y);
-}
+};
 
 RUR._UR.put_ = function (robot, obj) {
     RUR.control.put(robot, obj);

@@ -21,7 +21,7 @@ function shuffle(arr) {
     var i, j, temp, n=arr.length;
     for (i=n-1; i >= 1; i--) {
         j = randint(i);
-        temp = arr[i];
+        temp = arr[i+1];
         arr[i] = arr[j];
         arr[j] = temp;
     }

@@ -84,9 +84,6 @@ def __write(data):
     window.RUR.output.write(str(data))
 
 
-def __write_err(data):
-    window.RUR.output._write("<b style='color:red'>" + str(data) + "</b>")
-
 def __html_escape(obj):
     return str(obj).replace("&", "&amp").replace("<", "&lt;").replace(">", "&gt;")
 
@@ -232,7 +229,7 @@ def __generic_translate_python(src, highlight=False, var_watch=False, pre_code='
     from preprocess import transform # keeping out of global namespace
     from highlight import insert_highlight_info
     sys.stdout.write = __write
-    sys.stderr.write = __write_err
+    sys.stderr.write = __write
 
     # reeborg_en and reeborg_fr define some attributes to window; these
     # could have been redefined when importing a different language version -
