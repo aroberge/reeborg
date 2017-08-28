@@ -1,4 +1,7 @@
 require("./../rur.js");
+var random = require("./../utils/random.js");
+var shuffle = random.shuffle;
+var randint = random.randint;
 
 var default_palette;
 
@@ -9,27 +12,11 @@ default_palette = {
     'three way': 'rgba(0, 0, 255, 0.1)',
     'four way': 'rgb(160, 0, 160)',
     'in room': 'gravel'
-}
-function randint(max) {
-    // returns integer between 0 and max-1
-    return Math.max(0, Math.floor(Math.random() * max));
-}
-
-// Fisher–Yates in-place shuffle as modified by Durstenfeld
-// https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
-function shuffle(arr) {
-    var i, j, temp, n=arr.length;
-    for (i=n-1; i >= 1; i--) {
-        j = randint(i);
-        temp = arr[i+1];
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
-}
+};
 
 
 function set_custom_palette(user_palette, maze){
-    "use strict"
+    "use strict";
     var i, key, keys;
     keys = Object.keys(user_palette);
     for(i=0; i < keys.length; i++) {
@@ -41,7 +28,7 @@ function set_custom_palette(user_palette, maze){
 function color_tile(color, x, y) {
     // accept either background tile or color for flexibility
     var maze = RUR.get_current_world().maze;
-    if (maze.use_colors == undefined) {
+    if (maze.use_colors === undefined) {
         return;
     }
     if(RUR.KNOWN_THINGS.indexOf(RUR.translate_to_english(color)) != -1){
@@ -52,14 +39,14 @@ function color_tile(color, x, y) {
 }
 
 function update_color(x, y) {
-    "use strict"
+    "use strict";
     // update color at location based on characteristics:
     // inside a room
     // starting point (fixed color)
     // number of walls surrounding the tile
     var color, walls, maze;
     maze = RUR.get_current_world().maze;
-    if (maze.use_colors == undefined) {
+    if (maze.use_colors === undefined) {
         return;
     }
     if (RUR.in_room(x, y, maze.rooms)) {
@@ -110,7 +97,7 @@ function update_color(x, y) {
  */
 
 RUR.in_room = function (x, y, rooms) {
-    "use strict"
+    "use strict";
     // returns true if the point is within an existing room
     var r, room;
     for (r=0; r < rooms.length; r++) {
@@ -120,7 +107,7 @@ RUR.in_room = function (x, y, rooms) {
         }
     }
     return false;
-}
+};
 
 
 /** @function delete_maze_info
@@ -133,18 +120,18 @@ RUR.in_room = function (x, y, rooms) {
 
 RUR.delete_maze_info = function() {
     var i, world = RUR.get_current_world();
-    if (arguments.length == 0) {
+    if (arguments.length === 0) {
         delete world.maze;
         return;
     }
     for (i = 0; i < arguments.length; i++) {
         delete world.maze[arguments[i]];
     }
-}
+};
 
 
 function open_single_door(x, y, room, direction) {
-    "use strict"
+    "use strict";
     if (direction == "west") {
         x = room.x_min;
     } else if (direction == "east") {
@@ -165,7 +152,7 @@ function open_single_door(x, y, room, direction) {
 
 
 function open_doors(room, nb_doors_goal) {
-    "use strict"
+    "use strict";
     var directions, i, x, y, open = 0, door;
     x = room.x_min + randint(room.x_max-room.x_min);
     y = room.y_min + randint(room.y_max-room.y_min);
@@ -187,7 +174,7 @@ function fit_non_overlapping_rooms(world_width, world_height) {
     /* Given a goal of N rooms, makes 5*N^2 attempt to randomly find spaces
        for putting rooms that are entirely contained with the world and
         do not overlap with each other */
-    "use strict"
+    "use strict";
     var i, nb_attempts, nb_rooms, nb_rooms_goal, overlap, room, x, y, xx, yy, width, height,
         maze;
 
@@ -225,7 +212,7 @@ function fit_non_overlapping_rooms(world_width, world_height) {
         }
         if (!overlap) {
             maze.rooms.push({x_min:x, y_min:y, x_max:x+width, y_max:y+height,
-            doors: []})
+            doors: []});
             nb_rooms++;
             if (nb_rooms == nb_rooms_goal) {
                 return;
@@ -285,7 +272,7 @@ function init_maze(world) {
  *
  */
 RUR.create_maze = function (max_x, max_y, options) {
-    "use strict"
+    "use strict";
     var world, available_area, max_area, room_max_width, room_max_height;
     world = RUR.create_empty_world();
     if (options && options.small_tiles) {
@@ -339,7 +326,7 @@ RUR.create_maze = function (max_x, max_y, options) {
             available_area = max_x * max_y;
             max_area = options.nb_rooms_goal * room_max_width * room_max_height;
             if (max_area >= available_area) {
-                throw new RUR.ReeborgError("Invalid maze: too much space potentially occupied by rooms.")
+                throw new RUR.ReeborgError("Invalid maze: too much space potentially occupied by rooms.");
             }
 
             if (options.nb_doors_goal) {
@@ -355,7 +342,7 @@ RUR.create_maze = function (max_x, max_y, options) {
 };
 
 function fill_walls(max_x, max_y) {
-    "use strict"
+    "use strict";
     var x, y;
     for(x=1; x < max_x; x++){
         for(y=1; y < max_y; y++){
@@ -369,8 +356,25 @@ function fill_walls(max_x, max_y) {
     }
 }
 
+/**@function fill_walls
+ * @memberof RUR
+ * @instance
+ * @desc Fills the entire world with walls.
+ */
+RUR.fill_walls = function() {
+    "use strict";
+    var world, max_x, max_y, recording_state;
+    world = RUR.get_current_world();
+    max_x = world.cols;
+    max_y = world.rows;
+    recording_state = RUR._recording_(false);
+    fill_walls(max_x, max_y);
+    RUR._recording_(recording_state);
+    RUR.record_frame("fill_walls");
+};
+
 function make_room(room, vis) {
-    "use strict"
+    "use strict";
     var i, j, in_room_color, recording_state, x, y, x_max, y_max, world;
     world = RUR.get_current_world();
     in_room_color = world.maze.palette["in room"];
@@ -467,7 +471,7 @@ function walk(x, y, vis){
     for(i=0; i<=3; i++){
         dd = d[i];  // 2. pick neighbours in random order
         xx = dd[0];
-        yy = dd[1]
+        yy = dd[1];
         if(vis[xx] && vis[xx][yy]){ // 3. ignore visited
             continue;
         }

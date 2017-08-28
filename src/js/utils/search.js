@@ -2,6 +2,9 @@ require("./../rur.js");
 require("./../world_api/is_fatal.js");
 require("./../world_api/walls.js");
 require("./../programming_api/commands.js");
+var random = require("./../utils/random.js");
+var shuffle = random.shuffle;
+var randint = random.randint;
 
  // The ideas used here are inspired from
  // http://www.redblobgames.com/pathfinding/a-star/introduction.html
@@ -104,7 +107,6 @@ RUR.create_deque = function(no_colors) {
 
 RUR.get_neighbours = function(current, options) {
     "use strict";
-    var x, y, neighbours, max_x, max_y, world = RUR.get_current_world();
     var robot_body, ordered, ignore_walls;
     robot_body = RUR._default_robot_body_();
     if (options) {
@@ -122,7 +124,20 @@ RUR.get_neighbours = function(current, options) {
         ignore_walls = false;
         ordered = false;
     }
+    if (options.track_turns) {
+        return get_neighbours_track_turns(current, ignore_walls, ordered, robot_body);
+    } else {
+        return get_neighbours_around(current, ignore_walls, ordered, robot_body);
+    }
+};
 
+// get neighbours when direction is unimportant
+
+function get_neighbours_around (current, ignore_walls, ordered, robot_body) {
+    "use strict";
+    var x, y, neighbours, world, max_x, max_y;
+
+    world = RUR.get_current_world();
     neighbours = [];
     x = current[0];
     y = current[1];
@@ -151,24 +166,65 @@ RUR.get_neighbours = function(current, options) {
     if (!ordered) {
         shuffle(neighbours);
     }
+    return neighbours;
+}
+
+/* for get_neighbours_track_turns, we define a neighbour as either the node
+   immediately in front **or** the same node but turning left.
+*/
+
+function get_neighbours_track_turns (current, ignore_walls, ordered, robot_body) {
+    "use strict";
+    var direction, x, y, neighbours, world, max_x, max_y;
+
+    world = RUR.get_current_world();
+
+    neighbours = [];
+    x = current[0];
+    y = current[1];
+    direction = current[2];
+
+    max_x = world.cols;
+    max_y = world.rows;
+
+    switch (direction) {
+        case "east":
+            neighbours.push([x, y, "north"]);
+            if (x < max_x && !RUR.is_fatal_position(x+1, y, robot_body)) {
+                if (ignore_walls || !RUR.is_wall(RUR.translate("east"), x, y)) {
+                    neighbours.push([x+1, y, "east"]);
+                }
+            }
+            break;
+        case "north":
+            neighbours.push([x, y, "west"]);
+            if (y < max_y && !RUR.is_fatal_position(x, y+1, robot_body)) {
+                if (ignore_walls || !RUR.is_wall(RUR.translate("north"), x, y)) {
+                    neighbours.push([x, y+1, "north"]);
+                }
+            }
+            break;
+        case "west":
+            neighbours.push([x, y, "south"]);
+            if (x > 1 && !RUR.is_fatal_position(x-1, y, robot_body)) {
+                if (ignore_walls || !RUR.is_wall(RUR.translate("west"), x, y)) {
+                    neighbours.push([x-1, y, "west"]);
+                }
+            }
+            break;
+        case "south":
+            neighbours.push([x, y, "east"]);
+            if (y > 1 && !RUR.is_fatal_position(x, y-1, robot_body)) {
+                if (ignore_walls || !RUR.is_wall(RUR.translate("south"), x, y)) {
+                    neighbours.push([x, y-1, "south"]);
+                }
+            }
+            break;
+    }
+
+    if (!ordered) {
+        shuffle(neighbours);
+    }
 
     return neighbours;
-};
-
-function randint(max) {
-    // returns integer between 0 and max-1
-    return Math.max(0, Math.floor(Math.random() * max));
 }
-// Fisher–Yates in-place shuffle as modified by Durstenfeld
-// https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
-function shuffle(arr) {
-    var i, j, temp, n=arr.length;
-
-    for (i=n-1; i >= 1; i--) {
-        j = randint(i+1);
-        temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
-}
-
