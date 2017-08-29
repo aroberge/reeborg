@@ -105,6 +105,92 @@ RUR.create_deque = function(no_colors) {
 };
 
 
+/**---------------------------- */
+
+/** @constructor PriorityQueue
+ * @memberof RUR
+ *
+ * @desc Description to be added
+ */
+
+RUR.PriorityQueue = function (no_colors) {
+    if (!no_colors) {
+        this.use_colors = true;
+        this.palette = {};
+        set_custom_palette(default_palette, this);
+    } else {
+        this.use_colors = false;
+    }
+    this.array = [];
+
+    this.add = function(node, cost) {
+        var i, idx = 0, n = this.array.length;
+        if (n==0) {
+            this.array[0] = [node, cost];
+        } else {
+            for (i=n-1; i >= 0; i--){
+                if (cost < this.array[i][1]) {
+                    idx = i + 1;
+                    break;
+                } else {
+                    this.array[i+1] = this.array[i];
+                }
+            }
+            this.array[idx] = [node, cost];
+        }
+        if (this.use_colors) {
+            this.set_color(this.palette["on_frontier"], node);
+        }
+    };
+
+    this.set_palette = function (palette) {
+        set_custom_palette(palette, this);
+    };
+
+    this.get_lowest = function() {
+        var item = this.array.pop();
+        if (this.use_colors) {
+            this.set_color(this.palette["current"], item[0]);
+        }
+        return item[0];
+    };
+
+    this.is_empty = function () {
+        return this.array.length === 0;
+    };
+
+    this.mark_done = function (node) {
+        if (this.use_colors) {
+            this.set_color(this.palette["done"], node);
+        }
+    };
+
+    this.set_color = function(color, node) {
+        var x=node[0], y=node[1], recording_state;
+        recording_state = RUR._recording_(false);
+        if (RUR.is_decorative_object(this.palette["current"], x, y)) {
+            RUR.remove_decorative_object(this.palette["current"], x, y);
+        }
+        if (RUR.is_decorative_object(this.palette["on_frontier"], x, y)) {
+            RUR.remove_decorative_object(this.palette["on_frontier"], x, y);
+        }
+        if (RUR.is_decorative_object(this.palette["done"], x, y)) {
+            RUR.remove_decorative_object(this.palette["done"], x, y);
+        }
+        RUR.add_decorative_object(color, x, y);
+        RUR._recording_(recording_state);
+        RUR.record_frame();
+    };
+};
+
+// To be called from Python
+RUR.create_priority_queue = function(no_colors) {
+    return new RUR.PriorityQueue(no_colors);
+};
+
+/**------------------------------ */
+
+
 RUR.get_neighbours = function(current, options) {
     "use strict";
     var robot_body, ordered, ignore_walls;
@@ -124,8 +210,8 @@ RUR.get_neighbours = function(current, options) {
         ignore_walls = false;
         ordered = false;
     }
-    if (options.track_turns) {
-        return get_neighbours_track_turns(current, ignore_walls, ordered, robot_body);
+    if (options.directions) {
+        return get_neighbours_directions(current, ignore_walls, ordered, robot_body);
     } else {
         return get_neighbours_around(current, ignore_walls, ordered, robot_body);
     }
@@ -169,11 +255,11 @@ function get_neighbours_around (current, ignore_walls, ordered, robot_body) {
     return neighbours;
 }
 
-/* for get_neighbours_track_turns, we define a neighbour as either the node
+/* for get_neighbours_directions, we define a neighbour as either the node
    immediately in front **or** the same node but turning left.
 */
 
-function get_neighbours_track_turns (current, ignore_walls, ordered, robot_body) {
+function get_neighbours_directions (current, ignore_walls, ordered, robot_body) {
     "use strict";
     var direction, x, y, neighbours, world, max_x, max_y;
 

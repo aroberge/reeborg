@@ -48,7 +48,7 @@ function user_no_highlight () {
         RUR.state.highlight = false;
         $("#highlight").addClass("blue-gradient");
         $("#highlight").removeClass("active-element");
-        throw new RUR.ReeborgError(RUR.translate("Turning highlighting off!"));
+        throw new RUR.ReeborgOK(RUR.translate("Turning highlighting off!"));
     }
 }
 
