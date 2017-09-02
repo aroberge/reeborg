@@ -125,7 +125,7 @@ RUR.PriorityQueue = function (no_colors) {
 
     this.add = function(node, cost) {
         var i, idx = 0, n = this.array.length;
-        if (n==0) {
+        if (n===0) {
             this.array[0] = [node, cost];
         } else {
             for (i=n-1; i >= 0; i--){
@@ -188,34 +188,6 @@ RUR.create_priority_queue = function(no_colors) {
     return new RUR.PriorityQueue(no_colors);
 };
 
-/**------------------------------ */
-
-
-RUR.get_neighbours = function(current, options) {
-    "use strict";
-    var robot_body, ordered, ignore_walls;
-    robot_body = RUR._default_robot_body_();
-    if (options) {
-        if (options.robot_body) {
-            robot_body = options.robot_body;
-        }
-        if (options.ignore_walls){
-            ignore_walls = options.ignore_walls;
-        }
-        if (options.ordered) {
-            ordered = options.ordered;
-        }
-    } else {
-        robot_body = undefined;
-        ignore_walls = false;
-        ordered = false;
-    }
-    if (options.directions) {
-        return get_neighbours_directions(current, ignore_walls, ordered, robot_body);
-    } else {
-        return get_neighbours_around(current, ignore_walls, ordered, robot_body);
-    }
-};
 
 // get neighbours when direction is unimportant
 
@@ -255,11 +227,11 @@ function get_neighbours_around (current, ignore_walls, ordered, robot_body) {
     return neighbours;
 }
 
-/* for get_neighbours_directions, we define a neighbour as either the node
+/* for get_neighbours_turn_left, we define a neighbour as either the node
    immediately in front **or** the same node but turning left.
 */
 
-function get_neighbours_directions (current, ignore_walls, ordered, robot_body) {
+function get_neighbours_turn_left (current, ignore_walls, ordered, robot_body) {
     "use strict";
     var direction, x, y, neighbours, world, max_x, max_y;
 
@@ -314,3 +286,53 @@ function get_neighbours_directions (current, ignore_walls, ordered, robot_body) 
 
     return neighbours;
 }
+
+
+/** @constructor Graph
+ * @memberof RUR
+ *
+ * @desc Description to be added
+ */
+
+RUR.Graph = function (options) {
+    "use strict";
+    this.robot_body = RUR._default_robot_body_();
+    this.ordered = false;
+    this.ignore_walls = false;
+    this.turn_left = false;
+
+    if (options) {
+        if (options.robot_body) {
+            this.robot_body = options.robot_body;
+        }
+        if (options.ignore_walls){
+            this.ignore_walls = options.ignore_walls;
+        }
+        if (options.ordered) {
+            this.ordered = options.ordered;
+        }
+        if (options.turn_left) {
+            this.turn_left = options.turn_left;
+        }
+    }
+
+
+    this.get_neighbours = function(current) {
+
+        if (this.turn_left) {
+            return get_neighbours_turn_left(current, this.ignore_walls, this.ordered, this.robot_body);
+        } else {
+            return get_neighbours_around(current, this.ignore_walls, this.ordered, this.robot_body);
+        }
+    };
+
+    this.cost = function(current, next) {
+        return 1;
+    };
+
+};
+
+// To be called from Python
+RUR.create_graph = function(options) {
+    return new RUR.Graph(options);
+};

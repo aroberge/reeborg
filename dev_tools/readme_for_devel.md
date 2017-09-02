@@ -146,6 +146,7 @@ into a single one (reeborg.js). However, I would recommend instead to type
     npm run build
 
 to first run some unit tests followed by a new build using browserify.
+**Important:** you might have to create the folder /build first.
 
 
 ### Documenting some individual Javascript modules

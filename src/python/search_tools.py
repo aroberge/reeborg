@@ -14,34 +14,34 @@ class Deque:
     '''
 
     def __init__(self, no_colors=False):
-        self._deque = window.RUR.create_deque(no_colors)
+        self.deque = window.RUR.create_deque(no_colors)
         self.no_colors = no_colors
 
     def __repr__(self):
-        return self._deque.toString()
+        return self.deque.toString()
 
     def __str__(self):
-        return self._deque.toString()
+        return self.deque.toString()
 
     def append(self, node):
         '''Adds an node (n-tuple) at the end of the Deque instance'''
-        self._deque.append(list(node))
+        self.deque.append(list(node))
 
     def get_last(self):
         '''Returns the last added node (n-tuple) and removes it from the Deque instance'''
-        return tuple(self._deque.get_last())
+        return tuple(self.deque.get_last())
 
     def get_first(self):
         '''Returns the first added node (n-tuple) and removes it from the Deque instance'''
-        return tuple(self._deque.get_first())
+        return tuple(self.deque.get_first())
 
     def is_empty(self):
         '''Returns True if there are no nodes remaining, false otherwise.'''
-        return self._deque.is_empty()
+        return self.deque.is_empty()
 
     def mark_done(self, node):
         '''Sets the color of the specified node (n-tuple) to the "done" value'''
-        self._deque.mark_done(list(node))
+        self.deque.mark_done(list(node))
         if not self.no_colors:
             window.RUR.record_frame()
 
@@ -55,7 +55,7 @@ class Deque:
              'done': 'rgba(211, 211, 211, 0.5)'
             }
         '''
-        self._deque.set_palette(palette)
+        self.deque.set_palette(palette)
 
 ################################
 class PriorityQueue:
@@ -67,30 +67,30 @@ class PriorityQueue:
     '''
 
     def __init__(self, no_colors=False):
-        self._priority_queue = window.RUR.create_priority_queue(no_colors)
+        self.priority_queue = window.RUR.create_priority_queue(no_colors)
         self.no_colors = no_colors
 
     def __repr__(self):
-        return self._priority_queue.toString()
+        return self.priority_queue.toString()
 
     def __str__(self):
-        return self._priority_queue.toString()
+        return self.priority_queue.toString()
 
     def add(self, node, cost):
         '''Adds an item at the end of the PriorityQueue instance'''
-        self._priority_queue.add(list(node), cost)
+        self.priority_queue.add(list(node), cost)
 
     def get_lowest(self):
         '''Returns the lowest cost node and removes it from the PriorityQueue instance'''
-        return tuple(self._priority_queue.get_lowest())
+        return tuple(self.priority_queue.get_lowest())
 
     def is_empty(self):
         '''Returns True if there are no items remaining, false otherwise.'''
-        return self._priority_queue.is_empty()
+        return self.priority_queue.is_empty()
 
     def mark_done(self, node):
         '''Sets the color of the specified node (n-tuple) to the "done" value'''
-        self._priority_queue.mark_done(node)
+        self.priority_queue.mark_done(node)
         if not self.no_colors:
             window.RUR.record_frame()
 
@@ -104,7 +104,7 @@ class PriorityQueue:
              'done': 'rgba(211, 211, 211, 0.5)'
             }
         '''
-        self._priority_queue.set_palette(palette)
+        self.priority_queue.set_palette(palette)
 
 
 ################################
@@ -137,8 +137,46 @@ def get_neighbours(node, ignore_walls=False, ordered=False, robot_body=None, dir
         result.append(tuple(node))
     return result
 
+class Graph:
+    '''Representing Reeborg's World as a graph.
 
-def find_goal_bfs(start, goal, no_colors=False, directions=False):
+       Optional argument:
+
+            robot_body: if unspecified and a robot is present in the world
+                when an instance of Graph is created, the corresponding
+                robot_body will be used as the default.
+
+            ordered: used by neighbours
+
+            ignore_walls: used by neighbours
+
+            turn_left: used by neighbours
+    '''
+
+    def __init__(self, robot_body=None, ordered=False, ignore_walls=False,
+                       turn_left=False):
+        options = {
+            "robot_body": robot_body,
+            "ordered": ordered,
+            "ignore_walls": ignore_walls,
+            "turn_left": turn_left
+        }
+        self.graph = window.RUR.create_graph(options)
+
+    def get_neighbours(self, node):
+        '''Used for search algorithm
+
+        Args: node (n-tuple)
+
+        '''
+        neighbours = self.graph.get_neighbours(list(node))
+        result = []
+        for node in neighbours:
+            result.append(tuple(node))
+        return result
+
+
+def find_goal_bfs(start, goal, graph, no_colors=False):
     '''Finds a goal from a starting position using a breadth-first algorithm.
 
        Arguments:
@@ -149,10 +187,10 @@ def find_goal_bfs(start, goal, no_colors=False, directions=False):
             goal: the end node for a graph; it is a 2-tuple or 3-tuple;
                   however, only the first two items (x, y) are used.
 
+            graph: a Graph instance representing the world.
+
             no_colors: default False; indicate if colors must be used to show
                 the progression of the algorithm.
-
-            directions: indicates if the tuple include the 3 item or not.
 
         Returns:
             came_from, current
@@ -167,7 +205,7 @@ def find_goal_bfs(start, goal, no_colors=False, directions=False):
 
     while not frontier.is_empty():
         current = frontier.get_first()
-        for neighbour in get_neighbours(current, directions=directions):
+        for neighbour in graph.get_neighbours(current):
             if neighbour not in came_from:
                 frontier.append(neighbour)
                 came_from[neighbour] = current
