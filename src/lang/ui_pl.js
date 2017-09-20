@@ -4,8 +4,8 @@ var mac_user_save_files_en = ' <b>Mac users:</b> please see <a href="https://git
 exports.ui_pl = ui_pl = {};
 exports.pl_to_en = pl_to_en = {};
 
-ui_pl["pl-en"] = "Mixed mode: User Interface in English; programming language in Polish.<br>" +
-    "Tryb mieszany: interfejs użytkownika w języku angielskim; język programowania w języku polskim.";
+ui_pl["pl-en"] = "Mixed mode: User Interface in Polish; programming language in English.<br>" +
+    "Tryb mieszany: interfejs użytkownika w języku polskim; język programowania w języku angielskim.";
 
 ui_pl["SITE NAME"] = "Świat Reeborga";
 ui_pl["WORLD INFO"] = "Informacje";
