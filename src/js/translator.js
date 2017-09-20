@@ -2,6 +2,7 @@ require("./rur.js");
 var uien = require("./../lang/ui_en.js"),
     uifr = require("./../lang/ui_fr.js"),
     uiko = require("./../lang/ui_ko.js"),
+    uipl = require("./../lang/ui_pl.js"),
     en = require("./../lang/en.js"),
     fr = require("./../lang/fr.js");
 
@@ -11,6 +12,9 @@ RUR.ui_fr = uifr.ui_fr;
 RUR.fr_to_en = uifr.fr_to_en;
 RUR.ui_ko = uiko.ui_ko;
 RUR.ko_to_en = uiko.ko_to_en;
+RUR.ui_pl = uipl.ui_pl;
+RUR.pl_to_en = uipl.pl_to_en;
+
 RUR.en = en.en;
 RUR.fr = fr.fr;
 

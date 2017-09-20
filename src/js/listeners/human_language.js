@@ -54,6 +54,12 @@ function update_translations(lang) {
             RUR.translation_to_english = RUR.ko_to_en;
             blockly_init_ko();
             break;
+        case "pl-en":
+            RUR.translation = RUR.ui_pl;
+            merge_dicts(RUR.translation, RUR.en);
+            RUR.translation_to_english = RUR.pl_to_en;
+            blockly_init_en(); // to be updated
+            break;
         default:
             RUR.translation = RUR.ui_en;
             merge_dicts(RUR.translation, RUR.en);
