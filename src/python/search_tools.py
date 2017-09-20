@@ -80,9 +80,9 @@ class PriorityQueue:
         '''Adds an item at the end of the PriorityQueue instance'''
         self.priority_queue.add(list(node), cost)
 
-    def get_lowest(self):
+    def get_best(self):
         '''Returns the lowest cost node and removes it from the PriorityQueue instance'''
-        return tuple(self.priority_queue.get_lowest())
+        return tuple(self.priority_queue.get_best())
 
     def is_empty(self):
         '''Returns True if there are no items remaining, false otherwise.'''
@@ -110,33 +110,6 @@ class PriorityQueue:
 ################################
 
 
-def get_neighbours(node, ignore_walls=False, ordered=False, robot_body=None, directions=False):
-    '''Used for search algorithm
-
-       Args: node (n-tuple)
-
-       Optional args:
-           ignore_walls: default is False
-
-           ordered: default is False
-
-           robot_body: default is the default robot's body
-
-           directions: default is False
-    '''
-    options = {'ordered': ordered,
-               'ignore_walls': ignore_walls,
-               'directions': directions}
-    if robot_body is not None:
-        options['robot_body'] = robot_body
-
-
-    neighbours = window.RUR.get_neighbours(list(node), options)
-    result = []
-    for node in neighbours:
-        result.append(tuple(node))
-    return result
-
 class Graph:
     '''Representing Reeborg's World as a graph.
 
@@ -163,17 +136,20 @@ class Graph:
         }
         self.graph = window.RUR.create_graph(options)
 
-    def get_neighbours(self, node):
+    def neighbours(self, node):
         '''Used for search algorithm
 
         Args: node (n-tuple)
 
         '''
-        neighbours = self.graph.get_neighbours(list(node))
+        _neighbours = self.graph.neighbours(list(node))
         result = []
-        for node in neighbours:
+        for node in _neighbours:
             result.append(tuple(node))
         return result
+
+    def cost(self, current, neighbour):
+        return self.graph.cost(current, neighbour);
 
 
 def find_goal_bfs(start, goal, graph, no_colors=False):
@@ -205,7 +181,7 @@ def find_goal_bfs(start, goal, graph, no_colors=False):
 
     while not frontier.is_empty():
         current = frontier.get_first()
-        for neighbour in graph.get_neighbours(current):
+        for neighbour in graph.neighbours(current):
             if neighbour not in came_from:
                 frontier.append(neighbour)
                 came_from[neighbour] = current

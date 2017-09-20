@@ -147,7 +147,7 @@ RUR.PriorityQueue = function (no_colors) {
         set_custom_palette(palette, this);
     };
 
-    this.get_lowest = function() {
+    this.get_best = function() {
         var item = this.array.pop();
         if (this.use_colors) {
             this.set_color(this.palette["current"], item[0]);
@@ -300,6 +300,7 @@ RUR.Graph = function (options) {
     this.ordered = false;
     this.ignore_walls = false;
     this.turn_left = false;
+    this.cost_info = {};
 
     if (options) {
         if (options.robot_body) {
@@ -317,7 +318,7 @@ RUR.Graph = function (options) {
     }
 
 
-    this.get_neighbours = function(current) {
+    this.neighbours = function(current) {
 
         if (this.turn_left) {
             return get_neighbours_turn_left(current, this.ignore_walls, this.ordered, this.robot_body);
@@ -326,11 +327,80 @@ RUR.Graph = function (options) {
         }
     };
 
-    this.cost = function(current, next) {
-        return 1;
+    this.cost = function(current, neighbour) {
+        var action, x, y, to_x, to_y;
+        x = current[0];
+        y = current[1];
+        to_x = neighbour[0];
+        to_y = neighbour[1];
+        if (x != to_x || y != to_y) {
+            action = "move";
+        } else {
+            action = get_turn(current, neighbour);
+        }
+
+        if (action=="move") {
+            return 1;
+        } else if (action == "turn_left") {
+            return 1;
+        } else if (action == "turn_around") {
+            return 2;
+        } else if (action == "turn_right") {
+            return 3;
+        } else {
+            throw new RUR.ReeborgError("Unknown action in RUR.Graph.cost");
+        }
     };
 
 };
+
+function get_turn (current, neighbour) {
+    "use strict";
+    var action, direction, to_direction;
+    direction = current[2];
+    to_direction = neighbour[2];
+    switch (direction) {
+        case "east":
+            if (to_direction == "north"){
+                return "turn_left";
+            } else if (to_direction == "west"){
+                return "turn_around";
+            } else if(to_direction == "south") {
+                return "turn_right";
+            }
+            break;
+        case "north":
+            if (to_direction == "west"){
+                return "turn_left";
+            } else if (to_direction == "south"){
+                return "turn_around";
+            } else if(to_direction == "east") {
+                return "turn_right";
+            }
+            break;
+        case "west":
+            if (to_direction == "south"){
+                return "turn_left";
+            } else if (to_direction == "east"){
+                return "turn_around";
+            } else if(to_direction == "north") {
+                return "turn_right";
+            }
+            break;
+        case "south":
+            if (to_direction == "east"){
+                return "turn_left";
+            } else if (to_direction == "north"){
+                return "turn_around";
+            } else if(to_direction == "west") {
+                return "turn_right";
+            }
+            break;
+        default: 
+            throw new RUR.ReeborgError("Unknown direction in get_turn() [search.js]");
+    }
+}
+
 
 // To be called from Python
 RUR.create_graph = function(options) {
