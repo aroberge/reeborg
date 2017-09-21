@@ -11,37 +11,68 @@ ui_pl["SITE NAME"] = "Świat Reeborga";
 ui_pl["WORLD INFO"] = "Informacje";
 ui_pl["EDITOR VISIBLE"] = "Zostaw Edytor Widoczny";
 
-ui_pl["apple"] = pl_to_en["apple"] = "jabłko";
-ui_pl["banana"] = pl_to_en["banana"] = "banan";
-ui_pl["beeper"] = pl_to_en["beeper"] = "brzęczyk";
-ui_pl["box"] = pl_to_en["box"] = "pudełko";
-ui_pl["bridge"] = pl_to_en["bridge"] = "most";
-ui_pl["carrot"] = pl_to_en["carrot"] = "marchewka";
-ui_pl["daisy"] = pl_to_en["daisy"] = "stokrotka";
-ui_pl["dandelion"] = pl_to_en["dandelion"] = "mlecz";
-ui_pl["leaf"] = pl_to_en["leaf"] = "liść";
-ui_pl["square"] = pl_to_en["square"] = "kwadrat";
-ui_pl["star"] = pl_to_en["star"] = "gwiazda";
-ui_pl["strawberry"] = pl_to_en["strawberry"] = "truskawka";
-ui_pl["token"] = pl_to_en["token"] = "token";
+ui_pl["apple"] = "jabłko";
+ui_pl["banana"] = "banan";
+ui_pl["beeper"] = "brzęczyk";
+ui_pl["box"] = "pudełko";
+ui_pl["bridge"] = "most";
+ui_pl["carrot"] = "marchewka";
+ui_pl["daisy"] = "stokrotka";
+ui_pl["dandelion"] = "mlecz";
+ui_pl["leaf"] = "liść";
+ui_pl["square"] = "kwadrat";
+ui_pl["star"] = "gwiazda";
+ui_pl["strawberry"] = "truskawka";
+ui_pl["token"] = "token";
 ui_pl["tokens are Reeborg's favourite thing."] = "Reeborg uwielbia tokeny";
-ui_pl["triangle"] = pl_to_en["triangle"] = "trójkąt";
-ui_pl["tulip"] = pl_to_en["tulip"] = "tulipan";
-ui_pl["bucket"] = pl_to_en["bucket"] = "wiadro";
-ui_pl["bulb"] = pl_to_en["bulb"] = "żarówka";
+ui_pl["triangle"] = "trójkąt";
+ui_pl["tulip"] = "tulipan";
+ui_pl["bucket"] = "wiadro";
+ui_pl["bulb"] = "żarówka";
 
-ui_pl["mud"] = pl_to_en["mud"] = "błoto";
-ui_pl["soil"] = pl_to_en["soil"] = "gleba";
-ui_pl["water"] = pl_to_en["water"] = "woda";
-ui_pl["grass"] = pl_to_en["grass"] = "trawa";
-ui_pl["gravel"] = pl_to_en["gravel"] = "żwir";
-ui_pl["ice"] = pl_to_en["ice"] = "lód";
-ui_pl["fire"] = pl_to_en["fire"] = "ogień";
+pl_to_en["jabłko"] = "apple";
+pl_to_en["banan"] = "banana";
+pl_to_en["brzęczyk"] = "beeper";
+pl_to_en["pudełko"] = "box";
+pl_to_en["most"] = "bridge";
+pl_to_en["marchewka"] = "carrot";
+pl_to_en["stokrotka"] = "daisy";
+pl_to_en["mlecz"] = "dandelion";
+pl_to_en["liść"] = "leaf";
+pl_to_en["kwadrat"] = "square";
+pl_to_en["gwiazda"] = "star";
+pl_to_en["truskawka"] = "strawberry";
+pl_to_en["token"] = "token";
+pl_to_en["trójkąt"] = "triangle";
+pl_to_en["tulipan"] = "tulip";
+pl_to_en["wiadro"] = "bucket";
+pl_to_en["żarówka"] = "bulb";
 
-ui_pl["fence_right"] = pl_to_en["fence_right"] = "płotek_po_prawa";
-ui_pl["fence_left"] = pl_to_en["fence_left"] = "płotek_po_lewo";
-ui_pl["fence_vertical"] = pl_to_en["fence_vertical"] = "płotek_pionowy";
-ui_pl["fence_double"] = pl_to_en["fence_double"] = "podwójny_płotek";
+ui_pl["mud"] = "błoto";
+ui_pl["soil"] = "gleba";
+ui_pl["water"] = "woda";
+ui_pl["grass"] = "trawa";
+ui_pl["gravel"] = "żwir";
+ui_pl["ice"] = "lód";
+ui_pl["fire"] = "ogień";
+
+pl_to_en["błoto"] = "mud";
+pl_to_en["gleba"] = "soil";
+pl_to_en["woda"] = "water";
+pl_to_en["trawa"] = "grass";
+pl_to_en["żwir"] = "gravel";
+pl_to_en["lód"] = "ice";
+pl_to_en["ogień"] = "fire";
+
+ui_pl["fence_right"] = "płotek_po_prawa";
+ui_pl["fence_left"] = "płotek_po_lewo";
+ui_pl["fence_vertical"] = "płotek_pionowy";
+ui_pl["fence_double"] = "podwójny_płotek";
+
+pl_to_en["płotek_po_prawa"] = "fence_right";
+pl_to_en["płotek_po_lewo"] = "fence_left";
+pl_to_en["płotek_pionowy"] = "fence_vertical";
+pl_to_en["podwójny_płotek"] = "fence_double";
 
 ui_pl["Invalid Javascript code in Onload editor"] = "Niewłaściwie załadowany kod Javascript, skontaktuj się ze stwórcą tego świata.";
 ui_pl["Invalid Python code in Onload editor"] = "Niewłaściwie załadowany kod Python-a, skontaktuj się ze stwórcą tego świata.";
@@ -70,11 +101,16 @@ ui_pl["There is no goal in this world!"] = "Nie ma ustalonego celu na tym świec
 ui_pl["I carry too many different objects. I don't know which one to put down!"] = "Trzymam zbyt dużo obiektów! Nie wiem który odłożyć!";
 ui_pl["Many objects are here; I do not know which one to take!"] = "Tu jest zbyt dużo obiektów, nie wiem który mam wziać!";
 
-ui_pl.east = pl_to_en.east = "wschód";
-ui_pl.north = pl_to_en.north = "północ";
-ui_pl.west = pl_to_en.west = "zachód";
-ui_pl.south = pl_to_en.south = "południe";
+ui_pl.east = "wschód";
+ui_pl.north = "północ";
+ui_pl.west = "zachód";
+ui_pl.south = "południe";
 ui_pl["Unknown orientation for robot."] = "Nieznana orientacja dla robota.";
+
+pl_to_en["wschód"] = "east";
+pl_to_en["północ"] = "north";
+pl_to_en["zachód"] = "west";
+pl_to_en["południe"] = "south";
 
 ui_pl["Invalid position."] = "{pos} jest niewłaściwą pozycją.";
 ui_pl["Invalid orientation."] = "'{orient}' jest nieznaną orientacją.";
