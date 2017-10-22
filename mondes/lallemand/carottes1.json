@@ -1,0 +1,77 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 6,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "rows": 12,
+  "cols": 14,
+  "description": "Écrire un programme qui ordonne à Reeborg de faire le tour de son monde en ramassant toutes les carottes qu’il rencontre.<br><br>On cherchera toujours à faire un programme le plus court possible.",
+  "small_tiles": false,
+  "objects": {
+    "3,1": {
+      "carrot": 1
+    },
+    "7,1": {
+      "carrot": 1
+    },
+    "12,1": {
+      "carrot": 1
+    },
+    "14,1": {
+      "carrot": 1
+    },
+    "1,5": {
+      "carrot": 1
+    },
+    "1,8": {
+      "carrot": 1
+    },
+    "1,10": {
+      "carrot": 1
+    },
+    "1,12": {
+      "carrot": 1
+    },
+    "5,12": {
+      "carrot": 1
+    },
+    "8,12": {
+      "carrot": 1
+    },
+    "9,12": {
+      "carrot": 1
+    },
+    "10,12": {
+      "carrot": 1
+    },
+    "13,12": {
+      "carrot": 1
+    },
+    "14,10": {
+      "carrot": 1
+    },
+    "14,5": {
+      "carrot": 1
+    }
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 3,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "rows": 12,
+  "cols": 14,
+  "description": "Écrire un programme qui ordonne à Reeborg de faire tout le tour de son monde en suivant les murs et en comptant, au fur et à mesure, le nombre de carottes et le nombre de pommes rencontrées. Reeborg devra de plus afficher à la fin du programme le nombre de carottes et le nombre de pommes rencontrées.",
+  "small_tiles": false,
+  "objects": {
+    "2,1": {
+      "apple": 1
+    },
+    "3,1": {
+      "carrot": 1
+    },
+    "5,1": {
+      "apple": 1
+    },
+    "7,1": {
+      "carrot": 1
+    },
+    "13,1": {
+      "apple": 1
+    },
+    "9,1": {
+      "carrot": 1
+    },
+    "12,1": {
+      "apple": 1
+    },
+    "13,1": {
+      "apple": 1
+    },
+    "14,1": {
+      "carrot": 1
+    },
+    "1,2": {
+      "carrot": 1
+    },
+    "1,3": {
+      "carrot": 1
+    },
+    "1,5": {
+      "apple": 1
+    },
+    "1,6": {
+      "carrot": 1
+    },
+    "1,7": {
+      "apple": 1
+    },
+    "1,9": {
+      "apple": 1
+    },
+    "1,10": {
+      "carrot": 1
+    },
+    "1,11": {
+      "carrot": 1
+    },
+    "1,12": {
+      "carrot": 1
+    },
+    "2,12": {
+      "daisy": 1
+    },
+    "2,12": {
+      "apple": 1
+    },
+    "3,12": {
+      "carrot": 1
+    },
+    "5,12": {
+      "apple": 1
+    },
+    "7,12": {
+      "carrot": 1
+    },
+    "9,12": {
+      "apple": 1
+    },
+    "10,12": {
+      "carrot": 1
+    },
+    "11,12": {
+      "apple": 1
+    },
+    "13,12": {
+      "carrot": 1
+    },
+    "14,12": {
+      "apple": 1
+    },
+    "14,3": {
+      "apple": 1
+    },
+    "14,4": {
+      "carrot": 1
+    },
+    "14,6": {
+      "apple": 1
+    },
+    "14,8": {
+      "apple": 1
+    },
+    "14,9": {
+      "carrot": 1
+    }
+  }
+}
