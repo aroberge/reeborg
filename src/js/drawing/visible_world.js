@@ -101,9 +101,20 @@ RUR.vis_world.draw_all = function () {
 };
 
 
+RUR.vis_world.clear_all_ctx = function () {
+    // useful for graphics.py
+    for (var ctx of RUR.ALL_CTX) {
+        ctx.clearRect(0, 0, RUR.WIDTH, RUR.HEIGHT);
+    }
+};
+
+
 RUR.vis_world.refresh = function () {
     "use strict";
     var canvas, canvases, goal, world = RUR.get_current_world();
+    if (world.blank_canvas) {
+        return;
+    }
     // This is not the most efficient way to do things; ideally, one
     // would keep track of changes (e.g. addition or deletion of objects)
     // and only redraw when needed.  However, it is not critical at
@@ -218,7 +229,7 @@ function draw_grid_walls (ctx, edit){
 function draw_border (ctx) {
     "use strict";
     var j, image, wall, x_offset, y_offset, world;
-    world = RUR.get_current_world()
+    world = RUR.get_current_world();
     wall = RUR.THINGS["east_border"];
     image = wall.image;
     x_offset = wall.x_offset;
