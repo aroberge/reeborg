@@ -146,7 +146,6 @@ RUR.state.editing_world = false;
 RUR.state.extra_code_visible = false;
 
 
-
 /*========================================================
 
    Animated images
@@ -228,7 +227,7 @@ RUR.reset_pre_run_defaults = function () {
     RUR.__python_error = false; // used to catch Python error in custom format
 
     RUR.current_maze = undefined; // special namespace when mazes are created
-}
+};
 RUR.reset_pre_run_defaults();
 
 
@@ -380,7 +379,7 @@ RUR.get_current_world = function () {
  */
 
 RUR.world_map = function () {
-    "use strict"
+    "use strict";
     var world, to_remove, i;
     // clone the world so as not to modify the original
     world = JSON.parse(JSON.stringify(RUR.get_current_world()));
@@ -408,7 +407,7 @@ RUR.set_current_world = function (world, merge_editors) {
         }
     }
     RUR.CURRENT_WORLD = world;
-}
+};
 
 RUR.export_world = function (world) {
     if (world === undefined) {
@@ -455,12 +454,12 @@ RUR._world_map = function () {
  */
 RUR.print_maze = function () {
     var maze = RUR.world_map().maze;
-    if (maze == undefined) {
+    if (maze === undefined) {
         RUR.output.write("undefined\n");
     } else {
         RUR.output.write(JSON.stringify(maze, null, 2), "\n");
     }
-}
+};
 
 /** @function configure_red_green
  * @memberof RUR

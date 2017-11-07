@@ -38,10 +38,10 @@ RUR.hide_end_dialogs = function () { // used in py_repl.py
     // then open at the top left of the window
     $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false,
         autoOpen:false, width:500, dialogClass: "concludes",
-        position:{my: "center", at: "center", of: $("#robot-canvas")}});
+        position:{my: "left", at: "right", of: $("#robot-canvas")}});
     $("#Reeborg-shouts").dialog("option", {minimize: false, maximize: false,
         autoOpen:false, width:500, dialogClass: "alert",
-        position:{my: "center", at: "center", of: $("#robot-canvas")}});
+        position:{my: "left", at: "right", of: $("#robot-canvas")}});
 };
 
 reload_button.addEventListener("click", RUR.reload, false);
