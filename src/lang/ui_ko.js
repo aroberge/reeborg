@@ -371,3 +371,6 @@ ui_ko["GIVE OBJECT EXPLAIN"] = "로봇이 운반 할 객체의 수를 고르세�
 ui_ko["UPDATE BLOCKLY CONTENT"] = "This world has some default content for the blocks workspace. To replace the current blocks content, click on the button";
 ui_ko["UPDATE BLOCKLY BUTTON"] = "Replace existing blocks";
 ui_ko["Contents from World"] = "Contents from World";
+
+ui_ko["WARNING: Do not change this comment."] = "WARNING: Do not change this comment.";
+ui_ko["Library Code is below."] = "Library Code is below.";

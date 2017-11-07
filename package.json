@@ -4,12 +4,12 @@
   "private": true,
   "description": "Reeborg's World engine",
   "scripts": {
-    "test": "tape tests/unit_tests/**/*.js | faucet",
-    "tests": "tape tests/unit_tests/**/*.js | faucet",
+    "test": "tape tests/unit_tests/**/*.js | faucet | time /t",
+    "tests": "tape tests/unit_tests/**/*.js | faucet | time /t",
     "test-raw": "tape tests/unit_tests/**/*.js",
     "test-spec": "tape tests/unit_tests/**/*.js | tap-spec",
     "test-dot": "tape tests/unit_tests/**/*.js | tap-dot",
-    "build": "tape tests/unit_tests/**/*.js | faucet && browserify ./src/js/index.js -o ./build/reeborg.js",
+    "build": "tape tests/unit_tests/**/*.js | faucet && browserify ./src/js/index.js -o ./build/reeborg.js | time /t",
     "only-build": "browserify ./src/js/index.js -o ./build/reeborg.js",
     "jsdoc": "jsdoc -c dev_tools/jsdoc_conf.json"
   },

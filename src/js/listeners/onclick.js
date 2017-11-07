@@ -17,11 +17,13 @@ function remove_fileInput_listener () {
         elClone = el.cloneNode(true);
     el.parentNode.replaceChild(elClone, el);
 }
+exports.remove_fileInput_listener = remove_fileInput_listener;
 
 function load_file (obj) {
+    var fileInput;
     remove_fileInput_listener();
-    $("#fileInput").click();
-    var fileInput = document.getElementById('fileInput');
+    $("#fileInput").click();    
+    fileInput = document.getElementById('fileInput');    
     fileInput.addEventListener('change', function(e) {
         var file = fileInput.files[0];
         var reader = new FileReader();
@@ -32,15 +34,17 @@ function load_file (obj) {
         reader.readAsText(file);
     });
 }
+exports.load_file = load_file;
 
 
 record_id("load-world", "LOAD WORLD");
 record_id("load-world-text", "LOAD WORLD EXPLAIN");
 
 $("#load-world").on("click", function(evt) {
+    var fileInput;
     remove_fileInput_listener();
     $("#fileInput").click();
-    var fileInput = document.getElementById('fileInput');
+    fileInput = document.getElementById('fileInput');
     fileInput.addEventListener('change', function(e) {
         var file = fileInput.files[0];
         var reader = new FileReader();
@@ -65,7 +69,7 @@ var save_blockly_form = document.getElementById("save-blockly-form");
 save_blockly_form.addEventListener("submit", function(event) {
     event.preventDefault();
     var blockly_filename = document.getElementById("blockly-filename");
-    var blob = new Blob([library.getValue()], {
+    var blob = new Blob([RUR.blockly.getValue()], {
         type: "text/xml;charset=utf-8"
     });
     saveAs(blob, (blockly_filename.value || blockly_filename.placeholder) + ".xml", true);

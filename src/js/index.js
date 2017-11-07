@@ -40,6 +40,7 @@ require("./listeners/toggle_watch.js");
 require("./world_api/decorative_objects.js");
 require("./utils/maze.js");
 require("./utils/search.js");
+require("./ui/keyboard_shortcuts.js");
 
 brython({debug:1, pythonpath:[RUR.BASE_URL + '/src/python']});
 if (__BRYTHON__.__MAGIC__ != "3.2.7") {

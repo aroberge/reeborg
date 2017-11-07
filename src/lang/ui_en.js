@@ -333,3 +333,6 @@ ui_en["GIVE OBJECT EXPLAIN"] = "Choose a number of objects for the robot to carr
 ui_en["UPDATE BLOCKLY CONTENT"] = "This world has some default content for the blocks workspace. To replace the current blocks content, click on the button";
 ui_en["UPDATE BLOCKLY BUTTON"] = "Replace existing blocks";
 ui_en["Contents from World"] = "Contents from World";
+
+ui_en["WARNING: Do not change this comment."] = "WARNING: Do not change this comment.";
+ui_en["Library Code is below."] = "Library Code is below.";
