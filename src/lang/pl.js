@@ -27,7 +27,7 @@ pl["sound(True)"] = "dzwiek(Prawda)";
 pl["sound(true)"] = "dzwiek(prawda)";
 pl["World"] = "swiat";
 pl["UsedRobot"] = "RobotWUzyciu";
-pl["new UsedRobot"] = "nowy RobotWUzyciu";
+pl["new UsedRobot"] = "new RobotWUzyciu";
 pl["no_highlight"] = "bez_podswietlenia";
 pl["write"] = "napisz";
 

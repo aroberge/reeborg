@@ -374,3 +374,5 @@ ui_ko["Contents from World"] = "Contents from World";
 
 ui_ko["WARNING: Do not change this comment."] = "WARNING: Do not change this comment.";
 ui_ko["Library Code is below."] = "Library Code is below.";
+ui_ko["No solution can be saved when using REPL (Py)."] = "No solution can be saved when using REPL (Py).";
+ui_ko["No solution can be loaded when using REPL (Py)."] = "No solution can be loaded when using REPL (Py).";

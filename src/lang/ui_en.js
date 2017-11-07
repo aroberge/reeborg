@@ -336,3 +336,5 @@ ui_en["Contents from World"] = "Contents from World";
 
 ui_en["WARNING: Do not change this comment."] = "WARNING: Do not change this comment.";
 ui_en["Library Code is below."] = "Library Code is below.";
+ui_en["No solution can be saved when using REPL (Py)."] = "No solution can be saved when using REPL (Py).";
+ui_en["No solution can be loaded when using REPL (Py)."] = "No solution can be loaded when using REPL (Py).";

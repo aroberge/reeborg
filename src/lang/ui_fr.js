@@ -372,3 +372,5 @@ ui_fr["Contents from World"] = "Remplacement de contenus";
 
 ui_fr["WARNING: Do not change this comment."] = "ATTENTION: Ne modifiez pas ce commentaire.";
 ui_fr["Library Code is below."] = "Le code de la biblio est ci-dessous.";
+ui_fr["No solution can be saved when using REPL (Py)."] = "Aucune solution ne peut être sauvegardée dans le mode REPL (Py).";
+ui_fr["No solution can be loaded when using REPL (Py)."] = "Aucune solution ne peut être chargée dans le mode REPL (Py).";

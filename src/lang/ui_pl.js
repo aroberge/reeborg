@@ -368,3 +368,8 @@ ui_pl["GIVE OBJECT EXPLAIN"] = "Wybierz liczbe przedmiotów, które ma trzymać 
 ui_pl["UPDATE BLOCKLY CONTENT"] = "Ten świat ma domyślne przestrzenie robocze dla bloków. By przenieść bierzącą zawartość bloków, kliknij na przycisk";
 ui_pl["UPDATE BLOCKLY BUTTON"] = "Przenieś istniejące bloki";
 ui_pl["Contents from World"] = "Zawartośc ze świata";
+
+ui_pl["WARNING: Do not change this comment."] = "WARNING: Do not change this comment.";
+ui_pl["Library Code is below."] = "Library Code is below.";
+ui_pl["No solution can be saved when using REPL (Py)."] = "No solution can be saved when using REPL (Py).";
+ui_pl["No solution can be loaded when using REPL (Py)."] = "No solution can be loaded when using REPL (Py).";
