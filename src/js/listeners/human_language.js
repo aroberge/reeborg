@@ -21,6 +21,7 @@ function merge_dicts (base, other) {
 
 function update_translations(lang) {
     $("#mixed-language-info").show();
+    $("#mixed-language-info").fadeOut(5000);
     switch(lang) {
         case "en":
             RUR.translation = RUR.ui_en;
