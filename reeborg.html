@@ -34,6 +34,59 @@
   <!-- load after codemirror.css -->
   <title>Reeborg's World</title>
 
+  <!-- intercepting keyboard save shortcut, ideas from 
+    - https://stackoverflow.com/questions/4446987/overriding-controls-save-functionality-in-browser 
+    - https://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript#1085810
+  -->
+  <script type="text/javascript">
+    function saveTextAsFile() {
+      var blob;
+      event.preventDefault();
+      var selectedWorld = document.getElementById("select-world");
+      var filenameToSave = selectedWorld.options[selectedWorld.selectedIndex].text;
+      var editor_filename = document.getElementById("editor-filename");
+      if (RUR.state.programming_language == "python") {
+          blob = new Blob([editor.getValue()], {
+              type: "text/python;charset=utf-8"
+          });
+          saveAs(blob, filenameToSave + ".py", true);
+      } else {
+          blob = new Blob([editor.getValue()], {
+              type: "text/javascript;charset=utf-8"
+          });
+          saveAs(blob, filenameToSave + ".js", true);
+      }
+    }
+
+    function load_file (obj) {
+      // remove_fileInput_listener();
+      $("#fileInput").click();
+      var fileInput = document.getElementById('fileInput');
+      fileInput.addEventListener('change', function(e) {
+          var file = fileInput.files[0];
+          var reader = new FileReader();
+          reader.onload = function(e) {
+              obj.setValue(reader.result);
+              fileInput.value = '';
+          };
+          reader.readAsText(file);
+      });
+   }
+
+  document.addEventListener("keydown", function(e) {
+  if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+    e.preventDefault();
+    saveTextAsFile();
+  }
+
+  if (e.keyCode == 79 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+    e.preventDefault();
+    load_file(editor);
+  }
+  
+
+}, false);</script>
+  
 </head>
 <body>
   <header class="blue-gradient green-border">
