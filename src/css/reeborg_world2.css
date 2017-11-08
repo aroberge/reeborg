@@ -8,6 +8,7 @@ body {
 
 /** Collecting all z-indices for easier maintenance */
 header                 {z-index: 100;}
+#container     {z-index: 0;} /* only used for turtle module*/
 #background-canvas     {z-index: 1;} /* 1 */
 #tiles-canvas          {z-index: 10;} /* 2 */
 #tiles-canvas-anim     {z-index: 11;} /* 3 */
@@ -83,7 +84,7 @@ h3 {
     color: #248;
 }
 
-canvas {
+canvas{
     position: absolute;
     top: 5px;
     border: 1px solid green;
@@ -115,6 +116,10 @@ code {
     border: 1px solid green;
     border-radius: 5px;
     padding: 2px;
+}
+
+pre.error {
+    color: darkred;
 }
 
 nav {

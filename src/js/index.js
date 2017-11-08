@@ -43,8 +43,8 @@ require("./utils/search.js");
 require("./ui/keyboard_shortcuts.js");
 
 brython({debug:1, pythonpath:[RUR.BASE_URL + '/src/python']});
-if (__BRYTHON__.__MAGIC__ != "3.2.7") {
-    alert("Expecting Brython version 3.2.7 and got " + __BRYTHON__.__MAGIC__);
+if (__BRYTHON__.__MAGIC__ != "3.3.4") {
+    alert("Expecting Brython version 3.3.4 and got " + __BRYTHON__.__MAGIC__);
 }
 
 /* Once everything is loaded, we need to decide which UI to show.

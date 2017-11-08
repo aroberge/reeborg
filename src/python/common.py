@@ -36,7 +36,7 @@ def dir_py(obj, exclude=None):
             pass              # string prototype extension, can cause problems
     window.RUR._print_html_(html_escape("\n".join(out)).replace("\n", "<br>"), True)
 
-def __import_en(namespace):
+def _import_en(namespace):
     '''Does the clean equivalent of
            from reeborg_en import *
        into a namespace.
@@ -55,7 +55,7 @@ def __import_en(namespace):
     window['WallCollisionError'] = WallCollisionError_saved
     window['MissingObjectError'] = MissingObjectError_saved
 
-def __import_fr(namespace):
+def _import_fr(namespace):
     '''Does the clean equivalent of
            from reeborg_fr import *
        into a namespace.

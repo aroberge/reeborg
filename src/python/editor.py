@@ -4,9 +4,9 @@
 
 from browser import window
 from preprocess import transform
-from common import __import_en
+from common import _import_en
 
-__import_en(globals())
+_import_en(globals())
 
 src = transform(window.editor.getValue())
 exec(src)

@@ -3,7 +3,7 @@
 
 import sys
 from browser import document, window
-from common import __import_en, __import_fr, print_dir
+from common import _import_en, _import_fr, print_dir
 RUR = window['RUR']
 
 
@@ -170,14 +170,14 @@ class Interpreter():
         except:
             lang = 'en'
         if lang == 'en':
-            __import_en(self.namespace)
+            _import_en(self.namespace)
             self.namespace["done"] = self.done
             # in case "done" gets reassigned in the "pre" code of a world,
             # we keep another version available.
             self.namespace["Done"] = self.done
             self.namespace["World"] = self.world
         elif lang == 'fr':
-            __import_fr(self.namespace)
+            _import_fr(self.namespace)
             self.namespace["termine"] = self.done
             self.namespace["Termine"] = self.done
             self.namespace["Monde"] = self.world
