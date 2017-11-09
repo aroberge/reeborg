@@ -53,7 +53,7 @@ RUR.onload_set_programming_language = function(language) {
     } else {
         RUR.onload_set_programming_mode("python");
     }
-}
+};
 
 
 /** @function onload_set_programming_mode
@@ -181,6 +181,8 @@ function hide_everything () {
     hide_blockly();
     hide_editors();
     hide_console();
+    $("#frame-selector").hide();
+    $("#frame-id").hide();
     $("#editor-visible-label").hide();
     $("#editor-visible-input").hide();
     if ($("#special-keyboard-button").hasClass("active-element")) {
@@ -298,8 +300,8 @@ function show_console() {
     $("#reload").hide();
     $("#reload2").show();
     $("#reload2").removeAttr("disabled");
-    $("#frame-selector").hide();
-    $("#frame-id").hide();
+    $("#open-solution-btn").hide();
+    $("#save-solution-btn").hide();
     _start_repl();
 }
 
@@ -314,8 +316,8 @@ function _start_repl() {
 
 function hide_console() {
     $("#py-console").hide();
-    $("#frame-selector").show();
-    $("#frame-id").show();
+    $("#open-solution-btn").show();
+    $("#save-solution-btn").show();
     $("#stop").show();
     $("#pause").show();
     $("#run").show();

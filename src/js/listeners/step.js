@@ -14,10 +14,15 @@ step = function () {
     $("#stop").removeAttr("disabled");
     $("#reverse-step").removeAttr("disabled");
     $("#frame-selector").removeAttr("disabled").addClass("enabled").removeClass("disabled");
+    $("#frame-selector").show();
+    $("#frame-id").show();
     clearTimeout(RUR._TIMER);
 
     $("#highlight").attr("disabled", "true");
     $("#watch-variables-btn").attr("disabled", "true");
+
+    $("#open-solution-btn").attr("disabled", "true");
+    $("#save-solution-btn").attr("disabled", "true");
 
 };
 step_button.addEventListener("click", step, false);

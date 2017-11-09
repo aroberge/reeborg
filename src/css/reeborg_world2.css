@@ -142,7 +142,8 @@ nav a:first-child {
 #highlight, #watch-variables-btn {
     height: 40px;
 }
-#highlight:disabled, #watch-variables-btn:disabled{
+#highlight:disabled, #watch-variables-btn:disabled, 
+#open-solution-btn:disabled, #save-solution-btn:disabled{
     display: none !important;
 }
 
@@ -223,6 +224,10 @@ legend {
 
 .active-element {
     background-color: #124;
+}
+button.solution-button {
+    border: 1px solid #124;
+    background-color: white;
 }
 
 .ui-tabs .ui-tabs-nav li,

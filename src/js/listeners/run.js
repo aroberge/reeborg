@@ -20,10 +20,16 @@ function run () {
     $("#step").attr("disabled", "true");
     $("#reverse-step").attr("disabled", "true");
     $("#reload").attr("disabled", "true");
+    
     $("#frame-selector").attr("disabled", "true").addClass("disabled").removeClass("enabled");
+    $("#frame-selector").show();
+    $("#frame-id").show();
 
     $("#highlight").attr("disabled", "true");
     $("#watch-variables-btn").attr("disabled", "true");
+
+    $("#open-solution-btn").attr("disabled", "true");
+    $("#save-solution-btn").attr("disabled", "true");
 
     clearTimeout(RUR._TIMER);
     RUR.runner.run(RUR.play);

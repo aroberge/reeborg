@@ -117,3 +117,11 @@ document.onkeydown = function (e) {
         loadSolution();
     }
 };
+
+
+$("#open-solution-btn").on("click", function (evt) {
+    loadSolution();
+});
+$("#save-solution-btn").on("click", function (evt) {
+    saveSolution();
+});
