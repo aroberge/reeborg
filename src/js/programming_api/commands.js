@@ -85,7 +85,7 @@ RUR._default_robot_body_ = function () { // simply returns body
 RUR._done_ = RUR.control.done;
 
 RUR._front_is_clear_ = function() {
-  return RUR.control.front_is_clear(RUR.get_current_world().robots[0]);
+    return RUR.control.front_is_clear(RUR.get_current_world().robots[0]);
 };
 
 

@@ -19,6 +19,7 @@ RUR.reload2 = function() {
     $("#stdout").html("");
     $(".view_source").remove();
     $("#print-html").html("");
+    $("#turtle-canvas").remove();
     RUR.hide_end_dialogs();
     $("#watch-variables").html("");
     RUR.reset_world();
@@ -38,10 +39,10 @@ RUR.hide_end_dialogs = function () { // used in py_repl.py
     // then open at the top left of the window
     $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false,
         autoOpen:false, width:500, dialogClass: "concludes",
-        position:{my: "left", at: "right", of: $("#robot-canvas")}});
+        position:{my: "left", at: "left", of: $("#editor-panel")}});
     $("#Reeborg-shouts").dialog("option", {minimize: false, maximize: false,
         autoOpen:false, width:500, dialogClass: "alert",
-        position:{my: "left", at: "right", of: $("#robot-canvas")}});
+        position:{my: "left", at: "left", of: $("#editor-panel")}});
 };
 
 reload_button.addEventListener("click", RUR.reload, false);
