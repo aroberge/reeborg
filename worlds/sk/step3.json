@@ -1,0 +1,122 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "start_positions": [
+        [
+          1,
+          1
+        ]
+      ],
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 9,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "description": "Use the move() function and the turn_left() function to make Reeborg walk around the lake. To see what happens, let’s do some things intentionally wrong. For example, make Reeborg walk into the lake. You might also want to try not walking all the way around the lake to see what the error message will be.",
+  "small_tiles": false,
+  "rows": 5,
+  "cols": 5,
+  "goal": {
+    "position": {
+      "image": "racing_flag",
+      "x": 1,
+      "y": 1
+    }
+  },
+  "pre": "_path_followed = []\nset_trace_color(\"black\")\ndef move():\n    r = default_robot()\n    RUR._move_()\n    _path_followed.append((r.body.x, r.body.y))\n\n",
+  "post": "\n_correct_path = [(2, 1), (3, 1), (4, 1), (5, 1),\n            (5, 2), (5, 3), (5, 4), (5, 5), \n            (4, 5), (3, 5), (2, 5), (1, 5), \n            (1, 4), (1, 3), (1, 2), (1, 1)]\n\nif _correct_path != _path_followed:\n    raise ReeborgError(\"Reeborg did not follow the required path.\")\n    \nraise ReeborgOK(\"Well done!\")\n",
+  "tiles": {
+    "1,1": [
+      "grass"
+    ],
+    "1,2": [
+      "grass"
+    ],
+    "1,3": [
+      "grass"
+    ],
+    "1,4": [
+      "grass"
+    ],
+    "1,5": [
+      "grass"
+    ],
+    "2,1": [
+      "grass"
+    ],
+    "2,2": [
+      "water"
+    ],
+    "2,3": [
+      "water"
+    ],
+    "2,4": [
+      "water"
+    ],
+    "2,5": [
+      "grass"
+    ],
+    "3,1": [
+      "grass"
+    ],
+    "3,2": [
+      "water"
+    ],
+    "3,3": [
+      "water"
+    ],
+    "3,4": [
+      "water"
+    ],
+    "3,5": [
+      "grass"
+    ],
+    "4,1": [
+      "grass"
+    ],
+    "4,2": [
+      "water"
+    ],
+    "4,3": [
+      "water"
+    ],
+    "4,4": [
+      "water"
+    ],
+    "4,5": [
+      "grass"
+    ],
+    "5,1": [
+      "grass"
+    ],
+    "5,2": [
+      "grass"
+    ],
+    "5,3": [
+      "grass"
+    ],
+    "5,4": [
+      "grass"
+    ],
+    "5,5": [
+      "grass"
+    ]
+  },
+  "walls": {}
+}

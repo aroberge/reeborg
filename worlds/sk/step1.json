@@ -1,0 +1,43 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "objects": {},
+      "model": "classic",
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 13,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": "Give Reeborg the appropriate instructions to make him return home! Use the move() function as many times as needed.",
+  "small_tiles": false,
+  "rows": 1,
+  "cols": 5,
+  "goal": {
+    "possible_final_positions": [
+      [
+        5,
+        1
+      ]
+    ],
+    "position": {
+      "image": "house",
+      "x": 5,
+      "y": 1
+    }
+  }
+}

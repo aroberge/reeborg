@@ -1,0 +1,64 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "objects": {
+        "token": "infinite"
+      },
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 40,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {
+    "2,1": [
+      "east"
+    ],
+    "4,1": [
+      "east"
+    ],
+    "6,1": [
+      "east"
+    ],
+    "8,1": [
+      "east"
+    ],
+    "10,1": [
+      "east"
+    ],
+    "12,1": [
+      "east"
+    ]
+  },
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14,
+  "description": "Reeborg has been running tests on it’s physical abilities lately. One of the things it has been practicing is jumping small hurdles. In this world, Reeborg needs to jump the hurdles, which are always the same height, and always spaced the same distance apart. You need to define a function such as: `def jump_hurdle()`. You should use a repeat loop to have Reeborg jump the hurdles, and end at the goal (12, 1).",
+  "goal": {
+    "possible_final_positions": [
+      [
+        14,
+        1
+      ]
+    ],
+    "position": {
+      "image": "racing_flag",
+      "x": 14,
+      "y": 1
+    }
+  }
+}

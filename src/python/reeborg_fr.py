@@ -442,6 +442,7 @@ def MenuPersonnalise(contenu):  #py:MakeCustomMenu
     personalisés.  Voir la documentation pour plus de détails."""
     RUR._MakeCustomMenu_(contenu)
 MenuPersonnalisé = MenuPersonnalise
+MakeCustomMenu = MenuPersonnalise  # so that we can load menu files in any language
 
 
 def Monde(url, nom=None):  #py:World

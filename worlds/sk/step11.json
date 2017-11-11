@@ -1,0 +1,38 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 21,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": "Reeborg wants to make some bouquets of flowers for it’s friends, Zoe and Eli. Reeborg has permission to take() tulips from some of his neighbor’s gardens. Unfortunately for Reeborg, each of the gardens is different. Reeborg does know that the garden will be rectangular, that it will take 23 steps to get around the garden, and that there will be a tulip in each corner of the garden. Create a program to have Reeborg walk around the outside of the garden, picking up a tulip if it can, and moving ahead if it cannot. You must use a repeat 23: and if/else. Note: For this step, the world will be different each time you press the Play button. When you first open the world, the world will look empty, but will be built when you press Play. Later in the course, I will show you the Python code that creates this world randomly each time.",
+  "small_tiles": false,
+  "rows": 8,
+  "cols": 4,
+  "pre": "import random\nwidth_options = [4, 5, 6, 7, 8]\nwidth = random.choice(width_options)\nheight = 11 - (width-1)\nthink(0)\nRUR.set_world_size(width, height)\nRUR.fill_background(\"grass\")\n#RUR.add_final_position(\"house\", 1, 1)\n\nRUR.add_object(\"tulip\", width, 1)\nRUR.add_object(\"tulip\", width, height)\nRUR.add_object(\"tulip\", 1, height)\n\nthink(500)\n",
+  "goal": {
+    "objects": {
+      "1,1": {
+        "tulip": 3
+      }
+    }
+  }
+}

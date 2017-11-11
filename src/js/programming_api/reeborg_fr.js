@@ -42,10 +42,12 @@ RUR.reset_definitions_fr = function () {
     window.pause = RUR._pause_;
     window.print_html = RUR._print_html_;
     window.depose = RUR._put_;
+    window.dépose = RUR._put_;
     window.lance = RUR._toss_;
     window.enregistrement = RUR._recording_;
     window.plus_de_robots = RUR._remove_robots_;
     window.rien_a_droite = RUR._right_is_clear_;
+    window.rien_à_droite = RUR._right_is_clear_;
     window.max_nb_instructions = RUR._set_max_nb_steps_;
     window.son = RUR._sound_;
     window.prend = RUR._take_;
@@ -65,11 +67,14 @@ RUR.reset_definitions_fr = function () {
         }
     };
     window.tourne_a_gauche = RUR._turn_left_;
+    window.tourne_à_gauche = RUR._turn_left_;
     window.mur_devant = RUR._wall_in_front_;
     window.mur_a_droite = RUR._wall_on_right_;
+    window.mur_à_droite = RUR._wall_on_right_;
     window.ecrit = RUR._write_;
     window.writeln = RUR._write_ln;
     window.MenuPersonnalise = RUR._MakeCustomMenu_;
+    window.MakeCustomMenu = RUR._MakeCustomMenu_;
     window.Monde = RUR._World_;
 
     // The following are for OOP programming in Javascript

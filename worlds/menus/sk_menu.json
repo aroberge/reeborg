@@ -1,0 +1,30 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 30,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "small_tiles": false,
+  "rows": 6,
+  "cols": 6,
+  "onload": "contents = [\n    [\"worlds/sk/step0.json\", \"Step 0\"],\n    [\"worlds/sk/step1.json\", \"Step 1\"],\n    [\"worlds/sk/step2.json\", \"Step 2\"],\n    [\"worlds/sk/step3.json\", \"Step 3\"],\n    [\"worlds/sk/step4.json\", \"Step 4\"],\n    [\"worlds/sk/step5.json\", \"Step 5a\"],\n    [\"worlds/sk/step5-yourturn.json\", \"Step 5b\"],\n    [\"worlds/sk/step6.json\", \"Step 6\"],\n    [\"worlds/sk/step7.json\", \"Step 7\"],\n    [\"worlds/sk/step8.json\", \"Step 8\"],\n    [\"worlds/sk/step9.json\", \"Step 9\"],\n    [\"worlds/sk/step10-hurdle.json\", \"Step 10\"],\n    [\"worlds/sk/step11a.json\", \"Step 11\"],\n    [\"worlds/sk/step12.json\", \"Step 12\"],\n    [\"worlds/sk/step13a.json\", \"Step 13\"],\n    [\"worlds/sk/step14a.json\", \"Step 14a\"],\n    [\"worlds/sk/step14b.json\", \"Step 14b\"],\n    [\"worlds/sk/step15a.json\", \"Step 15a\"],\n    [\"worlds/sk/step15b.json\", \"Step 15b\"],\n    [\"worlds/sk/step16.json\", \"Step 16\"],\n    [\"worlds/sk/step17.json\", \"Step 17\"],\n    [\"worlds/sk/step18.json\", \"Step 18\"],\n    [\"worlds/tutorial_en/alone.json\", \"Alone template\"]\n    ]\nMakeCustomMenu(contents)"
+}

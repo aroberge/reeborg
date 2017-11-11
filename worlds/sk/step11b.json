@@ -1,0 +1,287 @@
+{
+  "description": "Use repetition to have Reeborg walk around the edges of the world, turning when he is on top of star. Note that your solution must also work with the Step 11a world!",
+  "small_tiles": false,
+  "rows": 7,
+  "cols": 11,
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "objects": {},
+      "model": "classic",
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 22,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "objects": {
+    "9,1": {},
+    "11,1": {
+      "daisy": 1
+    },
+    "11,7": {
+      "daisy": 1
+    },
+    "1,7": {
+      "daisy": 1
+    }
+  },
+  "tiles": {
+    "1,1": [
+      "pale_grass"
+    ],
+    "1,2": [
+      "pale_grass"
+    ],
+    "1,3": [
+      "pale_grass"
+    ],
+    "1,4": [
+      "pale_grass"
+    ],
+    "1,5": [
+      "pale_grass"
+    ],
+    "1,6": [
+      "pale_grass"
+    ],
+    "1,7": [
+      "pale_grass"
+    ],
+    "2,1": [
+      "pale_grass"
+    ],
+    "2,2": [
+      "grass"
+    ],
+    "2,3": [
+      "grass"
+    ],
+    "2,4": [
+      "grass"
+    ],
+    "2,5": [
+      "grass"
+    ],
+    "2,6": [
+      "grass"
+    ],
+    "3,1": [
+      "pale_grass"
+    ],
+    "3,2": [
+      "grass"
+    ],
+    "3,3": [
+      "grass"
+    ],
+    "3,4": [
+      "grass"
+    ],
+    "3,5": [
+      "grass"
+    ],
+    "3,6": [
+      "grass"
+    ],
+    "3,7": [
+      "pale_grass"
+    ],
+    "4,1": [
+      "pale_grass"
+    ],
+    "4,2": [
+      "grass"
+    ],
+    "4,3": [
+      "grass"
+    ],
+    "4,4": [
+      "grass"
+    ],
+    "4,5": [
+      "grass"
+    ],
+    "4,6": [
+      "grass"
+    ],
+    "4,7": [
+      "pale_grass"
+    ],
+    "5,1": [
+      "pale_grass"
+    ],
+    "5,2": [
+      "grass"
+    ],
+    "5,3": [
+      "grass"
+    ],
+    "5,4": [
+      "grass"
+    ],
+    "5,5": [
+      "grass"
+    ],
+    "5,6": [
+      "grass"
+    ],
+    "5,7": [
+      "pale_grass"
+    ],
+    "6,1": [
+      "pale_grass"
+    ],
+    "6,2": [
+      "grass"
+    ],
+    "6,3": [
+      "grass"
+    ],
+    "6,4": [
+      "grass"
+    ],
+    "6,5": [
+      "grass"
+    ],
+    "6,6": [
+      "grass"
+    ],
+    "6,7": [
+      "pale_grass"
+    ],
+    "7,1": [
+      "pale_grass"
+    ],
+    "7,2": [
+      "grass"
+    ],
+    "7,3": [
+      "grass"
+    ],
+    "7,4": [
+      "grass"
+    ],
+    "7,5": [
+      "grass"
+    ],
+    "7,6": [
+      "grass"
+    ],
+    "7,7": [
+      "pale_grass"
+    ],
+    "8,1": [
+      "pale_grass"
+    ],
+    "8,2": [
+      "grass"
+    ],
+    "8,3": [
+      "grass"
+    ],
+    "8,4": [
+      "grass"
+    ],
+    "8,5": [
+      "grass"
+    ],
+    "8,6": [
+      "grass"
+    ],
+    "8,7": [
+      "pale_grass"
+    ],
+    "9,1": [
+      "pale_grass"
+    ],
+    "9,2": [
+      "grass"
+    ],
+    "9,3": [
+      "grass"
+    ],
+    "9,4": [
+      "grass"
+    ],
+    "9,5": [
+      "grass"
+    ],
+    "9,6": [
+      "grass"
+    ],
+    "9,7": [
+      "pale_grass"
+    ],
+    "10,1": [
+      "pale_grass"
+    ],
+    "10,2": [
+      "grass"
+    ],
+    "10,3": [
+      "grass"
+    ],
+    "10,4": [
+      "grass"
+    ],
+    "10,5": [
+      "grass"
+    ],
+    "10,6": [
+      "grass"
+    ],
+    "10,7": [
+      "pale_grass"
+    ],
+    "11,1": [
+      "pale_grass"
+    ],
+    "11,2": [
+      "pale_grass"
+    ],
+    "11,3": [
+      "pale_grass"
+    ],
+    "11,4": [
+      "pale_grass"
+    ],
+    "11,5": [
+      "pale_grass"
+    ],
+    "11,6": [
+      "pale_grass"
+    ],
+    "11,7": [
+      "pale_grass"
+    ],
+    "2,7": [
+      "pale_grass"
+    ]
+  },
+  "goal": {
+    "possible_final_positions": [
+      [
+        1,
+        1
+      ]
+    ],
+    "position": {
+      "image": "racing_flag",
+      "x": 1,
+      "y": 1
+    }
+  }
+}
