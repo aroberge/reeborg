@@ -47,8 +47,7 @@ function set_button (name, content_present) {
 
 function _update_user_editor (world, name, ed) {
     try {
-        test_utils; // global variable defined for functional testing
-        return;
+        if (test_utils !== undefined) return;
     } catch (e) {}
     // For blockly when not running tests,
     // the user is given the choice to update the content or to keep their own.
@@ -81,6 +80,19 @@ RUR.update_editors = function (world) {
     _update_world_editor (world, "post", post_code_editor);
     _update_world_editor (world, "description", description_editor);
     _update_world_editor (world, "onload", onload_editor);
+
+// We do not want a user to lose the content of their Code Editor when loading
+// up a world. However, I have found this to be useful when creating new worlds,
+// especially creating world menus with content put in the onload editor for
+// immediate action. To edit and test such worlds, I would manually edit the
+// json file to replace "onload" by "editor", load it in *editing mode*,
+// edit and test, save with editor content, and change the newly saved file
+// to replace "editor" by "onload".
+    if (RUR.state.editing_world) {
+        _update_world_editor (world, "editor", editor);
+    }
+
+
 };
 
 msg.record_id("update-blockly-content");

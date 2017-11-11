@@ -64,7 +64,7 @@ RUR.world_utils.import_world = function (json_string) {
 };
 
 function start_process_onload() {
-    if (window.translate_python == undefined) {
+    if (window.translate_python === undefined) {
         console.log("startup delay: translate_python not available; will try again in 200ms.");
         window.setTimeout(start_process_onload, 200);
     }
@@ -77,6 +77,9 @@ function start_process_onload() {
 function show_onload_feedback (e, lang) {
     var lang_info;
     if (lang == "python") {
+        if (window.translate_python === undefined) {
+            return;
+        }
         lang_info = "Invalid Python code in Onload editor";
     } else {
         lang_info = "Invalid Javascript code in Onload editor";
@@ -90,7 +93,7 @@ process_onload = function () {
     if (RUR.CURRENT_WORLD.onload !== undefined && !RUR.state.editing_world) {
         RUR.state.evaluating_onload = true; // affects the way errors are treated
         if (RUR.CURRENT_WORLD.onload[0]=="#") {
-            RUR.state.onload_programming_language = "python"
+            RUR.state.onload_programming_language = "python";
             try {
                 onload_editor.setOption("mode", {name: "python", version: 3});
             } catch (e){}
