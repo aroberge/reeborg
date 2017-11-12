@@ -1,0 +1,31 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 5,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": "Reeborg loves to hike in the backcounty, but one challenge is that it's sometimes easy to get lost. Write a program to help Reeborg carefully follow the hiking trail and eventually reach the end of the hiking path.",
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14,
+  "pre": "# Preload Code - random selection of 3 worlds?\nthink(0)\nimport random\nwidth = 14\nheight = 14\n\nRUR.set_world_size(width, height)\nRUR.fill_background(\"grass\")\n\nchoice = random.randint(0,2)\npath = []\n\nif choice == 0:\n\tstart_x = 2\n\tstart_y = 4\n\tpath = [(2,4),(3,4),(4,4),(4,5),(4,6),(4,7),(5,7),(6,7),(7,7),(7,6),(7,5),(8,5),(9,5),(10,5),(11,5),(11,6),(11,7),(11,8),(11,9),(11,10),(11,11),(11,12)]\n\tfinish = (11,12)\n\t#should begin by facing right - no change needed\n\tRUR._move_()\n\tRUR._turn_left_()\n\tRUR._move_()\n\tRUR._move_()\n\tRUR._move_()\n\tRUR._turn_left_()\n\tRUR._turn_left_()\n\tRUR._turn_left_()\nelif choice == 1:\n\tstart_x = 5\n\tstart_y = 7\n\tpath = [(5,7),(5,8),(5,9),(6,9),(7,9),(8,9),(8,8),(8,7),(8,6),(8,5),(8,4),(7,4),(6,4),(5,4),(4,4),(3,4),(2,4),(2,5),(2,6),(2,7),(2,8),(2,9),(2,10),(2,11),(2,12),(3,12),(4,12),(5,12),(6,12),(7,12),(8,12),(9,12),(10,12),(11,12),(12,12)]\n\tfinish = (12,12)\n\t#should begin by facing north\n\tRUR._move_()\n\tRUR._move_()\n\tRUR._move_()\n\tRUR._move_()\n\tRUR._turn_left_()\n\tRUR._move_()\n\tRUR._move_()\n\tRUR._move_()\n\tRUR._move_()\n\tRUR._move_()\n\tRUR._move_()\n\tRUR._turn_left_()\n\tRUR._turn_left_()\n\tRUR._turn_left_()\n\t\nelif choice == 2:\n\tstart_x = 7\n\tstart_y = 9\n\tpath = [(7,9),(6,9),(5,9),(5,8),(5,7),(5,6),(5,5),(6,5),(7,5),(8,5),(9,5),(10,5),(11,5),(12,5),(12,6),(12,7),(12,8),(12,9),(11,9),(10,9)]\n\tfinish = (10,9)\n\t#should begin by facing west\n\tRUR._move_()\n\tRUR._move_()\n\tRUR._move_()\n\tRUR._move_()\n\tRUR._move_()\n\tRUR._move_()\n\tRUR._turn_left_()\n\tRUR._move_()\n\tRUR._move_()\n\tRUR._move_()\n\tRUR._move_()\n\tRUR._move_()\n\tRUR._move_()\n\tRUR._move_()\n\tRUR._move_()\n\tRUR._turn_left_()\n\nfor spot in path:\n\tRUR.add_object(\"square\", spot[0], spot[1])\n\t\n\t\n#Solution\n\n\n\n\nthink(0)"
+}

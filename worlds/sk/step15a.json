@@ -1,510 +1,406 @@
 {
-  "description": "Reeborg has been hired to pick carrots in a number of gardens. Although the gardens are all the same size, the carrots have grown in different places in each of the gardens. You need to create a program that will allow Reeborg to harvest all of the carrots in each of the possible gardens. You know that at each location, there will only ever be either 1 or 0 carrots. Note: Remember (from our explorations in Scratch), that you can have a repeat statement inside another repeat statement – we called this a nested repeat. Consider how you might be able to use a nested repeat to solve this problem.",
+  "description": "Reeborg is standing by the door to the house, sees a storm coming, and decides to close all of the windows in the house. First, Reeborg ``put``s down a star where it is standing (so that it can tell when it gets back to the door). Then Reeborg will walk around the house, closing any open windows it finds. We will represent the window closing by Reeborg putting a star down at an open window (represented by wall openings). Reeborg loves storms, so after closing all the windows, it will step outside to watch the storm. Note: Since the windows are in different places in each world, be sure that your solution does not hard code a number of steps to get to a window. Instead, Reeborg must check for an open window as it walks around the inside of the house. The program you write to solve the problem above must also be able work on the second test world, which is Step 14b on the Reeborg website .",
+  "small_tiles": false,
+  "rows": 8,
+  "cols": 12,
+  "walls": {
+    "2,4": [
+      "east"
+    ],
+    "2,3": [
+      "east"
+    ],
+    "3,2": [
+      "north"
+    ],
+    "5,2": [
+      "north"
+    ],
+    "7,2": [
+      "north"
+    ],
+    "6,2": [
+      "north"
+    ],
+    "9,2": [
+      "north"
+    ],
+    "9,3": [
+      "east"
+    ],
+    "9,4": [
+      "east"
+    ],
+    "9,6": [
+      "east"
+    ],
+    "9,7": [
+      "east",
+      "north"
+    ],
+    "7,7": [
+      "north"
+    ],
+    "6,7": [
+      "north"
+    ],
+    "4,7": [
+      "north"
+    ],
+    "3,7": [
+      "north"
+    ],
+    "2,7": [
+      "east"
+    ],
+    "2,6": [
+      "east"
+    ]
+  },
   "robots": [
     {
-      "x": 1,
-      "y": 1,
+      "x": 3,
+      "y": 5,
       "objects": {
-        "carrot": "infinite"
+        "star": 500
       },
-      "_orientation": 0,
+      "model": "classic",
+      "_orientation": 2,
       "_is_leaky": true,
-      "_prev_x": 1,
-      "_prev_y": 1,
-      "_prev_orientation": 0,
+      "_prev_x": 3,
+      "_prev_y": 5,
+      "_prev_orientation": 2,
       "_trace_history": [],
       "_trace_style": "default",
       "_trace_color": "seagreen",
-      "__id": 48,
-      "model": "classic",
+      "__id": 2,
       "possible_initial_positions": [
         [
-          1,
-          1
+          3,
+          5
         ]
       ]
     }
   ],
-  "walls": {
-    "10,1": [
-      "east"
-    ],
-    "10,2": [
-      "east"
-    ],
-    "10,3": [
-      "east"
-    ],
-    "10,4": [
-      "east"
-    ],
-    "10,5": [
-      "east"
-    ],
-    "10,6": [
-      "east"
-    ],
-    "10,7": [
-      "east"
-    ],
-    "10,8": [
-      "east"
-    ],
-    "10,9": [
-      "east"
-    ],
-    "10,10": [
-      "east",
-      "north"
-    ],
-    "9,10": [
-      "north"
-    ],
-    "8,10": [
-      "north"
-    ],
-    "7,10": [
-      "north"
-    ],
-    "6,10": [
-      "north"
-    ],
-    "5,10": [
-      "north"
-    ],
-    "4,10": [
-      "north"
-    ],
-    "3,10": [
-      "north"
-    ],
-    "2,10": [
-      "north"
-    ],
-    "1,10": [
-      "north"
-    ]
-  },
   "goal": {
+    "possible_final_positions": [
+      [
+        2,
+        5
+      ]
+    ],
+    "position": {
+      "image": "racing_flag",
+      "x": 2,
+      "y": 5
+    },
     "objects": {
-      "9,1": {
-        "carrot": "all"
+      "4,3": {
+        "star": 1
+      },
+      "8,3": {
+        "star": 1
+      },
+      "9,5": {
+        "star": 1
+      },
+      "8,7": {
+        "star": 1
+      },
+      "5,7": {
+        "star": 1
       }
     }
   },
-  "objects": {
-    "5,3": {
-      "carrot": 1
-    },
-    "5,4": {
-      "carrot": 1
-    },
-    "5,5": {
-      "carrot": 1
-    },
-    "5,6": {
-      "carrot": 1
-    },
-    "5,7": {
-      "carrot": 1
-    },
-    "5,8": {
-      "carrot": 1
-    },
-    "4,8": {
-      "carrot": 1
-    },
-    "4,7": {
-      "carrot": 1
-    },
-    "4,6": {
-      "carrot": 1
-    },
-    "4,5": {
-      "carrot": 1
-    },
-    "4,4": {
-      "carrot": 1
-    },
-    "4,3": {
-      "carrot": 1
-    },
-    "6,8": {
-      "carrot": 1
-    },
-    "6,7": {
-      "carrot": 1
-    },
-    "6,6": {
-      "carrot": 1
-    },
-    "6,5": {
-      "carrot": 1
-    },
-    "6,4": {
-      "carrot": 1
-    },
-    "6,3": {
-      "carrot": 1
-    },
-    "7,8": {
-      "carrot": 1
-    },
-    "7,7": {
-      "carrot": 1
-    },
-    "7,6": {
-      "carrot": 1
-    },
-    "7,5": {
-      "carrot": 1
-    },
-    "7,4": {
-      "carrot": 1
-    },
-    "8,7": {
-      "carrot": 1
-    },
-    "8,6": {
-      "carrot": 1
-    },
-    "8,5": {
-      "carrot": 1
-    },
-    "3,8": {
-      "carrot": 1
-    },
-    "3,7": {
-      "carrot": 1
-    },
-    "3,6": {
-      "carrot": 1
-    },
-    "3,5": {
-      "carrot": 1
-    },
-    "3,4": {
-      "carrot": 1
-    },
-    "8,8": {
-      "carrot": 1
-    },
-    "8,4": {
-      "carrot": 1
-    },
-    "7,3": {
-      "carrot": 1
-    },
-    "3,3": {
-      "carrot": 1
-    },
-    "8,3": {
-      "carrot": 1
-    }
-  },
-  "small_tiles": false,
-  "rows": 10,
-  "cols": 10,
   "tiles": {
     "1,1": [
-      "grass"
+      "mud"
     ],
     "1,2": [
-      "grass"
+      "mud"
     ],
     "1,3": [
-      "grass"
+      "mud"
     ],
     "1,4": [
-      "grass"
+      "mud"
     ],
     "1,5": [
-      "grass"
+      "gravel"
     ],
     "1,6": [
-      "grass"
+      "mud"
     ],
     "1,7": [
-      "grass"
+      "mud"
     ],
     "1,8": [
-      "grass"
-    ],
-    "1,9": [
-      "grass"
-    ],
-    "1,10": [
-      "grass"
+      "mud"
     ],
     "2,1": [
-      "grass"
+      "mud"
     ],
     "2,2": [
-      "grass"
+      "mud"
     ],
     "2,3": [
-      "grass"
+      "mud"
     ],
     "2,4": [
-      "grass"
+      "mud"
     ],
     "2,5": [
-      "grass"
+      "gravel"
     ],
     "2,6": [
-      "grass"
+      "mud"
     ],
     "2,7": [
-      "grass"
+      "mud"
     ],
     "2,8": [
-      "grass"
-    ],
-    "2,9": [
-      "grass"
-    ],
-    "2,10": [
-      "grass"
+      "mud"
     ],
     "3,1": [
-      "grass"
+      "mud"
     ],
     "3,2": [
-      "grass"
+      "mud"
     ],
     "3,3": [
-      "pale_grass"
+      "gravel"
     ],
     "3,4": [
-      "pale_grass"
+      "gravel"
     ],
     "3,5": [
-      "pale_grass"
+      "gravel"
     ],
     "3,6": [
-      "pale_grass"
-    ],
-    "3,8": [
-      "pale_grass"
-    ],
-    "3,9": [
-      "grass"
-    ],
-    "3,10": [
-      "grass"
-    ],
-    "4,1": [
-      "grass"
-    ],
-    "4,2": [
-      "grass"
-    ],
-    "4,3": [
-      "pale_grass"
-    ],
-    "4,4": [
-      "pale_grass"
-    ],
-    "4,5": [
-      "pale_grass"
-    ],
-    "4,6": [
-      "pale_grass"
-    ],
-    "4,8": [
-      "pale_grass"
-    ],
-    "4,9": [
-      "grass"
-    ],
-    "4,10": [
-      "grass"
-    ],
-    "5,1": [
-      "grass"
-    ],
-    "5,2": [
-      "grass"
-    ],
-    "5,3": [
-      "pale_grass"
-    ],
-    "5,4": [
-      "pale_grass"
-    ],
-    "5,5": [
-      "pale_grass"
-    ],
-    "5,6": [
-      "pale_grass"
-    ],
-    "5,7": [
-      "pale_grass"
-    ],
-    "5,8": [
-      "pale_grass"
-    ],
-    "5,9": [
-      "grass"
-    ],
-    "5,10": [
-      "grass"
-    ],
-    "6,1": [
-      "grass"
-    ],
-    "6,2": [
-      "grass"
-    ],
-    "6,3": [
-      "pale_grass"
-    ],
-    "6,4": [
-      "pale_grass"
-    ],
-    "6,5": [
-      "pale_grass"
-    ],
-    "6,6": [
-      "pale_grass"
-    ],
-    "6,7": [
-      "pale_grass"
-    ],
-    "6,8": [
-      "pale_grass"
-    ],
-    "6,9": [
-      "grass"
-    ],
-    "6,10": [
-      "grass"
-    ],
-    "7,1": [
-      "grass"
-    ],
-    "7,2": [
-      "grass"
-    ],
-    "7,3": [
-      "pale_grass"
-    ],
-    "7,4": [
-      "pale_grass"
-    ],
-    "7,5": [
-      "pale_grass"
-    ],
-    "7,7": [
-      "pale_grass"
-    ],
-    "7,8": [
-      "pale_grass"
-    ],
-    "7,9": [
-      "grass"
-    ],
-    "7,10": [
-      "grass"
-    ],
-    "8,1": [
-      "grass"
-    ],
-    "8,2": [
-      "grass"
-    ],
-    "8,3": [
-      "pale_grass"
-    ],
-    "8,4": [
-      "pale_grass"
-    ],
-    "8,6": [
-      "pale_grass"
-    ],
-    "8,7": [
-      "pale_grass"
-    ],
-    "8,8": [
-      "pale_grass"
-    ],
-    "8,9": [
-      "grass"
-    ],
-    "8,10": [
-      "grass"
-    ],
-    "9,1": [
-      "grass"
-    ],
-    "9,2": [
-      "grass"
-    ],
-    "9,3": [
-      "grass"
-    ],
-    "9,4": [
-      "grass"
-    ],
-    "9,5": [
-      "grass"
-    ],
-    "9,6": [
-      "grass"
-    ],
-    "9,7": [
-      "grass"
-    ],
-    "9,8": [
-      "grass"
-    ],
-    "9,9": [
-      "grass"
-    ],
-    "9,10": [
-      "grass"
-    ],
-    "10,1": [
-      "grass"
-    ],
-    "10,2": [
-      "grass"
-    ],
-    "10,3": [
-      "grass"
-    ],
-    "10,4": [
-      "grass"
-    ],
-    "10,5": [
-      "grass"
-    ],
-    "10,6": [
-      "grass"
-    ],
-    "10,7": [
-      "grass"
-    ],
-    "10,8": [
-      "grass"
-    ],
-    "10,9": [
-      "grass"
-    ],
-    "10,10": [
-      "grass"
+      "gravel"
     ],
     "3,7": [
-      "pale_grass"
+      "gravel"
+    ],
+    "3,8": [
+      "mud"
+    ],
+    "4,1": [
+      "mud"
+    ],
+    "4,2": [
+      "mud"
+    ],
+    "4,3": [
+      "gravel"
+    ],
+    "4,4": [
+      "gravel"
+    ],
+    "4,5": [
+      "gravel"
+    ],
+    "4,6": [
+      "gravel"
     ],
     "4,7": [
-      "pale_grass"
+      "gravel"
+    ],
+    "4,8": [
+      "mud"
+    ],
+    "5,1": [
+      "mud"
+    ],
+    "5,2": [
+      "mud"
+    ],
+    "5,3": [
+      "gravel"
+    ],
+    "5,4": [
+      "gravel"
+    ],
+    "5,5": [
+      "gravel"
+    ],
+    "5,6": [
+      "gravel"
+    ],
+    "5,7": [
+      "gravel"
+    ],
+    "5,8": [
+      "mud"
+    ],
+    "6,1": [
+      "mud"
+    ],
+    "6,2": [
+      "mud"
+    ],
+    "6,3": [
+      "gravel"
+    ],
+    "6,4": [
+      "gravel"
+    ],
+    "6,6": [
+      "gravel"
+    ],
+    "6,7": [
+      "gravel"
+    ],
+    "6,8": [
+      "mud"
+    ],
+    "7,1": [
+      "mud"
+    ],
+    "7,2": [
+      "mud"
+    ],
+    "7,3": [
+      "gravel"
+    ],
+    "7,4": [
+      "gravel"
+    ],
+    "7,5": [
+      "gravel"
     ],
     "7,6": [
-      "pale_grass"
+      "gravel"
+    ],
+    "7,7": [
+      "gravel"
+    ],
+    "7,8": [
+      "mud"
+    ],
+    "8,1": [
+      "mud"
+    ],
+    "8,2": [
+      "mud"
+    ],
+    "8,3": [
+      "gravel"
+    ],
+    "8,4": [
+      "gravel"
     ],
     "8,5": [
-      "pale_grass"
+      "gravel"
+    ],
+    "8,6": [
+      "gravel"
+    ],
+    "8,7": [
+      "gravel"
+    ],
+    "8,8": [
+      "mud"
+    ],
+    "9,1": [
+      "mud"
+    ],
+    "9,2": [
+      "mud"
+    ],
+    "9,3": [
+      "gravel"
+    ],
+    "9,4": [
+      "gravel"
+    ],
+    "9,5": [
+      "gravel"
+    ],
+    "9,6": [
+      "gravel"
+    ],
+    "9,7": [
+      "gravel"
+    ],
+    "9,8": [
+      "mud"
+    ],
+    "10,1": [
+      "mud"
+    ],
+    "10,2": [
+      "mud"
+    ],
+    "10,3": [
+      "mud"
+    ],
+    "10,4": [
+      "mud"
+    ],
+    "10,5": [
+      "mud"
+    ],
+    "10,6": [
+      "mud"
+    ],
+    "10,7": [
+      "mud"
+    ],
+    "10,8": [
+      "mud"
+    ],
+    "11,1": [
+      "mud"
+    ],
+    "11,2": [
+      "mud"
+    ],
+    "11,3": [
+      "mud"
+    ],
+    "11,4": [
+      "mud"
+    ],
+    "11,5": [
+      "mud"
+    ],
+    "11,6": [
+      "mud"
+    ],
+    "11,7": [
+      "mud"
+    ],
+    "11,8": [
+      "mud"
+    ],
+    "12,1": [
+      "mud"
+    ],
+    "12,2": [
+      "mud"
+    ],
+    "12,3": [
+      "mud"
+    ],
+    "12,4": [
+      "mud"
+    ],
+    "12,5": [
+      "mud"
+    ],
+    "12,6": [
+      "mud"
+    ],
+    "12,7": [
+      "mud"
+    ],
+    "12,8": [
+      "mud"
+    ],
+    "6,5": [
+      "gravel"
     ]
-  }
+  },
+  "pre": "think(0)\nimport random\n\nworld_choice = random.randint(0,100)\noptions = {\"goal\": True}\n\ndef move_window(wall_dir, x, y, newX, newY):\n    #remove\n    RUR.add_wall(wall_dir, x, y)\n    RUR.remove_object(\"star\", x, y, options)\n    \n    #add\n    RUR.remove_wall(wall_dir, newX, newY)\n    RUR.add_object(\"star\", newX, newY, options)\n\nif world_choice > 66:\n    #generate different version...\n    move_window(\"south\", 4, 3, 5, 3)\n    move_window(\"south\", 8, 3, 7, 3)\n    move_window(\"east\", 9, 5, 9, 4)\n    move_window(\"north\", 8, 7, 7, 7)\n    move_window(\"north\", 5, 7, 4, 7)\nelif world_choice > 33:\n    #generate different version...\n    move_window(\"south\", 4, 3, 6, 3)\n    move_window(\"east\", 9, 5, 9, 6)\n    move_window(\"north\", 5, 7, 6, 7)\n    \nthink(500)    \n    \n"
 }

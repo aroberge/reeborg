@@ -1,0 +1,44 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 8,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": "Reeborg is harvesting carrots again. This time, however, the gardens are all different sizes. The carrots grow really well in some areas (so there are more than one in some spots), and not well at all in some spots (so there are places where no carrots grow). Reeborg can start anywhere in the garden, and can be facing in any direction. Reeborg’s job is to pick all the carrots, put them down in the big carrot bin at the north-east corner of the garden, then head back to the south-west corner of the garden for a well deserved rest.",
+  "small_tiles": false,
+  "rows": 5,
+  "cols": 6,
+  "goal": {
+    "possible_final_positions": [
+      [
+        1,
+        1
+      ]
+    ],
+    "position": {
+      "image": "racing_flag",
+      "x": 1,
+      "y": 1
+    }
+  },
+  "pre": "\n\nthink(0)\nimport random\nwidth = random.randint(3, 8)\nheight = random.randint(3, 8)\ntotal_number_of_carrots = 0\nRUR.set_world_size(width, height)\nRUR.fill_background(\"pale_grass\")\n\nfor x in range(1, width+1):\n    for y in range(1, height+1):\n        if random.randint(1, 100) > 70:\n            if total_number_of_carrots < 100:\n                numberOfCarrots = random.randint(1,6)\n                total_number_of_carrots += numberOfCarrots\n                RUR.add_object(\"carrot\", x, y, {'number': numberOfCarrots})\n\nRUR.add_object(\"carrot\", width, height, {'goal': True, 'number': total_number_of_carrots})\n#RUR.add_final_position(\"flag\", 1, 1)\n\nthink(500)\n\n"
+}

@@ -1,0 +1,163 @@
+{
+  "description": "Extra for Experts world. Use a loop to walk around the edge of the world. Use the star Reeborg is carrying to help you determine when you are back to the start. Note that your code must also work for the Step 13d world!",
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14,
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "objects": {
+        "star": 1
+      },
+      "model": "classic",
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 15,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {
+    "8,1": [
+      "east"
+    ],
+    "8,2": [
+      "east"
+    ],
+    "8,3": [
+      "east",
+      "north"
+    ],
+    "7,3": [
+      "north"
+    ],
+    "6,3": [
+      "north"
+    ],
+    "5,3": [
+      "north"
+    ],
+    "4,3": [
+      "north"
+    ],
+    "3,4": [
+      "east"
+    ],
+    "3,5": [
+      "east"
+    ],
+    "4,5": [
+      "north"
+    ],
+    "5,5": [
+      "north"
+    ],
+    "6,5": [
+      "north"
+    ],
+    "7,5": [
+      "north"
+    ],
+    "8,5": [
+      "north"
+    ],
+    "9,5": [
+      "north",
+      "east"
+    ],
+    "9,4": [
+      "east"
+    ],
+    "9,3": [
+      "east"
+    ],
+    "10,2": [
+      "north"
+    ],
+    "11,2": [
+      "north"
+    ],
+    "12,2": [
+      "north"
+    ],
+    "13,2": [
+      "north"
+    ],
+    "13,3": [
+      "east"
+    ],
+    "13,4": [
+      "east"
+    ],
+    "13,5": [
+      "east"
+    ],
+    "13,6": [
+      "east"
+    ],
+    "13,7": [
+      "east"
+    ],
+    "13,8": [
+      "east",
+      "north"
+    ],
+    "12,8": [
+      "north"
+    ],
+    "11,8": [
+      "north"
+    ],
+    "10,8": [
+      "north"
+    ],
+    "9,8": [
+      "north"
+    ],
+    "8,8": [
+      "east"
+    ],
+    "8,7": [
+      "north"
+    ],
+    "7,7": [
+      "north"
+    ],
+    "6,7": [
+      "north"
+    ],
+    "5,8": [
+      "east"
+    ],
+    "5,9": [
+      "east"
+    ],
+    "5,10": [
+      "east",
+      "north"
+    ],
+    "4,10": [
+      "north"
+    ],
+    "3,10": [
+      "north"
+    ],
+    "2,10": [
+      "north"
+    ],
+    "1,10": [
+      "north"
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "objects": {
+        "token": "infinite"
+      },
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 4,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14,
+  "description": "Reeborg is jumping hurdles again. This time, however, the hurdles may not all be the same distance apart. You should use a repeat loop to have Reeborg jump the hurdles, and end at the goal (12, 1). You must use an if/elif/else structure in your program.",
+  "walls": {},
+  "pre": "think(0)\nimport random\nfor x in range(1,13):\n    if random.randint(0,100) < 50:\n        wall_height = random.randint(1,10)\n        for y in range(1, wall_height):\n            RUR.add_wall(\"east\", x, y)\nthink(500)",
+  "goal": {
+    "possible_final_positions": [
+      [
+        13,
+        1
+      ]
+    ],
+    "position": {
+      "image": "racing_flag",
+      "x": 13,
+      "y": 1
+    }
+  }
+}
