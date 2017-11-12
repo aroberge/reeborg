@@ -37,10 +37,11 @@ require("./listeners/toggle_highlight.js");
 require("./listeners/toggle_watch.js");
 
 // the following are not required by any other module
-require("./world_api/decorative_objects.js");
+require("./ui/keyboard_shortcuts.js");
 require("./utils/maze.js");
 require("./utils/search.js");
-require("./ui/keyboard_shortcuts.js");
+require("./utils/path_utils.js");
+require("./world_api/decorative_objects.js");
 
 brython({debug:1, pythonpath:[RUR.BASE_URL + '/src/python']});
 if (__BRYTHON__.__MAGIC__ != "3.3.4") {
