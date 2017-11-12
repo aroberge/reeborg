@@ -224,7 +224,7 @@ RUR.runner.simplify_python_traceback = function(e) {
             case "Internal Javascript error: SyntaxError":
             case "Internal Javascript error: TypeError":
                 error_name = "Invalid Python Code - " + error_name;
-                console(e.args);
+                console.log(e.args);
                 message = '';
                 other_info = RUR.translate("I cannot help you with this problem.");
                 break;
