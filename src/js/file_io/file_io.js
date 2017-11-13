@@ -20,7 +20,6 @@ RUR._load_world_from_program = function (url, shortname) {
     // a missing argument before this is called.
     if (url === undefined) {
         throw new RUR.ReeborgError(RUR.translate("World() needs an argument."));
-        return;
     }
 
     if (shortname === undefined) {

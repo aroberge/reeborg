@@ -6,7 +6,7 @@ require("./../storage/storage.js");
 
 RUR.custom_world_select = {};
 
-RUR.custom_world_select.make = function (contents) {
+RUR.custom_world_select.make = function (contents) {  // aka RUR._MakeCustomMenu_
     "use strict";
     var i, url;
     RUR.world_select.empty_menu();
@@ -31,11 +31,14 @@ function load_user_worlds() {
             $('#delete-world').show();
         }
     }
-    RUR.state.creating_menu = false;
+    if (RUR.state.session_initialized) {
+        RUR.state.creating_menu = false;
+    }
 }
 
 
 RUR.make_default_menu = function(language) {
+    RUR.state.creating_menu = true;
     switch (language) {
         case 'en':
         case 'fr-en':
@@ -46,6 +49,7 @@ RUR.make_default_menu = function(language) {
         case 'en-fr':
             RUR.load_world_file("worlds/menus/default_menu_fr.json");
             break;
-        default: RUR.make_default_menu_en();
+        default: 
+            RUR.load_world_file("worlds/menus/default_menu_en.json");
     }
 };

@@ -66,6 +66,7 @@ RUR.permalink.from_url = function(url_query) {
         } catch (e) {
             if (e.reeborg_concludes) {
                 RUR.show_feedback("#Reeborg-concludes", e.reeborg_concludes);
+                return true;
             } else if (e.reeborg_shouts) {
                 RUR.show_feedback("#Reeborg-shouts", e.reeborg_shouts);
             } else {

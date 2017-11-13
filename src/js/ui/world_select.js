@@ -2,10 +2,6 @@
 /*  Purpose of this file: abstract handling of menus so that all jQuery
     dependencies (and possibly obscure syntax in some cases) can be pulled
     away from other files.
-
-    The world menu is currently an html select element with
-    id = select-world.  Doing a global search for "#select-world" should
-    only find items in this file.
 */
 
 RUR.world_select = {};

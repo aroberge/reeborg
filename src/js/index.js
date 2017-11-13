@@ -4,6 +4,11 @@ require("./utils/cors.js");
 /* Defines the global namespace and various basic functions */
 require("./rur.js");
 
+require("./file_io/file_io.js");
+require("./storage/storage.js");
+
+var record_id = require("./../lang/msg.js").record_id;
+
 /* The menu-driven world editor is not required by any other module,
    but it depends on many of them and will take care of loading them */
 
@@ -30,7 +35,7 @@ require("./listeners/onclick.js");
 require("./listeners/reload.js");
 require("./listeners/reverse_step.js");
 require("./listeners/run.js");
-require("./listeners/select_world_change.js");
+//require("./listeners/select_world_change.js");
 require("./listeners/step.js");
 require("./listeners/stop.js");
 require("./listeners/toggle_highlight.js");
@@ -70,6 +75,8 @@ function start_session () {
     }
     set_world(url_query);
     RUR.state.session_initialized = true;
+    RUR.state.creating_menu = false;
+    $("#select-world").change();
 }
 start_session();
 
@@ -117,6 +124,7 @@ function set_world(url_query) {
         return;
     }
     name = localStorage.getItem("world");
+
     if (name) {
         world = RUR.world_select.url_from_shortname(name);
         if (world) {
@@ -127,8 +135,21 @@ function set_world(url_query) {
     } else {
         RUR.world_select.set_default();
     }
+
+    // activate listener now that we're set.
+    // record_id("select-world");
+    $("#select-world").change(function() {
+        if (RUR.state.creating_menu){
+            return;
+        }
+        if ($(this).val() !== null) {
+            RUR.load_world_file($(this).val());
+        }
+        try {
+            localStorage.setItem("world", $(this).find(':selected').text());
+        } catch (e) {}
+    });
+
 }
 
-// TODO: Use jsdoc and put on site.
-// TODO: add turtle mode (see blockly for comparing with expected solution); ensure a blockly counterpart
 // TODO: implement paint() and colour_here() in Blockly
