@@ -148,16 +148,34 @@ RUR.rec.conclude = function () {
 };
 
 RUR.rec.handle_error = function (frame) {
-    var goal_status;
+    var goal_status, post_code_not_run, world;
+
+    world = RUR.get_current_world();
+    if (world.post !== undefined) {
+        if (!RUR.state.post_code_executed) {
+            post_code_not_run = true;
+        }
+    }
+
     if (frame.error.reeborg_shouts === RUR.translate("Done!")){
         if (frame.world_map.goal !== undefined){
             return RUR.rec.conclude();
         } else {
-            if (RUR.state.sound_on) {
-                RUR._play_sound("#success-sound");
+            if (post_code_not_run) {
+                if (RUR.state.sound_on) {
+                    RUR._play_sound("#error-sound");
+                }
+                message = "<p class='center'>" +
+                    RUR.translate("You are not allowed to use <code>done</code> in this world!") +
+                    "</p>";    
+                RUR.show_feedback("#Reeborg-shouts", message);
+            } else {
+                if (RUR.state.sound_on) {
+                    RUR._play_sound("#success-sound");
+                }
+                RUR.show_feedback("#Reeborg-concludes",
+                    RUR.translate("<p class='center'>Instruction <code>done()</code> executed.</p>"));
             }
-            RUR.show_feedback("#Reeborg-concludes",
-                RUR.translate("<p class='center'>Instruction <code>done()</code> executed.</p>"));
         }
     } else if (frame.error.name == "ReeborgOK") {
         RUR.show_feedback("#Reeborg-concludes",
@@ -195,9 +213,26 @@ RUR.rec.check_current_world_status = function() {
 
 RUR.rec.check_goal = function (frame) {
     var g, world, goal_status = {"success": true}, result;
+
+    if (RUR.get_current_world().post !== undefined) {
+        if (!RUR.state.post_code_executed) {
+            goal_status.success = false;
+            if (RUR.state.done_executed) {
+                goal_status.message = "<p class='center'>" +
+                    RUR.translate("You are not allowed to use <code>done</code> in this world!") +
+                    "</p>";                 
+            } else {
+                goal_status.message = "<p class='center'>" +
+                    RUR.translate("Execution ended before the <em>Post</em> code was executed.") +
+                    "</p>";                 
+            }
+        return goal_status;
+        }
+    }
+
     g = frame.world_map.goal;
-    if (g === undefined) { // This is only needed for some
-        return goal_status;        // functional which call check_goal directly
+    if (g === undefined) {   // This is only needed for some functional tests
+        return goal_status;  // which call check_goal directly
     } else if (Object.keys(g).length === 0) { // no real goal to check
         goal_status.message = "<p class='center'>" +
                      RUR.translate("Last instruction completed!") +
@@ -263,8 +298,9 @@ RUR.rec.check_goal = function (frame) {
     goal_status.message += "</ul>";
     if (goal_status.message == "<ul></ul>") { // there was no goal to check
         goal_status.message = "<p class='center'>" +
-                             RUR.translate("Last instruction completed!") +
-                             "</p>";
+            RUR.translate("Last instruction completed!") +
+            "</p>";            
     }
+
     return goal_status;
 };

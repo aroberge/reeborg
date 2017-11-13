@@ -125,14 +125,8 @@ RUR.control.pause = function (ms) {
 };
 
 RUR.control.done = function () {
-    if (RUR.state.input_method === "py-repl") {
-        RUR.frames = [];
-        RUR.nb_frames = 1;
-        RUR.record_frame("done");
-        RUR.rec.conclude();
-    } else {
-        throw new RUR.ReeborgError(RUR.translate("Done!"));
-    }
+    RUR.state.done_executed = true;
+    throw new RUR.ReeborgError(RUR.translate("Done!"));
 };
 
 RUR.control.put = function(robot, arg){
@@ -166,7 +160,7 @@ function confirm_object_is_known(arg) {
 }
 
 function get_names_of_objects_carried(objects_carried) {
-    var all_objects = [];
+    var obj_type, all_objects = [];
     for (obj_type in objects_carried) {
         if (objects_carried.hasOwnProperty(obj_type)) {
             all_objects.push(obj_type);
@@ -191,7 +185,7 @@ function put_check_for_error (arg, arg_in_english, all_objects, carried) {
              throw new RUR.MissingObjectError(RUR.translate("I carry too many different objects. I don't know which one to put down!"));
         }
     }
-};
+}
 
 robot_put_or_toss_object = function (robot, obj, action) {
     "use strict";
@@ -300,7 +294,7 @@ take_object_and_give_to_robot = function (robot, obj) {
         // In Javascript []==[] is false and ![] is false ...
         // Python is so much nicer than Javascript.
         objects_here = RUR.world_get.object_at_robot_position(robot);
-        if (Array.isArray(objects_here) && objects_here.length == 0){
+        if (Array.isArray(objects_here) && objects_here.length === 0){
             delete RUR.get_current_world().objects[coords];
         }
     }

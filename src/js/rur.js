@@ -227,6 +227,10 @@ RUR.reset_pre_run_defaults = function () {
     RUR.__python_error = false; // used to catch Python error in custom format
 
     RUR.current_maze = undefined; // special namespace when mazes are created
+
+    RUR.state.done_executed = false; // Used to monitor if done is used 
+                                     // preventing the evaluation of Post code.
+    RUR.state.post_code_executed = false;
 };
 RUR.reset_pre_run_defaults();
 
