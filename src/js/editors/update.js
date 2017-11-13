@@ -80,19 +80,6 @@ RUR.update_editors = function (world) {
     _update_world_editor (world, "post", post_code_editor);
     _update_world_editor (world, "description", description_editor);
     _update_world_editor (world, "onload", onload_editor);
-
-// We do not want a user to lose the content of their Code Editor when loading
-// up a world. However, I have found this to be useful when creating new worlds,
-// especially creating world menus with content put in the onload editor for
-// immediate action. To edit and test such worlds, I would manually edit the
-// json file to replace "onload" by "editor", load it in *editing mode*,
-// edit and test, save with editor content, and change the newly saved file
-// to replace "editor" by "onload".
-    if (RUR.state.editing_world) {
-        _update_world_editor (world, "editor", editor);
-    }
-
-
 };
 
 msg.record_id("update-blockly-content");
