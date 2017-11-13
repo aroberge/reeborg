@@ -21,6 +21,5 @@
   "small_tiles": false,
   "rows": 1,
   "cols": 1,
-  "pre_code": "def done():\n    raise ReeborgError(\"You are not allowed to use done().\")\n",
   "post_code": "if not is_facing_north():\n    raise ReeborgError(\"Reeborg is not facing North.\")\n"
 }

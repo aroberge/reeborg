@@ -221,7 +221,7 @@
       "y": 3
     }
   },
-  "pre": "def done():\n    '''Prevents the user from avoiding the test run in the\n       post-code editor.'''\n    raise ReeborgError(\"You are not allowed to use done().\")\n\n# Define a global list, so that we can have access to\n# its content in the Post editor.\n_path_followed = []\n    \ndef move():\n    '''Redefine move() so that we keep track of the path followed'''\n    # If \"command\" is the English name of a basic robot command,\n    # it is also usually available as RUR._command_\n    RUR._move_()    \n    \n    reeborg = default_robot()\n    _path_followed.append((reeborg.body.x, reeborg.body.y))\n",
+  "pre": "# Define a global list, so that we can have access to\n# its content in the Post editor.\n_path_followed = []\n    \ndef move():\n    '''Redefine move() so that we keep track of the path followed'''\n    # If \"command\" is the English name of a basic robot command,\n    # it is also usually available as RUR._command_\n    RUR._move_()    \n    \n    reeborg = default_robot()\n    _path_followed.append((reeborg.body.x, reeborg.body.y))\n",
   "post": "_desired_path = [\n    (2,1), (3,1), (4,1), (5,1), \n    (6,1), (6,2), (6,3), (6,4), \n    (6,5), (5,5), (4,5), (4,4), (4,3), \n    (5,3), (6,3), (7,3), (8,3), (9,3), (10,3)]\n\nif _desired_path != _path_followed:\n    raise ReeborgError(\"Desired path not followed!\")\n",
   "onload": "// Since Python code is included in the\n// pre and post editors, we need to ensure\n// that Python is set as the programming language.\nRUR.onload_set_programming_language(\"python\");\n"
 }
