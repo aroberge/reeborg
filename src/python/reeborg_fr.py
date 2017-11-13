@@ -108,7 +108,12 @@ def robot_spécifique(numero_de_serie):  #py:default_robot
 robot_specifique = robot_spécifique
 
 def termine():  #py:done
-    """Termine l'exécution d'un programme."""
+    """
+    Termine l'exécution d'un programme.
+
+    Si cette fonction est invoqué en mode REPL, une vérification du ou
+    des buts de ce monde est faite.
+    """
     RUR._done_()
 
 

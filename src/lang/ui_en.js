@@ -338,3 +338,6 @@ ui_en["WARNING: Do not change this comment."] = "WARNING: Do not change this com
 ui_en["Library Code is below."] = "Library Code is below.";
 ui_en["No solution can be saved when using REPL (Py)."] = "No solution can be saved when using REPL (Py).";
 ui_en["No solution can be loaded when using REPL (Py)."] = "No solution can be loaded when using REPL (Py).";
+
+ui_en["You are not allowed to use <code>done</code> in this world!"] = "You are not allowed to use <code>done</code> in this world!";
+ui_en["Execution ended before the <em>Post</em> code was executed."] = "Execution ended before the <em>Post</em> code was executed.";

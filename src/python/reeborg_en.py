@@ -104,7 +104,11 @@ def get_robot_by_id(serial_number):  #py:default_robot
 
 
 def done():  #py:done
-    """Causes a program's execution to end."""
+    """
+    Causes a program's execution to end.
+
+    When used in REPL mode, this results in the world's goal being checked.
+    """
     RUR._done_()
 
 

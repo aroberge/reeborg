@@ -172,14 +172,10 @@ class Interpreter():
         if lang == 'en':
             _import_en(self.namespace)
             self.namespace["done"] = self.done
-            # in case "done" gets reassigned in the "pre" code of a world,
-            # we keep another version available.
-            self.namespace["Done"] = self.done
             self.namespace["World"] = self.world
         elif lang == 'fr':
             _import_fr(self.namespace)
             self.namespace["termine"] = self.done
-            self.namespace["Termine"] = self.done
             self.namespace["Monde"] = self.world
         self.namespace["__help"] = window["__help"]
         self.namespace["init"] = window.RUR.world_init
