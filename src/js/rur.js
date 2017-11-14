@@ -399,7 +399,7 @@ RUR.world_map = function () {
 
 RUR.set_current_world = function (world, merge_editors) {
     "use strict";
-    var editor_name;
+    var editor_name, i;
     // merge_editor is used when a copy of the world was obtained
     // using world_map, which removed the editor content.
     if (merge_editors) {
@@ -413,13 +413,21 @@ RUR.set_current_world = function (world, merge_editors) {
     RUR.CURRENT_WORLD = world;
 };
 
+
 RUR.export_world = function (world) {
-    if (world === undefined) {
-        return JSON.stringify(RUR.get_current_world(), null, 2);
-    } else {
-        return JSON.stringify(world, null, 2);
-    }
+    var content, editor_name, i, world_copy;
+
+    world_copy = RUR.clone_world(world);
+    for (i=0; i < RUR.WORLD_EDITORS.length; i++) {
+        editor_name = RUR.WORLD_EDITORS[i];
+        content = world_copy[editor_name];
+        if (content !== undefined && typeof content == "string") {
+            world_copy[editor_name] = content.split("\n");
+        }
+    }    
+    return JSON.stringify(world_copy, null, 2);
 };
+
 
 RUR.clone_world = function (world) {
     if (world === undefined) {

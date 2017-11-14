@@ -65,9 +65,13 @@ function _update_user_editor (world, name, ed) {
 
 function _update_world_editor (world, name, ed) {
     // For editors defining the world: pre, post, description, onload.
-    if (world[name]) {
+    content = world[name];
+    if (content) {
+        if (typeof content != "string") {
+            content = content.join("\n");
+        }
         set_button(name, true);
-        ed.setValue(world[name]);
+        ed.setValue(content);
     } else {
         set_button(name, false);
         ed.setValue('\n');
