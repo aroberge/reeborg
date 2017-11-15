@@ -6,7 +6,7 @@ QUnit.module("API module", {
 });
 
 QUnit.test("background_test_en", function(assert) {
-    var world_url = "/src/worlds/tutorial_en/alone.json";
+    var world_url = "/worlds/tutorial_en/alone.json";
     var done = assert.async();
     test_utils.set_human_language("en");
     assert.ok(test_utils.eval_python(world_url,
@@ -15,7 +15,7 @@ QUnit.test("background_test_en", function(assert) {
     done();
 });
 QUnit.test("background_test_fr", function(assert) {
-    var world_url = "/src/worlds/tutorial_en/alone.json";
+    var world_url = "/worlds/tutorial_en/alone.json";
     var done = assert.async();
     test_utils.set_human_language("fr");
     assert.ok(test_utils.eval_python(world_url,
@@ -25,7 +25,7 @@ QUnit.test("background_test_fr", function(assert) {
 });
 
 QUnit.test("bridge_test_en", function(assert) {
-    var world_url = "/src/worlds/tutorial_en/alone.json";
+    var world_url = "/worlds/tutorial_en/alone.json";
     var done = assert.async();
     test_utils.set_human_language("en");
     assert.ok(test_utils.eval_python(world_url,
@@ -34,7 +34,7 @@ QUnit.test("bridge_test_en", function(assert) {
     done();
 });
 QUnit.test("bridge_test_fr", function(assert) {
-    var world_url = "/src/worlds/tutorial_en/alone.json";
+    var world_url = "/worlds/tutorial_en/alone.json";
     var done = assert.async();
     test_utils.set_human_language("fr");
     assert.ok(test_utils.eval_python(world_url,
@@ -44,7 +44,7 @@ QUnit.test("bridge_test_fr", function(assert) {
 });
 
 QUnit.test("decorative_object_test_en", function(assert) {
-    var world_url = "/src/worlds/tutorial_en/alone.json";
+    var world_url = "/worlds/tutorial_en/alone.json";
     var done = assert.async();
     test_utils.set_human_language("en");
     assert.ok(test_utils.eval_python(world_url,
@@ -53,7 +53,7 @@ QUnit.test("decorative_object_test_en", function(assert) {
     done();
 });
 QUnit.test("decorative_object_test_fr", function(assert) {
-    var world_url = "/src/worlds/tutorial_en/alone.json";
+    var world_url = "/worlds/tutorial_en/alone.json";
     var done = assert.async();
     test_utils.set_human_language("fr");
     assert.ok(test_utils.eval_python(world_url,
@@ -64,7 +64,7 @@ QUnit.test("decorative_object_test_fr", function(assert) {
 
 
 QUnit.test("object_test_en", function(assert) {
-    var world_url = "/src/worlds/tutorial_en/alone.json";
+    var world_url = "/worlds/tutorial_en/alone.json";
     var done = assert.async();
     test_utils.set_human_language("en");
     assert.ok(test_utils.eval_python(world_url,
@@ -74,7 +74,7 @@ QUnit.test("object_test_en", function(assert) {
 });
 
 QUnit.test("object_test_fr", function(assert) {
-    var world_url = "/src/worlds/tutorial_en/alone.json";
+    var world_url = "/worlds/tutorial_en/alone.json";
     var done = assert.async();
     test_utils.set_human_language("fr");
     assert.ok(test_utils.eval_python(world_url,
@@ -84,7 +84,7 @@ QUnit.test("object_test_fr", function(assert) {
 });
 
 QUnit.test("obstacle_test_en", function(assert) {
-    var world_url = "/src/worlds/tutorial_en/alone.json";
+    var world_url = "/worlds/tutorial_en/alone.json";
     var done = assert.async();
     test_utils.set_human_language("en");
     assert.ok(test_utils.eval_python(world_url,
@@ -94,7 +94,7 @@ QUnit.test("obstacle_test_en", function(assert) {
 });
 
 QUnit.test("obstacle_test_fr", function(assert) {
-    var world_url = "/src/worlds/tutorial_en/alone.json";
+    var world_url = "/worlds/tutorial_en/alone.json";
     var done = assert.async();
     test_utils.set_human_language("fr");
     assert.ok(test_utils.eval_python(world_url,
@@ -104,7 +104,7 @@ QUnit.test("obstacle_test_fr", function(assert) {
 });
 
 QUnit.test("pushable_test_en", function(assert) {
-    var world_url = "/src/worlds/tutorial_en/alone.json";
+    var world_url = "/worlds/tutorial_en/alone.json";
     var done = assert.async();
     test_utils.set_human_language("en");
     assert.ok(test_utils.eval_python(world_url,
@@ -114,7 +114,7 @@ QUnit.test("pushable_test_en", function(assert) {
 });
 
 QUnit.test("pushable_test_fr", function(assert) {
-    var world_url = "/src/worlds/tutorial_en/alone.json";
+    var world_url = "/worlds/tutorial_en/alone.json";
     var done = assert.async();
     test_utils.set_human_language("fr");
     assert.ok(test_utils.eval_python(world_url,
@@ -124,7 +124,7 @@ QUnit.test("pushable_test_fr", function(assert) {
 });
 
 QUnit.test("wall_test_en", function(assert) {
-    var world_url = "/src/worlds/tutorial_en/alone.json";
+    var world_url = "/worlds/tutorial_en/alone.json";
     var done = assert.async();
     test_utils.set_human_language("en");
     assert.ok(test_utils.eval_python(world_url,
@@ -134,7 +134,7 @@ QUnit.test("wall_test_en", function(assert) {
 });
 
 QUnit.test("wall_test_fr", function(assert) {
-    var world_url = "/src/worlds/tutorial_en/alone.json";
+    var world_url = "/worlds/tutorial_en/alone.json";
     var done = assert.async();
     test_utils.set_human_language("fr");
     assert.ok(test_utils.eval_python(world_url,

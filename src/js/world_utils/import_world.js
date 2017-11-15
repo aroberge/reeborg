@@ -90,15 +90,24 @@ function show_onload_feedback (e, lang) {
 }
 
 process_onload = function () {
+    var src, ignore;
     if (RUR.CURRENT_WORLD.onload !== undefined && !RUR.state.editing_world) {
+        /* editors content can be saved either as a string (old format)
+           with embedded new lines characters or as an array of lines (new format)
+        */
+        if (typeof RUR.CURRENT_WORLD.onload == "string") {
+            src = RUR.CURRENT_WORLD.onload;
+        } else {
+            src = RUR.CURRENT_WORLD.onload.join("\n");
+        }
         RUR.state.evaluating_onload = true; // affects the way errors are treated
-        if (RUR.CURRENT_WORLD.onload[0]=="#") {
+        if (src[0]=="#") {
             RUR.state.onload_programming_language = "python";
             try {
                 onload_editor.setOption("mode", {name: "python", version: 3});
             } catch (e){}
             try {
-               window.translate_python(RUR.CURRENT_WORLD.onload);
+               window.translate_python(src);
                if (RUR.__python_error) {
                     throw RUR.__python_error;
                 }
@@ -111,7 +120,7 @@ process_onload = function () {
                 onload_editor.setOption("mode", "javascript");
             } catch (e){}
             try {
-                var result = eval(RUR.CURRENT_WORLD.onload);  // jshint ignore:line
+                ignore = eval(src);  // jshint ignore:line
             } catch (e) {
                 show_onload_feedback(e, "javascript");
             }

@@ -421,6 +421,9 @@ RUR.export_world = function (world) {
     for (i=0; i < RUR.WORLD_EDITORS.length; i++) {
         editor_name = RUR.WORLD_EDITORS[i];
         content = world_copy[editor_name];
+        /* editors content can be saved either as a string (old format)
+           with embedded new lines characters or as an array of lines (new format)
+           */
         if (content !== undefined && typeof content == "string") {
             world_copy[editor_name] = content.split("\n");
         }

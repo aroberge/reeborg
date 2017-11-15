@@ -1,3 +1,19 @@
 {
-  "onload": "# English collection\nbase_url = 'worlds/menus/'\n\ncontents = [\n    ['src/worlds/' + 'alone.json', 'Simple'],\n    [base_url + 'default_menu_en.json', \"Reeborg default\"],\n    [base_url + 'sk_menu.json', \"Saskatchewan CS 20\"]\n]\n\nMakeCustomMenu(contents)\n\n"
+  "onload": [
+    "# English collection",
+    "base_url = 'worlds/menus/'",
+    "",
+    "contents = [",
+    "    ['worlds/tutorial_en/' + 'alone.json', 'Simple'],",
+    "    [base_url + 'default_menu_en.json', \"Reeborg default\"],",
+    "    [base_url + 'sk_menu.json', \"Saskatchewan CS 20\"]",
+    "]",
+    "",
+    "MakeCustomMenu(contents)",
+    "",
+    ""
+  ],
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14
 }

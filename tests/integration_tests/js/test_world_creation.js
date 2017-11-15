@@ -22,7 +22,7 @@ QUnit.test("import_world", function(assert) {
 });
 
 QUnit.test("Load world", function(assert) {
-    var url = "/src/worlds/alone.json";
+    var url = "/worlds/tutorial_en/alone.json";
     var done = assert.async();
     var world_alone = {
         robots: [ {
@@ -53,7 +53,7 @@ QUnit.test("Load world", function(assert) {
 });
 
 QUnit.test("Load world from url-permalink", function(assert) {
-    var url =  window.location.origin + "/src/worlds/alone.json";
+    var url =  window.location.origin + "/worlds/tutorial_en/alone.json";
     var query = {};
     query.queryKey = {"mode": "python", "lang": "en", "url": url};
     var done = assert.async();
@@ -104,7 +104,7 @@ QUnit.test("Load world without running program", function(assert) {
 
     We add our own console message so that no one should be surprised by this.
     */
-    console.log("404 (File not found) expected for 'Alone'.")
+    console.log("404 (File not found) expected for 'Alone'.");
     assert.throws(function() {RUR._load_world_from_program('Alone');},
                  "Raised expected error from loading non-existent world.");
     assert.equal(test_utils.feedback_element, "#Reeborg-shouts", "Feedback element ok.");
