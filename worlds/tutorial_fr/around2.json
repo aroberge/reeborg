@@ -14,13 +14,14 @@
       "_trace_history": [],
       "_trace_style": "default",
       "_trace_color": "seagreen",
-      "__id": 17,
+      "__id": 7,
       "possible_initial_positions": [
         [
           4,
           1
         ]
-      ]
+      ],
+      "model": "classic"
     }
   ],
   "walls": {
@@ -360,10 +361,42 @@
       "pale_grass"
     ]
   },
-  "description": "Aidez Reeborg à faire le tour du monde dans le sens contraire des aiguilles d'une montre. \nReeborg ne doit pas marcher sur le gazon vert foncé.<br>\n<img src=\"/src/images/around2.gif\">\n<br>\n\nSuggestion: Reeborg transporte des jetons; vous en\navez besoin d'un seul.\n<br>\nCe monde a été conçu pour être programmé avec Python.\n\n",
-  "onload": "RUR.onload_set_programming_language(\"python\")\n",
-  "pre": "_path_followed = []\ncouleur_de_trace(\"black\")\ndef avance():\n    r = robot_par_defaut()\n    RUR._move_()\n    _path_followed.append((r.body.x, r.body.y))\n",
-  "post": "\n_correct_path = [(5, 1), (6, 1), (7, 1), \n             (8, 1), (9, 1), (10, 1), (10, 2), (10, 3), (10, 4), \n             (10, 5), (9, 5), (8, 5), (7, 5), (6, 5), (5, 5), \n             (5, 6), (5, 7), (5, 8), (5, 9), (5, 10), (4, 10), \n             (3, 10), (2, 10), (1, 10), (1, 9), (1, 8), (1, 7), \n             (1, 6), (1, 5), (1, 4), (1, 3), (1, 2), (1, 1), (2, 1), (3, 1), (4, 1)]\n\n\nif _correct_path != _path_followed:\n    raise ReeborgError(\"Reeborg n'a pas suivi le bon chemin !\")\n    \nraise ReeborgOK(\"Très bien fait !\")",
+  "description": [
+    "Aidez Reeborg à faire le tour du monde dans le sens contraire des aiguilles d'une montre. ",
+    "Reeborg ne doit pas marcher sur le gazon vert foncé.<br>",
+    "<img src=\"/worlds/tutorial_img/around2.gif\">",
+    "<br>",
+    "",
+    "Suggestion: Reeborg transporte des jetons; vous en",
+    "avez besoin d'un seul.",
+    "<br>",
+    "Ce monde a été conçu pour être programmé avec Python.",
+    "",
+    ""
+  ],
+  "onload": [
+    "RUR.onload_set_programming_language(\"python\")",
+    ""
+  ],
+  "pre": [
+    "couleur_de_trace(\"black\")",
+    ""
+  ],
+  "post": [
+    "",
+    "_correct_path = [(4, 1), (5, 1), (6, 1), (7, 1), ",
+    "             (8, 1), (9, 1), (10, 1), (10, 2), (10, 3), (10, 4), ",
+    "             (10, 5), (9, 5), (8, 5), (7, 5), (6, 5), (5, 5), ",
+    "             (5, 6), (5, 7), (5, 8), (5, 9), (5, 10), (4, 10), ",
+    "             (3, 10), (2, 10), (1, 10), (1, 9), (1, 8), (1, 7), ",
+    "             (1, 6), (1, 5), (1, 4), (1, 3), (1, 2), (1, 1), (2, 1), (3, 1), (4, 1)]",
+    "",
+    "",
+    "if not RUR.check_path(_correct_path):",
+    "    raise ReeborgError(\"Reeborg n'a pas suivi le bon chemin !\")",
+    "    ",
+    "raise ReeborgOK(\"Très bien fait !\")"
+  ],
   "objects": {
     "1,1": {}
   }

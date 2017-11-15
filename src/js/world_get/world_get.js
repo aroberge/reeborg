@@ -71,6 +71,10 @@ RUR.world_get.world_info = function (no_grid) {
 
     if (RUR.get_current_world().description) {
         description = RUR.get_current_world().description;
+        if (typeof description != "string") {
+            description = description.join("\n");
+        }
+
         if (RUR.get_current_world().pre) {
             insertion = "<pre class='world_info_source'>" + RUR.get_current_world().pre + "</pre>";
             to_replace = "INSERT_PRE";
