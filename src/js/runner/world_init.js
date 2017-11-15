@@ -106,6 +106,7 @@ RUR.world_init = function () {
                 robot._orientation = randint(0, 3);
                 robot._prev_orientation = robot._orientation;
             }
+            robot.initial_position = [robot.x, robot.y]; // used for RUR.check_path
         }
     }
     if (world.goal !== undefined &&
