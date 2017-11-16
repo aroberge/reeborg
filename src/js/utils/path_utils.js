@@ -95,3 +95,29 @@ RUR.check_path = function (desired_path) {
 
     return true;
 };
+
+
+/** @function show_correct_path
+ * @memberof RUR
+ * @instance
+ * @summary This function draws a path which Reeborg should follow.
+ * To stop drawing the path, call the function with no arguments.
+ *
+ * @param {list} path A path, as printed by RUR.print_path.
+ * @param {string} [color] The color to be used to draw the path;
+ * the default is `"seagreen"`.
+ *
+ */
+RUR.show_correct_path = function (path, color) {
+    if (path === undefined) {
+        RUR._CORRECT_PATH = [];
+    } else {
+        RUR._CORRECT_PATH = path;
+    }
+
+    if (color === undefined) {
+        RUR._CORRECT_PATH_COLOR = "seagreen";
+    } else {
+        RUR._CORRECT_PATH_COLOR = color;
+    }
+};

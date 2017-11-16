@@ -6,6 +6,7 @@ require("./../drawing/visible_robot.js"); // for RUR.reset_default_robot_images
 RUR.reset_world = function() {
     var world;
     RUR.reset_pre_run_defaults();
+
     if (RUR.state.reset_default_robot_images_needed) {
         RUR.reset_default_robot_images(); // will reset state/flag to false
     }
@@ -35,6 +36,9 @@ RUR.reset_world = function() {
     if (RUR.state.run_button_clicked) { // do not process_onload
         return;
     }
+
+    RUR._CORRECT_PATH = [];
+
     RUR.world_utils.process_onload();
     // Does the following need to be kept out of reset_pre_run_defaults?
     //RUR.state.code_evaluated = false;

@@ -134,7 +134,13 @@ RUR.vis_world.refresh = function () {
     draw_tiles(world.pushables, RUR.PUSHABLES_CTX);
     draw_tiles(world.walls, RUR.WALL_CTX);
     draw_tiles(world.objects, RUR.OBJECTS_CTX);
-
+    if (world._CORRECT_PATH && world._CORRECT_PATH.length > 0) {
+        try {
+            draw_correct_path(world._CORRECT_PATH, world._CORRECT_PATH_COLOR);
+        } catch (e) {
+            console.warn("problem with draw_correct_path", e);
+        }
+    }
     draw_info();     // on ROBOT_CTX
     if (RUR.ROBOT_ANIMATION_FRAME_ID) {
         clearTimeout(RUR.ROBOT_ANIMATION_FRAME_ID);
@@ -722,4 +728,36 @@ function draw_info () {
             }
         }
     }
+}
+
+
+function draw_correct_path (path, color) {
+    "use strict";
+    var i, x, y, offset, ctx = RUR.OBJECTS_CTX; // below RUR.TRACE_CTX
+    ctx.strokeStyle = color;
+    ctx.lineCap = "round";
+
+    if(RUR.get_current_world().small_tiles) {
+        offset = 12;
+        ctx.lineWidth = 2;
+        ctx.setLineDash([2, 4]);
+    } else {
+        offset = 25;
+        ctx.lineWidth = 4;
+        ctx.setLineDash([4, 8]);
+    }
+
+    x = path[0][0] * RUR.WALL_LENGTH + offset;
+    y = RUR.HEIGHT - (path[0][1] + 1) * RUR.WALL_LENGTH + offset;
+
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    for (i=1; i < path.length; i++){
+        x = path[i][0] * RUR.WALL_LENGTH + offset;
+        y = RUR.HEIGHT - (path[i][1] + 1) * RUR.WALL_LENGTH + offset;
+        ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    ctx.setLineDash([]);
 }
