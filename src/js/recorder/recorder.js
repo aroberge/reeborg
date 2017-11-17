@@ -105,8 +105,6 @@ RUR.rec.display_frame = function () {
     }
 
     RUR.set_current_world(frame.world_map, true);
-    RUR.CURRENT_WORLD._CORRECT_PATH = frame._CORRECT_PATH;
-    RUR.CURRENT_WORLD._CORRECT_PATH_COLOR = frame._CORRECT_PATH_COLOR;
 
     if (frame.sound_id !== undefined){
         RUR._play_sound(frame.sound_id);

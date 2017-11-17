@@ -142,9 +142,6 @@ RUR.record_frame = function (name, obj) {
         frame["no name"] = true;
     }
 
-    frame._CORRECT_PATH = RUR._CORRECT_PATH;
-    frame._CORRECT_PATH_COLOR = RUR._CORRECT_PATH_COLOR;
-
     frame.delay = RUR.PLAYBACK_TIME_PER_FRAME;
     if (RUR.state.sound_id && RUR.state.sound_on && frame.delay >= RUR.MIN_TIME_SOUND) {
         frame.sound_id = RUR.state.sound_id;

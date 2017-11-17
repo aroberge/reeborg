@@ -112,6 +112,7 @@ RUR.vis_world.clear_all_ctx = function () {
 RUR.vis_world.refresh = function () {
     "use strict";
     var canvas, canvases, goal, world = RUR.get_current_world();
+
     if (world.blank_canvas) {
         return;
     }
@@ -739,11 +740,11 @@ function draw_correct_path (path, color) {
 
     if(RUR.get_current_world().small_tiles) {
         offset = 12;
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 1;
         ctx.setLineDash([2, 4]);
     } else {
         offset = 25;
-        ctx.lineWidth = 4;
+        ctx.lineWidth = 2;
         ctx.setLineDash([4, 8]);
     }
 

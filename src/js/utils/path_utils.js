@@ -1,6 +1,7 @@
 /* Path utilities useful for world creators */
 
 require("./../rur.js");
+require("./../drawing/visible_world.js");
 
 /** @function print_path
  * @memberof RUR
@@ -53,7 +54,6 @@ RUR.print_path = function () {
 RUR.check_path = function (desired_path) {
     "use strict";
     var history, i, world, desired_x, desired_y, path_taken, prev_x, prev_y, x, y;
-
     world = RUR.get_current_world();
     if (world.robots === undefined || world.robots.length === 0) {
         throw new RUR.ReeborgError("Missing robot; cannot print path.");
@@ -71,7 +71,6 @@ RUR.check_path = function (desired_path) {
             prev_y = y;
         }
     }
-
 
     if (desired_path.length > path_taken.length){
         console.log("desired_path longer than path taken");
@@ -109,15 +108,18 @@ RUR.check_path = function (desired_path) {
  *
  */
 RUR.show_correct_path = function (path, color) {
+    var world = RUR.get_current_world();
+    
     if (path === undefined) {
-        RUR._CORRECT_PATH = [];
+        world._CORRECT_PATH = [];
     } else {
-        RUR._CORRECT_PATH = path;
+        world._CORRECT_PATH = path;
     }
 
     if (color === undefined) {
-        RUR._CORRECT_PATH_COLOR = "seagreen";
+        world._CORRECT_PATH_COLOR = "seagreen";
     } else {
-        RUR._CORRECT_PATH_COLOR = color;
+        world._CORRECT_PATH_COLOR = color;
     }
+    RUR.record_frame("show_correct_path");
 };

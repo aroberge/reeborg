@@ -11,6 +11,9 @@
 */
 
 exports.identical = identical = function (a, b) {
+    // make copies to avoid chaning the original
+    a = JSON.stringify(a);
+    b = JSON.stringify(b);
 
     function sort(object) {
         if (Array.isArray(object)) {
