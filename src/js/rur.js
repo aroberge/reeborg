@@ -47,6 +47,7 @@ RUR.state = {};    /* Reeborg's World can be in different states
                       (running a program, editing a world, etc.) and the
                       behaviour of some features can be affected (
                       e.g. enabled or disabled) depending on that state.*/
+RUR.public = {}; // To be used by world creators.
 
 
 /*========================================================

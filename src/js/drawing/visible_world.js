@@ -734,18 +734,18 @@ function draw_info () {
 
 function draw_correct_path (path, color) {
     "use strict";
-    var i, x, y, offset, ctx = RUR.OBJECTS_CTX; // below RUR.TRACE_CTX
+    var i, x, y, offset, prev_x, prev_y, ctx = RUR.OBJECTS_CTX; // below RUR.TRACE_CTX
     ctx.strokeStyle = color;
     ctx.lineCap = "round";
 
     if(RUR.get_current_world().small_tiles) {
         offset = 12;
         ctx.lineWidth = 1;
-        ctx.setLineDash([2, 4]);
+        ctx.setLineDash([2, 2]);
     } else {
         offset = 25;
         ctx.lineWidth = 2;
-        ctx.setLineDash([4, 8]);
+        ctx.setLineDash([4, 4]);
     }
 
     x = path[0][0] * RUR.WALL_LENGTH + offset;
@@ -759,6 +759,57 @@ function draw_correct_path (path, color) {
         ctx.lineTo(x, y);
     }
     ctx.stroke();
-
     ctx.setLineDash([]);
+
+    // draw arrows.
+    for (i=1; i < path.length; i++){
+        prev_x = x;
+        prev_y = y;
+        x = path[i][0] * RUR.WALL_LENGTH + offset;
+        y = RUR.HEIGHT - (path[i][1] + 1) * RUR.WALL_LENGTH + offset;
+        draw_arrow(x, y, prev_x, prev_y, ctx);
+    }
+}
+
+
+function draw_arrow(x, y, prev_x, prev_y, ctx) {
+    var len = ctx.lineWidth * 3;
+    ctx.beginPath();
+    if (x == prev_x) { // vertical arrow
+        y = (y + prev_y)/2; 
+        ctx.moveTo(x, y);
+        if (y > prev_y) {
+            ctx.lineTo(x-len, y-len);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x+len, y-len);
+            ctx.stroke();
+        } else {
+            ctx.lineTo(x-len, y+len);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x+len, y+len);
+            ctx.stroke();
+        }
+    } else {
+        x = (x + prev_x)/2;
+        ctx.moveTo(x, y);
+        if (x > prev_x) {
+            ctx.lineTo(x-len, y-len);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x-len, y+len);
+            ctx.stroke();
+        } else {
+            ctx.lineTo(x+len, y-len);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x+len, y+len);
+            ctx.stroke();
+        }
+    }
 }

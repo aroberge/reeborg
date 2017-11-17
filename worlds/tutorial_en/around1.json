@@ -335,15 +335,15 @@
     "counter-clockwise direction once, and stop",
     "at its starting position. Reeborg must not",
     "step on the dark green grass. The correct path is",
-    "shown by the dashed white line.<br>",
+    "shown by the dashed white line.<br><br>",
     "",
-    "Hint: Reeborg carries some tokens; you only need to use one.<br>",
+    "<em>Hint: Reeborg carries some tokens; you only need to use one.</em><br><br>",
     "This world has been designed to work only with Python.",
     ""
   ],
   "onload": [
     "RUR.onload_set_programming_language(\"python\");",
-    "RUR.the_correct_path = [[4, 1], [5, 1], [6, 1], ",
+    "RUR.public.path = [[4, 1], [5, 1], [6, 1], ",
     "            [7, 1], [8, 1], [9, 1], [10, 1], [10, 2], ",
     "            [10, 3], [10, 4], [10, 5], [10, 6], ",
     "            [10, 7], [10, 8], [10, 9], [10, 10], ",
@@ -351,7 +351,7 @@
     "            [5, 10], [4, 10], [3, 10], [2, 10], ",
     "            [1, 10], [1, 9], [1, 8], [1, 7], [1, 6], ",
     "            [1, 5], [1, 4], [1, 3], [1, 2], [1, 1],[2, 1], [3, 1], [4, 1]];",
-    "RUR.show_correct_path(RUR.the_correct_path, 'white');",    
+    "RUR.show_correct_path(RUR.public.path, 'white');",    
     ""
   ],
   "pre": [
@@ -361,8 +361,8 @@
   ],
   "post": [
     "",
-    "if not RUR.check_path(RUR.the_correct_path):",
-    "    RUR.show_correct_path(RUR.the_correct_path, 'white')",
+    "if not RUR.check_path(RUR.public.path):",
+    "    RUR.show_correct_path(RUR.public.path, 'white')",
     "    raise ReeborgError(\"Reeborg did not follow the required path.\")",
     "    ",
     "raise ReeborgOK(\"Well done!\")"
