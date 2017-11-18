@@ -29,7 +29,7 @@
    "description": [
     "Reeborg has entered a hurdle race. ",
     "Make him run the course, following the path shown.<br><br>",
-    "<em>The position and number of hurdles changes each time this world is reloaded.</em>",
+    "<em>The position and number of hurdles changes each time this world is reloaded.</em><br><br>",
     "This world has been designed to be solved using Python.",
     ""
   ],

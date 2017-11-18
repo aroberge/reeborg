@@ -196,14 +196,13 @@ QUnit.test("Harvests", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
     var done = assert.async();
-    base_url = "/src/worlds/tutorial_en/";
+    base_url = "/worlds/tutorial_en/";
 
     world_file = "harvest1.json";
     assert.ok(test_utils.eval_python(base_url + world_file, "/tests/integration_tests/programs/harvest1_en.py").success,
                                       world_file + " run successfully.");
 
     last_frame = RUR.frames[RUR.frames.length - 1];
-    assert.equal(last_frame.world_map.robots[0].objects.carrot, "infinite", "Nb of carrots carried.");
 
     RUR.rec.conclude();
     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
