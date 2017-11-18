@@ -232,6 +232,12 @@ RUR.reset_pre_run_defaults = function () {
     RUR.state.done_executed = false; // Used to monitor if done is used 
                                      // preventing the evaluation of Post code.
     RUR.state.post_code_executed = false;
+
+    // The following may be specified by a world creator to replace the
+    // standard/default message when a goal is checked at the end of a run
+    RUR.success_custom_message = undefined;
+    RUR.failure_custom_message = undefined;
+
 };
 RUR.reset_pre_run_defaults();
 

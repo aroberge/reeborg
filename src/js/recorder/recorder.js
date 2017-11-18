@@ -128,12 +128,20 @@ RUR.rec.conclude = function () {
             if (RUR.state.sound_on) {
                 RUR._play_sound("#success-sound");
             }
-            RUR.show_feedback("#Reeborg-concludes", goal_status.message);
+            if (RUR.success_custom_message !== undefined) {
+                RUR.show_feedback("#Reeborg-concludes", RUR.success_custom_message);
+            } else {
+                RUR.show_feedback("#Reeborg-concludes", goal_status.message);
+            }
         } else {
             if (RUR.state.sound_on) {
                 RUR._play_sound("#error-sound");
             }
-            RUR.show_feedback("#Reeborg-shouts", goal_status.message);
+            if (RUR.failure_custom_message !== undefined) {
+                RUR.show_feedback("#Reeborg-shouts", RUR.failure_custom_message);
+            } else {
+                RUR.show_feedback("#Reeborg-shouts", goal_status.message);
+            }
         }
     } else {
         if (RUR.state.sound_on) {
@@ -187,7 +195,11 @@ RUR.rec.handle_error = function (frame) {
         if (RUR.state.sound_on) {
             RUR._play_sound("#error-sound");
         }
-        RUR.show_feedback("#Reeborg-shouts", frame.error.message);
+        if (RUR.failure_custom_message !== undefined) {
+            RUR.show_feedback("#Reeborg-shouts", RUR.failure_custom_message);
+        } else {
+            RUR.show_feedback("#Reeborg-shouts", goal_status.message);
+        }
     }
     RUR.stop();
     return "stopped";

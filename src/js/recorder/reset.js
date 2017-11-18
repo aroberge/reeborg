@@ -6,6 +6,8 @@ require("./../drawing/visible_robot.js"); // for RUR.reset_default_robot_images
 RUR.reset_world = function() {
     var world;
     RUR.reset_pre_run_defaults();
+    RUR.success_custom_message = undefined;
+    RUR.failure_custom_message = undefined;
 
     if (RUR.state.reset_default_robot_images_needed) {
         RUR.reset_default_robot_images(); // will reset state/flag to false

@@ -332,7 +332,7 @@ input.blue-gradient:hover {
     color: green;
 }
 
-li.success:after {
+li.success:after, p.success:after {
     content: url(../images/ok.png);
 }
 
@@ -341,7 +341,7 @@ li.success:after {
     color: #c80000;
 }
 
-li.failure:after {
+li.failure:after, p.failure:after {
     content: url(../images/not_ok.png);
 }
 

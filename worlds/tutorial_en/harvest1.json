@@ -447,5 +447,8 @@
     "named <code>harvest_one_row()</code> and",
     "call this function 6 times.</p>",
     ""
-  ]
+  ],
+  "pre": [
+    "RUR.success_custom_message = '<p class=\"success\">All carrots have been harvested.</p>'",
+    "RUR.failure_custom_message = '<p class=\"failure\">Some carrots have not been harvested.</p>'"]
 }
