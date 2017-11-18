@@ -43,13 +43,13 @@ RUR.make_default_menu = function(language) {
         case 'en':
         case 'fr-en':
         case 'ko-en':
-            RUR.load_world_file("worlds/menus/default_menu_en.json");
+            RUR.load_world_file(RUR.BASE_URL + "/worlds/menus/default_menu_en.json");
             break;
         case 'fr':
         case 'en-fr':
-            RUR.load_world_file("worlds/menus/default_menu_fr.json");
+            RUR.load_world_file(RUR.BASE_URL + "/worlds/menus/default_menu_fr.json");
             break;
         default: 
-            RUR.load_world_file("worlds/menus/default_menu_en.json");
+            RUR.load_world_file(RUR.BASE_URL + "/worlds/menus/default_menu_en.json");
     }
 };

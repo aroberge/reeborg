@@ -23,10 +23,7 @@
     }
   ],
   "walls": {},
-  "description": [
-    "Un simple monde, que Reeborg peut explorer à sa guise.",
-    ""
-  ],
+  "description":"Un simple monde, que Reeborg peut explorer à sa guise.",
   "small_tiles": false,
   "rows": 10,
   "cols": 10
