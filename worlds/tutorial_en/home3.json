@@ -25,7 +25,7 @@
   "small_tiles": false,
   "rows": 3,
   "cols": 3,
-  "description": "Write a program so that Reeborg can go home.",
+  "description": "Write a program that makes Reeborg go home.",
   "goal": {
     "possible_final_positions": [
       [

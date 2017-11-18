@@ -60,6 +60,7 @@ RUR.world_utils.import_world = function (json_string) {
     if (RUR.state.editing_world) {
         edit_robot_menu.toggle();
     }
+    RUR.WORLD_BEFORE_ONLOAD = RUR.clone_world();
     start_process_onload();
 };
 
@@ -69,7 +70,6 @@ function start_process_onload() {
         window.setTimeout(start_process_onload, 200);
     }
     else {
-        RUR.WORLD_BEFORE_ONLOAD = RUR.clone_world();
         process_onload();
     }
 }
@@ -91,6 +91,7 @@ function show_onload_feedback (e, lang) {
 
 process_onload = function () {
     var src, ignore;
+    RUR.set_current_world(RUR.clone_world(RUR.WORLD_BEFORE_ONLOAD));
     if (RUR.CURRENT_WORLD.onload !== undefined && !RUR.state.editing_world) {
         /* editors content can be saved either as a string (old format)
            with embedded new lines characters or as an array of lines (new format)

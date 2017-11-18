@@ -762,6 +762,8 @@ function draw_correct_path (path, color) {
     ctx.setLineDash([]);
 
     // draw arrows.
+    x = path[0][0] * RUR.WALL_LENGTH + offset;
+    y = RUR.HEIGHT - (path[0][1] + 1) * RUR.WALL_LENGTH + offset;
     for (i=1; i < path.length; i++){
         prev_x = x;
         prev_y = y;

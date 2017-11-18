@@ -28,8 +28,10 @@ RUR.storage._save_world = function (name){
     } else {
         RUR.storage.save_world(name);
     }
-    /* We make an assumption here that the onload code has not been run */
-    RUR.WORLD_BEFORE_ONLOAD = RUR.clone_world();
+    /* In editing world mode, the onload code should not have been run */
+    if (RUR.state.editing_world) {
+        RUR.WORLD_BEFORE_ONLOAD = RUR.clone_world();
+    }
 };
 
 RUR.storage.save_world = function (name){

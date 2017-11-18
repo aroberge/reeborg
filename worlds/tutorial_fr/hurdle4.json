@@ -1,0 +1,69 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_orientation": 0,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "small_tiles": false,
+  "rows": 5,
+  "cols": 14,
+  "pre": [
+    "RUR.show_correct_path()", 
+    ""
+  ],
+  "post": [
+    "",
+    "if not RUR.check_path(RUR.public.path):",
+    "    RUR.show_correct_path(RUR.public.path)",
+    "    raise ReeborgError(\"Reeborg n'a pas suivi le bon chemin.\")",
+    ""
+  ],
+   "description": [
+    "Reeborg fait une course de haie. ",
+    "Aidez-le à terminer la course, en suivant le chemin indiqué.<br><br>",
+    "<b>Important :</b> la position et la hauteur des haies changent à chaque fois que ce monde est choisi.<br><br>",
+    "Ce monde a été conçu pour être programmé avec Python.",
+    ""
+  ],
+  "onload": [
+    "# Python",
+    "from random import randint",
+    "",
+    "RUR.public['path'] = [[1, 1]]",
+    "for x in range(1, 13, 1):",
+    "    if randint(1, 2) == 1:",
+    "        height = randint(1, 4)",
+    "        for y in range(1, height+1):",
+    "            RUR.add_wall(\"east\", x, y)",
+    "            RUR.public.path.append([x, y+1])",
+    "        RUR.public.path.append([x+1, y+1])",
+    "        for y in range(height, 1, -1):",
+    "            RUR.public.path.append([x+1, y])",
+    "    RUR.public.path.append([x+1, 1])",
+    "    ",
+    "RUR.show_correct_path(RUR.public['path'])",
+    ""
+  ],
+  "walls": {},
+  "goal": {
+    "possible_final_positions": [
+      [
+        13,
+        1
+      ]
+    ],
+    "position": {
+      "image": "racing_flag",
+      "x": 13,
+      "y": 1
+    }
+  }
+}

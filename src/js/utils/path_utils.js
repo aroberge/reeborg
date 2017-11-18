@@ -104,7 +104,7 @@ RUR.check_path = function (desired_path) {
  *
  * @param {list} path A path, as printed by RUR.print_path.
  * @param {string} [color] The color to be used to draw the path;
- * the default is `"seagreen"`.
+ * the default is `"lightsteelblue"`.
  *
  */
 RUR.show_correct_path = function (path, color) {
@@ -117,7 +117,7 @@ RUR.show_correct_path = function (path, color) {
     }
 
     if (color === undefined) {
-        world._CORRECT_PATH_COLOR = "seagreen";
+        world._CORRECT_PATH_COLOR = "lightsteelblue";
     } else {
         world._CORRECT_PATH_COLOR = color;
     }
