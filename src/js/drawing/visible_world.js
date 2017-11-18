@@ -181,6 +181,16 @@ function draw_coordinates () {
     "use strict";
     var x, y, ctx = RUR.BACKGROUND_CTX, grid_size=RUR.WALL_LENGTH;
 
+    // for some reason, background font gets reset to "10px sans-serif"
+    // when a session starts, this after I explicitly set it to
+    // something else, and never set it to 10px anywhere in my code.
+    // The code included here fixes this.
+    if (RUR.get_current_world().small_tiles) {
+        RUR.BACKGROUND_CTX.font = "8px sans-serif";
+    } else {
+        RUR.BACKGROUND_CTX.font = "bold 12px sans-serif";
+    }
+
     ctx.fillStyle = RUR.COORDINATES_COLOR;
     y = RUR.HEIGHT + 5 - grid_size/2;
     for(x=1; x <= RUR.MAX_X; x++){
