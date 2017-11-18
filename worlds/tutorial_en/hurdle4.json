@@ -23,14 +23,14 @@
     "",
     "if not RUR.check_path(RUR.public.path):",
     "    RUR.show_correct_path(RUR.public.path)",
-    "    raise ReeborgError(\"Reeborg n'a pas suivi le bon chemin.\")",
+    "    raise ReeborgError(\"Reeborg did not follow the correct path.\")",
     ""
   ],
    "description": [
-    "Reeborg fait une course de haie. ",
-    "Aidez-le à terminer la course, en suivant le chemin indiqué.<br><br>",
-    "<em>La position, la hauteur et le nombre des haies changent à chaque fois que ce monde est choisi.</em><br><br>",
-    "Ce monde a été conçu pour être programmé avec Python.",
+    "Reeborg has entered a hurdle race. ",
+    "Make him run the course, following the path shown.<br><br>",
+    "<em>The position, the height and the number of hurdles changes each time this world is reloaded.</em>",
+    "This world has been designed to be solved using Python.",
     ""
   ],
   "onload": [

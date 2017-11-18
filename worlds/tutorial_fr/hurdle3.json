@@ -29,7 +29,7 @@
    "description": [
     "Reeborg fait une course de haie. ",
     "Aidez-le à terminer la course, en suivant le chemin indiqué.<br><br>",
-    "<b>Important :</b> la position des haies change à chaque fois que ce monde est choisi.<br><br>",
+    "<em>La position et le nombre des haies changent à chaque fois que ce monde est choisi.</em><br><br>",
     "Ce monde a été conçu pour être programmé avec Python.",
     ""
   ],
