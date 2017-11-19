@@ -157,7 +157,8 @@ RUR.rec.conclude = function () {
 };
 
 RUR.rec.handle_error = function (frame) {
-    var goal_status, post_code_not_run, world;
+    "use strict";
+    var post_code_not_run, world;
 
     world = RUR.get_current_world();
     if (world.post !== undefined) {
@@ -195,11 +196,7 @@ RUR.rec.handle_error = function (frame) {
         if (RUR.state.sound_on) {
             RUR._play_sound("#error-sound");
         }
-        if (RUR.failure_custom_message !== undefined) {
-            RUR.show_feedback("#Reeborg-shouts", RUR.failure_custom_message);
-        } else {
-            RUR.show_feedback("#Reeborg-shouts", goal_status.message);
-        }
+        RUR.show_feedback("#Reeborg-shouts", frame.error.message);
     }
     RUR.stop();
     return "stopped";

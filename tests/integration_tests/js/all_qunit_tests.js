@@ -210,18 +210,28 @@ QUnit.test("Harvests", function(assert) {
         "<p class=\"success\">All carrots have been harvested.</p>",
         "Feedback text ok.");
 
-
-// Failing tests...
-//TODO: change from eval_python to run_python to have initial values set properly
-
-
+    // Need to use run_python instead of eval_python to have initially
+    // random values set.
     world_file = "harvest2.json";
-    assert.ok(test_utils.eval_python(base_url + world_file, "/tests/integration_tests/programs/harvest2_en.py").success,
-                                      world_file + " run successfully.");
+    frames = test_utils.run_python(base_url + world_file, 
+                                   "/tests/integration_tests/programs/harvest2_en.py");
+    last_frame = frames[frames.length-1];
+    RUR.rec.conclude();
+    assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
+    assert.equal(test_utils.content, 
+                 "<ul><li class='success'>All objects are at the correct location.</li></ul>");
 
+    // Need to use run_python instead of eval_python to have initially
+    // random values set.
     world_file = "harvest3.json";
-    assert.ok(test_utils.eval_python(base_url + world_file, "/tests/integration_tests/programs/harvest3_en.py").success,
-                                      world_file + " run successfully.");
+    frames = test_utils.run_python(base_url + world_file, 
+                                   "/tests/integration_tests/programs/harvest3_en.py");
+    last_frame = frames[frames.length-1];
+    RUR.rec.conclude();
+    assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
+    assert.equal(test_utils.content, 
+                 "<ul><li class='success'>All objects are at the correct location.</li></ul>");
+
 
     world_file = "harvest4a.json";
     assert.ok(test_utils.eval_python(base_url + world_file, "/tests/integration_tests/programs/harvest4_en.py").success,
