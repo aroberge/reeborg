@@ -37,16 +37,14 @@
    },
    "description": [
     "Reeborg fait une course de haie. ",
-    "Aidez-le à terminer la course, en suivant le chemin indiqué.<br><br>",
-    "Ce monde a été conçu pour être programmé avec Python.",
+    "Aidez-le à terminer la course, en suivant le chemin indiqué.",
     ""
   ],
   "onload": [
-    "RUR.onload_set_programming_language(\"python\");",
-    "RUR.public.path = [[1,1], [2,1], [2,2], [3,2], [3,1], [4,1],",
+    "RUR.public['path'] = [[1,1], [2,1], [2,2], [3,2], [3,1], [4,1],",
     "    [4,2], [5,2], [5,1], [6,1], [6,2], [7,2], [7,1], [8,1],",
     "    [8,2], [9,2], [9,1], [10,1], [10,2], [11,2], [11,1], [12,1]];",
-    "RUR.show_correct_path(RUR.public.path);",    
+    "RUR.show_correct_path(RUR.public['path']);",    
     ""
   ],
     "pre": [
@@ -54,10 +52,9 @@
     ""
   ],
   "post": [
-    "",
-    "if not RUR.check_path(RUR.public.path):",
-    "    RUR.show_correct_path(RUR.public.path)",
-    "    raise ReeborgError(\"Reeborg n'a pas suivi le bon chemin.\")",
+    "RUR.check_path(RUR.public['path'],",
+    "     {'message':\"Reeborg n'a pas suivi le bon chemin.\", ",
+    "      'show_correct_path': 'true'})",
     ""
   ]
 }
