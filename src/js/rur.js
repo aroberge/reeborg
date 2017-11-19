@@ -518,3 +518,16 @@ RUR.configure_red_green = function (red, green) {
 RUR.show_feedback = function (element, content) {
     $(element).html(content).dialog("open");
 };
+
+
+/** @function randint
+ * @memberof RUR
+ * @instance
+ * @desc Like the Python function random.randit, it returns a
+ * random integer in range [min, max], including both end points.
+ * @param [integer] min
+ * @param [integer] max
+ */
+RUR.randint = function (min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
