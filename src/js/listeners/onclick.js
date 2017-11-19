@@ -182,3 +182,52 @@ toggle_content("description", description_editor);
 
 record_id("add-onload-text", "ADD ONLOAD TEXT");
 toggle_content("onload", onload_editor);
+
+
+record_id("increase-font-size");
+record_id("decrease-font-size");
+
+function change_editors_font_size() {
+    editor.getWrapperElement().style["font-size"] = RUR.editors_font_size + "px";
+    library.getWrapperElement().style["font-size"] = RUR.editors_font_size + "px";
+    pre_code_editor.getWrapperElement().style["font-size"] = RUR.editors_font_size + "px";
+    post_code_editor.getWrapperElement().style["font-size"] = RUR.editors_font_size + "px";
+    onload_editor.getWrapperElement().style["font-size"] = RUR.editors_font_size + "px";
+    description_editor.getWrapperElement().style["font-size"] = RUR.editors_font_size + "px";
+}
+
+$("#increase-font-size").on("click", function(evt) {
+    var index, sizes;
+
+    sizes = [8, 10, 12, 14, 16, 18, 20, 23, 26, 30, 34, 38, 42, 46, 50];
+    if (RUR.editors_font_size === undefined) {
+        RUR.editors_font_size = 20;
+    } else {
+        index = sizes.indexOf(RUR.editors_font_size);
+        if (index == -1) {
+            RUR.editors_font_size += 5;
+        } else if (index < sizes.length-1) {
+            RUR.editors_font_size = sizes[index+1];
+        } else {
+            RUR.editors_font_size += 5;
+        }
+    }
+    change_editors_font_size();
+});
+
+$("#decrease-font-size").on("click", function(evt) {
+    var index, sizes;
+
+    sizes = [8, 10, 12, 14, 16, 18, 20, 23, 26, 30, 34, 38, 42, 46, 50];
+    if (RUR.editors_font_size === undefined) {
+        RUR.editors_font_size = 12;
+    } else {
+        index = sizes.indexOf(RUR.editors_font_size);
+        if (index == -1) {
+            RUR.editors_font_size -= 5;
+        } else if (index > 0) {
+            RUR.editors_font_size = sizes[index-1];
+        }
+    }
+    change_editors_font_size();
+});

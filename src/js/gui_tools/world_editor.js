@@ -239,6 +239,8 @@ RUR.we.toggle_editing_mode = function () {
         if (RUR.state.programming_language == "python" && RUR.state.extra_code_visible) {
             $("#extra-tab").parent().show();
         }
+        $("#decrease-font-size").show();
+        $("#increase-font-size").show();
         RUR.reload();
     } else {
         $("#pre-code-tab").parent().show();
@@ -250,6 +252,8 @@ RUR.we.toggle_editing_mode = function () {
         RUR.state.editing_world = true;
         $("#highlight").hide();
         $("#watch-variables-btn").hide();
+        $("#decrease-font-size").hide();
+        $("#increase-font-size").hide();
     }
     RUR.vis_world.draw_all();
 };

@@ -207,8 +207,13 @@ QUnit.test("Harvests", function(assert) {
     RUR.rec.conclude();
     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     assert.equal(test_utils.content,
-        "<ul><li class='success'>All objects are at the correct location.</li></ul>",
+        "<p class=\"success\">All carrots have been harvested.</p>",
         "Feedback text ok.");
+
+
+// Failing tests...
+//TODO: change from eval_python to run_python to have initial values set properly
+
 
     world_file = "harvest2.json";
     assert.ok(test_utils.eval_python(base_url + world_file, "/tests/integration_tests/programs/harvest2_en.py").success,

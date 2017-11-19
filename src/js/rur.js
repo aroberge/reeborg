@@ -146,6 +146,8 @@ RUR.state.editing_world = false;
 
 RUR.state.extra_code_visible = false;
 
+// This will keep track of the current font size if changed by the user.
+RUR.editors_font_size = undefined;
 
 /*========================================================
 
