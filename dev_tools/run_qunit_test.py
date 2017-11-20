@@ -34,11 +34,14 @@ print("""
     """)
 server_address = ('', 8800)
 url = "http://localhost:8800/tests/integration_tests/reeborg_qunit_offline.html?lang=en&mode=python"
-chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s --incognito'
+#chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s --incognito'
+firefox_path = 'C:/Program Files (x86)/Mozilla Firefox/firefox.exe %s'
+
 try:
-    webbrowser.get(chrome_path).open_new(url)
+    #webbrowser.get(chrome_path).open_new(url)
+    webbrowser.get(firefox_path).open_new(url)
 except:
-    print("Could not open chrome in incognito mode")
+    #print("Could not open chrome in incognito mode")
     webbrowser.open_new(url)
 
 httpd = MyTCPServer(server_address, MyHandler)
