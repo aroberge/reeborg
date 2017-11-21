@@ -111,13 +111,35 @@ function update_home_url (lang) {
 }
 
 $("#human-language").change(function() {
-    var lang = $(this).val();
+    var lang = $(this).val(), last_menu, last_menu_lang;
+
     RUR.state.human_language = lang;
     update_translations(lang);
     msg.update_ui(lang);
     update_commands(lang);
     update_home_url(lang);
-    RUR.make_default_menu(lang);
+
+    try {
+        last_menu = localStorage.getItem("last_menu");
+        last_menu_lang = localStorage.getItem("last_menu_lang");
+    } catch(e) {}
+
+    // if initializing a session, attempt to load the last menu if one
+    // exists so that the last world used can be retrieved successfully.
+    if (!RUR.state.session_initialized && last_menu_lang == lang) {
+        try {
+            if (last_menu) {
+                RUR.load_world_file(last_menu);
+            } else {
+                RUR.make_default_menu(lang);
+            }
+        } catch (e) {
+            RUR.make_default_menu(lang);
+        }
+    } else {
+        RUR.make_default_menu(lang);
+    }
+
     RUR.blockly.init();
 
     if (RUR.state.programming_language == "python") {

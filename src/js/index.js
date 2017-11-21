@@ -139,10 +139,16 @@ function set_world(url_query) {
     // activate listener now that we're set.
     // record_id("select-world");
     $("#select-world").change(function() {
+        var url = $(this).val();
         if (RUR.state.creating_menu){
             return;
         }
-        if ($(this).val() !== null) {
+        if (url !== null) {
+            url = url.toLowerCase();
+            if (RUR.state.session_initialized && url.includes('menu')) {
+                localStorage.setItem("last_menu", url);
+                localStorage.setItem("last_menu_lang", localStorage.getItem("human_language"));
+            }
             RUR.load_world_file($(this).val());
         }
         try {

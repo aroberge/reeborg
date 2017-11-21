@@ -8,7 +8,8 @@ RUR.custom_world_select = {};
 
 RUR.custom_world_select.make = function (contents) {  // aka RUR._MakeCustomMenu_
     "use strict";
-    var i, url;
+    var i, url, last_menu;
+
     RUR.world_select.empty_menu();
     for(i=0; i<contents.length; i++){
         RUR.world_select.append_world( {url:contents[i][0],
