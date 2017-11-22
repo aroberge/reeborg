@@ -62,6 +62,7 @@ RUR.world_utils.import_world = function (json_string) {
     }
     RUR.WORLD_BEFORE_ONLOAD = RUR.clone_world();
     start_process_onload();
+    RUR.world_get.world_info(true);
 };
 
 function start_process_onload() {

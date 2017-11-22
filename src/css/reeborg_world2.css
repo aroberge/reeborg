@@ -501,6 +501,11 @@ li.failure:after, p.failure:after {
   border: 4px solid #248;
   padding: 1em;
 }
+.grid-info {
+    background-color: cornsilk;
+    padding: 1em;
+    font-size: 75%;
+}
 
 #logo {
     font-size: 30px;
