@@ -121,6 +121,14 @@ RUR.MAX_X = Math.floor(RUR.WIDTH / RUR.WALL_LENGTH) - 1;
 RUR.GREEN = "green"; // for colour blind people; see
 RUR.RED = "red";     // RUR.configure_red_green() below
 
+/*=========================================================
+  The following is potentially useful for world creators; if
+  set to true, it will include the contents of the various
+  editors when the world's description is shown.
+==========================================================*/
+
+RUR.SHOW_EDITORS_CONTENTS = false;
+
 /*========================================================
 
    Configuration through UI interaction including URL: default values

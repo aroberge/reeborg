@@ -58,48 +58,101 @@ function object_of_type_here (robot, obj, object_type) {
     }
 }
 
+/** @function show_editors_content
+ * @memberof RUR
+ * @instance
+ *
+ * @desc Used to show (or not) the content of the various world
+ * editors in the world description (world info button for English UI).
+ *
+ * @param {bool} show
+ * 
+ */
+
+RUR.show_editors_content = function (show) {
+    RUR.SHOW_EDITORS_CONTENTS = show;
+    RUR.world_get.world_info(true);
+};
+
+
 RUR.world_get.world_info = function (no_grid) {
     "use strict";
-    // shows the information about a given grid position
+    // Shows the world information, as included in the description editor.
+    // In addition shows the information about a given grid position
     // when the user clicks on the canvas at that grid position.
-    var description, goals, information, insertion, to_replace, topic;
+    // If a global flag is set, it also show the various editors content.
+    var content, description, goals, insertion, to_replace, topic;
     var no_object, obj, r, robot, robots, x, y;
+    var information = "<div class='automatic-description'>";
 
-    information = "<div class='automatic-description'>";
+    description = RUR.get_current_world().description;
+    if (description === undefined) {
+        description = '';
+    } else if (typeof description != "string") {
+        description = description.join("\n");
+    }
 
-    if (RUR.get_current_world().description) {
-        description = RUR.get_current_world().description;
-        if (typeof description != "string") {
-            description = description.join("\n");
-        }
+    if (RUR.SHOW_EDITORS_CONTENTS) {
+        if (RUR.get_current_world().onload) {
+            description = "<h3>Onload editor content</h3>INSERT_ONLOAD" + description;
+        }   
+         if (RUR.get_current_world().pre) {
+            description = "<h3>Pre editor content</h3>INSERT_PRE" + description;
+        }   
+        if (RUR.get_current_world().post) {
+            description = "<h3>Post editor content</h3>INSERT_POST" + description;
+        }   
+        if (RUR.get_current_world().editor) {
+            description = "<h3>World's Editor content</h3>INSERT_EDITOR" + description;
+        }   
+        if (RUR.get_current_world().library) {
+            description = "<h3>World's Library content</h3>INSERT_LIBRARY" + description;
+        }    
+    }
 
+    if (description) {
         if (RUR.get_current_world().pre) {
-            insertion = "<pre class='world_info_source'>" + RUR.get_current_world().pre + "</pre>";
+            content = RUR.get_current_world().pre;
+            if (typeof content != "string") {
+                content = content.join("\n");
+            }
+            insertion = "<pre class='world_info_source'>" + content + "</pre>";
             to_replace = "INSERT_PRE";
             description = description.replace(to_replace, insertion);
         }
         if (RUR.get_current_world().editor) {
-            insertion = "<pre class='world_info_source'>" + RUR.get_current_world().editor + "</pre>";
+            content = RUR.get_current_world().editor;
+            if (typeof content != "string") {
+                content = content.join("\n");
+            }            
+            insertion = "<pre class='world_info_source'>" + content + "</pre>";
             to_replace = "INSERT_EDITOR";
             description = description.replace(to_replace, insertion);
-        }
+        }        
         if (RUR.get_current_world().library) {
-            insertion = "<pre class='world_info_source'>" + RUR.get_current_world().library + "</pre>";
+            content = RUR.get_current_world().library;
+            if (typeof content != "string") {
+                content = content.join("\n");
+            }            
+            insertion = "<pre class='world_info_source'>" + content + "</pre>";
             to_replace = "INSERT_LIBRARY";
             description = description.replace(to_replace, insertion);
         }
         if (RUR.get_current_world().post) {
-            insertion = "<pre class='world_info_source'>" + RUR.get_current_world().post + "</pre>";
+            content = RUR.get_current_world().post;
+            if (typeof content != "string") {
+                content = content.join("\n");
+            }            
+            insertion = "<pre class='world_info_source'>" + content + "</pre>";
             to_replace = "INSERT_POST";
             description = description.replace(to_replace, insertion);
         }
         if (RUR.get_current_world().onload) {
-            if (RUR.CURRENT_WORLD.onload[0]=="#") {
-                RUR.state.onload_programming_language = "python";
-            } else {
-                RUR.state.onload_programming_language = "javascript";
-            }
-            insertion = "<pre class='world_info_onload'>" + RUR.get_current_world().onload + "</pre>";
+            content = RUR.get_current_world().onload;
+            if (typeof content != "string") {
+                content = content.join("\n");
+            }            
+            insertion = "<pre class='world_info_onload'>" + content + "</pre>";
             to_replace = "INSERT_ONLOAD";
             description = description.replace(to_replace, insertion);
         }
