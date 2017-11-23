@@ -1,36 +1,4 @@
-QUnit.module(" runner.js : Javascript programs", {
-  beforeEach: function() {
-    test_utils.reset();  }
-});
-QUnit.test("Centre 1", function(assert) {
-    var world_url = "/src/worlds/tutorial_en/center1.json";
-    var done = assert.async();
-    test_utils.set_human_language("en");
-    assert.ok(test_utils.eval_javascript(world_url, "/tests/integration_tests/programs/test_center1.js").success, "Centre1 run successfully.");
-    assert.notOk(test_utils.eval_javascript(world_url, "/tests/integration_tests/programs/test_center1_fail.js").success, "Failing program recognized as such.");
-    assert.notOk(test_utils.eval_javascript(world_url, "/tests/integration_tests/programs/test_syntax_fail.js").success, "Failing program (syntax error) recognized as such.");
-    done();
-});
-QUnit.test("Centre 1", function(assert) {
-    var world_url = "/src/worlds/tutorial_en/center1.json";
-    var done = assert.async();
-    test_utils.set_human_language("fr");
-    assert.ok(test_utils.eval_javascript(world_url, "/tests/integration_tests/programs/test_center1_fr.js").success, "Centre1 run successfully.");
-    assert.notOk(test_utils.eval_javascript(world_url, "/tests/integration_tests/programs/test_center1_fail_fr.js").success, "Failing program recognized as such.");
-    assert.notOk(test_utils.eval_javascript(world_url, "/tests/integration_tests/programs/test_syntax_fail_fr.js").success, "Failing program (syntax error) recognized as such.");
-    done();
-});
-QUnit.test("Failed goal with zero frame recorded", function(assert) {
-    var done = assert.async();
-    test_utils.set_human_language("en");
-    RUR.state.programming_language = "javascript";
-    test_utils.load_world_file("/src/worlds/tutorial_en/center1.json");
-    test_utils.load_program("/tests/integration_tests/programs/test_center1_fail2.js");
-    RUR.runner.eval(test_utils.program);
-    RUR.rec.conclude();
-    assert.equal(test_utils.feedback_element, "#Reeborg-shouts", "Failure properly recognized.");
-    done();
-});
+
 
 QUnit.module("Failing Python programs", {
   beforeEach: function() {
