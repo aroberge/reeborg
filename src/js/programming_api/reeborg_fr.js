@@ -39,6 +39,7 @@ RUR.reset_definitions_fr = function () {
     };
     window.objet_ici = RUR._object_here_;
     window.colorie = RUR._paint_square_;
+    window.couleur_de_trace = RUR._set_trace_color_;
     window.pause = RUR._pause_;
     window.print_html = RUR._print_html_;
     window.depose = RUR._put_;
