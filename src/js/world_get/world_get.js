@@ -3,6 +3,7 @@
 */
 
 require("./../rur.js");
+require("./../translator.js");
 require("./../programming_api/exceptions.js");
 require("./../default_tiles/tiles.js");
 require("./../dialogs/create.js");
@@ -25,6 +26,13 @@ RUR.world_get.tile_at_position = function (x, y) { // TODO: still needed or move
 RUR.world_get.object_at_robot_position = function (robot, obj) { // TODO: still needed or move elswhere?
     return object_of_type_here(robot, obj, RUR.get_current_world().objects);
 };
+
+// CSS widget to show difficulty level.
+function difficulty(level) {
+    var begin = "<div class='difficulty'>" + RUR.translate("Easy") + " <div><span class='",
+        end = "'></span></div> " + RUR.translate("Hard") + "</div>";
+    return begin + level + end;
+}
 
 
 function object_of_type_here (robot, obj, object_type) {
@@ -156,7 +164,21 @@ RUR.world_get.world_info = function (show_info_at_location) {
             to_replace = "INSERT_ONLOAD";
             description = description.replace(to_replace, insertion);
         }
+        description = description.replace("DIFFICULTY1", difficulty("difficulty1"));
+        description = description.replace("DIFFICULTY2", difficulty("difficulty2"));
+        description = description.replace("DIFFICULTY3", difficulty("difficulty3"));
+        description = description.replace("DIFFICULTY4", difficulty("difficulty4"));
+        description = description.replace("DIFFICULTY5", difficulty("difficulty5"));
+        description = description.replace("DIFFICULTY6", difficulty("difficulty6"));
+        description = description.replace("DIFFICULTY7", difficulty("difficulty7"));
+        description = description.replace("DIFFICULTY8", difficulty("difficulty8"));
+        description = description.replace("DIFFICULTY9", difficulty("difficulty9"));
+        description = description.replace("DIFFICULTY10", difficulty("difficulty10"));
+
         information +="<h2>" + RUR.translate("Description") + "</h2>" + description + "</div>";
+
+
+
     }
 
     if (show_info_at_location) {

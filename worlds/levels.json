@@ -1,0 +1,19 @@
+{
+  "description": [
+    "<h3>Difficulty levels</h3>",
+    "The following are obtained by writing 'DIFFICULTY' immediately followed",
+    "by a number from 1 (easiest) to 10 (most difficult), with no space between 'DIFFICULTY' and",
+    "the number.<br>",
+    "The look of these is subject to change, based on feedback.",
+ "DIFFICULTY1",
+ "DIFFICULTY2",
+ "DIFFICULTY3",
+ "DIFFICULTY4",
+ "DIFFICULTY5",
+ "DIFFICULTY6",
+ "DIFFICULTY7",
+ "DIFFICULTY8",
+ "DIFFICULTY9",
+ "DIFFICULTY10"
+ ]
+}

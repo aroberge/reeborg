@@ -377,3 +377,6 @@ ui_fr["No solution can be loaded when using REPL (Py)."] = "Aucune solution ne p
 
 ui_fr["You are not allowed to use <code>done</code> in this world!"] = "Il n'est pas permis d'utiliser <code>termine</code> dans ce monde !";
 ui_fr["Execution ended before the <em>Post</em> code was executed."] = "L'exécution du programme a terminé avant que le code <em>Post</em> ne soit interprété.";
+
+ui_fr["Easy"] = "Facile";
+ui_fr["Hard"] = "Difficile";
