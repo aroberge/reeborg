@@ -539,3 +539,17 @@ RUR.show_feedback = function (element, content) {
 RUR.randint = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
+
+
+RUR.hide_end_dialogs = function () {
+    $("#Reeborg-concludes").dialog("close");
+    $("#Reeborg-shouts").dialog("close");
+    // reset the options in case the user has dragged the dialogs as it would
+    // then open at the top left of the window
+    $("#Reeborg-concludes").dialog("option", {minimize: false, maximize: false,
+        autoOpen:false, width:500, dialogClass: "concludes",
+        position:{my: "left", at: "left", of: $("#editor-panel")}});
+    $("#Reeborg-shouts").dialog("option", {minimize: false, maximize: false,
+        autoOpen:false, width:500, dialogClass: "alert",
+        position:{my: "left", at: "left", of: $("#editor-panel")}});
+};

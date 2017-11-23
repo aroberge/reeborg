@@ -1,0 +1,15 @@
+{
+  "walls": {},
+  "description": [
+    "An empty world, whose only purpose is to",
+    "give instructions."
+  ],
+  "small_tiles": false,
+  "rows": 10,
+  "cols": 10,
+  "onload": [
+    "RUR.show_feedback(\"#Reeborg-concludes\",",
+    "     \"Please select a world collection from the world menu.\");",
+    ""
+  ]
+}

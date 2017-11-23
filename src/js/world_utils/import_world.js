@@ -13,6 +13,8 @@ RUR.world_utils.import_world = function (json_string) {
     "use strict";
     var body, editor_content, library_content, i, keys, more_keys, coord, index, obstacles;
 
+    RUR.hide_end_dialogs();
+
     if (json_string === undefined || json_string === "undefined"){
         RUR.show_feedback("#Reeborg-shouts",
             RUR.translate("Problem in RUR.world_utils.import_world: world not defined."));
