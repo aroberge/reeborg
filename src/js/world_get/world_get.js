@@ -71,11 +71,11 @@ function object_of_type_here (robot, obj, object_type) {
 
 RUR.show_editors_content = function (show) {
     RUR.SHOW_EDITORS_CONTENTS = show;
-    RUR.world_get.world_info(true);
+    RUR.world_get.world_info();
 };
 
 
-RUR.world_get.world_info = function (no_grid) {
+RUR.world_get.world_info = function (show_info_at_location) {
     "use strict";
     // Shows the world information, as included in the description editor.
     // In addition shows the information about a given grid position
@@ -159,10 +159,9 @@ RUR.world_get.world_info = function (no_grid) {
         information +="<h2>" + RUR.translate("Description") + "</h2>" + description + "</div>";
     }
 
-    if (!no_grid) {
+    if (show_info_at_location) {
         information = get_info_about_location() + information;
     }
-
 
     // Info about existing robots
     robots = RUR.get_current_world().robots;

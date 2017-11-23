@@ -551,5 +551,5 @@ $("#robot-anim-canvas").on("click", function (evt) {
     if (RUR.state.editing_world && RUR.we.edit_world_flag !== undefined) {
         RUR.we.edit_world();
     }
-    RUR.world_get.world_info();
+    RUR.world_get.world_info(true); // true = show info at grid location.
 });
