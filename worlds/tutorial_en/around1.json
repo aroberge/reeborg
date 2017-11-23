@@ -338,6 +338,7 @@
     "shown by the dashed white line.<br><br>",
     "",
     "<em>Hint: Reeborg carries some tokens; you only need to use one.</em>",
+    "DIFFICULTY2",
     ""
   ],
   "onload": [

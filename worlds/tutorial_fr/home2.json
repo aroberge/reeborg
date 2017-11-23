@@ -25,7 +25,10 @@
   "small_tiles": false,
   "rows": 3,
   "cols": 3,
-  "description": "Écrivez un programme qui permet à Reeborg de retourner à sa maison.",
+  "description": [
+    "Écrivez un programme qui permet à Reeborg de retourner à sa maison.",
+    "DIFFICULTY1"
+  ],
   "goal": {
     "possible_final_positions": [
       [

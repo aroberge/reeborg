@@ -376,6 +376,8 @@
     "",
     "<em>Suggestion: Reeborg transporte des jetons; vous en",
     "avez besoin d'un seul.</em>",
+    "<br><br>Le même programme doit également être valide pour les mondes <b>Autour 1</b> et <b>Autour 2</b>.",
+    "DIFFICULTY4",
     ""
   ],
   "onload": [
