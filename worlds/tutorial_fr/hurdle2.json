@@ -34,22 +34,66 @@
          "image": "racing_flag",
          "x": 8,
          "y": 1
-      }
-   },
+      },
+    "possible_final_positions": [
+      [
+        8,
+        1
+      ],
+      [
+        10,
+        1
+      ],
+      [
+        12,
+        1
+      ],
+      [
+        14,
+        1
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        4,
+        1
+      ]
+    ]
+  },
    "description": [
-    "Reeborg fait une course de haie. ",
-    "Aidez-le à terminer la course, en suivant le chemin indiqué.",
-    ""
+    "Reeborg fait une course de haie dont il ne connait pas la longueur à l'avance. ",
+    "Aidez-le à terminer la course, en suivant un chemin semblable à celui qui est indiqué,",
+    "mais s'arrêtant au drapeau qui indiquera la fin de la course.",
+    "DIFFICULTY2"
   ],
   "onload": [
     "RUR.public['path'] = [[1,1], [2,1], [2,2], [3,2], [3,1], [4,1],",
-    "    [4,2], [5,2], [5,1], [6,1], [6,2], [7,2], [7,1], [8,1]];",
-    "RUR.show_correct_path(RUR.public['path']);",    
-    ""
+    "    [4,2], [5,2], [5,1], [6,1], [6,2], [7,2], [7,1], [8,1],",
+    "    [8,2], [9,2], [9,1], [10,1], [10,2], [11,2], [11,1], [12,1],",
+    "    [12,2], [13,2], [13,1], [14,1]];",
+    "RUR.show_correct_path(RUR.public['path']);",
+    "RUR.public.trim_path = function(){",
+    "    var i, position, x, y, xx, yy, path = [];",
+    "    position = RUR.get_current_world().goal.position;",
+    "    x = position['x'];",
+    "    y = position['y'];",
+    "    for(i=0; i< RUR.public['path'].length; i++) {",
+    "        xx = RUR.public['path'][i][0];",
+    "        yy = RUR.public['path'][i][1];",    
+    "        if(x == xx && y == yy){",
+    "            path.push([xx, yy]);",
+    "            break;",
+    "        }",
+    "        path.push([xx, yy]);",
+    "    }",
+    "    RUR.public['path'] = path;",
+    "};"
   ],
-    "pre": [
-    "RUR.show_correct_path()", 
-    ""
+  "pre": [
+    "RUR.public.trim_path()",
+    "RUR.show_correct_path()"
   ],
   "post": [
     "RUR.check_path(RUR.public['path'],",

@@ -1,11 +1,17 @@
 {
-   "robots": [
-      {
-         "x": 1,
-         "y": 1,
-         "orientation": 0
-      }
-   ],
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_orientation": 0,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
    "rows": 5,
    "cols": 14,
    "walls": {
@@ -38,13 +44,13 @@
    "description": [
     "Reeborg has entered a hurdle race. ",
     "Make him run the course, following the path shown.",
-    ""
+    "DIFFICULTY1"
   ],
   "onload": [
-    "RUR.public.path = [[1,1], [2,1], [2,2], [3,2], [3,1], [4,1],",
+    "RUR.public['path'] = [[1,1], [2,1], [2,2], [3,2], [3,1], [4,1],",
     "    [4,2], [5,2], [5,1], [6,1], [6,2], [7,2], [7,1], [8,1],",
     "    [8,2], [9,2], [9,1], [10,1], [10,2], [11,2], [11,1], [12,1]];",
-    "RUR.show_correct_path(RUR.public.path);",    
+    "RUR.show_correct_path(RUR.public['path']);",    
     ""
   ],
     "pre": [

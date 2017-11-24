@@ -29,7 +29,7 @@
     "Reeborg fait une course de haie. ",
     "Aidez-le à terminer la course, en suivant le chemin indiqué.<br><br>",
     "<em>La position, la hauteur et le nombre des haies changent à chaque fois que ce monde est choisi.</em>",
-    ""
+    "DIFFICULTY4"
   ],
   "onload": [
     "# Python",
