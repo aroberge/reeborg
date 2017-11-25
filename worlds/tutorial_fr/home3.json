@@ -3,23 +3,7 @@
     {
       "x": 1,
       "y": 3,
-      "prev_orientation": 0,
-      "objects": {},
-      "_prev_x": 1,
-      "_prev_y": 3,
-      "_prev_orientation": 3,
-      "possible_initial_positions": [
-        [
-          1,
-          3
-        ]
-      ],
-      "_orientation": 3,
-      "_is_leaky": true,
-      "_trace_history": [],
-      "_trace_style": "default",
-      "_trace_color": "seagreen",
-      "__id": 15
+      "_orientation": 3
     }
   ],
   "small_tiles": false,
@@ -27,19 +11,46 @@
   "cols": 3,
   "description": [
     "Écrivez un programme qui permet à Reeborg de retourner à sa maison.",
+    "<h3>Ce que vous devez connaître</h3>",
+    "Les fonctions <code>avance()</code> et <code>tourne_a_gauche()</code> ou <code>tourne_à_gauche()</code>.",
     "DIFFICULTY1"
   ],
+  "onload": "RUR.state.visible_grid = true;",
   "goal": {
-    "possible_final_positions": [
-      [
-        2,
-        1
-      ]
-    ],
     "position": {
       "image": "house",
       "x": 2,
       "y": 1
     }
+  },
+  "tiles": {
+    "3,1": [
+      "grass"
+    ],
+    "3,2": [
+      "grass"
+    ],
+    "2,2": [
+      "grass"
+    ],
+    "2,3": [
+      "grass"
+    ],
+    "3,3": [
+      "grass"
+    ],
+    "1,3": [
+      "gravel"
+    ],
+    "1,2": [
+      "gravel"
+    ],
+    "1,1": [
+      "gravel"
+    ],
+    "2,1": [
+      "gravel"
+    ]
   }
+
 }
