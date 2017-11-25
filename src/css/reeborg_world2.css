@@ -893,125 +893,48 @@ td {
 }
 
 .difficulty {
-    font-size: 80%;
     margin: auto;
 }
 
-.difficulty > div { 
-    display: inline-block;
-    width: 200px;
-    height: 15px;
-    position: relative;
-    border: 1px solid #248;
-    -moz-border-radius: 25px;
-    -webkit-border-radius: 25px;
-    border-radius: 25px;
-}
 
-.difficulty > div > span {
-  display: inline-block;
-  height: 100%;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 15px;
+
+.difficulty1, .difficulty2, .difficulty3, .difficulty4 {
+  background-color: hsl(120, 100%, 40%);
 
 }
 
-
-span.difficulty1 {
-  width: 15%;
-  background-color: hsl(210, 80%, 60%);
+.difficulty5 {
   background: linear-gradient(
-    to bottom,
-    hsl(210, 80%, 90%),
-    hsl(210, 80%, 40%)
-    );
-}
-span.difficulty2 {
-  width: 25%;
-  background-color: hsl(180, 80%, 60%);
-  background: linear-gradient(
-    to bottom,
-    hsl(180, 80%, 90%),
-    hsl(180, 80%, 40%)
-    );
-}
-
-span.difficulty3 {
-  width: 35%;
-  background-color: hsl(150, 80%, 60%);
-  background: linear-gradient(
-    to bottom,
-    hsl(150, 80%, 90%),
-    hsl(150, 80%, 40%)
-    );
-}
-span.difficulty4 {
-  width: 45%;
-  background-color: hsl(120, 100%, 60%);
-  background: linear-gradient(
-    to bottom,
-    hsl(120, 100%, 90%),
-    hsl(120, 100%, 40%)
-    );
-}
-span.difficulty5 {
-  width: 55%;
-  background-color: hsl(75, 100%, 60%);
-  background: linear-gradient(
-    to bottom,
-    hsl(75, 100%, 90%),
-    hsl(75, 100%, 50%)
-    );
-}
-
-span.difficulty6 {
-  width: 66%;
-  background-color: hsl(54, 100%, 60%);
-  background: linear-gradient(
-    to bottom,
-    hsl(54, 100%, 90%),
+    to top,
+    hsl(120, 100%, 40%),
     hsl(54, 100%, 50%)
     );
 }
-span.difficulty7 {
-  width: 77%;
-  background-color: hsl(30, 100%, 60%);
+
+.difficulty6 {
+  background-color: hsl(54, 100%, 50%);
+}
+
+.difficulty7 {
   background: linear-gradient(
-    to bottom,
-    hsl(30, 100%, 90%),
+    to top,
+    hsl(54, 100%, 50%),
     hsl(30, 100%, 50%)
     );
 }
-span.difficulty8 {
-  width: 88%;
-  background-color: hsl(15, 100%, 60%);
-  background: linear-gradient(
-    to bottom,
-    hsl(15, 100%, 90%),
-    hsl(15, 100%, 50%)
-    );
+
+.difficulty8 {
+  background-color: hsl(30, 100%, 50%);
 }
-span.difficulty9 {
-  width: 97%;
-  background-color: hsl(0, 100%, 60%);
+
+.difficulty9 {
   background: linear-gradient(
-    to bottom,
-    hsl(0, 100%, 90%),
+    to top,
+    hsl(30, 100%, 50%),
     hsl(0, 100%, 50%)
     );
 }
-span.difficulty10 {
-  width: 100%;
-  background: linear-gradient(
-    to right,
-    hsl(240, 100%, 40%),
-    hsl(190, 100%, 50%),
-    hsl(160, 100%, 50%),
-    hsl(120, 100%, 50%),
-    hsl(80, 100%, 50%),
-    hsl(50, 100%, 50%),
-    hsl(0, 100%, 50%)
-    );
+
+.difficulty10 {
+  background-color: hsl(0, 100%, 50%);
 }

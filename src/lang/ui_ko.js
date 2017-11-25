@@ -380,6 +380,4 @@ ui_ko["No solution can be loaded when using REPL (Py)."] = "No solution can be l
 ui_ko["You are not allowed to use <code>done</code> in this world!"] = "You are not allowed to use <code>done</code> in this world!";
 ui_ko["Execution ended before the <em>Post</em> code was executed."] = "Execution ended before the <em>Post</em> code was executed.";
 
-ui_ko["Easy"] = "Easy";
-ui_ko["Hard"] = "Hard";
 ui_ko["Difficulty level"] = "Difficulty level";

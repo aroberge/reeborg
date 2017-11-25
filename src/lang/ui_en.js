@@ -342,6 +342,4 @@ ui_en["No solution can be loaded when using REPL (Py)."] = "No solution can be l
 ui_en["You are not allowed to use <code>done</code> in this world!"] = "You are not allowed to use <code>done</code> in this world!";
 ui_en["Execution ended before the <em>Post</em> code was executed."] = "Execution ended before the <em>Post</em> code was executed.";
 
-ui_en["Easy"] = "Easy";
-ui_en["Hard"] = "Hard";
 ui_en["Difficulty level"] = "Difficulty level";

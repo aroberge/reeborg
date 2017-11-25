@@ -33,10 +33,24 @@ function goal_to_achieve() {
 
 
 function difficulty(level) {
-    var begin = "<h3>" + RUR.translate("Difficulty level") + "</h3>" + 
-            "<div class='difficulty'>" + RUR.translate("Easy") + " <div><span class='",
-        end = "'></span></div> " + RUR.translate("Hard") + "</div>";
-    return begin + level + end;
+    var image_src, begin, i, robots;
+    image_src = '<img src = "' + RUR.BASE_URL + '/src/images/transparent_robot.png"';
+    begin = '<h3>' + RUR.translate("Difficulty level") + '</h3><div class="difficulty">';
+
+    level = level[level.length-1];  // extract last character.
+    level = parseInt(level, 10);
+    if (level === 0) {
+        level = 10;
+    }
+    robots = '';
+    for (i=1; i <= level; i++) {
+        robots += image_src + 'class = "difficulty' + i +'">';
+    }
+    for (i=level+1; i <= 10; i++) {
+        robots += image_src + '>';
+    }
+
+    return begin + robots + '</div>';
 }
 
 
