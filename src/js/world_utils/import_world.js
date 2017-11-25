@@ -14,6 +14,8 @@ RUR.world_utils.import_world = function (json_string) {
     var body, editor_content, library_content, i, keys, more_keys, coord, index, obstacles;
 
     RUR.hide_end_dialogs();
+    RUR.state.visible_grid = false; /* if true, will be shown above tiles */
+    RUR.public = {}; // reset
 
     if (json_string === undefined || json_string === "undefined"){
         RUR.show_feedback("#Reeborg-shouts",

@@ -12,7 +12,6 @@ require("./../utils/supplant.js");
 require("./../world_api/things.js");
 
 RUR.world_get = {};
-var goal_to_achieve = "<h3>" + RUR.translate("Goal to achieve:") + "</h3>";
 
 RUR.world_get.tile_at_position = function (x, y) { // TODO: still needed or move elswhere?
     "use strict";
@@ -27,9 +26,15 @@ RUR.world_get.object_at_robot_position = function (robot, obj) { // TODO: still 
     return object_of_type_here(robot, obj, RUR.get_current_world().objects);
 };
 
-// CSS widget to show difficulty level.
+
+function goal_to_achieve() {
+    return "<h3>" + RUR.translate("Goal to achieve:") + "</h3>";
+}
+
+
 function difficulty(level) {
-    var begin = "<div class='difficulty'>" + RUR.translate("Easy") + " <div><span class='",
+    var begin = "<h3>" + RUR.translate("Difficulty level") + "</h3>" + 
+            "<div class='difficulty'>" + RUR.translate("Easy") + " <div><span class='",
         end = "'></span></div> " + RUR.translate("Hard") + "</div>";
     return begin + level + end;
 }
@@ -71,7 +76,7 @@ function object_of_type_here (robot, obj, object_type) {
  * @instance
  *
  * @desc Used to show (or not) the content of the various world
- * editors in the world description (world info button for English UI).
+ * editors in the world's description (**World Info** button for English UI).
  *
  * @param {bool} show
  * 
@@ -219,7 +224,7 @@ RUR.world_get.world_info = function (show_info_at_location) {
     if (goals !== undefined &&
          (goals.possible_final_positions !== undefined || goals.position !== undefined)){
 
-        information += goal_to_achieve;
+        information += goal_to_achieve();
         if (goals.possible_final_positions !== undefined && goals.possible_final_positions.length > 2) {
             information += RUR.translate("The final required position of the robot will be chosen at random.");
         } else {
@@ -351,7 +356,7 @@ function get_info_about_location() {
                 if (obj_here.hasOwnProperty(obj_type)) {
                     if (need_heading){
                         need_heading = false;
-                        grid_info += goal_to_achieve;
+                        grid_info += goal_to_achieve();
                     }
                    grid_info += RUR.translate(obj_type) + ":" + obj_here[obj_type] + "<br>";
                 }
@@ -362,14 +367,14 @@ function get_info_about_location() {
                 if (goals.walls[coords].indexOf("east") != -1) {
                     if (need_heading){
                         need_heading = false;
-                        grid_info += goal_to_achieve;
+                        grid_info += goal_to_achieve();
                     }
                     grid_info += RUR.translate("A wall must be built east of this location.") + "<br>";
                 }
                 if (goals.walls[coords].indexOf("north") != -1) {
                     if (need_heading){
                         need_heading = false;
-                        grid_info += goal_to_achieve;
+                        grid_info += goal_to_achieve();
                     }
                     grid_info += RUR.translate("A wall must be built north of this location.") + "<br>";
                 }
@@ -380,7 +385,7 @@ function get_info_about_location() {
                 if (goals.walls[coords].indexOf("east") != -1) {
                     if (need_heading){
                         need_heading = false;
-                        grid_info += goal_to_achieve;
+                        grid_info += goal_to_achieve();
                     }
                     grid_info += RUR.translate("A wall must be built west of this location.") + "<br>";
                 }
@@ -392,7 +397,7 @@ function get_info_about_location() {
                 if (goals.walls[coords].indexOf("north") != -1) {
                     if (need_heading){
                         need_heading = false;
-                        grid_info += goal_to_achieve;
+                        grid_info += goal_to_achieve();
                     }
                     grid_info += RUR.translate("A wall must be built south of this location.") + "<br>";
                 }

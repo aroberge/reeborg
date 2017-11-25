@@ -210,8 +210,7 @@ RUR.reset_pre_run_defaults = function () {
         // set to true.
     RUR.state.prevent_playback = false;
 
-    /* Special drawing settings that can be set to true in a program */
-    RUR.state.visible_grid = false;
+
     RUR.state.do_not_draw_info = false; // see document titled
                     // "How to show just the path followed by Reeborg"
 

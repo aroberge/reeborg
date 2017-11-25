@@ -344,3 +344,4 @@ ui_en["Execution ended before the <em>Post</em> code was executed."] = "Executio
 
 ui_en["Easy"] = "Easy";
 ui_en["Hard"] = "Hard";
+ui_en["Difficulty level"] = "Difficulty level";

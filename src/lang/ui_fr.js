@@ -380,3 +380,4 @@ ui_fr["Execution ended before the <em>Post</em> code was executed."] = "L'exécu
 
 ui_fr["Easy"] = "Facile";
 ui_fr["Hard"] = "Difficile";
+ui_fr["Difficulty level"] = "Niveau de difficulté";

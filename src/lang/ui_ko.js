@@ -382,3 +382,4 @@ ui_ko["Execution ended before the <em>Post</em> code was executed."] = "Executio
 
 ui_ko["Easy"] = "Easy";
 ui_ko["Hard"] = "Hard";
+ui_ko["Difficulty level"] = "Difficulty level";

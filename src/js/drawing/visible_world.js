@@ -208,12 +208,15 @@ function draw_coordinates () {
 
 function draw_grid_walls (ctx, edit){
     "use strict";
-    var i, j, image_e, image_n, wall_e, wall_n,
+    var i, j, image_e, image_n, wall_e, wall_n, draw_only_path, x, y,
         x_offset_e, x_offset_n, y_offset_e, y_offset_n;
 
     if (RUR.SCALE == 0.5) {  // small wall, adjust grid walls to be less visible
         ctx.save();
         ctx.globalAlpha = 0.3;
+    } else if (!edit) {
+        ctx.save();
+        ctx.globalAlpha = 0.5;
     }
 
     if (edit) {
@@ -232,13 +235,60 @@ function draw_grid_walls (ctx, edit){
     x_offset_n = wall_n.x_offset;
     y_offset_n = wall_n.y_offset;
 
-    for (i = 1; i <= RUR.MAX_X; i++) {
-        for (j = 1; j <= RUR.MAX_Y; j++) {
-            draw_single_object(image_e, i, j, ctx, x_offset_e, y_offset_e);
-            draw_single_object(image_n, i, j, ctx, x_offset_n, y_offset_n);
+    /* draw_grid_wall is called initially to draw the grid on the background
+       drawing context.
+       If may also be called to draw on the goal drawing context (above the tile)
+       if we are editing the world **or** if RUR.state.visible_grid evaluates
+       as **equivalent** to true.
+       
+       If RUR.state.visible_grid is **equal** to true
+       and a desired path named RUR.public.path has been defined, then we only
+       draw the grid on that desired path.
+
+       If RUR.state.visible_grid is **equivalent** to true but not **equal** 
+       OR if RUR.public.path is not defined 
+       (or is not used for something that can be treated as
+       as path below, raising an Error), 
+       then we draw the grid everywhere.
+     */
+
+    draw_only_path = false;
+    if (!edit && // always draw when edit
+        RUR.state.visible_grid === true &&  // not simply equivalent to true
+        RUR.public !== undefined && // should always be the case
+        RUR.public.path !== undefined) { // world creator appears to have created a desired path
+            draw_only_path = true;
+        } 
+
+    if (draw_only_path) {
+        try {
+            for (i=0; i < RUR.public.path.length; i++) {
+                x = RUR.public.path[i][0];
+                y = RUR.public.path[i][1];
+                // draw all four grid "walls" surrounding each position
+                draw_single_object(image_e, x, y, ctx, x_offset_e, y_offset_e);
+                draw_single_object(image_e, x-1, y, ctx, x_offset_e, y_offset_e);
+                draw_single_object(image_n, x, y, ctx, x_offset_n, y_offset_n);                
+                draw_single_object(image_n, x, y-1, ctx, x_offset_n, y_offset_n);                
+            }
+        } catch (e) {
+            draw_only_path = false;
         }
     }
-    if (RUR.SCALE == 0.5) {
+
+    if (!draw_only_path) { // no path or previous attempt failed
+        for (i = 1; i <= RUR.MAX_X; i++) {
+            for (j = 1; j <= RUR.MAX_Y; j++) {
+                // when drawing full grid, only need to draw East and North
+                // grid "wall" for each location
+                draw_single_object(image_e, i, j, ctx, x_offset_e, y_offset_e);
+                draw_single_object(image_n, i, j, ctx, x_offset_n, y_offset_n);
+            }
+        }
+    }
+
+
+    if (RUR.SCALE == 0.5 || !edit) {
         ctx.restore();
     }
 }

@@ -894,9 +894,7 @@ td {
 
 .difficulty {
     font-size: 80%;
-    margin-top: 20px;
-    margin-left: auto;
-    width: 50%;
+    margin: auto;
 }
 
 .difficulty > div { 
@@ -1006,7 +1004,6 @@ span.difficulty9 {
 }
 span.difficulty10 {
   width: 100%;
-  /*background-color: hsl(0, 100%, 50%);*/
   background: linear-gradient(
     to right,
     hsl(240, 100%, 40%),

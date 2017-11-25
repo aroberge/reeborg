@@ -379,3 +379,4 @@ ui_pl["Execution ended before the <em>Post</em> code was executed."] = "Executio
 
 ui_pl["Easy"] = "Easy";
 ui_pl["Hard"] = "Hard";
+ui_pl["Difficulty level"] = "Difficulty level";
