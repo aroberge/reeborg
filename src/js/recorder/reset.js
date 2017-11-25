@@ -32,14 +32,12 @@ RUR.reset_world = function() {
 
     RUR.set_current_world(RUR.clone_world(RUR.WORLD_BEFORE_ONLOAD));
     world = RUR.get_current_world();
-    RUR.set_world_size(world.cols, world.rows); // in case the size was changed
-                                        // dynamically in pre or main editor
+    // RUR.set_world_size(world.cols, world.rows); // in case the size was changed
+    //                                     // dynamically in pre or main editor
 
     if (RUR.state.run_button_clicked) { // do not process_onload
         return;
     }
-
-    RUR._CORRECT_PATH = [];
 
     RUR.world_utils.process_onload();
     // Does the following need to be kept out of reset_pre_run_defaults?

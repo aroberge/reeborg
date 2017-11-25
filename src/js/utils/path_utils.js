@@ -71,12 +71,12 @@ function compute_path(x_init, y_init, history) {
  * one and `options.message` is specified, an exception will be raised and
  * `options.message` will be shown.
  *
- * @param {string} [options.show_correct_path] If the followed path was not the specified
- * one and `options.show_correct_path` evaluates to `true`, the `desired_path`
+ * @param {string} [options.show_path] If the followed path was not the specified
+ * one and `options.show_path` evaluates to `true`, the `desired_path`
  * will be shown. If this is desired, we suggest to use the string `"true"` which
  * will be valid in both Python and Javascript.
  * If the correct path is followed, and you wish to show the `desired_path`, 
- * simply call `RUR.show_correct_path()` explicitly.
+ * simply call `RUR.show_path()` explicitly.
  *
  * @param {string} [options.color] If the desired path is shown and `options.color`
  * is specified, it will be the color used to show the path.
@@ -110,8 +110,10 @@ RUR.check_path = function (desired_path, options) {
     path_taken = compute_path(x, y, history);
 
     if (desired_path.length > path_taken.length){
+        console.log("desired longer than taken");
         success = false;
     } else if (desired_path.length < path_taken.length){
+        console.log("desired shorter than taken");
         success = false;
     } else {
         for (i=0; i < path_taken.length; i++) {
@@ -120,6 +122,7 @@ RUR.check_path = function (desired_path, options) {
             desired_x = desired_path[i][0];
             desired_y = desired_path[i][1];
             if (x != desired_x || y != desired_y) {
+                console.log("difference at", x, y);
                 success = false;
                 break;
             }
@@ -130,12 +133,15 @@ RUR.check_path = function (desired_path, options) {
         return true;
     }
 
+    console.log("desired_path", desired_path);
+    console.log("path_taken", path_taken);
+
     if (options) {
-        if (options.show_correct_path) {
+        if (options.show_path) {
             if (options.color) {
-                RUR.show_correct_path(desired_path, options.color);
+                RUR.show_path(desired_path, options.color);
             } else {
-                RUR.show_correct_path(desired_path);
+                RUR.show_path(desired_path);
             }
         }
         if (options.message) {
@@ -146,7 +152,7 @@ RUR.check_path = function (desired_path, options) {
 };
 
 
-/** @function show_correct_path
+/** @function show_path
  * @memberof RUR
  * @instance
  * @summary This function draws a path which Reeborg should follow.
@@ -157,7 +163,7 @@ RUR.check_path = function (desired_path, options) {
  * the default is `"lightsteelblue"`.
  *
  */
-RUR.show_correct_path = function (path, color) {
+RUR.show_path = function (path, color) {
     var world = RUR.get_current_world();
     
     if (path === undefined) {
@@ -171,5 +177,5 @@ RUR.show_correct_path = function (path, color) {
     } else {
         world._CORRECT_PATH_COLOR = color;
     }
-    RUR.record_frame("show_correct_path");
+    RUR.record_frame("show_path");
 };

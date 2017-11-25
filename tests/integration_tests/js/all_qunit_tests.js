@@ -42,16 +42,15 @@ QUnit.module("Tutorial worlds: English Python programs", {
 
 QUnit.test("Around 1, 2, 3, 4", function(assert) {
     "use strict";
-    var frames, last_frame, base_url, world_file;
+    var frames, last_frame, base_url, world_file, x, y;
     var done = assert.async();
     base_url = "/worlds/tutorial_en/";
     world_file = "around1.json";
     frames = test_utils.run_python(base_url + world_file, "/tests/integration_tests/programs/around_en.py");
     last_frame = frames[frames.length-1];
-    assert.equal(last_frame.world_map.robots[0].x, 4, "x-position of robot.");
-    assert.equal(last_frame.world_map.robots[0].y, 1, "y-position of robot.");
-    assert.equal(last_frame.world_map.robots[0].objects.token, "infinite", "Nb of tokens carried.");
-    assert.equal(last_frame.world_map.objects['4,1'].token, 1, "Token put down.");
+    x = last_frame.world_map.robots[0].x;
+    y = last_frame.world_map.robots[0].y;
+    assert.equal(last_frame.world_map.objects[x + "," + y].token, 1, "Token put down.");
     RUR.rec.conclude();
     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     assert.equal(test_utils.content,
@@ -400,10 +399,9 @@ QUnit.test("Around 1, 2, 3, 4", function(assert) {
     world_file = "around1.json";
     frames = test_utils.run_python(base_url + world_file, "/tests/integration_tests/programs/around_fr.py");
     last_frame = frames[frames.length-1];
-    assert.equal(last_frame.world_map.robots[0].x, 4, "x-position of robot.");
-    assert.equal(last_frame.world_map.robots[0].y, 1, "y-position of robot.");
-    assert.equal(last_frame.world_map.robots[0].objects.token, "infinite", "Nb of tokens carried.");
-    assert.equal(last_frame.world_map.objects['4,1'].token, 1, "Token put down.");
+    x = last_frame.world_map.robots[0].x;
+    y = last_frame.world_map.robots[0].y;
+    assert.equal(last_frame.world_map.objects[x + "," + y].token, 1, "Token put down.");
     RUR.rec.conclude();
     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     assert.equal(test_utils.content,
@@ -460,7 +458,7 @@ QUnit.test("Centre 1, 2, 3", function(assert) {
 QUnit.test("Hurdles 1, 2, 3, 4", function(assert) {
     var base_url, i, world_files, frames;
     var done = assert.async();
-    base_url = "/src/worlds/tutorial_en/";
+    base_url = "/worlds/tutorial_en/";
     world_files = ["hurdle1.json", "hurdle2.json", "hurdle3.json", "hurdle4.json"];
     test_utils.load_program("/tests/integration_tests/programs/hurdle_fr.py");
     for (i in world_files) {

@@ -79,7 +79,7 @@
     "    [4,2], [5,2], [5,1], [6,1], [6,2], [7,2], [7,1], [8,1],",
     "    [8,2], [9,2], [9,1], [10,1], [10,2], [11,2], [11,1], [12,1],",
     "    [12,2], [13,2], [13,1], [14,1]];",
-    "RUR.show_correct_path(RUR.public['path']);",
+    "RUR.show_path(RUR.public['path']);",
     "RUR.public.trim_path = function(){",
     "    var i, position, x, y, xx, yy, path = [];",
     "    position = RUR.get_current_world().goal.position;",
@@ -99,12 +99,12 @@
   ],
   "pre": [
     "RUR.public.trim_path()",
-    "RUR.show_correct_path()"
+    "RUR.show_path()"
   ],
   "post": [
     "RUR.check_path(RUR.public['path'],",
     "     {'message':\"Reeborg did not follow the correct path.\", ",
-    "      'show_correct_path': 'true'})",
+    "      'show_path': 'true'})",
     ""
   ],
   "small_tiles": false

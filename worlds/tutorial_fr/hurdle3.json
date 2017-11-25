@@ -16,13 +16,13 @@
   "rows": 5,
   "cols": 14,
   "pre": [
-    "RUR.show_correct_path()", 
+    "RUR.show_path()", 
     ""
   ],
   "post": [
     "RUR.check_path(RUR.public['path'],",
     "     {'message':\"Reeborg n'a pas suivi le bon chemin.\", ",
-    "      'show_correct_path': 'true'})",
+    "      'show_path': 'true'})",
     ""
   ],
    "description": [
@@ -43,7 +43,7 @@
     "        RUR.public.path.append([x+1, 2])",
     "    RUR.public.path.append([x+1, 1])",
     "    ",
-    "RUR.show_correct_path(RUR.public['path'])",
+    "RUR.show_path(RUR.public['path'])",
     ""
   ],
   "walls": {},
