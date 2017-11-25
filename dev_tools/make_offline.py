@@ -75,6 +75,7 @@ QUnit.config.collapse = false;</script>
 <script type="text/javascript" src="js/all_qunit_tests.js" defer></script>
 <script type="text/javascript" src="tutorial_en/test_tutorial_en_js.js" defer></script>
 <script type="text/javascript" src="tutorial_fr/test_tutorial_fr_js.js" defer></script>
+<script type="text/javascript" src="tutorial_fr/test_tutorial_fr_py.js" defer></script>
 <script type="text/javascript" src="js/api_tests.js" defer></script>
 <script type="text/javascript" src="vincent_maille/maille_qunit.js" defer></script>
 <script type="text/javascript" src="jsdoc/advanced_world_creation.js" defer></script>

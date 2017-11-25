@@ -12,7 +12,7 @@
   "description": [
     "Écrivez un programme qui permet à Reeborg de retourner à sa maison.",
     "<h3>Ce que vous devez connaître</h3>",
-    "Les fonctions <code>avance()</code> et <code>tourne_a_gauche()</code> ou <code>tourne_à_gauche()</code>.",
+    "Les fonctions <code>avance()</code> et <code>tourne_a_gauche()</code>.",
     "DIFFICULTY1"
   ],
   "onload": "RUR.state.visible_grid = true;",

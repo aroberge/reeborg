@@ -115,7 +115,7 @@
   "description": [
     "Écrivez un programme qui permet à Reeborg de retourner à sa maison.",
     "<h3>Ce que vous devez connaître</h3>",
-    "Les fonctions <code>avance()</code> et <code>tourne_a_gauche()</code> [ou <code>tourne_à_gauche()</code>].",
+    "Les fonctions <code>avance()</code> et <code>tourne_a_gauche()</code>.",
     "Pour que Reeborg tourne vers sa droite, vous devez lui faire faire trois virages vers sa gauche.",
     "DIFFICULTY1"
   ],

@@ -16,15 +16,24 @@ require("./../drawing/visible_world.js");
 
 RUR.print_path = function () {
     "use strict";
-    var history, path, world, x_init, y_init;
+    var history, path, world, x_init, y_init, robot;
 
     world = RUR.get_current_world();
     if (world.robots === undefined || world.robots.length === 0) {
         throw new RUR.ReeborgError("Missing robot; cannot print path.");
     }
-    history = world.robots[0]._trace_history;
-    x_init = world.robots[0].initial_position[0];
-    y_init = world.robots[0].initial_position[1];
+    robot = world.robots[0];
+    history = robot._trace_history;
+
+    if (robot.initial_position !== undefined) {
+        x_init = robot.initial_position[0];
+        y_init = robot.initial_position[1];        
+    } else {
+        console.warn("Initial_position not defined for robot in print_path; robot =", robot);
+        x_init = robot.x;
+        y_init = robot.y;
+    }
+
     path = compute_path(x_init, y_init, history);
     RUR._write_ln(path);
 };
@@ -79,16 +88,25 @@ function compute_path(x_init, y_init, history) {
 
 RUR.check_path = function (desired_path, options) {
     "use strict";
-    var history, i, world, desired_x, desired_y, path_taken, x, y;
+    var history, i, world, desired_x, desired_y, path_taken, x, y, robot;
     var success = true;
 
     world = RUR.get_current_world();
     if (world.robots === undefined || world.robots.length === 0) {
         throw new RUR.ReeborgError("Missing robot; cannot check path.");
     }
-    history = world.robots[0]._trace_history;
-    x = world.robots[0].initial_position[0];
-    y = world.robots[0].initial_position[1];
+    robot = world.robots[0];
+    history = robot._trace_history;
+
+    if (robot.initial_position !== undefined) {
+        x = robot.initial_position[0];
+        y = robot.initial_position[1];        
+    } else {
+        console.warn("Initial_position not defined for robot in check_path; robot =", robot);
+        x = robot.x;
+        y = robot.y;
+    }
+
     path_taken = compute_path(x, y, history);
 
     if (desired_path.length > path_taken.length){
