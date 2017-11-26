@@ -67,3 +67,25 @@ QUnit.test("But 1, 2, 3, 4", function(assert) {
     done();
 });
 
+QUnit.test("Haies 1, 2, 3, 4", function(assert) {
+    var py_js, w, program_files, world_files;
+    var done = assert.async();
+
+    program_files = ["hurdle_fr.js", "hurdle_fr.py"];
+    world_files = ["hurdle1.json", "hurdle2.json", "hurdle3.json", "hurdle4.json"];
+
+    for (py_js in test_utils.runners){
+        for (w in world_files) {
+            test_utils.runners[py_js](
+                test_utils.world_dir + world_files[w], 
+                test_utils.program_dir + program_files[py_js]
+                );
+            assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
+            assert.equal(test_utils.content,
+                "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li><li class='success'>Reeborg est à la bonne coordonnée y.</li></ul>",
+                "Feedback text ok.");
+        }
+    }
+
+    done();
+});

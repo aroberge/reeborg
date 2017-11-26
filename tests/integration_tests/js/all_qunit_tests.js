@@ -87,30 +87,8 @@ QUnit.test("Center 1, 2, 3", function(assert) {
         "Feedback text ok.");
     done();
 });
-QUnit.test("Hurdles 1, 2, 3, 4", function(assert) {
-    var base_url, i, world_files, frames;
-    var done = assert.async();
-    test_utils.set_human_language("en");
-    base_url = "/worlds/tutorial_en/";
-    world_files = ["hurdle1.json", "hurdle2.json", "hurdle3.json", "hurdle4.json"];
-    for (i in world_files) {
-        // Need to use run_python instead of eval_python to have initially
-        // random values set.
-        frames = test_utils.run_python(base_url + world_files[i],
-                                        "/tests/integration_tests/programs/hurdle_en.py");
-        RUR.rec.conclude();
-        assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-        assert.equal(test_utils.content,
-            "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></ul>",
-            "Feedback text ok.");  
-    }
-    RUR.rec.conclude();
-    assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-    assert.equal(test_utils.content,
-        "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></ul>",
-        "Feedback text ok.");
-    done();
-});
+
+
 QUnit.test("Maze 1, 2", function(assert) {
     var base_url, i, world_files;
     var done = assert.async();
@@ -376,25 +354,7 @@ QUnit.test("Centre 1, 2, 3", function(assert) {
         "Feedback text ok.");
     done();
 });
-QUnit.test("Hurdles 1, 2, 3, 4", function(assert) {
-    var base_url, i, world_files, frames;
-    var done = assert.async();
-    base_url = "/worlds/tutorial_en/";
-    world_files = ["hurdle1.json", "hurdle2.json", "hurdle3.json", "hurdle4.json"];
-    test_utils.load_program("/tests/integration_tests/programs/hurdle_fr.py");
-    for (i in world_files) {
-        // Need to use run_python instead of eval_python to have initially
-        // random values set.
-        frames = test_utils.run_python(base_url + world_files[i],
-                                        "/tests/integration_tests/programs/hurdle_fr.py");
-        RUR.rec.conclude();
-        assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-        assert.equal(test_utils.content,
-            "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li><li class='success'>Reeborg est à la bonne coordonnée y.</li></ul>",
-            "Feedback text ok.");        
-    }
-    done();
-});
+
 QUnit.test("Maze 1, 2", function(assert) {
     var base_url, i, world_files;
     var done = assert.async();
