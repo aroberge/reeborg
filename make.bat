@@ -8,6 +8,10 @@ call npm run build
 
 REM Madge can find circular dependencies
 call madge -c src\js 
+IF %ERRORLEVEL% NEQ 0 (
+  @ECHO ON
+  exit /B
+)
 
 REM Run the integrated tests with a custom server
 python dev_tools/run_qunit_test.py
