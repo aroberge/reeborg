@@ -4,7 +4,7 @@ QUnit.module("Tutorial_en worlds: Javascript programs", {
 });
 
 QUnit.test("Centre 1", function(assert) {
-    var programs_path = "/tests/integration_tests/tutorial_en/programs_js/",
+    var programs_path = "/tests/integration_tests/tutorial_en/programs/",
         worlds_path = "/src/worlds/tutorial_en/",
         world_url = worlds_path + "center1.json",
         done = assert.async();
@@ -15,7 +15,7 @@ QUnit.test("Centre 1", function(assert) {
     done();
 });
 QUnit.test("Failed goal with zero frame recorded", function(assert) {
-    var programs_path = "/tests/integration_tests/tutorial_en/programs_js/",
+    var programs_path = "/tests/integration_tests/tutorial_en/programs/",
         worlds_path = "/src/worlds/tutorial_en/",
         world_url = worlds_path + "center1.json",
         done = assert.async();
@@ -38,7 +38,7 @@ QUnit.test("Home 1, 2, 3, 4", function(assert) {
     test_utils.set_human_language("en");
     RUR.state.programming_language = "javascript";
 
-    test_utils.load_program("/tests/integration_tests/tutorial_en/programs_js/home_en.js");
+    test_utils.load_program("/tests/integration_tests/tutorial_en/programs/home_en.js");
     for (i in world_files) {
         assert.ok(test_utils.eval_javascript(base_url + world_files[i]).success,
                                       world_files[i] + " run successfully.");

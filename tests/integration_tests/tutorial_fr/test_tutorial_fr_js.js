@@ -5,11 +5,11 @@ QUnit.module("Tutorial_fr worlds: Javascript programs", {
     RUR.state.programming_language = "javascript";
     }
 });
-var programs_path = "/tests/integration_tests/tutorial_fr/programs_js/",
+var programs_path = "/tests/integration_tests/tutorial_fr/programs/",
     worlds_path = "/src/worlds/tutorial_en/";  //TODO: fix this by moving tutorial file
 
 QUnit.test("Centre 1", function(assert) {
-    var programs_path = "/tests/integration_tests/tutorial_fr/programs_js/",
+    var programs_path = "/tests/integration_tests/tutorial_fr/programs/",
         worlds_path = "/src/worlds/tutorial_en/",  //TODO: fix this  by moving tutorial file
         world_url = worlds_path + "center1.json",
         done = assert.async();
@@ -26,7 +26,7 @@ QUnit.test("Home 1, 2, 3, 4", function(assert) {
     base_url = "/worlds/tutorial_fr/";
     world_files = ["home1.json", "home2.json", "home3.json", "home4.json"];
 
-    test_utils.load_program("/tests/integration_tests/tutorial_fr/programs_js/home_fr.js");
+    test_utils.load_program("/tests/integration_tests/tutorial_fr/programs/home_fr.js");
     for (i in world_files) {
         assert.ok(test_utils.eval_javascript(base_url + world_files[i]).success,
                                       world_files[i] + " run successfully.");
