@@ -896,11 +896,16 @@ td {
     margin: auto;
 }
 
+.difficulty > img {
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    padding: 0;
+}
 
 
 .difficulty1, .difficulty2, .difficulty3, .difficulty4 {
   background-color: hsl(120, 100%, 40%);
-
 }
 
 .difficulty5 {
