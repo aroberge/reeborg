@@ -47,8 +47,7 @@
     "    RUR.public['path'].push([x, 1]);",
     "}",
     "RUR.state.visible_grid = true;",
-    "RUR.show_path(RUR.public['path'], 'white');",
-    "RUR.success_custom_message = 'Well done!'" 
+    "RUR.show_path(RUR.public['path'], 'white');"
   ],
   "pre": [
     "set_trace_color(\"black\")",
@@ -57,7 +56,8 @@
   ],
   "post": [
     "RUR.check_path(RUR.public['path'],",
-    "     {'message':\"Reeborg did not follow the required path.\", ",
+    "     {'failure':\"Reeborg did not follow the required path.\", ",
+    "      'success': 'Well done!',",
     "      'show_path': 'true', 'color': 'white'})"
   ]
  }

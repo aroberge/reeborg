@@ -21,7 +21,7 @@
   ],
   "post": [
     "RUR.check_path(RUR.public['path'],",
-    "     {'message':\"Reeborg did not follow the correct path.\", ",
+    "     {'failure':\"Reeborg did not follow the correct path.\", ",
     "      'show_path': 'true'})",
     ""
   ],

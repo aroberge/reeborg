@@ -66,23 +66,29 @@ function compute_path(x_init, y_init, history) {
  * @param {list} desired_path A desired path, as printed by `RUR.print_path`.
  * 
  * @param {Object} [options] A Javascript object (similar to a Python dict).
+ * 
+ * @param {string} [options.failure] If the followed path was **not** the specified
+ * one and `options.failure` is specified, an exception will be raised and
+ * `options.failure` will be shown.
  *
- * @param {string} [options.message] If the followed path was not the specified
- * one and `options.message` is specified, an exception will be raised and
- * `options.message` will be shown.
+ * @param {string} [options.success] If the followed path **was** the specified
+ * one and `options.success` is specified, an exception will be raised and
+ * `options.success` will be shown.
  *
  * @param {string} [options.show_path] If the followed path was not the specified
- * one and `options.show_path` evaluates to `true`, the `desired_path`
+ * one and `options.show_path` is set to `true`, the `desired_path`
  * will be shown. If this is desired, we suggest to use the string `"true"` which
  * will be valid in both Python and Javascript.
  * If the correct path is followed, and you wish to show the `desired_path`, 
- * simply call `RUR.show_path()` explicitly.
+ * simply call `RUR.show_path()` explicitly with the relevant arguments
+ * prior to calling `RUR.check_path()`.
  *
  * @param {string} [options.color] If the desired path is shown and `options.color`
  * is specified, it will be the color used to show the path.
  *
- * @returns {bool} True if the correct path was followed. If `options.message`
- * is not specified and the correct path was not followed, it will return false.
+ * @returns {bool} True if the correct path was followed, false otherwise **and**
+ * if the relevant option `options.success` or `options.failure`
+ * is not specified.
  *
  */
 
@@ -130,11 +136,14 @@ RUR.check_path = function (desired_path, options) {
     }
 
     if (success) {
+        if (options) {
+            if (options.success) {
+                RUR.success_custom_message = options.success;
+                throw new RUR.ReeborgOK(options.success);
+            }
+        }
         return true;
     }
-
-    console.log("desired_path", desired_path);
-    console.log("path_taken", path_taken);
 
     if (options) {
         if (options.show_path) {
@@ -144,8 +153,9 @@ RUR.check_path = function (desired_path, options) {
                 RUR.show_path(desired_path);
             }
         }
-        if (options.message) {
-            throw new RUR.ReeborgError(options.message);
+        if (options.failure) {
+            RUR.failure_custom_message = options.failure;
+            throw new RUR.ReeborgError(options.failure);
         }
     }
     return false;

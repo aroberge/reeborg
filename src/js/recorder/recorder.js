@@ -212,10 +212,14 @@ RUR.rec.check_current_world_status = function() {
     frame = {};
     frame.world_map = RUR.get_current_world();
     if (frame.world_map.goal === undefined){
-        RUR.show_feedback("#Reeborg-concludes",
+        if (RUR.success_custom_message !== undefined) {
+            RUR.show_feedback("#Reeborg-concludes", RUR.success_custom_message);
+        } else {
+            RUR.show_feedback("#Reeborg-concludes",
                              "<p class='center'>" +
                              RUR.translate("Last instruction completed!") +
                              "</p>");
+        }
     } else {
         goal_status = RUR.rec.check_goal(frame);
         if (goal_status.success) {
@@ -249,9 +253,13 @@ RUR.rec.check_goal = function (frame) {
     if (g === undefined) {   // This is only needed for some functional tests
         return goal_status;  // which call check_goal directly
     } else if (Object.keys(g).length === 0) { // no real goal to check
-        goal_status.message = "<p class='center'>" +
+        if (RUR.success_custom_message !== undefined) {
+            goal_status.message =  RUR.success_custom_message;
+        } else {
+            goal_status.message = "<p class='center'>" +
                      RUR.translate("Last instruction completed!") +
                      "</p>";
+        }
         return goal_status;
     }
 
@@ -312,10 +320,13 @@ RUR.rec.check_goal = function (frame) {
     }
     goal_status.message += "</ul>";
     if (goal_status.message == "<ul></ul>") { // there was no goal to check
-        goal_status.message = "<p class='center'>" +
-            RUR.translate("Last instruction completed!") +
-            "</p>";            
+        if (RUR.success_custom_message !== undefined) {
+            goal_status.message =  RUR.success_custom_message;
+        } else {
+            goal_status.message = "<p class='center'>" +
+                     RUR.translate("Last instruction completed!") +
+                     "</p>";
+        }       
     }
-
     return goal_status;
 };

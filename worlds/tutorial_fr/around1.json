@@ -45,8 +45,7 @@
     "    RUR.public['path'].push([x, 1]);",
     "}",
     "RUR.state.visible_grid = true;",
-    "RUR.show_path(RUR.public['path'], 'white');",
-    "RUR.success_custom_message = 'Très bien fait !'" 
+    "RUR.show_path(RUR.public['path'], 'white');"
   ],
   "pre": [
     "couleur_de_trace(\"black\")",
@@ -55,7 +54,8 @@
   ],
   "post": [
     "RUR.check_path(RUR.public['path'],",
-    "     {'message':\"Reeborg n'a pas suivi le bon chemin.\", ",
+    "     {'failure':\"Reeborg n'a pas suivi le bon chemin.\", ",
+    "      'success': 'Très bien fait !', ",
     "      'show_path': 'true', 'color': 'white'})"
   ]
 }

@@ -53,7 +53,7 @@
   ],
   "post": [
     "RUR.check_path(RUR.public['path'],",
-    "     {'message':\"Reeborg n'a pas suivi le bon chemin.\", ",
+    "     {'failure':\"Reeborg n'a pas suivi le bon chemin.\", ",
     "      'show_path': 'true'})",
     ""
   ]
