@@ -69,53 +69,7 @@ QUnit.module("Tutorial worlds: English Python programs", {
   }
 });
 
-QUnit.test("Around 1, 2, 3, 4", function(assert) {
-    "use strict";
-    var frames, last_frame, base_url, world_file, x, y;
-    var done = assert.async();
-    base_url = "/worlds/tutorial_en/";
-    world_file = "around1.json";
-    frames = test_utils.run_python(base_url + world_file, "/tests/integration_tests/programs/around_en.py");
-    last_frame = frames[frames.length-1];
-    x = last_frame.world_map.robots[0].x;
-    y = last_frame.world_map.robots[0].y;
-    assert.equal(last_frame.world_map.objects[x + "," + y].token, 1, "Token put down.");
-    RUR.rec.conclude();
-    assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-    assert.equal(test_utils.content,
-        "<p class='center'>Last instruction completed!</p>",
-        "Feedback text ok.");
 
-    world_file = "around2.json";
-    frames = test_utils.run_python(base_url + world_file, "/tests/integration_tests/programs/around_en.py");
-    last_frame = frames[frames.length-1];
-    assert.equal(last_frame.world_map.robots[0].x, 4, "x-position of robot.");
-    assert.equal(last_frame.world_map.robots[0].y, 1, "y-position of robot.");
-    assert.equal(last_frame.world_map.robots[0].objects.token, "infinite", "Nb of tokens carried.");
-    assert.equal(last_frame.world_map.objects['4,1'].token, 1, "Token put down.");
-
-    world_file = "around3.json";
-    frames = test_utils.run_python(base_url + world_file);
-    last_frame = frames[frames.length-1];
-    assert.equal(last_frame.world_map.robots[0].x, 4, "x-position of robot.");
-    assert.equal(last_frame.world_map.robots[0].y, 1, "y-position of robot.");
-    assert.equal(last_frame.world_map.robots[0].objects.token, "infinite", "Nb of tokens carried.");
-    assert.equal(last_frame.world_map.objects['4,1'].token, 1, "Token put down.");
-
-    world_file = "around4.json";
-    frames = test_utils.run_python(base_url + world_file);
-    last_frame = frames[frames.length-1];
-    assert.equal(last_frame.world_map.robots[0].x, 4, "x-position of robot.");
-    assert.equal(last_frame.world_map.robots[0].y, 1, "y-position of robot.");
-    assert.equal(last_frame.world_map.robots[0].objects.token, "infinite", "Nb of tokens carried.");
-    assert.equal(last_frame.world_map.objects['4,1'].token, 1, "Token put down.");
-    RUR.rec.conclude();
-    assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-    assert.equal(test_utils.content,
-        "<p class='center'>Last instruction completed!</p>",
-        "Feedback text ok.");
-    done();
-});
 QUnit.test("Center 1, 2, 3", function(assert) {
     var base_url, i, world_files;
     var done = assert.async();
@@ -404,53 +358,7 @@ QUnit.module("Tutorial worlds: French Python programs", {
   }
 });
 
-QUnit.test("Around 1, 2, 3, 4", function(assert) {
-    "use strict";
-    var frames, last_frame, base_url, world_file;
-    var done = assert.async();
-    base_url = "/worlds/tutorial_fr/";
-    world_file = "around1.json";
-    frames = test_utils.run_python(base_url + world_file, "/tests/integration_tests/programs/around_fr.py");
-    last_frame = frames[frames.length-1];
-    x = last_frame.world_map.robots[0].x;
-    y = last_frame.world_map.robots[0].y;
-    assert.equal(last_frame.world_map.objects[x + "," + y].token, 1, "Token put down.");
-    RUR.rec.conclude();
-    assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-    assert.equal(test_utils.content,
-        "<p class='center'>Dernière instruction complétée!</p>",
-        "Feedback text ok.");
 
-    world_file = "around2.json";
-    frames = test_utils.run_python(base_url + world_file, "/tests/integration_tests/programs/around_fr.py");
-    last_frame = frames[frames.length-1];
-    assert.equal(last_frame.world_map.robots[0].x, 4, "x-position of robot.");
-    assert.equal(last_frame.world_map.robots[0].y, 1, "y-position of robot.");
-    assert.equal(last_frame.world_map.robots[0].objects.token, "infinite", "Nb of tokens carried.");
-    assert.equal(last_frame.world_map.objects['4,1'].token, 1, "Token put down.");
-
-    world_file = "around3.json";
-    frames = test_utils.run_python(base_url + world_file);
-    last_frame = frames[frames.length-1];
-    assert.equal(last_frame.world_map.robots[0].x, 4, "x-position of robot.");
-    assert.equal(last_frame.world_map.robots[0].y, 1, "y-position of robot.");
-    assert.equal(last_frame.world_map.robots[0].objects.token, "infinite", "Nb of tokens carried.");
-    assert.equal(last_frame.world_map.objects['4,1'].token, 1, "Token put down.");
-
-    world_file = "around4.json";
-    frames = test_utils.run_python(base_url + world_file);
-    last_frame = frames[frames.length-1];
-    assert.equal(last_frame.world_map.robots[0].x, 4, "x-position of robot.");
-    assert.equal(last_frame.world_map.robots[0].y, 1, "y-position of robot.");
-    assert.equal(last_frame.world_map.robots[0].objects.token, "infinite", "Nb of tokens carried.");
-    assert.equal(last_frame.world_map.objects['4,1'].token, 1, "Token put down.");
-    RUR.rec.conclude();
-    assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-    assert.equal(test_utils.content,
-        "<p class='center'>Dernière instruction complétée!</p>",
-        "Feedback text ok.");
-    done();
-});
 QUnit.test("Centre 1, 2, 3", function(assert) {
     var base_url, i, world_files;
     var done = assert.async();

@@ -21,8 +21,30 @@ QUnit.module("Tutorial_fr tests", {
 //     assert.notOk(test_utils.eval_javascript(world_url, programs_path + "test_syntax_fail_fr.js").success, "Failing program (syntax error) recognized as such.");
 //     done();
 // });
+// 
 
-QUnit.test("Home 1, 2, 3, 4", function(assert) {
+QUnit.test("Autour 1, 2, 3, 4", function(assert) {
+    var py_js, info, program_files, world, world_files;
+    var done = assert.async();
+    program_files = ["around_fr.js", "around_fr.py"];
+    world_files = ["around1.json", "around2.json", "around3.json", "around4.json"];
+    for (py_js in test_utils.runners){
+        for (world in world_files) {
+            test_utils.runners[py_js](
+                test_utils.world_dir + world_files[world], 
+                test_utils.program_dir + program_files[py_js]
+                );
+            info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
+            assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
+            assert.equal(test_utils.content,
+                "Très bien fait !",
+                "Feedback text ok.");
+        }
+    }
+    done();
+});
+
+QUnit.test("But 1, 2, 3, 4", function(assert) {
     var py_js, w, program_files, world_files;
     var done = assert.async();
 

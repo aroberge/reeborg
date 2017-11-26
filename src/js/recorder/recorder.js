@@ -147,10 +147,15 @@ RUR.rec.conclude = function () {
         if (RUR.state.sound_on) {
             RUR._play_sound("#success-sound");
         }
-        RUR.show_feedback("#Reeborg-concludes",
+
+        if (RUR.success_custom_message !== undefined) {
+            RUR.show_feedback("#Reeborg-concludes", RUR.success_custom_message);
+        } else {
+            RUR.show_feedback("#Reeborg-concludes",
                              "<p class='center'>" +
                              RUR.translate("Last instruction completed!") +
                              "</p>");
+        }
     }
     RUR.stop();
     return "stopped";

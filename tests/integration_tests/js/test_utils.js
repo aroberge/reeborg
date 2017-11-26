@@ -163,10 +163,11 @@ test_utils.run_program_2 = function(world_url, program_url, language) {
     if (program_url !== undefined) {    // otherwise, reuse same program
         test_utils.load_program(program_url);
     }
-    
+
     try {
         RUR.runner.run(test_utils.playback);
         RUR.rec.conclude();
+        return true;  //  TODO: make use of this return value??
     } catch(e) {
         console.log(">>=========\nError raised", step, e);
         console.log("  frames = ", RUR.frames);
