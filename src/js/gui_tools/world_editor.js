@@ -380,16 +380,20 @@ function calculate_wall_position () {
 }
 
 function __toggle_wall (goal) {
-    var position, x, y, orientation;
+    var position, x, y, orientation, options = {};
     position = calculate_wall_position();
     x = position[0];
     y = position[1];
     orientation = position[2];
 
-    if (RUR.is_wall(orientation, x, y, goal)){
-        RUR.remove_wall(orientation, x, y, goal);
+    if (goal) {
+        options.goal = goal;
+    }
+
+    if (RUR.is_wall(orientation, x, y, options)){
+        RUR.remove_wall(orientation, x, y, options);
     } else {
-        RUR.add_wall(orientation, x, y, goal);
+        RUR.add_wall(orientation, x, y, options);
     }
 }
 
