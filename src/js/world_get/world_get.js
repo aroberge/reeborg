@@ -108,9 +108,11 @@ RUR.world_get.world_info = function (show_info_at_location) {
     // In addition shows the information about a given grid position
     // when the user clicks on the canvas at that grid position.
     // If a global flag is set, it also show the various editors content.
-    var content, description, goals, insertion, to_replace, topic;
+    var content, description, goals, information, insertion, to_replace, topic;
     var no_object, obj, r, robot, robots, x, y;
-    var information = "<div class='automatic-description'>";
+
+    // Default value if not description is provided:
+    information = "<div class='automatic-description'><h2>" + RUR.translate("Description") + "</h2>";
 
     description = RUR.get_current_world().description;
     if (description === undefined) {
@@ -194,10 +196,8 @@ RUR.world_get.world_info = function (show_info_at_location) {
         description = description.replace("DIFFICULTY9", difficulty("difficulty9"));
         description = description.replace("DIFFICULTY10", difficulty("difficulty10"));
 
-        information +="<h2>" + RUR.translate("Description") + "</h2>" + description + "</div>";
-
-
-
+        // replace the default since a description was provided.
+        information = "<div class='automatic-description'>" + description + "</div>";
     }
 
     if (show_info_at_location) {
@@ -245,6 +245,10 @@ RUR.world_get.world_info = function (show_info_at_location) {
             information += RUR.translate("The final position of the robot must be (x, y) = ") +
                            "(" + goals.position.x + ", " + goals.position.y + ")";
         }
+    }
+
+    if (!description) {
+        information = information + "</div>";
     }
 
 

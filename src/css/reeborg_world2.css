@@ -71,17 +71,17 @@ header form {
 
 h1 {
     font-size: 1.7em;
-    color: #248;
+    color: green;
 }
 
 h2 {
     font-size: 1.3em;
-    color: #248;
+    color: green;
 }
 
 h3 {
     font-size: 1.1em;
-    color: #248;
+    color: green;
 }
 
 canvas{
@@ -110,8 +110,7 @@ canvas{
 }
 
 code {
-    font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace;
-    font-size: 12px;
+    font-family: 'Roboto Mono', 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace;
     font-weight: bold;
     border: 1px solid green;
     border-radius: 5px;

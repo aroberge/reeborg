@@ -17,6 +17,7 @@
     }
   },
   "description": [
+    "<h1>I want to go home!</h1>",
     "Write a program that makes Reeborg go home.",
     "<h3>What you need to know</h3>",
     "The function <code>move()</code>.",
