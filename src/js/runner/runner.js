@@ -116,8 +116,8 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             message = response.message;
             other_info = response.other_info;
             error.name = response.error_name;
-            error.message = "<h3>" + error.name + "</h3><h4>" +
-                                    message + "</h4><p>" + other_info + '</p>';
+            error.message = "<h3>" + error.name + "</h3><p>" +
+                                    message + "</p><p>" + other_info + '</p>';
         } else {
             error.name = e.name;
             message = e.message;
@@ -132,8 +132,8 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             RUR.record_frame("error", error);
         } else {
             RUR.show_feedback("#Reeborg-shouts",
-                                    "<h3>" + error.name + "</h3><h4>" +
-                                    message + "</h4><p>" + other_info + '</p>');
+                                    "<h3>" + error.name + "</h3><p>" +
+                                    message + "</p><p>" + other_info + '</p>');
             return true;
         }
     }
