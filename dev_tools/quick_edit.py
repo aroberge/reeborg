@@ -25,7 +25,7 @@ def split():
     new_content = "[\n"
     for item in content:
         if item:
-            new_content += repr(item) + ",\n"
+            new_content += '"' + str(item) + '"\n'
     new_content += "]"
     editor.delete("1.0", "end")
     editor.insert("1.0", new_content)
