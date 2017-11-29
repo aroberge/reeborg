@@ -39,12 +39,12 @@ update_robot_trace_history = function (robot) {
 
     if(RUR.get_current_world().small_tiles) {
         offset = [[12, 12], [12, 12], [12, 12], [12, 12]];
-        trace_segment["thickness"] = 2;
+        trace_segment["thickness"] = 2;  
     } else if (robot._trace_style === "thick") {
         offset = [[25, 25], [25, 25], [25, 25], [25, 25]];
         trace_segment["thickness"] = 4;
     }  else if (robot._trace_style === "default") {
-        trace_segment["thickness"] = 1;
+        trace_segment["thickness"] = 2;
     } // else, invisible and we do not care.
 
     prev_offset = offset[robot._prev_orientation%4];

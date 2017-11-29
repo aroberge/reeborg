@@ -356,6 +356,15 @@ function set_canvases () {
     RUR.TRACE_CANVAS = document.getElementById("trace-canvas"); //15
     create_ctx(RUR.TRACE_CANVAS, "TRACE_CTX");
 
+    // line drawing on canvas is drawn on overlapping pixels; 
+    // see https://stackoverflow.com/a/7531540/558799 and
+    // https://stackoverflow.com/a/13884434/558799 for an explanation.
+    // Rather than adding 0.5 pixel each time we with to draw a line,
+    // we shift the entire trace canvas by 0.5, and can work with integer
+    // values.
+    RUR.TRACE_CTX.translate(0.5, 0.5);
+
+
     RUR.PUSHABLES_CANVAS = document.getElementById("pushables-canvas"); //16
     create_ctx(RUR.PUSHABLES_CANVAS, "PUSHABLES_CTX");
 
