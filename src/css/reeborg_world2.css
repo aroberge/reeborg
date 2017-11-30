@@ -4,6 +4,7 @@ html, body {
 
 body {
     font-family: 'Trebuchet MS', Helvetica, Arial, sans-serif;
+    font-size: 13pt;
 }
 
 /** Collecting all z-indices for easier maintenance */
@@ -47,8 +48,6 @@ button[disabled] {
     background: #eee;
 }
 
-
-
 header {
     position: absolute;
     top: 0;
@@ -71,17 +70,17 @@ header form {
 
 h1 {
     font-size: 1.7em;
-    color: green;
+    color: #248;
 }
 
 h2 {
     font-size: 1.3em;
-    color: green;
+    color: #248;
 }
 
 h3 {
     font-size: 1.1em;
-    color: green;
+    color: #248;
 }
 
 canvas{
@@ -112,9 +111,7 @@ canvas{
 code {
     font-family: 'Roboto Mono', 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace;
     font-weight: bold;
-    border: 1px solid green;
-    border-radius: 5px;
-    padding: 2px;
+    color: green;
 }
 
 pre.error {
@@ -500,6 +497,8 @@ li.failure:after, p.failure:after {
   border: 4px solid #248;
   padding: 1em;
 }
+
+
 .grid-info {
     background-color: cornsilk;
     padding: 1em;
