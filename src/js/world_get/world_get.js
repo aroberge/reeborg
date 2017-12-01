@@ -253,6 +253,7 @@ RUR.world_get.world_info = function (show_info_at_location) {
 
 
     $("#World-info").html(information + '</div>');
+    // automatically determined from running program
     $('.world_info_source').each(function() {
         var $this = $(this), $code = $this.text();
         $this.empty();
@@ -275,6 +276,45 @@ RUR.world_get.world_info = function (show_info_at_location) {
             theme: 'reeborg-readonly'
         });
     });
+
+    // defined explicitly by World Creator
+    $('.python').each(function() {
+        var $this = $(this), $code = $this.text();
+        $this.empty();
+        var myCodeMirror = CodeMirror(this, {
+            value: $code,
+              mode: {
+                name: "python",
+                version: 3
+              },
+            lineNumbers: !$this.is('.inline'),
+            readOnly: true,
+            theme: 'reeborg-readonly'
+        });
+    });
+    $('.javascript').each(function() {
+        var $this = $(this), $code = $this.text();
+        $this.empty();
+        var myCodeMirror = CodeMirror(this, {
+            value: $code,
+            mode:  'javascript',
+            lineNumbers: !$this.is('.inline'),
+            readOnly: true,
+            theme: 'reeborg-readonly'
+        });
+    });
+    $('.html').each(function() {
+        var $this = $(this), $code = $this.text();
+        $this.empty();
+        var myCodeMirror = CodeMirror(this, {
+            value: $code,
+            mode:  "htmlmixed",
+            lineNumbers: !$this.is('.inline'),
+            readOnly: true,
+            theme: 'reeborg-readonly'
+        });
+    });
+
 };
 
 

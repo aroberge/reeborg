@@ -89,26 +89,26 @@ QUnit.test("Center 1, 2, 3", function(assert) {
 });
 
 
-QUnit.test("Maze 1, 2", function(assert) {
-    var base_url, i, world_files;
-    var done = assert.async();
-    base_url = "/src/worlds/tutorial_en/";
-    world_files = ["maze1.json", "maze2.json"];
+// QUnit.test("Maze 1, 2", function(assert) {
+//     var base_url, i, world_files;
+//     var done = assert.async();
+//     base_url = "/src/worlds/tutorial_en/";
+//     world_files = ["maze1.json", "maze2.json"];
 
-    // The general program for the hurdles works for the maze world!
-    test_utils.load_program("/tests/integration_tests/programs/hurdle_en.py");
-    //**************************************************
-    for (i in world_files) {
-        assert.ok(test_utils.eval_python(base_url + world_files[i]).success,
-                                      world_files[i] + " run successfully.");
-    }
-    RUR.rec.conclude();
-    assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-    assert.equal(test_utils.content,
-        "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></ul>",
-        "Feedback text ok.");
-    done();
-});
+//     // The general program for the hurdles works for the maze world!
+//     test_utils.load_program("/tests/integration_tests/programs/hurdle_en.py");
+//     //**************************************************
+//     for (i in world_files) {
+//         assert.ok(test_utils.eval_python(base_url + world_files[i]).success,
+//                                       world_files[i] + " run successfully.");
+//     }
+//     RUR.rec.conclude();
+//     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
+//     assert.equal(test_utils.content,
+//         "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></ul>",
+//         "Feedback text ok.");
+//     done();
+// });
 
 QUnit.test("Harvests", function(assert) {
     "use strict";
@@ -355,26 +355,26 @@ QUnit.test("Centre 1, 2, 3", function(assert) {
     done();
 });
 
-QUnit.test("Maze 1, 2", function(assert) {
-    var base_url, i, world_files;
-    var done = assert.async();
-    base_url = "/src/worlds/tutorial_en/";
-    world_files = ["maze1.json", "maze2.json"];
+// QUnit.test("Maze 1, 2", function(assert) {
+//     var base_url, i, world_files;
+//     var done = assert.async();
+//     base_url = "/src/worlds/tutorial_en/";
+//     world_files = ["maze1.json", "maze2.json"];
 
-    // The general program for the hurdles works for the maze world!
-    test_utils.load_program("/tests/integration_tests/programs/hurdle_fr.py");
-    //**************************************************
-    for (i in world_files) {
-        assert.ok(test_utils.eval_python(base_url + world_files[i]).success,
-                                      world_files[i] + " run successfully.");
-    }
-    RUR.rec.conclude();
-    assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-    assert.equal(test_utils.content,
-        "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li><li class='success'>Reeborg est à la bonne coordonnée y.</li></ul>",
-        "Feedback text ok.");
-    done();
-});
+//     // The general program for the hurdles works for the maze world!
+//     test_utils.load_program("/tests/integration_tests/programs/hurdle_fr.py");
+//     //**************************************************
+//     for (i in world_files) {
+//         assert.ok(test_utils.eval_python(base_url + world_files[i]).success,
+//                                       world_files[i] + " run successfully.");
+//     }
+//     RUR.rec.conclude();
+//     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
+//     assert.equal(test_utils.content,
+//         "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li><li class='success'>Reeborg est à la bonne coordonnée y.</li></ul>",
+//         "Feedback text ok.");
+//     done();
+// });
 
 QUnit.test("Harvests", function(assert) {
     "use strict";
