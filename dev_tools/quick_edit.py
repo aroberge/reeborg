@@ -1,9 +1,12 @@
 r'''This facilitates editing world editor contents without having to use
 Reeborg's world.
 
-When worlds are saved, the content of editors is saved into an array
+Since json does not support multiline strings, when worlds are saved, 
+the content of editors is saved into an array
 whose content is individual lines without \n; when worlds are retrieved,
 the content is recreated by joining the lines.
+[Without doing this, the entire content of an editor would be in
+a single string, making it near-impossible to edit using traditional tools.]
 
 This program allows to do essentially the same. One can paste an array
 containing lines of text, have it join them into a single string with
@@ -20,13 +23,13 @@ def about():
     label = messagebox.showinfo("About", __doc__)
 
 def split():
-    content = editor.get("1.0", "end")  # row.column format
+    content = editor.get("1.0", "end")  # 1.0 = row.column format (tkinter)
     content = content.split("\n")
     new_content = "[\n"
     for item in content:
         if item:
-            new_content += '"' + str(item) + '"\n'
-    new_content += "]"
+            new_content += '"' + str(item) + '",\n'
+    new_content = new_content[:-2] + "\n]"  # drop last comma
     editor.delete("1.0", "end")
     editor.insert("1.0", new_content)
 
