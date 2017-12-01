@@ -10,6 +10,7 @@
   "rows": 3,
   "cols": 3,
   "description": [
+    "<h1>Je veux aller chez moi !</h1>",
     "Écrivez un programme qui permet à Reeborg de retourner à sa maison.",
     "<h3>Ce que vous devez connaître</h3>",
     "Les fonctions <code>avance()</code> et <code>tourne_a_gauche()</code>.",

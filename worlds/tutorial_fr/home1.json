@@ -17,6 +17,7 @@
     }
   },
   "description": [
+    "<h1>Je veux aller chez moi !</h1>",
     "Écrivez un programme qui permet à Reeborg de retourner à sa maison.",
     "<h3>Ce que vous devez connaître</h3>",
     "La fonction <code>avance()</code>.",
