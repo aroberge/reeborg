@@ -22,14 +22,20 @@
   "post": [
     "RUR.check_path(RUR.public['path'],",
     "     {'failure':\"Reeborg did not follow the correct path.\", ",
-    "      'show_path': 'true'})",
+    "      'show_path': 'true', 'color': 'red'})",
     ""
   ],
    "description": [
+    "<h1>Hurdles race</h1>",
     "Reeborg has entered a hurdle race. ",
     "Make him run the course, following the path shown.<br><br>",
     "<em>The position, the height and the number of hurdles changes each time this world is reloaded.</em>",
-    "DIFFICULTY4"
+    "<h3>What you need to know</h3>",
+    "<p>You should be able to write programs that are valid for worlds <b>Around 4</b> and <b>Hurdles 3</b>,",
+    "and ot combine them for this last hurdles race.</p>",
+    "<p>Your program should also be valid for worlds",
+    "<b>Hurdles 1</b>, <b>Hurdles 2</b> et <b>Hurdles 3</b></p>",
+    "DIFFICULTY5"
   ],
   "onload": [
     "# Python",

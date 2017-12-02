@@ -22,14 +22,21 @@
   "post": [
     "RUR.check_path(RUR.public['path'],",
     "     {'failure':\"Reeborg did not follow the correct path.\", ",
-    "      'show_path': 'true'})",
+    "      'show_path': 'true', 'color': 'red'})",
     ""
   ],
    "description": [
+    "<h1>Hurdles race</h1>",
     "Reeborg has entered a hurdle race. ",
     "Make him run the course, following the path shown.<br><br>",
     "<em>The position and number of hurdles changes each time this world is reloaded.</em>",
-    "DIFFICULTY3"
+    "<h3>What you need to know</h3>",
+    "<ul><li>The functions <code>move()</code> and <code>turn_left()</code>.</li>",
+    "<li>The conditions <code>front_is_clear()</code> or <code>wall_in_front()</code>",
+    "<code>at_goal()</code>, and their negation.</li>",
+    "<li>How to use a <code>while</code> loop and an <code>if</code> clause.</li></ul>",
+    "<p>Your program should also be valid for worlds <b>Hurdles 1</b> and <b>Hurdles 2</b>.</p>",
+    "DIFFICULTY4"  
   ],
   "onload": [
     "# Python",

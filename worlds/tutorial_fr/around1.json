@@ -1,5 +1,6 @@
 {
   "description": [
+    "<h1>Faire le tour du monde</h1>",
     "Aidez Reeborg à faire le tour du monde dans le sens contraire des aiguilles d'une montre. ",
     "Reeborg ne doit pas marcher sur le gazon vert foncé.",
     "Le chemin à suivre est indiqué en pointillés blancs.",
@@ -10,7 +11,9 @@
     "<h3>Ce que vous devez connaître</h3>",
     "<ul><li>Les fonctions <code>avance()</code>, <code>tourne_a_gauche()</code> et <code>depose()</code>.</li>",
     "<li>Les conditions <code>rien_devant()</code> ou <code>mur_devant()</code>, et <code>objet_ici()</code>.</li>",
-    "<li>Comment utiliser des boucles <code>while</code>.</li></ul>",
+    "<li>Comment utiliser des boucles <code>while</code>.</li>",
+    "<li>Il pourrait être utile de savoir comment faire la négation d'une condition",
+    "(mot-clé <code>not</code> en Python).</li></ul>",
     "DIFFICULTY2",
     ""
   ],

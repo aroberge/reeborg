@@ -37,19 +37,27 @@
    "goal": {
       "position": {
          "image": "racing_flag",
-         "x": 12,
+         "x": 11,
          "y": 1
       }
    },
    "description": [
-    "Reeborg has entered a hurdle race. ",
+    "<h1>Hurdles race</h1>",
+    "Reeborg has entered a hurdles race. ",
     "Make him run the course, following the path shown.",
-    "DIFFICULTY1"
+    "<h3>What you need to know</h3>",
+    "<ul><li>The functions <code>move()</code> and <code>turn_left()</code>.</li></ul>",
+    "DIFFICULTY1",
+    "<hr><h2>More advanced</h2>",
+    "<p>You may have noticed that your solution has some repeated patterns.",
+    "If you know how to define functions, define a function named <code>jump()</code>",
+    "and use it to simplify your program.</p>",
+    "DIFFICULTY2"
   ],
   "onload": [
     "RUR.public['path'] = [[1,1], [2,1], [2,2], [3,2], [3,1], [4,1],",
     "    [4,2], [5,2], [5,1], [6,1], [6,2], [7,2], [7,1], [8,1],",
-    "    [8,2], [9,2], [9,1], [10,1], [10,2], [11,2], [11,1], [12,1]];",
+    "    [8,2], [9,2], [9,1], [10,1], [10,2], [11,2], [11,1]];",
     "RUR.show_path(RUR.public['path']);",    
     ""
   ],
@@ -60,7 +68,7 @@
   "post": [
     "RUR.check_path(RUR.public['path'],",
     "     {'failure':\"Reeborg did not follow the correct path.\", ",
-    "      'show_path': 'true'})",
+    "      'show_path': 'true', 'color': 'red'})",
     ""
   ]
 }

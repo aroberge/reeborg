@@ -37,42 +37,48 @@
       },
     "possible_final_positions": [
       [
-        8,
+        7,
         1
       ],
       [
-        10,
+        9,
         1
       ],
       [
-        12,
+        11,
         1
       ],
       [
-        14,
+        13,
         1
       ],
       [
-        6,
+        5,
         1
       ],
       [
-        4,
+        3,
         1
       ]
     ]
   },
    "description": [
+    "<h1>Course de haies</h1>",
     "Reeborg fait une course de haies dont il ne connait pas la longueur à l'avance. ",
     "Aidez-le à terminer la course, en suivant un chemin semblable à celui qui est indiqué,",
     "mais s'arrêtant au drapeau qui indiquera la fin de la course.",
-    "DIFFICULTY2"
+    "<h3>Ce que vous devez connaître</h3>",
+    "<ul><li>Les fonctions <code>avance()</code> et <code>tourne_a_gauche()</code>.</li>",
+    "<li>La condition <code>au_but()</code> et sa négation.</li>",
+    "<li>Comment utiliser une boucle <code>while</code></li></ul>",
+    "<p>Votre programme devrait également fonctionner pour le monde <b>Haies 1</b>.</p>",
+    "DIFFICULTY3"
   ],
   "onload": [
     "RUR.public['path'] = [[1,1], [2,1], [2,2], [3,2], [3,1], [4,1],",
     "    [4,2], [5,2], [5,1], [6,1], [6,2], [7,2], [7,1], [8,1],",
     "    [8,2], [9,2], [9,1], [10,1], [10,2], [11,2], [11,1], [12,1],",
-    "    [12,2], [13,2], [13,1], [14,1]];",
+    "    [12,2], [13,2], [13,1]];",
     "RUR.show_path(RUR.public['path']);",
     "RUR.public.trim_path = function(){",
     "    var i, position, x, y, xx, yy, path = [];",
@@ -98,7 +104,7 @@
   "post": [
     "RUR.check_path(RUR.public['path'],",
     "     {'failure':\"Reeborg n'a pas suivi le bon chemin.\", ",
-    "      'show_path': 'true'})",
+    "      'show_path': 'true', 'color': 'red'})",
     ""
   ]
 }

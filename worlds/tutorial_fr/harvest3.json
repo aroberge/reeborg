@@ -1,0 +1,554 @@
+{
+  "robots": [{
+      "x": 1,
+      "y": 1,
+      "orientation": 0,
+      "objects": {
+          "carrot": 36
+      }
+  }],
+  "goal": {
+      "objects": {
+          "5,3": {
+              "carrot": 1
+          },
+          "5,4": {
+              "carrot": 1
+          },
+          "5,5": {
+              "carrot": 1
+          },
+          "5,6": {
+              "carrot": 1
+          },
+          "5,7": {
+              "carrot": 1
+          },
+          "5,8": {
+              "carrot": 1
+          },
+          "4,8": {
+              "carrot": 1
+          },
+          "4,7": {
+              "carrot": 1
+          },
+          "4,6": {
+              "carrot": 1
+          },
+          "4,5": {
+              "carrot": 1
+          },
+          "4,4": {
+              "carrot": 1
+          },
+          "4,3": {
+              "carrot": 1
+          },
+          "6,8": {
+              "carrot": 1
+          },
+          "6,7": {
+              "carrot": 1
+          },
+          "6,6": {
+              "carrot": 1
+          },
+          "6,5": {
+              "carrot": 1
+          },
+          "6,4": {
+              "carrot": 1
+          },
+          "6,3": {
+              "carrot": 1
+          },
+          "7,8": {
+              "carrot": 1
+          },
+          "7,7": {
+              "carrot": 1
+          },
+          "7,6": {
+              "carrot": 1
+          },
+          "7,5": {
+              "carrot": 1
+          },
+          "7,4": {
+              "carrot": 1
+          },
+          "8,7": {
+              "carrot": 1
+          },
+          "8,6": {
+              "carrot": 1
+          },
+          "8,5": {
+              "carrot": 1
+          },
+          "3,8": {
+              "carrot": 1
+          },
+          "3,7": {
+              "carrot": 1
+          },
+          "3,6": {
+              "carrot": 1
+          },
+          "3,5": {
+              "carrot": 1
+          },
+          "3,4": {
+              "carrot": 1
+          },
+          "8,8": {
+              "carrot": 1
+          },
+          "8,4": {
+              "carrot": 1
+          },
+          "7,3": {
+              "carrot": 1
+          },
+          "3,3": {
+              "carrot": 1
+          },
+          "8,3": {
+              "carrot": 1
+          }
+      }
+  },
+  "objects": {
+    "5,3": {
+      "carrot": "0-3"
+    },
+    "5,4": {
+      "carrot": "0-3"
+    },
+    "5,5": {
+      "carrot": "0-3"
+    },
+    "5,6": {
+      "carrot": "0-3"
+    },
+    "5,7": {
+      "carrot": "0-3"
+    },
+    "5,8": {
+      "carrot": "0-3"
+    },
+    "4,8": {
+      "carrot": "0-3"
+    },
+    "4,7": {
+      "carrot": "0-3"
+    },
+    "4,6": {
+      "carrot": "0-3"
+    },
+    "4,5": {
+      "carrot": "0-3"
+    },
+    "4,4": {
+      "carrot": "0-3"
+    },
+    "4,3": {
+      "carrot": "0-3"
+    },
+    "6,8": {
+      "carrot": "0-3"
+    },
+    "6,7": {
+      "carrot": "0-3"
+    },
+    "6,6": {
+      "carrot": "0-3"
+    },
+    "6,5": {
+      "carrot": "0-3"
+    },
+    "6,4": {
+      "carrot": "0-3"
+    },
+    "6,3": {
+      "carrot": "0-3"
+    },
+    "7,8": {
+      "carrot": "0-3"
+    },
+    "7,7": {
+      "carrot": "0-3"
+    },
+    "7,6": {
+      "carrot": "0-3"
+    },
+    "7,5": {
+      "carrot": "0-3"
+    },
+    "7,4": {
+      "carrot": "0-3"
+    },
+    "8,7": {
+      "carrot": "0-3"
+    },
+    "8,6": {
+      "carrot": "0-3"
+    },
+    "8,5": {
+      "carrot": "0-3"
+    },
+    "3,8": {
+      "carrot": "0-3"
+    },
+    "3,7": {
+      "carrot": "0-3"
+    },
+    "3,6": {
+      "carrot": "0-3"
+    },
+    "3,5": {
+      "carrot": "0-3"
+    },
+    "3,4": {
+      "carrot": "0-3"
+    },
+    "8,8": {
+      "carrot": "0-3"
+    },
+    "8,4": {
+      "carrot": "0-3"
+    },
+    "7,3": {
+      "carrot": "0-3"
+    },
+    "3,3": {
+      "carrot": "0-3"
+    },
+    "8,3": {
+      "carrot": "0-3"
+    }
+  },
+  "small_tiles": false,
+  "rows": 10,
+  "cols": 10,
+  "walls": {},
+  "tiles": {
+    "1,10": [
+      "grass"
+    ],
+    "2,10": [
+      "grass"
+    ],
+    "3,10": [
+      "grass"
+    ],
+    "4,10": [
+      "grass"
+    ],
+    "5,10": [
+      "grass"
+    ],
+    "6,10": [
+      "grass"
+    ],
+    "7,10": [
+      "grass"
+    ],
+    "8,10": [
+      "grass"
+    ],
+    "9,10": [
+      "grass"
+    ],
+    "10,10": [
+      "grass"
+    ],
+    "10,9": [
+      "grass"
+    ],
+    "10,8": [
+      "grass"
+    ],
+    "10,7": [
+      "grass"
+    ],
+    "10,6": [
+      "grass"
+    ],
+    "10,5": [
+      "grass"
+    ],
+    "10,4": [
+      "grass"
+    ],
+    "10,3": [
+      "grass"
+    ],
+    "10,2": [
+      "grass"
+    ],
+    "10,1": [
+      "grass"
+    ],
+    "9,1": [
+      "grass"
+    ],
+    "9,2": [
+      "grass"
+    ],
+    "9,3": [
+      "grass"
+    ],
+    "9,4": [
+      "grass"
+    ],
+    "9,5": [
+      "grass"
+    ],
+    "9,6": [
+      "grass"
+    ],
+    "9,7": [
+      "grass"
+    ],
+    "9,8": [
+      "grass"
+    ],
+    "9,9": [
+      "grass"
+    ],
+    "8,9": [
+      "grass"
+    ],
+    "7,9": [
+      "grass"
+    ],
+    "6,9": [
+      "grass"
+    ],
+    "5,9": [
+      "grass"
+    ],
+    "4,9": [
+      "grass"
+    ],
+    "3,9": [
+      "grass"
+    ],
+    "2,9": [
+      "grass"
+    ],
+    "1,9": [
+      "grass"
+    ],
+    "1,8": [
+      "grass"
+    ],
+    "2,8": [
+      "grass"
+    ],
+    "2,7": [
+      "grass"
+    ],
+    "1,7": [
+      "grass"
+    ],
+    "1,6": [
+      "grass"
+    ],
+    "2,6": [
+      "grass"
+    ],
+    "2,5": [
+      "grass"
+    ],
+    "1,5": [
+      "grass"
+    ],
+    "1,4": [
+      "grass"
+    ],
+    "2,4": [
+      "grass"
+    ],
+    "2,3": [
+      "grass"
+    ],
+    "1,3": [
+      "grass"
+    ],
+    "1,2": [
+      "grass"
+    ],
+    "2,2": [
+      "grass"
+    ],
+    "2,1": [
+      "grass"
+    ],
+    "1,1": [
+      "grass"
+    ],
+    "3,1": [
+      "grass"
+    ],
+    "3,2": [
+      "grass"
+    ],
+    "4,2": [
+      "grass"
+    ],
+    "5,2": [
+      "grass"
+    ],
+    "6,2": [
+      "grass"
+    ],
+    "7,2": [
+      "grass"
+    ],
+    "8,2": [
+      "grass"
+    ],
+    "8,1": [
+      "grass"
+    ],
+    "7,1": [
+      "grass"
+    ],
+    "6,1": [
+      "grass"
+    ],
+    "5,1": [
+      "grass"
+    ],
+    "4,1": [
+      "grass"
+    ],
+    "3,8": [
+      "pale_grass"
+    ],
+    "4,8": [
+      "pale_grass"
+    ],
+    "5,8": [
+      "pale_grass"
+    ],
+    "6,8": [
+      "pale_grass"
+    ],
+    "7,8": [
+      "pale_grass"
+    ],
+    "8,8": [
+      "pale_grass"
+    ],
+    "8,7": [
+      "pale_grass"
+    ],
+    "8,6": [
+      "pale_grass"
+    ],
+    "8,5": [
+      "pale_grass"
+    ],
+    "8,4": [
+      "pale_grass"
+    ],
+    "8,3": [
+      "pale_grass"
+    ],
+    "7,3": [
+      "pale_grass"
+    ],
+    "7,4": [
+      "pale_grass"
+    ],
+    "7,5": [
+      "pale_grass"
+    ],
+    "7,6": [
+      "pale_grass"
+    ],
+    "7,7": [
+      "pale_grass"
+    ],
+    "6,7": [
+      "pale_grass"
+    ],
+    "5,7": [
+      "pale_grass"
+    ],
+    "4,7": [
+      "pale_grass"
+    ],
+    "3,7": [
+      "pale_grass"
+    ],
+    "3,6": [
+      "pale_grass"
+    ],
+    "4,6": [
+      "pale_grass"
+    ],
+    "5,6": [
+      "pale_grass"
+    ],
+    "6,6": [
+      "pale_grass"
+    ],
+    "6,5": [
+      "pale_grass"
+    ],
+    "5,5": [
+      "pale_grass"
+    ],
+    "4,5": [
+      "pale_grass"
+    ],
+    "3,5": [
+      "pale_grass"
+    ],
+    "3,4": [
+      "pale_grass"
+    ],
+    "4,4": [
+      "pale_grass"
+    ],
+    "5,4": [
+      "pale_grass"
+    ],
+    "6,4": [
+      "pale_grass"
+    ],
+    "6,3": [
+      "pale_grass"
+    ],
+    "5,3": [
+      "pale_grass"
+    ],
+    "4,3": [
+      "pale_grass"
+    ],
+    "3,3": [
+      "pale_grass"
+    ]
+  },
+  "description": [
+    "<h1>Le temps des semences</h1>",
+    "<p>Reeborg a semé des graines de carottes. À certains endroits",
+    "aucune carotte n'a poussé; à d'autres, plusieurs carottes poussent.<p>",
+    "<p>Vous devez faire en sorte que soit Reeborg enlève des carottes ou en ajoute pour qu'il",
+    "n'y ait qu'une seule carotte à chaque endroit.",
+    "Reeborg transporte assez de (graines de) carottes pour semer tout le jardin si c'est nécessaire.",
+    "<h3>Ce que vous devez connaître</h3>",
+    "<ul><li>Les fonctions <code>avance()</code>, <code>tourne_a_gauche()</code>,<code>depose()</code> et <code>prend()</code>.</li>",
+    "<li>La condition <code>objet_ici()</code>.</li>",
+    "<li>Comment utiliser une boucle <code>while</code>.</li></ul>",
+    "<p>Il pourrait être utile de définir une fonction nommée",
+    "<code>semer_une_rangée()</code> et",
+    "de l'invoquer 6 fois.</p>",
+    "DIFFICULTY4"
+  ]
+}

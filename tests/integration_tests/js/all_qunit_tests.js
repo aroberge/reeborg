@@ -89,6 +89,31 @@ QUnit.test("Center 1, 2, 3", function(assert) {
 });
 
 
+
+QUnit.test("Harvest 4", function(assert) { //TODO: Move this!!
+    "use strict";
+    var base_url, world_file;
+    var done = assert.async();
+    base_url = "/src/worlds/tutorial_en/";
+
+
+    world_file = "harvest4a.json";
+    assert.ok(test_utils.eval_python(base_url + world_file, "/tests/integration_tests/programs/harvest4_en.py").success,
+                                      world_file + " run successfully.");
+    // // reuse same program
+    // world_file = "harvest4b.json";
+    // assert.ok(test_utils.eval_python(base_url + world_file).success,
+    //                                   world_file + " run successfully.");
+    // world_file = "harvest4c.json";
+    // assert.ok(test_utils.eval_python(base_url + world_file).success,
+    //                                   world_file + " run successfully.");
+    // world_file = "harvest4d.json";
+    // assert.ok(test_utils.eval_python(base_url + world_file).success,
+    //                                   world_file + " run successfully.");
+    done();
+});
+
+
 // QUnit.test("Maze 1, 2", function(assert) {
 //     var base_url, i, world_files;
 //     var done = assert.async();

@@ -7,21 +7,6 @@ QUnit.module("Tutorial_fr tests", {
     test_utils.runners = [test_utils.run_javascript_2, test_utils.run_python_2];
     }
 });
-// var programs_path = "/tests/integration_tests/tutorial_fr/programs/",
-//     worlds_path = "/src/worlds/tutorial_en/";  //TODO: fix this by moving tutorial file
-
-// QUnit.test("Centre 1", function(assert) {
-//     var programs_path = "/tests/integration_tests/tutorial_fr/programs/",
-//         worlds_path = "/src/worlds/tutorial_en/",  //TODO: fix this  by moving tutorial file
-//         world_url = worlds_path + "center1.json",
-//         done = assert.async();
-//     test_utils.set_human_language("fr");
-//     assert.ok(test_utils.eval_javascript(world_url, programs_path + "test_center1_fr.js").success, "Centre1 run successfully.");
-//     assert.notOk(test_utils.eval_javascript(world_url, programs_path + "test_center1_fail_fr.js").success, "Failing program recognized as such.");
-//     assert.notOk(test_utils.eval_javascript(world_url, programs_path + "test_syntax_fail_fr.js").success, "Failing program (syntax error) recognized as such.");
-//     done();
-// });
-// 
 
 QUnit.test("Autour 1, 2, 3, 4", function(assert) {
     var py_js, info, program_files, world, world_files;
@@ -67,6 +52,43 @@ QUnit.test("But 1, 2, 3, 4", function(assert) {
     done();
 });
 
+QUnit.test("Récolte 1, 2, 3", function(assert) {
+    var py_js, info, program_files, program, world, world_files, message;
+    var done = assert.async();
+    program_files = ["harvest12_fr.js", "harvest12_fr.py"];
+    world_files = ["harvest1.json", "harvest2.json"];
+    message = "<p class=\"success\">Toutes les carottes ont été récoltées.</p>";
+
+    // First two harvesting task
+    for (py_js in test_utils.runners){
+        for (world in world_files) {
+            test_utils.runners[py_js](
+                test_utils.world_dir + world_files[world], 
+                test_utils.program_dir + program_files[py_js]
+                );
+            info = "Feedback element ok for " + world_files[world] + " ; language = " + RUR.state.programming_language;
+            assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
+            info = "Feedback text ok for " + world_files[world] + " ; language = " + RUR.state.programming_language;
+            assert.equal(test_utils.content, message, "Feedback text ok.");
+        }
+    }
+
+    // Third harvesting task
+    message = "<ul><li class='success'>Tous les objets sont aux bons endroits.</li></ul>";
+    program_files = ["harvest3_fr.js", "harvest3_fr.py"];
+    for (py_js in test_utils.runners){
+        world = test_utils.world_dir + "harvest3.json";
+        test_utils.runners[py_js](world, 
+            test_utils.program_dir + program_files[py_js]
+            );
+        info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
+        assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
+        assert.equal(test_utils.content, message, "Feedback text ok.");
+    }
+
+    done();
+});
+
 QUnit.test("Haies 1, 2, 3, 4", function(assert) {
     var py_js, w, program_files, world_files;
     var done = assert.async();
@@ -89,3 +111,4 @@ QUnit.test("Haies 1, 2, 3, 4", function(assert) {
 
     done();
 });
+

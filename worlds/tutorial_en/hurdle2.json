@@ -42,43 +42,49 @@
     },
     "possible_final_positions": [
       [
-        8,
+        7,
         1
       ],
       [
-        10,
+        9,
         1
       ],
       [
-        12,
+        11,
         1
       ],
       [
-        14,
+        13,
         1
       ],
       [
-        6,
+        5,
         1
       ],
       [
-        4,
+        3,
         1
       ]
     ]
   },
   "description": [
+    "<h1>Hurdles race</h1>",
     "Reeborg has entered a hurdle race,",
     "but he does not know in advance how long the race is. ",
     "Make him run the course, following a path similar to the one shown,",
     "but stopping at the only flag that will be shown after the race has started.",
-    "DIFFICULTY2"
+    "<h3>What you need to know</h3>",
+    "<ul><li>The functions <code>move()</code> and <code>turn_left()</code>.</li>",
+    "<li>The condition <code>at_goal()</code> and its negation.</li>",
+    "<li>How to use a <code>while</code> loop.</li></ul>",
+    "<p>Your program should also be valid for world <b>Hurdles 1</b>.</p>",
+    "DIFFICULTY3"  
   ],
   "onload": [
     "RUR.public['path'] = [[1,1], [2,1], [2,2], [3,2], [3,1], [4,1],",
     "    [4,2], [5,2], [5,1], [6,1], [6,2], [7,2], [7,1], [8,1],",
     "    [8,2], [9,2], [9,1], [10,1], [10,2], [11,2], [11,1], [12,1],",
-    "    [12,2], [13,2], [13,1], [14,1]];",
+    "    [12,2], [13,2], [13,1]];",
     "RUR.show_path(RUR.public['path']);",
     "RUR.public.trim_path = function(){",
     "    var i, position, x, y, xx, yy, path = [];",
@@ -104,7 +110,7 @@
   "post": [
     "RUR.check_path(RUR.public['path'],",
     "     {'failure':\"Reeborg did not follow the correct path.\", ",
-    "      'show_path': 'true'})",
+    "      'show_path': 'true', 'color': 'red'})",
     ""
   ],
   "small_tiles": false

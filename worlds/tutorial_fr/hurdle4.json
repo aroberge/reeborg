@@ -22,14 +22,20 @@
   "post": [
     "RUR.check_path(RUR.public['path'],",
     "     {'failure':\"Reeborg n'a pas suivi le bon chemin.\", ",
-    "      'show_path': 'true'})",
+    "      'show_path': 'true', 'color': 'red'})",
     ""
   ],
    "description": [
-    "Reeborg fait une course de haies. ",
+    "<h1>Course de haies</h1>",
+    "Reeborg fait une course de haies inégales. ",
     "Aidez-le à terminer la course, en suivant le chemin indiqué.<br><br>",
     "<em>La position, la hauteur et le nombre des haies changent à chaque fois que ce monde est choisi.</em>",
-    "DIFFICULTY4"
+    "<h3>Ce que vous devez connaître</h3>",
+    "<p>Vous devriez être capable de trouver une solution pour les mondes <b>Autour 4</b> et <b>Haies 3</b>",
+    "et de les combiner pour cette dernière course de haies.</p>",
+    "<p>Votre solution devrait être également valide pour les mondes",
+    "<b>Haies 1</b>, <b>Haies 2</b> et <b>Haies 3</b></p>",
+    "DIFFICULTY5"
   ],
   "onload": [
     "# Python",

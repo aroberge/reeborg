@@ -31,19 +31,27 @@
    "goal": {
       "position": {
          "image": "racing_flag",
-         "x": 12,
+         "x": 11,
          "y": 1
       }
    },
    "description": [
+    "<h1>Course de haies</h1>",
     "Reeborg fait une course de haies. ",
     "Aidez-le à terminer la course, en suivant le chemin indiqué.",
-    "DIFFICULTY1"
-  ],
+    "<h3>Ce que vous devez connaître</h3>",
+    "<ul><li>Les fonctions <code>avance()</code> et <code>tourne_a_gauche()</code>.</li></ul>",
+    "DIFFICULTY1",
+    "<hr><h2>Plus avancé</h2>",
+    "<p>Vous avez probablement remarqué que votre solution comporte des répétitions.",
+    "Si vous savez comment définir des fonctions, définissez une fonction <code>saute()</code>",
+    "et utilisez-là pour simplifier votre programme",
+    "DIFFICULTY2"
+    ],
   "onload": [
     "RUR.public['path'] = [[1,1], [2,1], [2,2], [3,2], [3,1], [4,1],",
     "    [4,2], [5,2], [5,1], [6,1], [6,2], [7,2], [7,1], [8,1],",
-    "    [8,2], [9,2], [9,1], [10,1], [10,2], [11,2], [11,1], [12,1]];",
+    "    [8,2], [9,2], [9,1], [10,1], [10,2], [11,2], [11,1]];",
     "RUR.show_path(RUR.public['path']);",    
     ""
   ],
@@ -54,7 +62,7 @@
   "post": [
     "RUR.check_path(RUR.public['path'],",
     "     {'failure':\"Reeborg n'a pas suivi le bon chemin.\", ",
-    "      'show_path': 'true'})",
+    "      'show_path': 'true', 'color': 'red'})",
     ""
   ]
 }
