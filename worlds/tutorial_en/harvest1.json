@@ -447,7 +447,7 @@
     "<h3>What you need to know</h3>",
     "<ul><li>The functions <code>move()</code>, <code>turn_left()</code>, and <code>take()</code>.</li>",
     "<li>The test <code>object_here()</code>.</li>",
-    "<li>How to use a <code>while</code> loop or an <code>if</code> clause.</li></ul>",
+    "<li>How to use a <code>while</code> loop or an <code>if</code> statement.</li></ul>",
     "<p>You might find it convenient to define a function",
     "named <code>harvest_one_row()</code> and",
     "call this function 6 times.</p>",

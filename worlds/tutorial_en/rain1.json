@@ -92,7 +92,24 @@
     ]
   },
   "description": [
-    "A simple, empty world, ready for Reeborg to explore."
+    "<h1>Rain is falling.</h1>",
+    "<p>It's raining hard.  Water is going to come",
+    "    in through the open windows unless",
+    "    Reeborg closes them.</p>",
+    "<p>Have Reeborg move <b>around the room</b> and close the windows by using the <code>build_wall()</code>",
+    "    function.</p>",
+    "<p>The size of the room and the location of the windows are always changing.</p>",
+    "<h3>What you need to know</h3>",
+    "",
+    "<ul><li>The functions <code>move()</code>, ",
+    "    <code>turn_left()</code>, and <code>build_wall()</code>.</li>",
+    "<li>The conditions <code>right_is_clear()</code> or <code>wall_on_right()</code>",
+    " and <code>at_goal()</code></li>",
+    "<li>How to use a <code>while</code> loop and an <code>if</code> statement.</li></ul>",
+    "<p>Windows (missing walls) are always between two walls, all along a single line.",
+    "There can never be two windows side by side, nor can there be a window at the corner of a room.</p>",
+    "DIFFICULTY5",
+    ""
   ],
   "small_tiles": false,
   "rows": 9,

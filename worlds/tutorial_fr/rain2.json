@@ -416,11 +416,26 @@
     ]
   },
   "description": [
-    "Using <code>build_wall()</code> Reeborg must close all the open windows to ",
-    "prevent the water from coming in.",
-    "You can use <code>wall_in_front()</code> or <code>wall_on_right()</code>",
-    "<b>however</b> you neither can use <code>front_is_clear()</code>",
-    "nor <code>right_is_clear()</code>"
+    "<h1>Il pleut à boire debout !</h1>",
+    "<p>Reeborg doit se dépêcher à fermer les fenêtres.",
+    "Faites en sorte que Reeborg se déplace <b>autour de sa maison</b>",
+    "    et qu'il ferme les fenêtre en utilisant la fonction <code>construit_un_mur()</code>.</p>",
+    "<p>La grandeur de la salle et la position des fenêtre changent constamment.</p>",
+    "<h3>Ce que vous devez connaître</h3>",
+    "",
+    "<ul><li>Les fonctions <code>avance()</code>, ",
+    "    <code>tourne_a_gauche()</code>, et <code>construit_un_mur()</code>.</li>",
+    "<li>Les conditions <code>rien_a_droite()</code> ou <code>mur_a_droite()</code>",
+    " et <code>au_but()</code></li>",
+    "<li>Comment utiliser une boucle <code>while</code> et un énoncé <code>if</code>.</li></ul>",
+    "<p>Les fenêtre (murs manquants) sont toujours entre deux murs, sur une même ligne droite.",
+    "Il ne peut jamais y avoir deux fenêtre côte à côte, ni une fenêtre dans un coin.</p>",
+    "<p>Votre programme devrait également fonctionner pour le monde <b>Pluie 1</b>.",
+    "Notez cependant que cette tâche-ci est beaucoup plus difficile.<p>",
+    "<p>Imaginez que Reeborg soit à côté d'un mur, qu'il avance d'un pas le long du mur,",
+    "et observe qu'il n'y a plus de mur à son côté. Que peut-il arriver si Reeborg avance d'une autre case?",
+    "<em>Indice&nbsp;:</em> il y a deux cas possibles.</p>",
+    "DIFFICULTY9"
   ],
   "decorative_objects": {
     "1,1": [

@@ -33,7 +33,7 @@
     "<h3>Ce que vous devez connaître</h3>",
     "<ul><li>Les fonctions <code>avance()</code> et <code>tourne_a_gauche()</code>.</li>",
     "<li>Les conditions <code>rien_devant()</code> ou <code>mur_devant()</code>, <code>au_but()</code> et leur négation.</li>",
-    "<li>Comment utiliser une boucle <code>while</code></li> et une clause <code>if</code>.</ul>",
+    "<li>Comment utiliser une boucle <code>while</code></li> et une énoncé <code>if</code>.</ul>",
     "<p>Votre programme devrait également fonctionner pour les mondes <b>Haies 1</b> et <b>Haies 2</b>.</p>",
     "DIFFICULTY4"
   ],
