@@ -391,7 +391,7 @@
     "<li>Either the test <code>front_is_clear()</code> or <code>wall_in_front()</code>, and <code>object_here()</code>.</li>",
     "<li>How to use a <code>while</code> loop.</li></ul>",
     "Ideally, you should define your own functions to make your program easier to understand.",
-    "DIFFICULTY2",
+    "DIFFICULTY4",
     ""
   ],
   "onload": [

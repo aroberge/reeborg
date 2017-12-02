@@ -9,3 +9,4 @@ api_docs/advanced_world_creation
 temp
 build
 tests/integration_tests/reeborg_*.html
+_scratchpad*

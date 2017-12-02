@@ -536,16 +536,19 @@
     ]
   },
   "description": [
+    "<h1>Planting time</h1>",
     "<p>Reeborg has planted some carrot seeds. At some places",
     "no carrot has grown; at others, many carrots are growing.<p>",
     "<p>Have Reeborg remove the excess carrots and plant new ones where there is none",
     "so that there is only one carrot at each location.",
     "Reeborg already carries enough carrots (seeds) to replant the entire garden if needed.",
+    "<h3>What you need to know</h3>",
+    "<ul><li>The functions <code>move()</code>, <code>turn_left()</code>,<code>put()</code> and <code>take()</code>.</li>",
+    "<li>The test <code>object_here()</code>.</li>",
+    "<li>How to use a <code>while</code> loop.</li></ul>",
     "<p>You might find it convenient to define a function",
     "named <code>fix_one_row()</code> and",
-    "call this function 6 times.",
-    "Since the number of carrots at each position will vary,",
-    "you will need to use a <code>while</code> loop.</p>",
-    ""
+    "call this function 6 times.</p>",
+    "DIFFICULTY4"
   ]
 }

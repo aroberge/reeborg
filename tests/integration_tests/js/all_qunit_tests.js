@@ -110,62 +110,7 @@ QUnit.test("Center 1, 2, 3", function(assert) {
 //     done();
 // });
 
-QUnit.test("Harvests", function(assert) {
-    "use strict";
-    var frames, last_frame, base_url, world_file;
-    var done = assert.async();
-    base_url = "/worlds/tutorial_en/";
 
-    world_file = "harvest1.json";
-    assert.ok(test_utils.eval_python(base_url + world_file, "/tests/integration_tests/programs/harvest1_en.py").success,
-                                      world_file + " run successfully.");
-
-    last_frame = RUR.frames[RUR.frames.length - 1];
-
-    RUR.rec.conclude();
-    assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-    assert.equal(test_utils.content,
-        "<p class=\"success\">All carrots have been harvested.</p>",
-        "Feedback text ok.");
-
-    // Need to use run_python instead of eval_python to have initially
-    // random values set.
-    world_file = "harvest2.json";
-    frames = test_utils.run_python(base_url + world_file, 
-                                   "/tests/integration_tests/programs/harvest2_en.py");
-    //last_frame = frames[frames.length-1];
-    RUR.rec.conclude();
-    assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-    assert.equal(test_utils.content, 
-                 "<ul><li class='success'>All objects are at the correct location.</li></ul>");
-
-    // Need to use run_python instead of eval_python to have initially
-    // random values set.
-    world_file = "harvest3.json";
-    frames = test_utils.run_python(base_url + world_file, 
-                                   "/tests/integration_tests/programs/harvest3_en.py");
-    //last_frame = frames[frames.length-1];
-    RUR.rec.conclude();
-    assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-    assert.equal(test_utils.content, 
-                 "<ul><li class='success'>All objects are at the correct location.</li></ul>");
-
-
-    world_file = "harvest4a.json";
-    assert.ok(test_utils.eval_python(base_url + world_file, "/tests/integration_tests/programs/harvest4_en.py").success,
-                                      world_file + " run successfully.");
-    // reuse same program
-    world_file = "harvest4b.json";
-    assert.ok(test_utils.eval_python(base_url + world_file).success,
-                                      world_file + " run successfully.");
-    world_file = "harvest4c.json";
-    assert.ok(test_utils.eval_python(base_url + world_file).success,
-                                      world_file + " run successfully.");
-    world_file = "harvest4d.json";
-    assert.ok(test_utils.eval_python(base_url + world_file).success,
-                                      world_file + " run successfully.");
-    done();
-});
 QUnit.test("Tokens", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;

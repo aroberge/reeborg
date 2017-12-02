@@ -441,12 +441,17 @@
     ]
   },
   "description": [
-    "<p>Reeborg's garden is ready to harvest.<p>",
-    "<p>Have Reeborg collect all the carrots in his garden.",
-    "You might find it convenient to define a function",
+    "<h1>Harvest time</h1>",
+    "<p>Reeborg's garden is ready to harvest.",
+    "Have Reeborg collect all the carrots in his garden.</p>",
+    "<h3>What you need to know</h3>",
+    "<ul><li>The functions <code>move()</code>, <code>turn_left()</code>, and <code>take()</code>.</li>",
+    "<li>The test <code>object_here()</code>.</li>",
+    "<li>How to use a <code>while</code> loop or an <code>if</code> clause.</li></ul>",
+    "<p>You might find it convenient to define a function",
     "named <code>harvest_one_row()</code> and",
     "call this function 6 times.</p>",
-    ""
+    "DIFFICULTY3"
   ],
   "pre": [
     "RUR.success_custom_message = '<p class=\"success\">All carrots have been harvested.</p>'",
