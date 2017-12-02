@@ -389,7 +389,7 @@
     "<br><br>Le même programme doit également être valide pour les mondes <b>Autour 1</b> à <b>Autour 3</b>.",
     "<h3>Ce que vous devez connaître</h3>",
     "<ul><li>Les fonctions <code>avance()</code>, <code>tourne_a_gauche()</code> et <code>depose()</code>.</li>",
-    "<li>Les conditions <code>rien_devant()</code> ou <code>mur_devant()</code>.</li>",
+    "<li>Les conditions <code>rien_devant()</code> ou <code>mur_devant()</code>, et <code>objet_ici()</code>.</li>",
     "<li>Comment utiliser des boucles <code>while</code>.</li></ul>",
     "DIFFICULTY5",
     ""
