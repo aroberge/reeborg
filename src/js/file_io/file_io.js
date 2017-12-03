@@ -11,7 +11,6 @@ require("./../listeners/stop.js");
 require("./../utils/supplant.js");
 
 RUR._load_world_from_program = function (url, shortname) {
-
     "use strict";
     var selected, possible_url, new_world=false, new_selection=false;
     RUR.file_io_status = undefined;
@@ -92,7 +91,9 @@ RUR.load_world_file = function (url, shortname) {
             },
             success: function(data){
                 if (typeof data == "string" && data.substring(0,4) == "http"){
-                    RUR.permalink.update(data, shortname);
+                    // TODO: the function below no longer exists; so something
+                    // is definitely not right as I just commented it out
+                    // RUR.permalink.update(data, shortname);
                     RUR.reload();
                 } else {
                     RUR.world_utils.import_world(data);

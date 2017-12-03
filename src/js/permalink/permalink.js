@@ -45,18 +45,23 @@ RUR.permalink.set_language = function (url_query) {
 };
 
 RUR.permalink.from_url = function(url_query) {
-    var from_url=false, url=false, name=false;
+    var from_url=false, url=false, name=false, collection=false;
     if (url_query.queryKey.url !== undefined) {
         url = decodeURIComponent(url_query.queryKey.url);
     }
     if (url_query.queryKey.name !== undefined) {
         name = decodeURIComponent(url_query.queryKey.name);
     }
-    if (!(url || name)) {
+    if (url_query.queryKey.collection !== undefined) {
+        collection = decodeURIComponent(url_query.queryKey.collection);
+    }
+    if (!(url || name || collection)) {
         return false;
     } else {
-        try { // see comment above
-            if (url && name) {
+        try { 
+            if (collection) {
+                RUR._load_world_from_program(collection);
+            } else if (url && name) {
                 RUR._load_world_from_program(url, name);
             } else if (url) {
                 RUR._load_world_from_program(url);
@@ -66,6 +71,16 @@ RUR.permalink.from_url = function(url_query) {
         } catch (e) {
             if (e.reeborg_concludes) {
                 RUR.show_feedback("#Reeborg-concludes", e.reeborg_concludes);
+                if (collection && name) {
+                    try {
+                        RUR._load_world_from_program(name);
+                    } catch (e) {
+                        if (e.reeborg_concludes) {
+                            RUR.show_feedback("#Reeborg-concludes", e.reeborg_concludes);
+                            return true;
+                        }
+                    }
+                }
                 return true;
             } else if (e.reeborg_shouts) {
                 RUR.show_feedback("#Reeborg-shouts", e.reeborg_shouts);

@@ -41,7 +41,6 @@ RUR.world_select.url_from_shortname = function (shortname) {
     var i, select;
     select = document.getElementById("select-world");
     shortname = shortname.toLowerCase();
-
     for (i=0; i < select.options.length; i++){
         if (select.options[i].text.toLowerCase() === shortname) {
             return select.options[i].value;
