@@ -174,29 +174,7 @@ QUnit.test("Tokens", function(assert) {
                                       world_file + " run successfully.");
     done();
 });
-QUnit.test("Rain", function(assert) {
-    "use strict";
-    var frames, last_frame, base_url, world_file;
-    var done = assert.async();
-    base_url = "/src/worlds/tutorial_en/";
 
-    world_file = "rain1.json";
-    assert.ok(test_utils.eval_python(base_url + world_file, "/tests/integration_tests/programs/rain_en.py").success,
-                                      world_file + " run successfully.");
-
-    RUR.rec.conclude();
-    assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-    assert.equal(test_utils.content,
-        "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
-        "<li class='success'>Reeborg is at the correct y position.</li>" +
-        "<li class='success'>All walls have been built correctly.</li></ul>",
-        "Feedback text ok.");
-
-    world_file = "rain2.json";
-    assert.ok(test_utils.eval_python(base_url + world_file).success,
-                                      world_file + " run successfully.");
-    done();
-});
 QUnit.test("Newspaper", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
@@ -427,29 +405,7 @@ QUnit.test("Tokens", function(assert) {
                                       world_file + " run successfully.");
     done();
 });
-QUnit.test("Rain", function(assert) {
-    "use strict";
-    var frames, last_frame, base_url, world_file;
-    var done = assert.async();
-    base_url = "/src/worlds/tutorial_en/";
 
-    world_file = "rain1.json";
-    assert.ok(test_utils.eval_python(base_url + world_file, "/tests/integration_tests/programs/rain_fr.py").success,
-                                      world_file + " run successfully.");
-
-    RUR.rec.conclude();
-    assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-    assert.equal(test_utils.content,
-        "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li>" +
-        "<li class='success'>Reeborg est à la bonne coordonnée y.</li>" +
-        "<li class='success'>Tous les murs ont été construits correctement.</li></ul>",
-        "Feedback text ok.");
-
-    world_file = "rain2.json";
-    assert.ok(test_utils.eval_python(base_url + world_file).success,
-                                      world_file + " run successfully.");
-    done();
-});
 QUnit.test("Newspaper", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
