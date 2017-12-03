@@ -12,7 +12,7 @@
         "tags": ["summary"]
     },
     "opts": {
-        "destination": "./api_docs/advanced_world_creation/",
+        "destination": "./../reeborg-api/",
         "recurse": true,
         "readme": "./api_docs/readme.md",
         "template": "../node_modules/ink-docstrap/template"
