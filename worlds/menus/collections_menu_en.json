@@ -1,12 +1,12 @@
 {
   "onload": [
-    "//English collection",
     "var base_url = 'worlds/menus/';",
     "",
     "var contents = [",
     "    ['worlds/select_collection.json', 'Select here'],",
-    "    [base_url + 'default_menu_en.json', \"Reeborg default\"],",
-    "    [base_url + 'sk_menu.json', \"Saskatchewan CS 20\"]",
+    "    [base_url + 'default_menu_en.json', \"Reeborg intro\"],",
+    "    [base_url + 'sk_menu.json', \"Saskatchewan CS 20\"],",
+    "    [base_url + 'varia_en.json', \"Varia\"]",
     "];",
     "",
     "MakeCustomMenu(contents);",

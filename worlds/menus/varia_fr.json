@@ -1,0 +1,30 @@
+{
+  "onload": [
+    "var base_url = 'src/worlds/tutorial_en/';",
+    "var base_url2 = 'src/worlds/tutorial_fr/';",
+    "",
+    "var menus = 'src/worlds/menus/';",
+    "var worlds = 'src/worlds/';",
+    "var new_tutorial_fr = 'worlds/tutorial_fr/';",
+    "",
+    "var contents = [",
+    "    [new_tutorial_fr + 'seul.json', 'Seul'],",
+    "    ['worlds/menus/collections_menu_fr.json', \"Autres mondes\"],",
+    "    [base_url + 'newspaper0.json', 'Journal 0'],",
+    "    [base_url + 'newspaper1.json', 'Journal 1'],",
+    "    [base_url + 'newspaper2.json', 'Journal 2'],",
+    "    [base_url + 'harvest4a.json', 'Récolte 4a'],",
+    "    [base_url + 'harvest4b.json', 'Récolte 4b'],",
+    "    [base_url + 'harvest4c.json', 'Récolte 4c'],",
+    "    [base_url + 'harvest4d.json', 'Récolte 4d'],",
+    "    ['src/worlds/blank.json', 'Canevas graphique']",
+    "];",
+    "",
+    "MakeCustomMenu(contents);",
+    "",
+    ""
+  ],
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14
+}

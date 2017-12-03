@@ -1,0 +1,23 @@
+{
+  "onload": [
+    "var tutorial_en = 'worlds/tutorial_en/'",
+    "old_tutorial_en = 'src/worlds/tutorial_en/';",
+    "",
+    "var contents = [",
+    "    [tutorial_en + 'alone.json', 'Alone'],",
+    "    ['worlds/menus/collections_menu_en.json', \"Other worlds\"],",
+    "    [old_tutorial_en + 'harvest4a.json', 'Harvest 4a'],",
+    "    [old_tutorial_en + 'harvest4b.json', 'Harvest 4b'],",
+    "    [old_tutorial_en + 'harvest4c.json', 'Harvest 4c'],",
+    "    [old_tutorial_en + 'harvest4d.json', 'Harvest 4d'],",
+    "    [old_tutorial_en + 'newspaper0.json', 'Newspaper 0'],",
+    "    [old_tutorial_en + 'newspaper1.json', 'Newspaper 1'],",
+    "    [old_tutorial_en + 'newspaper2.json', 'Newspaper 2'],",
+    "    ['src/worlds/blank.json', 'Graphical canvas']",
+    "    ];",
+    "MakeCustomMenu(contents);"
+  ],
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14
+}
