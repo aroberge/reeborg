@@ -55,16 +55,16 @@ function update_color(x, y) {
         color = maze.palette["start"];
     } else {
         walls = 0;
-        if (RUR.is_wall("north", x, y)) {
+        if (RUR._is_wall("north", x, y)) {
             walls++;
         }
-        if (RUR.is_wall("east", x, y)) {
+        if (RUR._is_wall("east", x, y)) {
             walls++;
         }
-        if (RUR.is_wall("south", x, y)) {
+        if (RUR._is_wall("south", x, y)) {
             walls++;
         }
-        if (RUR.is_wall("west", x, y)) {
+        if (RUR._is_wall("west", x, y)) {
             walls++;
         }
         switch (walls){

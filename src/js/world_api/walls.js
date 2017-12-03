@@ -78,17 +78,17 @@ RUR.add_wall = function(orientation, x, y, options) {
  *
  */
 RUR.get_walls = function(x, y, options) {
-    var options, walls = [];
-    if (RUR.is_wall(RUR.translate("east"), x, y, options)) {
+    var walls = [];
+    if (RUR._is_wall("east", x, y, options)) {
         walls.push(RUR.translate("east"));
     }
-    if (RUR.is_wall(RUR.translate("north"), x, y, options)) {
+    if (RUR._is_wall("north", x, y, options)) {
         walls.push(RUR.translate("north"));
     }
-    if (RUR.is_wall(RUR.translate("west"), x, y, options)) {
+    if (RUR._is_wall("west", x, y, options)) {
         walls.push(RUR.translate("west"));
     }
-    if (RUR.is_wall(RUR.translate("south"), x, y, options)) {
+    if (RUR._is_wall("south", x, y, options)) {
         walls.push(RUR.translate("south"));
     }
     return walls;
@@ -118,10 +118,20 @@ RUR.is_wall = function(orientation, x, y, options) {
         throw new RUR.ReeborgError(
             RUR.translate("Invalid orientation.").supplant({orient:orientation}));
     }
-    if (is_boundary_wall(RUR.translate_to_english(orientation), x, y)) {
+    return RUR._is_wall(RUR.translate_to_english(orientation), x, y, options);
+};
+
+/* private version; works with English arguments */
+RUR._is_wall = function(orientation, x, y, options) {
+    var args;
+    if (["east", "north", "west", "south"].indexOf(orientation) === -1) {
+        throw new RUR.ReeborgError(
+            RUR.translate("Invalid orientation.").supplant({orient:orientation}));
+    }
+    if (is_boundary_wall(orientation, x, y)) {
         return true;
     }
-    args = convert_position(RUR.translate_to_english(orientation), x, y);
+    args = convert_position(orientation, x, y);
     if (options && options.goal) {
         args.goal = options.goal;
     }
@@ -132,6 +142,8 @@ RUR.is_wall = function(orientation, x, y, options) {
         return true;
     }
 };
+
+
 
 // private helper function
 // perform argument checks and returns
@@ -170,7 +182,7 @@ RUR.remove_wall = function(orientation, x, y, options) {
     // the following function call will raise an exception if
     // the orientation or the position is not valid
     wall_here = RUR.is_wall(orientation, x, y, options);
-    if (!RUR.is_wall(orientation, x, y, options)){
+    if (!wall_here){
         throw new RUR.ReeborgError(RUR.translate("There is no wall to remove!"));
     }
 

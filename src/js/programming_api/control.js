@@ -334,13 +334,13 @@ RUR.control.build_wall = function (robot){
 RUR.control.wall_in_front = function (robot) {
     switch (robot._orientation){
     case RUR.EAST:
-        return RUR.is_wall("east", robot.x, robot.y);
+        return RUR._is_wall("east", robot.x, robot.y);
     case RUR.NORTH:
-        return RUR.is_wall("north", robot.x, robot.y);
+        return RUR._is_wall("north", robot.x, robot.y);
     case RUR.WEST:
-        return RUR.is_wall("west", robot.x, robot.y);
+        return RUR._is_wall("west", robot.x, robot.y);
     case RUR.SOUTH:
-        return RUR.is_wall("south", robot.x, robot.y);
+        return RUR._is_wall("south", robot.x, robot.y);
     case RUR.RANDOM_ORIENTATION:
         throw new RUR.ReeborgError(RUR.translate("I am too dizzy!"));
     default:

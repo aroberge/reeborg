@@ -390,10 +390,10 @@ function __toggle_wall (goal) {
         options.goal = goal;
     }
 
-    if (RUR.is_wall(orientation, x, y, options)){
-        RUR.remove_wall(orientation, x, y, options);
+    if (RUR._is_wall(orientation, x, y, options)){
+        RUR.remove_wall(RUR.translate(orientation), x, y, options);
     } else {
-        RUR.add_wall(orientation, x, y, options);
+        RUR.add_wall(RUR.translate(orientation), x, y, options);
     }
 }
 

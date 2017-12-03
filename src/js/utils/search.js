@@ -202,22 +202,22 @@ function get_neighbours_around (current, ignore_walls, ordered, robot_body) {
     max_x = world.cols;
     max_y = world.rows;
     if (x < max_x && !RUR.is_fatal_position(x+1, y, robot_body)) {
-            if (ignore_walls || !RUR.is_wall(RUR.translate("east"), x, y)) {
+            if (ignore_walls || !RUR._is_wall("east", x, y)) {
                 neighbours.push([x+1, y]);
         }
     }
     if (y < max_y && !RUR.is_fatal_position(x, y+1, robot_body)) {
-            if (ignore_walls || !RUR.is_wall(RUR.translate("north"), x, y)) {
+            if (ignore_walls || !RUR._is_wall("north", x, y)) {
                 neighbours.push([x, y+1]);
         }
     }
     if (x > 1 && !RUR.is_fatal_position(x-1, y, robot_body)) {
-            if (ignore_walls || !RUR.is_wall(RUR.translate("west"), x, y)) {
+            if (ignore_walls || !RUR._is_wall("west", x, y)) {
                 neighbours.push([x-1, y]);
         }
     }
     if (y > 1 && !RUR.is_fatal_position(x, y-1, robot_body)) {
-            if (ignore_walls || !RUR.is_wall(RUR.translate("south"), x, y)) {
+            if (ignore_walls || !RUR._is_wall("south", x, y)) {
                 neighbours.push([x, y-1]);
         }
     }
@@ -249,7 +249,7 @@ function get_neighbours_turn_left (current, ignore_walls, ordered, robot_body) {
         case "east":
             neighbours.push([x, y, "north"]);
             if (x < max_x && !RUR.is_fatal_position(x+1, y, robot_body)) {
-                if (ignore_walls || !RUR.is_wall(RUR.translate("east"), x, y)) {
+                if (ignore_walls || !RUR._is_wall("east", x, y)) {
                     neighbours.push([x+1, y, "east"]);
                 }
             }
@@ -257,7 +257,7 @@ function get_neighbours_turn_left (current, ignore_walls, ordered, robot_body) {
         case "north":
             neighbours.push([x, y, "west"]);
             if (y < max_y && !RUR.is_fatal_position(x, y+1, robot_body)) {
-                if (ignore_walls || !RUR.is_wall(RUR.translate("north"), x, y)) {
+                if (ignore_walls || !RUR._is_wall("north", x, y)) {
                     neighbours.push([x, y+1, "north"]);
                 }
             }
@@ -265,7 +265,7 @@ function get_neighbours_turn_left (current, ignore_walls, ordered, robot_body) {
         case "west":
             neighbours.push([x, y, "south"]);
             if (x > 1 && !RUR.is_fatal_position(x-1, y, robot_body)) {
-                if (ignore_walls || !RUR.is_wall(RUR.translate("west"), x, y)) {
+                if (ignore_walls || !RUR._is_wall("west", x, y)) {
                     neighbours.push([x-1, y, "west"]);
                 }
             }
@@ -273,7 +273,7 @@ function get_neighbours_turn_left (current, ignore_walls, ordered, robot_body) {
         case "south":
             neighbours.push([x, y, "east"]);
             if (y > 1 && !RUR.is_fatal_position(x, y-1, robot_body)) {
-                if (ignore_walls || !RUR.is_wall(RUR.translate("south"), x, y)) {
+                if (ignore_walls || !RUR._is_wall("south", x, y)) {
                     neighbours.push([x, y-1, "south"]);
                 }
             }
