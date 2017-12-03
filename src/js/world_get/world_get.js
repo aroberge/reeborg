@@ -471,3 +471,19 @@ function get_info_about_location() {
 
 RUR.create_and_activate_dialogs( $("#world-info-button"), $("#World-info"),
                                  {height:600, width:800}, RUR.world_get.world_info);
+
+
+/** @function show_description
+ * @memberof RUR
+ * @instance
+ *
+ * @desc Ensures that the world description window 
+ * (usually open from **World Info** button for English UI)
+ * is shown.
+ * 
+ */
+RUR.show_description = function () {
+    if ($("#world-info-button").hasClass("blue-gradient")) {
+        $("#world-info-button").click();
+    }
+};
