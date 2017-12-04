@@ -37,6 +37,30 @@ tile = {name: "grass",
 };
 RUR.add_new_thing(tile);
 
+tile = {name: "grass_top_left",
+    url: RUR.BASE_URL + '/src/images/grass_top_left.png',
+    info: "Grass: usually safe."
+};
+RUR.add_new_thing(tile);
+
+tile = {name: "grass_top_right",
+    url: RUR.BASE_URL + '/src/images/grass_top_right.png',
+    info: "Grass: usually safe."
+};
+RUR.add_new_thing(tile);
+
+tile = {name: "grass_bottom_left",
+    url: RUR.BASE_URL + '/src/images/grass_bottom_left.png',
+    info: "Grass: usually safe."
+};
+RUR.add_new_thing(tile);
+
+tile = {name: "grass_bottom_right",
+    url: RUR.BASE_URL + '/src/images/grass_bottom_right.png',
+    info: "Grass: usually safe."
+};
+RUR.add_new_thing(tile);
+
 tile = {name: "pale_grass",
     url: RUR.BASE_URL + '/src/images/pale_grass.png',
     info: "Grass: usually safe.",
@@ -100,7 +124,7 @@ tile = {name: "flame burst",
   y_offset: -8
 };
 
-RUR.add_new_thing(tile)
+RUR.add_new_thing(tile);
 
 // logs adapted from fire above
 tile = {name: "logs",
@@ -122,7 +146,7 @@ tile = {name: "smoke",
   y_offset: -8
 };
 
-RUR.add_new_thing(tile)
+RUR.add_new_thing(tile);
 
 
 /*--- home tiles ---*/
