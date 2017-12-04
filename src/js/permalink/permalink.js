@@ -72,12 +72,17 @@ RUR.permalink.from_url = function(url_query) {
             if (e.reeborg_concludes) {
                 RUR.show_feedback("#Reeborg-concludes", e.reeborg_concludes);
                 if (collection && name) {
-                    try {
-                        RUR._load_world_from_program(name);
-                    } catch (e) {
-                        if (e.reeborg_concludes) {
-                            RUR.show_feedback("#Reeborg-concludes", e.reeborg_concludes);
-                            return true;
+                    url = RUR.world_select.url_from_shortname(name);
+                    if (url !== undefined) {
+                        try {
+                            RUR._load_world_from_program(url, name);
+                        } catch (e) {
+                            if (e.reeborg_concludes) {
+                                RUR.show_feedback("#Reeborg-concludes", e.reeborg_concludes);
+                                return true;
+                            } else {
+                                return false;
+                            }
                         }
                     }
                 }
