@@ -1,37 +1,8 @@
 
-
 QUnit.module("Failing Python programs", {
   beforeEach: function() {
     test_utils.reset();  }
 });
-
-
-// QUnit.test("Centre 1", function(assert) {
-//     var programs_path = "/tests/integration_tests/tutorial_en/programs/",
-//         worlds_path = "/src/worlds/tutorial_en/",
-//         world_url = worlds_path + "center1.json",
-//         done = assert.async();
-//     test_utils.set_human_language("en");
-//     assert.ok(test_utils.eval_javascript(world_url, programs_path + "test_center1.js").success, "Centre1 run successfully.");
-//     assert.notOk(test_utils.eval_javascript(world_url, programs_path + "test_center1_fail.js").success, "Failing program recognized as such.");
-//     assert.notOk(test_utils.eval_javascript(world_url, programs_path + "test_syntax_fail.js").success, "Failing program (syntax error) recognized as such.");
-//     done();
-// });
-// QUnit.test("Failed goal with zero frame recorded", function(assert) {
-//     var programs_path = "/tests/integration_tests/tutorial_en/programs/",
-//         worlds_path = "/src/worlds/tutorial_en/",
-//         world_url = worlds_path + "center1.json",
-//         done = assert.async();
-//     test_utils.set_human_language("en");
-//     RUR.state.programming_language = "javascript";
-//     test_utils.load_world_file(worlds_path + "center1.json");
-//     test_utils.load_program(programs_path + "test_center1_fail2.js");
-//     RUR.runner.eval(test_utils.program);
-//     RUR.rec.conclude();
-//     assert.equal(test_utils.feedback_element, "#Reeborg-shouts", "Failure properly recognized.");
-//     done();
-// });
-
 
 QUnit.test("Centre 1 - failing English", function(assert) {
     var world_url = "/src/worlds/tutorial_en/center1.json";
@@ -100,40 +71,8 @@ QUnit.test("Harvest 4", function(assert) { //TODO: Move this!!
     world_file = "harvest4a.json";
     assert.ok(test_utils.eval_python(base_url + world_file, "/tests/integration_tests/programs/harvest4_en.py").success,
                                       world_file + " run successfully.");
-    // // reuse same program
-    // world_file = "harvest4b.json";
-    // assert.ok(test_utils.eval_python(base_url + world_file).success,
-    //                                   world_file + " run successfully.");
-    // world_file = "harvest4c.json";
-    // assert.ok(test_utils.eval_python(base_url + world_file).success,
-    //                                   world_file + " run successfully.");
-    // world_file = "harvest4d.json";
-    // assert.ok(test_utils.eval_python(base_url + world_file).success,
-    //                                   world_file + " run successfully.");
     done();
 });
-
-
-// QUnit.test("Maze 1, 2", function(assert) {
-//     var base_url, i, world_files;
-//     var done = assert.async();
-//     base_url = "/src/worlds/tutorial_en/";
-//     world_files = ["maze1.json", "maze2.json"];
-
-//     // The general program for the hurdles works for the maze world!
-//     test_utils.load_program("/tests/integration_tests/programs/hurdle_en.py");
-//     //**************************************************
-//     for (i in world_files) {
-//         assert.ok(test_utils.eval_python(base_url + world_files[i]).success,
-//                                       world_files[i] + " run successfully.");
-//     }
-//     RUR.rec.conclude();
-//     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-//     assert.equal(test_utils.content,
-//         "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></ul>",
-//         "Feedback text ok.");
-//     done();
-// });
 
 
 QUnit.test("Tokens", function(assert) {
@@ -202,80 +141,7 @@ QUnit.test("Newspaper", function(assert) {
     assert.deepEqual(last_frame.world_map.robots[0].objects, {"token": 3}, "3 tokens carried.");
     done();
 });
-// QUnit.test("Storm 1", function(assert) {
-//     "use strict";
-//     var frames, last_frame, base_url, world_file;
-//     var done = assert.async();
-//     base_url = "/src/worlds/tutorial_en/";
 
-//     world_file = "storm1.json";
-
-//     // Need to use run_python instead of eval_python to have initially
-//     // random values set.
-//     frames = test_utils.run_python(base_url + world_file, "/tests/integration_tests/programs/storm1_en.py");
-//     last_frame = frames[frames.length-1];
-//     assert.deepEqual(last_frame.world_map.robots[0].objects, {}, "Testing storm1: no objects carried.");
-//     RUR.rec.conclude();
-//     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-//     assert.equal(test_utils.content,
-//         "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
-//         "<li class='success'>Reeborg is at the correct y position.</li>" +
-//         "<li class='success'>All objects are at the correct location.</li>" +
-//         "<li class='success'>All walls have been built correctly.</li></ul>",
-//         "Feedback text ok.");
-//     done();
-// });
-// QUnit.test("Storm 2; also tests library", function(assert) {
-//     "use strict";
-//     var frames, last_frame, base_url, world_file;
-//     var done = assert.async();
-//     base_url = "/src/worlds/tutorial_en/";
-
-//     // loading library indirectly
-//     test_utils.load_program("/tests/integration_tests/programs/storm_library_en.py");
-//     test_utils.library = test_utils.program;
-//     world_file = "storm2.json";
-
-//     // Need to use run_python instead of eval_python to have initially
-//     // random values set.
-//     frames = test_utils.run_python(base_url + world_file, "/tests/integration_tests/programs/storm2_en.py");
-//     last_frame = frames[frames.length-1];
-//     assert.deepEqual(last_frame.world_map.robots[0].objects, {}, "Testing storm2: no objects carried.");
-//     RUR.rec.conclude();
-//     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-//     assert.equal(test_utils.content,
-//         "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
-//         "<li class='success'>Reeborg is at the correct y position.</li>" +
-//         "<li class='success'>All objects are at the correct location.</li>" +
-//         "<li class='success'>All walls have been built correctly.</li></ul>",
-//         "Feedback text ok.");
-//     done();
-//     });
-// QUnit.test("Storm 3; also tests library", function(assert) {
-//     "use strict";
-//     var frames, last_frame, base_url, world_file;
-//     var done = assert.async();
-//     base_url = "/src/worlds/tutorial_en/";
-//     world_file = "storm3.json";
-//     // loading library indirectly
-//     test_utils.load_program("/tests/integration_tests/programs/storm_library_en.py");
-//     test_utils.library = test_utils.program;
-
-//     // Need to use run_python instead of eval_python to have initially
-//     // random values set.
-//     frames = test_utils.run_python(base_url + world_file, "/tests/integration_tests/programs/storm3_en.py");
-//     last_frame = frames[frames.length-1];
-//     assert.deepEqual(last_frame.world_map.robots[0].objects, {}, "Testing storm3: no objects carried.");
-//     RUR.rec.conclude();
-//     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-//     assert.equal(test_utils.content,
-//         "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
-//         "<li class='success'>Reeborg is at the correct y position.</li>" +
-//         "<li class='success'>All objects are at the correct location.</li>" +
-//         "<li class='success'>All walls have been built correctly.</li></ul>",
-//         "Feedback text ok.");
-//     done();
-// });
 
 QUnit.module("Tutorial worlds: French Python programs", {
   beforeEach: function() {
@@ -303,69 +169,7 @@ QUnit.test("Centre 1, 2, 3", function(assert) {
     done();
 });
 
-// QUnit.test("Maze 1, 2", function(assert) {
-//     var base_url, i, world_files;
-//     var done = assert.async();
-//     base_url = "/src/worlds/tutorial_en/";
-//     world_files = ["maze1.json", "maze2.json"];
 
-//     // The general program for the hurdles works for the maze world!
-//     test_utils.load_program("/tests/integration_tests/programs/hurdle_fr.py");
-//     //**************************************************
-//     for (i in world_files) {
-//         assert.ok(test_utils.eval_python(base_url + world_files[i]).success,
-//                                       world_files[i] + " run successfully.");
-//     }
-//     RUR.rec.conclude();
-//     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-//     assert.equal(test_utils.content,
-//         "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li><li class='success'>Reeborg est à la bonne coordonnée y.</li></ul>",
-//         "Feedback text ok.");
-//     done();
-// });
-
-// QUnit.test("Harvests", function(assert) {
-//     "use strict";
-//     var frames, last_frame, base_url, world_file;
-//     var done = assert.async();
-//     base_url = "/src/worlds/tutorial_en/";
-
-//     world_file = "harvest1.json";
-//     assert.ok(test_utils.eval_python(base_url + world_file, "/tests/integration_tests/programs/harvest1_fr.py").success,
-//                                       world_file + " run successfully.");
-
-//     last_frame = RUR.frames[RUR.frames.length - 1];
-//     assert.equal(last_frame.world_map.robots[0].objects.carrot, "infinite", "Nb of carrots carried.");
-
-//     RUR.rec.conclude();
-//     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-//     assert.equal(test_utils.content,
-//         "<ul><li class='success'>Tous les objets sont aux bons endroits.</li></ul>",
-//         "Feedback text ok.");
-
-//     world_file = "harvest2.json";
-//     assert.ok(test_utils.eval_python(base_url + world_file, "/tests/integration_tests/programs/harvest2_fr.py").success,
-//                                       world_file + " run successfully.");
-
-//     world_file = "harvest3.json";
-//     assert.ok(test_utils.eval_python(base_url + world_file, "/tests/integration_tests/programs/harvest3_fr.py").success,
-//                                       world_file + " run successfully.");
-
-//     world_file = "harvest4a.json";
-//     assert.ok(test_utils.eval_python(base_url + world_file, "/tests/integration_tests/programs/harvest4_fr.py").success,
-//                                       world_file + " run successfully.");
-//     // reuse same program
-//     world_file = "harvest4b.json";
-//     assert.ok(test_utils.eval_python(base_url + world_file).success,
-//                                       world_file + " run successfully.");
-//     world_file = "harvest4c.json";
-//     assert.ok(test_utils.eval_python(base_url + world_file).success,
-//                                       world_file + " run successfully.");
-//     world_file = "harvest4d.json";
-//     assert.ok(test_utils.eval_python(base_url + world_file).success,
-//                                       world_file + " run successfully.");
-//     done();
-// });
 QUnit.test("Tokens", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
