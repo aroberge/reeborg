@@ -26,21 +26,21 @@
     "1,2": [
       "north",
       "east"
-    ]
+    ],
+    "1,1": ["north"]
   },
   "description": [
+    "<h1>Cleaning the path</h1>",
     "<p>There was a storm last night and some leaves",
-    "    were blown on the path from the house.</p>",
+    "    were blown on the gravel path.</p>",
     "<p>Have Reeborg collect all the leaves, and",
-    "    put them in the compost bin, and then",
-    "    close the lid of the compost bin, by using",
-    "    <code>build_wall()</code> but making sure",
-    "    that Reeborg ends at home.</p>",
+    "    <code>toss()</code> them in the compost bin.",
+    "    Make sure that Reeborg ends at home!</p>",
     "<h3>What you need to know</h3>",
     "<ul>",
     "    <li>The functions <code>move()</code>, <code>turn_left()</code>,",
     "        <code>take()</code>, <code>put()</code>, ",
-    "        and <code>build_wall()</code>.</li>",
+    "        and <code>toss()</code>.</li>",
     "    <li>How to use the test <code>object_here()</code>, ",
     "        <code>carries_object()</code> and either",
     "        <code>front_is_clear()</code> or <code>wall_in_front()</code>.</li>",
@@ -64,11 +64,6 @@
       "image": "house",
       "x": 1,
       "y": 1
-    },
-    "walls": {
-      "1,1": [
-        "north"
-      ]
     },
     "objects": {
       "1,2": {
@@ -187,11 +182,14 @@
     ]
   },
   "onload": [
-    "var nb, x;",
+    "var nb, total, x;",
+    "total=0;",
     "for(x=2; x<=6; x++) {",
-    "    nb = RUR.randint(0, 3);",
+    "    nb = RUR.randint(0, 2);",
+    "    total += nb;",
     "    RUR.add_object('leaf', x, 1, {'number': nb});",
     "}",
+    "if (total==0) {RUR.add_object('leaf', 3, 1, {'number': 2})};",
     ""
   ]
 }

@@ -315,6 +315,10 @@ input.blue-gradient:hover {
     background-image: none;
 }
 
+.warning {
+    color: red;
+}
+
 .green-border {
     border-bottom: 4px solid #75a110;
 }
