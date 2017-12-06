@@ -118,17 +118,18 @@ QUnit.test("Load world by running Python programs", function(assert) {
     var frames, last_frame, contents;
     var done = assert.async();
     test_utils.set_human_language("en"); // language needed for comparison with error message
-    contents = [["/src/worlds/tutorial_en/home2.json", "Home 2"],
-                ["/src/worlds/tutorial_en/home1.json", "Home 1"]];
+    contents = [["/worlds/tutorial_en/home1.json", "Home 1"],
+                ["/worlds/tutorial_en/home2.json", "Home 2"]];
     RUR.custom_world_select.make(contents);
 
-    test_utils.run_python(null, "/tests/integration_tests/programs/select_home1_en.py");
+    frames = test_utils.run_python(null, "/tests/integration_tests/programs/select_home2_en.py");
+    console.log("frames = ", frames);
     //playback should have been prevented, and only the feedback shown.
     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element expected.");
-    assert.equal(test_utils.content, "World Home 1 selected", "Correct information about world selected.");
+    assert.equal(test_utils.content, "World Home 2 selected", "Correct information about world selected.");
 
     // second time runs the rest of the program as the correct world is selected
-    test_utils.run_python(null, "/tests/integration_tests/programs/select_home1_en.py");
+    test_utils.run_python(null, "/tests/integration_tests/programs/select_home2_en.py");
     RUR.rec.conclude();
     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
     assert.equal(test_utils.content,

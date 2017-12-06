@@ -96,6 +96,9 @@ function show_onload_feedback (e, lang) {
 
 process_onload = function () {
     var src, ignore;
+
+    RUR.reset_pre_run_defaults(); // TODO:rename this and perhaps move elsewhere?
+
     RUR.set_current_world(RUR.clone_world(RUR.WORLD_BEFORE_ONLOAD));
     if (RUR.CURRENT_WORLD.onload !== undefined && !RUR.state.editing_world) {
         /* editors content can be saved either as a string (old format)

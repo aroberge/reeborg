@@ -7,7 +7,7 @@ Header set Cache-Control "max-age=2592000"
 </FilesMatch>
 
 # cache for 6 hours
-<FilesMatch ".(js|css|html|htm)$">
+<FilesMatch ".(js|css|html|htm|json)$">
 Header set Cache-Control "max-age=21600"
 </FilesMatch>
 RemoveHandler .py

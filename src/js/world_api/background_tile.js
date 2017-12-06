@@ -22,7 +22,21 @@ RUR.set_background = function (url) {
     RUR.BACKGROUND_IMAGE.src = url;
     RUR.record_frame("RUR.set_background", url);
 
-}
+};
+
+/** @function clear_background
+ * @memberof RUR
+ * @instance
+ * @summary This function removes all existing background tiles
+ *
+ */
+
+RUR.clear_background = function() {
+    var world = RUR.get_current_world();
+    world.tiles = {};
+    RUR.record_frame("RUR.clear_background");
+};
+
 
 /** @function fill_background
  * @memberof RUR
@@ -109,11 +123,43 @@ RUR.add_colored_tile = function (color, x, y) {
     "use strict";
     var args;
     if(RUR.KNOWN_THINGS.indexOf(RUR.translate_to_english(color)) != -1){
-        throw new RUR.ReeborgError(color + RUR.translate(" is not a valid color."))
+        throw new RUR.ReeborgError(color + RUR.translate(" is not a valid color."));
     }
     args = {name: color, x:x, y:y, type:"tiles", single:true};
     RUR._add_artefact(args);
     RUR.record_frame("RUR.add_colored_tile", args);
+};
+
+
+/** @function add_background_path
+ * @memberof RUR
+ * @instance
+ * @summary This function sets a named tile as background for a path
+ *
+ * @param {string} name The name of a tile **or** a colour recognized by JS/HTML.
+ *    No check is performed to ensure that the value given is valid; it the
+ *    tile name is not recognized, it is assumed to be a colour. If a new tile
+ *    is set at that location, it replaces the pre-existing one.
+ *
+ * @param {array} path A Javascript Array (or Python list) whose items are
+ * arrays of the form [x, y].
+ *
+ */
+
+RUR.add_background_path = function(name, path) {
+    var i, x, y, add, recording_state = RUR._recording_(false);
+    if(RUR.KNOWN_THINGS.indexOf(RUR.translate_to_english(name)) === -1){
+        add = RUR.add_colored_tile;
+    } else {
+        add = RUR.add_background_tile;
+    }
+    for (i=0; i<path.length; i++){
+        x = path[i][0];
+        y = path[i][1];
+        add(name, x, y);
+    }
+    RUR._recording_(recording_state);
+    RUR.record_frame("RUR.add_background_path", {name:name, path: path});
 };
 
 
