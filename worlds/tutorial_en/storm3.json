@@ -58,7 +58,7 @@
     "<h3>What you need to know</h3>",
     "<ul>",
     "    <li>The functions <code>move()</code>, <code>turn_left()</code>,",
-    "        <code>take()</code>, <code>put()</code>, ",
+    "        <code>take()</code>, ",
     "        and <code>toss()</code>.</li>",
     "    <li>How to use the test <code>object_here()</code>, <code>at_goal()</code>",
     "        <code>carries_object()</code>, <code>right_is_clear()</code>, and <code>front_is_clear()</code>.</li>",
