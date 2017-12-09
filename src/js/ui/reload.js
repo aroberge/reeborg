@@ -1,13 +1,35 @@
-
 require("./../rur.js");
-var set_ui_ready_to_run = require("./../ui/set_ready_to_run.js").set_ui_ready_to_run;
 require("./../recorder/reset.js");
 var record_id = require("./../../lang/msg.js").record_id;
 
-var reload_button = document.getElementById("reload");
 record_id("reload");
-var reload2_button = document.getElementById("reload2");
 record_id("reload2");
+
+
+function set_ui_ready_to_run () {
+    RUR.state.prevent_playback = false;
+    $("#stop").attr("disabled", "true");
+    $("#pause").attr("disabled", "true");
+    $("#run").removeAttr("disabled");
+    $("#step").removeAttr("disabled");
+    $("#reverse-step").attr("disabled", "true");
+    $("#reload").attr("disabled", "true");
+
+    $("#highlight").removeAttr("disabled");
+    $("#watch-variables-btn").removeAttr("disabled");
+
+    $("#open-solution-btn").removeAttr("disabled");
+    $("#save-solution-btn").removeAttr("disabled");
+
+    $("#frame-selector").hide();
+    $("#frame-id").hide();
+}
+
+
+$(document).ready(function () {
+    set_ui_ready_to_run();
+});
+
 
 RUR.reload = function() {
     set_ui_ready_to_run();
@@ -31,6 +53,3 @@ RUR.reload2 = function() {
         }
     }
 };
-
-reload_button.addEventListener("click", RUR.reload, false);
-reload2_button.addEventListener("click", RUR.reload2, false);

@@ -65,19 +65,9 @@ RUR.world_utils.import_world = function (json_string) {
         edit_robot_menu.toggle();
     }
     RUR.WORLD_BEFORE_ONLOAD = RUR.clone_world();
-    start_process_onload();
+    process_onload();
     RUR.world_get.world_info();
 };
-
-function start_process_onload() {
-    if (window.translate_python === undefined) {
-        console.log("startup delay: translate_python not available; will try again in 200ms.");
-        window.setTimeout(start_process_onload, 200);
-    }
-    else {
-        process_onload();
-    }
-}
 
 function show_onload_feedback (e, lang) {
     var lang_info;

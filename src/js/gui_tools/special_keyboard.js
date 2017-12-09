@@ -3,7 +3,7 @@
 
 require("./../rur.js");
 require("./../dialogs/create.js");
-require("./../listeners/editors_tabs.js");
+require("./../ui/editors_tabs.js");
 require("./../translator.js");
 var msg = require("./../../lang/msg.js");
 
@@ -415,14 +415,14 @@ $("#kbd-redo").on("click", function (evt) {
 });
 msg.record_id("kbd-redo", "REDO");
 
-function add_onclick(id, fn, arg, record, enter) {
-    $("#"+id).on("click", function (evt) {
-        fn(arg);
-    });
-    if (enter) {
-        RUR.kbd.enter();
-    }
-    if (record) {
-        msg.record_id(id, id);
-    }
-}
+// function add_onclick(id, fn, arg, record, enter) {
+//     $("#"+id).on("click", function (evt) {
+//         fn(arg);
+//     });
+//     if (enter) {
+//         RUR.kbd.enter();
+//     }
+//     if (record) {
+//         msg.record_id(id, id);
+//     }
+// }

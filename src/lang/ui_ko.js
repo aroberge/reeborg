@@ -281,7 +281,6 @@ ui_ko["EDIT WORLD"] = "월드 수정";
 ui_ko["EDIT WORLD EXPLAIN"] = "기존 월드를 수정하여 자신 만의 월드를 만들 수 있습니다.";
 ui_ko["PROGRAM IN EDITOR"] = "에디터";
 ui_ko["PROGRAM IN BLOCKLY WORKSPACE"] = "blockly 작업 공간 프로그램";
-ui_ko["REVERSE STEP EXPLAIN"] = "이전 실행 상태를 되돌립니다.";
 ui_ko["CONTACT"] = "(English/French only) 이메일:";
 ui_ko["ISSUES"] = "버그 제보, 건의 그외 문제 등. (영어/프랑스어만 됨)";
 ui_ko["FORUM"] = "토론 포럼 (영어/프랑스어만 됨";

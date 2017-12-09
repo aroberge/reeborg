@@ -6,8 +6,8 @@ require("./rur.js");
 
 require("./file_io/file_io.js");
 require("./storage/storage.js");
+require("./permalink/permalink.js");
 
-var record_id = require("./../lang/msg.js").record_id;
 
 /* The menu-driven world editor is not required by any other module,
    but it depends on many of them and will take care of loading them */
@@ -24,19 +24,17 @@ require("./gui_tools/world_editor.js");
 
 // TODO: refactor so that code fromlisteners not required here can be
 // put with the calling module - when there is a single such module.
+// 
+
+require("./ui/add_listeners.js");
+
 //require("./listeners/canvas.js");
-//require("./listeners/editors_tabs.js");
-require("./listeners/frame_slider.js");
 require("./listeners/human_language.js");
 require("./listeners/memorize_world.js");
 require("./listeners/onclick.js");
 //require("./listeners/pause.js");
 //require("./listeners/programming_mode.js");
-require("./listeners/reload.js");
-require("./listeners/reverse_step.js");
-require("./listeners/run.js");
 //require("./listeners/select_world_change.js");
-require("./listeners/step.js");
 require("./listeners/stop.js");
 require("./listeners/toggle_highlight.js");
 require("./listeners/toggle_watch.js");
@@ -53,32 +51,194 @@ if (__BRYTHON__.__MAGIC__ != "3.3.4") {
     alert("Expecting Brython version 3.3.4 and got " + __BRYTHON__.__MAGIC__);
 }
 
-/* Once everything is loaded, we need to decide which UI to show.
-   The priority is determined by:
+function probably_invalid(value) {
+    return value === undefined || value === null || value == "null" || value == "undefined";
+}
 
-   1. information encoded in the URL.
-   2. any previously saved state.
-   3. site defaults
-*/
+RUR.state.session_initialized = false;
+
 function start_session () {
     "use strict";
-    var mode, url_query = parseUri(window.location.href);
-    RUR.state.session_initialized = false;
+    set_initial_state();
     set_editor();
     set_library();
     get_red_green();
-    // The world can include some content for the editor and/or the library, and/or the blocks
-    RUR.permalink.set_language(url_query);
-    mode = RUR.permalink.set_mode(url_query);
-    if (mode === "blockly-py" || mode === "blockly-js") {
+    RUR.state.session_initialized = true;
+    RUR.world_selector.set_url(RUR.state.world_url);
+    RUR.permalink.update_URI();
+    // refresh the UI as the selectors may be left blank if
+    // the site was loaded with a "bare" url as in
+    // http://reeborg.ca/reeborg.html
+    // $('#programming-mode').val(RUR.state.programming_language);
+    // $("#human-language").val(RUR.state.human_language);
+    // $("#human-language").change();
+}
+
+
+function confirm_ready_to_start() {
+    if (window.translate_python === undefined) {
+        console.log("startup delay: translate_python not available; will try again in 100ms.");
+        window.setTimeout(confirm_ready_to_start, 100);
+    }
+    else {
+        start_session();
+    }
+}
+
+
+$(document).ready( function () {
+    confirm_ready_to_start();
+});
+
+
+function set_initial_state() {
+    /* This function sets the initial state which includes
+        * The input method (python, py-repl, etc.)
+        * The human language
+        * The world menu to be used
+        * The world to be initially displayed
+            * its name
+            * its url
+
+       The priority is determined by:
+           1. information encoded in the URL;
+           2. any previously saved state;
+           3. site defaults.
+            
+    */
+    var url_query, last_name, last_url, url;
+
+    url_query = RUR.permalink.parseUri(window.location.href);
+    if (url_query.queryKey === undefined) {  // should be set but just in case...
+        url_query.queryKey = {};
+    }
+    
+    // Changing the input_method / programming mode does not affect anything else
+    // so do first. Note that, if using Blockly, we will retrieve the last
+    // state here. However, if a world (loaded below) has some Blockly
+    // content, it will replace the restored content, as desired.
+    set_initial_input_method(url_query);
+
+    // Changing the human language will trigger a restart of the Python repl
+    // if it is the mode selected, to ensure that the proper reeborg_xx module
+    // is used; so it has to be done after the programming mode has been set.
+    set_initial_language(url_query);
+
+    // Next, we create the appropriate world menu, using the default if needed
+    set_initial_menu(url_query);
+
+    // A hand-written url may not include all required parts;
+    // this does not matter for the previous three settings, but it
+    // may matter if there is some inconsistency with the indicated url and name
+    // parts. In this case, we have to make sure that we do not
+    // retrieve the last saved values by mistake
+    RUR.state.world_url = decodeURIComponent(url_query.queryKey.url);
+    RUR.state.world_name = decodeURIComponent(url_query.queryKey.name);    
+
+    // correct potentially faulty values
+    if (probably_invalid(RUR.state.world_url)) {
+        RUR.state.world_url = undefined;
+    }
+    if (probably_invalid(RUR.state.world_name)) {
+        RUR.state.world_name = undefined;
+    }
+
+    if (RUR.state.world_url !== undefined) {
+        if (RUR.state.world_name === undefined) {
+            RUR.state.world_name = RUR.state.world_url;
+        }
+        try {
+            RUR.load_world_file(RUR.state.world_url, RUR.state.world_name);
+        } catch (e) {
+            set_default_world();
+        }
+    } else if (RUR.state.world_name !== undefined) {
+        RUR.state.world_url = RUR.world_selector.url_from_shortname(RUR.state.world_name);
+        if (RUR.state.world_url === undefined) { // Name does not in the current menu
+            set_default_world();
+        }
+    } else {
+        set_default_world();
+    }
+}
+
+function set_default_world() {
+    var world_name, world_url, possible_url;
+    world_name = localStorage.getItem("world_name");
+    world_url = localStorage.getItem("world_url");
+    possible_url = RUR.world_selector.url_from_shortname(world_name);
+    if (!probably_invalid(possible_url) && 
+        possible_url == world_url // ensure consistency
+        ) {
+        RUR.world_selector.set_url(world_url);
+    } else {
+        RUR.world_selector.set_default();  // first world of the collection
+    }
+}
+
+
+function set_initial_input_method(url_query) {
+    var last_mode;
+    RUR.state.input_method = decodeURIComponent(url_query.queryKey.mode); 
+    last_mode = localStorage.getItem("input_method");
+
+    if (probably_invalid(RUR.state.input_method)) {
+        if (!probably_invalid(last_mode)) {
+            RUR.state.input_method = last_mode;
+        } else {
+            RUR.state.input_method = RUR.initial_defaults.input_method;
+        }
+    }
+    document.getElementById("programming-mode").value = RUR.state.input_method;
+    $("#programming-mode").change(); // triggers the require UI changes
+
+    if (RUR.state.input_method === "blockly-py" || RUR.state.input_method === "blockly-js") {
         restore_blockly();
     }
-    set_world(url_query);
-    RUR.state.session_initialized = true;
-    RUR.state.creating_menu = false;
-    $("#select-world").change();
 }
-start_session();
+
+
+function set_initial_language(url_query) {
+    var last_lang;
+    RUR.state.human_language = decodeURIComponent(url_query.queryKey.lang);
+    last_lang = localStorage.getItem("human_language");
+
+    if (probably_invalid(RUR.state.human_language)) {
+        if (!probably_invalid(last_lang)) {
+            RUR.state.human_language = last_lang;
+        } else {
+            RUR.state.human_language = RUR.initial_defaults.human_language;
+        }
+    }
+    document.getElementById('human-language').value = RUR.state.human_language;
+    $("#human-language").change(); // triggers the require UI changes
+}
+
+
+function set_initial_menu(url_query) {
+    var last_menu;
+
+    RUR.state.current_menu = decodeURIComponent(url_query.queryKey.menu);
+    last_menu = localStorage.getItem("world_menu");
+
+    if (probably_invalid(RUR.state.current_menu)) {
+        if (!probably_invalid(last_menu)) {
+            RUR.state.current_menu = last_menu;
+        } else {
+            RUR.state.current_menu = RUR.initial_defaults.initial_menu;
+        }
+    }   
+
+    RUR.state.creating_menu = true;
+    RUR.load_world_file(RUR.state.current_menu);
+    if (RUR.file_io_status == "no link") {
+        RUR.make_default_menu(RUR.state.human_language);
+    }
+
+    RUR.state.creating_menu = false;
+
+}
+
 
 function restore_blockly () {
     var xml, xml_text;
@@ -117,45 +277,3 @@ function get_red_green () {
         RUR.configure_red_green(red, green);
     }
 }
-
-function set_world(url_query) {
-    var world, name;
-    if (RUR.permalink.from_url(url_query)){
-        return;
-    }
-    name = localStorage.getItem("world");
-
-    if (name) {
-        world = RUR.world_select.url_from_shortname(name);
-        if (world) {
-            RUR.world_select.set_url(world);
-        } else {
-            RUR.world_select.set_default();
-        }
-    } else {
-        RUR.world_select.set_default();
-    }
-
-    // activate listener now that we're set.
-    // record_id("select-world");
-    $("#select-world").change(function() {
-        var url = $(this).val();
-        if (RUR.state.creating_menu){
-            return;
-        }
-        if (url !== null) {
-            url = url.toLowerCase();
-            if (RUR.state.session_initialized && url.includes('menu')) {
-                localStorage.setItem("last_menu", url);
-                localStorage.setItem("last_menu_lang", localStorage.getItem("human_language"));
-            }
-            RUR.load_world_file($(this).val());
-        }
-        try {
-            localStorage.setItem("world", $(this).find(':selected').text());
-        } catch (e) {}
-    });
-
-}
-
-// TODO: implement paint() and colour_here() in Blockly

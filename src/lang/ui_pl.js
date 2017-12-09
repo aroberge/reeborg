@@ -279,7 +279,6 @@ ui_pl["EDIT WORLD"] = "Edytuj świat";
 ui_pl["EDIT WORLD EXPLAIN"] = "Możesz stworzyć swój świat edytująć bierzący.";
 ui_pl["PROGRAM IN EDITOR"] = "Program w edytorze";
 ui_pl["PROGRAM IN BLOCKLY WORKSPACE"] = "Program w przestrzeni roboczej blockly";
-ui_pl["REVERSE STEP EXPLAIN"] = "Odwróć ostani krok działania.";
 ui_pl["CONTACT"] = "(Tylko Angielski/Francuski) Email:";
 ui_pl["ISSUES"] = "Raporty bugów, sugestie, inne sprawy, etc. (Tylko Angielski/Francuski)";
 ui_pl["FORUM"] = "Forum dyskusyje (Tylko Angielski/Francuski)";

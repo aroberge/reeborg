@@ -183,6 +183,11 @@ a[href^='http'] {
 .select-mixed {
     background-color: beige;
 }
+.select-success, select option.select-success {
+    background-color: green;
+    color: white;
+}
+
 
 .filename:focus {
     border: 2px solid blue;

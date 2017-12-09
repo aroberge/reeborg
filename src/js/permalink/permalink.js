@@ -1,106 +1,65 @@
-
 require("./../rur.js");
-require("./../storage/storage.js");
-require("./../editors/update.js");
-require("./../translator.js");
-require("./../listeners/programming_mode.js");
-require("./../utils/parseuri.js");
-require("./../editors/create.js");
-// depends on filesaver.js loaded in main html page
 
-var record_id = require("./../../lang/msg.js").record_id;
+function parseUri (str) {
+    // parseUri 1.2.2
+    // (c) Steven Levithan <stevenlevithan.com>
+    // MIT License
+    var o   = parseUri.options,
+        m   = o.parser[o.strictMode ? "strict" : "loose"].exec(str),
+        uri = {},
+        i   = 14;
 
+    while (i--) uri[o.key[i]] = m[i] || "";
+
+    uri[o.q.name] = {};
+    uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
+        if ($1) uri[o.q.name][$1] = $2;
+    });
+
+    return uri;
+}
+
+parseUri.options = {
+    strictMode: false,
+    key: ["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],
+    q:   {
+        name:   "queryKey",
+        parser: /(?:^|&)([^&=]*)=?([^&]*)/g
+    },
+    parser: {
+        strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
+        loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
+    }
+};
 
 RUR.permalink = {};
+RUR.permalink.parseUri = parseUri;
 
-RUR.permalink.set_mode = function (url_query) {
+RUR.permalink.update_URI = function() {
     "use strict";
-    var mode;
-    if (url_query.queryKey.mode !== undefined) {
-        mode = url_query.queryKey.mode;
+    var url_query, permalink;
+
+    // Do not mess up with URI during initialization 
+    if (!RUR.state.session_initialized) {
+        return;
     }
-    else if (localStorage.getItem("programming-mode")) {
-        mode = localStorage.getItem("programming-mode");
-    } else {
-        mode = 'python';
+    // Permalinks shared to collaborate using Mozilla's TogetherJS should also
+    // be left unchanged
+    if (window.location.href.indexOf("#&togetherjs") != -1) {
+        return;
     }
 
-    document.getElementById('programming-mode').value = mode;
-    $("#programming-mode").change();
-    return mode;
+    url_query = parseUri(window.location.href);
+    permalink = url_query.protocol + "://" + url_query.host;
+    if (url_query.port){
+        permalink += ":" + url_query.port;
+    }
+    permalink += url_query.path;
+
+    permalink += "?lang=" + encodeURIComponent(RUR.state.human_language) +
+                 "&mode=" + encodeURIComponent(RUR.state.input_method) +
+                 "&menu=" + encodeURIComponent(RUR.state.current_menu) +                 
+                 "&name=" + encodeURIComponent(RUR.state.world_name) +
+                 "&url=" + encodeURIComponent(RUR.state.world_url);
+    window.history.pushState("dummy", "dummy", permalink);
 };
-
-RUR.permalink.set_language = function (url_query) {
-    "use strict";
-    var lang;
-    if (url_query.queryKey.lang !== undefined) {
-        lang = url_query.queryKey.lang;
-    } else if (localStorage.getItem("human_language")) {
-        lang = localStorage.getItem("human_language");
-    } else {
-        lang = 'en';
-    }
-    document.getElementById('human-language').value = lang;
-    $("#human-language").change();
-};
-
-RUR.permalink.from_url = function(url_query) {
-    var from_url=false, url=false, name=false, collection=false;
-    if (url_query.queryKey.url !== undefined) {
-        url = decodeURIComponent(url_query.queryKey.url);
-    }
-    if (url_query.queryKey.name !== undefined) {
-        name = decodeURIComponent(url_query.queryKey.name);
-    }
-    if (url_query.queryKey.collection !== undefined) {
-        collection = decodeURIComponent(url_query.queryKey.collection);
-    }
-    if (!(url || name || collection)) {
-        return false;
-    } else {
-        try { 
-            if (collection) {
-                RUR._load_world_from_program(collection);
-            } else if (url && name) {
-                RUR._load_world_from_program(url, name);
-            } else if (url) {
-                RUR._load_world_from_program(url);
-            } else {
-                RUR._load_world_from_program(name);
-            }
-        } catch (e) {
-            if (e.reeborg_concludes) {
-                RUR.show_feedback("#Reeborg-concludes", e.reeborg_concludes);
-                if (collection && name) {
-                    url = RUR.world_select.url_from_shortname(name);
-                    if (url !== undefined) {
-                        try {
-                            RUR._load_world_from_program(url, name);
-                        } catch (e) {
-                            if (e.reeborg_concludes) {
-                                RUR.show_feedback("#Reeborg-concludes", e.reeborg_concludes);
-                                return true;
-                            } else {
-                                return false;
-                            }
-                        }
-                    }
-                }
-                return true;
-            } else if (e.reeborg_shouts) {
-                RUR.show_feedback("#Reeborg-shouts", e.reeborg_shouts);
-            } else {
-                console.log("unidentified error", e);
-            }
-            return false;
-        }
-        return true;
-    }
-};
-
-// for embedding in iframe
-// update() missing so this raises an error.
-// addEventListener("message", receiveMessage, false);
-// function receiveMessage(event){
-//     RUR.permalink.update(event.data);
-// }

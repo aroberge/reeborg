@@ -1,5 +1,4 @@
 require("./../rur.js");
-require("./reload.js");
 require("./../runner/runner.js");
 
 var frame_selector = document.getElementById("frame-selector"),
@@ -29,8 +28,7 @@ RUR.update_frame_nb_info = function() {
     } catch (e) {}
 };
 
-
-$("#frame-selector").on("input change", function() {
+RUR.listeners['frame-selector'] = function () {
     if (RUR.state.playback) {
         return;
     }
@@ -49,4 +47,4 @@ $("#frame-selector").on("input change", function() {
     RUR.update_frame_nb_info();
     // TODO: see if dependency needs to be set properly
     RUR.rec.display_frame();
-});
+};

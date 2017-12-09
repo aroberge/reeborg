@@ -54,37 +54,37 @@ QUnit.test("Load world", function(assert) {
     done();
 });
 
-QUnit.test("Load world from url-permalink", function(assert) {
-    var url =  window.location.origin + "/worlds/tutorial_en/alone.json";
-    var query = {};
-    query.queryKey = {"mode": "python", "lang": "en", "url": url};
-    var done = assert.async();
-    var world_alone = {
-        robots: [ {
-                  "x": 1,
-                  "y": 1,
-                  "_orientation": 0,
-                  "_prev_x": 1,
-                  "_prev_y": 1,
-                  "_prev_orientation": 0,
-                  "_is_leaky": true,
-                  "_trace_color": "seagreen",
-                  "_trace_history": [],
-                  "_trace_style": "default",
-                  "objects": {}
-                }
-            ],
-        walls: {},
-        description: "A simple, empty world, ready for Reeborg to explore.",
-        rows: 10,
-        cols: 10,
-        small_tiles: false
-    };
+// QUnit.test("Load world from url-permalink", function(assert) {
+//     var url =  window.location.origin + "/worlds/tutorial_en/alone.json";
+//     var query = {};
+//     query.queryKey = {"mode": "python", "lang": "en", "url": url};
+//     var done = assert.async();
+//     var world_alone = {
+//         robots: [ {
+//                   "x": 1,
+//                   "y": 1,
+//                   "_orientation": 0,
+//                   "_prev_x": 1,
+//                   "_prev_y": 1,
+//                   "_prev_orientation": 0,
+//                   "_is_leaky": true,
+//                   "_trace_color": "seagreen",
+//                   "_trace_history": [],
+//                   "_trace_style": "default",
+//                   "objects": {}
+//                 }
+//             ],
+//         walls: {},
+//         description: "A simple, empty world, ready for Reeborg to explore.",
+//         rows: 10,
+//         cols: 10,
+//         small_tiles: false
+//     };
 
-    RUR.permalink.from_url(query);
-    assert.deepEqual(world_alone, remove_robot_id(RUR.CURRENT_WORLD), "Ensuring loading world from url is done properly.");
-    done();
-});
+//     RUR.permalink.from_url(query);
+//     assert.deepEqual(world_alone, remove_robot_id(RUR.CURRENT_WORLD), "Ensuring loading world from url is done properly.");
+//     done();
+// });
 
 QUnit.test("Load world without running program", function(assert) {
     var contents, done = assert.async();

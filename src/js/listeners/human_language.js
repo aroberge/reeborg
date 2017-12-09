@@ -3,10 +3,9 @@ require("./../programming_api/reeborg_en.js");
 require("./../programming_api/reeborg_fr.js");
 require("./../programming_api/blockly.js");
 require("./../ui/custom_world_select.js");
+require("./../permalink/permalink.js");
 
 var msg = require("./../../lang/msg.js");
-var update_url = require("./../utils/parseuri.js").update_url;
-
 msg.record_id("human-language");
 msg.record_id("mixed-language-info");
 
@@ -111,34 +110,13 @@ function update_home_url (lang) {
 }
 
 $("#human-language").change(function() {
-    var lang = $(this).val(), last_menu, last_menu_lang;
+    var lang = $(this).val();
 
     RUR.state.human_language = lang;
     update_translations(lang);
     msg.update_ui(lang);
     update_commands(lang);
     update_home_url(lang);
-
-    try {
-        last_menu = localStorage.getItem("last_menu");
-        last_menu_lang = localStorage.getItem("last_menu_lang");
-    } catch(e) {}
-
-    // if initializing a session, attempt to load the last menu if one
-    // exists so that the last world used can be retrieved successfully.
-    if (!RUR.state.session_initialized && last_menu_lang == lang) {
-        try {
-            if (last_menu) {
-                RUR.load_world_file(last_menu);
-            } else {
-                RUR.make_default_menu(lang);
-            }
-        } catch (e) {
-            RUR.make_default_menu(lang);
-        }
-    } else {
-        RUR.make_default_menu(lang);
-    }
 
     RUR.blockly.init();
 
@@ -152,9 +130,11 @@ $("#human-language").change(function() {
         try {
             restart_repl();
         } catch (e) {
-            console.log("human-language change: can not re/start repl", e);
+            console.log("Problem with human-language change: can not re/start repl", e);
         }
     }
     localStorage.setItem("human_language", lang);
-    update_url();
+    if (RUR.state.session_initialized) {
+        RUR.permalink.update_URI();
+    }
 });

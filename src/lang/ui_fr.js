@@ -279,7 +279,6 @@ ui_fr["EDIT WORLD"] = "Édition du monde";
 ui_fr["EDIT WORLD EXPLAIN"] = "Vous pouvez créer vos propres mondes en modifiant un monde existant.";
 ui_fr["PROGRAM IN EDITOR"] = "Programme dans l'éditeur";
 ui_fr["PROGRAM IN BLOCKLY WORKSPACE"] = "Programme de blocs";
-ui_fr["REVERSE STEP EXPLAIN"] = "Renverse l'instruction précédemment exécutée.";
 ui_fr["CONTACT"] = "Courriel :";
 ui_fr["ISSUES"] = "Rapports de bogues, suggestions, autres problèmes, etc. (en anglais ou en français seulement).";
 ui_fr["FORUM"] = "Forum de discussions (en anglais ou en français seulement).";

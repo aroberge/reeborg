@@ -1,20 +1,6 @@
+require("../rur.js");
 require("./../editors/create.js");
 var record_id = require("./../../lang/msg.js").record_id;
-
-// "tabs" is a jqueryUI method
-$("#tabs").tabs({
-    heightStyle: "content",
-    activate: function(event, ui){
-        var height_adjust = $(this).height()-60;
-        editor.setSize(null, height_adjust);
-        library.setSize(null, height_adjust);
-        extra_editor.setSize(null, height_adjust);
-        pre_code_editor.setSize(null, height_adjust);
-        post_code_editor.setSize(null, height_adjust);
-        description_editor.setSize(null, height_adjust);
-        onload_editor.setSize(null, height_adjust);
-    }
-});
 
 record_id("editor-tab", "Python Code");
 record_id("library-tab", "LIBRARY");
@@ -24,20 +10,29 @@ record_id("post-code-tab", "POST");
 record_id("description-tab", "DESCRIPTION");
 record_id("onload-editor-tab", "ONLOAD");
 
-$("#editor-panel").resizable({
-    resize: function() {
-        var height_adjust = $(this).height()-60;
-        editor.setSize(null, height_adjust);
-        library.setSize(null, height_adjust);
-        pre_code_editor.setSize(null, height_adjust);
-        post_code_editor.setSize(null, height_adjust);
-        description_editor.setSize(null, height_adjust);
-        onload_editor.setSize(null, height_adjust);
-    }
-}).draggable({cursor: "move", handle: "ul"});
+RUR.listeners['tabs.activate'] = function(event, ui){
+    var height_adjust = $(this).height()-60;
+    editor.setSize(null, height_adjust);
+    library.setSize(null, height_adjust);
+    extra_editor.setSize(null, height_adjust);
+    pre_code_editor.setSize(null, height_adjust);
+    post_code_editor.setSize(null, height_adjust);
+    description_editor.setSize(null, height_adjust);
+    onload_editor.setSize(null, height_adjust);
+};
 
 
-$("#editor-tab").on("click", function (evt) {
+RUR.listeners['editor-panel.resize'] = function() {
+    var height_adjust = $(this).height()-60;
+    editor.setSize(null, height_adjust);
+    library.setSize(null, height_adjust);
+    pre_code_editor.setSize(null, height_adjust);
+    post_code_editor.setSize(null, height_adjust);
+    description_editor.setSize(null, height_adjust);
+    onload_editor.setSize(null, height_adjust);
+};
+
+RUR.listeners['editor-tab'] = function (evt) {
     if (RUR.state.programming_language == "python" && !RUR.state.editing_world) {
         $("#highlight").show();
         $("#watch-variables-btn").show();
@@ -45,18 +40,18 @@ $("#editor-tab").on("click", function (evt) {
         $("#highlight").hide();
         $("#watch-variables-btn").hide();
     }
-});
+};
 
-
-$("#library-tab").on("click", function (evt) {
+RUR.listeners['library-tab'] = function (evt) {
     $("#highlight").hide();
     $("#watch-variables-btn").hide();
-});
+};
 
-$("#extra-tab").on("click", function (evt) {
+RUR.listeners['extra-tab'] = function (evt) {
     $("#highlight").hide();
     $("#watch-variables-btn").hide();
-});
+};
+
 
 /**
  * @function set_extra_content
@@ -124,7 +119,7 @@ RUR.set_extra_content = function (python_code, hidden) {
  */
 RUR.get_editor_from_world = function () {
     var world = RUR.get_current_world();
-    if (world.editor != undefined) {
+    if (world.editor !== undefined) {
         return world.editor;
     }
     return '';
@@ -148,11 +143,8 @@ RUR.get_editor_from_world = function () {
  */
 RUR.get_library_from_world = function () {
     var world = RUR.get_current_world();
-    if (world.library != undefined) {
+    if (world.library !== undefined) {
         return world.library;
     }
     return '';
 };
-
-
-

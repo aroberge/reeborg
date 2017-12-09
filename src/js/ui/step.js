@@ -1,14 +1,14 @@
 
 require("./../rur.js");
-require("./reload.js");
 require("./../runner/runner.js");
-require("./../playback/play.js");
+require("./../recorder/recorder.js");
 var record_id = require("./../../lang/msg.js").record_id;
 
-var step_button = document.getElementById("step");
 record_id("step");
+record_id("reverse-step");
 
-step = function () {
+
+RUR.listeners.step = function () {
     RUR.runner.run(RUR.rec.display_frame);
     RUR.state.stop_called = false;
     $("#stop").removeAttr("disabled");
@@ -23,6 +23,17 @@ step = function () {
 
     $("#open-solution-btn").attr("disabled", "true");
     $("#save-solution-btn").attr("disabled", "true");
-
 };
-step_button.addEventListener("click", step, false);
+
+RUR.listeners.reverse_step = function () {
+    RUR.current_frame_no -= 2;  // see below call to RUR.rec.display_frame
+    if (RUR.current_frame_no < 0){
+        $("#reverse-step").attr("disabled", "true");
+    }
+    $("#frame-selector").removeAttr("disabled").addClass("enabled").removeClass("disabled");
+    RUR.rec.display_frame(); // increments the current_frame_no by 1
+    RUR.state.stop_called = false;
+    $("#stop").removeAttr("disabled");
+    clearTimeout(RUR._TIMER);
+};
+

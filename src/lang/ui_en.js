@@ -244,7 +244,6 @@ ui_en["EDIT WORLD"] = "Edit world";
 ui_en["EDIT WORLD EXPLAIN"] = "You can create your own world by editing the current one.";
 ui_en["PROGRAM IN EDITOR"] = "Program in editor";
 ui_en["PROGRAM IN BLOCKLY WORKSPACE"] = "Program in blockly workspace";
-ui_en["REVERSE STEP EXPLAIN"] = "Reverses the previous execution step.";
 ui_en["CONTACT"] = "(English/French only) Email:";
 ui_en["ISSUES"] = "Bug reports, suggestions, other issues, etc. (English/French only)";
 ui_en["FORUM"] = "Discussion forum (English/French only)";

@@ -40,6 +40,8 @@ try {
   Namespaces
 ==========================================================*/
 
+RUR.initial_defaults = {};
+RUR.listeners = {};
 RUR.utils = {};
 RUR.world_utils = {};
 RUR.UnitTest = {}; // used to provide links to function mused for unit tests
@@ -79,6 +81,8 @@ RUR.DEFAULT_TRACE_COLOR = "seagreen";
 RUR.MAX_X_DEFAULT = 14; // These two values are used in the dialog used to resize
 RUR.MAX_Y_DEFAULT = 12; // a world, hard-coded in the html dialog #dialog-set-dimensions.
 RUR.END_CYCLE = "end cycle"; // for animated images
+
+RUR.CHECK_MARK = " ✓";
 
 // The following are editors (content) that can be part of a world.
 RUR.WORLD_EDITORS = ["description", "editor", "library", "pre", "post", "onload"];
@@ -130,17 +134,27 @@ RUR.RED = "red";     // RUR.configure_red_green() below
 RUR.SHOW_EDITORS_CONTENTS = false;
 
 /*========================================================
+  Some initial defaults
+==========================================================*/
+RUR.initial_defaults.human_language = 'en';
+RUR.initial_defaults.input_method = 'python';
+RUR.initial_defaults.initial_menu = RUR.BASE_URL + 'worlds/menus/default_menu_en.json';
 
-   Configuration through UI interaction including URL: default values
-
+/*========================================================
+   State changed through UI interaction or from initial URI
 ==========================================================*/
 
 RUR.state.session_initialized = false; // when first loading the site
 
-RUR.state.human_language = "en";
-RUR.state.input_method = "python";
-RUR.state.programming_language = "python";
-RUR.state.onload_programming_language = "python"; // language is determined by content of editor
+RUR.state.human_language = undefined;
+RUR.state.input_method = undefined;
+RUR.state.programming_language = undefined;
+
+RUR.state.world_name = undefined;
+RUR.state.world_url = undefined;
+RUR.state.current_menu = undefined;
+
+RUR.state.onload_programming_language = undefined; // determined by content of onload editor
 
 RUR.state.x = undefined; // recorded mouse clicks
 RUR.state.y = undefined;
@@ -155,7 +169,7 @@ RUR.state.editing_world = false;
 RUR.state.extra_code_visible = false;
 
 // This will keep track of the current font size if changed by the user.
-RUR.editors_font_size = undefined;
+RUR.state.editors_font_size = undefined;
 
 /*========================================================
 

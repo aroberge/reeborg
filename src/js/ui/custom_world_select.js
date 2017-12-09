@@ -1,5 +1,6 @@
 /* In this module, we make it possible for a user to define their
    own world menu selection. We also include some default world menus. */
+require("./../rur.js");
 require("./../translator.js");
 require("./world_select.js");
 require("./../storage/storage.js");
@@ -10,20 +11,25 @@ RUR.custom_world_select.make = function (contents) {  // aka RUR._MakeCustomMenu
     "use strict";
     var i, url, last_menu;
 
-    RUR.world_select.empty_menu();
+    RUR.state.creating_menu = true;
+    RUR.world_selector.empty_menu();
     for(i=0; i<contents.length; i++){
-        RUR.world_select.append_world( {url:contents[i][0],
+        RUR.world_selector.append_world( {url:contents[i][0],
                                         shortname:contents[i][1]});
     }
     load_user_worlds();
+    RUR.state.current_menu = RUR.state.world_url;
+    localStorage.setItem("world_menu", RUR.state.current_menu);
+    RUR.state.creating_menu = false;
+
     if (RUR.state.session_initialized) {
-        RUR.world_select.set_default();
+        RUR.world_selector.set_default();
     }
 };
 
 function load_user_worlds() {
     var key, name, i;
-    RUR.state.creating_menu = true;
+    
     for (i = localStorage.length - 1; i >= 0; i--) {
         key = localStorage.key(i);
         if (key.slice(0, 11) === "user_world:") {
@@ -32,11 +38,7 @@ function load_user_worlds() {
             $('#delete-world').show();
         }
     }
-    if (RUR.state.session_initialized) {
-        RUR.state.creating_menu = false;
-    }
 }
-
 
 RUR.make_default_menu = function(language) {
     RUR.state.creating_menu = true;

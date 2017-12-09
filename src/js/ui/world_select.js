@@ -1,26 +1,68 @@
-
 /*  Purpose of this file: abstract handling of menus so that all jQuery
     dependencies (and possibly obscure syntax in some cases) can be pulled
     away from other files.
 */
+require("../rur.js");
+require("./user_progress.js");
+require("../permalink/permalink.js");
 
-RUR.world_select = {};
+var record_id = require("./../../lang/msg.js").record_id;
+record_id("select-world");
 
-RUR.world_select.empty_menu = function () {
+
+RUR.listeners['select-world.change'] = function() {
+    var url, name;
+    if (RUR.state.creating_menu){
+        return;
+    }
+
+    url = $("#select-world").val();
+    name = $("#select-world").find(':selected').text();
+    name = RUR.strip_checkmark(name);
+
+    RUR.load_world_file(url, name);
+
+    localStorage.setItem("world_name", name);
+    localStorage.setItem("world_url", url);
+    RUR.state.world_url = url;
+    RUR.state.world_name = name;
+    RUR.permalink.update_URI();
+};
+
+
+RUR.world_selector = {};
+RUR.world_selector.update = function () {
+    $("#select-world").change();
+};
+
+
+RUR.world_selector.add_checkmark = function(name) {
+    var options = $("#select-world")[0].options;
+    for (var i=0; i<options.length; i++) {
+        if (options[i].innerHTML == name) {
+            options[i].innerHTML = name + RUR.CHECK_MARK;
+            options[i].setAttribute("class", "select-success");
+            break;
+        }
+    }
+};
+
+
+RUR.world_selector.empty_menu = function () {
     $("#select-world").html('');
 };
 
-RUR.world_select.set_default = function () {
+RUR.world_selector.set_default = function () {
     document.getElementById("select-world").selectedIndex = 0;
     $("#select-world").change();
 };
 
-RUR.world_select.set_url = function (url) {
+RUR.world_selector.set_url = function (url) {
     $('#select-world').val(url);
     $("#select-world").change();
 };
 
-RUR.world_select.get_selected = function () {
+RUR.world_selector.get_selected = function () {
     "use strict";
     var select, index, url, shortname;
     select = document.getElementById("select-world");
@@ -35,21 +77,27 @@ RUR.world_select.get_selected = function () {
     return {url:url, shortname:shortname};
 };
 
-RUR.world_select.url_from_shortname = function (shortname) {
+RUR.world_selector.url_from_shortname = function (shortname) {
     // if exists, returns the corresponding url
     "use strict";
-    var i, select;
+    var i, select, name;
+    if (!shortname){  // shortname could be null
+        return undefined;
+    }
     select = document.getElementById("select-world");
-    shortname = shortname.toLowerCase();
+    shortname = RUR.strip_checkmark(shortname.toLowerCase());
+
     for (i=0; i < select.options.length; i++){
-        if (select.options[i].text.toLowerCase() === shortname) {
+        name = select.options[i].text.toLowerCase();
+        name = RUR.strip_checkmark(name);
+        if (name === shortname) {
             return select.options[i].value;
         }
     }
     return undefined;
 };
 
-RUR.world_select.replace_shortname = function (url, shortname) {
+RUR.world_selector.replace_shortname = function (url, shortname) {
     "use strict";
     var i, select;
     select = document.getElementById("select-world");
@@ -64,7 +112,7 @@ RUR.world_select.replace_shortname = function (url, shortname) {
     return false;
 };
 
-RUR.world_select.append_world = function (arg) {
+RUR.world_selector.append_world = function (arg) {
     "use strict";
     var option_elt, url, shortname;
     url = arg.url;
@@ -84,7 +132,7 @@ RUR.world_select.append_world = function (arg) {
         option_elt = '<option></option>';
     }
     // Append only if new world.
-    if (!RUR.world_select.replace_shortname(url, shortname)) {
+    if (!RUR.world_selector.replace_shortname(url, shortname)) {
         $('#select-world').append( $(option_elt).val(url).html(shortname));
     }
 };

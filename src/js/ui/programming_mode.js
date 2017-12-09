@@ -1,9 +1,10 @@
 require("./../rur.js");
-require("./../listeners/reload.js");
+require("./reload.js");
 require("./../gui_tools/special_keyboard.js");
 require("./../editors/create.js");
+require("./../permalink/permalink.js");
+
 var record_id = require("./../../lang/msg.js").record_id;
-var update_url = require("./../utils/parseuri.js").update_url;
 
 record_id("programming-mode");
 
@@ -100,11 +101,11 @@ RUR.onload_set_programming_mode = function(mode) {
     }, 100);
 };
 
-$("#programming-mode").change(function() {
+RUR.listeners['programming-mode'] = function () {
     "use strict";
-    var choice = $(this).val();
+    var choice = $('#programming-mode').val();
     RUR.state.input_method = choice;
-    localStorage.setItem("programming-mode", choice);
+    localStorage.setItem("input_method", choice);
     hide_everything();
 
     switch(choice) {
@@ -160,19 +161,19 @@ $("#programming-mode").change(function() {
             console.warn(" Default value used in programming-mode select.");
     }
     RUR.kbd.set_programming_language(RUR.state.programming_language);
-    update_url();
-});
+    RUR.permalink.update_URI();
+};
 
 
 record_id("editor-visible-input");
-$('#editor-visible-input').change(function() {
+RUR.listeners['editor-visible-input'] = function () {
     if ($('#editor-visible-input')[0].checked) {
         show_editor(RUR.state.programming_language);
         $("#special-keyboard-button").hide();
     } else {
         hide_editors();
     }
-});
+};
 
 
 function hide_everything () {
