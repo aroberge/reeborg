@@ -688,26 +688,17 @@ RUR.blockly.init = function () {
     $("#blockly-wrapper").append('<div id="blocklyDiv"></div>');
     $(".blocklyToolboxDiv").remove();
 
-    /* With the current version of the code, Firefox does not display
-       the trashcan and controls properly; so we do not show them ... but
-       allow for testing via the console by setting RUR.firefox_ok to true */
-    var firefox_present = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-    if (firefox_present && !RUR.firefox_ok) {
-        RUR.blockly.workspace = Blockly.inject('blocklyDiv', {
-            toolbox: document.getElementById('toolbox'),
-            trashcan: false});
-    } else {
-        RUR.blockly.workspace = Blockly.inject('blocklyDiv', {
-            toolbox: document.getElementById('toolbox'),
-            zoom:{
-                controls: true,
-                wheel: true,
-                startScale: 1.0,
-                maxScale: 3,
-                minScale: 0.3,
-                scaleSpeed: 1.2},
-            trashcan: true});
-    }
+
+    RUR.blockly.workspace = Blockly.inject('blocklyDiv', {
+        toolbox: document.getElementById('toolbox'),
+        zoom:{
+            controls: true,
+            wheel: true,
+            startScale: 1.0,
+            maxScale: 3,
+            minScale: 0.3,
+            scaleSpeed: 1.2},
+        trashcan: true});
 
     $("#blocklyDiv").resizable({
         resize: function() {
@@ -723,7 +714,6 @@ RUR.blockly.init = function () {
         }
 
 };
-RUR.firefox_ok = false;
 
 $("#blockly-wrapper").draggable({
     cursor: "move",
