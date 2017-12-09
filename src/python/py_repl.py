@@ -187,8 +187,11 @@ class Interpreter():
 
     def run_pre(self):
         if hasattr(RUR.CURRENT_WORLD, "pre"):
+            pre = RUR.CURRENT_WORLD.pre
+            if isinstance(pre, list):
+                pre = '\n'.join(pre)
             try:
-                exec(RUR.CURRENT_WORLD.pre, self.namespace)
+                exec(pre, self.namespace)
             except Exception as e:
                 window.console.log("Error when executing pre:", e)
 
@@ -203,7 +206,10 @@ class Interpreter():
         RUR.hide_end_dialogs() # hide previously shown dialogs
         if hasattr(RUR.CURRENT_WORLD, "post"):
             RUR.state.post_code_executed = True
-            exec(RUR.CURRENT_WORLD.post, self.namespace) # may raise an exception
+            post = RUR.CURRENT_WORLD.post
+            if isinstance(post, list):
+                post = '\n'.join(post)
+            exec(post, self.namespace) # may raise an exception
         RUR.rec.check_current_world_status()
 
 
