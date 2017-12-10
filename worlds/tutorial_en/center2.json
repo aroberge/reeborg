@@ -1,0 +1,67 @@
+﻿{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "orientation": 0,
+      "objects": {
+        "token": 2
+      },
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {
+    "5,1": [
+      "north"
+    ],
+    "4,1": [
+      "north"
+    ],
+    "3,1": [
+      "north"
+    ],
+    "2,1": [
+      "north"
+    ],
+    "1,1": [
+      "north"
+    ],
+    "11,1": [
+      "east",
+      "north"
+    ],
+    "6,1": [
+      "north"
+    ],
+    "7,1": [
+      "north"
+    ],
+    "8,1": [
+      "north"
+    ],
+    "9,1": [
+      "north"
+    ],
+    "10,1": [
+      "north"
+    ]
+  },
+  "goal": {
+    "objects": {
+      "6,1": {
+        "token": 1
+      }
+    }
+  },
+  "small_tiles": false,
+  "rows": 1,
+  "cols": 11
+}

@@ -1,0 +1,27 @@
+{
+    "robots": [{
+        "x": 1,
+        "y": 1,
+        "orientation": 0,
+        "prev_orientation": 0,
+        "objects": {
+            "token": 0
+        }
+    }],
+    "goal": {
+        "position": {
+            "x": 4,
+            "y": 1
+        },
+        "objects": {
+            "3,1": {
+                "token": 1
+            }
+        }
+    },
+    "objects": {
+        "2,1": {
+            "token": 1
+        }
+    }
+}
