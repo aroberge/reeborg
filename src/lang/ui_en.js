@@ -201,6 +201,15 @@ ui_en["SAVE LIBRARY EXPLAIN"] = "Saves the content of the library in a file." + 
 ui_en["SAVE WORLD"] = "Save world to file";
 ui_en["SAVE WORLD EXPLAIN"] = "Saves the world (as a json object) to a file on your computer." + mac_user_save_files_en;
 
+ui_en["PROGRESS SECTION TITLE"] = "Keeping track of tasks solved";
+ui_en["PROGRESS EXPLAIN"] = "Tasks solved are marked with " + RUR.CHECKMARK +
+    "in the world selector and the information is saved in your browser. If you use a different browser, " +
+    "the tasks you have already solved will not be shown. " +
+    "If you click on the save button below, a file named progress.json will be saved with the tasks solved " +
+    "recorded in the current browser. You can import this file in a different browser so that your progress can be updated.";
+ui_en["SAVE PROGRESS"] = "Save";
+ui_en["IMPORT PROGRESS"] = "Import";
+
 ui_en["ADD CONTENT TO WORLD"] = "Add content to world from selected items below.";
 ui_en["ADD BLOCKLY TEXT"] = "Code blocks";
 ui_en["ADD EDITOR TEXT"] = "Code in editor";

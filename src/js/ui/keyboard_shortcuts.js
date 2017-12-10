@@ -120,10 +120,13 @@ document.onkeydown = function (e) {
     }
 };
 
-
-$("#open-solution-btn").on("click", function (evt) {
+$(document).ready(function() {
+    $("#open-solution-btn").on("click", function (evt) {
     loadSolution();
+    });
+    $("#save-solution-btn").on("click", function (evt) {
+        saveSolution();
+    });
 });
-$("#save-solution-btn").on("click", function (evt) {
-    saveSolution();
-});
+
+

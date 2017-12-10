@@ -236,6 +236,16 @@ ui_fr["SAVE LIBRARY EXPLAIN"] = "Sauvegarde le contenu de la bibliothèque dans 
 ui_fr["SAVE WORLD"] = "Sauvegarder le monde";
 ui_fr["SAVE WORLD EXPLAIN"] = "Sauvegarde le monde dans un fichier (format json) sur votre ordinateur." + mac_user_save_files_fr;
 
+
+ui_fr["PROGRESS SECTION TITLE"] = "Le résumé des tâches";
+ui_fr["PROGRESS EXPLAIN"] = "Les tâches résolues sont indiqués par " + RUR.CHECKMARK +
+    "dans le sélecteur de monde et l'information est sauvegardée dans votre navigateur. " +
+    "Si vous utilisez un navigateur différent, les tâches que vous avez résolues ailleurs n'apparaîtront pas. " +
+    "Si vous cliquez sur le bouton sauvegarder, un fichier nommé progress.json sera sauvegardé avec l'information requise. " +
+    "vous pouvez importer ce fichier dans un autre navigateur pour mettre vos tâches à jour dans ce dernier.";
+ui_fr["SAVE PROGRESS"] = "Sauvegarder";
+ui_fr["IMPORT PROGRESS"] = "Importer";
+
 ui_fr["ADD CONTENT TO WORLD"] = "Ajouter au monde le contenu des items indiqués ci-dessous.";
 ui_fr["ADD BLOCKLY TEXT"] = "Blocs de code";
 ui_fr["ADD EDITOR TEXT"] = "Code dans l'éditeur";

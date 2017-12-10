@@ -238,6 +238,15 @@ ui_ko["SAVE LIBRARY EXPLAIN"] = "파일 라이브러리의 내용 저장" + mac_
 ui_ko["SAVE WORLD"] = "파일로 저장";
 ui_ko["SAVE WORLD EXPLAIN"] = "(json 확장자) 월드를 컴퓨터에 저장" + mac_user_save_files_ko;
 
+ui_ko["PROGRESS SECTION TITLE"] = "Keeping track of tasks solved";
+ui_ko["PROGRESS EXPLAIN"] = "Tasks solved are marked with " + RUR.CHECKMARK +
+    "in the world selector and the information is saved in your browser. If you use a different browser, " +
+    "the tasks you have already solved will not be shown. " +
+    "If you click on the save button below, a file named progress.json will be saved with the tasks solved " +
+    "recorded in the current browser. You can import this file in a different browser so that your progress can be updated.";
+ui_ko["SAVE PROGRESS"] = "Save";
+ui_ko["IMPORT PROGRESS"] = "Import";
+
 ui_ko["ADD CONTENT TO WORLD"] = "Add content to world from selected items below.";
 ui_ko["ADD BLOCKLY TEXT"] = "Code blocks";
 ui_ko["ADD EDITOR TEXT"] = "Code in editor";

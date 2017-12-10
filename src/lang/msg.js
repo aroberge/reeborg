@@ -113,6 +113,8 @@ record_id("togetherjs", "COLLABORATION");
 record_id("togetherjs-text", "TOGETHERJS EXPLAIN");
 record_id("world-title", "WORLD CREATION TITLE");
 record_id("program-in-editor", "PROGRAM IN EDITOR");
+record_id("progress-section", "PROGRESS SECTION TITLE");
+record_id("progress-explain", "PROGRESS EXPLAIN");
 record_id("program-in-blockly-workspace", "PROGRAM IN BLOCKLY WORKSPACE");
 record_id("contact", "CONTACT");
 record_id("issues", "ISSUES");

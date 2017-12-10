@@ -2,21 +2,15 @@
 
 require("../rur.js");
 require("../utils/key_exist.js");
+require("./../translator.js");
+var record_id = require("./../../lang/msg.js").record_id;
+var remove_fileInput_listener = require("../listeners/onclick.js").remove_fileInput_listener;
 
 function update_world_selector (name) {
     var options = $("#select-world")[0].options;
     for (var i=0; i<options.length; i++) {
         if (options[i].innerHTML == name) {
             options[i].innerHTML = name + RUR.CHECKMARK;
-            // Initially added extra styling with 
-            // .select-success {
-            //   background-color: green;
-            //   color: white;
-            //   }
-            // in css file, and using the following code
-            //    options[i].setAttribute("class", "select-success");
-            // but this seems to be an overkill since the robot face
-            // was added.  To be decided after some more tests.
             break;
         }
     }
@@ -66,3 +60,73 @@ function retrieve_progress () {
 }
 
 retrieve_progress();
+
+
+function save_progress() {
+    var blob, filename, filetype, progress;
+
+    progress = JSON.stringify(RUR.state.user_progress);
+    filetype = "text/javascript;charset=utf-8";
+    filename = "progress.json";
+
+    blob = new Blob([progress], {type: filetype});
+    saveAs(blob, filename, true);
+}
+
+
+function import_progress () {
+    var fileInput;
+    remove_fileInput_listener();
+    $("#fileInput").click();
+    fileInput = document.getElementById('fileInput');
+
+    fileInput.addEventListener('change', function(e) {
+        var file, reader;
+        reader = new FileReader();
+        reader.onload = function(e) {
+            var content = reader.result, progress;
+            try {
+                progress = JSON.parse(content);
+            } catch (e2) {
+                alert(RUR.translate("Cannot parse progress file."));
+                return;
+            }
+            Object.assign(RUR.state.user_progress, progress);
+            localStorage.setItem("user-progress", JSON.stringify(RUR.state.user_progress));
+            update_world_selector();
+            fileInput.value = '';
+        };
+
+        file = fileInput.files[0];
+        reader.readAsText(file);
+    });
+}
+
+function update_world_selector(saved_progress) {
+    "use strict";
+    var badges, menu, world_name, options = $("#select-world")[0].options;
+    menu = RUR.state.current_menu;
+    badges = RUR.state.user_progress[menu];
+    for (var i=0; i<options.length; i++) {
+        world_name = RUR.strip_checkmark(options[i].innerHTML);
+        if (badges.indexOf(world_name) != -1) {
+            options[i].innerHTML = world_name + RUR.CHECKMARK;
+        }
+    }
+}
+
+record_id('save-progress-btn', "SAVE PROGRESS");
+record_id('import-progress-btn', "IMPORT PROGRESS");
+$(document).ready(function() {
+    $("#save-progress-btn").on("click", function (evt) {
+        save_progress();
+    });
+    $("#import-progress-btn").on("click", function (evt) {
+        import_progress();
+        try {
+            $("#more-menus").dialog("close");
+        } catch (e) {}
+    });
+});
+
+
