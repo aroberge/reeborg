@@ -239,7 +239,7 @@ ui_pl["SAVE WORLD EXPLAIN"] = "Zapisz świat (jako json obiekt) w pliku na Twoim
 ui_pl["PROGRESS SECTION TITLE"] = "Keeping track of tasks solved";
 ui_pl["PROGRESS EXPLAIN"] = "Tasks solved are marked with " + RUR.CHECKMARK +
     "in the world selector and the information is saved in your browser. If you use a different browser, " +
-    "the tasks you have already solved will not be shown. " +
+    "the tasks you have already solved using a different browser will not be shown. " +
     "If you click on the save button below, a file named progress.json will be saved with the tasks solved " +
     "recorded in the current browser. You can import this file in a different browser so that your progress can be updated.";
 ui_pl["SAVE PROGRESS"] = "Save";

@@ -93,7 +93,7 @@ function import_progress () {
             }
             Object.assign(RUR.state.user_progress, progress);
             localStorage.setItem("user-progress", JSON.stringify(RUR.state.user_progress));
-            update_world_selector();
+            refresh_world_selector();
             fileInput.value = '';
         };
 
@@ -102,7 +102,7 @@ function import_progress () {
     });
 }
 
-function update_world_selector(saved_progress) {
+function refresh_world_selector(saved_progress) {
     "use strict";
     var badges, menu, world_name, options = $("#select-world")[0].options;
     menu = RUR.state.current_menu;
