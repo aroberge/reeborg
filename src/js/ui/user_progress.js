@@ -107,6 +107,9 @@ function refresh_world_selector(saved_progress) {
     var badges, menu, world_name, options = $("#select-world")[0].options;
     menu = RUR.state.current_menu;
     badges = RUR.state.user_progress[menu];
+    if (badges === undefined) {
+        return;
+    }
     for (var i=0; i<options.length; i++) {
         world_name = RUR.strip_checkmark(options[i].innerHTML);
         if (badges.indexOf(world_name) != -1) {
