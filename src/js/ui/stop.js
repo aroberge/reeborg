@@ -2,7 +2,6 @@
 require("./../rur.js");
 var record_id = require("./../../lang/msg.js").record_id;
 
-var stop_button = document.getElementById("stop");
 record_id("stop");
 
 RUR.stop = function () {
@@ -15,4 +14,3 @@ RUR.stop = function () {
     $("#reload").removeAttr("disabled");
     RUR.state.stop_called = true;
 };
-stop_button.addEventListener("click", RUR.stop, false);

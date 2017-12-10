@@ -1,6 +1,6 @@
 /* Menu driven world editor */
-require("./../translator.js");
 require("./../rur.js");
+require("./../translator.js");
 require("./../default_tiles/tiles.js");
 
 require("./../robot/robot.js");
@@ -16,9 +16,7 @@ require("./../utils/supplant.js");
 require("./../utils/key_exist.js");
 
 require("./../world_api/objects.js");
-require("./../world_set/add_robot.js");
-require("./../world_set/give_object_to_robot.js");
-
+require("./../world_api/robot.js");
 require("./../world_api/walls.js");
 
 var edit_robot_menu = require("./../ui/edit_robot_menu.js");
@@ -40,7 +38,7 @@ RUR.we.edit_world = function  () {
     // usually triggered when canvas is clicked if editing world;
     // call explicitly if needed.
     var value, split, root, x, y, position;
-    split = RUR.we.edit_world_flag.split("-");
+    split = RUR.we.edit_world_selection.split("-");
     root = split[0];
     value = split[1];
     switch (root) {
@@ -106,7 +104,7 @@ function alert_2 (txt, value) {
 RUR.we.select = function (choice) {
     "use strict";
     var value, split, root;
-    RUR.we.edit_world_flag = choice;
+    RUR.we.edit_world_selection = choice;
     split = choice.split("-");
     root = split[0];
     value = split[1];
@@ -178,7 +176,7 @@ RUR.we.select = function (choice) {
             $("#edit-world-objects").show();
             if (RUR.we.give_to_robot_flag) {
                 give_objects_to_robot(value);
-                RUR.we.edit_world_flag = '';
+                RUR.we.edit_world_selection = '';
             } else {
                 alert_2("Click on world to add object.", value);
             }
@@ -260,9 +258,17 @@ RUR.we.toggle_editing_mode = function () {
 
 record_id("edit-world", "EDIT WORLD");
 record_id("edit-world-text", "EDIT WORLD EXPLAIN");
-RUR.create_and_activate_dialogs( $("#edit-world"), $("#edit-world-panel"),
-                                 {}, function () {RUR.we.toggle_editing_mode();
-                                     $("#more-menus").dialog("minimize"); });
+$(document).ready( function () {
+        RUR.create_and_activate_dialogs( 
+            $("#edit-world"), $("#edit-world-panel"), {}, 
+            function () {
+                RUR.we.toggle_editing_mode();
+                $("#more-menus").dialog("minimize"); 
+            }
+        );
+    }
+);
+
 
 function place_robot () {
     "use strict";
@@ -431,7 +437,7 @@ function add_goal_object (specific_object){
 
 /* TODO This should probably be rewritten to make use of
  * RUR.add_final_position, but would also require that
- * RUR.is_final_position be written and and RUR.remove_final_position as well.
+ * RUR.is_final_position be written and RUR.remove_final_position as well.
  *
  */
 
@@ -549,14 +555,15 @@ function toggle_obstacle (obj){
     }
 }
 
-
+$(document).ready(function() {
 // mouse clicks also requested in listeners/canvas.js
-$("#robot-anim-canvas").on("click", function (evt) {
-    if (RUR.state.editing_world && RUR.we.edit_world_flag !== undefined) {
-        RUR.we.edit_world();
-    }
-    if (RUR.get_current_world().blank_canvas) {
-        return;
-    }
-    RUR.world_get.world_info(true); // true = show info at grid location.
+    $("#robot-anim-canvas").on("click", function (evt) {
+        if (RUR.state.editing_world && RUR.we.edit_world_selection !== undefined) {
+            RUR.we.edit_world();
+        }
+        if (RUR.get_current_world().blank_canvas) {
+            return;
+        }
+        RUR.world_get.world_info(true); // true = show info at grid location.
+    });
 });

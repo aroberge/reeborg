@@ -4,7 +4,11 @@ require("../rur.js");
 
 
 RUR.strip_checkmark = function (name) {
-    return name.replace(RUR.CHECK_MARK, '');
+    return name.replace(RUR.CHECKMARK, '');
+};
+
+RUR.add_checkmark = function (name) {
+    return name += RUR.CHECKMARK;
 };
 
 RUR.update_progress = function(name){

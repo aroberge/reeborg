@@ -109,7 +109,7 @@ function update_home_url (lang) {
     }
 }
 
-$("#human-language").change(function() {
+RUR.listeners['human-language'] = function() {
     var lang = $(this).val();
 
     RUR.state.human_language = lang;
@@ -130,11 +130,11 @@ $("#human-language").change(function() {
         try {
             restart_repl();
         } catch (e) {
-            console.log("Problem with human-language change: can not re/start repl", e);
+            console.warn("Problem with human-language change: can not re/start repl", e);
         }
     }
     localStorage.setItem("human_language", lang);
     if (RUR.state.session_initialized) {
         RUR.permalink.update_URI();
     }
-});
+};

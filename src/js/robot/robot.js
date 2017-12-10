@@ -22,7 +22,7 @@ RUR.robot.create_robot = function (x, y, orientation, tokens) {
     }
 
     saved_model = localStorage.getItem("robot_default_model");
-    if (saved_model != undefined) {
+    if (saved_model !== undefined) {
         robot.model = saved_model;
     } else {
         robot.model = RUR.reeborg_default_model;

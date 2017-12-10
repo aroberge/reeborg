@@ -231,3 +231,6 @@ description_editor.setValue = function (code) {
 onload_editor.setValue = function (code) {
     test_utils.onload = code;
 };
+onload_editor.setOption = function () {};
+pre_code_editor.setOption = function () {};
+post_code_editor.setOption = function () {};

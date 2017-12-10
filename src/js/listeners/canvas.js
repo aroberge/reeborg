@@ -1,19 +1,24 @@
 require("./../rur.js");
 
-$("#robot-anim-canvas").mousemove(function (evt) {
-    RUR.mouse_x = evt.pageX;
-    RUR.mouse_y = evt.pageY;
-    handleMouseMove(evt);
-});
-$("#robot-anim-canvas").on("click", function (evt) {
-    RUR.mouse_x = evt.pageX;
-    RUR.mouse_y = evt.pageY;
-}); // mouse clicks also requested in world_editor.js (at bottom)
-
 /* tooltip intended to provide information about objects carried by robot */
 var tooltip = {};
-tooltip.canvas = document.getElementById("tooltip");
-tooltip.ctx = tooltip.canvas.getContext("2d");
+
+$(document).ready(function () {
+    $("#robot-anim-canvas").mousemove(function (evt) {
+        RUR.mouse_x = evt.pageX;
+        RUR.mouse_y = evt.pageY;
+        handleMouseMove(evt);
+    });
+    $("#robot-anim-canvas").on("click", function (evt) {
+        RUR.mouse_x = evt.pageX;
+        RUR.mouse_y = evt.pageY;
+    }); // mouse clicks also requested in world_editor.js (at bottom)
+
+    tooltip.canvas = document.getElementById("tooltip");
+    tooltip.ctx = tooltip.canvas.getContext("2d");
+});
+
+
 
 function handleMouseMove(evt) {
     var x, y, hit, position, world, robot, mouse_above_robot, image, nb_obj;

@@ -1,8 +1,6 @@
-;
 require("./../rur.js");
 var record_id = require("./../../lang/msg.js").record_id;
 
-var highlight_button = document.getElementById("highlight");
 record_id("highlight");
 
 RUR.toggle_highlight = function () {  // keep part of RUR for Python
@@ -16,4 +14,3 @@ RUR.toggle_highlight = function () {  // keep part of RUR for Python
         $("#highlight").removeClass("blue-gradient");
     }
 };
-highlight_button.addEventListener("click", RUR.toggle_highlight, false);

@@ -22,22 +22,17 @@ require("./gui_tools/world_editor.js");
    be automatically loaded.
    */
 
-// TODO: refactor so that code fromlisteners not required here can be
+// TODO: refactor so that code from listeners not required here can be
 // put with the calling module - when there is a single such module.
 // 
 
 require("./ui/add_listeners.js");
 
 //require("./listeners/canvas.js");
-require("./listeners/human_language.js");
 require("./listeners/memorize_world.js");
 require("./listeners/onclick.js");
-//require("./listeners/pause.js");
 //require("./listeners/programming_mode.js");
 //require("./listeners/select_world_change.js");
-require("./listeners/stop.js");
-require("./listeners/toggle_highlight.js");
-require("./listeners/toggle_watch.js");
 
 // the following are not required by any other module
 require("./ui/keyboard_shortcuts.js");
@@ -66,29 +61,19 @@ function start_session () {
     RUR.state.session_initialized = true;
     RUR.world_selector.set_url(RUR.state.world_url);
     RUR.permalink.update_URI();
-    // refresh the UI as the selectors may be left blank if
-    // the site was loaded with a "bare" url as in
-    // http://reeborg.ca/reeborg.html
-    // $('#programming-mode').val(RUR.state.programming_language);
-    // $("#human-language").val(RUR.state.human_language);
-    // $("#human-language").change();
 }
 
 
 function confirm_ready_to_start() {
-    if (window.translate_python === undefined) {
-        console.log("startup delay: translate_python not available; will try again in 100ms.");
+    if (window.translate_python === undefined || !RUR.state.ui_ready) {
+        console.log("Not quite ready to initialize session; will try again in 100ms.");
         window.setTimeout(confirm_ready_to_start, 100);
-    }
-    else {
+    } else {
         start_session();
     }
 }
 
-
-$(document).ready( function () {
-    confirm_ready_to_start();
-});
+confirm_ready_to_start();
 
 
 function set_initial_state() {
@@ -241,6 +226,15 @@ function set_initial_menu(url_query) {
 
 
 function restore_blockly () {
+    try {
+        _restore_blockly();
+    } catch (e) {
+        console.log("Could not restore blockly; will try once more in 500 ms.");
+        setTimeout(_restore_blockly, 500);
+    }
+}
+
+function _restore_blockly () {
     var xml, xml_text;
     xml_text = localStorage.getItem("blockly");
     if (xml_text) {
@@ -248,6 +242,7 @@ function restore_blockly () {
         Blockly.Xml.domToWorkspace(RUR.blockly.workspace, xml);
     }
 }
+
 
 function set_editor() {
     "use strict";

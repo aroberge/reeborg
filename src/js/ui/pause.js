@@ -2,7 +2,6 @@ require("./../rur.js");
 require("./../playback/play.js");
 var record_id = require("./../../lang/msg.js").record_id;
 
-var pause_button = document.getElementById("pause");
 record_id("pause");
 
 RUR.pause = function (ms) {
@@ -21,5 +20,3 @@ RUR.pause = function (ms) {
         $("#frame-selector").removeAttr("disabled").addClass("enabled").removeClass("disabled");
     }
 };
-
-pause_button.addEventListener("click", RUR.pause, false);

@@ -227,16 +227,6 @@ function add_onclick_select(arg) {
     });
     msg.record_id(id, id);
 }
-
-msg.record_title("ui-dialog-title-special-keyboard", "Reeborg's basic keyboard");
-add_onclick_select("kbd-command");
-add_onclick_select("kbd-condition");
-add_onclick_select("kbd-python");
-add_onclick_select("kbd-py-console");
-add_onclick_select("kbd-javascript");
-add_onclick_select("kbd-objects");
-add_onclick_select("kbd-special");
-
 function add_onclick_insert_statement(id, arg) {
     $("#"+id).on("click", function (evt) {
         RUR.kbd.insert_statement(RUR.translate(arg));
@@ -256,21 +246,6 @@ function add_onclick_insert_untranslated_statement(id, arg) {
     msg.record_id(id, arg);
     RUR.untranslated[arg] = true;
 }
-add_onclick_insert_function_statement("kbd-move", "move");
-add_onclick_insert_function_statement("kbd-turn-left", "turn_left");
-add_onclick_insert_function_statement("kbd-take", "take");
-add_onclick_insert_function_statement("kbd-put", "put");
-add_onclick_insert_function_statement("kbd-build-wall", "build_wall");
-add_onclick_insert_function_statement("kbd-pause", "pause");
-add_onclick_insert_function_statement("kbd-done", "done");
-add_onclick_insert_statement("kbd-think", "think(100)");
-add_onclick_insert_statement("kbd-sound", "sound(True)");
-add_onclick_insert_statement("kbd-sound-js", "sound(true)");
-add_onclick_insert_function_statement("kbd-world", 'World');
-add_onclick_insert_function_statement("kbd-UsedRobot", "UsedRobot");
-add_onclick_insert_function_statement("kbd-newUsedRobot", "new UsedRobot");
-add_onclick_insert_function_statement("kbd-no-highlight", "no_highlight");
-
 function add_onclick_insert(id, arg) {
     $("#"+id).on("click", function (evt) {
         RUR.kbd.insert(RUR.translate(arg));
@@ -290,139 +265,157 @@ function add_onclick_insert_untranslated(id, arg) {
     msg.record_id(id, arg);
     RUR.untranslated[arg] = true;
 }
-
-add_onclick_insert_function("kbd-at-goal", "at_goal");
-add_onclick_insert_function("kbd-front-is-clear", "front_is_clear");
-add_onclick_insert_function("kbd-right-is-clear", "right_is_clear");
-add_onclick_insert_function("kbd-wall-in-front", "wall_in_front");
-add_onclick_insert_function("kbd-wall-on-right", "wall_on_right");
-add_onclick_insert_function("kbd-object-here", "object_here");
-add_onclick_insert_function("kbd-carries-object", "carries_object");
-add_onclick_insert_function("kbd-is-facing-north", "is_facing_north");
-
 function add_onclick_insert_object(id, arg) {
     $("#"+id).on("click", function (evt) {
         RUR.kbd.insert('"'+RUR.translate(arg)+'"');
     });
     msg.record_id(id);
 }
-add_onclick_insert_object("kbd-token", "token");
-add_onclick_insert_object("kbd-apple", "apple");
-add_onclick_insert_object("kbd-banana", "banana");
-add_onclick_insert_object("kbd-carrot", "carrot");
-add_onclick_insert_object("kbd-daisy", "daisy");
-add_onclick_insert_object("kbd-dandelion", "dandelion");
-add_onclick_insert_object("kbd-leaf", "leaf");
-add_onclick_insert_object("kbd-square", "square");
-add_onclick_insert_object("kbd-star", "star");
-add_onclick_insert_object("kbd-strawberry", "strawberry");
-add_onclick_insert_object("kbd-triangle", "triangle");
-add_onclick_insert_object("kbd-tulip", "tulip");
-add_onclick_insert_object("kbd-beeper", "beeper");
 
-add_onclick_insert_untranslated_statement("kbd-js-var", "var ");
-add_onclick_insert_untranslated("kbd-js-function", "function ? { \n\n}");
-add_onclick_insert_untranslated("kbd-js-if", "if ( ? ) { \n\n}");
-add_onclick_insert_untranslated("kbd-js-elif", "else if ( ? ) { \n\n}");
-add_onclick_insert_untranslated("kbd-js-else", "else { \n\n}");
-add_onclick_insert_untranslated("kbd-js-while", "while ( ? ) { \n\n}");
-add_onclick_insert_untranslated("kbd-js-for", "for (? ; ? ; ?) { \n\n}");
-add_onclick_insert_untranslated("kbd-js-true", "true");
-add_onclick_insert_untranslated("kbd-js-false", "false");
-add_onclick_insert_untranslated("kbd-js-undefined", "undefined");
-add_onclick_insert_untranslated("kbd-js-not", "!");
-add_onclick_insert_untranslated("kbd-js-and", "&&");
-add_onclick_insert_untranslated("kbd-js-or", "||");
-add_onclick_insert_function_statement("kbd-js-write", "write");
-add_onclick_insert_untranslated_statement("kbd-js-return", "return");
-add_onclick_insert_untranslated_statement("kbd-js-continue", "continue");
-add_onclick_insert_untranslated_statement("kbd-js-break", "break");
-
-add_onclick_insert_untranslated_statement("kbd-py-def", "def ? ( ):");
-add_onclick_insert_untranslated_statement("kbd-py-if", "if ? :");
-add_onclick_insert_untranslated_statement("kbd-py-elif", "elif ? :");
-add_onclick_insert_untranslated_statement("kbd-py-else", "else:");
-add_onclick_insert_untranslated_statement("kbd-py-while", "while ? :");
-add_onclick_insert_untranslated_statement("kbd-py-repeat", "repeat ? :");
-add_onclick_insert_statement("kbd-py-library", "from library import ?");
-add_onclick_insert_untranslated_statement("kbd-py-for", "for ? in ? :");
-add_onclick_insert_untranslated_statement("kbd-py-print", "print()");
-add_onclick_insert_untranslated_statement("kbd-py-range", "range(?)");
-add_onclick_insert_untranslated_statement("kbd-py-true", "True");
-add_onclick_insert_untranslated_statement("kbd-py-false", "False");
-add_onclick_insert_untranslated_statement("kbd-py-none", "None");
-add_onclick_insert_untranslated_statement("kbd-py-not", "not");
-add_onclick_insert_untranslated_statement("kbd-py-and", "and");
-add_onclick_insert_untranslated_statement("kbd-py-or", "or");
-add_onclick_insert_untranslated_statement("kbd-py-continue", "continue");
-add_onclick_insert_untranslated_statement("kbd-py-break", "break");
-add_onclick_insert_untranslated_statement("kbd-py-return", "return ?");
-add_onclick_insert_untranslated_statement("kbd-py-pass", "pass");
-
-add_onclick_insert_untranslated("kbd-pyrepl-def", "def ");
-add_onclick_insert_untranslated("kbd-pyrepl-if", "if ");
-add_onclick_insert_untranslated("kbd-pyrepl-elif", "elif ");
-add_onclick_insert_untranslated("kbd-pyrepl-else", "else:");
-add_onclick_insert_untranslated("kbd-pyrepl-while", "while ");
-add_onclick_insert("kbd-pyrepl-library", "from library import ?");
-add_onclick_insert_untranslated("kbd-pyrepl-for", "for ");
-add_onclick_insert_untranslated("kbd-pyrepl-in", "in ");
-add_onclick_insert_untranslated("kbd-pyrepl-print", "print(");
-add_onclick_insert_untranslated("kbd-pyrepl-range", "range(");
-add_onclick_insert_untranslated("kbd-pyrepl-true", "True");
-add_onclick_insert_untranslated("kbd-pyrepl-false", "False");
-add_onclick_insert_untranslated("kbd-pyrepl-none", "None");
-add_onclick_insert_untranslated("kbd-pyrepl-not", "not");
-add_onclick_insert_untranslated("kbd-pyrepl-and", "and");
-add_onclick_insert_untranslated("kbd-pyrepl-or", "or");
-add_onclick_insert_untranslated_statement("kbd-pyrepl-continue", "continue");
-add_onclick_insert_untranslated_statement("kbd-pyrepl-break", "break");
-add_onclick_insert_untranslated_statement("kbd-pyrepl-return", "return");
-add_onclick_insert_untranslated_statement("kbd-pyrepl-pass", "pass");
-
-add_onclick_insert_untranslated("kbd-colon", ":");
-add_onclick_insert_untranslated("kbd-semi-colon", ";");
-add_onclick_insert_untranslated("kbd-sharp", "#");
-add_onclick_insert_untranslated("kbd-double-quote", "\"");
-add_onclick_insert_untranslated("kbd-single-quote", "'");
-add_onclick_insert_untranslated("kbd-equal", "=");
-add_onclick_insert_untranslated("kbd-less-than", "<");
-add_onclick_insert_untranslated("kbd-greater-than", ">");
-add_onclick_insert_untranslated("kbd-ampersand", "&");
-add_onclick_insert_untranslated("kbd-vertical-bar", "|");
-add_onclick_insert_untranslated("kbd-parens", "( )");
-add_onclick_insert_untranslated("kbd-curly-brackets", "{ }");
-add_onclick_insert_untranslated("kbd-square-brackets", "[ ]");
-
-$("#kbd-tab").on("click", function (evt) {
-    RUR.kbd.tab();
+$(document).ready(function () {
+    init();
 });
-msg.record_id("kbd-tab", "tab");
-$("#kbd-shift-tab").on("click", function (evt) {
-    RUR.kbd.shift_tab();
-});
-msg.record_id("kbd-shift-tab", "shift-tab");
-$("#kbd-enter").on("click", function (evt) {
-    RUR.kbd.enter();
-});
-msg.record_id("kbd-enter", "enter");
-$("#kbd-undo").on("click", function (evt) {
-    RUR.kbd.undo();
-});
-msg.record_id("kbd-undo", "UNDO");
-$("#kbd-redo").on("click", function (evt) {
-    RUR.kbd.redo();
-});
-msg.record_id("kbd-redo", "REDO");
 
-// function add_onclick(id, fn, arg, record, enter) {
-//     $("#"+id).on("click", function (evt) {
-//         fn(arg);
-//     });
-//     if (enter) {
-//         RUR.kbd.enter();
-//     }
-//     if (record) {
-//         msg.record_id(id, id);
-//     }
-// }
+function init() {
+    msg.record_title("ui-dialog-title-special-keyboard", "Reeborg's basic keyboard");
+    add_onclick_select("kbd-command");
+    add_onclick_select("kbd-condition");
+    add_onclick_select("kbd-python");
+    add_onclick_select("kbd-py-console");
+    add_onclick_select("kbd-javascript");
+    add_onclick_select("kbd-objects");
+    add_onclick_select("kbd-special");
+
+    add_onclick_insert_function_statement("kbd-move", "move");
+    add_onclick_insert_function_statement("kbd-turn-left", "turn_left");
+    add_onclick_insert_function_statement("kbd-take", "take");
+    add_onclick_insert_function_statement("kbd-put", "put");
+    add_onclick_insert_function_statement("kbd-build-wall", "build_wall");
+    add_onclick_insert_function_statement("kbd-pause", "pause");
+    add_onclick_insert_function_statement("kbd-done", "done");
+    add_onclick_insert_statement("kbd-think", "think(100)");
+    add_onclick_insert_statement("kbd-sound", "sound(True)");
+    add_onclick_insert_statement("kbd-sound-js", "sound(true)");
+    add_onclick_insert_function_statement("kbd-world", 'World');
+    add_onclick_insert_function_statement("kbd-UsedRobot", "UsedRobot");
+    add_onclick_insert_function_statement("kbd-newUsedRobot", "new UsedRobot");
+    add_onclick_insert_function_statement("kbd-no-highlight", "no_highlight");
+
+    add_onclick_insert_function("kbd-at-goal", "at_goal");
+    add_onclick_insert_function("kbd-front-is-clear", "front_is_clear");
+    add_onclick_insert_function("kbd-right-is-clear", "right_is_clear");
+    add_onclick_insert_function("kbd-wall-in-front", "wall_in_front");
+    add_onclick_insert_function("kbd-wall-on-right", "wall_on_right");
+    add_onclick_insert_function("kbd-object-here", "object_here");
+    add_onclick_insert_function("kbd-carries-object", "carries_object");
+    add_onclick_insert_function("kbd-is-facing-north", "is_facing_north");
+
+    add_onclick_insert_object("kbd-token", "token");
+    add_onclick_insert_object("kbd-apple", "apple");
+    add_onclick_insert_object("kbd-banana", "banana");
+    add_onclick_insert_object("kbd-carrot", "carrot");
+    add_onclick_insert_object("kbd-daisy", "daisy");
+    add_onclick_insert_object("kbd-dandelion", "dandelion");
+    add_onclick_insert_object("kbd-leaf", "leaf");
+    add_onclick_insert_object("kbd-square", "square");
+    add_onclick_insert_object("kbd-star", "star");
+    add_onclick_insert_object("kbd-strawberry", "strawberry");
+    add_onclick_insert_object("kbd-triangle", "triangle");
+    add_onclick_insert_object("kbd-tulip", "tulip");
+    add_onclick_insert_object("kbd-beeper", "beeper");
+
+    add_onclick_insert_untranslated_statement("kbd-js-var", "var ");
+    add_onclick_insert_untranslated("kbd-js-function", "function ? { \n\n}");
+    add_onclick_insert_untranslated("kbd-js-if", "if ( ? ) { \n\n}");
+    add_onclick_insert_untranslated("kbd-js-elif", "else if ( ? ) { \n\n}");
+    add_onclick_insert_untranslated("kbd-js-else", "else { \n\n}");
+    add_onclick_insert_untranslated("kbd-js-while", "while ( ? ) { \n\n}");
+    add_onclick_insert_untranslated("kbd-js-for", "for (? ; ? ; ?) { \n\n}");
+    add_onclick_insert_untranslated("kbd-js-true", "true");
+    add_onclick_insert_untranslated("kbd-js-false", "false");
+    add_onclick_insert_untranslated("kbd-js-undefined", "undefined");
+    add_onclick_insert_untranslated("kbd-js-not", "!");
+    add_onclick_insert_untranslated("kbd-js-and", "&&");
+    add_onclick_insert_untranslated("kbd-js-or", "||");
+    add_onclick_insert_function_statement("kbd-js-write", "write");
+    add_onclick_insert_untranslated_statement("kbd-js-return", "return");
+    add_onclick_insert_untranslated_statement("kbd-js-continue", "continue");
+    add_onclick_insert_untranslated_statement("kbd-js-break", "break");
+
+    add_onclick_insert_untranslated_statement("kbd-py-def", "def ? ( ):");
+    add_onclick_insert_untranslated_statement("kbd-py-if", "if ? :");
+    add_onclick_insert_untranslated_statement("kbd-py-elif", "elif ? :");
+    add_onclick_insert_untranslated_statement("kbd-py-else", "else:");
+    add_onclick_insert_untranslated_statement("kbd-py-while", "while ? :");
+    add_onclick_insert_untranslated_statement("kbd-py-repeat", "repeat ? :");
+    add_onclick_insert_statement("kbd-py-library", "from library import ?");
+    add_onclick_insert_untranslated_statement("kbd-py-for", "for ? in ? :");
+    add_onclick_insert_untranslated_statement("kbd-py-print", "print()");
+    add_onclick_insert_untranslated_statement("kbd-py-range", "range(?)");
+    add_onclick_insert_untranslated_statement("kbd-py-true", "True");
+    add_onclick_insert_untranslated_statement("kbd-py-false", "False");
+    add_onclick_insert_untranslated_statement("kbd-py-none", "None");
+    add_onclick_insert_untranslated_statement("kbd-py-not", "not");
+    add_onclick_insert_untranslated_statement("kbd-py-and", "and");
+    add_onclick_insert_untranslated_statement("kbd-py-or", "or");
+    add_onclick_insert_untranslated_statement("kbd-py-continue", "continue");
+    add_onclick_insert_untranslated_statement("kbd-py-break", "break");
+    add_onclick_insert_untranslated_statement("kbd-py-return", "return ?");
+    add_onclick_insert_untranslated_statement("kbd-py-pass", "pass");
+
+    add_onclick_insert_untranslated("kbd-pyrepl-def", "def ");
+    add_onclick_insert_untranslated("kbd-pyrepl-if", "if ");
+    add_onclick_insert_untranslated("kbd-pyrepl-elif", "elif ");
+    add_onclick_insert_untranslated("kbd-pyrepl-else", "else:");
+    add_onclick_insert_untranslated("kbd-pyrepl-while", "while ");
+    add_onclick_insert("kbd-pyrepl-library", "from library import ?");
+    add_onclick_insert_untranslated("kbd-pyrepl-for", "for ");
+    add_onclick_insert_untranslated("kbd-pyrepl-in", "in ");
+    add_onclick_insert_untranslated("kbd-pyrepl-print", "print(");
+    add_onclick_insert_untranslated("kbd-pyrepl-range", "range(");
+    add_onclick_insert_untranslated("kbd-pyrepl-true", "True");
+    add_onclick_insert_untranslated("kbd-pyrepl-false", "False");
+    add_onclick_insert_untranslated("kbd-pyrepl-none", "None");
+    add_onclick_insert_untranslated("kbd-pyrepl-not", "not");
+    add_onclick_insert_untranslated("kbd-pyrepl-and", "and");
+    add_onclick_insert_untranslated("kbd-pyrepl-or", "or");
+    add_onclick_insert_untranslated_statement("kbd-pyrepl-continue", "continue");
+    add_onclick_insert_untranslated_statement("kbd-pyrepl-break", "break");
+    add_onclick_insert_untranslated_statement("kbd-pyrepl-return", "return");
+    add_onclick_insert_untranslated_statement("kbd-pyrepl-pass", "pass");
+
+    add_onclick_insert_untranslated("kbd-colon", ":");
+    add_onclick_insert_untranslated("kbd-semi-colon", ";");
+    add_onclick_insert_untranslated("kbd-sharp", "#");
+    add_onclick_insert_untranslated("kbd-double-quote", "\"");
+    add_onclick_insert_untranslated("kbd-single-quote", "'");
+    add_onclick_insert_untranslated("kbd-equal", "=");
+    add_onclick_insert_untranslated("kbd-less-than", "<");
+    add_onclick_insert_untranslated("kbd-greater-than", ">");
+    add_onclick_insert_untranslated("kbd-ampersand", "&");
+    add_onclick_insert_untranslated("kbd-vertical-bar", "|");
+    add_onclick_insert_untranslated("kbd-parens", "( )");
+    add_onclick_insert_untranslated("kbd-curly-brackets", "{ }");
+    add_onclick_insert_untranslated("kbd-square-brackets", "[ ]");
+
+    $("#kbd-tab").on("click", function (evt) {
+        RUR.kbd.tab();
+    });
+    msg.record_id("kbd-tab", "tab");
+    $("#kbd-shift-tab").on("click", function (evt) {
+        RUR.kbd.shift_tab();
+    });
+    msg.record_id("kbd-shift-tab", "shift-tab");
+    $("#kbd-enter").on("click", function (evt) {
+        RUR.kbd.enter();
+    });
+    msg.record_id("kbd-enter", "enter");
+    $("#kbd-undo").on("click", function (evt) {
+        RUR.kbd.undo();
+    });
+    msg.record_id("kbd-undo", "UNDO");
+    $("#kbd-redo").on("click", function (evt) {
+        RUR.kbd.redo();
+    });
+    msg.record_id("kbd-redo", "REDO");
+}

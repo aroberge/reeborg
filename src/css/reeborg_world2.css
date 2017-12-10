@@ -36,7 +36,7 @@ ensure that it replaces #robot-anim-canvas in world_editor.js and canvas.js */
 #Reeborg-concludes     {z-index: 211;}
 #Reeborg-shouts        {z-index: 211;}
 #World-info            {z-index: 205;}
-#world-panel           {z-index: 120}
+#world-panel           {z-index: 120;}
 #editor-panel.active   {z-index: 200;}
 #keyboard-buttons ul li {z-index: 230;}
 
@@ -183,11 +183,6 @@ a[href^='http'] {
 .select-mixed {
     background-color: beige;
 }
-.select-success, select option.select-success {
-    background-color: green;
-    color: white;
-}
-
 
 .filename:focus {
     border: 2px solid blue;
@@ -620,6 +615,9 @@ li.failure:after, p.failure:after {
 #world-panel, #blockly-wrapper {
     width: 620px;
 }
+#world-panel {
+    background-color: white;
+}
 
 #editor-panel {
     width: 590px;
@@ -628,7 +626,7 @@ li.failure:after, p.failure:after {
 #world-panel,
 #editor-panel, #blockly-wrapper {
     position: absolute;
-    margin-top: 32px;
+    margin-top: 37px;
     vertical-align: top;
 }
 

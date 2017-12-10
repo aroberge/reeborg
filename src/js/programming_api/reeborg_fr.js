@@ -1,6 +1,6 @@
 require("./../rur.js");
 require("./commands.js");
-require("./../world_set/add_robot.js");
+require("./../world_api/robot.js");
 
 /* See reeborg_en.js for an explanation about the purpose of this file. */
 

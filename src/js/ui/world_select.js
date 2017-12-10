@@ -40,8 +40,16 @@ RUR.world_selector.add_checkmark = function(name) {
     var options = $("#select-world")[0].options;
     for (var i=0; i<options.length; i++) {
         if (options[i].innerHTML == name) {
-            options[i].innerHTML = name + RUR.CHECK_MARK;
-            options[i].setAttribute("class", "select-success");
+            options[i].innerHTML = RUR.add_checkmark(name);
+            // Initially added extra styling with 
+            // .select-success {
+            //   background-color: green;
+            //   color: white;
+            //   }
+            // in css file, and using the following code
+            //    options[i].setAttribute("class", "select-success");
+            // but this seems to be an overkill since the robot face
+            // was added.  To be decided after some more tests.
             break;
         }
     }

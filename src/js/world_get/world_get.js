@@ -10,19 +10,11 @@ require("./../dialogs/create.js");
 require("./../listeners/canvas.js");
 require("./../utils/supplant.js");
 require("./../world_api/things.js");
+require("./../world_api/background_tile.js");
 
 RUR.world_get = {};
 
-RUR.world_get.tile_at_position = function (x, y) { // TODO: still needed or move elswhere?
-    "use strict";
-    var coords = x + "," + y;
-    if (RUR.get_current_world().tiles === undefined) return false;
-    if (RUR.get_current_world().tiles[coords] === undefined) return false;
-    return RUR.THINGS[RUR.get_current_world().tiles[coords]];
-};
-
-
-RUR.world_get.object_at_robot_position = function (robot, obj) { // TODO: still needed or move elswhere?
+RUR.world_get.object_at_robot_position = function (robot, obj) { // TODO: still needed or move elsewhere?
     return object_of_type_here(robot, obj, RUR.get_current_world().objects);
 };
 
@@ -337,9 +329,11 @@ function get_info_about_location() {
     coords = x + "," + y;
     grid_info = "<div class='grid-info'><code>x,y = " + coords + "</code><br>";
 
-    // background tiles at that location
     try {
-        tile = RUR.world_get.tile_at_position(x, y);
+        tile = RUR.get_background_tile(x, y);
+        if (tile) {
+            tile = RUR.THINGS[tile];
+        }
     } catch (e) {
         tile = false;
     }
@@ -469,8 +463,11 @@ function get_info_about_location() {
 }
 
 
-RUR.create_and_activate_dialogs( $("#world-info-button"), $("#World-info"),
+$(document).ready(function () {
+ RUR.create_and_activate_dialogs( $("#world-info-button"), $("#World-info"),
                                  {height:600, width:800}, RUR.world_get.world_info);
+});
+
 
 
 /** @function show_description

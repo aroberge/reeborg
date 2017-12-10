@@ -2,7 +2,6 @@
 require("./../rur.js");
 var record_id = require("./../../lang/msg.js").record_id;
 
-var watch_button = document.getElementById("watch-variables-btn");
 record_id("watch-variables-btn");
 
 toggle_watch_variables = function () {
@@ -20,4 +19,3 @@ toggle_watch_variables = function () {
         $("#Reeborg-watches").dialog("open");
     }
 };
-watch_button.addEventListener("click", toggle_watch_variables, false);

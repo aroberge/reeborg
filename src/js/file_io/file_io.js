@@ -7,7 +7,7 @@ require("./../ui/world_select.js");
 require("./../permalink/permalink.js");
 require("./../translator.js");
 require("./../programming_api/exceptions.js");
-require("./../listeners/stop.js");
+require("./../ui/stop.js");
 require("./../utils/supplant.js");
 
 RUR._load_world_from_program = function (url, shortname) {
