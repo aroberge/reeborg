@@ -168,6 +168,8 @@ RUR.state.editing_world = false;
 
 RUR.state.extra_code_visible = false;
 
+RUR.state.user_progress = {}; // keep track of user progress (worlds solved).
+
 // This will keep track of the current font size if changed by the user.
 RUR.state.editors_font_size = undefined;
 

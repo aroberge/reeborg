@@ -13,12 +13,12 @@ RUR.custom_world_select.make = function (contents) {  // aka RUR._MakeCustomMenu
 
     RUR.state.creating_menu = true;
     RUR.world_selector.empty_menu();
+    RUR.state.current_menu = RUR.state.world_url;
     for(i=0; i<contents.length; i++){
         RUR.world_selector.append_world( {url:contents[i][0],
                                         shortname:contents[i][1]});
     }
     load_user_worlds();
-    RUR.state.current_menu = RUR.state.world_url;
     localStorage.setItem("world_menu", RUR.state.current_menu);
     RUR.state.creating_menu = false;
 

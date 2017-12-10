@@ -35,27 +35,6 @@ RUR.world_selector.update = function () {
     $("#select-world").change();
 };
 
-
-RUR.world_selector.add_checkmark = function(name) {
-    var options = $("#select-world")[0].options;
-    for (var i=0; i<options.length; i++) {
-        if (options[i].innerHTML == name) {
-            options[i].innerHTML = RUR.add_checkmark(name);
-            // Initially added extra styling with 
-            // .select-success {
-            //   background-color: green;
-            //   color: white;
-            //   }
-            // in css file, and using the following code
-            //    options[i].setAttribute("class", "select-success");
-            // but this seems to be an overkill since the robot face
-            // was added.  To be decided after some more tests.
-            break;
-        }
-    }
-};
-
-
 RUR.world_selector.empty_menu = function () {
     $("#select-world").html('');
 };
@@ -126,7 +105,7 @@ RUR.world_selector.append_world = function (arg) {
     url = arg.url;
 
     if (arg.shortname !== undefined) {
-        shortname = arg.shortname;
+        shortname = RUR.add_checkmark(arg.shortname);
     } else {
         shortname = url;
     }

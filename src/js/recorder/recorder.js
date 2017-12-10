@@ -6,6 +6,7 @@ require("./../translator.js");
 require("./../programming_api/exceptions.js");
 require("./../ui/pause.js");
 require("./../ui/stop.js");
+require("./../ui/user_progress.js");
 require("./../playback/play_sound.js");
 require("./../editors/create.js");
 require("./../recorder/record_frame.js");
@@ -125,6 +126,7 @@ RUR.rec.conclude = function () {
     if (frame.world_map.goal !== undefined){
         goal_status = RUR.rec.check_goal(frame);
         if (goal_status.success) {
+            RUR.update_progress();
             if (RUR.state.sound_on) {
                 RUR._play_sound("#success-sound");
             }
@@ -144,6 +146,7 @@ RUR.rec.conclude = function () {
             }
         }
     } else {
+        RUR.update_progress();
         if (RUR.state.sound_on) {
             RUR._play_sound("#success-sound");
         }

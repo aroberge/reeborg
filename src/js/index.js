@@ -28,11 +28,8 @@ require("./gui_tools/world_editor.js");
 
 require("./ui/add_listeners.js");
 
-//require("./listeners/canvas.js");
 require("./listeners/memorize_world.js");
 require("./listeners/onclick.js");
-//require("./listeners/programming_mode.js");
-//require("./listeners/select_world_change.js");
 
 // the following are not required by any other module
 require("./ui/keyboard_shortcuts.js");
