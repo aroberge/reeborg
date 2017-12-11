@@ -101,6 +101,9 @@
     "        }",
     "    }",
     "}",
+    "// change the robot model, since grey would not be very visible",
+    "r = default_robot();",
+    "r.set_model('yellow');",
     ""
   ]
 }
