@@ -3,7 +3,6 @@ require("./../rur.js");
 require("./../storage/storage.js");
 var record_id = require("./../../lang/msg.js").record_id;
 
-var memorize_button = document.getElementById("memorize-world");
 record_id("memorize-world", "Save world in browser");
 
 memorize_world = function () {
@@ -26,27 +25,34 @@ memorize_world = function () {
     }
     dialog.dialog("open");
 };
-memorize_button.addEventListener("click", memorize_world, false);
 
-dialog = $("#dialog-save-world").dialog({
-    autoOpen: false,
-    height: 400,
-    width: 500,
-    modal: true,
-    buttons: {
-        OK: function () {
-            save_world();
-        },
-        Cancel: function() {
-            dialog.dialog("close");
+$(document).ready(function() {
+    var memorize_button = document.getElementById("memorize-world");
+    memorize_button.addEventListener("click", memorize_world, false);
+});
+
+$(document).ready(function() {
+    dialog = $("#dialog-save-world").dialog({
+        autoOpen: false,
+        height: 400,
+        width: 500,
+        modal: true,
+        buttons: {
+            OK: function () {
+                save_world();
+            },
+            Cancel: function() {
+                dialog.dialog("close");
+            }
         }
-    }
+    });
+
+    dialog.find("form").on("submit", function( event ) {
+        event.preventDefault();
+        save_world();
+    });
 });
 
-dialog.find("form").on("submit", function( event ) {
-    event.preventDefault();
-    save_world();
-});
 
 save_world = function () {
     RUR.set_current_world(RUR.update_world_from_editors(RUR.get_current_world()));
