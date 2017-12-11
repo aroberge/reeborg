@@ -51,11 +51,17 @@ RUR.state.session_initialized = false;
 
 function start_session () {
     "use strict";
+    var url, name;
     set_initial_state();
     set_editor();
     set_library();
     get_red_green();
-    RUR.state.session_initialized = true;
+    RUR.state.session_initialized = true;    
+    url = RUR.world_selector.url_from_shortname(RUR.state.world_name);
+    if (!url || url != RUR.state.world_url) { // world not included in menu, nor in selector
+        RUR.world_selector.append_world({url: RUR.state.world_url,
+                                         shortname: RUR.state.world_name});
+    }
     RUR.world_selector.set_url(RUR.state.world_url);
     RUR.permalink.update_URI();
 }
