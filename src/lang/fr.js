@@ -17,6 +17,7 @@ fr["move"] = "avance";
 fr["turn_left"] = "tourne_a_gauche";
 fr["take"] = "prend";
 fr["put"] = "depose";
+fr["toss"] = "lance";
 fr["build_wall"] = "construit_un_mur";
 fr["pause"] = "pause";
 fr["done"] = "termine";

@@ -17,6 +17,7 @@ en["move"] = "move";
 en["turn_left"] = "turn_left";
 en["take"] = "take";
 en["put"] = "put";
+en["toss"] = "toss";
 en["build_wall"] = "build_wall";
 en["pause"] = "pause";
 en["done"] = "done";

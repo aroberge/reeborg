@@ -290,6 +290,7 @@ function init() {
     add_onclick_insert_function_statement("kbd-turn-left", "turn_left");
     add_onclick_insert_function_statement("kbd-take", "take");
     add_onclick_insert_function_statement("kbd-put", "put");
+    add_onclick_insert_function_statement("kbd-toss", "toss");
     add_onclick_insert_function_statement("kbd-build-wall", "build_wall");
     add_onclick_insert_function_statement("kbd-pause", "pause");
     add_onclick_insert_function_statement("kbd-done", "done");
