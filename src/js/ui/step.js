@@ -10,7 +10,6 @@ record_id("reverse-step");
 
 RUR.listeners.step = function () {
     RUR.runner.run(RUR.rec.display_frame);
-    RUR.state.stop_called = false;
     $("#stop").removeAttr("disabled");
     $("#reverse-step").removeAttr("disabled");
     $("#frame-selector").removeAttr("disabled").addClass("enabled").removeClass("disabled");
@@ -32,7 +31,6 @@ RUR.listeners.reverse_step = function () {
     }
     $("#frame-selector").removeAttr("disabled").addClass("enabled").removeClass("disabled");
     RUR.rec.display_frame(); // increments the current_frame_no by 1
-    RUR.state.stop_called = false;
     $("#stop").removeAttr("disabled");
     clearTimeout(RUR._TIMER);
 };

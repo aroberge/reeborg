@@ -160,7 +160,6 @@ RUR.state.x = undefined; // recorded mouse clicks
 RUR.state.y = undefined;
 
 RUR.state.run_button_clicked = false;
-RUR.state.stop_called = false;
 RUR.state.playback = false;  // from pause/play/stop
 RUR.state.highlight = true;
 RUR.state.watch_vars = false;

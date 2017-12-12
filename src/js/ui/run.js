@@ -8,11 +8,6 @@ var record_id = require("./../../lang/msg.js").record_id;
 record_id("run");
 
 RUR.listeners.run = function () {
-    RUR.state.run_button_clicked = true;
-    if (RUR.state.stop_called){
-        RUR.state.stop_called = false;
-        RUR.reload();
-    }
     $("#stop").removeAttr("disabled");
     $("#pause").removeAttr("disabled");
     $("#run").attr("disabled", "true");
@@ -32,5 +27,4 @@ RUR.listeners.run = function () {
 
     clearTimeout(RUR._TIMER);
     RUR.runner.run(RUR.play);
-    RUR.state.run_button_clicked = false;
 };
