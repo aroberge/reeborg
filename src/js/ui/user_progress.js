@@ -6,10 +6,15 @@ require("./../translator.js");
 var record_id = require("./../../lang/msg.js").record_id;
 var remove_fileInput_listener = require("../listeners/onclick.js").remove_fileInput_listener;
 
-function update_world_selector (name) {
+function update_world_selector (name, remove) {
     var options = $("#select-world")[0].options;
     for (var i=0; i<options.length; i++) {
-        if (options[i].innerHTML == name) {
+        if (remove) {
+            if (RUR.strip_checkmark(options[i].innerHTML) == name) {
+                options[i].innerHTML = name;
+                break;
+            }
+        } else if (options[i].innerHTML == name) {
             options[i].innerHTML = name + RUR.CHECKMARK;
             break;
         }
@@ -27,7 +32,7 @@ RUR.add_checkmark = function (name) {
     if (name.substring(0,11) === "user_world:"){
         return name;
     }
-    if (menu !== undefined && menu.indexOf(name) != -1) {
+    if (menu !== undefined && menu.includes(name)) {
         return name += RUR.CHECKMARK;
     }
     return name;
@@ -42,9 +47,13 @@ RUR.update_progress = function(){
     if (world_name.substring(0,11) === "user_world:"){
         return;
     }
-    update_world_selector(world_name);
+
     RUR.utils.ensure_key_for_array_exists(RUR.state.user_progress, RUR.state.current_menu);
+    if (RUR.state.user_progress[RUR.state.current_menu].includes(world_name)) {
+        return;
+    }
     RUR.state.user_progress[RUR.state.current_menu].push(world_name);
+    update_world_selector(world_name);
     localStorage.setItem("user-progress", JSON.stringify(RUR.state.user_progress));
 };
 
@@ -102,7 +111,7 @@ function import_progress () {
     });
 }
 
-function refresh_world_selector(saved_progress) {
+function refresh_world_selector() {
     "use strict";
     var badges, menu, world_name, options = $("#select-world")[0].options;
     menu = RUR.state.current_menu;
@@ -112,11 +121,38 @@ function refresh_world_selector(saved_progress) {
     }
     for (var i=0; i<options.length; i++) {
         world_name = RUR.strip_checkmark(options[i].innerHTML);
-        if (badges.indexOf(world_name) != -1) {
+        if (badges.includes(world_name)) {
             options[i].innerHTML = world_name + RUR.CHECKMARK;
         }
     }
 }
+
+/** @function unmark_task
+ * @memberof RUR
+ * @instance
+ * @summary Removes the tasks from the list of completed tasks. If the task
+ * cannot be found, the function will fail silently.
+ *
+ * @param {string} name The name of task as it appears in the world selector, 
+ * like `Home 1`.
+ *
+ */
+
+RUR.unmark_task = function (name) {
+    var tasks, remove=true;
+    tasks = RUR.state.user_progress[RUR.state.current_menu];
+    if (tasks === undefined) {
+        return;
+    }
+    if (!tasks.includes(name)) {
+        return;
+    } 
+    tasks.splice(tasks.indexOf(name), 1);
+    RUR.state.user_progress[RUR.state.current_menu] = tasks;
+    update_world_selector(name, remove);
+    localStorage.setItem("user-progress", JSON.stringify(RUR.state.user_progress));
+};
+
 
 record_id('save-progress-btn', "SAVE PROGRESS");
 record_id('import-progress-btn', "IMPORT PROGRESS");
