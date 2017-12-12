@@ -160,3 +160,25 @@ QUnit.test("Tempêtes 1, 2, 3, 4", function(assert) {
     }
     done();
 });
+
+QUnit.test("Centrer 1, 2", function(assert) {
+    var py_js, info, program_files, world, world_files;
+    var done = assert.async();
+    program_files = ["center_fr.js", "center_fr.py"];
+    world_files = ["center1.json", "center2.json"];
+    for (py_js in test_utils.runners){
+        for (world in world_files) {
+            test_utils.runners[py_js](
+                test_utils.world_dir + world_files[world], 
+                test_utils.program_dir + program_files[py_js]
+                );
+            info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
+            assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
+            assert.equal(test_utils.content,
+                "<ul><li class='success'>Tous les objets sont aux bons endroits.</li></ul>",
+                "Feedback text ok.");
+        }
+    }
+    done();
+});
+

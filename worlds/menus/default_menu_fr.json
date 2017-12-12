@@ -15,7 +15,6 @@
     "    [tutorial_fr + 'around4.json', 'Autour 4'],",
     "    [tutorial_fr + 'center1.json', 'Centrer 1'],",
     "    [tutorial_fr + 'center2.json', 'Centrer 2'],",
-    "    [tutorial_fr + 'center3.json', 'Centrer 3'],",
     "    [tutorial_fr + 'hurdle1.json', 'Haies 1'],",
     "    [tutorial_fr + 'hurdle2.json', 'Haies 2'],",
     "    [tutorial_fr + 'hurdle3.json', 'Haies 3'],",
