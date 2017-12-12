@@ -44,8 +44,7 @@
   "rows": 12,
   "cols": 9,
   "onload": [
-    "var width, height, obstacles, i, h, x, y;",
-    "think(0);",
+    "var width, height, obstacles, i, h, r, x, y;",
     "",
     "height = 12;",
     "width = RUR.randint(6, 13);",
@@ -101,9 +100,11 @@
     "        }",
     "    }",
     "}",
-    "// change the robot model, since grey would not be very visible",
-    "r = default_robot();",
-    "r.set_model('yellow');",
+    "// Change the robot model, since grey would not be very visible",
+    "// Since we do not know which human language is currently used, we use",
+    "// some undocumented method which work in all languages",
+    "r = RUR._default_robot_body_(); // equivalent to English r=default_robot()",
+    "RUR.control.set_model(r, 'yellow'); // equivalent to English r.set_model('yellow')",
     ""
   ]
 }

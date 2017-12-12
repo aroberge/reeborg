@@ -49,10 +49,9 @@ RUR.update_progress = function(){
     }
 
     RUR.utils.ensure_key_for_array_exists(RUR.state.user_progress, RUR.state.current_menu);
-    if (RUR.state.user_progress[RUR.state.current_menu].includes(world_name)) {
-        return;
+    if (!RUR.state.user_progress[RUR.state.current_menu].includes(world_name)) {
+        RUR.state.user_progress[RUR.state.current_menu].push(world_name);
     }
-    RUR.state.user_progress[RUR.state.current_menu].push(world_name);
     update_world_selector(world_name);
     localStorage.setItem("user-progress", JSON.stringify(RUR.state.user_progress));
 };

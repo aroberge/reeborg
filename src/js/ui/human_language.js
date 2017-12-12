@@ -117,6 +117,7 @@ RUR.listeners['human-language'] = function() {
     msg.update_ui(lang);
     update_commands(lang);
     update_home_url(lang);
+    RUR.make_default_menu(lang);
 
     RUR.blockly.init();
 

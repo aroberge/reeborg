@@ -41,7 +41,11 @@ function load_user_worlds() {
 }
 
 RUR.make_default_menu = function(language) {
-    RUR.state.creating_menu = true;
+    if (RUR.state.session_initialized) {
+        RUR.state.world_url = undefined;
+        RUR.state.world_name = undefined;
+        RUR.state.current_menu = undefined;   
+    }
     switch (language) {
         case 'en':
         case 'fr-en':
@@ -55,4 +59,5 @@ RUR.make_default_menu = function(language) {
         default: 
             RUR.load_world_file(RUR.BASE_URL + "/worlds/menus/default_menu_en.json");
     }
+
 };
