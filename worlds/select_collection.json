@@ -3,16 +3,14 @@
   "description": [
     "<h1>Many worlds</h1>",
     "<p>Please select a world collection from the world menu above.</p>",
-    "<ul>",
-    "<li> <b>Reeborg intro</b>: the collection of worlds shown initially.",
+    "<h3>Reeborg intro</h3><p> the collection of worlds shown initially.",
     "These worlds can be and should be solved using only functions",
     "with no arguments, and without using variables, following the",
-    "original Karel the robot philosophy.</li>",
-    "<li><b>Varia</b>: Various worlds to be reviewed and put in other collections; constantly in flux.</li>",    
-    "<li><b>Saskatchewan CS 20</b>: a collection adapted from the worlds used in the",
+    "original Karel the robot philosophy.</p>",
+    "<h3>Varia</h3><p> Various worlds to be reviewed and put in other collections; constantly in flux.</p>",    
+    "<h3>Saskatchewan CS 20</h3><p>a collection adapted from the worlds used in the",
     "<a href='https://sk-opentexts.github.io/computerscience20/index.html' target='_blank'>",
-    "Computer Science 20 open textbook</a> created by Dan Schellenberg.</li>",
-    "</ul>",
+    "Computer Science 20 open textbook</a> created by Dan Schellenberg.</p>",
     "<p>Note that the reorganization of worlds into different collections is not completed.</p>"
   ],
   "onload": "RUR.show_description();"

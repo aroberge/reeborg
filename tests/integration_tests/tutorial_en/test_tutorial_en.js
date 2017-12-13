@@ -155,3 +155,24 @@ QUnit.test("Storm 1, 2, 3, 4", function(assert) {
     }
     done();
 });
+
+QUnit.test("Center 1, 2", function(assert) {
+    var py_js, info, program_files, world, world_files;
+    var done = assert.async();
+    program_files = ["center_en.js", "center_en.py"];
+    world_files = ["center1.json", "center2.json"];
+    for (py_js in test_utils.runners){
+        for (world in world_files) {
+            test_utils.runners[py_js](
+                test_utils.world_dir + world_files[world], 
+                test_utils.program_dir + program_files[py_js]
+                );
+            info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
+            assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
+            assert.equal(test_utils.content,
+                "<ul><li class='success'>All objects are at the correct location.</li></ul>",
+                "Feedback text ok.");
+        }
+    }
+    done();
+});

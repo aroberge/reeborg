@@ -259,6 +259,8 @@ RUR.reset_pre_run_defaults = function () {
                                      // preventing the evaluation of Post code.
     RUR.state.post_code_executed = false;
 
+    RUR.print_cache = '';  // capturing the standard output from a user's program.
+
     // The following may be specified by a world creator to replace the
     // standard/default message when a goal is checked at the end of a run
     RUR.success_custom_message = undefined;

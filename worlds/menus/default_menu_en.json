@@ -15,7 +15,6 @@
     "    [tutorial_en + 'around4.json', 'Around 4'],",
     "    [tutorial_en + 'center1.json', 'Center 1'],",
     "    [tutorial_en + 'center2.json', 'Center 2'],",
-    "    [tutorial_en + 'center3.json', 'Center 3'],",
     "    [tutorial_en + 'harvest1.json', 'Harvest 1'],",
     "    [tutorial_en + 'harvest2.json', 'Harvest 2'],",
     "    [tutorial_en + 'harvest3.json', 'Harvest 3'],",

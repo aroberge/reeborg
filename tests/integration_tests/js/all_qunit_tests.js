@@ -41,26 +41,6 @@ QUnit.module("Tutorial worlds: English Python programs", {
 });
 
 
-QUnit.test("Center 1, 2, 3", function(assert) {
-    var base_url, i, world_files;
-    var done = assert.async();
-    base_url = "/src/worlds/tutorial_en/";
-    world_files = ["center1.json", "center2.json", "center3.json"];
-    test_utils.load_program("/tests/integration_tests/programs/center_en.py");
-    for (i in world_files) {
-        assert.ok(test_utils.eval_python(base_url + world_files[i]).success,
-                                      world_files[i] + " run successfully.");
-    }
-    RUR.rec.conclude();
-    assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-    assert.equal(test_utils.content,
-        "<ul><li class='success'>All objects are at the correct location.</li></ul>",
-        "Feedback text ok.");
-    done();
-});
-
-
-
 QUnit.test("Harvest 4", function(assert) { //TODO: Move this!!
     "use strict";
     var base_url, world_file;
@@ -149,25 +129,6 @@ QUnit.module("Tutorial worlds: French Python programs", {
     test_utils.set_human_language("fr");
   }
 });
-
-
-// QUnit.test("Centre 1, 2, 3", function(assert) {
-//     var base_url, i, world_files;
-//     var done = assert.async();
-//     base_url = "/src/worlds/tutorial_en/";
-//     world_files = ["center1.json", "center2.json", "center3.json"];
-//     test_utils.load_program("/tests/integration_tests/programs/center_fr.py");
-//     for (i in world_files) {
-//         assert.ok(test_utils.eval_python(base_url + world_files[i]).success,
-//                                       world_files[i] + " run successfully.");
-//     }
-//     RUR.rec.conclude();
-//     assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-//     assert.equal(test_utils.content,
-//         "<ul><li class='success'>Tous les objets sont aux bons endroits.</li></ul>",
-//         "Feedback text ok.");
-//     done();
-// });
 
 
 QUnit.test("Tokens", function(assert) {
