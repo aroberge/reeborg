@@ -121,11 +121,16 @@ RUR.show_diff = function(expected, actual, semantic) {
     return html.join('');
 };
 
+
 /** @function show_detailed_diff
  * @memberof RUR
  * @instance
  * @summary This function compares two strings and returns a summary of what
- * was expected followed by an output showing the differences as highlighted.
+ * was expected, followed by an output showing the differences as highlighted.
+ * This can be used, for example, to compare the output of a print statement
+ * written by a student to an expected output. If one wants to compare the
+ * result of a function returning a string, an additional option is to 
+ * also show the actual output.
  *
  * **Note**: if you or one of your students find the color differences between
  * the inserted text and the deleted text too hard to distinguish, please
@@ -139,32 +144,55 @@ RUR.show_diff = function(expected, actual, semantic) {
  *  (word by word)
  *  is attempted rather than a character by character comparison.
  *  This may give a more readable output in some cases. 
- *  @param {string} [options.expected] A string to use as the heading
+ *  @param {string} [options.expected_heading] A string to use as the heading
  *  for the expected result.
  *  @param {string} [options.differences] A string to use as the heading
  *  for the highlighted differences.
+ *  @param {boolean} [options.show_actual] If we wish to also display the actual
+ *  result.
+ *  @param {string} [options.actual_heading] A string to use as the heading
+ *  for the actual result. This will be ignored if `options.show_actual` does
+ *  not evaluate to `true`.
  *  
  * @return {string} A formatted html string.
  */
 
 RUR.show_detailed_diff = function (expected, actual, options) {
-    var diff, expected_heading, differences_heading, div_begin;
+    "use strict";
+    var diff, expected_heading, differences_heading, actual_heading,
+        div_begin, 
+        expected_section, differences_section, actual_section='';
+
+    div_begin = "<div style='margin-left:2em;'>";
+
     if (options && options.semantic) {
         diff = RUR.show_diff(expected, actual, true);
     } else {
         diff = RUR.show_diff(expected, actual);
     }
-    if (options && options.expected) {
+    
+    if (options && options.expected_heading) {
         expected_heading = "<h3>" + options.expected_heading + "</h3>";
     } else {
         expected_heading = "<h3>" + RUR.translate("Expected result") + "</h3>";
     }
-    if (options && options.differences) {
-        differences_heading = "<h3>" + options.differences + "</h3>";
+    expected_section = expected_heading + div_begin + expected + "</div>";
+    
+    if (options && options.differences_heading) {
+        differences_heading = "<h3>" + options.differences_heading + "</h3>";
     } else {
         differences_heading = "<h3>" + RUR.translate("Differences highlighted") + "</h3>";
     }
-    div_begin = "<div style='margin-left:2em;'>";
-    return expected_heading + div_begin + expected + "</div>" + 
-             differences_heading + div_begin + diff + "</div>";
+    differences_section = differences_heading + div_begin + diff + "</div>";
+
+    if (options && options.show_actual) {
+        if (options.actual_heading) {
+            actual_heading_heading = "<h3>" + options.actual_heading + "</h3>";
+        } else {
+            actual_heading_heading = "<h3>" + RUR.translate("Actual result") + "</h3>";
+        }
+        actual_section = actual_heading + div_begin + actual + "</div>";
+    }
+
+    return expected_section + actual_section + differences_section;
 };
