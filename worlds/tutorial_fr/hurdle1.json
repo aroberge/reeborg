@@ -31,7 +31,7 @@
    "goal": {
       "position": {
          "image": "racing_flag",
-         "x": 11,
+         "x": 13,
          "y": 1
       }
    },
@@ -52,11 +52,18 @@
     "// This world has been defined with a background image",
     "",
     "var i, x, y;",
-    "",
+    "// Change the robot model, since grey would not be very visible",
+    "// Since we do not know which human language is currently used, we use",
+    "// some undocumented method which work in all languages",
+    "r = RUR._default_robot_body_(); // equivalent to English r=default_robot()",
+    "RUR.control.set_model(r, 'yellow'); // equivalent to English r.set_model('yellow')",
     "// hard-coded path which does not change",
+    "RUR._set_trace_color_('yellow');",
+    "",
     "RUR.public['path'] = [[1,1], [2,1], [2,2], [3,2], [3,1], [4,1],",
     "    [4,2], [5,2], [5,1], [6,1], [6,2], [7,2], [7,1], [8,1],",
-    "    [8,2], [9,2], [9,1], [10,1], [10,2], [11,2], [11,1]];",
+    "    [8,2], [9,2], [9,1], [10,1], [10,2], [11,2], [11,1], ",
+    "    [12,1], [12,2], [13,2], [13,1]];",
     "",
     "// We show the desired path very clearly;  in the",
     "// Pre editor, we will set it to be less visible",
