@@ -4,7 +4,7 @@ var i, j;
 
 function reseed_one_row() {
     for(i=0; i<6; i++){
-        while (object_here('carrot').length !== 0) {
+        while (object_here('carrot')) {
             take();
         }
         put();

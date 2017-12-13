@@ -11,7 +11,7 @@ function tourne_a_droite() {
 }
 
 function prend_tout() {
-    while (objet_ici().length !== 0) {
+    while (objet_ici()) {
         prend();
     }
 }

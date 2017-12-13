@@ -193,6 +193,9 @@ def objet_ici(obj=None):  #py:object_here
         ou si un objet spécifié comme paramètre n'est pas présent,
         le résultat est une liste vide.
 
+    N.B.: en Javascript, si aucun objet n'est trouvé, la valeur retournée
+    est 'false'
+
     Exemples possibles:
 
         >>> objet_ici()
@@ -206,7 +209,11 @@ def objet_ici(obj=None):  #py:object_here
         ans = RUR._object_here_(obj)
     else:
         ans = RUR._object_here_()
-    return list(ans)  # convert from js list-like object to proper Python list
+
+    if ans:
+        return list(ans)
+    else:
+        return []
 
 
 def position_ici():
@@ -620,6 +627,10 @@ class RobotUsage(object):  #py:UR
             ou si un objet spécifié comme paramètre n'est pas présent,
             le résultat est une liste vide.
 
+        N.B.: en Javascript, si aucun objet n'est trouvé, la valeur retournée
+        est 'false'
+
+
         Exemples possibles:
 
             >>> reeborg = RobotUsage()
@@ -631,9 +642,13 @@ class RobotUsage(object):  #py:UR
             []
         """
         if obj is not None:
-            return list(RUR._UR.object_here_(self.body, obj))
+            ans = RUR._UR.object_here_(self.body, obj)
         else:
-            return list(RUR._UR.object_here_(self.body))
+            ans = RUR._UR.object_here_(self.body)
+        if ans:
+            return list(ans)
+        else:
+            return []
 
     def colorie(self, couleur):  #py:paint_square
         """Colorie la case où se trouve Reeborg avec la couleur spécifiée"""

@@ -11,7 +11,7 @@ function turn_right() {
 }
 
 function take_all() {
-    while (object_here().length !== 0) {
+    while (object_here()) {
         take();
     }
 }

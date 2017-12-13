@@ -14,16 +14,16 @@ function seek_along_line() {
 function seek_center() {
     while (true){
         prend();
-        if (objet_ici().length!==0) {
+        if (objet_ici()) {
             return;
         }
         avance();
-        if (objet_ici().length!==0) {
+        if (objet_ici()) {
             return;
         }
         depose();
         avance();
-        while (objet_ici().length===0) {
+        while (!objet_ici()) {
             avance();
         }
         tourne_a_gauche();

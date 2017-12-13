@@ -22,6 +22,6 @@ while(!front_is_clear()) {
 }
 move();
 
-while (object_here().length === 0) {
+while (!object_here()) {
     follow_wall();
 }

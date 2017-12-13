@@ -4,7 +4,7 @@ var i, j;
 
 function reseed_one_row() {
     for(i=0; i<6; i++){
-        while (objet_ici('carotte').length !== 0) {
+        while (objet_ici('carotte')) {
             prend();
         }
         depose();

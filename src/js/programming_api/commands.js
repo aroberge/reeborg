@@ -102,7 +102,11 @@ RUR._new_robot_images_ = RUR.new_robot_images; // defined in visible_robot.js
 RUR._no_highlight_ = user_no_highlight; // defined above
 
 RUR._object_here_ = function (arg) {
-    return RUR.world_get.object_at_robot_position(RUR.get_current_world().robots[0], arg);
+    obj = RUR.world_get.object_at_robot_position(RUR.get_current_world().robots[0], arg);
+    if (obj.length === 0) {
+        return false;
+    } 
+    return obj;
 };
 
 RUR._paint_square_ = function (color) {

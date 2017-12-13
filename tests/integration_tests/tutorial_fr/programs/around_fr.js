@@ -22,6 +22,6 @@ while (!rien_devant()) {
 }
 avance();
 
-while (objet_ici().length === 0) {
+while (!objet_ici()) {
     suit_le_mur();
 }
