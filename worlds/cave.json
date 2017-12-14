@@ -101,10 +101,7 @@
     "    }",
     "}",
     "// Change the robot model, since grey would not be very visible",
-    "// Since we do not know which human language is currently used, we use",
-    "// some undocumented method which work in all languages",
-    "r = RUR._default_robot_body_(); // equivalent to English r=default_robot()",
-    "RUR.control.set_model(r, 'yellow'); // equivalent to English r.set_model('yellow')",
+    "RUR.set_model('yellow');",
     ""
   ]
 }

@@ -38,9 +38,7 @@
   "onload": [
     "var x;",
     "RUR.public['path'] = [[1, 1]]",
-    "",
-    "r = RUR._default_robot_body_(); // equivalent to English r=default_robot()",
-    "RUR.control.set_model(r, 'light blue'); // equivalent to English r.set_model('light blue')",
+    "RUR.set_model('light blue');",
     "RUR._set_trace_color_('cyan');",
     "",
     "// build a random path",

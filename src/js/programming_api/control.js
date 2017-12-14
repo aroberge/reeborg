@@ -451,6 +451,24 @@ RUR.control.set_model = function(robot, model){
     RUR.record_frame("set_model", robot.__id);
  };
 
+/** @function set_model
+ * @memberof RUR
+ * @instance
+ * @summary This function, intended for world creators, allow to set the
+ * model for the default robot, overriding the user's default choice.
+ *
+ *  @param {string} model The name of the model
+ */
+
+RUR.set_model = function(model){
+    var robot;
+    robot = RUR.get_current_world().robots[0];
+    robot.model = model;
+    RUR.user_selected_model = undefined;  // overrides the user's choice
+    RUR.record_frame("RUR.set_model", robot.__id);
+ };
+
+
 RUR.control.set_trace_color = function(robot, color){
     robot._trace_color = color;
  };
