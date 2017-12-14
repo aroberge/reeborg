@@ -151,11 +151,12 @@ button {
     background-color: #124;
 }
 
-a.left-link, a.right-link, button, a.fake_button {
+
+a.left-link, a.right-link, button, a.fake-button {
     font-size: 12pt;
     padding: 5px;
     text-decoration: none;
-    color: white;
+    color: white !important;
     border-top: 0;
     border-right: 1px solid rgba(0, 0, 0, .1);
     border-bottom: 0;
@@ -226,6 +227,7 @@ button.solution-button {
     background-color: white;
 }
 
+.automatic-description a.fake-button,
 .ui-tabs .ui-tabs-nav li,
 .blue-gradient,
 .left-link,
@@ -274,7 +276,7 @@ button.blue-gradient {
 
 .ui-tabs .ui-tabs-nav li:hover,
 button:hover:enabled,
-a.fake_button:hover,
+a.fake-button:hover,
 .green-gradient,
 a.left-link:hover,
 a.right-link:hover,
@@ -503,6 +505,9 @@ li.failure:after, p.failure:after {
   padding: 1em;
 }
 
+.automatic-description a {
+    color: blue;
+}
 
 .grid-info {
     background-color: cornsilk;

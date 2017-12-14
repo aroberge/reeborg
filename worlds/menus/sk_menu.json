@@ -24,7 +24,7 @@
     "    [\"worlds/sk/step17.json\", \"Step 17\"],",
     "    [\"worlds/sk/step18.json\", \"Step 18\"],",
     "    [\"worlds/tutorial_en/alone.json\", \"Alone template\"]",
-    ", ['worlds/menus/collections_menu_en.json', \"Other worlds\"]",
+    ", ['worlds/menus/select_collection_en.json', \"Other worlds\"]",
     "    ]",
     "MakeCustomMenu(contents)"
   ],

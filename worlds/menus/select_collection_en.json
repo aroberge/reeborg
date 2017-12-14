@@ -1,0 +1,21 @@
+{
+  "blank_canvas": true,
+  "description": [
+    "<h1>Many worlds</h1>",
+    "<p>Select the desired world collection by clicking on the appropriate button.</p>",
+    "<p><a class='fake-button' href='#' onclick=\"RUR.load_world_file('worlds/menus/default_menu_en.json')\">Go to introduction Reeborg</a></p>",
+    "<p>Introduction Reeborg is the collection of worlds normally shown initially when accessing this site.",
+    "These worlds <em>can be and should be</em> solved using only functions",
+    "with no arguments, and without using variables, following the",
+    "original Karel the robot philosophy.</p>",
+    "<p><a class='fake-button' href='#' onclick=\"RUR.load_world_file('worlds/menus/sk_menu.json')\">Go to Saskatchewan CS 20</a></p>",
+    "<p>Saskatchewan CS 20</h3> is a collection adapted from the worlds used in the",
+    "<a href='https://sk-opentexts.github.io/computerscience20/index.html' target='_blank'>",
+    "Computer Science 20 open textbook</a> created by Dan Schellenberg.</p>",
+    "<p><a class='fake-button' href='#' onclick=\"RUR.load_world_file('worlds/menus/varia_en.json')\">Go to Varia</a></p>",
+    "<p>Varia is a collection of various worlds to be sorted later; constantly in flux.</p>",    
+    "<h3>Temporary note</h3>",    
+    "<p>Note that the reorganization of worlds into different collections is not completed.</p>"
+  ],
+  "onload": "RUR.show_description();"
+}

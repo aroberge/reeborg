@@ -28,7 +28,7 @@ nav a:first-child{border-radius: 20px 0 0 20px;}
 header button {border-left: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(0,0,0,0.1);
   height: 37px; position: relative; border-top: 0; border-bottom: 0; font-weight: bold; float: left; margin: 0;}
 
-a.left-link, a.right-link, button, a.fake_button{
+a.left-link, a.right-link, button, a.fake-button{
     color:white;
     font-family: sans-serif;
     font-size: 0.8em;
@@ -74,7 +74,7 @@ a[href^="http"] {
 .ui-tabs .ui-tabs-nav li a {color:white;}
 .ui-tabs .ui-tabs-nav li.ui-tabs-active {top:3px;border-bottom: 3px solid #112244; background-color: #112244;
 background-image: none;}
-.ui-tabs .ui-tabs-nav li:hover, button:hover:enabled, a.fake_button:hover, .green-gradient, a.left-link:hover,
+.ui-tabs .ui-tabs-nav li:hover, button:hover:enabled, a.fake-button:hover, .green-gradient, a.left-link:hover,
 a.right-link:hover, #language_switcher:hover {
   background-color: #75a110;
   background-image: -webkit-linear-gradient(top, #beff7f, #96c423 50%, #75a110);

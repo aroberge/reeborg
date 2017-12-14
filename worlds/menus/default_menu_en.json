@@ -8,7 +8,7 @@
     "    [tutorial_en + 'home2.json', 'Home 2'],",
     "    [tutorial_en + 'home3.json', 'Home 3'],",
     "    [tutorial_en + 'home4.json', 'Home 4'],",
-    "    ['worlds/menus/collections_menu_en.json', \"Other worlds\"],",
+    "    ['worlds/menus/select_collection_en.json', \"Other worlds\"],",
     "    [tutorial_en + 'around1.json', 'Around 1'],",
     "    [tutorial_en + 'around2.json', 'Around 2'],",
     "    [tutorial_en + 'around3.json', 'Around 3'],",

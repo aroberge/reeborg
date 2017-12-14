@@ -5,7 +5,7 @@
     "",
     "var contents = [",
     "    [tutorial_en + 'alone.json', 'Alone'],",
-    "    ['worlds/menus/collections_menu_en.json', \"Other worlds\"],",
+    "    ['worlds/menus/select_collection_en.json', \"Other worlds\"],",
     "    [old_tutorial_en + 'harvest4a.json', 'Harvest 4a'],",
     "    [old_tutorial_en + 'harvest4b.json', 'Harvest 4b'],",
     "    [old_tutorial_en + 'harvest4c.json', 'Harvest 4c'],",
