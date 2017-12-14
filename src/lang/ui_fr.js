@@ -388,3 +388,7 @@ ui_fr["You are not allowed to use <code>done</code> in this world!"] = "Il n'est
 ui_fr["Execution ended before the <em>Post</em> code was executed."] = "L'exécution du programme a terminé avant que le code <em>Post</em> ne soit interprété.";
 
 ui_fr["Difficulty level"] = "Niveau de difficulté";
+
+ui_fr["Expected result"] = "Résultat attendu";
+ui_fr["Differences highlighted"] = "Différences observées";
+ui_fr["Actual result"] = "Résultat observé";

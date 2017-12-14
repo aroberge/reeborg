@@ -351,3 +351,7 @@ ui_en["You are not allowed to use <code>done</code> in this world!"] = "You are 
 ui_en["Execution ended before the <em>Post</em> code was executed."] = "Execution ended before the <em>Post</em> code was executed.";
 
 ui_en["Difficulty level"] = "Difficulty level";
+
+ui_en["Expected result"] = "Expected result";
+ui_en["Differences highlighted"] = "Differences highlighted";
+ui_en["Actual result"] = "Actual result";

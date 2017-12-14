@@ -1,4 +1,5 @@
 {
+  "blank_canvas": true,
   "onload": [
     "var tutorial_en = 'worlds/tutorial_en/'",
     "",
@@ -39,8 +40,5 @@
     "    [tutorial_en + 'tokens6.json', 'Tokens 6'],",
     "    ];",
     "MakeCustomMenu(contents);"
-  ],
-  "small_tiles": false,
-  "rows": 12,
-  "cols": 14
+  ]
 }

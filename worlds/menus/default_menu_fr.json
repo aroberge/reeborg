@@ -1,4 +1,5 @@
 {
+  "blank_canvas": true,
   "onload": [
     "var tutorial_fr = 'worlds/tutorial_fr/';",
     "",
@@ -42,8 +43,5 @@
     "MakeCustomMenu(contents);",
     "",
     ""
-  ],
-  "small_tiles": false,
-  "rows": 12,
-  "cols": 14
+  ]
 }

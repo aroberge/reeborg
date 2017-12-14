@@ -1,0 +1,11 @@
+{
+  "blank_canvas": true,
+  "onload": [
+    "",
+    "var contents = [",
+    "    ['worlds/print_en/print1.json', 'Print 1'],",
+    "    ['worlds/menus/select_collection_en.json', \"Other worlds\"]",
+    "    ];",
+    "MakeCustomMenu(contents);"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "blank_canvas": true,
+  "description": [
+    "<h1>Un simple exercice d'écriture</h1>",
+    "<p>Écrivez le nom de votre robot favori sur une seule ligne.",
+    "    Avec Python, ceci est fait en utilisant la fonction <code>print()</code>.",
+    "    Avec Javascript, vous pouvez utiliser une des deux fonctions qui sont",
+    "    disponibles dans le Monde de Reeborg&nbsp;: soit",
+    "    <code>writeln()</code> qui ajoute automatiquement un caractère de fin de ligne",
+    "    ou <code>ecrit()</code> qui ne le fait pas.",
+    "</p>",
+    "DIFFICULTY1"
+  ],
+  "post": [
+    "RUR.public.check_output()"
+  ],
+  "onload": [
+    "// define a function that can be called,",
+    "// in the Post editor for programs written",
+    "// using either Python or Javascript.",
+    "RUR.public.check_output = function () {",
+    "    var actual = RUR.get_print();",
+    "    var expected = \"Reeborg\\n\";",
+    "    var output;",
+    "    ",
+    "    if (actual == expected) {",
+    "        throw new RUR.ReeborgOk(\"Très bien fait!\");",
+    "    }",
+    "    if (actual == '') {",
+    "        output = RUR.show_detailed_diff(expected, actual,",
+    "               {semantic: true, show_actual: true,",
+    "               actual_heading : \"<span class='warning'>Rien n'a été écrit !</span>\"});",
+    "    } else {",
+    "        output = RUR.show_detailed_diff(expected, actual,",
+    "                               {semantic: true});",
+    "    }",
+    "    ",
+    "    throw new RUR.ReeborgError(output);",
+    "};"
+  ]
+}

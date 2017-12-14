@@ -8,6 +8,8 @@
     "Les tâches de ces mondes <em>peuvent, et devraient,</em> être résolues en utilisant de simples fonctions",
     "sans arguments, et sans utiliser de variables, suivant la philosophie",
     "de la version originale du robot Karel.</p>",
+    "<p><a class='fake-button' href='#' onclick=\"RUR.load_world_file('worlds/menus/print_fr.json')\">Exercices d'écritures</a></p>",
+    "<p>Une collection d'exercices pour aider les débutants à utiliser <code>print()</code> ou son équivalent en Javascript.</p>",
     "<p><a class='fake-button' href='#' onclick=\"RUR.load_world_file('worlds/menus/varia_fr.json')\">Varia</a></p>",
     "<p>Varia est l'endroit où les nouvelles tâches à classer ailleurs sont logées temporairement.</p>",
     "<h3>Note</h3>",    

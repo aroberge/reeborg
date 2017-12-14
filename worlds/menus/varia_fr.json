@@ -1,4 +1,5 @@
 {
+  "blank_canvas": true,
   "onload": [
     "var base_url = 'src/worlds/tutorial_en/';",
     "var base_url2 = 'src/worlds/tutorial_fr/';",
@@ -22,8 +23,5 @@
     "MakeCustomMenu(contents);",
     "",
     ""
-  ],
-  "small_tiles": false,
-  "rows": 12,
-  "cols": 14
+  ]
 }

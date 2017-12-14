@@ -387,3 +387,7 @@ ui_pl["You are not allowed to use <code>done</code> in this world!"] = "You are 
 ui_pl["Execution ended before the <em>Post</em> code was executed."] = "Execution ended before the <em>Post</em> code was executed.";
 
 ui_pl["Difficulty level"] = "Difficulty level";
+
+ui_pl["Expected result"] = "Expected result";
+ui_pl["Differences highlighted"] = "Differences highlighted";
+ui_pl["Actual result"] = "Actual result";

@@ -1,4 +1,5 @@
 {
+  "blank_canvas": true,
   "onload": [
     "contents = [",
     "    [\"worlds/sk/step0.json\", \"Step 0\"],",
@@ -27,8 +28,5 @@
     "    [\"worlds/tutorial_en/alone.json\", \"Alone template\"]",
     "    ]",
     "MakeCustomMenu(contents)"
-  ],
-  "small_tiles": false,
-  "rows": 12,
-  "cols": 14
+  ]
 }

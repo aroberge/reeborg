@@ -1,4 +1,5 @@
 {
+  "blank_canvas": true,
   "onload": [
     "var tutorial_en = 'worlds/tutorial_en/'",
     "old_tutorial_en = 'src/worlds/tutorial_en/';",
@@ -15,8 +16,5 @@
     "    ['src/worlds/blank.json', 'Graphical canvas']",
     "    ];",
     "MakeCustomMenu(contents);"
-  ],
-  "small_tiles": false,
-  "rows": 12,
-  "cols": 14
+  ]
 }

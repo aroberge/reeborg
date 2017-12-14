@@ -1,0 +1,42 @@
+{
+  "blank_canvas": true,
+  "description": [
+    "<h1>Simple print example</h1>",
+    "<p>Print your favourite Robot name on a single line of text.",
+    "    Using Python, this is done with the <code>print()</code>",
+    "    function.",
+    "    Using Javascript, you can use one of the two functions",
+    "    that are specific to Reeborg's World: either",
+    "    <code>writeln()</code> which automatically adds a newline",
+    "    character at the end, or <code>write()</code> which does not.",
+    "</p>",
+    "DIFFICULTY1"
+  ],
+  "post": [
+    "RUR.public.check_output()"
+  ],
+  "onload": [
+    "// define a function that can be called,",
+    "// in the Post editor for programs written",
+    "// using either Python or Javascript.",
+    "RUR.public.check_output = function () {",
+    "    var actual = RUR.get_print();",
+    "    var expected = \"Reeborg\\n\";",
+    "    var output;",
+    "    ",
+    "    if (actual == expected) {",
+    "        throw new RUR.ReeborgOk(\"Well done!\");",
+    "    }",
+    "    if (actual == '') {",
+    "        output = RUR.show_detailed_diff(expected, actual,",
+    "               {semantic: true, show_actual: true,",
+    "               actual_heading : \"<span class='warning'>Nothing was printed!</span>\"});",
+    "    } else {",
+    "        output = RUR.show_detailed_diff(expected, actual,",
+    "                               {semantic: true});",
+    "    }",
+    "    ",
+    "    throw new RUR.ReeborgError(output);",
+    "};"
+  ]
+}
