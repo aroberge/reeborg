@@ -4,8 +4,6 @@
     "old_tutorial_en = 'src/worlds/tutorial_en/';",
     "",
     "var contents = [",
-    "    [tutorial_en + 'alone.json', 'Alone'],",
-    "    ['worlds/menus/select_collection_en.json', \"Other worlds\"],",
     "    [old_tutorial_en + 'harvest4a.json', 'Harvest 4a'],",
     "    [old_tutorial_en + 'harvest4b.json', 'Harvest 4b'],",
     "    [old_tutorial_en + 'harvest4c.json', 'Harvest 4c'],",
@@ -13,6 +11,7 @@
     "    [old_tutorial_en + 'newspaper0.json', 'Newspaper 0'],",
     "    [old_tutorial_en + 'newspaper1.json', 'Newspaper 1'],",
     "    [old_tutorial_en + 'newspaper2.json', 'Newspaper 2'],",
+    "    ['worlds/menus/select_collection_en.json', \"Other worlds\"],",
     "    ['src/worlds/blank.json', 'Graphical canvas']",
     "    ];",
     "MakeCustomMenu(contents);"

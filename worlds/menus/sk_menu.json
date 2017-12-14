@@ -23,8 +23,8 @@
     "    [\"worlds/sk/step16b.json\", \"Step 16\"],",
     "    [\"worlds/sk/step17.json\", \"Step 17\"],",
     "    [\"worlds/sk/step18.json\", \"Step 18\"],",
+    "    ['worlds/menus/select_collection_en.json', \"Other worlds\"],",
     "    [\"worlds/tutorial_en/alone.json\", \"Alone template\"]",
-    ", ['worlds/menus/select_collection_en.json', \"Other worlds\"]",
     "    ]",
     "MakeCustomMenu(contents)"
   ],

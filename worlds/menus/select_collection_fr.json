@@ -1,0 +1,17 @@
+{
+  "blank_canvas": true,
+  "description": [
+    "<h1>Autres mondes</h1>",
+    "<p>Choisissez la collection désirée en cliquant sur le bouton approprié.</p>",
+    "<p><a class='fake-button' href='#' onclick=\"RUR.load_world_file('worlds/menus/default_menu_fr.json')\">L'introduction de Reeborg</a></p>",
+    "<p>La collection de l'introduction à Reeborg est celle qui est visible par défaut sur ce site.",
+    "Les tâches de ces mondes <em>peuvent, et devraient,</em> être résolues en utilisant de simples fonctions",
+    "sans arguments, et sans utiliser de variables, suivant la philosophie",
+    "de la version originale du robot Karel.</p>",
+    "<p><a class='fake-button' href='#' onclick=\"RUR.load_world_file('worlds/menus/varia_fr.json')\">Varia</a></p>",
+    "<p>Varia est l'endroit où les nouvelles tâches à classer ailleurs sont logées temporairement.</p>",
+    "<h3>Note</h3>",    
+    "<p>Veuillez noter que la réorganisation des mondes en diverses collections vient tout juste de débuter.</p>"
+  ],
+  "onload": "RUR.show_description();"
+}
