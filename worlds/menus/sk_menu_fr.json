@@ -1,0 +1,31 @@
+{
+  "blank_canvas": true,
+  "onload": [
+    "contents = [",
+    "    [\"worlds/sk_fr/step0.json\", \"Étape 0\"],",
+    "    [\"worlds/sk_fr/step1.json\", \"Étape 1\"],",
+    " // [\"worlds/sk_fr/step2.json\", \"Étape 2\"],",
+    " // [\"worlds/sk_fr/step3.json\", \"Étape 3\"],",
+    " // [\"worlds/sk_fr/step4.json\", \"Étape 4\"],",
+    " // [\"worlds/sk_fr/step5a.json\", \"Étape 5a\"],",
+    " // [\"worlds/sk_fr/step5b.json\", \"Étape 5b\"],",
+    " // [\"worlds/sk_fr/step6.json\", \"Étape 6\"],",
+    " // [\"worlds/sk_fr/step7.json\", \"Étape 7\"],",
+    " // [\"worlds/sk_fr/step8.json\", \"Étape 8\"],",
+    " // [\"worlds/sk_fr/step9.json\", \"Étape 9\"],",
+    " // [\"worlds/sk_fr/step10-hurdle.json\", \"Étape 10\"],",
+    " // [\"worlds/sk_fr/step11.json\", \"Étape 11\"],",
+    " // [\"worlds/sk_fr/step12.json\", \"Étape 12\"],",
+    " // [\"worlds/sk_fr/step13.json\", \"Étape 13\"],",
+    " // [\"worlds/sk_fr/step14-basic.json\", \"Étape 14a\"],",
+    " // [\"worlds/sk_fr/step14-extra.json\", \"Étape 14b\"],",
+    " // [\"worlds/sk_fr/step15a.json\", \"Étape 15a\"],",
+    " // [\"worlds/sk_fr/step15b.json\", \"Étape 15b\"],",
+    " // [\"worlds/sk_fr/step16b.json\", \"Étape 16\"],",
+    " // [\"worlds/sk_fr/step17.json\", \"Étape 17\"],",
+    " // [\"worlds/sk_fr/step18.json\", \"Étape 18\"],",
+    "    ['worlds/menus/select_collection_fr.json', \"Autres mondes\"]",
+    "    ]",
+    "MakeCustomMenu(contents)"
+  ]
+}
