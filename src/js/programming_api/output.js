@@ -187,9 +187,9 @@ RUR.show_detailed_diff = function (expected, actual, options) {
 
     if (options && options.show_actual) {
         if (options.actual_heading) {
-            actual_heading_heading = "<h3>" + options.actual_heading + "</h3>";
+            actual_heading = "<h3>" + options.actual_heading + "</h3>";
         } else {
-            actual_heading_heading = "<h3>" + RUR.translate("Actual result") + "</h3>";
+            actual_heading = "<h3>" + RUR.translate("Actual result") + "</h3>";
         }
         actual_section = actual_heading + div_begin + actual + "</div>";
     }
