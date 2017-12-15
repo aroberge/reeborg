@@ -188,7 +188,7 @@
     "Be sure to use comments and whitespace to increase the readability of your solution!</p>",
     "<h3>What you need to know</h3>",    
     "<ul><li>The functions <code>move()</code>, <code>turn_left()</code>,",
-    "<code>take()</code>, and <code>put()</code>.</li>",
+    "and <code>put()</code>.</li>",
     "<li>How to define functions.</li></ul>",
     "DIFFICULTY3"
   ],

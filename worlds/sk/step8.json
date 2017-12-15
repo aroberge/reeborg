@@ -43,7 +43,7 @@
     "<h3>What you need to know</h3>",    
     "<ul><li>The functions <code>move()</code>, <code>turn_left()</code>,",
     "<code>take()</code>, and <code>put()</code></li>",
-    "The condition <code>object_here()</code>.</li>",
+    "<li>The condition <code>object_here()</code>.</li>",
     "<li>How to use an <code>if</code> statement.</li></ul>",
     "DIFFICULTY3"
   ],

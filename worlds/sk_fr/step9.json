@@ -23,12 +23,12 @@
     }
   ],
     "description": [
-    "<h1>Darn dandelions - again</h1>",
-    "<p>Adjust the solution you created for Step 8, this time making use of two <code>repeat</code> loops.",
-    "The world doesn’t change from Step 8, but your solution should be much nicer. ",
-    " Remember to use comments and whitespace to increase the readability of your solution!</p>",
-    "<h3>What you need to know</h3>",    
-    "<p>You should already have a working solution from Step 8.",
+    "<h1>Encore les fâcheux pissenlits</h1>",
+    "<p>Adjustez la solution que vous avez obtenue pour l'étape 8,",
+    "mais utilisez deux boucles <code>repeat</code>.",
+    "Ce monde est identique au monde de l'étape 8, mais votre solution devrait être plus lisible.</p>",
+    "<h3>Ce que vous devez connaître</h3>",
+    "<p>Vous devriez déjà avoir une solution pour l'étape 8.",
     "DIFFICULTY2"
   ],
   "small_tiles": false,

@@ -37,7 +37,7 @@
     "<h3>Ce que vous devez connaître</h3>",
     "<ul><li>Les fonctions <code>avance()</code>, <code>tourne_a_gauche()</code>,",
     "<code>prend()</code>, et <code>depose()</code></li>",
-    "La condition <code>objet_ici()</code></li>",
+    "<li>La condition <code>objet_ici()</code></li>",
     "<li>Comment utiliser un énoncé <code>if</code>.</li></ul>",
     "DIFFICULTY3"
   ],
