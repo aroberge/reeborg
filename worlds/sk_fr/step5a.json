@@ -115,12 +115,12 @@
     ]
   },
   "description": [
-    "<h1>Another path to follow</h1>",
-    "<p>Create a <code>turn_right()()</code> function and use it to walk along the path.</p>",
+    "<h1>Un autre sentier à suivre</h1>",
+    "<p>Définissez une fonction <code>tourne_a_droite()</code> et utilisez-la pour suivre le sentier.</p>",
     "",
-    "<h3>What you need to know</h3>",
-    "<ul><li>The functions <code>move()</code> and <code>turn_left()</code>.</li>",
-    "<li>How to define functions.</li></ul>",
+    "<h3>Ce que vous devez connaître</h3>",
+    "<ul><li>Les fonctions <code>avance()</code> et <code>tourne_a_gauche()</code>.</li>",
+    "<li>Commment définir des fonctions.</li></ul>",
     "DIFFICULTY2",
     ""
   ],

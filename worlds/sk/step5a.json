@@ -114,7 +114,16 @@
       "north"
     ]
   },
-  "description": "Create a turn_right() function and use it to walk along the path.",
+  "description": [
+    "<h1>Another path to follow</h1>",
+    "<p>Create a <code>turn_right()()</code> function and use it to walk along the path.</p>",
+    "",
+    "<h3>What you need to know</h3>",
+    "<ul><li>The functions <code>move()</code> and <code>turn_left()</code>.</li>",
+    "<li>How to define functions.</li></ul>",
+    "DIFFICULTY2",
+    ""
+  ],
   "small_tiles": false,
   "rows": 10,
   "cols": 10,
