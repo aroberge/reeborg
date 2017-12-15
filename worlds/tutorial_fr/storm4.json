@@ -55,7 +55,7 @@
     "<p>Testez votre programme et déterminez si vous faites une tâche encore plus efficace.</p>",
     "<p>Souvenez-vous : la chose la plus importante est d'avoir un programme qui",
     " <b>marche</b> dans tous les cas, pas seulement pour ce monde en particulier.</p>",
-    "<p><img src='/worlds/tutorial_img/storm_4.png'></p>"
+    "<p><img src='/worlds/images/storm_4.png'></p>"
   ],
   "small_tiles": false,
   "rows": 6,

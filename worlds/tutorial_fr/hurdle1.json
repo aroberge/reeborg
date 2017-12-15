@@ -108,7 +108,7 @@
     "}",
     ""
   ],
-  "background_image": "src/images/stadium.png",
+  "background_image": "worlds/images/stadium.png",
   "pre": [
     "RUR.show_path(RUR.public['path'], \"lightgray\");",
     ""

@@ -143,7 +143,7 @@
     "comme vous pouvez le voir sur l'image ci-dessous.</p><p>Lorsque vous saurez comment définir des fonctions,",
     "écrivez une solution qui met le code répété dans des fonctions. Par exemple, le tracé en jaune",
     "a la forme de la lettre majuscule <b>L</b>.</p>",
-    "<img src='worlds/tutorial_img/home_4.png'>",
+    "<img src='worlds/images/home_4.png'>",
     "<p>Ceci suggère que vous pouvez définir deux fonctions,",
     "<code>fait_un_L()</code> et <code>prochain_L()</code>, et les utiliser pour guider Reeborg.",
     "Par exemple, si vous utilisez Python et le mot-clé spécial",

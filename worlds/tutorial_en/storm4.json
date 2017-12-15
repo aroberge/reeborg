@@ -52,7 +52,7 @@
     "<h3>Can you do better?</h3>",
     "<p>Feel free to test your program and see if it can do a more efficient cleaning job.</p>",
     "<p>Remember: the most important thing is to have a program that <b>works</b> for all cases, not just for this one.</p>",
-    "<p><img src='/worlds/tutorial_img/storm_4.png'></p>"
+    "<p><img src='/worlds/images/storm_4.png'></p>"
   ],
   "small_tiles": false,
   "rows": 6,

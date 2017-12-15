@@ -102,7 +102,7 @@
     "}",
     ""
   ],
-  "background_image": "src/images/stadium.png",
+  "background_image": "worlds/images/stadium.png",
   "walls": {},
   "goal": {
     "possible_final_positions": [

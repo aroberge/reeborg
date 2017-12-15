@@ -163,7 +163,7 @@
     "",
     ""
   ],
-  "background_image": "src/images/stadium.png",
+  "background_image": "worlds/images/stadium.png",
   "pre": [
     "RUR.public.trim_path()",
     ""

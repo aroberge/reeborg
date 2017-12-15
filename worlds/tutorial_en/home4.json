@@ -143,7 +143,7 @@
     "as you can see from the image below.</p><p>Once you know how to define functions,",
     "write a solution with the repeated code put in functions. For example, the yellow",
     "shape forms a letter <b>L</b>.</p>",
-    "<img src='worlds/tutorial_img/home_4.png'>",
+    "<img src='worlds/images/home_4.png'>",
     "<p>This suggest that, we could define two functions,",
     "<code>L_shape()</code> and <code>next_L()</code> and use them to solve the problem.",
     "Using Python and the special",
