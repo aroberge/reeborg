@@ -24,11 +24,11 @@
   ],
   "walls": {},
   "description": [
-    "<h1>Weeding time</h1>",
-    "<p>Give Reeborg the appropriate instructions to make him pick up the dandelions,",
-    " put them in the garbage, and return home!</p>",
-      "<h3>What you need to know</h3>",
-    "    <ul><li>The functions <code>move()</code>, <code>put()</code> and <code>take()</code>.</li></ul>",
+    "<h1>Mauvaises herbes!</h1>",
+    "<p>Reeborg a besoin de votre aide pour ramasser les pissenlits, les mettre dans une pile,",
+    " puis aller à sa maison.</p>",
+    "<h3>Ce que vous devez connaître</h3>",
+    "    <ul><li>Les fonctions <code>avance()</code>, <code>depose()</code> et <code>prend()</code>.</li></ul>",
     "DIFFICULTY1"
   ],
   "small_tiles": false,

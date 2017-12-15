@@ -29,15 +29,15 @@
     }
   ],
   "description": [
-    "<h1>Around the lake</h1>",
-    "<p>Use the <code>move()</code> function and the <code>turn_left()</code> function",
-    " to make Reeborg walk around the lake.",
-    " To see what happens, let’s do some things intentionally wrong.",
-    " For example, make Reeborg walk into the lake. ",
-    " the lake to see what the error message will be.",
+    "<h1>Autour du lac</h1>",
+    "<p>Utilisez les fonctions <code>avance()</code> et <code>tourne_a_gauche()</code>",
+    " pour que Reeborg marche autour du lac.",
+    " Ce serait une bonne idée de faire des erreurs de façon intentionnelle.",
+    " Par exemple, essayez d'avoir Reeborg faire un aller-retour, ou de l'envoyer ",
+    " faire de la natation dans le lac.",
     "",
-    "<h3>What you need to know</h3>",
-    "<ul><li>The functions <code>move()</code> and <code>turn_left()</code>.</li></ul>",
+    "<h3>Ce que vous devez connaître</h3>",
+    "<ul><li>Les fonctions <code>avance()</code> et <code>tourne_a_gauche()</code>.</li></ul>",
     "DIFFICULTY1",
     ""
   ],
@@ -60,8 +60,8 @@
   "pre": "set_trace_color(\"black\")\n",
   "post": [
     "RUR.check_path(RUR.public['path'],",
-    "     {'failure':\"Reeborg did not follow the required path.\", ",
-    "      'success': 'Well done!',",
+    "     {'failure':\"Reeborg n'a pas suivi le bon chemin.\", ",
+    "      'success': 'Bien fait !',",
     "      'show_path': 'true', 'color': 'white'})"
     ],
   "tiles": {
