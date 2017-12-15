@@ -1,0 +1,63 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0
+    }
+  ],
+  "walls": {},
+  "description": [
+    "<h1>Des fleurs pour mes amies</h1>",
+    "<p>Reeborg veut faire des bouquest de fleurs ",
+    "    pour ses amies, Zoe and Eli. ",
+    "    Reeborg a la permission de cueillir des tulipes ",
+    "    dans les jardins de ses voisins. ",
+    "    Malheureusement pour Reeborg, chaque jardin est différent.",
+    "    Reeborg sait que chaque jardin sera rectangulaire, ",
+    "    et qu'il devra répéter le même choix d'actions à 23 reprises",
+    "    pour faire le tour du jardin, ",
+    "    et qu'il y aura une tulipe dans chaque coin - excluant celui du départ. </p>",
+    "<p>Écrivez un programme qui fera en sorte que Reeborg fasse le tour du jardin, ",
+    "    cueillant des tulipes là où il y en a. ",
+    "    Vous devez utiliser une boucle <code>repeat 23:</code> et <code>if/else</code>. ",
+    "</p>",
+    "<pre class=\"python\">",
+    "repeat 23:",
+    "    ...",
+    "    ...",
+    "    ...",
+    "    ...",
+    "    ...</pre>",
+    "<h3>Ce que vous devez connaître</h3>",
+    "<ul><li>Les fonctions <code>avance()</code>, <code>tourne_a_gauche()</code>,",
+    "et <code>prend()</code></li>",
+    "<li>La condition <code>objet_ici()</code>.</li>",
+    "<li>Comment utiliser un énoncé <code>if/else</code>.</li></ul>",
+    "DIFFICULTY2",
+    ""
+  ],
+  "small_tiles": false,
+  "rows": 5,
+  "cols": 7,
+  "goal": {
+    "objects": {}
+  },
+  "onload": [
+    "var height, width;",
+    "width = RUR.randint(4, 8);",
+    "height = 12 - width;",
+    "RUR.set_world_size(width, height);",
+    "RUR.fill_background(\"grass\");",
+    "RUR.add_final_position(\"house\", 1, 1);",
+    "",
+    "RUR.add_object(\"tulip\", width, 1)",
+    "RUR.add_object(\"tulip\", width, height)",
+    "RUR.add_object(\"tulip\", 1, height)",
+    ""
+  ]
+}

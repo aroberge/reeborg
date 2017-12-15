@@ -7,32 +7,60 @@
       "_prev_y": 1,
       "_prev_orientation": 0,
       "objects": {},
-      "_orientation": 0,
-      "_is_leaky": true,
-      "_trace_history": [],
-      "_trace_style": "default",
-      "_trace_color": "seagreen",
-      "__id": 3,
-      "model": "classic",
-      "possible_initial_positions": [
-        [
-          1,
-          1
-        ]
-      ]
+      "_orientation": 0
     }
   ],
   "walls": {},
-  "description": "Reeborg wants to make some bouquets of flowers for it’s friends, Zoe and Eli. Reeborg has permission to take() tulips from some of his neighbor’s gardens. Unfortunately for Reeborg, each of the gardens is different. Reeborg does know that the garden will be rectangular, that it will take 23 steps to get around the garden, and that there will be a tulip in each corner of the garden. Create a program to have Reeborg walk around the outside of the garden, picking up a tulip if it can, and moving ahead if it cannot. You must use a repeat 23: and if/else. Note: For this step, the world will be different each time you press the Play button. When you first open the world, the world will look empty, but will be built when you press Play. Later in the course, I will show you the Python code that creates this world randomly each time.",
+  "description": [
+    "<h1>Flowers for my friends</h1>",
+    "<p>Reeborg wants to make some bouquets of ",
+    "    flowers for its friends, Zoe and Eli. ",
+    "    Reeborg has permission to <code>take()</code> ",
+    "    tulips from some of his neighbor’s gardens. ",
+    "    Unfortunately for Reeborg, each of the gardens ",
+    "    is different. ",
+    "    Reeborg does know that the garden will be ",
+    "    rectangular, that it will repeat the same set",
+    "    of actions 23 times to get around the garden, ",
+    "    and that there will be a tulip in each ",
+    "    corner of the garden, excluding where Reeborg is at the start.</p>",
+    "<p>Create a program to have Reeborg walk around the ",
+    "    outside of the garden, picking up a tulip if it can,",
+    "    and moving ahead if it cannot. ",
+    "    You must use a <code>repeat 23:</code> and <code>if/else</code>. ",
+    "</p>",
+    "<pre class=\"python\">",
+    "repeat 23:",
+    "    ...",
+    "    ...",
+    "    ...",
+    "    ...",
+    "    ...</pre>",
+    "<h3>What you need to know</h3>",    
+    "<ul><li>The functions <code>move()</code>, <code>turn_left()</code>,",
+    "and <code>take()</code></li>",
+    "<li>The condition <code>object_here()</code>.</li>",
+    "<li>How to use an <code>if/else</code> statement.</li></ul>",
+    "DIFFICULTY2",
+    ""
+  ],
   "small_tiles": false,
   "rows": 5,
   "cols": 7,
   "goal": {
-    "objects": {
-      "1,1": {
-        "tulip": 3
-      }
-    }
+    "objects": {}
   },
-  "onload": "#moved to onload\nimport random\nwidth_options = [4, 5, 6, 7, 8]\nwidth = random.choice(width_options)\nheight = 11 - (width-1)\nRUR.set_world_size(width, height)\nRUR.fill_background(\"grass\")\n#RUR.add_final_position(\"house\", 1, 1)\n\nRUR.add_object(\"tulip\", width, 1)\nRUR.add_object(\"tulip\", width, height)\nRUR.add_object(\"tulip\", 1, height)\n\n\n"
+  "onload": [
+    "var height, width;",
+    "width = RUR.randint(4, 8);",
+    "height = 12 - width;",
+    "RUR.set_world_size(width, height);",
+    "RUR.fill_background(\"grass\");",
+    "RUR.add_final_position(\"house\", 1, 1);",
+    "",
+    "RUR.add_object(\"tulip\", width, 1)",
+    "RUR.add_object(\"tulip\", width, height)",
+    "RUR.add_object(\"tulip\", 1, height)",
+    ""
+  ]
 }
