@@ -22,8 +22,8 @@
     "    [\"worlds/sk_fr/step15a.json\", \"Étape 15a\"],",
     "    [\"worlds/sk_fr/step15b.json\", \"Étape 15b\"],",
     "    [\"worlds/sk_fr/step16.json\", \"Étape 16\"],",
-    " // [\"worlds/sk_fr/step17.json\", \"Étape 17\"],",
-    " // [\"worlds/sk_fr/step18.json\", \"Étape 18\"],",
+    "    [\"worlds/sk_fr/step17.json\", \"Étape 17\"],",
+    "    [\"worlds/sk_fr/step18.json\", \"Étape 18\"],",
     "    ['worlds/menus/select_collection_fr.json', \"Autres mondes\"]",
     "    ]",
     "MakeCustomMenu(contents)"
