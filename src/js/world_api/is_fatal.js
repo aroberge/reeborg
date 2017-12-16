@@ -58,13 +58,10 @@ RUR.is_fatal_position = function (x, y, robot){
     obstacles = RUR.get_obstacles(x, y);
     if (obstacles) {
         for (obs of obstacles) {
-            // Here, and below, we call RUR._get_property instead of
-            // RUR.get_property since this uses the internal english names;
-            // RUR.get_property assumes an untranslated argument.
-            if (RUR._get_property(obs, "fatal")) {
-                if (protections.indexOf(RUR._get_property(obs, "fatal")) === -1) {
-                    if (RUR.THINGS[obs].message) {
-                        return RUR.THINGS[obs].message;
+            if (RUR.get_property(obs, "fatal")) {
+                if (protections.indexOf(RUR.get_property(obs, "fatal")) === -1) {
+                    if (RUR.THINGS[RUR.translate_to_english(obs)].message) {
+                        return RUR.THINGS[RUR.translate_to_english(obs)].message;
                     } else {
                         return "Fatal obstacle needs message defined";
                     }

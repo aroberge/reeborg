@@ -202,8 +202,8 @@ RUR.show_all_things = function (property) {
             info += "Missing image</td><td>";
         }
         if (RUR.THINGS[name].goal !== undefined) {
-            info += "<img src = '" + RUR.THINGS[name].goal.url + "'><br>"
-                    + RUR.THINGS[name].goal.url;
+            info += "<img src = '" + RUR.THINGS[name].goal.url + "'><br>" +
+                    RUR.THINGS[name].goal.url;
         }
         info += "</td></tr>";
     }
@@ -267,7 +267,6 @@ RUR.has_property = function (name, property) {
  * write(RUR.get_property("water", "fatal"))  // Javascript
  */
 RUR.get_property = function (name, property) {
-    var property;
 
     name = RUR.translate_to_english(name);
 
@@ -287,8 +286,9 @@ RUR.get_property = function (name, property) {
 // we undo the translation to avoid having a warning for a missing
 // translation logged in the browser console.
 RUR._get_property = function (name, property) {
+    console.log("in _get_property, name = ", name);
     return RUR.get_property(RUR.translate(name), property);
-}
+};
 
 
 /*=============================

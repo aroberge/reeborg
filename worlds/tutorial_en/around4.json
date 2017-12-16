@@ -391,10 +391,10 @@
     "<ul><li>The functions <code>move()</code>, <code>turn_left()</code>, and <code>put()</code>.</li>",
     "<li>Either the test <code>front_is_clear()</code> or <code>wall_in_front()</code>,",
     "<code>right_is_clear()</code> or <code>wall_on_right()</code>, and <code>object_here()</code>.</li>",
-    "<li>How to use a <code>while</code> loop and <code>if/else</code> statements.</li>",
+    "<li>How to use a <code>while</code> loop and <code>if/elif/else</code> statements.</li>",
     "<li>It might be useful to know how to use the negation of a test (<code>not</code> in Python).</li></ul>",
     "Ideally, you should define your own functions to make your program easier to understand.",
-    "DIFFICULTY4",
+    "DIFFICULTY5",
     ""
   ],
   "onload": [

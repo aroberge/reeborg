@@ -227,6 +227,8 @@ RUR.reset_pre_run_defaults = function () {
         // set to true.
     RUR.state.prevent_playback = false;
 
+    RUR.state.visible_grid = false; /* if true, will be shown above tiles */
+    RUR.public = {}; // reset
 
     RUR.state.do_not_draw_info = false; // see document titled
                     // "How to show just the path followed by Reeborg"

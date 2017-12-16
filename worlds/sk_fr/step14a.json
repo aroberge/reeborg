@@ -1,0 +1,98 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {
+        "banana": 1
+      },
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 23,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": [
+    "<h1>Autour du lac</h1>",
+    "<p>Reeborg aime aller prendre des marches, ",
+    "surtout lorsque c'est autour d'un lac. ",
+    "Les lacs dans le voisinage de Reeborg sont tous des rectangles ",
+    "de différentes tailles, ce qui fait que Reeborg ne sait jamais ",
+    "combien de pas celui lui prendra pour revenir à son point de départ. ",
+    "Heureusement, Reeborg a avaec lui une banane; vous pouvez instruire Reeborg ",
+    "de la mettre à son point de départ avec l'instruction ",
+    "<code>depose()</code>.",
+    "Reeborg pourra savoir qu'il a terminé sa marche lorsqu'il ",
+    "verra la banane à nouveau.</p>",
+    "<p>Utilisez une boucle <code>while</code> ",
+    "(pour trouver la banane) ",
+    "et une clause <code>if/else</code> pour permettre à Reeborg ",
+    "de compléter sa marche. </p>",
+    "<p>N.B. Reeborg ne peut pas utiliser une boucle <code>repeat</code> ",
+    "car il n'a aucune idée de la taille du lac.</p>",
+    "<h3>Ce que vous devez connaître</h3>",
+    "<ul><li>Les fonctions <code>avance()</code>, <code>tourne_a_gauche()</code> et <code>depose()</code>.</li>",
+    "<li>Les conditions <code>rien_devant()</code> ou <code>mur_devant()</code>, et <code>objet_ici()</code>.</li>",
+    "<li>Comment utiliser des boucles <code>while</code>.</li>",
+    "<li>Il pourrait être utile de savoir comment faire la négation d'une condition",
+    "(mot-clé <code>not</code> en Python).</li></ul>",
+    "DIFFICULTY2",
+    ""
+  ],
+  "small_tiles": false,
+  "rows": 6,
+  "cols": 8,
+  "pre": "couleur_de_trace(\"black\")",
+  "post": [
+    "RUR.check_path(RUR.public['path'],",
+    "     {'failure':\"Reeborg n'a pas suivi le sentier.\", ",
+    "      'success': 'Bien fait !',",
+    "      'show_path': 'true', 'color': 'white'})"
+  ],
+  "onload": [
+    "var x, y, width, height;",
+    "",
+    "width = RUR.randint(3, 13);",
+    "height = RUR.randint(3, 13);",
+    "RUR.set_world_size(width, height);",
+    "RUR.fill_background(\"water\");",
+    "",
+    "RUR.public.path = [];",
+    "",
+    "function add_tile(x, y) {",
+    "    RUR.add_background_tile(\"grass\", x, y);",
+    "    RUR.public.path.push([x, y]);",
+    "}",
+    "",
+    "// bottom row",
+    "for(x=1; x<=width; x++) {",
+    "    add_tile(x, 1);",
+    "}",
+    "// right column",
+    "for(y=2; y<=height; y++) {",
+    "    add_tile(width, y);",
+    "}",
+    "// top row",
+    "for(x=width-1; x>=1; x--) {",
+    "    add_tile(x, height);",
+    "}",
+    "// right column",
+    "for(y=height-1; y>=1; y--) {",
+    "    add_tile(1, y);",
+    "}",
+    ""
+  ]
+}

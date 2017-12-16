@@ -30,6 +30,31 @@ QUnit.test("Autour 1, 2, 3, 4", function(assert) {
 });
 
 
+// The following is NOT in the tutorial BUT it tests fatal obstacles
+// and, more importantly, the handling of their translations.
+// This test has been added after a bug was found
+QUnit.test("Une marche d'expert", function(assert) {
+    var py_js, info, program_files, world, world_files;
+    var done = assert.async();
+    program_files = ["around_fr.js", "around_fr.py"];
+    world_files = ["/worlds/sk_fr/step14b.json"];
+    for (py_js in test_utils.runners){
+        for (world in world_files) {
+            test_utils.runners[py_js](
+                world_files[world], 
+                test_utils.program_dir + program_files[py_js]
+                );
+            info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
+            assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
+            info = "Feedback text ok for " + world_files + " ; language = " + RUR.state.programming_language;
+            assert.equal(test_utils.content, "Bien fait !", info);
+        }
+    }
+    done();
+});
+
+
+
 QUnit.test("But 1, 2, 3, 4", function(assert) {
     var py_js, w, program_files, world_files, info;
     var done = assert.async();

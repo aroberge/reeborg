@@ -1,25 +1,21 @@
 {
-  "description": "Use a loop to walk around the edge of the world. Use the beeper Reeborg is carrying to help you determine when you are back to the start. Note that your code must also work for the Step 13b world!",
-  "small_tiles": false,
-  "rows": 4,
-  "cols": 6,
   "robots": [
     {
       "x": 1,
       "y": 1,
-      "objects": {
-        "beeper": 1
-      },
-      "model": "classic",
-      "_orientation": 0,
-      "_is_leaky": true,
       "_prev_x": 1,
       "_prev_y": 1,
       "_prev_orientation": 0,
+      "objects": {
+        "banana": 1
+      },
+      "_orientation": 0,
+      "_is_leaky": true,
       "_trace_history": [],
       "_trace_style": "default",
       "_trace_color": "seagreen",
-      "__id": 43,
+      "__id": 23,
+      "model": "classic",
       "possible_initial_positions": [
         [
           1,
@@ -28,80 +24,77 @@
       ]
     }
   ],
-  "tiles": {
-    "1,1": [
-      "pale_grass"
-    ],
-    "1,2": [
-      "pale_grass"
-    ],
-    "1,3": [
-      "pale_grass"
-    ],
-    "1,4": [
-      "pale_grass"
-    ],
-    "2,1": [
-      "pale_grass"
-    ],
-    "2,2": [
-      "grass"
-    ],
-    "2,3": [
-      "grass"
-    ],
-    "2,4": [
-      "pale_grass"
-    ],
-    "3,1": [
-      "pale_grass"
-    ],
-    "3,2": [
-      "grass"
-    ],
-    "3,3": [
-      "grass"
-    ],
-    "3,4": [
-      "pale_grass"
-    ],
-    "4,1": [
-      "pale_grass"
-    ],
-    "4,2": [
-      "grass"
-    ],
-    "4,3": [
-      "grass"
-    ],
-    "4,4": [
-      "pale_grass"
-    ],
-    "5,1": [
-      "pale_grass"
-    ],
-    "5,2": [
-      "grass"
-    ],
-    "5,3": [
-      "grass"
-    ],
-    "5,4": [
-      "pale_grass"
-    ],
-    "6,1": [
-      "pale_grass"
-    ],
-    "6,2": [
-      "pale_grass"
-    ],
-    "6,3": [
-      "pale_grass"
-    ],
-    "6,4": [
-      "pale_grass"
-    ]
-  },
-  "pre": "_path_followed = []\nset_trace_color(\"black\")\ndef move():\n    r = default_robot()\n    RUR._move_()\n    _path_followed.append((r.body.x, r.body.y))\n\n",
-  "post": "\n\n_correct_path = [(2,1), (3,1), (4,1), (5,1), (6,1),\n                (6,2), (6,3), (6,4),\n                (5,4), (4,4), (3,4), (2,4), (1,4),\n                (1,3), (1,2), (1,1)]\n\nif _correct_path != _path_followed:\n    raise ReeborgError(\"Reeborg did not follow the required path.\")\n    \nraise ReeborgOK(\"Well done!\")"
+  "walls": {},
+  "description": [
+    "<h1>Around the lake</h1>",
+    "<p>Reeborg loves going for walks, ",
+    "especially when it is around a lake. ",
+    "The lakes in Reeborg’s neighborhood ",
+    "are all different sizes of rectangles, ",
+    "so Reeborg does not know how many ",
+    "steps it will take to get back to ",
+    "the start of walk. ",
+    "Thankfully, Reeborg happens to be ",
+    "carrying a banana, which you can ",
+    "tell Reeborg to <code>put()</code> down at the ",
+    "start of its walk. ",
+    "Reeborg knows it’s done walking when ",
+    "it reaches the banana again.</p>",
+    "<p>Use a <code>while</code> statement ",
+    "(looking for the banana object) ",
+    "and an <code>if/else</code> to have Reeborg ",
+    "complete his walking adventure. </p>",
+    "<p>Note: Reeborg cannot use a repeat ",
+    "statement, since it has no idea of the ",
+    "dimensions of the lake it is walking around.</p>",
+    "<h3>What you need to know</h3>",
+    "<ul><li>The functions <code>move()</code>, <code>turn_left()</code>, and <code>put()</code>.</li>",
+    "<li>Either the test <code>front_is_clear()</code> or <code>wall_in_front()</code>, and <code>object_here()</code>.</li>",
+    "<li>How to use a <code>while</code> loop and an <code>if/else</code> clause, and the <code>not</code> keyword.</li></ul>",
+    "DIFFICULTY2",
+    ""
+  ],
+  "small_tiles": false,
+  "rows": 6,
+  "cols": 8,
+  "pre": "set_trace_color(\"black\")",
+  "post": [
+    "RUR.check_path(RUR.public['path'],",
+    "     {'failure':\"Reeborg did not follow the required path.\", ",
+    "      'success': 'Well done!',",
+    "      'show_path': 'true', 'color': 'white'})"
+  ],
+  "onload": [
+    "var x, y, width, height;",
+    "",
+    "width = RUR.randint(3, 13);",
+    "height = RUR.randint(3, 13);",
+    "RUR.set_world_size(width, height);",
+    "RUR.fill_background(\"water\");",
+    "",
+    "RUR.public.path = [];",
+    "",
+    "function add_tile(x, y) {",
+    "    RUR.add_background_tile(\"grass\", x, y);",
+    "    RUR.public.path.push([x, y]);",
+    "}",
+    "",
+    "// bottom row",
+    "for(x=1; x<=width; x++) {",
+    "    add_tile(x, 1);",
+    "}",
+    "// right column",
+    "for(y=2; y<=height; y++) {",
+    "    add_tile(width, y);",
+    "}",
+    "// top row",
+    "for(x=width-1; x>=1; x--) {",
+    "    add_tile(x, height);",
+    "}",
+    "// right column",
+    "for(y=height-1; y>=1; y--) {",
+    "    add_tile(1, y);",
+    "}",
+    ""
+  ]
 }
