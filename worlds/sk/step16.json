@@ -1,236 +1,525 @@
 {
-  "description": "Reeborg has lost it’s lunchbox. Reeborg was playing in a maze and set it down and then wandered around. Now Reeborg is hungry. The lunchbox is represented by the flag. Each time you press play, both the flag and Reeborg will begin in a random location. Write a program to help Reeborg find the lunchbox. The secret is to have Reeborg follow along the right edge of the maze, turning right if it can, going straight ahead if it can’t turn right, or turning left as a last resort. Write a program using an if..elif..else statement so Reeborg can have lunch.",
+  "description": [
+    "<h1>Carrot picking</h1>",
+    "<p>Reeborg has been hired to pick carrots in a number of gardens. ",
+    "Although the gardens are all the same size, ",
+    "the carrots have grown in different places in each of the gardens. ",
+    "You need to create a program that will allow Reeborg to ",
+    "harvest all of the carrots in each of the possible gardens. ",
+    "You know that at each location, there will only ever ",
+    "be either 1 or 0 carrots.</p>",
+    "<p>Remember that you can have a repeat statement ",
+    "inside another repeat statement – we called this a nested repeat.",
+    "Consider how you might be able to use a nested repeat to solve this problem.</p>",
+    "<h3>What you need to know</h3>",
+    "<ul><li>The functions <code>move()</code>, <code>turn_left()</code>, and <code>take()</code>.</li>",
+    "<li>The test <code>object_here()</code>.</li>",
+    "<li>How to use an <code>if</code> statement and a <code>repeat</code> statement.</li></ul>",
+    "DIFFICULTY3"
+  ],
   "robots": [
     {
-      "x": 3,
-      "y": 3,
-      "objects": {
-        "token": "infinite"
-      },
-      "_orientation": -1,
+      "x": 1,
+      "y": 1,
+      "_orientation": 0,
       "_is_leaky": true,
-      "_prev_x": 3,
-      "_prev_y": 3,
-      "_prev_orientation": -1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
       "_trace_history": [],
       "_trace_style": "default",
       "_trace_color": "seagreen",
-      "__id": 13,
+      "__id": 54,
       "model": "classic",
       "possible_initial_positions": [
         [
           1,
           1
-        ],
-        [
-          3,
-          1
-        ],
-        [
-          1,
-          5
-        ],
-        [
-          5,
-          5
-        ],
-        [
-          5,
-          1
-        ],
-        [
-          3,
-          4
-        ],
-        [
-          3,
-          3
         ]
       ]
     }
   ],
   "walls": {
-    "2,5": [
-      "north"
+    "10,1": [
+      "east"
     ],
-    "1,5": [
-      "north"
+    "10,2": [
+      "east"
     ],
-    "3,5": [
-      "north"
+    "10,3": [
+      "east"
     ],
-    "4,5": [
-      "north"
+    "10,4": [
+      "east"
     ],
-    "5,5": [
+    "10,5": [
+      "east"
+    ],
+    "10,6": [
+      "east"
+    ],
+    "10,7": [
+      "east"
+    ],
+    "10,8": [
+      "east"
+    ],
+    "10,9": [
+      "east"
+    ],
+    "10,10": [
       "east",
       "north"
     ],
-    "5,1": [
-      "east"
-    ],
-    "5,3": [
-      "east"
-    ],
-    "5,2": [
-      "east"
-    ],
-    "5,4": [
-      "east"
-    ],
-    "1,1": [
+    "9,10": [
       "north"
     ],
-    "2,1": [
-      "east"
-    ],
-    "2,2": [
-      "east",
+    "8,10": [
       "north"
     ],
-    "1,3": [
-      "east"
-    ],
-    "3,2": [
+    "7,10": [
       "north"
     ],
-    "3,3": [
-      "east",
+    "6,10": [
       "north"
     ],
-    "2,4": [
-      "east"
-    ],
-    "3,4": [
+    "5,10": [
       "north"
     ],
-    "4,4": [
-      "east"
-    ],
-    "4,3": [
-      "east"
-    ],
-    "4,2": [
-      "east"
-    ],
-    "4,1": [
+    "4,10": [
       "north"
     ],
-    "3,1": [
-      "east"
+    "3,10": [
+      "north"
+    ],
+    "2,10": [
+      "north"
+    ],
+    "1,10": [
+      "north"
     ]
+  },
+  "goal": {
+    "objects": {
+      "10,1": {},
+      "9,1": {
+        "carrot": "all"
+      }
+    }
+  },
+  "objects": {
+    "5,3": {
+      "carrot": "0-1"
+    },
+    "5,4": {
+      "carrot": "0-1"
+    },
+    "5,5": {
+      "carrot": "0-1"
+    },
+    "5,6": {
+      "carrot": "0-1"
+    },
+    "5,8": {
+      "carrot": "0-1"
+    },
+    "4,8": {
+      "carrot": "0-1"
+    },
+    "4,7": {
+      "carrot": "0-1"
+    },
+    "4,5": {
+      "carrot": "0-1"
+    },
+    "4,4": {
+      "carrot": "0-1"
+    },
+    "6,7": {
+      "carrot": "0-1"
+    },
+    "6,6": {
+      "carrot": "0-1"
+    },
+    "6,5": {
+      "carrot": "0-1"
+    },
+    "6,4": {
+      "carrot": "0-1"
+    },
+    "6,3": {
+      "carrot": "0-1"
+    },
+    "7,8": {
+      "carrot": "0-1"
+    },
+    "7,7": {
+      "carrot": "0-1"
+    },
+    "7,6": {
+      "carrot": "0-1"
+    },
+    "7,4": {
+      "carrot": "0-1"
+    },
+    "8,7": {
+      "carrot": "0-1"
+    },
+    "8,6": {
+      "carrot": "0-1"
+    },
+    "8,5": {
+      "carrot": "0-1"
+    },
+    "3,8": {
+      "carrot": "0-1"
+    },
+    "3,7": {
+      "carrot": "0-1"
+    },
+    "3,6": {
+      "carrot": "0-1"
+    },
+    "3,5": {
+      "carrot": "0-1"
+    },
+    "3,4": {
+      "carrot": "0-1"
+    },
+    "8,8": {
+      "carrot": "0-1"
+    },
+    "8,4": {
+      "carrot": "0-1"
+    },
+    "7,3": {
+      "carrot": "0-1"
+    },
+    "3,3": {
+      "carrot": "0-1"
+    },
+    "8,3": {
+      "carrot": "0-1"
+    },
+    "6,8": {
+      "carrot": "0-1"
+    },
+    "5,7": {
+      "carrot": "0-1"
+    },
+    "4,6": {
+      "carrot": "0-1"
+    },
+    "7,5": {
+      "carrot": "0-1"
+    },
+    "4,3": {
+      "carrot": "0-1"
+    }
   },
   "small_tiles": false,
-  "rows": 5,
-  "cols": 5,
-  "goal": {
-    "position": {
-      "image": "racing_flag",
-      "x": 2,
-      "y": 5
-    },
-    "possible_final_positions": [
-      [
-        2,
-        3
-      ],
-      [
-        4,
-        1
-      ],
-      [
-        1,
-        2
-      ],
-      [
-        3,
-        4
-      ],
-      [
-        2,
-        1
-      ],
-      [
-        2,
-        5
-      ]
-    ]
-  },
+  "rows": 10,
+  "cols": 10,
   "tiles": {
     "1,1": [
-      "gravel"
+      "grass"
     ],
     "1,2": [
-      "gravel"
+      "grass"
     ],
     "1,3": [
-      "gravel"
+      "grass"
     ],
     "1,4": [
-      "gravel"
+      "grass"
     ],
     "1,5": [
-      "gravel"
+      "grass"
+    ],
+    "1,6": [
+      "grass"
+    ],
+    "1,7": [
+      "grass"
+    ],
+    "1,8": [
+      "grass"
+    ],
+    "1,9": [
+      "grass"
+    ],
+    "1,10": [
+      "grass"
     ],
     "2,1": [
-      "gravel"
+      "grass"
     ],
     "2,2": [
-      "gravel"
+      "grass"
     ],
     "2,3": [
-      "gravel"
+      "grass"
     ],
     "2,4": [
-      "gravel"
+      "grass"
     ],
     "2,5": [
-      "gravel"
+      "grass"
+    ],
+    "2,6": [
+      "grass"
+    ],
+    "2,7": [
+      "grass"
+    ],
+    "2,8": [
+      "grass"
+    ],
+    "2,9": [
+      "grass"
+    ],
+    "2,10": [
+      "grass"
     ],
     "3,1": [
-      "gravel"
+      "grass"
     ],
     "3,2": [
-      "gravel"
+      "grass"
     ],
     "3,3": [
-      "gravel"
+      "pale_grass"
     ],
     "3,4": [
-      "gravel"
+      "pale_grass"
     ],
     "3,5": [
-      "gravel"
+      "pale_grass"
+    ],
+    "3,6": [
+      "pale_grass"
+    ],
+    "3,7": [
+      "pale_grass"
+    ],
+    "3,8": [
+      "pale_grass"
+    ],
+    "3,9": [
+      "grass"
+    ],
+    "3,10": [
+      "grass"
     ],
     "4,1": [
-      "gravel"
+      "grass"
     ],
     "4,2": [
-      "gravel"
+      "grass"
     ],
     "4,3": [
-      "gravel"
+      "pale_grass"
     ],
     "4,4": [
-      "gravel"
+      "pale_grass"
     ],
     "4,5": [
-      "gravel"
+      "pale_grass"
+    ],
+    "4,6": [
+      "pale_grass"
+    ],
+    "4,7": [
+      "pale_grass"
+    ],
+    "4,8": [
+      "pale_grass"
+    ],
+    "4,9": [
+      "grass"
+    ],
+    "4,10": [
+      "grass"
     ],
     "5,1": [
-      "gravel"
+      "grass"
     ],
     "5,2": [
-      "gravel"
+      "grass"
     ],
     "5,3": [
-      "gravel"
+      "pale_grass"
     ],
     "5,4": [
-      "gravel"
+      "pale_grass"
     ],
     "5,5": [
-      "gravel"
+      "pale_grass"
+    ],
+    "5,6": [
+      "pale_grass"
+    ],
+    "5,7": [
+      "pale_grass"
+    ],
+    "5,8": [
+      "pale_grass"
+    ],
+    "5,9": [
+      "grass"
+    ],
+    "5,10": [
+      "grass"
+    ],
+    "6,1": [
+      "grass"
+    ],
+    "6,2": [
+      "grass"
+    ],
+    "6,3": [
+      "pale_grass"
+    ],
+    "6,4": [
+      "pale_grass"
+    ],
+    "6,5": [
+      "pale_grass"
+    ],
+    "6,6": [
+      "pale_grass"
+    ],
+    "6,7": [
+      "pale_grass"
+    ],
+    "6,8": [
+      "pale_grass"
+    ],
+    "6,9": [
+      "grass"
+    ],
+    "6,10": [
+      "grass"
+    ],
+    "7,1": [
+      "grass"
+    ],
+    "7,2": [
+      "grass"
+    ],
+    "7,3": [
+      "pale_grass"
+    ],
+    "7,4": [
+      "pale_grass"
+    ],
+    "7,5": [
+      "pale_grass"
+    ],
+    "7,6": [
+      "pale_grass"
+    ],
+    "7,7": [
+      "pale_grass"
+    ],
+    "7,8": [
+      "pale_grass"
+    ],
+    "7,9": [
+      "grass"
+    ],
+    "7,10": [
+      "grass"
+    ],
+    "8,1": [
+      "grass"
+    ],
+    "8,2": [
+      "grass"
+    ],
+    "8,3": [
+      "pale_grass"
+    ],
+    "8,4": [
+      "pale_grass"
+    ],
+    "8,5": [
+      "pale_grass"
+    ],
+    "8,6": [
+      "pale_grass"
+    ],
+    "8,7": [
+      "pale_grass"
+    ],
+    "8,8": [
+      "pale_grass"
+    ],
+    "8,9": [
+      "grass"
+    ],
+    "8,10": [
+      "grass"
+    ],
+    "9,1": [
+      "grass"
+    ],
+    "9,2": [
+      "grass"
+    ],
+    "9,3": [
+      "grass"
+    ],
+    "9,4": [
+      "grass"
+    ],
+    "9,5": [
+      "grass"
+    ],
+    "9,6": [
+      "grass"
+    ],
+    "9,7": [
+      "grass"
+    ],
+    "9,8": [
+      "grass"
+    ],
+    "9,9": [
+      "grass"
+    ],
+    "9,10": [
+      "grass"
+    ],
+    "10,1": [
+      "grass"
+    ],
+    "10,2": [
+      "grass"
+    ],
+    "10,3": [
+      "grass"
+    ],
+    "10,4": [
+      "grass"
+    ],
+    "10,5": [
+      "grass"
+    ],
+    "10,6": [
+      "grass"
+    ],
+    "10,7": [
+      "grass"
+    ],
+    "10,8": [
+      "grass"
+    ],
+    "10,9": [
+      "grass"
+    ],
+    "10,10": [
+      "grass"
     ]
   }
 }

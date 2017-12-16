@@ -1,6 +1,7 @@
 {
   "description": [
     "<h1>Incoming storm</h1>",
+    "<h3 class='warning'>Traduction à faire</h3>",
     "<p>Reeborg is standing by the door to the house, sees a storm coming,",
     " and decides to close all of the windows in the house. ",
     "First, Reeborg <code>put</code>s down a star where it is standing ",

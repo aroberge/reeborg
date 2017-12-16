@@ -286,7 +286,6 @@ RUR.get_property = function (name, property) {
 // we undo the translation to avoid having a warning for a missing
 // translation logged in the browser console.
 RUR._get_property = function (name, property) {
-    console.log("in _get_property, name = ", name);
     return RUR.get_property(RUR.translate(name), property);
 };
 
