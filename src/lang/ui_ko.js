@@ -66,6 +66,9 @@ ui_ko["bulb"] = "tulip bulb";
 ko_to_en["tulip bulb"] = "bulb";
 ui_ko["Tulip bulb: might grow into a nice tulip with some water from a bucket."] = "Tulip bulb: might grow into a nice tulip with some water from a bucket.";
 
+ui_ko["infinite"] = "infinite number";
+
+
 // more translations needed
 ui_ko["fence_right"] = "울타리 right";
 ko_to_en["울타리 right"] = "fence_right";

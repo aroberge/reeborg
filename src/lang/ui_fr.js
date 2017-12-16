@@ -63,6 +63,8 @@ fr_to_en["glace"] = "ice";
 ui_fr["fire"] = "feu";
 fr_to_en["feu"] = "fire";
 
+ui_fr["infinite"] = "nombre infini";
+
 ui_fr["fence_right"] = "clôture_droite";
 fr_to_en["clôture_droite"] = "fence_right";
 ui_fr["fence_left"] = "clôture_gauche";

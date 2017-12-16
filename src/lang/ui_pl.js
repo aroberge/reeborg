@@ -64,6 +64,8 @@ pl_to_en["żwir"] = "gravel";
 pl_to_en["lód"] = "ice";
 pl_to_en["ogień"] = "fire";
 
+ui_pl["infinite"] = "infinite number";
+
 ui_pl["fence_right"] = "płotek_po_prawa";
 ui_pl["fence_left"] = "płotek_po_lewo";
 ui_pl["fence_vertical"] = "płotek_pionowy";

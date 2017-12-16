@@ -38,6 +38,8 @@ ui_en["gravel"] = en_to_en["gravel"] = "gravel";
 ui_en["ice"] = en_to_en["ice"] = "ice";
 ui_en["fire"] = en_to_en["fire"] = "fire";
 
+ui_en["infinite"] = "infinite number";
+
 ui_en["fence_right"] = en_to_en["fence_right"] = "fence_right";
 ui_en["fence_left"] = en_to_en["fence_left"] = "fence_left";
 ui_en["fence_vertical"] = en_to_en["fence_vertical"] = "fence_vertical";

@@ -312,7 +312,7 @@ RUR.add_final_position = function (name, x, y) {
  * with different `x, y` positions; doing so will result in a initial position
  * chosen randomly (among the choices recorded) each time a program is run.
  *
- * If `x, y` had previously been set as a goal final position
+ * If `x, y` had previously been set as an initial position
  * no change is being made and a message is logged in the browser's console.
  *
  * @param {integer} x  The position on the grid
@@ -342,10 +342,71 @@ RUR.add_initial_position = function (x, y) {
             return;
         }
     }
+    // in case we want to replace an existing initial position by adding
+    // a new one, and then calling RUR.remove_initial_position,
+    // we set the current initial position to the new one we just added.
+    // This has no visible effect if more than one initial position is possible.
+    robot._prev_x = robot.x = x;
+    robot._prev_y = robot.y = y;
 
     robot.possible_initial_positions.push([x, y]);
     RUR.record_frame("add_initial_position", {x:x, y:y});
 };
+
+
+ /** @function remove_initial_position
+ *
+ * @memberof RUR
+ * @instance
+ * @summary This function removes an initial (starting) position as a possibility
+ * for the default robot. It is possible to call this function multiple times,
+ * with different `x, y` positions. However, if there is only one remaining
+ * initial position, such calls will be ignored to ensure that there is
+ * always a robot present.
+ *
+ * If `x, y` is not an initial position
+ * no change is being made and a message is logged in the browser's console.
+ *
+ * @param {integer} x  The position on the grid
+ * @param {integer} y  The position on the grid
+ *
+ * @todo: put in argument verification code and note which error can be thrown
+ * @throws Will throw an error if the the world does not contain a robot
+ * @throws Will throw an error if the initial position is not valid [not implemented yet]
+ **/
+
+RUR.remove_initial_position = function (x, y) {
+    "use strict";
+    var robot, pos, new_positions, world=RUR.get_current_world();
+    if (world.robots === undefined || world.robots.length === 0) {
+        throw new RUR.ReeborgError("This world has no robot; cannot remove initial position.");
+    }  
+
+    robot = world.robots[0];
+    if (!robot.possible_initial_positions){
+        robot.possible_initial_positions = [[robot.x, robot.y]];
+        return;
+    }
+
+    if (robot.possible_initial_positions.length == 1) {
+        return;
+    }
+
+    new_positions = [];
+    for(var i=0; i<robot.possible_initial_positions.length; i++) {
+        pos = robot.possible_initial_positions[i];
+        if(pos[0]==x && pos[1]==y){
+            continue;
+        } else {
+            new_positions.push(pos);
+        }
+    }
+
+    robot.possible_initial_positions = new_positions;
+    RUR.record_frame("remove_initial_position", {x:x, y:y});
+};
+
+
 
 // TODO: try to set it in the middle of a program to have Reeborg being "dizzy".
  /** @function set_random_orientation

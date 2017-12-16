@@ -215,7 +215,7 @@ RUR.world_get.world_info = function (show_info_at_location) {
                         no_object = false;
                         information += "<br><b>" + RUR.translate("A robot located here carries:").supplant({x:x, y:y}) + "</b>";
                     }
-                    information += "<br>" + RUR.translate(obj) + ":" + robot.objects[obj];
+                    information += "<br>" + RUR.translate(obj) + ":" + RUR.translate(robot.objects[obj].toString());
                 }
             }
             if (no_object){
