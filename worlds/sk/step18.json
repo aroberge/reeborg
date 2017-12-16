@@ -1,27 +1,4 @@
 {
-  "robots": [
-    {
-      "x": 1,
-      "y": 1,
-      "_prev_x": 1,
-      "_prev_y": 1,
-      "_prev_orientation": 0,
-      "objects": {},
-      "_orientation": 0,
-      "_is_leaky": true,
-      "_trace_history": [],
-      "_trace_style": "default",
-      "_trace_color": "seagreen",
-      "__id": 11,
-      "model": "classic",
-      "possible_initial_positions": [
-        [
-          1,
-          1
-        ]
-      ]
-    }
-  ],
   "walls": {},
   "description": [
     "<h1>More carrots</h1>",
@@ -92,14 +69,10 @@
     "",
     "RUR.add_object(\"carrot\", width, height, {'goal': true, 'number': total_nb});",
     "",
-    "// This world has a robot at (1, 1); we wish to set the",
-    "// initial position completely random.",
+    "// add robot",
     "x = RUR.randint(1, width);",
     "y = RUR.randint(1, height);",
-    "RUR.add_initial_position(x, y);",
-    "// remove_initial_position does nothing",
-    "// if there remains only one possible initial position",
-    "RUR.remove_initial_position(1, 1);",
+    "r = new UsedRobot(x, y);",
     "RUR.set_random_orientation();",
     ""
   ]
