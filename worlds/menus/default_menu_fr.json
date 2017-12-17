@@ -27,6 +27,7 @@
     "    [tutorial_fr + 'tokens4.json', 'Jetons 4'],",
     "    [tutorial_fr + 'tokens5.json', 'Jetons 5'],",
     "    [tutorial_fr + 'tokens6.json', 'Jetons 6'],",
+    "    [tutorial_fr + 'newspaper0.json', 'Journal'],",
     "    [tutorial_fr + 'maze1.json', 'Labyrinthe 1'],",
     "    [tutorial_fr + 'maze2.json', 'Labyrinthe 2'],",
     "    [tutorial_fr + 'rain0.json', 'Pluie 0'],",

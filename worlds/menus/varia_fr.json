@@ -4,7 +4,6 @@
     "var varia = 'worlds/varia/';",
     "",
     "var contents = [",
-    "    [varia + 'newspaper0.json', 'Journal 0'],",
     "    [varia + 'newspaper1.json', 'Journal 1'],",
     "    [varia + 'newspaper2.json', 'Journal 2'],",
     "    [varia + 'harvest4a.json', 'Récolte 4a'],",

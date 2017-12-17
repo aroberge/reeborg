@@ -147,7 +147,7 @@
     "<p>Ceci suggère que vous pouvez définir deux fonctions,",
     "<code>fait_un_L()</code> et <code>prochain_L()</code>, et les utiliser pour guider Reeborg.",
     "Par exemple, si vous utilisez Python et le mot-clé spécial",
-    "<code>repeat</code> unique au monde de Reeborg, votre programme pourrait être</p>",
+    "<code>repeat/for</code> unique au monde de Reeborg, votre programme pourrait être</p>",
     "<pre class='python'>repeat 3:",
     "    fait_un_L()",
     "    prochain_L()",

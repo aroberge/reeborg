@@ -147,7 +147,7 @@
     "<p>This suggest that, we could define two functions,",
     "<code>L_shape()</code> and <code>next_L()</code> and use them to solve the problem.",
     "Using Python and the special",
-    "keyword <code>repeat</code> unique to Reeborg's World, a solution could be written as</p>",
+    "keyword <code>repeat/for</code> unique to Reeborg's World, a solution could be written as</p>",
     "<pre class='python'>repeat 3:",
     "    L_shape()",
     "    next_L()",
