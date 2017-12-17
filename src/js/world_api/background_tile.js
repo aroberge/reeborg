@@ -99,9 +99,7 @@ RUR.add_background_tile = function (name, x, y) {
  *
  * @param {string} color A colour recognized by JS/HTML.
  * No check is performed to ensure that the value given is a valid color
- * recognized by JS/HTML (see example below), **except** that the `color` specified
- * cannot be a known "thing", which is the opposite of
- * `RUR.add_background_tile`.
+ * recognized by JS/HTML (see example below), 
  *
  * @param {integer} x  Position: `1 <= x <= max_x`
  * @param {integer} y  Position: `1 <= y <= max_y`
@@ -122,9 +120,6 @@ RUR.add_background_tile = function (name, x, y) {
 RUR.add_colored_tile = function (color, x, y) {
     "use strict";
     var args;
-    if(RUR.KNOWN_THINGS.indexOf(RUR.translate_to_english(color)) != -1){
-        throw new RUR.ReeborgError(color + RUR.translate(" is not a valid color."));
-    }
     args = {name: color, x:x, y:y, type:"tiles", single:true};
     RUR._add_artefact(args);
     RUR.record_frame("RUR.add_colored_tile", args);

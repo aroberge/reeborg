@@ -500,7 +500,6 @@ function toggle_tile (name){
     // will remove the position if clicked again with tile of same type.
     "use strict";
     var x, y, position;
-
     if (!name) {  // if we cancel the dialog
         return;
     } else if (name === "colour") {
@@ -509,6 +508,7 @@ function toggle_tile (name){
         return;
     }
 
+
     position = RUR.calculate_grid_position();
     x = position[0];
     y = position[1];
@@ -516,7 +516,7 @@ function toggle_tile (name){
     if (RUR.is_background_tile(name, x, y)) {
         RUR.remove_background_tile(name, x, y);
     } else {
-        RUR.add_background_tile(name, x, y);
+        RUR.add_colored_tile(name, x, y);
     }
 }
 
