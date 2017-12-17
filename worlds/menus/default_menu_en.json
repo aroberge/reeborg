@@ -11,6 +11,7 @@
     "    [tutorial_en + 'home4.json', 'Home 4'],",
     "    ['worlds/menus/select_collection_en.json', \"Other worlds\"],",
     "    [tutorial_en + 'around1.json', 'Around 1'],",
+    "    [tutorial_en + 'around1b.json', 'Around 1 - variable'],",
     "    [tutorial_en + 'around2.json', 'Around 2'],",
     "    [tutorial_en + 'around3.json', 'Around 3'],",
     "    [tutorial_en + 'around4.json', 'Around 4'],",
