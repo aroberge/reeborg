@@ -12,6 +12,7 @@
     "    ['worlds/menus/select_collection_fr.json', \"Autres mondes\"],",
     "    [tutorial_fr + 'around1.json', 'Autour 1'],",
     "    [tutorial_fr + 'around1b.json', 'Autour 1 - variable'],",
+    "    [tutorial_fr + 'around1c.json', 'Autour 1 - pommes'],",
     "    [tutorial_fr + 'around2.json', 'Autour 2'],",
     "    [tutorial_fr + 'around3.json', 'Autour 3'],",
     "    [tutorial_fr + 'around4.json', 'Autour 4'],",

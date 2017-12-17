@@ -68,34 +68,34 @@
   "cols": 10,
   "tiles": {
     "1,1": [
-      "pale_grass"
+      "gravel"
     ],
     "1,2": [
-      "pale_grass"
+      "gravel"
     ],
     "1,3": [
-      "pale_grass"
+      "gravel"
     ],
     "1,4": [
-      "pale_grass"
+      "gravel"
     ],
     "1,5": [
-      "pale_grass"
+      "gravel"
     ],
     "1,6": [
-      "pale_grass"
+      "gravel"
     ],
     "1,7": [
-      "pale_grass"
+      "gravel"
     ],
     "1,8": [
-      "pale_grass"
+      "gravel"
     ],
     "1,9": [
-      "pale_grass"
+      "gravel"
     ],
     "1,10": [
-      "pale_grass"
+      "gravel"
     ],
     "2,2": [
       "grass"
@@ -122,10 +122,10 @@
       "grass"
     ],
     "2,10": [
-      "pale_grass"
+      "gravel"
     ],
     "3,1": [
-      "pale_grass"
+      "gravel"
     ],
     "3,2": [
       "grass"
@@ -152,10 +152,10 @@
       "grass"
     ],
     "3,10": [
-      "pale_grass"
+      "gravel"
     ],
     "4,2": [
-      "pale_grass"
+      "gravel"
     ],
     "4,3": [
       "grass"
@@ -179,13 +179,13 @@
       "grass"
     ],
     "4,10": [
-      "pale_grass"
+      "gravel"
     ],
     "5,1": [
       "bricks"
     ],
     "5,2": [
-      "pale_grass"
+      "gravel"
     ],
     "5,3": [
       "grass"
@@ -194,28 +194,28 @@
       "grass"
     ],
     "5,5": [
-      "pale_grass"
+      "gravel"
     ],
     "5,6": [
-      "pale_grass"
+      "gravel"
     ],
     "5,7": [
-      "pale_grass"
+      "gravel"
     ],
     "5,8": [
-      "pale_grass"
+      "gravel"
     ],
     "5,9": [
-      "pale_grass"
+      "gravel"
     ],
     "5,10": [
-      "pale_grass"
+      "gravel"
     ],
     "6,1": [
-      "pale_grass"
+      "gravel"
     ],
     "6,2": [
-      "pale_grass"
+      "gravel"
     ],
     "6,3": [
       "grass"
@@ -224,7 +224,7 @@
       "grass"
     ],
     "6,5": [
-      "pale_grass"
+      "gravel"
     ],
     "6,6": [
       "water"
@@ -242,7 +242,7 @@
       "water"
     ],
     "7,1": [
-      "pale_grass"
+      "gravel"
     ],
     "7,2": [
       "grass"
@@ -254,7 +254,7 @@
       "grass"
     ],
     "7,5": [
-      "pale_grass"
+      "gravel"
     ],
     "7,6": [
       "water"
@@ -272,7 +272,7 @@
       "water"
     ],
     "8,1": [
-      "pale_grass"
+      "gravel"
     ],
     "8,2": [
       "grass"
@@ -284,7 +284,7 @@
       "grass"
     ],
     "8,5": [
-      "pale_grass"
+      "gravel"
     ],
     "8,6": [
       "water"
@@ -302,7 +302,7 @@
       "water"
     ],
     "9,1": [
-      "pale_grass"
+      "gravel"
     ],
     "9,2": [
       "grass"
@@ -314,7 +314,7 @@
       "grass"
     ],
     "9,5": [
-      "pale_grass"
+      "gravel"
     ],
     "9,6": [
       "water"
@@ -332,19 +332,19 @@
       "water"
     ],
     "10,1": [
-      "pale_grass"
+      "gravel"
     ],
     "10,2": [
-      "pale_grass"
+      "gravel"
     ],
     "10,3": [
-      "pale_grass"
+      "gravel"
     ],
     "10,4": [
-      "pale_grass"
+      "gravel"
     ],
     "10,5": [
-      "pale_grass"
+      "gravel"
     ],
     "10,6": [
       "water"
@@ -362,10 +362,10 @@
       "water"
     ],
     "2,1": [
-      "pale_grass"
+      "gravel"
     ],
     "4,1": [
-      "pale_grass"
+      "gravel"
     ]
   },
   "description": [
@@ -373,7 +373,7 @@
     "Have Reeborg go around the world in the",
     "counter-clockwise direction once, and stop",
     "at its starting position. Reeborg must not",
-    "step on the dark green grass. The correct path is",
+    "step on the grass. The correct path is",
     "shown by the dashed white line.<br><br>",
     "<em>Hint: Reeborg carries some tokens; you only need to use one.</em>",
     "<br><br>Your program should also work for worlds <b>Around 1</b> and <b>Around 2</b>.",
@@ -399,7 +399,6 @@
     ""
   ],
   "pre": [
-    "set_trace_color(\"black\")",
     "RUR.show_path()", 
     ""
   ],

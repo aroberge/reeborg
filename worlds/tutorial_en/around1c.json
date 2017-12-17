@@ -1,68 +1,67 @@
 {
   "robots": [
     {
-      "x": 4,
+      "x": 1,
       "y": 1,
-      "objects": {
-        "token": "infinite"
-      },
-      "_prev_x": 4,
+      "_prev_x": 1,
       "_prev_y": 1,
       "_prev_orientation": 0,
+      "objects": {},
       "_orientation": 0,
       "_is_leaky": true,
       "_trace_history": [],
       "_trace_style": "default",
       "_trace_color": "seagreen",
-      "__id": 8,
+      "__id": 5,
+      "model": "classic",
       "possible_initial_positions": [
         [
-          4,
+          1,
           1
         ]
-      ],
-      "model": "classic"
+      ]
     }
   ],
-  "walls": {
-    "6,5": [
-      "north"
-    ],
-    "7,5": [
-      "north"
-    ],
-    "8,5": [
-      "north"
-    ],
-    "9,5": [
-      "north"
-    ],
-    "10,5": [
-      "north"
-    ],
-    "5,10": [
-      "east"
-    ],
-    "5,9": [
-      "east"
-    ],
-    "5,8": [
-      "east"
-    ],
-    "5,7": [
-      "east"
-    ],
-    "5,6": [
-      "east"
-    ],
-    "4,1": [
-      "east"
-    ],
-    "5,1": [
-      "north",
-      "east"
-    ]
-  },
+  "walls": {},
+  "description": [
+    "<h1>An apple a day ...</h1>",
+    "<p>Reeborg must go around the world, collecting",
+    "    all the apples so that he can make apple",
+    "    pies when he gets home.",
+    "</p>",
+    "<p>Try to make your code as short as possible using <code>for/repeat</code> loops.",
+    "<h3>What you need to know</h3>",
+    "<ul><li>The functions <code>move()</code>, <code>turn_left()</code>, and <code>take()</code>.</li>",
+    "<li>how to use a <code>for/repeat</code> loop.</li></ul>",
+    "DIFFICULTY2",
+    "<h3>Credit</h3>",
+    "<p>Adapted from a world created by F. Lallemand.</p>"
+  ],
+  "onload": [
+    "var x, y, x_init, width, height, reeborg;",
+    "width = 10;",
+    "height = 10;",
+    "for(x = 2; x <= width; x++) {",
+    "    if(RUR.randint(1, 2) == 1) {",
+    "        RUR.add_object('apple', x, 1);",
+    "    }",
+    "}",
+    "for(y = 2; y<=height; y++) {",
+    "    if(RUR.randint(1, 2) == 1) {",
+    "        RUR.add_object('apple', width, y);",
+    "    }",
+    "}",
+    "for(x=width-1; x >= 1; x--) {",
+    "    if(RUR.randint(1, 2) == 1) {",
+    "        RUR.add_object('apple', x, height);",
+    "    }",
+    "}    ",
+    "for(y=height-1; y >= 2; y--) {",
+    "    if(RUR.randint(1, 2) == 1) {",
+    "        RUR.add_object('apple', 1, y);",
+    "    }",
+    "}"
+  ],
   "small_tiles": false,
   "rows": 10,
   "cols": 10,
@@ -95,6 +94,9 @@
       "gravel"
     ],
     "1,10": [
+      "gravel"
+    ],
+    "2,1": [
       "gravel"
     ],
     "2,2": [
@@ -154,8 +156,11 @@
     "3,10": [
       "gravel"
     ],
-    "4,2": [
+    "4,1": [
       "gravel"
+    ],
+    "4,2": [
+      "grass"
     ],
     "4,3": [
       "grass"
@@ -182,10 +187,10 @@
       "gravel"
     ],
     "5,1": [
-      "bricks"
+      "gravel"
     ],
     "5,2": [
-      "gravel"
+      "grass"
     ],
     "5,3": [
       "grass"
@@ -194,19 +199,19 @@
       "grass"
     ],
     "5,5": [
-      "gravel"
+      "grass"
     ],
     "5,6": [
-      "gravel"
+      "grass"
     ],
     "5,7": [
-      "gravel"
+      "grass"
     ],
     "5,8": [
-      "gravel"
+      "grass"
     ],
     "5,9": [
-      "gravel"
+      "grass"
     ],
     "5,10": [
       "gravel"
@@ -215,7 +220,7 @@
       "gravel"
     ],
     "6,2": [
-      "gravel"
+      "grass"
     ],
     "6,3": [
       "grass"
@@ -224,22 +229,22 @@
       "grass"
     ],
     "6,5": [
-      "gravel"
+      "grass"
     ],
     "6,6": [
-      "water"
+      "grass"
     ],
     "6,7": [
-      "water"
+      "grass"
     ],
     "6,8": [
-      "water"
+      "grass"
     ],
     "6,9": [
-      "water"
+      "grass"
     ],
     "6,10": [
-      "water"
+      "gravel"
     ],
     "7,1": [
       "gravel"
@@ -254,22 +259,22 @@
       "grass"
     ],
     "7,5": [
-      "gravel"
+      "grass"
     ],
     "7,6": [
-      "water"
+      "grass"
     ],
     "7,7": [
-      "water"
+      "grass"
     ],
     "7,8": [
-      "water"
+      "grass"
     ],
     "7,9": [
-      "water"
+      "grass"
     ],
     "7,10": [
-      "water"
+      "gravel"
     ],
     "8,1": [
       "gravel"
@@ -284,22 +289,22 @@
       "grass"
     ],
     "8,5": [
-      "gravel"
+      "grass"
     ],
     "8,6": [
-      "water"
+      "grass"
     ],
     "8,7": [
-      "water"
+      "grass"
     ],
     "8,8": [
-      "water"
+      "grass"
     ],
     "8,9": [
-      "water"
+      "grass"
     ],
     "8,10": [
-      "water"
+      "gravel"
     ],
     "9,1": [
       "gravel"
@@ -314,22 +319,22 @@
       "grass"
     ],
     "9,5": [
-      "gravel"
+      "grass"
     ],
     "9,6": [
-      "water"
+      "grass"
     ],
     "9,7": [
-      "water"
+      "grass"
     ],
     "9,8": [
-      "water"
+      "grass"
     ],
     "9,9": [
-      "water"
+      "grass"
     ],
     "9,10": [
-      "water"
+      "gravel"
     ],
     "10,1": [
       "gravel"
@@ -347,68 +352,33 @@
       "gravel"
     ],
     "10,6": [
-      "water"
-    ],
-    "10,7": [
-      "water"
-    ],
-    "10,8": [
-      "water"
-    ],
-    "10,9": [
-      "water"
-    ],
-    "10,10": [
-      "water"
-    ],
-    "2,1": [
       "gravel"
     ],
-    "4,1": [
+    "10,7": [
+      "gravel"
+    ],
+    "10,8": [
+      "gravel"
+    ],
+    "10,9": [
+      "gravel"
+    ],
+    "10,10": [
       "gravel"
     ]
   },
-  "description": [
-    "<h1>Faire le tour du monde</h1>",
-    "Aidez Reeborg à faire le tour du monde dans le sens contraire des aiguilles d'une montre. ",
-    "Reeborg ne doit pas marcher sur le gazon.",
-    "Le chemin à suivre est indiqué en pointillés blancs.<br>",
-    "<br>",
-    "",
-    "<em>Suggestion: Reeborg transporte des jetons; vous en",
-    "avez besoin d'un seul.</em>",
-    "<br><br>Le même programme doit également être valide pour les mondes <b>Autour 1</b> et <b>Autour 2</b>.",
-    "<h3>Ce que vous devez connaître</h3>",
-    "<ul><li>Les fonctions <code>avance()</code>, <code>tourne_a_gauche()</code> et <code>depose()</code>.</li>",
-    "<li>Les conditions <code>rien_devant()</code> ou <code>mur_devant()</code>,",
-    "<code>rien_a_droite()</code> ou <code>mur_a_droite()</code>, et <code>objet_ici()</code>.</li>",
-    "<li>Comment utiliser des boucles <code>while</code> et des énoncés <code>if/else</code>.</li>",
-    "<li>Il pourrait être utile de savoir comment faire la négation d'une condition",
-    "(mot-clé <code>not</code> en Python).</li></ul>",
-    "DIFFICULTY4",
-    ""
-  ],
-  "onload": [
-    "RUR.public['path'] = [[4,1], [4,2], [5,2], [6,2], [6,1],",
-    "    [7,1], [8,1], [9,1], [10,1], [10,2], [10,3], [10,4],",
-    "    [10,5], [9,5], [8,5], [7,5], [6,5], [5,5], [5,6],",
-    "    [5,7], [5,8], [5,9], [5,10], [4,10], [3,10], [2,10],",
-    "    [1,10], [1,9], [1,8], [1,7], [1,6], [1,5], [1,4],",
-    "    [1,3], [1,2], [1,1], [2,1], [3,1], [4,1]];",
-    "RUR.show_path(RUR.public['path'], 'white');",    
-    "RUR.state.visible_grid = true;",
-    ""
-  ],
-  "pre": [
-    "RUR.show_path()", 
-    ""
-  ],
-  "post": [
-    "",
-    "RUR.check_path(RUR.public['path'],",
-    "     {'failure':\"Reeborg n'a pas suivi le bon chemin.\", ",
-    "      'success': 'Très bien fait !', ",
-    "      'show_path': 'true', 'color': 'white'})",
-    ""
-  ]
+  "goal": {
+    "possible_final_positions": [
+      [
+        1,
+        1
+      ]
+    ],
+    "position": {
+      "image": "house",
+      "x": 1,
+      "y": 1
+    },
+    "objects": {}
+  }
 }
