@@ -47,6 +47,8 @@ fr_to_en["seau d'eau"] = "bucket";
 ui_fr["bulb"] = "bulbe de tulipe";
 fr_to_en["bulbe de tulipe"] = "bulb";
 ui_fr["Tulip bulb: might grow into a nice tulip with some water from a bucket."] = "Bulbe de tulipe : pourrait devenir une belle tulipe avec un seau d'eau.";
+ui_fr["bricks"] = "briques";
+fr_to_en["briques"] = "bricks";
 
 ui_fr["mud"] = "boue";
 fr_to_en["boue"] = "mud";

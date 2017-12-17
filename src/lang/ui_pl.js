@@ -30,6 +30,10 @@ ui_pl["tulip"] = "tulipan";
 ui_pl["bucket"] = "wiadro";
 ui_pl["bulb"] = "żarówka";
 
+ui_pl["bricks"] = "bricks";  // translation needed
+pl_to_en["bricks"] = "bricks";
+
+
 pl_to_en["jabłko"] = "apple";
 pl_to_en["banan"] = "banana";
 pl_to_en["brzęczyk"] = "beeper";

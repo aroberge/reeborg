@@ -46,6 +46,9 @@ ko_to_en["튤립"] = "tulip";
 ui_ko["bucket"] = "물통"; // bucket of water; translated using google
 ko_to_en["물통"] = "bucket";
 
+ui_ko["bricks"] = "bricks";  // translation needed
+ko_to_en["bricks"] = "bricks";
+
 ui_ko["mud"] = "진흙";
 ko_to_en["진흙"] = "mud";
 ui_ko["soil"] = "흙"; // translated using google

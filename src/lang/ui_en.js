@@ -29,6 +29,7 @@ ui_en["triangle"] = en_to_en["triangle"] = "triangle";
 ui_en["tulip"] = en_to_en["tulip"] = "tulip";
 ui_en["bucket"] = en_to_en["bucket"] = "bucket";
 ui_en["bulb"] = en_to_en["bulb"] = "bulb";
+ui_en["bricks"] = en_to_en["bricks"] = "bricks";
 
 ui_en["mud"] = en_to_en["mud"] = "mud";
 ui_en["soil"] = en_to_en["soil"] = "soil";
