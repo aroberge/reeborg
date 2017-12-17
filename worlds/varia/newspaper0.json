@@ -1,0 +1,101 @@
+﻿{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "orientation": 0,
+      "objects": {},
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {
+    "1,1": [
+      "east"
+    ],
+    "3,2": [
+      "east"
+    ],
+    "5,3": [
+      "east"
+    ],
+    "2,3": [
+      "east"
+    ],
+    "4,4": [
+      "east"
+    ],
+    "8,4": [
+      "north",
+      "east"
+    ],
+    "7,3": [
+      "north"
+    ],
+    "6,3": [
+      "north"
+    ],
+    "6,4": [
+      "north"
+    ],
+    "5,4": [
+      "north"
+    ],
+    "5,2": [
+      "north"
+    ],
+    "4,2": [
+      "north"
+    ],
+    "3,1": [
+      "north"
+    ],
+    "2,1": [
+      "north"
+    ],
+    "3,3": [
+      "north"
+    ],
+    "4,3": [
+      "north"
+    ],
+    "2,2": [
+      "north"
+    ],
+    "1,2": [
+      "north"
+    ],
+    "8,3": [
+      "north"
+    ],
+    "7,4": [
+      "north"
+    ]
+  },
+  "goal": {
+    "position": {
+      "x": 1,
+      "y": 1
+    },
+    "objects": {
+      "7,4": {
+        "star": 1
+      }
+    }
+  },
+  "objects": {
+    "1,1": {
+      "star": 1
+    }
+  },
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14
+}
