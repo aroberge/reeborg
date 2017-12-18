@@ -33,6 +33,11 @@
   <link defer rel="stylesheet" href="src/css/reeborg_world2.css">
   <!-- load after codemirror.css -->
   <title>Reeborg's World</title>
+  <script type="text/javascript">
+    var RUR = {};
+    RUR.DEFAULT_MENU_EN = 'worlds/menus/select_collection_en.json';
+    RUR.DEFAULT_MENU_FR = 'worlds/menus/select_collection_fr.json';
+  </script>
 </head>
 <body>
   <header class="blue-gradient green-border">
@@ -588,9 +593,6 @@
   <!--offline <script type="text/javascript" src="offline/codemirror-5.8.0/mode/python/python.js"></script> /offline-->
   <!--online--><script defer type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/python/python.min.js"></script><!--/online-->
 
-  <script>
-    var RUR = {};
-  </script>
   <script type="text/javascript" src="src/blockly/blockly_compressed.js"></script>
   <script type="text/javascript" src="src/blockly/blocks_compressed.js"></script>
   <script defer type="text/javascript" src="src/blockly/javascript_compressed.js"></script>

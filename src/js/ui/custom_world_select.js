@@ -46,18 +46,22 @@ RUR.make_default_menu = function(language) {
         RUR.state.world_name = undefined;
         RUR.state.current_menu = undefined;   
     }
+
     switch (language) {
         case 'en':
         case 'fr-en':
         case 'ko-en':
-            RUR.load_world_file(RUR.BASE_URL + "/worlds/menus/default_menu_en.json");
+            RUR.initial_defaults.initial_menu = RUR.BASE_URL + RUR.DEFAULT_MENU_EN;
+            RUR.load_world_file(RUR.BASE_URL + RUR.DEFAULT_MENU_EN); //"/worlds/menus/default_menu_en.json");
             break;
         case 'fr':
         case 'en-fr':
-            RUR.load_world_file(RUR.BASE_URL + "/worlds/menus/default_menu_fr.json");
+            RUR.load_world_file(RUR.BASE_URL + RUR.DEFAULT_MENU_FR); //"/worlds/menus/default_menu_fr.json");
+            RUR.initial_defaults.initial_menu = RUR.BASE_URL + RUR.DEFAULT_MENU_FR;
             break;
         default: 
-            RUR.load_world_file(RUR.BASE_URL + "/worlds/menus/default_menu_en.json");
+            RUR.load_world_file(RUR.BASE_URL + RUR.DEFAULT_MENU_EN); //"/worlds/menus/default_menu_en.json");
+            RUR.initial_defaults.initial_menu = RUR.BASE_URL + RUR.DEFAULT_MENU_EN;
     }
 
 };

@@ -138,7 +138,7 @@ RUR.SHOW_EDITORS_CONTENTS = false;
 ==========================================================*/
 RUR.initial_defaults.human_language = 'en';
 RUR.initial_defaults.input_method = 'python';
-RUR.initial_defaults.initial_menu = RUR.BASE_URL + 'worlds/menus/default_menu_en.json';
+// RUR.initial_defaults.initial_menu = RUR.BASE_URL + 'worlds/menus/default_menu_en.json';
 
 /*========================================================
    State changed through UI interaction or from initial URI

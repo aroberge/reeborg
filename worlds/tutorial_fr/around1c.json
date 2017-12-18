@@ -33,7 +33,7 @@
     "<h3>Ce que vous devez connaître</h3>",
     "<ul><li>Les fonctions <code>avance()</code>, <code>tourne_a_gauche()</code>, et <code>prend()</code>.</li>",
     "<li>Comment utiliser une boucle <code>for/repeat</code>.</li></ul>",
-    "DIFFICULTY2",
+    "DIFFICULTY3",
     "<h3>Crédit</h3>",
     "<p>Adapté d'un monde conçu par F. Lallemand.</p>"
   ],

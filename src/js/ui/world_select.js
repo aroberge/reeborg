@@ -110,6 +110,12 @@ RUR.world_selector.append_world = function (arg) {
         shortname = url;
     }
 
+    if (!url) {
+        console.trace();
+        console.log("cannot append; url = ", url);
+        return;
+    }
+
     // allow for special styling of any url containing the string "menu".
     if (url.toLowerCase().indexOf('menu') != -1) {
         option_elt = '<option class="select-menu"></option>';

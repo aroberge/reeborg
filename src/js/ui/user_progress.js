@@ -44,6 +44,9 @@ RUR.update_progress = function(){
         return;   // this world does not have anything that needs to be solved.
     }
     world_name = RUR.state.world_name;
+    if (!world_name) {
+        return;
+    }
     if (world_name.substring(0,11) === "user_world:"){
         return;
     }

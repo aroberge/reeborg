@@ -33,7 +33,7 @@
     "<h3>What you need to know</h3>",
     "<ul><li>The functions <code>move()</code>, <code>turn_left()</code>, and <code>take()</code>.</li>",
     "<li>how to use a <code>for/repeat</code> loop.</li></ul>",
-    "DIFFICULTY2",
+    "DIFFICULTY3",
     "<h3>Credit</h3>",
     "<p>Adapted from a world created by F. Lallemand.</p>"
   ],
