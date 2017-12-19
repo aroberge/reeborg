@@ -39,8 +39,7 @@
     "    [tutorial_en + 'tokens2.json', 'Tokens 2'],",
     "    [tutorial_en + 'tokens3.json', 'Tokens 3'],",
     "    [tutorial_en + 'tokens4.json', 'Tokens 4'],",
-    "    [tutorial_en + 'tokens5.json', 'Tokens 5'],",
-    "    [tutorial_en + 'tokens6.json', 'Tokens 6'],",
+    "    [tutorial_en + 'tokens5.json', 'Tokens 5']",
     "    ];",
     "MakeCustomMenu(contents);"
   ]

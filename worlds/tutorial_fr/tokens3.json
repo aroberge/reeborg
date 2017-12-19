@@ -1,27 +1,99 @@
 {
-    "robots": [{
-        "x": 1,
-        "y": 1,
-        "orientation": 0,
-        "prev_orientation": 0,
-        "objects": {
-            "token": 0
-        }
-    }],
-    "goal": {
-        "position": {
-            "x": 9,
-            "y": 1
-        },
-        "objects": {
-            "6,1": {
-                "token": 1
-            }
-        }
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 19,
+      "model": "classic"
+    }
+  ],
+  "goal": {
+    "position": {
+      "image": "racing_flag",
+      "x": 9,
+      "y": 1
     },
     "objects": {
-        "5,1": {
-            "token": 1
-        }
+      "6,1": {
+        "token": 1
+      }
     }
+  },
+  "objects": {
+    "5,1": {
+      "token": 1
+    }
+  },
+  "rows": 1,
+  "cols": 10,
+  "small_tiles": false,
+  "description": [
+    "<h1>Mouvement de jeton</h1>",
+    "<p>Écrivez un programme qui fait en sorte que Reeborg prenne le jeton,",
+    "    qu'il le déplace sur la case suivante, et qu'il",
+    "    se déplace jusqu'à son but.</p>",
+    "<h3>Ce que vous devez connaître</h3>",
+    "    <ul><li>Les fonctions <code>avance()</code>, ",
+    "        <code>depose()</code> et <code>prend()</code>.",
+    "        </li></ul>",
+    "DIFFICULTY1",
+    "<h2>Plus avancé</h2>",
+    "<p>Trouvez une solution qui fonctionne seulement pour le monde <b>Jetons 3</b> est assez facile,",
+    "    mais pas très intéressant. par contre, essayer de trouver une solution unique",
+    "    pour les mondes <b>Jetons 1</b>, <b>Jetons 2</b> et ",
+    "    <b>Jetons 3</b> est beaucoup plus intéressant.  Voici deux squelettes",
+    "    de solutions possibles, utilisant des boucles ",
+    "    <code>while</code>.</p>",
+    "<p>TLa première façon est basée sur une approche qui voit chaque",
+    "    tâche comme ayant trois parties séparées faites une après l'autre:</p>",
+    "<ol><li>se rendre au jusqu'au jeton;</li>",
+    "    <li>le prendre et le déplacer;</li>",
+    "    <li>se rendre au but.</li>",
+    "</ol>",
+    "<pre class='python'>",
+    "while not ...:",
+    "    ...",
+    "",
+    "...",
+    "...",
+    "...",
+    "",
+    "while not ...:",
+    "    ...",
+    "</pre>",
+    "<p>Une deuxième façon possible est de faire une boucle continue",
+    "jusqu'à ce qu'on ait atteint le but, avec deux seuls autres cas",
+    "à considérer entre-temps&nbsp;:</p>",
+    "<pre class='python'>",
+    "while not au_but():",
+    "    if ...:",
+    "        ...",
+    "        ...",
+    "        ...",
+    "    else:",
+    "        ...",
+    "</pre>",
+    "<p>Essayez les deux façons.</p>",
+    "<h3>Ce que vous devez connaître</h3>",
+    "<ul><li>Les fonctions <code>avance()</code>, <code>prend()</code>, et <code>depose()</code>.</li>",
+    "<li>Les conditions <code>objet_ici()</code> et",
+    "    <code>au_but()()</code>.</li>",
+    "<li>Comment utiliser une boucle <code>while</code> et un énoncé <code>if/else</code>.</li>",
+    "<li>Comment faire la négation d'une condition (<code>not</code> avec Python).</li>",
+    "</ul>",
+    "<p>Assurez-vous que votre programme fonctionne avec les 3 premiers mondes <b>Jetons</b>.",
+    "DIFFICULTY4",
+    "",
+    ""
+  ]
 }

@@ -388,7 +388,7 @@ ui_fr["Library Code is below."] = "Le code de la biblio est ci-dessous.";
 ui_fr["No solution can be saved when using REPL (Py)."] = "Aucune solution ne peut être sauvegardée dans le mode REPL (Py).";
 ui_fr["No solution can be loaded when using REPL (Py)."] = "Aucune solution ne peut être chargée dans le mode REPL (Py).";
 
-ui_fr["You are not allowed to use <code>done</code> in this world!"] = "Il n'est pas permis d'utiliser <code>termine</code> dans ce monde !";
+ui_fr["You are not allowed to use <code>done</code> in this world!"] = "Il n'est pas permis d'utiliser <code>termine()</code> dans ce monde !";
 ui_fr["Execution ended before the <em>Post</em> code was executed."] = "L'exécution du programme a terminé avant que le code <em>Post</em> ne soit interprété.";
 
 ui_fr["Difficulty level"] = "Niveau de difficulté";

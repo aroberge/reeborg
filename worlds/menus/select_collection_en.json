@@ -29,5 +29,9 @@
     "<h3>Temporary note</h3>",    
     "<p>Note that the reorganization of worlds into different collections is not completed.</p>"
   ],
-  "onload": "RUR.show_description();"
+  "onload": [
+    "RUR.show_description();",
+    "RUR.world_selector.append_world({url:RUR.BASE_URL + '/worlds/menus/select_collection_en.json', shortname:'Other worlds'})",
+    "RUR.world_selector.append_world({url:RUR.BASE_URL + '/worlds/tutorial_en/alone.json', shortname:'Alone'})"
+  ]
 }

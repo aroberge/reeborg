@@ -88,9 +88,6 @@ QUnit.test("Tokens", function(assert) {
     world_file = "tokens5.json";
     assert.ok(test_utils.eval_python(base_url + world_file, "/tests/integration_tests/programs/tokens56_en.py").success,
                                       world_file + " run successfully.");
-    world_file = "tokens6.json";
-    assert.ok(test_utils.eval_python(base_url + world_file).success,
-                                      world_file + " run successfully.");
     done();
 });
 

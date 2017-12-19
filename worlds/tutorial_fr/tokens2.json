@@ -1,27 +1,77 @@
 {
-    "robots": [{
-        "x": 1,
-        "y": 1,
-        "orientation": 0,
-        "prev_orientation": 0,
-        "objects": {
-            "token": 0
-        }
-    }],
-    "goal": {
-        "position": {
-            "x": 7,
-            "y": 1
-        },
-        "objects": {
-            "6,1": {
-                "token": 1
-            }
-        }
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 18,
+      "model": "classic"
+    }
+  ],
+  "goal": {
+    "position": {
+      "image": "racing_flag",
+      "x": 7,
+      "y": 1
     },
     "objects": {
-        "5,1": {
-            "token": 1
-        }
+      "6,1": {
+        "token": 1
+      }
     }
+  },
+  "objects": {
+    "5,1": {
+      "token": 1
+    }
+  },
+  "rows": 1,
+  "cols": 10,
+  "small_tiles": false,
+  "description": [
+    "<h1>Mouvement de jeton</h1>",
+    "<p>Écrivez un programme qui fait en sorte que Reeborg prenne le jeton,",
+    "    qu'il le déplace sur la case suivante, et qu'il",
+    "    se déplace jusqu'à son but.</p>",
+    "<h3>Ce que vous devez connaître</h3>",
+    "    <ul><li>Les fonctions <code>avance()</code>, ",
+    "        <code>depose()</code> et <code>prend()</code>.",
+    "        </li></ul>",
+    "DIFFICULTY1",
+    "<h2>Plus avancé</h2>",
+    "<p>Vous pouvez écrire un programme qui fonctione pour ce monde",
+    "    ainsi que pour le monde <b>Jetons 1</b> si vous savez",
+    "    comment utiliser une boucle <code>for/repeat</code>",
+    "    et un énoncé <code>if</code>.",
+    "    Avec Python, une telle solution pourrait s'écrire comme suit&nbsp;:",
+    "    </p>",
+    "<pre class='python'>",
+    "def avance_jusque_tâche_terminée():",
+    "    avance()",
+    "    if objet_ici():",
+    "        # quelque chose",
+    "        # quelque chose d'autre",
+    "        # autre chose encore",
+    "        # une de plus",
+    "        termine()",
+    "    ",
+    "repeat 42:",
+    "    avance_jusque_tâche_terminée()",
+    "</pre>",
+    "<p>Vous verrez une meilleure approche lorsque vous",
+    "    examinerez le monde <b>Jetons 3</b>, mais pour l'instant",
+    "    essayez d'écrire un programme comme celui ci-dessus",
+    "    et testez-le avec les mondes <b>Jetons 1</b>",
+    "    et <b>Jetons 2</b>.</p>",
+    "DIFFICULTY3"
+    ]
 }

@@ -389,7 +389,7 @@ ui_pl["Library Code is below."] = "Library Code is below.";
 ui_pl["No solution can be saved when using REPL (Py)."] = "No solution can be saved when using REPL (Py).";
 ui_pl["No solution can be loaded when using REPL (Py)."] = "No solution can be loaded when using REPL (Py).";
 
-ui_pl["You are not allowed to use <code>done</code> in this world!"] = "You are not allowed to use <code>done</code> in this world!";
+ui_pl["You are not allowed to use <code>done</code> in this world!"] = "You are not allowed to use <code>done()</code> in this world!";
 ui_pl["Execution ended before the <em>Post</em> code was executed."] = "Execution ended before the <em>Post</em> code was executed.";
 
 ui_pl["Difficulty level"] = "Difficulty level";

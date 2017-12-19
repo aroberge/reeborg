@@ -10,18 +10,75 @@
     }],
     "goal": {
         "position": {
-            "x": 8,
+            "image": "racing_flag",
+            "x": 7,
             "y": 1
         },
         "objects": {
-            "3,1": {
-                "token": 1
+            "6,1": {
+                "token": 5
             }
         }
     },
     "objects": {
         "2,1": {
             "token": 1
+        },
+        "3,1": {
+            "token": 1
+        },
+        "4,1": {
+            "token": 1
+        },
+        "5,1": {
+            "token": 1
+        },
+        "1,1": {
+            "token": 1
         }
-    }
+    },
+    "rows": 1,
+    "cols": 10,
+  "description": [
+    "<h1>Plusieurs jetons à déplacer</h1>",
+    "<p>Écrivez un programme qui fait en sorte que Reeborg prenne les jetons,",
+    "    qu'il les empile sur la case suivante, et qu'il",
+    "    se déplace ensuite jusqu'à son but.</p>",
+    "<h3>Ce que vous devez connaître</h3>",
+    "    <ul><li>Les fonctions <code>avance()</code>, ",
+    "        <code>depose()</code> et <code>prend()</code>.",
+    "        </li></ul>",
+    "DIFFICULTY1",
+    "<h2>Plus avancé</h2>",
+    "<p>Trouver un programme qui fonctionne uniquement pour le monde <b>Jetons 4</b> est assez facile,",
+    "    mais aussi pas très intéressant. Par contre, essayer d'écrire un programme unique",
+    "    qui fonctionne pour tous les mondes <b>Jetons</b> worlds (1 à 5)",
+    "    est beaucoup plus intéressant.  Examinez tous ces mondes;",
+    "    ils ont des patrons en commun&nbsp;:</p>",
+    "<ul><li>un ou plusieurs jetons sont dans une ligne, sans trou entre deux jetons;</li>",
+    "<li>la pile de jeton doit être faite tout juste à côté d'où se trouve le dernier jeton.</li></ul>",
+    "<p><img src='worlds/images/tokens_ok_not.png'></p>",
+    "<p><em>Suggestion:</em> définir deux fonctions, <code>ramasse_tout()</code> ",
+    " et <code>dépose_tout_et_avance()</code>, de telle sorte que la solution peut être écrite comme suit</p>",
+    "<pre class='python'>",
+    "while not au_but():",
+    "    if ...:",
+    "        ramasse_tout()",
+    "    elif ...:",
+    "        dépose_tout_et_avance()",
+    "    else:",
+    "        avance()",
+    "</pre>",
+    "<h3>Ce que vous devez connaître</h3>",
+    "<ul><li>Les fonctions <code>avance()</code>, <code>prend()</code>, et <code>depose()</code>.</li>",
+    "<li>Les conditions <code>objet_ici()</code>, <code>transporte()</code> et",
+    "    <code>au_but()</code>.</li>",
+    "<li>Comment utiliser une boucle <code>while</code> et un énoncé <code>if/else</code>.</li>",
+    "<li>Comment faire la négation d'une condition (<code>not</code> en Python).</li>",
+    "<li>Comment définir des fonctions.</li>",
+    "</ul>",
+    "<p>Assurez-vous de vérifier que votre programme fonctionne avec les 5 mondes Jetons.",
+    "DIFFICULTY5",
+    ""
+  ]
 }
