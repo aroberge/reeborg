@@ -109,6 +109,27 @@ QUnit.test("Hurdles 1, 2, 3, 4", function(assert) {
     done();
 });
 
+QUnit.test("Maze", function(assert) {
+    var py_js, info, program_files, world, world_files;
+    var done = assert.async();
+    program_files = ["maze_en.js", "maze_en.py"];
+    world_files = ["maze1.json"];
+    for (py_js in test_utils.runners){
+        for (world in world_files) {
+            test_utils.runners[py_js](
+                test_utils.world_dir + world_files[world], 
+                test_utils.program_dir + program_files[py_js]
+                );
+            info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
+            assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
+            assert.equal(test_utils.content,
+                "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></ul>",
+                "Feedback text ok.");
+        }
+    }
+    done();
+});
+
 
 QUnit.test("Rain 0, 1, 2", function(assert) {
     var py_js, info, program_files, world, world_files;
