@@ -54,43 +54,6 @@ QUnit.test("Harvest 4", function(assert) { //TODO: Move this!!
     done();
 });
 
-
-QUnit.test("Tokens", function(assert) {
-    "use strict";
-    var frames, last_frame, base_url, world_file;
-    var done = assert.async();
-    base_url = "/src/worlds/tutorial_en/";
-
-    world_file = "tokens1.json";
-    assert.ok(test_utils.eval_python(base_url + world_file, "/tests/integration_tests/programs/tokens1234_en.py").success,
-                                      world_file + " run successfully.");
-
-    last_frame = RUR.frames[RUR.frames.length - 1];
-    assert.deepEqual(last_frame.world_map.robots[0].objects, {}, "No objects carried.");
-    RUR.rec.conclude();
-    assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-    assert.equal(test_utils.content,
-        "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
-        "<li class='success'>Reeborg is at the correct y position.</li>" +
-        "<li class='success'>All objects are at the correct location.</li></ul>",
-        "Feedback text ok.");
-
-    world_file = "tokens2.json";
-    assert.ok(test_utils.eval_python(base_url + world_file).success,
-                                      world_file + " run successfully.");
-    world_file = "tokens3.json";
-    assert.ok(test_utils.eval_python(base_url + world_file).success,
-                                      world_file + " run successfully.");
-    world_file = "tokens4.json";
-    assert.ok(test_utils.eval_python(base_url + world_file).success,
-                                      world_file + " run successfully.");
-
-    world_file = "tokens5.json";
-    assert.ok(test_utils.eval_python(base_url + world_file, "/tests/integration_tests/programs/tokens56_en.py").success,
-                                      world_file + " run successfully.");
-    done();
-});
-
 QUnit.test("Newspaper", function(assert) {
     "use strict";
     var frames, last_frame, base_url, world_file;
@@ -127,46 +90,6 @@ QUnit.module("Tutorial worlds: French Python programs", {
   }
 });
 
-
-QUnit.test("Tokens", function(assert) {
-    "use strict";
-    var frames, last_frame, base_url, world_file;
-    var done = assert.async();
-    base_url = "/src/worlds/tutorial_en/";
-
-    world_file = "tokens1.json";
-    assert.ok(test_utils.eval_python(base_url + world_file, "/tests/integration_tests/programs/tokens1234_fr.py").success,
-                                      world_file + " run successfully.");
-    // Note: the program tokens1234_fr.py also test some translation
-
-    last_frame = RUR.frames[RUR.frames.length - 1];
-    assert.deepEqual(last_frame.world_map.robots[0].objects, {}, "No objects carried.");
-    RUR.rec.conclude();
-    assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
-    assert.equal(test_utils.content,
-        "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li>" +
-        "<li class='success'>Reeborg est à la bonne coordonnée y.</li>" +
-        "<li class='success'>Tous les objets sont aux bons endroits.</li></ul>",
-        "Feedback text ok.");
-
-    world_file = "tokens2.json";
-    assert.ok(test_utils.eval_python(base_url + world_file).success,
-                                      world_file + " run successfully.");
-    world_file = "tokens3.json";
-    assert.ok(test_utils.eval_python(base_url + world_file).success,
-                                      world_file + " run successfully.");
-    world_file = "tokens4.json";
-    assert.ok(test_utils.eval_python(base_url + world_file).success,
-                                      world_file + " run successfully.");
-
-    world_file = "tokens5.json";
-    assert.ok(test_utils.eval_python(base_url + world_file, "/tests/integration_tests/programs/tokens56_fr.py").success,
-                                      world_file + " run successfully.");
-    world_file = "tokens6.json";
-    assert.ok(test_utils.eval_python(base_url + world_file).success,
-                                      world_file + " run successfully.");
-    done();
-});
 
 QUnit.test("Newspaper", function(assert) {
     "use strict";
