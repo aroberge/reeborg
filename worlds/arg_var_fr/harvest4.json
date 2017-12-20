@@ -1,0 +1,406 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 9,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": [
+    "<h1>Cueillette de fruits</h1>",
+    "<p>Reeborg travaille à la ferme de sa tante.",
+    "    Chaque matin, sa tante met un fruit sur une table.",
+    "    Reeborg prend ce fruit et il sait alors qu'il doit cueillir",
+    "    tous les autres fruits semblables.</p>",
+    "<p>En premier, écrivez un court programme comme ce qui suit;",
+    "si vous utilisez Python:</p>",
+    "<pre class='python'>",
+    "avance()",
+    "avance()",
+    "print(objet_ici())",
+    "</pre>",
+    "<p>Si vous utilisez Javascript, essayez plutôt ceci:</p>",
+    "<pre class='javascript'>",
+    "avance();",
+    "avance();",
+    "writeln(objet_ici());",
+    "</pre>",
+    "<p>Après avoir exécuté ce programme, vous devriez savoir comment",
+    "    obtenir le nom du fruit à cueillir.",
+    "</p>",
+    "<p>Par après, dans le programme que vous écrirez pour aider Reeborg",
+    "    à accomplir sa tâche, vous voudrez probablement utiliser une variable,",
+    "    que vous pourriez appeler <code>fruit</code>, ",
+    "    pour savoir quel fruit cueillir.</p>",
+    "<h3>Ce que vous devez connaître</h3>",
+    "<ul><li>Les fonctions <code>avance()</code>, <code>tourne_a_gauche()</code>, ",
+    "    et <code>prend()</code>.</li>",
+    "<li>La condition (fonction) <code>objet_ici()</code>.</li>",
+    "<li>Comment utiliser un énoncé <code>if</code>.</li>",
+    "    <li>Comment invoquer une fonction avec un argument.</li>",
+    "    <li>Comment comparer deux chaînes de caractères en utilisant <code>==</code></li>",
+    "    <li>Python: comment utiliser un index d'une liste pour obtenir son premier item.</li>",
+    "    <li>Javascript: comment utiliser un index d'un tableau (array) pour obtenir son premier item.</li>",
+    "</ul>",
+    "DIFFICULTY4",
+    ""
+  ],
+  "small_tiles": false,
+  "rows": 10,
+  "cols": 10,
+  "tiles": {
+    "1,1": [
+      "grass"
+    ],
+    "1,2": [
+      "grass"
+    ],
+    "1,3": [
+      "grass"
+    ],
+    "1,4": [
+      "grass"
+    ],
+    "1,5": [
+      "grass"
+    ],
+    "1,6": [
+      "grass"
+    ],
+    "1,7": [
+      "grass"
+    ],
+    "1,8": [
+      "grass"
+    ],
+    "1,9": [
+      "grass"
+    ],
+    "1,10": [
+      "grass"
+    ],
+    "2,1": [
+      "grass"
+    ],
+    "2,2": [
+      "grass"
+    ],
+    "2,3": [
+      "grass"
+    ],
+    "2,4": [
+      "grass"
+    ],
+    "2,5": [
+      "grass"
+    ],
+    "2,6": [
+      "grass"
+    ],
+    "2,7": [
+      "grass"
+    ],
+    "2,8": [
+      "grass"
+    ],
+    "2,9": [
+      "grass"
+    ],
+    "2,10": [
+      "grass"
+    ],
+    "3,1": [
+      "grass"
+    ],
+    "3,2": [
+      "grass"
+    ],
+    "3,3": [
+      "pale_grass"
+    ],
+    "3,4": [
+      "pale_grass"
+    ],
+    "3,5": [
+      "pale_grass"
+    ],
+    "3,6": [
+      "pale_grass"
+    ],
+    "3,7": [
+      "pale_grass"
+    ],
+    "3,8": [
+      "pale_grass"
+    ],
+    "3,9": [
+      "grass"
+    ],
+    "3,10": [
+      "grass"
+    ],
+    "4,1": [
+      "grass"
+    ],
+    "4,2": [
+      "grass"
+    ],
+    "4,3": [
+      "pale_grass"
+    ],
+    "4,4": [
+      "pale_grass"
+    ],
+    "4,5": [
+      "pale_grass"
+    ],
+    "4,6": [
+      "pale_grass"
+    ],
+    "4,7": [
+      "pale_grass"
+    ],
+    "4,8": [
+      "pale_grass"
+    ],
+    "4,9": [
+      "grass"
+    ],
+    "4,10": [
+      "grass"
+    ],
+    "5,1": [
+      "grass"
+    ],
+    "5,2": [
+      "grass"
+    ],
+    "5,3": [
+      "pale_grass"
+    ],
+    "5,4": [
+      "pale_grass"
+    ],
+    "5,5": [
+      "pale_grass"
+    ],
+    "5,6": [
+      "pale_grass"
+    ],
+    "5,7": [
+      "pale_grass"
+    ],
+    "5,8": [
+      "pale_grass"
+    ],
+    "5,9": [
+      "grass"
+    ],
+    "5,10": [
+      "grass"
+    ],
+    "6,1": [
+      "grass"
+    ],
+    "6,2": [
+      "grass"
+    ],
+    "6,3": [
+      "pale_grass"
+    ],
+    "6,4": [
+      "pale_grass"
+    ],
+    "6,5": [
+      "pale_grass"
+    ],
+    "6,6": [
+      "pale_grass"
+    ],
+    "6,7": [
+      "pale_grass"
+    ],
+    "6,8": [
+      "pale_grass"
+    ],
+    "6,9": [
+      "grass"
+    ],
+    "6,10": [
+      "grass"
+    ],
+    "7,1": [
+      "grass"
+    ],
+    "7,2": [
+      "grass"
+    ],
+    "7,3": [
+      "pale_grass"
+    ],
+    "7,4": [
+      "pale_grass"
+    ],
+    "7,5": [
+      "pale_grass"
+    ],
+    "7,6": [
+      "pale_grass"
+    ],
+    "7,7": [
+      "pale_grass"
+    ],
+    "7,8": [
+      "pale_grass"
+    ],
+    "7,9": [
+      "grass"
+    ],
+    "7,10": [
+      "grass"
+    ],
+    "8,1": [
+      "grass"
+    ],
+    "8,2": [
+      "grass"
+    ],
+    "8,3": [
+      "pale_grass"
+    ],
+    "8,4": [
+      "pale_grass"
+    ],
+    "8,5": [
+      "pale_grass"
+    ],
+    "8,6": [
+      "pale_grass"
+    ],
+    "8,7": [
+      "pale_grass"
+    ],
+    "8,8": [
+      "pale_grass"
+    ],
+    "8,9": [
+      "grass"
+    ],
+    "8,10": [
+      "grass"
+    ],
+    "9,1": [
+      "grass"
+    ],
+    "9,2": [
+      "grass"
+    ],
+    "9,3": [
+      "grass"
+    ],
+    "9,4": [
+      "grass"
+    ],
+    "9,5": [
+      "grass"
+    ],
+    "9,6": [
+      "grass"
+    ],
+    "9,7": [
+      "grass"
+    ],
+    "9,8": [
+      "grass"
+    ],
+    "9,9": [
+      "grass"
+    ],
+    "9,10": [
+      "grass"
+    ],
+    "10,1": [
+      "grass"
+    ],
+    "10,2": [
+      "grass"
+    ],
+    "10,3": [
+      "grass"
+    ],
+    "10,4": [
+      "grass"
+    ],
+    "10,5": [
+      "grass"
+    ],
+    "10,6": [
+      "grass"
+    ],
+    "10,7": [
+      "grass"
+    ],
+    "10,8": [
+      "grass"
+    ],
+    "10,9": [
+      "grass"
+    ],
+    "10,10": [
+      "grass"
+    ]
+  },
+  "obstacles": {
+    "3,1": [
+      "bridge"
+    ]
+  },
+  "onload": [
+    "var x, y, fruit, FRUIT;",
+    "",
+    "function choose_fruit() {",
+    "    var fruit = RUR.randint(1, 3);",
+    "    if (fruit == 1) {",
+    "        return 'apple';",
+    "    } else if (fruit == 2) {",
+    "        return 'banana';",
+    "    } else {",
+    "        return 'strawberry';",
+    "    }",
+    "}",
+    "",
+    "FRUIT = choose_fruit(); // the one to pick",
+    "",
+    "RUR.add_object(FRUIT, 3, 1);",
+    "for (x=3; x<=8; x++) {",
+    "    for (y=3; y<=8; y++) {",
+    "        fruit = choose_fruit();",
+    "        RUR.add_object(fruit, x, y);",
+    "        if (fruit != FRUIT) {",
+    "            // By setting a goal to the fruit there",
+    "            // it requires the fruit not to be taken",
+    "            RUR.add_object(fruit, x, y, {goal: true});",
+    "        }",
+    "    }",
+    "}",
+    "",
+    ""
+  ]
+}

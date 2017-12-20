@@ -320,7 +320,7 @@
     "<li>How to use <code>while</code> loops.</li>",
     "    <li>How to define a function.</li>",
     "    <li>How to call a function with an argument.</li>",
-    "    <li>The object names <code>\"token\"</code> and <code>\"star\"</code>",
+    "    <li>The object names <code>\"token\"</code> and <code>\"star\"</code></li>",
     "<li>How to negate a condition",
     "(keyword <code>not</code> in Python).</li></ul>",
     "DIFFICULTY3"

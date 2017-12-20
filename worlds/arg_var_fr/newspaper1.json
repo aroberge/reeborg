@@ -321,7 +321,7 @@
     "<li>Comment utiliser des boucles <code>while</code>.</li>",
     "    <li>Comment définir une fonction</li>",
     "    <li>Comment invoquer une fonction avec un argument</li>",
-    "    <li>Le nom des objets <code>\"jeton\"</code> et <code>\"étoile\"</code>",
+    "    <li>Le nom des objets <code>\"jeton\"</code> et <code>\"étoile\"</code></li>",
     "<li>Comment faire la négation d'une condition",
     "(mot-clé <code>not</code> en Python).</li></ul>",
     "DIFFICULTY3"
