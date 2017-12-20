@@ -1,0 +1,339 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 38,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {
+    "1,1": [
+      "east"
+    ],
+    "3,2": [
+      "east"
+    ],
+    "5,3": [
+      "east"
+    ],
+    "7,4": [
+      "east"
+    ],
+    "9,5": [
+      "east"
+    ],
+    "11,6": [
+      "east",
+      "north"
+    ],
+    "2,3": [
+      "east"
+    ],
+    "4,4": [
+      "east"
+    ],
+    "6,5": [
+      "east"
+    ],
+    "8,6": [
+      "east"
+    ],
+    "11,5": [
+      "north"
+    ],
+    "10,5": [
+      "north"
+    ],
+    "10,6": [
+      "north"
+    ],
+    "9,6": [
+      "north"
+    ],
+    "8,5": [
+      "north"
+    ],
+    "9,4": [
+      "north"
+    ],
+    "8,4": [
+      "north"
+    ],
+    "7,5": [
+      "north"
+    ],
+    "7,3": [
+      "north"
+    ],
+    "6,3": [
+      "north"
+    ],
+    "6,4": [
+      "north"
+    ],
+    "5,4": [
+      "north"
+    ],
+    "5,2": [
+      "north"
+    ],
+    "4,2": [
+      "north"
+    ],
+    "3,1": [
+      "north"
+    ],
+    "2,1": [
+      "north"
+    ],
+    "3,3": [
+      "north"
+    ],
+    "4,3": [
+      "north"
+    ],
+    "2,2": [
+      "north"
+    ],
+    "1,2": [
+      "north"
+    ]
+  },
+  "goal": {
+    "position": {
+      "x": 1,
+      "y": 1
+    },
+    "objects": {
+      "11,6": {}
+    }
+  },
+  "objects": {
+    "11,6": {},
+    "1,1": {
+      "star": 1
+    }
+  },
+  "small_tiles": false,
+  "rows": 6,
+  "cols": 11,
+  "tiles": {
+    "1,3": [
+      "bricks"
+    ],
+    "2,3": [
+      "bricks"
+    ],
+    "2,4": [
+      "bricks"
+    ],
+    "1,4": [
+      "bricks"
+    ],
+    "1,5": [
+      "bricks"
+    ],
+    "2,5": [
+      "bricks"
+    ],
+    "3,5": [
+      "bricks"
+    ],
+    "4,5": [
+      "bricks"
+    ],
+    "4,4": [
+      "bricks"
+    ],
+    "3,4": [
+      "bricks"
+    ],
+    "5,5": [
+      "bricks"
+    ],
+    "6,5": [
+      "bricks"
+    ],
+    "6,6": [
+      "bricks"
+    ],
+    "7,6": [
+      "bricks"
+    ],
+    "8,6": [
+      "bricks"
+    ],
+    "5,6": [
+      "bricks"
+    ],
+    "4,6": [
+      "bricks"
+    ],
+    "3,6": [
+      "bricks"
+    ],
+    "2,6": [
+      "bricks"
+    ],
+    "1,6": [
+      "bricks"
+    ],
+    "2,1": [
+      "bricks"
+    ],
+    "3,1": [
+      "bricks"
+    ],
+    "4,1": [
+      "bricks"
+    ],
+    "4,2": [
+      "bricks"
+    ],
+    "5,2": [
+      "bricks"
+    ],
+    "5,1": [
+      "bricks"
+    ],
+    "6,1": [
+      "bricks"
+    ],
+    "6,2": [
+      "bricks"
+    ],
+    "7,2": [
+      "bricks"
+    ],
+    "7,3": [
+      "bricks"
+    ],
+    "6,3": [
+      "bricks"
+    ],
+    "8,3": [
+      "bricks"
+    ],
+    "8,4": [
+      "bricks"
+    ],
+    "9,4": [
+      "bricks"
+    ],
+    "11,4": [
+      "bricks"
+    ],
+    "10,4": [
+      "bricks"
+    ],
+    "10,5": [
+      "bricks"
+    ],
+    "11,5": [
+      "bricks"
+    ],
+    "11,3": [
+      "bricks"
+    ],
+    "10,3": [
+      "bricks"
+    ],
+    "9,3": [
+      "bricks"
+    ],
+    "9,2": [
+      "bricks"
+    ],
+    "8,2": [
+      "bricks"
+    ],
+    "8,1": [
+      "bricks"
+    ],
+    "7,1": [
+      "bricks"
+    ],
+    "9,1": [
+      "bricks"
+    ],
+    "10,1": [
+      "bricks"
+    ],
+    "11,1": [
+      "bricks"
+    ],
+    "11,2": [
+      "bricks"
+    ],
+    "10,2": [
+      "bricks"
+    ]
+  },
+  "description": [
+    "",
+    "<h1>Newspaper delivery</h1>",
+    "<p>Reeborg must deliver the <em>Northern Star</em> newspaper",
+    "to different customers. The newspaper cost 1 token, that Reeborg",
+    "must pick up where the newspaper must be dropped.",
+    "Each customer lives on different floor, and the newspaper",
+    "   kmust be dropped at the rightmost grid square on that floor.",
+    "Some of Reeborg's customer, like ",
+    "<a href='https://en.wikipedia.org/wiki/Ada_Lovelace' target='_blank'>",
+    "  Ada Lovelace</a> leaves Reeborg additional tokens as a gift.",
+    "  Others, like",
+    " <a href='https://en.wikipedia.org/wiki/Charles_Babbage' target='_blank'>",
+    "  Charles Babbage</a> are less generous and do not leave such gift.",
+    "  </p>",
+    "<p>You must help Reeborg to deliver the newspapers.",
+    "    Define the functions <code>climb_up</code> and",
+    "    <code>climb_down</code>, and use them in your solution.",
+    "</p>",
+    "<p>",
+    "    <span class='warning'>You should not use any of the following:</span>",
+    "</p>",
+    "<ul>",
+    "    <li><code>wall_on_right()</code></li>",
+    "    <li><code>wall_in_front()</code></li>",
+    "    <li><code>right_is_clear()</code></li>",
+    "    <li><code>front_is_clear()</code></li>",
+    "</ul>",
+    "<h3>What you need to know</h3>",
+    "<ul><li>The functions <code>move()</code>, <code>turn_left()</code>, ",
+    "    <code>take()</code> and <code>put()</code>.</li>",
+    "<li>The conditions (functions) <code>at_goal()</code> and <code>object_here()</code>.</li>",
+    "<li>How to use <code>while</code> loops.</li>",
+    "    <li>How to define a function.</li>",
+    "    <li>How to call a function with an argument.</li>",
+    "    <li>The object names <code>\"token\"</code> and <code>\"star\"</code>",
+    "<li>How to negate a condition",
+    "(keyword <code>not</code> in Python).</li></ul>",
+    "DIFFICULTY3"
+  ],
+  "onload": [
+    "var nb, x, y;",
+    "",
+    "y = RUR.randint(2, 6);",
+    "x = 2*y - 1;",
+    "nb = RUR.randint(1, 5);",
+    "",
+    "RUR.add_object('token', x, y, {number: nb});",
+    "RUR.add_object('star', x, y, {goal: true});",
+    ""
+  ]
+}

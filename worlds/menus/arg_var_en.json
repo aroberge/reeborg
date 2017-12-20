@@ -1,0 +1,12 @@
+{
+  "blank_canvas": true,
+  "onload": [
+    "base = 'worlds/arg_var_en/';",
+    "",
+    "var contents = [",
+    "    [base + 'newspaper.json', 'Newspaper'],",
+    "    ['worlds/menus/select_collection_en.json', \"Other worlds\"]",
+    "    ];",
+    "MakeCustomMenu(contents);"
+  ]
+}

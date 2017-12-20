@@ -51,7 +51,7 @@ RUR.add_object = function (name, x, y, options) {
                 options.number = options.min;
             }
         } else if (options.number === undefined) {
-            options.number = 1
+            options.number = 1;
         }
         keys = Object.keys(options);
         for (k of keys) {
@@ -147,8 +147,8 @@ RUR.remove_object = function (name, x, y, options) {
 RUR.get_objects = function (x, y, options) {
     "use strict";
     var args, obj, obj_en, k, keys;
-    args = {x:x, y:y, type:"objects"}
-    if (options!=undefined && options.goal != undefined) {
+    args = {x:x, y:y, type:"objects"};
+    if (options !== undefined && options.goal !== undefined) {
         args.goal = options.goal;
     }
     obj_en = RUR._get_artefacts(args);
@@ -207,4 +207,4 @@ RUR.is_object = function (name, x, y, options) {
   using it (e.g. in Vincent Maille's book) */
 RUR.add_object_at_position = function(name, x, y, number) { // Vincent Maille's book
     RUR.add_object(name, x, y, {number:number});
-}
+};
