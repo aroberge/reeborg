@@ -30,6 +30,7 @@
     "RUR.public.check_output()"
   ],
   "onload": [
+    "RUR.show_description();",
     "// define a function that can be called,",
     "// in the Post editor for programs written",
     "// using either Python or Javascript.",

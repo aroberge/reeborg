@@ -1,0 +1,572 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 23,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": [
+    "<h1>Reeborg sait compter !</h1>",
+    "<p><span class='warning'>Important :</span>",
+    "    Vous devriez avoir fait l'exercice",
+    "    Carottes et marguerites.</p>",
+    "<p>Écrire un programme qui ordonne à Reeborg de ",
+    "    faire tout le tour de son monde en suivant ",
+    "    les murs et en comptant, au fur et à mesure, ",
+    "    le nombre de carottes et le nombre de pommes ",
+    "    rencontrées. ",
+    "    Reeborg devra de plus afficher à la fin du ",
+    "    programme le nombre de carottes et le nombre ",
+    "    de pommes rencontrées dans une phrase comme suit:",
+    "    <br>",
+    "    <code>J'ai compté 5 carottes et 18 pommes.</code>",
+    "</p>",
+    "",
+    "<h3>Ce que vous devez connaître</h3>",
+    "<p>En plus de ce qui était requis pour le monde Carottes et marguerites,",
+    "    vous devriez savoir comment affecter une valeur à une variable",
+    "    et comment <em>incrémenter</em> cette valeur.</p>",
+    "DIFFICULTY4",
+    "<h3>Crédit</h3>",
+    "<p>Adapté d'un monde conçu par F. Lallemand.</p>",
+    ""
+  ],
+  "onload": [
+    "var nb_carrots, nb_apples, x, y, width, height;",
+    "nb_carrots = 0;",
+    "nb_apples = 0;",
+    "width = 12;",
+    "height = 12;",
+    "",
+    "for(x = 2; x <= width; x++) {",
+    "    choice = RUR.randint(1, 3);",
+    "    if (choice == 1) {",
+    "        RUR.add_object('carotte', x, 1);",
+    "        nb_carrots++;",
+    "    } else if (choice == 2) {",
+    "        RUR.add_object('pomme', x, 1);",
+    "        nb_apples++;",
+    "    }",
+    "}",
+    "",
+    "for(y = 2; y<=height; y++) {",
+    "    choice = RUR.randint(1, 3);",
+    "    if (choice == 1) {",
+    "        RUR.add_object('carotte', width, y);",
+    "        nb_carrots++;",
+    "    } else if(choice == 2) {",
+    "        RUR.add_object('pomme', width, y);",
+    "        nb_apples++;",
+    "    }",
+    "}",
+    "",
+    "for(x=width-1; x >= 1; x--) {",
+    "    choice = RUR.randint(1, 3);",
+    "    if (choice == 1) {",
+    "        RUR.add_object('carotte', x, height);",
+    "        nb_carrots++;",
+    "    } else if (choice == 2) {",
+    "        RUR.add_object('pomme', x, height);",
+    "        nb_apples++;",
+    "    }",
+    "}",
+    "",
+    "for(y=height-1; y >= 2; y--) {",
+    "    choice = RUR.randint(1, 3);",
+    "    if (choice == 1) {",
+    "        RUR.add_object('carotte', 1, y);",
+    "        nb_carrots++;",
+    "    } else if(choice == 2) {",
+    "        RUR.add_object('pomme', 1, y);",
+    "        nb_apples++;",
+    "    }",
+    "}",
+    "",
+    "// define a function that can be called,",
+    "// in the Post editor for programs written",
+    "// using either Python or Javascript.",
+    "RUR.public.check_output = function () {",
+    "    var actual = RUR.get_print();",
+    "    var output, expected;",
+    "    expected = \"J'ai compté \" + nb_carrots + \" carottes et \" +",
+    "        nb_apples + \" pommes.\\n\";",
+    "    ",
+    "    if (actual == '') {",
+    "        output = RUR.show_detailed_diff(expected, actual,",
+    "               {semantic: true, show_actual: true,",
+    "               actual_heading : \"<span class='warning'>Rien n'a été écrit !</span>\"});",
+    "        throw new RUR.ReeborgError(output);",
+    "    } else if (actual != expected) {",
+    "        output = RUR.show_detailed_diff(expected, actual,",
+    "                               {semantic: true});",
+    "    throw new RUR.ReeborgError(output);",
+    "    }",
+    "    throw new RUR.ReeborgOK(\"Reeborg a bien compté.\");",
+    "};"
+  ],
+  "post": [
+    "RUR.public['check_output']()"
+  ],
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 12,
+  "tiles": {
+    "1,1": [
+      "grass"
+    ],
+    "1,2": [
+      "gravel"
+    ],
+    "1,3": [
+      "gravel"
+    ],
+    "1,4": [
+      "gravel"
+    ],
+    "1,5": [
+      "gravel"
+    ],
+    "1,6": [
+      "gravel"
+    ],
+    "2,1": [
+      "gravel"
+    ],
+    "2,2": [
+      "grass"
+    ],
+    "2,3": [
+      "grass"
+    ],
+    "2,4": [
+      "grass"
+    ],
+    "2,5": [
+      "grass"
+    ],
+    "2,6": [
+      "grass"
+    ],
+    "3,1": [
+      "gravel"
+    ],
+    "3,2": [
+      "grass"
+    ],
+    "3,3": [
+      "grass"
+    ],
+    "3,4": [
+      "grass"
+    ],
+    "3,5": [
+      "grass"
+    ],
+    "3,6": [
+      "grass"
+    ],
+    "4,1": [
+      "gravel"
+    ],
+    "4,2": [
+      "grass"
+    ],
+    "4,3": [
+      "grass"
+    ],
+    "4,4": [
+      "grass"
+    ],
+    "4,5": [
+      "grass"
+    ],
+    "4,6": [
+      "grass"
+    ],
+    "5,1": [
+      "gravel"
+    ],
+    "5,2": [
+      "grass"
+    ],
+    "5,3": [
+      "grass"
+    ],
+    "5,4": [
+      "grass"
+    ],
+    "5,5": [
+      "grass"
+    ],
+    "5,6": [
+      "grass"
+    ],
+    "6,1": [
+      "gravel"
+    ],
+    "6,2": [
+      "grass"
+    ],
+    "6,3": [
+      "grass"
+    ],
+    "6,4": [
+      "grass"
+    ],
+    "6,5": [
+      "grass"
+    ],
+    "6,6": [
+      "grass"
+    ],
+    "1,7": [
+      "gravel"
+    ],
+    "1,8": [
+      "gravel"
+    ],
+    "1,9": [
+      "gravel"
+    ],
+    "1,10": [
+      "gravel"
+    ],
+    "1,11": [
+      "gravel"
+    ],
+    "1,12": [
+      "gravel"
+    ],
+    "2,7": [
+      "grass"
+    ],
+    "2,8": [
+      "grass"
+    ],
+    "2,9": [
+      "grass"
+    ],
+    "2,10": [
+      "grass"
+    ],
+    "2,11": [
+      "grass"
+    ],
+    "2,12": [
+      "gravel"
+    ],
+    "3,7": [
+      "grass"
+    ],
+    "3,8": [
+      "grass"
+    ],
+    "3,9": [
+      "grass"
+    ],
+    "3,10": [
+      "grass"
+    ],
+    "3,11": [
+      "grass"
+    ],
+    "3,12": [
+      "gravel"
+    ],
+    "4,7": [
+      "grass"
+    ],
+    "4,8": [
+      "grass"
+    ],
+    "4,9": [
+      "grass"
+    ],
+    "4,10": [
+      "grass"
+    ],
+    "4,11": [
+      "grass"
+    ],
+    "4,12": [
+      "gravel"
+    ],
+    "5,7": [
+      "grass"
+    ],
+    "5,8": [
+      "grass"
+    ],
+    "5,9": [
+      "grass"
+    ],
+    "5,10": [
+      "grass"
+    ],
+    "5,11": [
+      "grass"
+    ],
+    "5,12": [
+      "gravel"
+    ],
+    "6,7": [
+      "grass"
+    ],
+    "6,8": [
+      "grass"
+    ],
+    "6,9": [
+      "grass"
+    ],
+    "6,10": [
+      "grass"
+    ],
+    "6,11": [
+      "grass"
+    ],
+    "6,12": [
+      "gravel"
+    ],
+    "7,1": [
+      "gravel"
+    ],
+    "7,2": [
+      "grass"
+    ],
+    "7,3": [
+      "grass"
+    ],
+    "7,4": [
+      "grass"
+    ],
+    "7,5": [
+      "grass"
+    ],
+    "7,6": [
+      "grass"
+    ],
+    "7,7": [
+      "grass"
+    ],
+    "7,8": [
+      "grass"
+    ],
+    "7,9": [
+      "grass"
+    ],
+    "7,10": [
+      "grass"
+    ],
+    "7,11": [
+      "grass"
+    ],
+    "7,12": [
+      "gravel"
+    ],
+    "8,1": [
+      "gravel"
+    ],
+    "8,2": [
+      "grass"
+    ],
+    "8,3": [
+      "grass"
+    ],
+    "8,4": [
+      "grass"
+    ],
+    "8,5": [
+      "grass"
+    ],
+    "8,6": [
+      "grass"
+    ],
+    "8,7": [
+      "grass"
+    ],
+    "8,8": [
+      "grass"
+    ],
+    "8,9": [
+      "grass"
+    ],
+    "8,10": [
+      "grass"
+    ],
+    "8,11": [
+      "grass"
+    ],
+    "8,12": [
+      "gravel"
+    ],
+    "9,1": [
+      "gravel"
+    ],
+    "9,2": [
+      "grass"
+    ],
+    "9,3": [
+      "grass"
+    ],
+    "9,4": [
+      "grass"
+    ],
+    "9,5": [
+      "grass"
+    ],
+    "9,6": [
+      "grass"
+    ],
+    "9,7": [
+      "grass"
+    ],
+    "9,8": [
+      "grass"
+    ],
+    "9,9": [
+      "grass"
+    ],
+    "9,10": [
+      "grass"
+    ],
+    "9,11": [
+      "grass"
+    ],
+    "9,12": [
+      "gravel"
+    ],
+    "10,1": [
+      "gravel"
+    ],
+    "10,2": [
+      "grass"
+    ],
+    "10,3": [
+      "grass"
+    ],
+    "10,4": [
+      "grass"
+    ],
+    "10,5": [
+      "grass"
+    ],
+    "10,6": [
+      "grass"
+    ],
+    "10,7": [
+      "grass"
+    ],
+    "10,8": [
+      "grass"
+    ],
+    "10,9": [
+      "grass"
+    ],
+    "10,10": [
+      "grass"
+    ],
+    "10,11": [
+      "grass"
+    ],
+    "10,12": [
+      "gravel"
+    ],
+    "11,1": [
+      "gravel"
+    ],
+    "11,2": [
+      "grass"
+    ],
+    "11,3": [
+      "grass"
+    ],
+    "11,4": [
+      "grass"
+    ],
+    "11,5": [
+      "grass"
+    ],
+    "11,6": [
+      "grass"
+    ],
+    "11,7": [
+      "grass"
+    ],
+    "11,8": [
+      "grass"
+    ],
+    "11,9": [
+      "grass"
+    ],
+    "11,10": [
+      "grass"
+    ],
+    "11,11": [
+      "grass"
+    ],
+    "11,12": [
+      "gravel"
+    ],
+    "12,1": [
+      "gravel"
+    ],
+    "12,2": [
+      "gravel"
+    ],
+    "12,3": [
+      "gravel"
+    ],
+    "12,4": [
+      "gravel"
+    ],
+    "12,5": [
+      "gravel"
+    ],
+    "12,6": [
+      "gravel"
+    ],
+    "12,7": [
+      "gravel"
+    ],
+    "12,8": [
+      "gravel"
+    ],
+    "12,9": [
+      "gravel"
+    ],
+    "12,10": [
+      "gravel"
+    ],
+    "12,11": [
+      "gravel"
+    ],
+    "12,12": [
+      "gravel"
+    ]
+  },
+  "goal": {
+    "position": {
+      "image": "house",
+      "x": 1,
+      "y": 1
+    }
+  }
+}

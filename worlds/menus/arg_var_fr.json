@@ -8,6 +8,7 @@
     "    [base + 'newspaper1.json', 'Journal'],",
     "    [base + 'harvest4.json', 'Récolte de fruits'],",
     "    [base + 'around1d.json', 'Carottes et marguerites'],",
+    "    [base + 'around1e.json', 'Carottes et pommes'],",
     "    ['worlds/menus/select_collection_fr.json', \"Autres mondes\"]",
     "    ];",
     "MakeCustomMenu(contents);"
