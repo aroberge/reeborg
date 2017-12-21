@@ -4,6 +4,7 @@
     "base = 'worlds/arg_var_en/';",
     "",
     "var contents = [",
+    "    [base + 'print0.json', 'print'],",
     "    [base + 'harvest4.json', 'Fruit harvest'],",
     "    [base + 'newspaper1.json', 'Newspaper'],",
     "    ['worlds/menus/select_collection_en.json', \"Other worlds\"]",

@@ -1,0 +1,256 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 6,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": [
+    "<h1>C'est du gâteau !</h1>",
+    "<p>Reeborg doit faire le tour du monde, ramassant toutes les",
+    "    carottes qu'il rencontre, dans le but de faire des gâteaux aux carottes",
+    "    lorsqu'il reviendra à la maison.",
+    "</p>",
+    "<p>Cependant, lorsque Reeborg rencontre une marguerite il est déçu et il doit écrire<br>",
+    "<code>Je ne ramasse pas, je préfère les carottes !</code></p>",
+    "<p>Essayez d'écrire un programme aussi court que possible.",
+    "<span class='warning'>Faites attention&nbsp;!</span> Les carottes et les marguerites ne sont jamais au même endroit.</p>",
+    "<h3>Ce que vous devez connaître</h3>",
+    "<ul><li>Les fonctions <code>avance()</code>, <code>tourne_a_gauche()</code>, et <code>prend()</code>.</li>",
+    "<li>La condition (fonction) <code>objet_ici()</code></li>",
+    "<li>Comment invoquer une fonction avec un argument</li>",
+    "<li>Le nom des objets <code>\"carotte\"</code> et <code>\"marguerite\"</code></li>",
+    "<li>En Python, savoir comment utiliser <code>print</code></li>",
+    "<li>En Javascript, savoir comment utiliser <code>writeln</code>, une fonction unique au monde de Reeborg.</li>",
+    "<li>Comment utiliser une boucle <code>for/repeat</code>.</li></ul>",
+    "DIFFICULTY4",
+    "<h3>Crédit</h3>",
+    "<p>Adapté d'un monde conçu par F. Lallemand.</p>",
+    "<h2>Deuxième exercice</h2>",
+    "<p>Spécifier <code>exercice2 = 'True'</code>. Faites comme ci-dessus sauf qu'en plus, si",
+    "Reeborg ne trouve rien à un case donnée, il doit écrire <br><code>Je n'ai rien à manger ...</code>"
+  ],
+  "onload": [
+    "var choice, marguerite, vide, x, y, x_init, width, height, reeborg;",
+    "RUR.public.exercice1 = [];",
+    "RUR.public.exercice2 = [];",
+    "marguerite = \"Je ne ramasse pas, je préfère les carottes !\";",
+    "vide = \"Je n'ai rien à manger ...\";",
+    "width = 6;",
+    "height = 6;",
+    "for(x = 2; x <= width; x++) {",
+    "    choice = RUR.randint(1, 3);",
+    "    if(choice == 1) {",
+    "        RUR.add_object('carotte', x, 1);",
+    "    }",
+    "    else if(choice == 2) {",
+    "        RUR.add_object('marguerite', x, 1);",
+    "        RUR.add_object('marguerite', x, 1, {goal: true});",
+    "        RUR.public.exercice1.push(marguerite)",
+    "        RUR.public.exercice2.push(marguerite)",
+    "    } else {RUR.public.exercice2.push(vide);}",
+    "}",
+    "for(y = 2; y<=height; y++) {",
+    "    choice = RUR.randint(1, 3);",
+    "    if(choice == 1) {",
+    "        RUR.add_object('carotte', width, y);",
+    "    }",
+    "    else if(choice == 2) {",
+    "        RUR.add_object('marguerite', width, y);",
+    "        RUR.add_object('marguerite', width, y, {goal: true});",
+    "        RUR.public.exercice1.push(marguerite)",
+    "        RUR.public.exercice2.push(marguerite)",
+    "    } else {RUR.public.exercice2.push(vide);}",
+    "}",
+    "for(x=width-1; x >= 1; x--) {",
+    "    choice = RUR.randint(1, 3);",
+    "    if(choice == 1) {",
+    "        RUR.add_object('carotte', x, height);",
+    "    }",
+    "    else if(choice == 2) {",
+    "        RUR.add_object('marguerite', x, height);",
+    "        RUR.add_object('marguerite', x, height, {goal: true});",
+    "        RUR.public.exercice1.push(marguerite)",
+    "        RUR.public.exercice2.push(marguerite)",
+    "    } else {RUR.public.exercice2.push(vide);}",
+    "}",
+    "for(y=height-1; y >= 2; y--) {",
+    "    choice = RUR.randint(1, 3);",
+    "    if(choice == 1) {",
+    "        RUR.add_object('carotte', 1, y);",
+    "    }",
+    "    else if(choice == 2) {",
+    "        RUR.add_object('marguerite', 1, y);",
+    "        RUR.add_object('marguerite', 1, y, {goal: true});",
+    "        RUR.public.exercice1.push(marguerite)",
+    "        RUR.public.exercice2.push(marguerite)",
+    "    } else {RUR.public.exercice2.push(vide);}",
+    "}",
+    "RUR.public.exercice2.push(vide); // at home",
+    "// define a function that can be called,",
+    "// in the Post editor for programs written",
+    "// using either Python or Javascript.",
+    "RUR.public.check_output = function (exercice2) {",
+    "    var actual = RUR.get_print();",
+    "    var output, expected;",
+    "    if (exercice2) {expected = RUR.public.exercice2.join(\"\\n\") + '\\n';}",
+    "    else {expected = RUR.public.exercice1.join(\"\\n\") + '\\n';}",
+    "    ",
+    "    if (actual == '') {",
+    "        output = RUR.show_detailed_diff(expected, actual,",
+    "               {semantic: true, show_actual: true,",
+    "               actual_heading : \"<span class='warning'>Rien n'a été écrit !</span>\"});",
+    "        throw new RUR.ReeborgError(output);",
+    "    } else if (actual != expected) {",
+    "        output = RUR.show_detailed_diff(expected, actual,",
+    "                               {semantic: true});",
+    "    throw new RUR.ReeborgError(output);",
+    "    }",
+    "    ",
+    "};"
+  ],
+  "pre": [
+    "exercice2 = 0"
+  ],
+  "post": [
+    "RUR.public['check_output'](exercice2)"
+  ],
+  "small_tiles": false,
+  "rows": 6,
+  "cols": 6,
+  "tiles": {
+    "1,1": [
+      "gravel"
+    ],
+    "1,2": [
+      "gravel"
+    ],
+    "1,3": [
+      "gravel"
+    ],
+    "1,4": [
+      "gravel"
+    ],
+    "1,5": [
+      "gravel"
+    ],
+    "1,6": [
+      "gravel"
+    ],
+    "2,1": [
+      "gravel"
+    ],
+    "2,2": [
+      "grass"
+    ],
+    "2,3": [
+      "grass"
+    ],
+    "2,4": [
+      "grass"
+    ],
+    "2,5": [
+      "grass"
+    ],
+    "2,6": [
+      "gravel"
+    ],
+    "3,1": [
+      "gravel"
+    ],
+    "3,2": [
+      "grass"
+    ],
+    "3,3": [
+      "grass"
+    ],
+    "3,4": [
+      "grass"
+    ],
+    "3,5": [
+      "grass"
+    ],
+    "3,6": [
+      "gravel"
+    ],
+    "4,1": [
+      "gravel"
+    ],
+    "4,2": [
+      "grass"
+    ],
+    "4,3": [
+      "grass"
+    ],
+    "4,4": [
+      "grass"
+    ],
+    "4,5": [
+      "grass"
+    ],
+    "4,6": [
+      "gravel"
+    ],
+    "5,1": [
+      "gravel"
+    ],
+    "5,2": [
+      "grass"
+    ],
+    "5,3": [
+      "grass"
+    ],
+    "5,4": [
+      "grass"
+    ],
+    "5,5": [
+      "grass"
+    ],
+    "5,6": [
+      "gravel"
+    ],
+    "6,1": [
+      "gravel"
+    ],
+    "6,2": [
+      "gravel"
+    ],
+    "6,3": [
+      "gravel"
+    ],
+    "6,4": [
+      "gravel"
+    ],
+    "6,5": [
+      "gravel"
+    ],
+    "6,6": [
+      "gravel"
+    ]
+  },
+  "goal": {
+    "position": {
+      "image": "house",
+      "x": 1,
+      "y": 1
+    }
+  }
+}

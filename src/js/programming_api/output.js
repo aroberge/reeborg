@@ -176,7 +176,7 @@ RUR.show_detailed_diff = function (expected, actual, options) {
     } else {
         expected_heading = "<h3>" + RUR.translate("Expected result") + "</h3>";
     }
-    expected_section = expected_heading + div_begin + expected + "</div>";
+    expected_section = expected_heading + div_begin + expected.replace(/\n/g, '<br>') + "</div>";
     
     if (options && options.differences_heading) {
         differences_heading = "<h3>" + options.differences_heading + "</h3>";
@@ -191,7 +191,7 @@ RUR.show_detailed_diff = function (expected, actual, options) {
         } else {
             actual_heading = "<h3>" + RUR.translate("Actual result") + "</h3>";
         }
-        actual_section = actual_heading + div_begin + actual + "</div>";
+        actual_section = actual_heading + div_begin + actual.replace(/\n/g, '<br>') + "</div>";
     }
 
     return expected_section + actual_section + differences_section;

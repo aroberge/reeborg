@@ -39,12 +39,7 @@
     "<p><a class='fake-button' href='#' onclick=\"RUR.load_world_file('worlds/menus/varia_en.json')\">Go to Varia</a></p>",
     "<hr>",
     "<h2>Traditional programming exercises</h2>",
-    "<h3>Print exercises</h3>",
-    "<p>Print exercises is a collection of exercises to help beginners learn to use <code>print()</code> or its Javascript equivalent.</p>",    
-    "<p><a class='fake-button' href='#' onclick=\"RUR.load_world_file('worlds/menus/print_en.json')\">Go to Print exercises</a></p>",
-    "<hr>",
-    "<h3>Temporary note</h3>",    
-    "<p>Note that the reorganization of worlds into different collections is not completed.</p>"
+    "<p>To be added soon.</p"
   ],
   "onload": [
     "RUR.show_description();",
