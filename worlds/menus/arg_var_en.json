@@ -7,6 +7,8 @@
     "    [base + 'print0.json', 'print'],",
     "    [base + 'harvest4.json', 'Fruit harvest'],",
     "    [base + 'newspaper1.json', 'Newspaper'],",
+    "    [base + 'around1d.json', 'Carrots and daisies'],",
+    "    [base + 'around1e.json', 'Carrots and apples'],",
     "    ['worlds/menus/select_collection_en.json', \"Other worlds\"]",
     "    ];",
     "MakeCustomMenu(contents);"
