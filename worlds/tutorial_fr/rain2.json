@@ -435,7 +435,7 @@
     "<p>Imaginez que Reeborg soit à côté d'un mur, qu'il avance d'un pas le long du mur,",
     "et observe qu'il n'y a plus de mur à son côté. Que peut-il arriver si Reeborg avance d'une autre case?",
     "<em>Indice&nbsp;:</em> il y a deux cas possibles.</p>",
-    "DIFFICULTY9"
+    "DIFFICULTY8"
   ],
   "decorative_objects": {
     "1,1": [

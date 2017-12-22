@@ -177,6 +177,7 @@ RUR.world_get.world_info = function (show_info_at_location) {
             to_replace = "INSERT_ONLOAD";
             description = description.replace(to_replace, insertion);
         }
+        description = description.replace("DIFFICULTY10", difficulty("difficulty10"));
         description = description.replace("DIFFICULTY1", difficulty("difficulty1"));
         description = description.replace("DIFFICULTY2", difficulty("difficulty2"));
         description = description.replace("DIFFICULTY3", difficulty("difficulty3"));
@@ -186,7 +187,6 @@ RUR.world_get.world_info = function (show_info_at_location) {
         description = description.replace("DIFFICULTY7", difficulty("difficulty7"));
         description = description.replace("DIFFICULTY8", difficulty("difficulty8"));
         description = description.replace("DIFFICULTY9", difficulty("difficulty9"));
-        description = description.replace("DIFFICULTY10", difficulty("difficulty10"));
 
         // replace the default since a description was provided.
         information = "<div class='automatic-description'>" + description + "</div>";

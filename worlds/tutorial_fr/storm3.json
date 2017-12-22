@@ -32,7 +32,7 @@
   "description": [
     "<h1>Une tâche ardue</h1>",
     "<p class='warning'>Attention à l'étang !</p>",
-    "DIFFICULTY9",
+    "DIFFICULTY8",
     "<p>Il y a eu beaucoup de vent hier et la cour est plein de feuilles.</p>",
     "<p>Aidez Reeborg à les ramasser et ensuite les",
     "    <code>lance()</code> dans le compost.",

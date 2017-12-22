@@ -1,0 +1,60 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ],
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 10,
+      "model": "classic"
+    }
+  ],
+  "walls": {},
+  "description": [
+    "Un simple monde, que Reeborg peut explorer à sa guise."
+  ],
+  "small_tiles": false,
+  "rows": 10,
+  "cols": 10,
+  "onload": [
+    "var size, x, y, nb_rows;",
+    "",
+    "size = 2* RUR.randint(3, 6);",
+    "RUR.set_world_size(size, size);",
+    "",
+    "nb_rows = size/2 - 1;",
+    "for (x=1; x<=size; x++){",
+    "    for(y=1; y<=nb_rows; y++) {",
+    "        if ( (x+y)%2 == 0) {",
+    "            RUR.add_object('token', x, y, {goal: true});",
+    "        }",
+    "    }",
+    "}",
+    "",
+    "for (x=1; x<=size; x++){",
+    "    for(y=nb_rows+3; y<=size; y++) {",
+    "        if ( (x+y)%2 == 0) {",
+    "            RUR.add_object('star', x, y, {goal: true});",
+    "        }",
+    "    }",
+    "}",
+    "",
+    "RUR.give_object_to_robot('star', size*nb_rows/2);",
+    "RUR.give_object_to_robot('token', size*nb_rows/2);",
+    "",
+    ""
+  ]
+}

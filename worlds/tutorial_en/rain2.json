@@ -437,7 +437,7 @@
     "<p>Imagine that Reeborg is standing next to a wall, takes a single step,",
     "and finds that there is no longer a wall next to him. What can happen if Reeborg takes another step?",
     "<em>Hint:</em> there are two possible cases.</p>",
-    "DIFFICULTY9",
+    "DIFFICULTY8",
     ""
   ],
   "decorative_objects": {
