@@ -9,6 +9,7 @@
     "    [base + 'harvest4.json', 'Récolte de fruits'],",
     "    [base + 'around1d.json', 'Carottes et marguerites'],",
     "    [base + 'around1e.json', 'Carottes et pommes'],",
+    "    [base + 'chess3.json', 'Une partie de dames'],",
     "    ['worlds/menus/select_collection_fr.json', \"Autres mondes\"]",
     "    ];",
     "MakeCustomMenu(contents);"
