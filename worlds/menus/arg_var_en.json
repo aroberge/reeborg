@@ -9,6 +9,7 @@
     "    [base + 'newspaper1.json', 'Newspaper'],",
     "    [base + 'around1d.json', 'Carrots and daisies'],",
     "    [base + 'around1e.json', 'Carrots and apples'],",
+    "    [base + 'chess3.json', 'A game of checkers'],",
     "    ['worlds/menus/select_collection_en.json', \"Other worlds\"]",
     "    ];",
     "MakeCustomMenu(contents);"
