@@ -82,7 +82,7 @@ RUR.MAX_X_DEFAULT = 14; // These two values are used in the dialog used to resiz
 RUR.MAX_Y_DEFAULT = 12; // a world, hard-coded in the html dialog #dialog-set-dimensions.
 RUR.END_CYCLE = "end cycle"; // for animated images
 
-RUR.CHECKMARK = "    ✓🤖";
+RUR.CHECKMARK = " ✓🤖";
 
 // The following are editors (content) that can be part of a world.
 RUR.WORLD_EDITORS = ["description", "editor", "library", "pre", "post", "onload"];

@@ -5,6 +5,7 @@
 
 require("../rur.js");
 require("./../translator.js");
+require("./user_progress.js");
 var remove_fileInput_listener = require("../listeners/onclick.js").remove_fileInput_listener;
 
 // Do not change the value of library_separator()as it could break
@@ -37,6 +38,11 @@ function saveSolution() {
         parts = filename.split("/");
         filename = parts[parts.length-1];
     }
+
+    console.log("filename before", filename);
+    filename = RUR.strip_checkmark(filename); // remove marks for completed task.
+    console.log("filename after", filename);
+
 
     switch(RUR.state.input_method) {
         case "python":
