@@ -1,0 +1,578 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ],
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 7,
+      "model": "classic"
+    }
+  ],
+  "walls": {},
+  "description": [
+    "<h1>Sorting: increasing order</h1>",
+    "<p>Reeborg must sort a pile of tokens from",
+    "    the smallest to the largest.</p>",
+    "<p>Each pile can contain between 1 and 9 objects.",
+    "    There can be between 3 to 9 piles. There are",
+    "    no gaps between piles: if Reeborg moves from its",
+    "    starting position, the first empty square he encounters",
+    "    will mark the end of the piles.",
+    "</p><p>Reeborg carries no additional object.</p>",
+    "<h2>Hint</h2>",
+    "<p>You should do sorting task 1a first.</p>",
+    "<h2>What you need to know</h2>",
+    "<ul><li>The functions <code>move()</code>, <code>turn_left()</code>, ",
+    "    <code>take()</code>, <code>put()</code> and <code>done()</code></li>",
+    "    <li>The conditions <code>wall_in_front()</code> or <code>front_is_clear()</code>,",
+    "        <code>carries_object()</code>, and <code>object_here()</code></li>",
+    "    <li>How to use <code>while</code> loops and <code>if</code> statements</li>",
+    "</ul>",
+    "DIFFICULTY9",
+    ""
+  ],
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14,
+  "tiles": {
+    "1,1": [
+      "gravel"
+    ],
+    "1,2": [
+      "gravel"
+    ],
+    "1,3": [
+      "gravel"
+    ],
+    "1,4": [
+      "gravel"
+    ],
+    "1,5": [
+      "gravel"
+    ],
+    "1,6": [
+      "gravel"
+    ],
+    "1,7": [
+      "gravel"
+    ],
+    "1,8": [
+      "gravel"
+    ],
+    "1,9": [
+      "gravel"
+    ],
+    "1,10": [
+      "gravel"
+    ],
+    "1,11": [
+      "gravel"
+    ],
+    "1,12": [
+      "mud"
+    ],
+    "2,1": [
+      "gravel"
+    ],
+    "2,2": [
+      "gravel"
+    ],
+    "2,3": [
+      "gravel"
+    ],
+    "2,4": [
+      "gravel"
+    ],
+    "2,5": [
+      "gravel"
+    ],
+    "2,6": [
+      "gravel"
+    ],
+    "2,7": [
+      "gravel"
+    ],
+    "2,8": [
+      "gravel"
+    ],
+    "2,9": [
+      "gravel"
+    ],
+    "2,10": [
+      "gravel"
+    ],
+    "2,11": [
+      "gravel"
+    ],
+    "2,12": [
+      "mud"
+    ],
+    "3,1": [
+      "gravel"
+    ],
+    "3,2": [
+      "gravel"
+    ],
+    "3,3": [
+      "gravel"
+    ],
+    "3,4": [
+      "gravel"
+    ],
+    "3,5": [
+      "gravel"
+    ],
+    "3,6": [
+      "gravel"
+    ],
+    "3,7": [
+      "gravel"
+    ],
+    "3,8": [
+      "gravel"
+    ],
+    "3,9": [
+      "gravel"
+    ],
+    "3,10": [
+      "gravel"
+    ],
+    "3,11": [
+      "gravel"
+    ],
+    "3,12": [
+      "mud"
+    ],
+    "4,1": [
+      "gravel"
+    ],
+    "4,2": [
+      "gravel"
+    ],
+    "4,3": [
+      "gravel"
+    ],
+    "4,4": [
+      "gravel"
+    ],
+    "4,5": [
+      "gravel"
+    ],
+    "4,6": [
+      "gravel"
+    ],
+    "4,7": [
+      "gravel"
+    ],
+    "4,8": [
+      "gravel"
+    ],
+    "4,9": [
+      "gravel"
+    ],
+    "4,10": [
+      "gravel"
+    ],
+    "4,11": [
+      "gravel"
+    ],
+    "4,12": [
+      "mud"
+    ],
+    "5,1": [
+      "gravel"
+    ],
+    "5,2": [
+      "gravel"
+    ],
+    "5,3": [
+      "gravel"
+    ],
+    "5,4": [
+      "gravel"
+    ],
+    "5,5": [
+      "gravel"
+    ],
+    "5,6": [
+      "gravel"
+    ],
+    "5,7": [
+      "gravel"
+    ],
+    "5,8": [
+      "gravel"
+    ],
+    "5,9": [
+      "gravel"
+    ],
+    "5,10": [
+      "gravel"
+    ],
+    "5,11": [
+      "gravel"
+    ],
+    "5,12": [
+      "mud"
+    ],
+    "6,1": [
+      "gravel"
+    ],
+    "6,2": [
+      "gravel"
+    ],
+    "6,3": [
+      "gravel"
+    ],
+    "6,4": [
+      "gravel"
+    ],
+    "6,5": [
+      "gravel"
+    ],
+    "6,6": [
+      "gravel"
+    ],
+    "6,7": [
+      "gravel"
+    ],
+    "6,8": [
+      "gravel"
+    ],
+    "6,9": [
+      "gravel"
+    ],
+    "6,10": [
+      "gravel"
+    ],
+    "6,11": [
+      "gravel"
+    ],
+    "6,12": [
+      "mud"
+    ],
+    "7,1": [
+      "gravel"
+    ],
+    "7,2": [
+      "gravel"
+    ],
+    "7,3": [
+      "gravel"
+    ],
+    "7,4": [
+      "gravel"
+    ],
+    "7,5": [
+      "gravel"
+    ],
+    "7,6": [
+      "gravel"
+    ],
+    "7,7": [
+      "gravel"
+    ],
+    "7,8": [
+      "gravel"
+    ],
+    "7,9": [
+      "gravel"
+    ],
+    "7,10": [
+      "gravel"
+    ],
+    "7,11": [
+      "gravel"
+    ],
+    "7,12": [
+      "mud"
+    ],
+    "8,1": [
+      "gravel"
+    ],
+    "8,2": [
+      "gravel"
+    ],
+    "8,3": [
+      "gravel"
+    ],
+    "8,4": [
+      "gravel"
+    ],
+    "8,5": [
+      "gravel"
+    ],
+    "8,6": [
+      "gravel"
+    ],
+    "8,7": [
+      "gravel"
+    ],
+    "8,8": [
+      "gravel"
+    ],
+    "8,9": [
+      "gravel"
+    ],
+    "8,10": [
+      "gravel"
+    ],
+    "8,11": [
+      "gravel"
+    ],
+    "8,12": [
+      "mud"
+    ],
+    "9,1": [
+      "gravel"
+    ],
+    "9,2": [
+      "gravel"
+    ],
+    "9,3": [
+      "gravel"
+    ],
+    "9,4": [
+      "gravel"
+    ],
+    "9,5": [
+      "gravel"
+    ],
+    "9,6": [
+      "gravel"
+    ],
+    "9,7": [
+      "gravel"
+    ],
+    "9,8": [
+      "gravel"
+    ],
+    "9,9": [
+      "gravel"
+    ],
+    "9,10": [
+      "gravel"
+    ],
+    "9,11": [
+      "gravel"
+    ],
+    "9,12": [
+      "mud"
+    ],
+    "10,1": [
+      "gravel"
+    ],
+    "10,2": [
+      "gravel"
+    ],
+    "10,3": [
+      "gravel"
+    ],
+    "10,4": [
+      "gravel"
+    ],
+    "10,5": [
+      "gravel"
+    ],
+    "10,6": [
+      "gravel"
+    ],
+    "10,7": [
+      "gravel"
+    ],
+    "10,8": [
+      "gravel"
+    ],
+    "10,9": [
+      "gravel"
+    ],
+    "10,10": [
+      "gravel"
+    ],
+    "10,11": [
+      "gravel"
+    ],
+    "10,12": [
+      "mud"
+    ],
+    "11,1": [
+      "gravel"
+    ],
+    "11,2": [
+      "gravel"
+    ],
+    "11,3": [
+      "gravel"
+    ],
+    "11,4": [
+      "gravel"
+    ],
+    "11,5": [
+      "gravel"
+    ],
+    "11,6": [
+      "gravel"
+    ],
+    "11,7": [
+      "gravel"
+    ],
+    "11,8": [
+      "gravel"
+    ],
+    "11,9": [
+      "gravel"
+    ],
+    "11,10": [
+      "gravel"
+    ],
+    "11,11": [
+      "gravel"
+    ],
+    "11,12": [
+      "mud"
+    ],
+    "12,1": [
+      "gravel"
+    ],
+    "12,2": [
+      "gravel"
+    ],
+    "12,3": [
+      "gravel"
+    ],
+    "12,4": [
+      "gravel"
+    ],
+    "12,5": [
+      "gravel"
+    ],
+    "12,6": [
+      "gravel"
+    ],
+    "12,7": [
+      "gravel"
+    ],
+    "12,8": [
+      "gravel"
+    ],
+    "12,9": [
+      "gravel"
+    ],
+    "12,10": [
+      "gravel"
+    ],
+    "12,11": [
+      "gravel"
+    ],
+    "12,12": [
+      "mud"
+    ],
+    "13,1": [
+      "gravel"
+    ],
+    "13,2": [
+      "gravel"
+    ],
+    "13,3": [
+      "gravel"
+    ],
+    "13,4": [
+      "gravel"
+    ],
+    "13,5": [
+      "gravel"
+    ],
+    "13,6": [
+      "gravel"
+    ],
+    "13,7": [
+      "gravel"
+    ],
+    "13,8": [
+      "gravel"
+    ],
+    "13,9": [
+      "gravel"
+    ],
+    "13,10": [
+      "gravel"
+    ],
+    "13,11": [
+      "gravel"
+    ],
+    "13,12": [
+      "mud"
+    ],
+    "14,1": [
+      "mud"
+    ],
+    "14,2": [
+      "mud"
+    ],
+    "14,3": [
+      "mud"
+    ],
+    "14,4": [
+      "mud"
+    ],
+    "14,5": [
+      "mud"
+    ],
+    "14,6": [
+      "mud"
+    ],
+    "14,7": [
+      "mud"
+    ],
+    "14,8": [
+      "mud"
+    ],
+    "14,9": [
+      "mud"
+    ],
+    "14,10": [
+      "mud"
+    ],
+    "14,11": [
+      "mud"
+    ],
+    "14,12": [
+      "mud"
+    ]
+  },
+  "onload": [
+    "var col, nb_cols, piles, height;",
+    "",
+    "nb_cols = RUR.randint(3, 9);",
+    "piles = [];",
+    "",
+    "for (col=1; col <= nb_cols; col++) {",
+    "    height = RUR.randint(1, 9);",
+    "    piles.push(height);",
+    "    RUR.add_object('token', col, 1, {number:height});",
+    "}",
+    "piles.sort(function(a, b) {",
+    "    return a - b;",
+    "});",
+    "",
+    "for (col=1; col <= nb_cols; col++) {",
+    "    height = piles[col-1];",
+    "    RUR.add_object('token', col, 1, {goal:true, number:height});",
+    "}",
+    ""
+  ]
+}

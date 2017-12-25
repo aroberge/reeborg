@@ -39,9 +39,7 @@ function saveSolution() {
         filename = parts[parts.length-1];
     }
 
-    console.log("filename before", filename);
     filename = RUR.strip_checkmark(filename); // remove marks for completed task.
-    console.log("filename after", filename);
 
 
     switch(RUR.state.input_method) {
