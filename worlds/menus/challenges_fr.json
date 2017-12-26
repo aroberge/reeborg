@@ -1,0 +1,23 @@
+{
+  "blank_canvas": true,
+  "onload": [
+    "base = 'worlds/challenges_fr/';",
+    "",
+    "var contents = [",
+    "    [base + 'sort1a.json', 'Trier : 1a'],",
+    "    [base + 'sort1a_test.json', 'Test de tri : 1a'],",
+    "    [base + 'sort1b.json', 'Trier : 1b'],",
+    "    [base + 'sort1b_test.json', 'Test de tri : 1b'],",
+    "    [base + 'sort2a.json', 'Trier : 2a'],",
+    "    [base + 'sort2b.json', 'Trier : 2b'],",
+    "    [base + 'chess0_5x1.json', 'Damier 5x1'],",
+    "    [base + 'chess0_1x5.json', 'Damier 1x5'],",
+    "    [base + 'chess0_3x4.json', 'Damier 3x4'],",
+    "    [base + 'chess0_4x3.json', 'Damier 4x3'],",
+    "    [base + 'chess1.json', 'Damier: le défi'],",
+    "    [base + 'chess2.json', 'Damier: le grand défi'],",
+    "    ['worlds/menus/select_collection_fr.json', \"Autres mondes\"]",
+    "    ];",
+    "MakeCustomMenu(contents);"
+  ]
+}

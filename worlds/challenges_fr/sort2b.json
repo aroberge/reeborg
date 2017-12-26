@@ -34,7 +34,7 @@
     "    la fin des piles.",
     "</p><p>Reeborg ne transporte aucun objet additionnel.</p>",
     "<h2>Suggestion</h2>",
-    "<p>Faites la tâche de triage 1b en premier.</p>",
+    "<p>Faites la tâche de tri 1b en premier.</p>",
     "<h2>Ce que vous devez connaître</h2>",
     "<ul><li>Les fonctions <code>avance()</code>, <code>tourne_a_gauche()</code>, ",
     "    <code>prend()</code>, <code>depose()</code> et <code>termine()</code>.</li>",

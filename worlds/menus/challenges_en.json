@@ -1,0 +1,23 @@
+{
+  "blank_canvas": true,
+  "onload": [
+    "base = 'worlds/challenges_en/';",
+    "",
+    "var contents = [",
+    "    [base + 'sort1a.json', 'Sorting: 1a'],",
+    "    [base + 'sort1a_test.json', 'Sorting: test case 1a'],",
+    "    [base + 'sort1b.json', 'Sorting: 1b'],",
+    "    [base + 'sort1b_test.json', 'Sorting: test case 1b'],",
+    "    [base + 'sort2a.json', 'Sorting: 2a'],",
+    "    [base + 'sort2b.json', 'Sorting: 2b'],",
+    "    [base + 'chess0_5x1.json', 'Checkerboard 5x1'],",
+    "    [base + 'chess0_1x5.json', 'Checkerboard 1x5'],",
+    "    [base + 'chess0_3x4.json', 'Checkerboard 3x4'],",
+    "    [base + 'chess0_4x3.json', 'Checkerboard 4x3'],",
+    "    [base + 'chess1.json', 'Checkerboard: the challenge'],",
+    "    [base + 'chess2.json', 'Checkerboard: the great challenge'],",
+    "    ['worlds/menus/select_collection_en.json', \"Other worlds\"]",
+    "    ];",
+    "MakeCustomMenu(contents);"
+  ]
+}

@@ -24,14 +24,14 @@
   ],
   "walls": {},
   "description": [
-    "<h1>Test de triage : ordre croissant</h1>",
+    "<h1>Test de tri : ordre croissant</h1>",
     "<p>Ce monde ne change jamais.",
     "    Son seul but est d'être utilisé pour comparer l'efficacité",
-    "    de vos solutions aux problèmes de triage.</p>",
+    "    de vos solutions aux problèmes de tri.</p>",
     "<p>Par exemple, en utilsant Python sans surlignement de code,",
     "    voici ce que j'obtiens pour mes solutions:",
-    "    <ul><li>la solution de la tâche du triage en ordre <em>croissant</em> prend 345 instructions;</li>",
-    "    <li>la solution de la tâche du triage en ordre <em>décroissant</em> prend 263 instructions.</li></ul>",
+    "    <ul><li>la solution de la tâche du tri en ordre <em>croissant</em> prend 345 instructions;</li>",
+    "    <li>la solution de la tâche du tri en ordre <em>décroissant</em> prend 263 instructions.</li></ul>",
     "    Les deux test utilisent les mêmes piles de départ.</p>"
   ],
   "small_tiles": false,
