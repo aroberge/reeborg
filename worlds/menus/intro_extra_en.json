@@ -8,6 +8,9 @@
     "    [base + 'center1a.json', 'Center 1a'],",
     "    [base + 'center2a.json', 'Center 2a'],",
     "    [base + 'double.json', 'Double'],",
+    "    [base + 'target.json', 'Target'],",
+    "    [base + 'stars.json', 'Stacking 1'],",
+    "    [base + 'cave.json', 'Stacking 2'],",
     "    ['worlds/menus/select_collection_en.json', \"Other worlds\"]",
     "    ];",
     "MakeCustomMenu(contents);"

@@ -1,0 +1,52 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {
+        "triangle": 35
+      },
+      "_orientation": 0,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ],
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 9,
+      "model": "classic"
+    }
+  ],
+  "walls": {},
+  "description": [
+    "Description to be written."
+  ],
+  "small_tiles": false,
+  "rows": 10,
+  "cols": 14,
+  "background_image": "worlds/images/pexels-photo-416832.png",
+  "onload": [
+    "var i, x, y;",
+    "",
+    "x = RUR.randint(2, 14);",
+    "y = RUR.randint(1, 10);",
+    "RUR.add_object(\"triangle\", x, y);",
+    "for (i=1; i<=14; i++) {",
+    "    RUR.add_object(\"triangle\", i, y, {goal:true});",
+    "    RUR.add_colored_tile(\"rgba(255, 255, 255, 0.5)\", i, y);",
+    "}",
+    "for (i=1; i<=10; i++) {",
+    "    RUR.add_object(\"triangle\", x, i, {goal:true});",
+    "    RUR.add_colored_tile(\"rgba(255, 255, 255, 0.5)\", x, i);",
+    "}",
+    "RUR.add_colored_tile(\"rgba(255, 255, 255, 0.8)\", x, y);",
+    ""
+  ]
+}
