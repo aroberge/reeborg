@@ -118,7 +118,7 @@
     "add_black(x_init, y_init);",
     "add_black(x_fin, y_fin);",
     "",
-    "_r = new UsedRobot(x_init, y_init);",
+    "_r = new RobotUsage(x_init, y_init);",
     "RUR.add_final_position('house', x_fin, y_fin);",
     "",
     "i = first;",
