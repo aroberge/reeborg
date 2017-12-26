@@ -7,6 +7,7 @@
     "    [base + 'follow1.json', 'Back home'],",
     "    [base + 'center1a.json', 'Center 1a'],",
     "    [base + 'center2a.json', 'Center 2a'],",
+    "    [base + 'double.json', 'Double'],",
     "    ['worlds/menus/select_collection_en.json', \"Other worlds\"]",
     "    ];",
     "MakeCustomMenu(contents);"

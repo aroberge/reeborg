@@ -1,0 +1,94 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {
+        "star": 200
+      },
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 135,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": [
+    "<h1>Double the pile</h1>",
+    "<p>Reeborg has a pile of stars somewhere in front of it, ",
+    "    and wants to  make a bigger one!",
+    "    Reeborg is carrying a large number of stars, ",
+    "    which you can use to help build the larger pile it wants. ",
+    "    Create a pile of stars with exactly twice as many stars,",
+    "    and remove the original pile.",
+    "    You will always build the new, ",
+    "    bigger pile one square to the right of where you ",
+    "    find the initial pile.</p>",
+    "<h2>What you need to know</h2>",
+    "<ul><li>The functions <code>move()</code>, <code>turn_left()</code>",
+    "    <code>take()</code>, and <code>put()</code></li>",
+    "    <li>The condition <code>object_here()</code></li>",
+    "    <li>How to use <code>while</code> loops and",
+    "        <code>move()</code> statements.</li>",
+    "    <li>How to negate a condition [<code>not</code> keyword",
+    "    in Python].</li>",
+    "</ul>",
+    "DIFFICULTY3"
+  ],
+  "small_tiles": false,
+  "rows": 1,
+  "cols": 10,
+  "tiles": {
+    "1,1": [
+      "grass"
+    ],
+    "2,1": [
+      "grass"
+    ],
+    "3,1": [
+      "grass"
+    ],
+    "4,1": [
+      "grass"
+    ],
+    "5,1": [
+      "grass"
+    ],
+    "6,1": [
+      "grass"
+    ],
+    "7,1": [
+      "grass"
+    ],
+    "8,1": [
+      "grass"
+    ],
+    "9,1": [
+      "grass"
+    ],
+    "10,1": [
+      "grass"
+    ]
+  },
+  "onload": [
+    "var x, nb;",
+    "x = RUR.randint(2, 8);",
+    "nb = RUR.randint(1, 9);",
+    "RUR.add_object('star', x, 1, {number: nb});",
+    "RUR.add_object('star', x+1, 1, {number: 2*nb, goal:true});",
+    "",
+    ""
+  ]
+}

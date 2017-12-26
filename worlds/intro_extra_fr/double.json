@@ -1,0 +1,93 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {
+        "star": 200
+      },
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 135,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": [
+    "<h1>Doubler la pile</h1>",
+    "<p>Une pile d'étoiles est quelque part devant Reeborg et celui-ci ",
+    "    veut en faire une deux fois plus grande.",
+    "    Reeborg transporte un grand nombre d'étoiles",
+    "    que vous pouvez utiliser pour l'aider à construire la plus grand pile.",
+    "    Créer une pile d'étoiles qui contient exactement le double d'étoiles de la",
+    "    pile originale, et enlever cette dernière.",
+    "    La nouvelle pile sera toujours construite immédiatement à droite ",
+    "    de la pile originale.</p>",
+    "<h2>Ce que vous devez connaître</h2>",
+    "<ul><li>Les fonctions <code>avance()</code>, <code>tourne_a_gauche()</code>",
+    "    <code>prend()</code>, et <code>depose()</code></li>",
+    "    <li>La condition <code>objet_ici()</code></li>",
+    "    <li>Comment utiliser des boucles <code>while</code> et des énoncés",
+    "        <code>if</code>.</li>",
+    "    <li>Comment faire la négation d'une condition [avec <code>not</code>",
+    "    en Python].</li>",
+    "</ul>",
+    "DIFFICULTY3"
+  ],
+  "small_tiles": false,
+  "rows": 1,
+  "cols": 10,
+  "tiles": {
+    "1,1": [
+      "grass"
+    ],
+    "2,1": [
+      "grass"
+    ],
+    "3,1": [
+      "grass"
+    ],
+    "4,1": [
+      "grass"
+    ],
+    "5,1": [
+      "grass"
+    ],
+    "6,1": [
+      "grass"
+    ],
+    "7,1": [
+      "grass"
+    ],
+    "8,1": [
+      "grass"
+    ],
+    "9,1": [
+      "grass"
+    ],
+    "10,1": [
+      "grass"
+    ]
+  },
+  "onload": [
+    "var x, nb;",
+    "x = RUR.randint(2, 8);",
+    "nb = RUR.randint(1, 9);",
+    "RUR.add_object('star', x, 1, {number: nb});",
+    "RUR.add_object('star', x+1, 1, {number: 2*nb, goal:true});",
+    "",
+    ""
+  ]
+}
