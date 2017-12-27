@@ -62,7 +62,8 @@
     "<p>You may have noticed that your solution has some repeated patterns.",
     "If you know how to define functions, define a function named <code>jump()</code>",
     "and use it to simplify your program.</p>",
-    "DIFFICULTY2"
+    "DIFFICULTY2",
+    "<p>Background image: <a href='https://www.pexels.com/photo/action-athletes-audience-ball-270154/'>www.pexels.com</a></p>"
   ],
   "onload": [
     "// This world has been defined with a background image",

@@ -26,7 +26,8 @@
   ],
   "walls": {},
   "description": [
-    "Description à venir."
+    "Description à venir.",
+    "<p>Image de fond: <a href='https://www.pexels.com/photo/stars-in-night-sky-29435/'>www.pexels.com</a></p>"
   ],
   "small_tiles": true,
   "rows": 20,

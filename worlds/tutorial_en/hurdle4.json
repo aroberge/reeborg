@@ -43,7 +43,8 @@
     "and ot combine them for this last hurdles race.</p>",
     "<p>Your program should also be valid for worlds",
     "<b>Hurdles 1</b>, <b>Hurdles 2</b> et <b>Hurdles 3</b></p>",
-    "DIFFICULTY5"
+    "DIFFICULTY5",
+    "<p>Background image: <a href='https://www.pexels.com/photo/action-athletes-audience-ball-270154/'>www.pexels.com</a></p>"
   ],
   "onload": [
     "var x, y, height;",

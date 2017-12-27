@@ -26,7 +26,8 @@
   ],
   "walls": {},
   "description": [
-    "Description to be written."
+    "Description to be written.",
+    "<p>Background image: <a href='https://www.pexels.com/photo/stars-in-night-sky-29435/'>www.pexels.com</a></p>"
   ],
   "small_tiles": true,
   "rows": 20,

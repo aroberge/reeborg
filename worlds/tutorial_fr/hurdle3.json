@@ -33,8 +33,9 @@
     "<li>Les conditions <code>rien_devant()</code> ou <code>mur_devant()</code>, <code>au_but()</code> et leur négation.</li>",
     "<li>Comment utiliser une boucle <code>while</code></li> et une énoncé <code>if</code>.</ul>",
     "<p>Votre programme devrait également fonctionner pour les mondes <b>Haies 1</b> et <b>Haies 2</b>.</p>",
-    "DIFFICULTY4"
-  ],
+    "DIFFICULTY4",
+    "<p>Image de fond: <a href='https://www.pexels.com/photo/action-athletes-audience-ball-270154/'>www.pexels.com</a></p>"
+ ],
   "onload": [
     "var x;",
     "RUR.public['path'] = [[1, 1]]",

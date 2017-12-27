@@ -27,7 +27,7 @@
     "towers as tall as he can without bumping into them. ",
     "Write a program that creates a crates stack",
     "at Reeborg’s starting position, ",
-    "and every other x-position after that (odd x-values). ",
+    "and every other x-position after that (odd x-values) until Reeborg reaches a wall. ",
     "The height of each crates stack should allow for ",
     "one empty square beneath the stalactites.",
     "",
@@ -38,19 +38,16 @@
     "    <li>How to use a <code>while</code> loop and",
     "        an <code>if</code> statement.</li></ul>",
     "DIFFICULTY5",
-    ""
+    "<p>Background image: <a href='https://www.pexels.com/photo/nature-france-rocks-caves-2633/'>www.pexels.com</a></p>"
   ],
   "small_tiles": false,
-  "rows": 12,
-  "cols": 9,
+  "rows": 10,
+  "cols": 15,
   "onload": [
     "var width, height, obstacles, i, h, r, x, y;",
     "",
-    "height = 12;",
-    "width = RUR.randint(6, 13);",
-    "",
-    "RUR.set_world_size(width, height);",
-    "RUR.fill_background(\"black\");",
+    "height = 10;",
+    "width = RUR.randint(6, 15);",
     "",
     "// new objects",
     "RUR.add_new_thing({",
@@ -88,7 +85,7 @@
     "RUR.give_object_to_robot(\"crate\", 99);",
     "",
     "for (x=1; x<= width; x++) {",
-    "    h = RUR.randint(8, 12);",
+    "    h = RUR.randint(8, height);",
     "    i = RUR.randint(1, 2);",
     "    RUR.add_obstacle('stalactite'+i, x, h);",
     "    for (y=h+1; y<=height; y++) {",
@@ -100,8 +97,10 @@
     "        }",
     "    }",
     "}",
+    "RUR.add_wall('east', width, 1);",
     "// Change the robot model, since grey would not be very visible",
-    "RUR.set_model('yellow');",
+    "RUR.set_model('light blue');",
     ""
-  ]
+  ],
+  "background_image": "worlds/images/nature-france-rocks-caves-2633.png"
 }

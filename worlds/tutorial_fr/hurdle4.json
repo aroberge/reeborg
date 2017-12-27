@@ -33,7 +33,8 @@
     "et de les combiner pour cette dernière course de haies.</p>",
     "<p>Votre solution devrait être également valide pour les mondes",
     "<b>Haies 1</b>, <b>Haies 2</b> et <b>Haies 3</b></p>",
-    "DIFFICULTY5"
+    "DIFFICULTY5",
+    "<p>Image de fond: <a href='https://www.pexels.com/photo/action-athletes-audience-ball-270154/'>www.pexels.com</a></p>"
   ],
   "onload": [
     "var x, y, height;",

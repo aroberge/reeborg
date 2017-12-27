@@ -72,7 +72,8 @@
     "<li>La condition <code>au_but()</code> et sa négation.</li>",
     "<li>Comment utiliser une boucle <code>while</code></li></ul>",
     "<p>Votre programme devrait également fonctionner pour le monde <b>Haies 1</b>.</p>",
-    "DIFFICULTY3"
+    "DIFFICULTY3",
+    "<p>Image de fond: <a href='https://www.pexels.com/photo/action-athletes-audience-ball-270154/'>www.pexels.com</a></p>"
   ],
   "onload": [
     "// This world has been defined with a background image",

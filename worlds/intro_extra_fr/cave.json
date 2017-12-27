@@ -27,7 +27,7 @@
     "qui rejoignent presque le plafond, laissant une case de vide.",
     "Écrivez un programme qui permettra à Reeborg de faire ces piles.",
     "La première pile sera faite à la position où se trouve Reeborg, ",
-    "et il y aura une colonne de vide entre chaque pile.",
+    "et il y aura une colonne de vide entre chaque pile; le tout se terminera lorsque Reeborg rencontrera un mur.",
     "",
     "<h2>Ce que vous devez connaître</h2>",
     "<ul><li>Les fonctions <code>avance()</code>, ",
@@ -36,20 +36,17 @@
     "    <li>Comment utiliser une boucle <code>while</code>",
     "        et un énoncé <code>if</code>.</li></ul>",
     "DIFFICULTY5",
-    ""
+    "<p>Image de fond: <a href='https://www.pexels.com/photo/nature-france-rocks-caves-2633/'>www.pexels.com</a></p>"
   ],
   "small_tiles": false,
-  "rows": 12,
-  "cols": 9,
+  "rows": 10,
+  "cols": 15,
   "onload": [
     "var width, height, obstacles, i, h, r, x, y;",
     "",
-    "height = 12;",
-    "width = RUR.randint(6, 13);",
-    "",
-    "RUR.set_world_size(width, height);",
-    "RUR.fill_background(\"black\");",
-    "",
+    "height = 10;",
+    "width = RUR.randint(6, 15);",
+    "",    "",
     "// new objects",
     "RUR.add_new_thing({",
     "    'name': 'ground',",
@@ -86,7 +83,7 @@
     "RUR.give_object_to_robot(\"caisse\", 99);",
     "",
     "for (x=1; x<= width; x++) {",
-    "    h = RUR.randint(8, 12);",
+    "    h = RUR.randint(8, height);",
     "    i = RUR.randint(1, 2);",
     "    RUR.add_obstacle('stalactite'+i, x, h);",
     "    for (y=h+1; y<=height; y++) {",
@@ -98,8 +95,10 @@
     "        }",
     "    }",
     "}",
+    "RUR.add_wall('east', width, 1);",
     "// Change the robot model, since grey would not be very visible",
-    "RUR.set_model('yellow');",
+    "RUR.set_model('light blue');",
     ""
-  ]
+  ],
+  "background_image": "worlds/images/nature-france-rocks-caves-2633.png"
 }

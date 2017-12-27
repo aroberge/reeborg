@@ -26,7 +26,8 @@
   ],
   "walls": {},
   "description": [
-    "Description à ajouter."
+    "Description à ajouter.",
+    "<p>Image de fond: <a href='https://www.pexels.com/photo/bullseye-center-illustration-round-416832/'>www.pexels.com</a></p>"
   ],
   "small_tiles": false,
   "rows": 10,

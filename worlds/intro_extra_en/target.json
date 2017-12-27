@@ -26,7 +26,8 @@
   ],
   "walls": {},
   "description": [
-    "Description to be written."
+    "Description to be written.",
+    "<p>Background image: <a href='https://www.pexels.com/photo/bullseye-center-illustration-round-416832/'>www.pexels.com</a></p>"
   ],
   "small_tiles": false,
   "rows": 10,

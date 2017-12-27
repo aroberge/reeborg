@@ -88,7 +88,8 @@
     "<li>The condition <code>at_goal()</code> and its negation.</li>",
     "<li>How to use a <code>while</code> loop.</li></ul>",
     "<p>Your program should also be valid for world <b>Hurdles 1</b>.</p>",
-    "DIFFICULTY3"
+    "DIFFICULTY3",
+    "<p>Background image: <a href='https://www.pexels.com/photo/action-athletes-audience-ball-270154/'>www.pexels.com</a></p>"
   ],
   "onload": [
     "// This world has been defined with a background image",

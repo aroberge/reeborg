@@ -46,7 +46,8 @@
     "<p>Vous avez probablement remarqué que votre solution comporte des répétitions.",
     "Si vous savez comment définir des fonctions, définissez une fonction <code>saute()</code>",
     "et utilisez-là pour simplifier votre programme",
-    "DIFFICULTY2"
+    "DIFFICULTY2",
+    "<p>Image de fond: <a href='https://www.pexels.com/photo/action-athletes-audience-ball-270154/'>www.pexels.com</a></p>"
     ],
   "onload": [
     "// This world has been defined with a background image",
