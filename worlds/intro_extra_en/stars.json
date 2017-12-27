@@ -14,7 +14,7 @@
       "_trace_history": [],
       "_trace_style": "default",
       "_trace_color": "seagreen",
-      "__id": 3,
+      "__id": 28,
       "model": "classic",
       "possible_initial_positions": [
         [
@@ -26,7 +26,18 @@
   ],
   "walls": {},
   "description": [
-    "Description to be written.",
+    "<h1>Reaching for the stars</h1>",
+    "<p>Reeborg dreams of space travel and would like",
+    "    to explore the universe. Help Reeborg build",
+    "    star towers, four grid squares apart.</p>",
+    "<p>You should try to make your program as short",
+    "    as possible by using some loops when appropriate.</p>",
+    "<h2>What you need to know</h2>",
+    "<ul><li>The functions <code>move()</code>, <code>turn_left()</code>",
+    "    and <code>put()</code></li>",
+    "    <li>How to use <code>for/repeat</code> loops.</li></ul>",
+    "",
+    "DIFFICULTY3",
     "<p>Background image: <a href='https://www.pexels.com/photo/stars-in-night-sky-29435/'>www.pexels.com</a></p>"
   ],
   "small_tiles": true,

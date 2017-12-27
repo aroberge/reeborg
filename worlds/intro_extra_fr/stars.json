@@ -26,7 +26,16 @@
   ],
   "walls": {},
   "description": [
-    "Description à venir.",
+    "<h1>Rejoindre les étoiles</h1>",
+    "<p>Reeborg rêve d'exploration spatiale.",
+    "    Aidez Reeborg à construire des tours d'étoiles.</p>",
+    "<p>Vous devriez écrire un programme aussi court que possible,",
+    "    en utilisant des boucles.</p>",
+    "<h2>Ce que vous devez connaître</h2>",
+    "<ul><li>Les fonctions <code>avance()</code>, <code>tourne_a_gauche()</code>",
+    "    et <code>depose()</code>.</li>",
+    "    <li>Comment utiliser des boucles <code>for/repeat</code>.</li></ul>",
+    "DIFFICULTY3",
     "<p>Image de fond: <a href='https://www.pexels.com/photo/stars-in-night-sky-29435/'>www.pexels.com</a></p>"
   ],
   "small_tiles": true,

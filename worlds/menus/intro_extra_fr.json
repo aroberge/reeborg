@@ -9,8 +9,8 @@
     "    [base + 'center2a.json', 'Centrer 2a'],",
     "    [base + 'double.json', 'Doubler'],",
     "    [base + 'target.json', 'La cible'],",
-    "    [base + 'stars.json', 'Empiler 1'],",
-    "    [base + 'cave.json', 'Empiler 2'],",
+    "    [base + 'stars.json', 'Les étoiles'],",
+    "    [base + 'cave.json', 'La caverne'],",
     "    ['worlds/menus/select_collection_fr.json', \"Autres mondes\"]",
     "    ];",
     "MakeCustomMenu(contents);"

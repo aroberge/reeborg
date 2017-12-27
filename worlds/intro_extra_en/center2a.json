@@ -37,7 +37,7 @@
     "",
     "<h3>What you need to know</h3>",
     "    <ul><li>The functions <code>move()</code>, ",
-    "        <code>turn_left()</code> and ",
+    "        <code>turn_left()</code>, <code>take()</code> and ",
     "        <code>put()</code>.</li>",
     "    <li>The conditions <code>front_is_clear()</code> ",
     "        or <code>wall_in_front()</code>, and <code>object_here()</code>.</li>",

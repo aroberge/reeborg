@@ -9,8 +9,8 @@
     "    [base + 'center2a.json', 'Center 2a'],",
     "    [base + 'double.json', 'Double'],",
     "    [base + 'target.json', 'Target'],",
-    "    [base + 'stars.json', 'Stacking 1'],",
-    "    [base + 'cave.json', 'Stacking 2'],",
+    "    [base + 'stars.json', 'Reaching for the stars'],",
+    "    [base + 'cave.json', 'In a cave'],",
     "    ['worlds/menus/select_collection_en.json', \"Other worlds\"]",
     "    ];",
     "MakeCustomMenu(contents);"
