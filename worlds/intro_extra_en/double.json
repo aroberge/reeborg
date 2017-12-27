@@ -41,7 +41,7 @@
     "    <code>take()</code>, and <code>put()</code></li>",
     "    <li>The condition <code>object_here()</code></li>",
     "    <li>How to use <code>while</code> loops and",
-    "        <code>move()</code> statements.</li>",
+    "        <code>if</code> statements.</li>",
     "    <li>How to negate a condition [<code>not</code> keyword",
     "    in Python].</li>",
     "</ul>",

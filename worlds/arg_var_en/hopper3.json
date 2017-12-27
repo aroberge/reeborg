@@ -1,0 +1,528 @@
+{
+  "robots": [
+    {
+      "x": 8,
+      "y": 4,
+      "_prev_x": 8,
+      "_prev_y": 4,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 78,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          8,
+          4
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": [
+    "<h1>Transplanting 3</h1>",
+    "<p><span class='warning'>Important:</span> you should solve <em>Transplanting 2</em> first.",
+    "<p>It has been raining hard and ",
+    "    <a href='https://en.wikipedia.org/wiki/Grace_Hopper'>",
+    "    Grace Hopper</a> fears that the bridge might get carried away.",
+    "    As she did last year, she asks Reeborg to transplant the flowers,",
+    "    but keeping them in the same order.",
+    "    Note that, this year, she has planted more than one kind of flowers at each location.</p>",
+    "<p><em>This year, I fear that you will have to carry all the flowers at once",
+    "    </em>, she tells Reeborg.</p>",
+    "<p>Help Reeborg do the transplanting job.</p>",
+    "<h2>What you need to know</h2>",
+    "<p>In addition to what you needed to solve <em>Transplanting 2</em>,",
+    "    you will likely want to use a Python list (or Javascript array)",
+    " and a Python dict (or Javascript object)",
+    "    to keep track of the number of each flower at each location.",
+    "You will also need the following:</p>",
+    "  <ul><li>How to call a function with an argument.</li>",
+    "    <li>How to compare two strings using <code>==</code></li>",
+    "    <li>Python: how to use the index of a list to get its first item.</li>",
+    "    <li>Javascript: how to use the index of an array to get its first item.</li></ul>",
+    "DIFFICULTY8"
+  ],
+  "small_tiles": false,
+  "rows": 8,
+  "cols": 14,
+  "tiles": {
+    "1,1": [
+      "grass"
+    ],
+    "1,2": [
+      "grass"
+    ],
+    "1,3": [
+      "grass"
+    ],
+    "1,4": [
+      "grass"
+    ],
+    "1,5": [
+      "grass"
+    ],
+    "1,6": [
+      "grass"
+    ],
+    "1,7": [
+      "grass"
+    ],
+    "1,8": [
+      "grass"
+    ],
+    "2,1": [
+      "grass"
+    ],
+    "2,2": [
+      "grass"
+    ],
+    "2,3": [
+      "grass"
+    ],
+    "2,4": [
+      "grass"
+    ],
+    "2,5": [
+      "pale_grass"
+    ],
+    "2,6": [
+      "grass"
+    ],
+    "2,7": [
+      "grass"
+    ],
+    "2,8": [
+      "grass"
+    ],
+    "3,1": [
+      "grass"
+    ],
+    "3,2": [
+      "grass"
+    ],
+    "3,3": [
+      "grass"
+    ],
+    "3,4": [
+      "grass"
+    ],
+    "3,5": [
+      "pale_grass"
+    ],
+    "3,6": [
+      "grass"
+    ],
+    "3,7": [
+      "grass"
+    ],
+    "3,8": [
+      "grass"
+    ],
+    "4,1": [
+      "grass"
+    ],
+    "4,2": [
+      "grass"
+    ],
+    "4,3": [
+      "grass"
+    ],
+    "4,4": [
+      "grass"
+    ],
+    "4,5": [
+      "pale_grass"
+    ],
+    "4,6": [
+      "grass"
+    ],
+    "4,7": [
+      "grass"
+    ],
+    "4,8": [
+      "grass"
+    ],
+    "5,1": [
+      "grass"
+    ],
+    "5,2": [
+      "grass"
+    ],
+    "5,3": [
+      "grass"
+    ],
+    "5,4": [
+      "grass"
+    ],
+    "5,5": [
+      "pale_grass"
+    ],
+    "5,6": [
+      "grass"
+    ],
+    "5,7": [
+      "grass"
+    ],
+    "5,8": [
+      "water"
+    ],
+    "6,1": [
+      "water"
+    ],
+    "6,2": [
+      "grass"
+    ],
+    "6,3": [
+      "grass"
+    ],
+    "6,4": [
+      "grass"
+    ],
+    "6,5": [
+      "gravel"
+    ],
+    "6,6": [
+      "grass"
+    ],
+    "6,7": [
+      "water"
+    ],
+    "6,8": [
+      "water"
+    ],
+    "7,1": [
+      "water"
+    ],
+    "7,2": [
+      "water"
+    ],
+    "7,3": [
+      "water"
+    ],
+    "7,4": [
+      "water"
+    ],
+    "7,5": [
+      "water"
+    ],
+    "7,6": [
+      "water"
+    ],
+    "7,7": [
+      "water"
+    ],
+    "7,8": [
+      "water"
+    ],
+    "8,1": [
+      "water"
+    ],
+    "8,2": [
+      "water"
+    ],
+    "8,3": [
+      "grass"
+    ],
+    "8,4": [
+      "grass"
+    ],
+    "8,5": [
+      "gravel"
+    ],
+    "8,6": [
+      "grass"
+    ],
+    "8,7": [
+      "grass"
+    ],
+    "8,8": [
+      "water"
+    ],
+    "9,1": [
+      "grass"
+    ],
+    "9,2": [
+      "grass"
+    ],
+    "9,3": [
+      "grass"
+    ],
+    "9,4": [
+      "grass"
+    ],
+    "9,5": [
+      "grass"
+    ],
+    "9,6": [
+      "grass"
+    ],
+    "9,7": [
+      "grass"
+    ],
+    "9,8": [
+      "grass"
+    ],
+    "10,1": [
+      "grass"
+    ],
+    "10,2": [
+      "grass"
+    ],
+    "10,3": [
+      "grass"
+    ],
+    "10,4": [
+      "grass"
+    ],
+    "10,5": [
+      "pale_grass"
+    ],
+    "10,6": [
+      "grass"
+    ],
+    "10,7": [
+      "grass"
+    ],
+    "10,8": [
+      "grass"
+    ],
+    "11,1": [
+      "grass"
+    ],
+    "11,2": [
+      "grass"
+    ],
+    "11,3": [
+      "grass"
+    ],
+    "11,4": [
+      "grass"
+    ],
+    "11,5": [
+      "pale_grass"
+    ],
+    "11,6": [
+      "grass"
+    ],
+    "11,7": [
+      "grass"
+    ],
+    "11,8": [
+      "grass"
+    ],
+    "12,1": [
+      "grass"
+    ],
+    "12,2": [
+      "grass"
+    ],
+    "12,3": [
+      "grass"
+    ],
+    "12,4": [
+      "grass"
+    ],
+    "12,5": [
+      "pale_grass"
+    ],
+    "12,6": [
+      "grass"
+    ],
+    "12,7": [
+      "grass"
+    ],
+    "12,8": [
+      "grass"
+    ],
+    "13,1": [
+      "grass"
+    ],
+    "13,2": [
+      "grass"
+    ],
+    "13,3": [
+      "grass"
+    ],
+    "13,4": [
+      "grass"
+    ],
+    "13,5": [
+      "pale_grass"
+    ],
+    "13,6": [
+      "grass"
+    ],
+    "13,7": [
+      "grass"
+    ],
+    "13,8": [
+      "grass"
+    ],
+    "14,1": [
+      "grass"
+    ],
+    "14,2": [
+      "grass"
+    ],
+    "14,3": [
+      "grass"
+    ],
+    "14,4": [
+      "grass"
+    ],
+    "14,5": [
+      "grass"
+    ],
+    "14,6": [
+      "grass"
+    ],
+    "14,7": [
+      "grass"
+    ],
+    "14,8": [
+      "grass"
+    ]
+  },
+  "goal": {
+    "objects": {
+      "9,5": {},
+      "11,5": {}
+    },
+    "possible_final_positions": [
+      [
+        9,
+        5
+      ]
+    ],
+    "position": {
+      "image": "house",
+      "x": 9,
+      "y": 5
+    }
+  },
+  "objects": {},
+  "decorative_objects": {
+    "2,7": [
+      "dandelion"
+    ],
+    "11,8": [
+      "dandelion"
+    ],
+    "4,1": [
+      "dandelion"
+    ],
+    "12,2": [
+      "dandelion"
+    ],
+    "14,1": [
+      "dandelion"
+    ]
+  },
+  "obstacles": {
+    "3,4": [
+      "fence_double"
+    ],
+    "4,4": [
+      "fence_double"
+    ],
+    "5,4": [
+      "fence_double"
+    ],
+    "6,4": [
+      "fence_double"
+    ],
+    "3,6": [
+      "fence_double"
+    ],
+    "4,6": [
+      "fence_double"
+    ],
+    "5,6": [
+      "fence_double"
+    ],
+    "6,6": [
+      "fence_double"
+    ],
+    "2,6": [
+      "fence_double"
+    ],
+    "2,4": [
+      "fence_double"
+    ],
+    "1,6": [
+      "fence_vertical",
+      "fence_right"
+    ],
+    "1,5": [
+      "fence_vertical"
+    ],
+    "1,4": [
+      "fence_right"
+    ]
+  },
+  "bridge": {
+    "7,5": [
+      "bridge"
+    ]
+  },
+  "onload": [
+    "var nb, x;",
+    "for(x=2; x<=5; x++) {",
+    "    nb = RUR.randint(1, 4);",
+    "    RUR.add_object('daisy', x, 5, {number: nb});",
+    "    RUR.add_object('daisy', x+8, 5, {goal: true,",
+    "                                   number: nb});",
+    "    nb = RUR.randint(1, 4);",
+    "    RUR.add_object('tulip', x, 5, {number: nb});",
+    "    RUR.add_object('tulip', x+8, 5, {goal: true,",
+    "                                   number: nb});",
+    "}",
+    "",
+    "// Once the robot has crossed the bridge, and",
+    "// come back, we remove the bridge as soon as",
+    "// the robot steps off the bridge",
+    "RUR.public.bridge_removed = false;",
+    "RUR.public.robot_crossed = false;",
+    "",
+    "function move_bridge(a, b) {",
+    "    RUR._recording_(false);",
+    "    RUR.remove_bridge(\"bridge\", 7, a);",
+    "    RUR._recording_(true);",
+    "    RUR.add_bridge(\"bridge\", 7, b);",
+    "}",
+    "",
+    "RUR.frame_insertion = function (name, arg) {",
+    "    var delay, robot, x, y;",
+    "    if (RUR.public.bridge_removed) {",
+    "        return;",
+    "    }",
+    "    if (name != 'move') {",
+    "        return;",
+    "    }",
+    "    robot = RUR.get_robot_by_id(arg);",
+    "    if (robot.body.x == 6) {",
+    "        RUR.public.robot_crossed = true;",
+    "    }",
+    "    if (!RUR.public.robot_crossed) {",
+    "        return;",
+    "    }",
+    "    // bridge not removed, coming back",
+    "    if (robot.body.x == 8) {",
+    "        delay = RUR._think_(300);",
+    "        move_bridge(5, 4);",
+    "        move_bridge(4, 3);",
+    "        move_bridge(3, 2);",
+    "        move_bridge(2, 1);",
+    "        RUR.remove_bridge(\"bridge\", 7, 1);",
+    "        RUR.public.bridge_removed = true;",
+    "        RUR._think_(delay);",
+    "    }",
+    "}",
+    ""
+  ]
+}

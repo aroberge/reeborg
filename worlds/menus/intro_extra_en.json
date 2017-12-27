@@ -11,6 +11,7 @@
     "    [base + 'target.json', 'Target'],",
     "    [base + 'stars.json', 'Reaching for the stars'],",
     "    [base + 'cave.json', 'In a cave'],",
+    "    [base + 'hopper1.json', 'Grace Hopper'],",
     "    ['worlds/menus/select_collection_en.json', \"Other worlds\"]",
     "    ];",
     "MakeCustomMenu(contents);"
