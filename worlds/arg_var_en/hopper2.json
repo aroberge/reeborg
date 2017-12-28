@@ -37,7 +37,12 @@
     "<h2>What you need to know</h2>",
     "<p>In addition to what you needed to solve <em>Transplanting 1</em>,",
     "    you will likely want to use a Python list (or Javascript array)",
-    "    to keep track of the number of flowers at each location.</p>",
+    "    to keep track of the number of flowers at each location.",
+    "    To put down items, in Python, you should use the following construct:</p>",
+    "<pre class='python'>",
+    "for item in my_list:",
+    "    ...",
+    "</pre>",
     "DIFFICULTY6"
   ],
   "small_tiles": false,

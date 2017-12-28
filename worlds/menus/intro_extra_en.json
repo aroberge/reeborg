@@ -4,6 +4,7 @@
     "base = 'worlds/intro_extra_en/';",
     "",
     "var contents = [",
+    "    [base + 'slalom.json', 'Slalom'],",
     "    [base + 'follow1.json', 'Back home'],",
     "    [base + 'center1a.json', 'Center 1a'],",
     "    [base + 'center2a.json', 'Center 2a'],",
