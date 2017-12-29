@@ -73,7 +73,7 @@
     "// and not simply a truthy value, will make the grid show ONLY on",
     "// the path",
     "",
-    "RUR.state.visible_grid = true;",
+    "RUR.state.visible_grid = RUR.PATH_ONLY;",
     "// The following is going to be called in the Post editor",
     "// we want users to be able to use either Python or Javascript",
     "// to solve this task - so we cannot have Python or Javascript",

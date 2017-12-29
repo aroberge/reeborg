@@ -239,13 +239,13 @@ function draw_grid_walls (ctx, edit){
        drawing context.
        If may also be called to draw on the goal drawing context (above the tile)
        if we are editing the world **or** if RUR.state.visible_grid evaluates
-       as **equivalent** to true.
+       to RUR.PATH_ONLY.
        
-       If RUR.state.visible_grid is **equal** to true
+       If RUR.state.visible_grid is equal to RUR.PATH_ONLY
        and a desired path named RUR.public.path has been defined, then we only
        draw the grid on that desired path.
 
-       If RUR.state.visible_grid is **equivalent** to true but not **equal** 
+       If RUR.state.visible_grid is true but not equal to RUR.PATH_ONLY 
        OR if RUR.public.path is not defined 
        (or is not used for something that can be treated as
        as path below, raising an Error), 
@@ -254,7 +254,7 @@ function draw_grid_walls (ctx, edit){
 
     draw_only_path = false;
     if (!edit && // always draw when edit
-        RUR.state.visible_grid === true &&  // not simply equivalent to true
+        RUR.state.visible_grid == RUR.PATH_ONLY && 
         RUR.public !== undefined && // should always be the case
         RUR.public.path !== undefined) { // world creator appears to have created a desired path
             draw_only_path = true;

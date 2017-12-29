@@ -134,6 +134,16 @@ RUR.RED = "red";     // RUR.configure_red_green() below
 
 RUR.SHOW_EDITORS_CONTENTS = false;
 
+/*=========================================================
+  Grid visibility when background tiles or background image
+  would other wise hide it.
+
+  This would be a value assigned to RUR.state.visible_grid
+==========================================================*/
+
+RUR.ALL_GRID_VISIBLE = 1;
+RUR.PATH_ONLY = "grid_visible_on_path_only";
+
 /*========================================================
   Some initial defaults
 ==========================================================*/

@@ -173,7 +173,7 @@
   "onload": ["// By defining RUR.public['path'] and setting",
     "// RUR.state.visible_grid to true, only the tiles for the path will be",
     "// seen as individual tiles.",
-    "RUR.state.visible_grid = true;",
+    "RUR.state.visible_grid = RUR.PATH_ONLY;",
     "RUR.public['path'] = [[4,1],[4,2],[4,3],",
       "[4,4],[3,4],[2,4],[1,4],[1,5],[2,5],",
       "[3,5],[4,5],[4,6],[4,7],[4,8],[5,8],",

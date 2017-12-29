@@ -53,7 +53,7 @@
     "    RUR.add_background_tile('gravel',x, 1);",
     "    RUR.public['path'].push([x, 1]);",
     "}",
-    "RUR.state.visible_grid = true;",
+    "RUR.state.visible_grid = RUR.PATH_ONLY;",
     "RUR.show_path(RUR.public['path'], 'white');"
   ],
   "pre": [
