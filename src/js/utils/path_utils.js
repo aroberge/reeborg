@@ -2,6 +2,7 @@
 
 require("./../rur.js");
 require("./../drawing/visible_world.js");
+require("./../ui/user_progress.js");
 
 /** @function print_path
  * @memberof RUR
@@ -139,6 +140,7 @@ RUR.check_path = function (desired_path, options) {
         if (options) {
             if (options.success) {
                 RUR.success_custom_message = options.success;
+                RUR.update_progress();
                 throw new RUR.ReeborgOK(options.success);
             }
         }
