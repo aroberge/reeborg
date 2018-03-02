@@ -16,7 +16,10 @@ RUR.ReeborgError = function (message) {
             } else {
                 return ReeborgError_fr(message);
             }
-        } catch (e) {}
+        } catch (e) {
+            console.log("error raised in attempting to pass control to Python");
+            console.dir(e)
+        }
     }
     this.name = "ReeborgError";
     this.message = message;
