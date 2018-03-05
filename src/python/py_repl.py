@@ -205,7 +205,6 @@ class Interpreter():
         '''
         RUR.hide_end_dialogs() # hide previously shown dialogs
         if hasattr(RUR.CURRENT_WORLD, "post"):
-            RUR.state.post_code_executed = True
             post = RUR.CURRENT_WORLD.post
             if isinstance(post, list):
                 post = '\n'.join(post)

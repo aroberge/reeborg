@@ -267,9 +267,9 @@ RUR.reset_pre_run_defaults = function () {
 
     RUR.current_maze = undefined; // special namespace when mazes are created
 
-    RUR.state.done_executed = false; // Used to monitor if done is used 
-                                     // preventing the evaluation of Post code.
-    RUR.state.post_code_executed = false;
+    RUR.state.done_executed = 0; // = false in both Python and Javascript
+                                // Used to monitor if done is used 
+                                // preventing the evaluation of Post code.
 
     RUR.print_cache = '';  // capturing the standard output from a user's program.
 

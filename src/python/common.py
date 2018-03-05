@@ -297,3 +297,9 @@ def __generic_translate_python(src, highlight=False, var_watch=False, pre_code='
         exec(src, globals_)
     except Exception as e:
         window.RUR.__python_error = e
+
+    if window.RUR.state.done_executed:
+        try:
+            exec(post_code, globals_)
+        except Exception as e:
+            window.RUR.__python_error = e

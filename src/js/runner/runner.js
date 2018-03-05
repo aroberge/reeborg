@@ -148,8 +148,15 @@ RUR.runner.eval_javascript = function (src) {
     pre_code = pre_code_editor.getValue();
     post_code = post_code_editor.getValue();
     RUR.reset_definitions();
-    src = pre_code + "\n" + src + "\nRUR.state.post_code_executed=true\n" + post_code;
-    eval(src); // jshint ignore:line
+    src = pre_code + "\n" + src + "\n" + post_code;
+    try {
+        eval(src); // jshint ignore:line
+    } catch (e) {
+        if (RUR.state.done_executed){
+            eval(post_code); // jshint ignore:line
+        }
+        throw e;// throw original message from Done if nothing else is raised
+    } 
 };
 
 
@@ -158,7 +165,7 @@ RUR.runner.eval_python = function (src) {
     var pre_code, post_code;
     RUR.reset_definitions();
     pre_code = pre_code_editor.getValue();
-    post_code = "\nRUR.state.post_code_executed=True\n" + post_code_editor.getValue();
+    post_code = "\n" + post_code_editor.getValue();
     translate_python(src, RUR.state.highlight, RUR.state.watch_vars, pre_code, post_code);
 };
 
