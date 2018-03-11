@@ -6,13 +6,15 @@
       "_prev_x": 1,
       "_prev_y": 1,
       "_prev_orientation": 0,
-      "objects": {},
+      "objects": {
+        "star": 99
+      },
       "_orientation": 0,
       "_is_leaky": true,
       "_trace_history": [],
       "_trace_style": "default",
       "_trace_color": "seagreen",
-      "__id": 24,
+      "__id": 4,
       "model": "classic",
       "possible_initial_positions": [
         [
@@ -23,10 +25,43 @@
     }
   ],
   "walls": {},
-  "description": "Reeborg loves to build - today it is making Star Towers. It has plenty of stars, and wants to make towers that are 3 stars high. Write a program that creates a Star Tower at Reeborg's starting position, and every other x-position after that (odd x-values).",
+  "description": [
+    "Reeborg loves to build - today it is making Star Towers. It has plenty of stars, and wants to make towers that are 3 stars high. Write a program that creates a Star Tower at Reeborg's starting position, and every other x-position after that (odd x-values)."
+  ],
   "small_tiles": false,
-  "rows": 12,
-  "cols": 14,
-  "pre": "think(0)\nimport random\nwidth = random.randint(6, 13)\nheight = 4\n\nRUR.set_world_size(width, height)\nRUR.fill_background(\"grass\")\nRUR.give_object_to_robot(\"star\",99)\n\n\ntowers = []\n\nfor i in range(width):\n\tif i%2==0:\n\t\ttowers.append(i+1)\n\nthink(300)\n",
-  "post": "for base in towers:\n    if not (RUR.is_object(\"star\",base,1) and RUR.is_object(\"star\",base,2) and RUR.is_object(\"star\",base,3)):\n        raise ReeborgError(\"Reeborg did not follow the required path.\")\n\nraise ReeborgOK(\"Well done!\")\n"
+  "rows": 4,
+  "cols": 6,
+  "pre": [
+    "world = RUR.get_current_world()",
+    "",
+    "towers = []",
+    "",
+    "for i in range(world.cols):",
+    "\tif i%2==0:",
+    "\t\ttowers.append(i+1)",
+    "",
+    "think(300)",
+    ""
+  ],
+  "post": [
+    "for base in towers:",
+    "    if not (RUR.is_object(\"star\",base,1) and RUR.is_object(\"star\",base,2) and RUR.is_object(\"star\",base,3)):",
+    "        raise ReeborgError(\"Reeborg did not follow the required path.\")",
+    "",
+    "raise ReeborgOK(\"Well done!\")",
+    ""
+  ],
+  "onload": [
+    "#python onload",
+    "import random",
+    "width = random.randint(6, 13)",
+    "height = 4",
+    "",
+    "RUR.set_world_size(width, height)",
+    "RUR.fill_background(\"grass\")",
+    "RUR.give_object_to_robot(\"star\",99)",
+    "",
+    "",
+    ""
+  ]
 }

@@ -24,6 +24,13 @@
     "    [\"worlds/sk/step16.json\", \"Step 16\"],",
     "    [\"worlds/sk/step17.json\", \"Step 17\"],",
     "    [\"worlds/sk/step18.json\", \"Step 18\"],",
+    "    [\"worlds/sk/star-tower1.json\", \"Extra - Star Tower 1\"],",
+    "    [\"worlds/sk/star-tower2.json\", \"Extra - Star Tower 2\"],",
+    "    [\"worlds/sk/target-practice.json\", \"Extra - Target Practice\"],",
+    "    [\"worlds/sk/line-follower.json\", \"Extra - Line Follower\"],",
+    "    [\"worlds/sk/doubler.json\", \"Extra - Double the Pile\"],",
+    "    [\"worlds/sk/center1.json\", \"Extra - Find the Centre 1\"],",
+    "    [\"worlds/sk/center2.json\", \"Extra - Find the Centre 2\"],",
     "    ['worlds/menus/select_collection_en.json', \"Other worlds\"]",
     "    ]",
     "MakeCustomMenu(contents)"

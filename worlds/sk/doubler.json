@@ -14,16 +14,17 @@
       "_trace_history": [],
       "_trace_style": "default",
       "_trace_color": "seagreen",
-      "__id": 6,
+      "__id": 46,
       "model": "classic"
     }
   ],
   "walls": {},
-  "description": "Reeborg has a pile of squares somewhere in front of it, but wants more! Two times more, to be precise. Reeborg is carrying a large number of squares, which you can use to help build the larger pile it wants. Create a pile of squares with exactly two times as many squares. You will always build the bigger pile one square to the right of where you find the initial pile.",
+  "description": [
+    "Reeborg has a pile of squares somewhere in front of it, but wants more! Two times more, to be precise. Reeborg is carrying a large number of squares, which you can use to help build the larger pile it wants. Create a pile of squares with exactly two times as many squares. You will always build the bigger pile one square to the right of where you find the initial pile."
+  ],
   "small_tiles": false,
   "rows": 1,
   "cols": 7,
-  "pre": "\nimport random\nx = random.randint(2, 6)\ninitial_stack = random.randint(1,25)\ndoubled_amount = initial_stack * 2\noptions = {'number': initial_stack}\nRUR.add_object(\"square\", x, 1, options)\noptions = {'goal' : True, 'number': doubled_amount}\nRUR.add_object(\"square\", x+1, 1, options)",
   "tiles": {
     "1,1": [
       "grass"
@@ -46,5 +47,17 @@
     "7,1": [
       "grass"
     ]
-  }
+  },
+  "onload": [
+    "#python onload code",
+    "import random",
+    "x = random.randint(2, 6)",
+    "initial_stack = random.randint(1,25)",
+    "doubled_amount = initial_stack * 2",
+    "options = {'number': initial_stack}",
+    "RUR.add_object(\"square\", x, 1, options)",
+    "options = {'goal' : True, 'number': doubled_amount}",
+    "RUR.add_object(\"square\", x+1, 1, options)",
+    ""
+  ]
 }

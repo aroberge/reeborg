@@ -4,8 +4,9 @@
     "<p>Try to adapt the solution for the world Step 14a to also work with this new lake. ",
     "Reeborg should once again put down the banana at the starting position",
     " and continue walking along the border of the lake until it finds the banana again.",
-    " Staying along the wall will be trickier this time, but that’s the challenge! </p>",
+    " Staying along the path will be trickier this time, but that’s the challenge! </p>",
     "<p>Note: Your solution for this Expert Walk world should also work in the basic (Step 14a) world!</p>",
+    "<p><strong>Reeborg will never start with an obstacle directly in front of it!</strong></p>",
     "<h3>What you need to know</h3>",
     "<ul><li>The functions <code>move()</code>, <code>turn_left()</code>, and <code>put()</code>.</li>",
     "<li>The conditions <code>front_is_clear()</code>,",
@@ -15,15 +16,137 @@
     "DIFFICULTY5",
     ""
   ],
-  "onload" : [
-    "RUR.public.path = [[1,1],[2,1],[3,1],[4,1],[5,1],[6,1],",
-    "    [7,1],[8,1],[8,2],[8,3],[7,3],[6,3],[5,3],[4,3],",
-    "    [3,3],[3,4],[3,5],[3,6],[4,6],[5,6],[6,6],[7,6],",
-    "    [8,6],[9,6],[10,6],[10,5],[10,4],[10,3],[11,3],[12,3],",
-    "    [13,3],[13,4],[13,5],[13,6],[13,7],[13,8],[13,9],[12,9],",
-    "    [11,9],[10,9],[9,9],[9,8],[8,8],[7,8],[6,8],[5,8],[5,9],",
-    "    [5,10],[4,10],[3,10],[2,10],[1,10],[1,9],[1,8],[1,7],[1,6],",
-    "    [1,5],[1,4],[1,3],[1,2],[1,1]];"
+  "onload": [
+    "var _tiles, i, j, choice, x, y, name, backgrounds, obstacles;",
+    "var len, path, pos_0, pos_1, orientation, ",
+    "    x0, y0, x1, y1; ",    
+    "",
+    "backgrounds = ['water', 'gravel'];",
+    "obstacles = ['fence_double', 'fence_vertical', 'fence_left', 'fence_right'];",
+    "",
+    "_tiles = {};",
+    "_tiles['path1'] = [[1, 1], [2, 1], [3, 1], [4, 1], [5, 1], [6, 1],",
+    "        [7, 1], [8, 1], [8, 2], [8, 3], [7, 3], [6, 3], [5, 3], [4, 3],",
+    "        [3, 3], [3, 4], [3, 5], [3, 6], [4, 6], [5, 6], [6, 6], [7, 6],",
+    "        [8, 6], [9, 6], [10, 6], [10, 5], [10, 4], [10, 3], [11, 3], [12, 3],",
+    "        [13, 3], [13, 4], [13, 5], [13, 6], [13, 7], [13, 8], [13, 9], [12, 9],",
+    "        [11, 9], [10, 9], [9, 9], [9, 8], [8, 8], [7, 8], [6, 8], [5, 8], [5, 9],",
+    "        [5, 10], [4, 10], [3, 10], [2, 10], [1, 10], [1, 9], [1, 8], [1, 7],",
+    "        [1, 6], [1, 5], [1, 4], [1, 3], [1, 2], [1, 1]];",
+    "_tiles['gravel1'] = _tiles['path1'];",
+    "",
+    "_tiles['water1'] = [[2, 2], [3, 2], [4, 2], [5, 2], [6, 2], [7, 2], [2, 3],",
+    "      [2, 4], [11, 4], [12, 4], [2, 5], [11, 5], [12, 5], [2, 6], [11, 6], [12, 6],",
+    "      [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [7, 7], [8, 7], [9, 7], [10, 7], [11, 7],",
+    "      [12, 7], [2, 8], [3, 8], [4, 8], [10, 8], [11, 8], [12, 8], [2, 9], [3, 9], [4, 9]];",
+    "    ",
+    "_tiles['fence_vertical1'] = [[4, 5], [6, 10], [6, 11], [8, 10],",
+    "      [9, 1], [9, 2], [9, 3], [9, 4], [9, 5], [14, 3], [14, 4],",
+    "      [14, 5], [14, 6], [14, 7], [14, 8], [14, 9], [14, 10]];",
+    "",
+    "_tiles['fence_double1'] = [[10, 2], [11, 2], [12, 2], [13, 2],",
+    "        [5, 4], [6, 4], [7, 4], [8, 4], [5, 5], [6, 5], [7, 5], [8, 5],",
+    "        [7, 9], [9, 10], [10, 10], [11, 10], [12, 10], [13, 10],",
+    "        [2, 11], [3, 11], [4, 11], [5, 11]];",
+    "",
+    "_tiles['fence_left1'] = [[14, 2], [9, 4], [9, 5], [8, 9], [14, 10], [6, 11]];",
+    "_tiles['fence_right1'] = [[9, 2], [4, 4], [4, 5], [6, 9], [8, 10], [1, 11]];",
+    "",
+    "",
+    "_tiles['path2'] = [[1, 1], [2, 1], [3, 1], [4, 1], [4, 2],",
+    "        [4, 3], [5, 3], [6, 3], [7, 3], [7, 4], [7, 5], [7, 6],",
+    "        [8, 6], [9, 6], [10, 6], [11, 6], [12, 6], [13, 6], [13, 7],",
+    "        [13, 8], [13, 9], [13, 10], [12, 10], [11, 10], [10, 10],",
+    "        [10, 9], [9, 9], [8, 9], [8, 10], [7, 10], [6, 10], [5, 10],",
+    "        [4, 10], [3, 10], [2, 10], [1, 10], [1, 9], [1, 8], [2, 8],",
+    "        [3, 8], [4, 8], [4, 7], [4, 6], [3, 6], [2, 6], [1, 6], [1, 5],",
+    "        [1, 4], [1, 3], [1, 2], [1, 1]];",
+    "_tiles['gravel2'] = _tiles['path2'];",
+    "",
+    "_tiles['water2'] = [[2, 2], [3, 2], [2, 3], [3, 3],",
+    "      [2, 4], [3, 4], [4, 4], [5, 4], [6, 4],",
+    "      [2, 5], [3, 5], [4, 5], [5, 5], [6, 5],",
+    "      [5, 6], [6, 6],",
+    "      [5, 7], [6, 7], [7, 7], [8, 7], [9, 7], [10, 7], [11, 7], [12, 7],",
+    "      [5, 8], [6, 8], [7, 8], [8, 8], [9, 8], [10, 8], [11, 8], [12, 8],",
+    "      [2, 9], [3, 9], [4, 9], [5, 9], [6, 9], [7, 9], [11, 9], [12, 9]]; ",
+    "    ",
+    "_tiles['fence_vertical2'] = [[5, 1], [5, 2], [8, 3], [8, 4], [8, 5],",
+    "      [14, 6], [14, 7], [14, 8], [14, 9], [14, 10], [14, 11],",
+    "      [9, 10], [9, 11]];",
+    "",
+    "_tiles['fence_double2'] = [[6, 2], [7, 2], ",
+    "      [9, 5], [10, 5], [11, 5], [12, 5], [13, 5],",
+    "      [2, 7], [2, 11], [3, 11], [4, 11], [5, 11], [6, 11], [7, 11], ",
+    "      [8, 11], [9, 11], [10, 11], [11, 11], [12, 11], [13, 11]];",
+    "",
+    "_tiles['fence_left2'] = [[8, 2], [14, 5], [3, 7], [14, 11]];",
+    "_tiles['fence_right2'] = [[5, 2], [8, 5], [1, 7], [1, 11]];",
+    "",
+    "",
+    "RUR.fill_background('grass');",
+    "RUR.add_decorative_object('tulip', 14,12);",
+    "RUR.add_decorative_object('daisy', 10,1);",
+    "RUR.add_decorative_object('dandelion', 14,1);",
+    "",
+    "choice = RUR.randint(1,2).toString();",
+    "",
+    "if (choice == '1') {",
+    "    RUR.add_decorative_object('tulip', 7,10);",
+    "    RUR.add_decorative_object('daisy', 4,5);",
+    "    RUR.add_decorative_object('daisy', 2,12);",
+    "} else {",
+    "    RUR.add_decorative_object('daisy', 2,12);",
+    "    RUR.add_decorative_object('tulip', 10,4);",
+    "    RUR.add_decorative_object('tulip', 6,1);",
+    "}",
+    "",
+    "for (j=0; j<backgrounds.length; j++){",
+    "    name = backgrounds[j];",
+    "    for (i=0; i<_tiles[name+choice].length; i++) {",
+    "        x = _tiles[name+choice][i][0];",
+    "        y = _tiles[name+choice][i][1];",
+    "        RUR.add_background_tile(name, x, y);",
+    "    } ",
+    "}",
+    "",
+    "for (j=0; j<obstacles.length; j++){",
+    "    name = obstacles[j];",
+    "    for (i=0; i<_tiles[name+choice].length; i++) {",
+    "        x = _tiles[name+choice][i][0];",
+    "        y = _tiles[name+choice][i][1];",
+    "        RUR.add_obstacle(name, x, y);",
+    "    } ",
+    "}",
+    "",
+    "path = _tiles['path'+choice];",    
+      "len = path.length;",
+    "",
+    "i = RUR.randint(0, len-2);",
+    "pos_0 = path[i];",
+    "x0 = pos_0[0];",
+    "y0 = pos_0[1];",
+    "pos_1 = path[i+1];",
+    "x1 = pos_1[0];",
+    "y1 = pos_1[1];",
+    "",
+    "if (x0 == x1) {",
+    "    if (y1 == y0 + 1) {",
+    "        orientation= 'n';",
+    "    } else {",
+    "        orientation = 's';",
+    "    }",
+    "} else {",
+    "    if (x1 == x0 + 1) {",
+    "        orientation = 'e';",
+    "    } else {",
+    "        orientation = 'w';",
+    "    }",
+    "}",
+    "r = new UsedRobot(x0, y0, orientation);",
+    "RUR.give_object_to_robot('banana', 1);",
+    "",
+    "RUR.public.path = path.slice(i, len-1).concat(path.slice(0, i+1));"
   ],
   "post": [
     "RUR.check_path(RUR.public['path'],",
@@ -33,698 +156,5 @@
   ],
   "small_tiles": false,
   "rows": 12,
-  "cols": 14,
-  "robots": [
-    {
-      "x": 1,
-      "y": 1,
-      "objects": {
-        "banana": 1
-      },
-      "model": "classic",
-      "_orientation": 0,
-      "_is_leaky": true,
-      "_prev_x": 1,
-      "_prev_y": 1,
-      "_prev_orientation": 0,
-      "_trace_history": [],
-      "_trace_style": "default",
-      "_trace_color": "seagreen",
-      "__id": 2,
-      "possible_initial_positions": [
-        [
-          1,
-          1
-        ]
-      ]
-    }
-  ],
-  "tiles": {
-    "1,1": [
-      "gravel"
-    ],
-    "1,2": [
-      "gravel"
-    ],
-    "1,3": [
-      "gravel"
-    ],
-    "1,4": [
-      "gravel"
-    ],
-    "1,5": [
-      "gravel"
-    ],
-    "1,6": [
-      "gravel"
-    ],
-    "1,7": [
-      "gravel"
-    ],
-    "1,8": [
-      "gravel"
-    ],
-    "1,9": [
-      "gravel"
-    ],
-    "1,10": [
-      "gravel"
-    ],
-    "1,11": [
-      "grass"
-    ],
-    "1,12": [
-      "grass"
-    ],
-    "2,1": [
-      "gravel"
-    ],
-    "2,2": [
-      "water"
-    ],
-    "2,3": [
-      "water"
-    ],
-    "2,4": [
-      "water"
-    ],
-    "2,5": [
-      "water"
-    ],
-    "2,6": [
-      "water"
-    ],
-    "2,7": [
-      "water"
-    ],
-    "2,8": [
-      "water"
-    ],
-    "2,9": [
-      "water"
-    ],
-    "2,10": [
-      "gravel"
-    ],
-    "2,11": [
-      "grass"
-    ],
-    "2,12": [
-      "grass"
-    ],
-    "3,1": [
-      "gravel"
-    ],
-    "3,2": [
-      "water"
-    ],
-    "3,3": [
-      "gravel"
-    ],
-    "3,4": [
-      "gravel"
-    ],
-    "3,5": [
-      "gravel"
-    ],
-    "3,6": [
-      "gravel"
-    ],
-    "3,7": [
-      "water"
-    ],
-    "3,8": [
-      "water"
-    ],
-    "3,9": [
-      "water"
-    ],
-    "3,10": [
-      "gravel"
-    ],
-    "3,11": [
-      "grass"
-    ],
-    "3,12": [
-      "grass"
-    ],
-    "4,1": [
-      "gravel"
-    ],
-    "4,2": [
-      "water"
-    ],
-    "4,3": [
-      "gravel"
-    ],
-    "4,4": [
-      "grass"
-    ],
-    "4,5": [
-      "grass"
-    ],
-    "4,6": [
-      "gravel"
-    ],
-    "4,7": [
-      "water"
-    ],
-    "4,8": [
-      "water"
-    ],
-    "4,9": [
-      "water"
-    ],
-    "4,10": [
-      "gravel"
-    ],
-    "4,11": [
-      "grass"
-    ],
-    "4,12": [
-      "grass"
-    ],
-    "5,1": [
-      "gravel"
-    ],
-    "5,2": [
-      "water"
-    ],
-    "5,3": [
-      "gravel"
-    ],
-    "5,4": [
-      "grass"
-    ],
-    "5,5": [
-      "grass"
-    ],
-    "5,6": [
-      "gravel"
-    ],
-    "5,7": [
-      "water"
-    ],
-    "5,8": [
-      "gravel"
-    ],
-    "5,9": [
-      "gravel"
-    ],
-    "5,10": [
-      "gravel"
-    ],
-    "5,11": [
-      "grass"
-    ],
-    "5,12": [
-      "grass"
-    ],
-    "6,1": [
-      "gravel"
-    ],
-    "6,2": [
-      "water"
-    ],
-    "6,3": [
-      "gravel"
-    ],
-    "6,4": [
-      "grass"
-    ],
-    "6,5": [
-      "grass"
-    ],
-    "6,6": [
-      "gravel"
-    ],
-    "6,7": [
-      "water"
-    ],
-    "6,8": [
-      "gravel"
-    ],
-    "6,9": [
-      "grass"
-    ],
-    "6,10": [
-      "grass"
-    ],
-    "6,11": [
-      "grass"
-    ],
-    "6,12": [
-      "grass"
-    ],
-    "7,1": [
-      "gravel"
-    ],
-    "7,2": [
-      "water"
-    ],
-    "7,4": [
-      "grass"
-    ],
-    "7,5": [
-      "grass"
-    ],
-    "7,6": [
-      "gravel"
-    ],
-    "7,7": [
-      "water"
-    ],
-    "7,8": [
-      "gravel"
-    ],
-    "7,9": [
-      "grass"
-    ],
-    "7,10": [
-      "grass"
-    ],
-    "7,11": [
-      "grass"
-    ],
-    "7,12": [
-      "grass"
-    ],
-    "8,1": [
-      "gravel"
-    ],
-    "8,2": [
-      "gravel"
-    ],
-    "8,3": [
-      "gravel"
-    ],
-    "8,4": [
-      "grass"
-    ],
-    "8,5": [
-      "grass"
-    ],
-    "8,6": [
-      "gravel"
-    ],
-    "8,7": [
-      "water"
-    ],
-    "8,8": [
-      "gravel"
-    ],
-    "8,9": [
-      "grass"
-    ],
-    "8,10": [
-      "grass"
-    ],
-    "8,11": [
-      "grass"
-    ],
-    "8,12": [
-      "grass"
-    ],
-    "9,1": [
-      "grass"
-    ],
-    "9,3": [
-      "grass"
-    ],
-    "9,4": [
-      "grass"
-    ],
-    "9,6": [
-      "gravel"
-    ],
-    "9,7": [
-      "water"
-    ],
-    "9,8": [
-      "gravel"
-    ],
-    "9,9": [
-      "gravel"
-    ],
-    "9,10": [
-      "grass"
-    ],
-    "9,11": [
-      "grass"
-    ],
-    "9,12": [
-      "grass"
-    ],
-    "10,1": [
-      "grass"
-    ],
-    "10,2": [
-      "grass"
-    ],
-    "10,3": [
-      "gravel"
-    ],
-    "10,4": [
-      "gravel"
-    ],
-    "10,5": [
-      "gravel"
-    ],
-    "10,6": [
-      "gravel"
-    ],
-    "10,7": [
-      "water"
-    ],
-    "10,8": [
-      "water"
-    ],
-    "10,9": [
-      "gravel"
-    ],
-    "10,10": [
-      "grass"
-    ],
-    "10,11": [
-      "grass"
-    ],
-    "10,12": [
-      "grass"
-    ],
-    "11,1": [
-      "grass"
-    ],
-    "11,2": [
-      "grass"
-    ],
-    "11,3": [
-      "gravel"
-    ],
-    "11,4": [
-      "water"
-    ],
-    "11,5": [
-      "water"
-    ],
-    "11,6": [
-      "water"
-    ],
-    "11,7": [
-      "water"
-    ],
-    "11,8": [
-      "water"
-    ],
-    "11,9": [
-      "gravel"
-    ],
-    "11,10": [
-      "grass"
-    ],
-    "11,11": [
-      "grass"
-    ],
-    "11,12": [
-      "grass"
-    ],
-    "12,1": [
-      "grass"
-    ],
-    "12,2": [
-      "grass"
-    ],
-    "12,3": [
-      "gravel"
-    ],
-    "12,4": [
-      "water"
-    ],
-    "12,5": [
-      "water"
-    ],
-    "12,6": [
-      "water"
-    ],
-    "12,7": [
-      "water"
-    ],
-    "12,8": [
-      "water"
-    ],
-    "12,9": [
-      "gravel"
-    ],
-    "12,10": [
-      "grass"
-    ],
-    "12,11": [
-      "grass"
-    ],
-    "12,12": [
-      "grass"
-    ],
-    "13,1": [
-      "grass"
-    ],
-    "13,2": [
-      "grass"
-    ],
-    "13,3": [
-      "gravel"
-    ],
-    "13,4": [
-      "gravel"
-    ],
-    "13,5": [
-      "gravel"
-    ],
-    "13,6": [
-      "gravel"
-    ],
-    "13,7": [
-      "gravel"
-    ],
-    "13,8": [
-      "gravel"
-    ],
-    "13,9": [
-      "gravel"
-    ],
-    "13,10": [
-      "grass"
-    ],
-    "13,11": [
-      "grass"
-    ],
-    "13,12": [
-      "grass"
-    ],
-    "14,1": [
-      "grass"
-    ],
-    "14,2": [
-      "grass"
-    ],
-    "14,3": [
-      "grass"
-    ],
-    "14,4": [
-      "grass"
-    ],
-    "14,5": [
-      "grass"
-    ],
-    "14,6": [
-      "grass"
-    ],
-    "14,7": [
-      "grass"
-    ],
-    "14,8": [
-      "grass"
-    ],
-    "14,9": [
-      "grass"
-    ],
-    "14,10": [
-      "grass"
-    ],
-    "14,11": [
-      "grass"
-    ],
-    "14,12": [
-      "grass"
-    ],
-    "7,3": [
-      "gravel"
-    ],
-    "9,5": [
-      "grass"
-    ],
-    "9,2": [
-      "grass"
-    ]
-  },
-  "walls": {},
-  "obstacles": {
-    "1,11": [
-      "fence_right"
-    ],
-    "2,11": [
-      "fence_double"
-    ],
-    "3,11": [
-      "fence_double"
-    ],
-    "4,11": [
-      "fence_double"
-    ],
-    "5,11": [
-      "fence_double"
-    ],
-    "7,9": [
-      "fence_double"
-    ],
-    "9,10": [
-      "fence_double"
-    ],
-    "10,10": [
-      "fence_double"
-    ],
-    "11,10": [
-      "fence_double"
-    ],
-    "12,10": [
-      "fence_double"
-    ],
-    "13,10": [
-      "fence_double"
-    ],
-    "5,5": [
-      "fence_double"
-    ],
-    "6,5": [
-      "fence_double"
-    ],
-    "7,5": [
-      "fence_double"
-    ],
-    "8,5": [
-      "fence_double"
-    ],
-    "7,4": [
-      "fence_double"
-    ],
-    "6,4": [
-      "fence_double"
-    ],
-    "5,4": [
-      "fence_double"
-    ],
-    "10,2": [
-      "fence_double"
-    ],
-    "11,2": [
-      "fence_double"
-    ],
-    "12,2": [
-      "fence_double"
-    ],
-    "13,2": [
-      "fence_double"
-    ],
-    "14,2": [
-      "fence_left"
-    ],
-    "9,1": [
-      "fence_vertical"
-    ],
-    "9,2": [
-      "fence_vertical",
-      "fence_right"
-    ],
-    "4,5": [
-      "fence_right",
-      "fence_vertical"
-    ],
-    "4,4": [
-      "fence_right"
-    ],
-    "9,5": [
-      "fence_left",
-      "fence_vertical"
-    ],
-    "9,4": [
-      "fence_vertical",
-      "fence_left"
-    ],
-    "9,3": [
-      "fence_vertical"
-    ],
-    "14,3": [
-      "fence_vertical"
-    ],
-    "14,4": [
-      "fence_vertical"
-    ],
-    "14,5": [
-      "fence_vertical"
-    ],
-    "14,6": [
-      "fence_vertical"
-    ],
-    "14,7": [
-      "fence_vertical"
-    ],
-    "14,8": [
-      "fence_vertical"
-    ],
-    "14,9": [
-      "fence_vertical"
-    ],
-    "14,10": [
-      "fence_vertical",
-      "fence_left"
-    ],
-    "8,10": [
-      "fence_vertical",
-      "fence_right"
-    ],
-    "6,10": [
-      "fence_vertical"
-    ],
-    "6,11": [
-      "fence_vertical",
-      "fence_left"
-    ],
-    "8,9": [
-      "fence_left"
-    ],
-    "6,9": [
-      "fence_right"
-    ],
-    "8,4": [
-      "fence_double"
-    ]
-  },
-  "decorative_objects": {
-    "7,10": [
-      "tulip"
-    ],
-    "14,12": [
-      "tulip"
-    ],
-    "10,1": [
-      "daisy"
-    ],
-    "4,5": [
-      "daisy"
-    ],
-    "2,12": [
-      "daisy"
-    ],
-    "14,1": [
-      "dandelion"
-    ]
-  }
+  "cols": 14
 }

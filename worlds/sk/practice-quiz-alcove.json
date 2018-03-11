@@ -159,7 +159,14 @@
       "east"
     ]
   },
-  "description": "The room (shown below) has alcoves on the left and the right. Some of the alcoves contain daisies. For each alcove on the left side that contains a daisy, make Reeborg move the daisy to the opposite alcove on the right hand side.",
+  "description": [
+    "<h1>Alcove - Version 1</h1>",
+    "<p>The room (shown below) has alcoves on the left and the right. ",
+    "  Some of the alcoves contain daisies. For each alcove on the left ", 
+    "  side that contains a daisy, make Reeborg move the daisy to the ",
+    "  opposite alcove on the right hand side. </p>",
+    "DIFFICULTY3"
+  ],
   "small_tiles": false,
   "rows": 13,
   "cols": 9,
@@ -516,7 +523,15 @@
       "pale_grass"
     ]
   },
-  "pre": "think(0)\n\n#pick random locations for daisies\nimport random\noptions = {'goal' : True}\nfor y in range(2,13,2):\n    if random.randint(0,100) > 50:\n        RUR.add_object(\"daisy\", 2, y)\n        RUR.add_object(\"daisy\", 8, y, options)\n       \n",
+  "onload": [
+    "for (let y=2; y<13; y+=2) {",
+    "   if (RUR.randint(0,100) > 50) {",
+    "     RUR.add_object(\"daisy\", 2, y);",
+    "     RUR.add_object(\"daisy\", 8, y, {'goal': true});",
+    "   }",
+    "}",
+    ""
+  ],
   "goal": {
     "possible_final_positions": [
       [

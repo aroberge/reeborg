@@ -6,13 +6,15 @@
       "_prev_x": 1,
       "_prev_y": 1,
       "_prev_orientation": 0,
-      "objects": {},
+      "objects": {
+        "token": 99
+      },
       "_orientation": 0,
       "_is_leaky": true,
       "_trace_history": [],
       "_trace_style": "default",
       "_trace_color": "seagreen",
-      "__id": 5,
+      "__id": 38,
       "model": "classic",
       "possible_initial_positions": [
         [
@@ -23,9 +25,34 @@
     }
   ],
   "walls": {},
-  "description": "Put down a token in the geometrical center of the following world. You are guaranteed that the width and height of the world will be odd numbers.",
+  "description": [
+    "Put down a token in the geometrical center of the following world. You are guaranteed that the width and height of the world will be odd numbers."
+  ],
   "small_tiles": false,
   "rows": 5,
-  "cols": 5,
-  "pre": "think(0)\nimport random\n\nwidth = 2\nheight = 2\nwhile width % 2 == 0:\n    width = random.randint(3, 15)\nwhile height % 2 == 0:\n    height = random.randint(3, 15)\n\nRUR.set_world_size(width, height)\nRUR.fill_background(\"grass\")\nRUR.give_object_to_robot(\"token\",99)\n\n#Find Target Location\ntarget_x = (width//2)+1\ntarget_y = (height//2)+1\n\n\noptions = {'goal' : True}\nRUR.add_object(\"token\", target_x, target_y, options)\n"
+  "cols": 9,
+  "onload": [
+    "#python onload code",
+    "import random",
+    "",
+    "width = 2",
+    "height = 2",
+    "while width % 2 == 0:",
+    "    width = random.randint(3, 15)",
+    "while height % 2 == 0:",
+    "    height = random.randint(3, 15)",
+    "",
+    "RUR.set_world_size(width, height)",
+    "RUR.fill_background(\"grass\")",
+    "RUR.give_object_to_robot(\"token\",99)",
+    "",
+    "#Find Target Location",
+    "target_x = (width//2)+1",
+    "target_y = (height//2)+1",
+    "",
+    "",
+    "options = {'goal' : True}",
+    "RUR.add_object(\"token\", target_x, target_y, options)",
+    ""
+  ]
 }
