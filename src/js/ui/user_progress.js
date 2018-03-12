@@ -6,9 +6,11 @@ require("./../translator.js");
 var record_id = require("./../../lang/msg.js").record_id;
 var remove_fileInput_listener = require("../listeners/onclick.js").remove_fileInput_listener;
 
-function update_world_selector (name, remove) {
+
+/* This function updates a single name in the world selector,
+   to either add or remove a checkmark */
+function update_name_in_world_selector (name, remove) {
     var options = $("#select-world")[0].options;
-    console.log("update_world_selector with name, remove:", name, remove);
     for (var i=0; i<options.length; i++) {
         if (remove) {
             if (RUR.strip_checkmark(options[i].innerHTML) == name) {
@@ -21,6 +23,36 @@ function update_world_selector (name, remove) {
         }
     }
 }
+
+/* This function is intended to be called when a programming language is
+   changed, so as to update the "checkmarks" in the world selector.
+ */
+
+RUR.update_marks_in_world_selector = function() {
+    var prog_method, menu, options, name;
+
+    options = $("#select-world")[0].options;
+    for (var i=0; i<options.length; i++) {
+        options[i].innerHTML = RUR.strip_checkmark(options[i].innerHTML);
+    }
+
+    prog_method = _get_programming_method();
+    if (RUR.state.user_progress[prog_method] == undefined) {
+        return;
+    }
+    menu = RUR.state.user_progress[prog_method][RUR.state.current_menu];
+    if (menu == undefined) {
+        return;
+    }
+
+    for (var i=0; i<options.length; i++) {
+        name = options[i].innerHTML;
+        if (menu.includes(name)) {
+            options[i].innerHTML = name + RUR.CHECKMARK;
+        }
+    }
+};
+
 
 RUR.strip_checkmark = function (name) {
     return name.replace(RUR.CHECKMARK, '');
@@ -49,33 +81,26 @@ RUR.add_checkmark = function (name) {
 
 RUR.update_progress = function(){
     var world_name, prog_method, world = RUR.get_current_world();
-    console.log("entering update_progress");
     if (RUR.state.input_method == "py-repl") {
-        console.log('input_method', RUR.state.input_method);
         return;
     }
     if (world.goal === undefined && world.post === undefined) {
-        console.log("no goal");
         return;   // this world does not have anything that needs to be solved.
     }
     world_name = RUR.state.world_name;
     if (!world_name) {
-        console.log("no world_name", world_name);
         return;
     }
     if (world_name.substring(0,11) === "user_world:"){
-        console.log("user world", world_name);
         return;
     }
-    console.log("about to update_progress");
     prog_method = _get_programming_method();
     RUR.utils.ensure_key_for_obj_exists(RUR.state.user_progress[prog_method], prog_method);
     RUR.utils.ensure_key_for_array_exists(RUR.state.user_progress[prog_method], RUR.state.current_menu);
-    console.log("prog_method", prog_method);
     if (!RUR.state.user_progress[prog_method][RUR.state.current_menu].includes(world_name)) {
         RUR.state.user_progress[prog_method][RUR.state.current_menu].push(world_name);
     }
-    update_world_selector(world_name);
+    update_name_in_world_selector(world_name);
     localStorage.setItem("user-progress", JSON.stringify(RUR.state.user_progress));
 };
 
@@ -219,7 +244,7 @@ RUR.unmark_task = function (name) {
     } 
     tasks.splice(tasks.indexOf(name), 1);
     RUR.state.user_progress[RUR.state.current_menu] = tasks;
-    update_world_selector(name, remove);
+    update_name_in_world_selector(name, remove);
     localStorage.setItem("user-progress", JSON.stringify(RUR.state.user_progress));
 };
 

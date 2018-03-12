@@ -162,6 +162,7 @@ RUR.listeners['programming-mode'] = function () {
     }
     RUR.kbd.set_programming_language(RUR.state.programming_language);
     RUR.permalink.update_URI();
+    RUR.update_marks_in_world_selector();
 };
 
 
