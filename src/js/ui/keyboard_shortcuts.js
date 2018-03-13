@@ -8,17 +8,6 @@ require("./../translator.js");
 require("./user_progress.js");
 var remove_fileInput_listener = require("../listeners/onclick.js").remove_fileInput_listener;
 
-// Do not change the value of library_separator()as it could break
-// some programs saved previously. Note that it will be different for each
-// human language - provided that a translation exists.
-
-function library_separator() {
-    return "\n" +
-    "################################################################\n# " +
-    RUR.translate("WARNING: Do not change this comment.") +    
-    "\n# " + RUR.translate("Library Code is below.") +  
-    "\n################################################################\n";
-}
 
 function saveSolution() {
     /* Saves the solution (code in the editor and, if using Python,
@@ -46,7 +35,7 @@ function saveSolution() {
         case "python":
             filetype = "text/python;charset=utf-8";
             extension = ".py";
-            content = editor.getValue() + library_separator()+ library.getValue();
+            content = editor.getValue() + RUR.library_separator()+ library.getValue();
             break;
         case "blockly-py":
         case "blockly-js":
@@ -98,7 +87,7 @@ function loadSolution () {
                     return;                  
             }   
             content = reader.result;
-            parts = content.split(library_separator());
+            parts = content.split(RUR.library_separator());
             if (parts.length == 2) {
                 library.setValue(parts[1]);
             }

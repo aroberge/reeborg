@@ -81,6 +81,9 @@ RUR.add_checkmark = function (name) {
 
 RUR.update_progress = function(){
     var world_name, prog_method, world = RUR.get_current_world();
+    if (!RUR.state.current_menu) {
+        return;
+    }
     if (RUR.state.input_method == "py-repl") {
         return;
     }
@@ -95,13 +98,17 @@ RUR.update_progress = function(){
         return;
     }
     prog_method = _get_programming_method();
-    RUR.utils.ensure_key_for_obj_exists(RUR.state.user_progress[prog_method], prog_method);
+    if (prog_method == "invalid") {
+        return;
+    }
+    RUR.utils.ensure_key_for_obj_exists(RUR.state.user_progress, prog_method);
     RUR.utils.ensure_key_for_array_exists(RUR.state.user_progress[prog_method], RUR.state.current_menu);
     if (!RUR.state.user_progress[prog_method][RUR.state.current_menu].includes(world_name)) {
         RUR.state.user_progress[prog_method][RUR.state.current_menu].push(world_name);
     }
     update_name_in_world_selector(world_name);
     localStorage.setItem("user-progress", JSON.stringify(RUR.state.user_progress));
+    save_user_solution();
 };
 
 function _get_programming_method() {
@@ -111,8 +118,11 @@ function _get_programming_method() {
         programming_method = "blockly";
     } else if (input_method == "javascript") {
         programming_method = "javascript";
-    } else {
+    } else if (input_method == "python") {
         programming_method = "python";
+    } else {
+        console.log("invalid input method: ", input_method);
+        programming_method = "invalid"; // value not used for saving progress
     }
     return programming_method;
 }
@@ -154,8 +164,24 @@ function _retrieve_progress () {
     RUR.state.user_progress[prog_method] = user_progress;
     localStorage.setItem("user-progress", JSON.stringify(RUR.state.user_progress));    
 }
-
 _retrieve_progress();
+
+
+function _retrieve_user_solutions () {
+    solutions = localStorage.getItem("user-solutions");
+    if (solutions) {
+        try {
+            solutions = JSON.parse(solutions);
+        } catch (e) {
+            solutions = {};
+        }
+        
+    } else {
+        solutions = {};
+    }
+    RUR.state.user_solutions = solutions;
+}
+_retrieve_user_solutions();
 
 
 function save_progress() {
@@ -264,3 +290,84 @@ $(document).ready(function() {
 });
 
 
+// Do not change the value of library_separator()as it could break
+// some programs saved previously. Note that it will be different for each
+// human language - provided that a translation exists.
+
+RUR.library_separator = function () {  // also used in keyboard_shortcuts.js
+    return "\n" +
+    "################################################################\n# " +
+    RUR.translate("WARNING: Do not change this comment.") +    
+    "\n# " + RUR.translate("Library Code is below.") +  
+    "\n################################################################\n";
+}
+
+// save solution for a given world
+function save_user_solution () {
+    var prog_method;
+    prog_method = _get_programming_method();
+    switch(prog_method) {
+        case "python":
+            content = editor.getValue() + RUR.library_separator()+ library.getValue();
+            break;
+        case "blockly":
+            content = RUR.blockly.getValue();
+            break;                 
+        case "javascript":
+            content = editor.getValue();
+            break;      
+        default:
+            return;  
+    }
+    RUR.utils.ensure_key_for_obj_exists(RUR.state.user_solutions, prog_method);
+    RUR.utils.ensure_key_for_obj_exists(RUR.state.user_solutions[prog_method], RUR.state.current_menu);
+    try {
+        RUR.utils.ensure_key_for_obj_exists(
+            RUR.state.user_solutions[prog_method][RUR.state.current_menu], 
+            RUR.state.world_name);
+        RUR.state.user_solutions[prog_method][RUR.state.current_menu][RUR.state.world_name] = content;
+        localStorage.setItem("user-solutions", JSON.stringify(RUR.state.user_solutions));
+    } catch (e) {
+        console.log("problem with ensure_key_for_obj_exists", e);
+        console.log("   world_name = ", RUR.state.world_name);
+        console.log("   current_menu = ", RUR.state.current_menu);
+    }
+
+}
+
+// retrieves user solution if it is found
+RUR.retrieve_user_solution = function () {
+    "use strict";
+    var prog_method, parts, solution=undefined;
+    prog_method = _get_programming_method();
+
+    if (RUR.state.user_solutions[prog_method] &&
+        RUR.state.user_solutions[prog_method][RUR.state.current_menu]
+        ) {
+        solution = RUR.state.user_solutions[prog_method][RUR.state.current_menu][RUR.state.world_name];
+    }
+
+    if (!solution) {
+        alert("No solution found for this world.");
+        return;
+    }
+
+    switch(prog_method) {
+        case "python":
+            parts = solution.split(RUR.library_separator());
+            if (parts.length == 2) {
+                library.setValue(parts[1]);
+            }
+            editor.setValue(parts[0]);
+            break;
+        case "blockly":
+            RUR.blockly.setValue(solution);
+            break;                 
+        case "javascript":
+            editor.setValue(solution);
+            break;      
+        default:
+            console.log("default should never be called in RUR.retrieve_user_solution");
+            return;  
+    }
+}
