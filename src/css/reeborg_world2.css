@@ -958,3 +958,32 @@ td {
 .difficulty10 {
   background-color: hsl(0, 100%, 50%);
 }
+
+
+@keyframes glowing {
+  0% { box-shadow: 0 0 -20px #ca0; }
+  40% { box-shadow: 0 0 40px #ca0; }
+  60% { box-shadow: 0 0 40px #ca0; }
+  100% { box-shadow: 0 0 -20px #ca0; }
+}
+
+p#thought {
+  position: absolute;
+  z-index: 1000;
+  top: 200px;
+  left: 200px;
+  width: 150px;
+  height: 100px;
+  text-align: middle;
+  line-height: 100px;
+  background-color: #fff;
+  border: 8px solid #248;
+  border-radius: 58px;
+  box-shadow: 2px 2px 4px #124;
+  animation: glowing 1000ms infinite;
+}
+
+p#thought img {
+    position: relative;
+    top: 20px;
+}

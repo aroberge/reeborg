@@ -403,3 +403,5 @@ ui_pl["Actual result"] = "Actual result";
 ui_pl["Cannot parse progress file."] = "Cannot parse progress file.";
 ui_pl["Cannot merge progress."] = "Cannot merge progress.";
 ui_pl["No solution found for this world."] = "No solution found for this world.";
+
+ui_pl["THINKING"] = "Thinking ...";

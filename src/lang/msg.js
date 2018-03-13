@@ -90,6 +90,7 @@ record_id("special-keyboard-button", "KEYBOARD BUTTON");
 record_id("more-menus-button", "ADDITIONAL OPTIONS");
 record_title("ui-dialog-title-more-menus", "ADDITIONAL OPTIONS");
 
+record_id("thinking", "THINKING")
 
 record_id("blockly-wrapper");
 record_id("move-handle");

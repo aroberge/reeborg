@@ -9,7 +9,18 @@ record_id("reverse-step");
 
 
 RUR.listeners.step = function () {
+    if (RUR.state.code_evaluated) {
+        step();
+    } else {
+        $("#thought").show();
+        setTimeout(step, 15); //  enough time for thought bubble to appear
+    }
+};
+
+function step() {
     RUR.runner.run(RUR.rec.display_frame);
+    $("#thought").hide();
+
     $("#stop").removeAttr("disabled");
     $("#reverse-step").removeAttr("disabled");
     $("#frame-selector").removeAttr("disabled").addClass("enabled").removeClass("disabled");
@@ -22,7 +33,7 @@ RUR.listeners.step = function () {
 
     $("#open-solution-btn").attr("disabled", "true");
     $("#save-solution-btn").attr("disabled", "true");
-};
+}
 
 RUR.listeners.reverse_step = function () {
     RUR.current_frame_no -= 2;  // see below call to RUR.rec.display_frame

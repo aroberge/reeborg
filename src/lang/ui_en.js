@@ -364,3 +364,5 @@ ui_en["Actual result"] = "Actual result";
 ui_en["Cannot parse progress file."] = "Cannot parse progress file.";
 ui_en["Cannot merge progress."] = "Cannot merge progress.";
 ui_en["No solution found for this world."] = "No solution found for this world.";
+
+ui_en["THINKING"] = "Thinking ...";

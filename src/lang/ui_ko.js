@@ -405,3 +405,5 @@ ui_ko["Actual result"] = "Actual result";
 ui_ko["Cannot parse progress file."] = "Cannot parse progress file.";
 ui_ko["Cannot merge progress."] = "Cannot merge progress.";
 ui_ko["No solution found for this world."] = "No solution found for this world.";
+
+ui_ko["THINKING"] = "Thinking ...";

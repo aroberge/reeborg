@@ -43,6 +43,8 @@ RUR.rec.display_frame = function () {
     "use strict";
     var frame, goal_status;
 
+    $("#thought").hide();
+
     if (RUR.current_frame_no >= RUR.nb_frames) {
         RUR.update_frame_nb_info();
         if (RUR.state.error_recorded) {

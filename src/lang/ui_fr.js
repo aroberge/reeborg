@@ -402,3 +402,5 @@ ui_fr["Actual result"] = "Résultat observé";
 ui_fr["Cannot parse progress file."] = "Impossible d'extraire les données du fichier.";
 ui_fr["Cannot merge progress."] = "Impossible d'incorporer les données.";
 ui_fr["No solution found for this world."] = "Pas de solution trouvée pour ce monde.";
+
+ui_fr["THINKING"] = "Je pense ...";

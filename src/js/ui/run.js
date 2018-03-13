@@ -8,6 +8,15 @@ var record_id = require("./../../lang/msg.js").record_id;
 record_id("run");
 
 RUR.listeners.run = function () {
+    if (RUR.state.code_evaluated) {
+        run();
+    } else {
+        $("#thought").show();
+        setTimeout(run, 15); //  enough time for thought bubble to appear
+    }
+};
+
+function run() {
     $("#stop").removeAttr("disabled");
     $("#pause").removeAttr("disabled");
     $("#run").attr("disabled", "true");
@@ -27,4 +36,5 @@ RUR.listeners.run = function () {
 
     clearTimeout(RUR._TIMER);
     RUR.runner.run(RUR.play);
-};
+    $("#thought").hide();
+}

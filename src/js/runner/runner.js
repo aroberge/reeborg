@@ -51,6 +51,7 @@ RUR.runner.run = function (playback) {
         }
         fatal_error_found = RUR.runner.eval(editor.getValue()); // jshint ignore:line
     }
+    $("#thought").hide();
     if (!fatal_error_found) {
         // save program so that it a new browser session can use it as
         // starting point.

@@ -6,6 +6,7 @@ require("./../drawing/visible_robot.js"); // for RUR.reset_default_robot_images
 RUR.reset_world = function() {
     var world;
     RUR.reset_pre_run_defaults();
+    $("#thought").hide(); // just in case
     RUR.success_custom_message = undefined;
     RUR.failure_custom_message = undefined;
 

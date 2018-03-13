@@ -121,7 +121,6 @@ function _get_programming_method() {
     } else if (input_method == "python") {
         programming_method = "python";
     } else {
-        console.log("invalid input method: ", input_method);
         programming_method = "invalid"; // value not used for saving progress
     }
     return programming_method;

@@ -64,6 +64,7 @@ function start_session () {
     }
     RUR.world_selector.set_url(RUR.state.world_url);
     RUR.permalink.update_URI();
+    $("#thought").hide();
 }
 
 
