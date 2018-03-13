@@ -212,6 +212,8 @@ ui_en["PROGRESS EXPLAIN"] = "Tasks solved are marked with " + RUR.CHECKMARK +
     "recorded in the current browser. You can import this file in a different browser so that your progress can be updated.";
 ui_en["SAVE PROGRESS"] = "Save";
 ui_en["IMPORT PROGRESS"] = "Import";
+ui_en["RETRIEVE SOLUTION"] = "Retrieve solution";
+ui_en["RETRIEVE SOLUTION EXPLAIN"] = "If a solution (blocks, or code and possibly code in library) for this world has been saved in the browser for the current programming mode, it will be retrieved and replace the current content.";
 
 ui_en["ADD CONTENT TO WORLD"] = "Add content to world from selected items below.";
 ui_en["ADD BLOCKLY TEXT"] = "Code blocks";
@@ -358,3 +360,7 @@ ui_en["Difficulty level"] = "Difficulty level";
 ui_en["Expected result"] = "Expected result";
 ui_en["Differences highlighted"] = "Differences highlighted";
 ui_en["Actual result"] = "Actual result";
+
+ui_en["Cannot parse progress file."] = "Cannot parse progress file.";
+ui_en["Cannot merge progress."] = "Cannot merge progress.";
+ui_en["No solution found for this world."] = "No solution found for this world.";

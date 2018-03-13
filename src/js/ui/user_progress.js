@@ -185,14 +185,34 @@ _retrieve_user_solutions();
 
 
 function save_progress() {
-    var blob, filename, filetype, progress;
+    var blob, combined;
 
-    progress = JSON.stringify(RUR.state.user_progress);
-    filetype = "text/javascript;charset=utf-8";
-    filename = "progress.json";
+    combined = JSON.stringify({'progress': RUR.state.user_progress,
+                'solutions': RUR.state.user_solutions});
 
-    blob = new Blob([progress], {type: filetype});
-    saveAs(blob, filename, true);
+    blob = new Blob([combined], {type: "text/javascript;charset=utf-8"});
+    saveAs(blob, "progress.json", true);
+}
+
+// From https://stackoverflow.com/a/8764974/558799
+function mergeRecursive(obj1, obj2) {
+  if (Array.isArray(obj2)) { return obj1.concat(obj2); }
+  for (var p in obj2) {
+    try {
+      // Property in destination object set; update its value.
+      if ( obj2[p].constructor==Object ) {
+        obj1[p] = mergeRecursive(obj1[p], obj2[p]);
+      } else if (Array.isArray(obj2[p])) {
+        obj1[p] = obj1[p].concat(obj2[p]);
+      } else {
+        obj1[p] = obj2[p];
+      }
+    } catch(e) {
+      // Property in destination object not set; create it and set its value.
+      obj1[p] = obj2[p];
+    }
+  }
+  return obj1;
 }
 
 
@@ -206,16 +226,24 @@ function import_progress () {
         var file, reader;
         reader = new FileReader();
         reader.onload = function(e) {
-            var content = reader.result, progress;
+            var content = reader.result, progress, combined, solutions;
             try {
-                progress = JSON.parse(content);
+                combined = JSON.parse(content);
+                progress = combined['progress'];
+                solutions = combined['solutions'];
             } catch (e2) {
                 alert(RUR.translate("Cannot parse progress file."));
                 return;
             }
-            Object.assign(RUR.state.user_progress, progress);
-            localStorage.setItem("user-progress", JSON.stringify(RUR.state.user_progress));
-            refresh_world_selector();
+            try {
+                RUR.state.user_progress = mergeRecursive(RUR.state.user_progress, progress);
+                localStorage.setItem("user-progress", JSON.stringify(RUR.state.user_progress));
+                RUR.state.user_solutions = mergeRecursive(RUR.state.user_solutions, solutions);
+                localStorage.setItem("user-solutions", JSON.stringify(RUR.state.user_solutions));
+                refresh_world_selector();
+            } catch (e) {
+                alert(RUR.translate("Cannot merge progress."));
+            }
             fileInput.value = '';
         };
 
@@ -250,6 +278,7 @@ function refresh_world_selector() {
  * @instance
  * @summary Removes the tasks from the list of completed tasks. If the task
  * cannot be found, the function will fail silently.
+ * Useful for testing interactively.
  *
  * @param {string} name The name of task as it appears in the world selector, 
  * like `Home 1`.
@@ -269,7 +298,7 @@ RUR.unmark_task = function (name) {
         return;
     } 
     tasks.splice(tasks.indexOf(name), 1);
-    RUR.state.user_progress[RUR.state.current_menu] = tasks;
+    RUR.state.user_progress[prog_method][RUR.state.current_menu] = tasks;
     update_name_in_world_selector(name, remove);
     localStorage.setItem("user-progress", JSON.stringify(RUR.state.user_progress));
 };
@@ -277,6 +306,7 @@ RUR.unmark_task = function (name) {
 
 record_id('save-progress-btn', "SAVE PROGRESS");
 record_id('import-progress-btn', "IMPORT PROGRESS");
+record_id('retrieve-solution-btn', "RETRIEVE SOLUTION")
 $(document).ready(function() {
     $("#save-progress-btn").on("click", function (evt) {
         save_progress();
@@ -287,6 +317,11 @@ $(document).ready(function() {
             $("#more-menus").dialog("close");
         } catch (e) {}
     });
+
+    $("#retrieve-solution-btn").on("click", function (evt) {
+        retrieve_user_solution();
+    });
+
 });
 
 
@@ -328,7 +363,7 @@ function save_user_solution () {
         RUR.state.user_solutions[prog_method][RUR.state.current_menu][RUR.state.world_name] = content;
         localStorage.setItem("user-solutions", JSON.stringify(RUR.state.user_solutions));
     } catch (e) {
-        console.log("problem with ensure_key_for_obj_exists", e);
+        console.log("problem in save_user_solution", e);
         console.log("   world_name = ", RUR.state.world_name);
         console.log("   current_menu = ", RUR.state.current_menu);
     }
@@ -336,7 +371,7 @@ function save_user_solution () {
 }
 
 // retrieves user solution if it is found
-RUR.retrieve_user_solution = function () {
+retrieve_user_solution = function () {
     "use strict";
     var prog_method, parts, solution=undefined;
     prog_method = _get_programming_method();
@@ -348,7 +383,7 @@ RUR.retrieve_user_solution = function () {
     }
 
     if (!solution) {
-        alert("No solution found for this world.");
+        alert(RUR.translate("No solution found for this world."));
         return;
     }
 

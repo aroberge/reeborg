@@ -249,6 +249,8 @@ ui_fr["PROGRESS EXPLAIN"] = "Les tâches résolues sont indiqués par " + RUR.CH
     "vous pouvez importer ce fichier dans un autre navigateur pour mettre vos tâches à jour dans ce dernier.";
 ui_fr["SAVE PROGRESS"] = "Sauvegarder";
 ui_fr["IMPORT PROGRESS"] = "Importer";
+ui_fr["RETRIEVE SOLUTION"] = "Récupérer la solution";
+ui_fr["RETRIEVE SOLUTION EXPLAIN"] = "Si une solution (blocs, ou code et possiblement code dans la biblio) pour ce monde et pour le mode de programmation courant a été sauvegardée dans le navigateur, elle sera récupérée et remplacera le programme présent.";
 
 ui_fr["ADD CONTENT TO WORLD"] = "Ajouter au monde le contenu des items indiqués ci-dessous.";
 ui_fr["ADD BLOCKLY TEXT"] = "Blocs de code";
@@ -396,3 +398,7 @@ ui_fr["Difficulty level"] = "Niveau de difficulté";
 ui_fr["Expected result"] = "Résultat attendu";
 ui_fr["Differences highlighted"] = "Différences observées";
 ui_fr["Actual result"] = "Résultat observé";
+
+ui_fr["Cannot parse progress file."] = "Impossible d'extraire les données du fichier.";
+ui_fr["Cannot merge progress."] = "Impossible d'incorporer les données.";
+ui_fr["No solution found for this world."] = "Pas de solution trouvée pour ce monde.";
