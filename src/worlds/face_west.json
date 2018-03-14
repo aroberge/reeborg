@@ -17,7 +17,7 @@
     }
   ],
   "walls": {},
-  "description": "Write a program so that Reeborg faces West.\nYou are not allowed to use <code>done()</code>.",
+  "description": "Write a program so that Reeborg faces West.",
   "small_tiles": false,
   "rows": 1,
   "cols": 1,

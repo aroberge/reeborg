@@ -22,7 +22,7 @@
     }
   ],
   "walls": {},
-  "description": "Have Reeborg follow the gravel path as indicated.\n<br><img src='src/images/simple_path.gif'><br>\nNote that you are not allowed to use \n<code>done()</code> to end the execution of your program.\n<br>\n\n<h3>Explanation</h3>\n\nThis world contains some Python code.\nTo ensure that the proper mode is selected, the onload editor\ncontains the following code:\n\nINSERT_ONLOAD\n\nTo ensure that the correct path is followed, we have\nthe following code in the pre editor\nINSERT_PRE\nrunning before the user's program, and the code\nINSERT_POST\nrunning after the user's program.\n",
+  "description": "Have Reeborg follow the gravel path as indicated.\n<br><img src='src/images/simple_path.gif'><br>\n<br>\n\n<h3>Explanation</h3>\n\nThis world contains some Python code.\nTo ensure that the proper mode is selected, the onload editor\ncontains the following code:\n\nINSERT_ONLOAD\n\nTo ensure that the correct path is followed, we have\nthe following code in the pre editor\nINSERT_PRE\nrunning before the user's program, and the code\nINSERT_POST\nrunning after the user's program.\n",
   "small_tiles": false,
   "rows": 6,
   "cols": 10,

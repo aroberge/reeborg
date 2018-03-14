@@ -22,7 +22,7 @@
     }
   ],
   "walls": {},
-  "description": "Have Reeborg follow the gravel path as indicated.\n<br><img src='src/images/simple_path.gif'><br>\nNote that you are not allowed to use \n<code>done()</code> to end the execution of your program.\n",
+  "description": "Have Reeborg follow the gravel path as indicated.\n<br><img src='src/images/simple_path.gif'><br>",
   "small_tiles": false,
   "rows": 6,
   "cols": 10,
