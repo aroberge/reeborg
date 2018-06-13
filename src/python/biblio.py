@@ -6,6 +6,6 @@ _import_fr(globals())
 
 src = transform(window.library.getValue())
 try:
-    exec(src, globals_)
+    exec(src)
 except Exception as e:
     window.RUR.__python_error = e
