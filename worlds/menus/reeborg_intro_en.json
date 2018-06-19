@@ -27,6 +27,7 @@
     "    [tutorial_en + 'hurdle4.json', 'Hurdle 4'],",
     "    [tutorial_en + 'maze1.json', 'Maze'],",
     "    [tutorial_en + 'newspaper0.json', 'Newspaper'],",
+    "    [tutorial_en + 'newspaper-ada.json', 'Newspaper: Ada'],",
     "    [tutorial_en + 'rain0.json', 'Rain 0'],",
     "    [tutorial_en + 'rain1.json', 'Rain 1'],",
     "    [tutorial_en + 'rain2.json', 'Rain 2'],",

@@ -1,0 +1,179 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "objects": {},
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ],
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 15,
+      "model": "classic"
+    }
+  ],
+  "walls": {
+    "1,1": [
+      "east"
+    ],
+    "3,2": [
+      "east"
+    ],
+    "5,3": [
+      "east"
+    ],
+    "2,3": [
+      "east"
+    ],
+    "4,4": [
+      "east"
+    ],
+    "7,3": [
+      "north"
+    ],
+    "6,3": [
+      "north"
+    ],
+    "5,2": [
+      "north"
+    ],
+    "4,2": [
+      "north"
+    ],
+    "3,1": [
+      "north"
+    ],
+    "2,1": [
+      "north"
+    ],
+    "3,3": [
+      "north"
+    ],
+    "4,3": [
+      "north"
+    ],
+    "2,2": [
+      "north"
+    ],
+    "1,2": [
+      "north"
+    ],
+    "8,3": [
+      "north"
+    ]
+  },
+  "goal": {
+    "position": {
+      "x": 1,
+      "y": 1
+    },
+    "objects": {
+      "7,4": {
+        "star": 1
+      }
+    }
+  },
+  "objects": {
+    "1,1": {
+      "star": 1
+    },
+    "7,4": {
+      "token": "1-3"
+    }
+  },
+  "small_tiles": false,
+  "rows": 4,
+  "cols": 8,
+  "tiles": {
+    "6,3": [
+      "bricks"
+    ],
+    "7,3": [
+      "bricks"
+    ],
+    "8,3": [
+      "bricks"
+    ],
+    "8,2": [
+      "bricks"
+    ],
+    "7,2": [
+      "bricks"
+    ],
+    "6,2": [
+      "bricks"
+    ],
+    "5,2": [
+      "bricks"
+    ],
+    "4,2": [
+      "bricks"
+    ],
+    "2,1": [
+      "bricks"
+    ],
+    "3,1": [
+      "bricks"
+    ],
+    "4,1": [
+      "bricks"
+    ],
+    "5,1": [
+      "bricks"
+    ],
+    "6,1": [
+      "bricks"
+    ],
+    "7,1": [
+      "bricks"
+    ],
+    "8,1": [
+      "bricks"
+    ],
+    "1,4": [
+      "bricks"
+    ],
+    "2,4": [
+      "bricks"
+    ],
+    "3,4": [
+      "bricks"
+    ],
+    "4,4": [
+      "bricks"
+    ],
+    "1,3": [
+      "bricks"
+    ],
+    "2,3": [
+      "bricks"
+    ]
+  },
+  "description": [
+    "<h1>Livraison de journal pour Ada Lovelace</h1>",
+    "<p>Reeborg doit livrer le journal <em>l'Étoile du nord</em>",
+    "    au domicile de la gentille Ada Lovelace.",
+    "    Celle-ci laisse toujours un ou plusieurs jetons",
+    "    en cadeau à Reeborg.",
+    "</p>",
+    "<h3>Ce que vous devez connaître</h3>",
+    "<p>Vous devriez savoir comment résoudre le monde <b>Journal</b>.",
+    "</p>",
+    "<ul><li>Les fonctions <code>avance()</code>, <code>tourne_a_gauche()</code>,",
+    "    <code>prend()</code> et <code>depose()</code>.</li>",
+    "    <li>Comment utiliser des arguments de fonctions et les chaînes",
+    "    <code>\"jeton\"</code> ou <code>\"étoile\"</code>.</li>",
+    "</ul>",
+    "DIFFICULTY4"
+  ]
+}
