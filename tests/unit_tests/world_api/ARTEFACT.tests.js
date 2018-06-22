@@ -54,6 +54,7 @@ test('ensure_common_required_args_present: invalid position (missing coordinates
 
 test('ensure_common_required_args_present: invalid position (non integer values)', function (assert) {
     var args = {x:1, y:3.5, name: 'a', type:'b'};
+        RUR.untranslated['a'] = true;
     assert.plan(1);
     try {
         RUR.UnitTest.ensure_common_required_args_present(args);
