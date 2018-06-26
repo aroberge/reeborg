@@ -19,7 +19,7 @@ test('adding known object', function (assert) {
     RUR.CURRENT_WORLD = RUR.create_empty_world();
     RUR.KNOWN_THINGS = ['a'];
     RUR.untranslated['a'] = true;
-    global.RUR.add_obstacle('a', 2, 3);
+    RUR.add_obstacle('a', 2, 3);
     assert.deepEqual(RUR.CURRENT_WORLD.obstacles['2,3'], ["a"], "obstacle ok");
     assert.end();
 });

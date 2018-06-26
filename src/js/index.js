@@ -39,8 +39,8 @@ require("./utils/path_utils.js");
 require("./world_api/decorative_objects.js");
 
 brython({debug:1, pythonpath:[RUR.BASE_URL + '/src/python']});
-if (__BRYTHON__.__MAGIC__ != "3.3.4") {
-    alert("Expecting Brython version 3.3.4 and got " + __BRYTHON__.__MAGIC__);
+if (__BRYTHON__.__MAGIC__ != "3.6.2") {
+    alert("Expecting Brython version 3.6.2 and got " + __BRYTHON__.__MAGIC__);
 }
 
 function probably_invalid(value) {
