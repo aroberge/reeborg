@@ -1,0 +1,113 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 2,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {
+    "1,2": [
+      "north",
+      "east"
+    ],
+    "1,1": ["north"]
+  },
+  "description": [
+    "<h1>A tough cleaning task</h1>",
+    "<p class='warning'>Watch for the pond!</p>",
+    "DIFFICULTY8",
+    "<p>There was a wind storm last night and some leaves",
+    "    were blown all over the yard.</p>",
+    "<p>Have Reeborg collect all the leaves, and",
+    "    <code>toss()</code> them in the compost bin.",
+    "    Make sure",
+    "    that Reeborg ends at home <b>and that he does not fall in the pond!</b></p>",
+    "<p>Note that the size of the yard, and the position of the pond changes every time,",
+    " and that there is always some space around the pond.</p>",
+    "<p>Do not attempt to write a full solution right away. Break up the problem into various",
+    "parts, aiming to get to a certain point in the yard, ",
+    "like the top left or top right corner, or just above the compost bin, etc., ",
+    "in a given orientation, and test it with a few worlds",
+    "to make sure that it works as you expect.</p>",
+    "<h3>A possible solution</h3>",
+    "<p>A possible solution is to attempt to clean the yard, row by row, ",
+    "going over twice, first from right to left, then from left to right.</p>",
+    "<h3>A different approach</h3>",
+    "<p>Another approach might be to use a combination of",
+    "<code>front_is_clear()</code> and <code>wall_in_front()</code>",
+    "together with some logical operators (in Python: <code>and, or, not</code>; ",
+    "in Javascript: <code>&&, ||, !</code>) to figure out when the pond is blocking the way",
+    "and simply go around the pond so that there is no need to go over each row twice.</p>",
+    "<h3>What you need to know</h3>",
+    "<ul>",
+    "    <li>The functions <code>move()</code>, <code>turn_left()</code>,",
+    "        <code>take()</code>, ",
+    "        and <code>toss()</code>.</li>",
+    "    <li>How to use the test <code>object_here()</code>, <code>at_goal()</code>",
+    "        <code>carries_object()</code>, <code>right_is_clear()</code>, and <code>front_is_clear()</code>.</li>",
+    "    <li> How to use a <code>while</code> loop and an <code>if</code> statement.</li>",
+    "</ul>",
+    "<p>This program should also work for world <b>Storm 2</b>.",
+    "<p>You might want to set <code>think(0)</code> so that your program runs faster.</p>"
+  ],
+  "small_tiles": false,
+  "rows": 6,
+  "cols": 6,
+  "goal": {
+    "position": {
+      "image": "house",
+      "x": 1,
+      "y": 1
+    },
+    "objects": {
+      "1,2": {
+        "leaf": "all"
+      }
+    }
+  },
+  "onload": [
+    "var nb, x, y, n, x_pond, y_pond, width, height;",
+    "width = RUR.randint(5, 10);",
+    "height = RUR.randint(6, 10);",
+    "RUR.set_world_size(width, height);",
+    "RUR.fill_background('grass');",
+    "for(x=1; x<=width; x++){",
+    "    RUR.add_background_tile('gravel', x, 1);",
+    "}",
+    "RUR.add_background_tile('pale_grass', 1, 2);",
+    "x_pond = RUR.randint(3, width-1);",
+    "y_pond = RUR.randint(4, height-1);",
+    "RUR.add_background_tile('water', x_pond, y_pond);",
+    "// We do not want the pond to be square",
+    "RUR.add_decorative_object('grass_top_left', x_pond, y_pond);",
+    "RUR.add_decorative_object('grass_top_right', x_pond, y_pond);",
+    "RUR.add_decorative_object('grass_bottom_left', x_pond, y_pond);",
+    "RUR.add_decorative_object('grass_bottom_right', x_pond, y_pond);",
+    "for(n=1; n<=15; n++) {",
+    "    x = RUR.randint(1, width);",
+    "    y = RUR.randint(1, height);",
+    "    if ((x<=2 && y<=2) || (x==x_pond && y==y_pond))  {continue;}",
+    "    nb = RUR.randint(0, 3);",
+    "    RUR.add_object('leaf', x, y, {'number': nb});",
+    "}",
+    ""
+  ],
+  "pre": "RUR.MAX_STEPS = 2000"
+}

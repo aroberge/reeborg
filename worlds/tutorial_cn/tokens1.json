@@ -1,0 +1,51 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 20,
+      "model": "classic"
+    }
+  ],
+  "goal": {
+    "position": {
+      "image": "racing_flag",
+      "x": 4,
+      "y": 1
+    },
+    "objects": {
+      "3,1": {
+        "token": 1
+      }
+    }
+  },
+  "objects": {
+    "2,1": {
+      "token": 1
+    }
+  },
+  "rows": 1,
+  "cols": 10,
+  "small_tiles": false,
+  "description": [
+    "<h1>Token move</h1>",
+    "<p>Have Reeborg take the token, move it to",
+    "    the next square and continue moving",
+    "    until it reaches its goal.</p>",
+    "<h3>What you need to know</h3>",
+    "    <ul><li>The functions <code>move()</code>, ",
+    "        <code>put()</code> and <code>take()</code>.",
+    "        </li></ul>",
+    "DIFFICULTY1"
+  ]
+}

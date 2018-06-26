@@ -1,0 +1,69 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 4,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "goal": {
+    "objects": {
+      "7,1": {
+        "token": 4
+      },
+      "8,1": {}
+    },
+    "possible_final_positions": [
+      [
+        9,
+        1
+      ]
+    ],
+    "position": {
+      "image": "racing_flag",
+      "x": 9,
+      "y": 1
+    }
+  },
+  "objects": {
+    "2,1": {},
+    "3,1": {
+      "token": 1
+    },
+    "4,1": {
+      "token": 1
+    },
+    "5,1": {
+      "token": 1
+    },
+    "1,1": {},
+    "6,1": {
+      "token": 1
+    }
+  },
+  "rows": 1,
+  "cols": 10,
+  "small_tiles": false,
+  "description": [
+    "<h1>Many more tokens to move</h1>",
+    "<p class='warning'>Find a solution for world <b>Tokens 4</b> first, and test it with this world.</p>",
+    ""
+  ]
+}

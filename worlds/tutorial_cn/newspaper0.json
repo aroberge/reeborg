@@ -1,0 +1,187 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "objects": {},
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ],
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 4,
+      "model": "classic"
+    }
+  ],
+  "walls": {
+    "1,1": [
+      "east"
+    ],
+    "3,2": [
+      "east"
+    ],
+    "5,3": [
+      "east"
+    ],
+    "2,3": [
+      "east"
+    ],
+    "4,4": [
+      "east"
+    ],
+    "7,3": [
+      "north"
+    ],
+    "6,3": [
+      "north"
+    ],
+    "5,2": [
+      "north"
+    ],
+    "4,2": [
+      "north"
+    ],
+    "3,1": [
+      "north"
+    ],
+    "2,1": [
+      "north"
+    ],
+    "3,3": [
+      "north"
+    ],
+    "4,3": [
+      "north"
+    ],
+    "2,2": [
+      "north"
+    ],
+    "1,2": [
+      "north"
+    ],
+    "8,3": [
+      "north"
+    ]
+  },
+  "goal": {
+    "position": {
+      "x": 1,
+      "y": 1
+    },
+    "objects": {
+      "7,4": {
+        "star": 1
+      }
+    }
+  },
+  "objects": {
+    "1,1": {
+      "star": 1
+    }
+  },
+  "small_tiles": false,
+  "rows": 4,
+  "cols": 8,
+  "tiles": {
+    "6,3": [
+      "bricks"
+    ],
+    "7,3": [
+      "bricks"
+    ],
+    "8,3": [
+      "bricks"
+    ],
+    "8,2": [
+      "bricks"
+    ],
+    "7,2": [
+      "bricks"
+    ],
+    "6,2": [
+      "bricks"
+    ],
+    "5,2": [
+      "bricks"
+    ],
+    "4,2": [
+      "bricks"
+    ],
+    "2,1": [
+      "bricks"
+    ],
+    "3,1": [
+      "bricks"
+    ],
+    "4,1": [
+      "bricks"
+    ],
+    "5,1": [
+      "bricks"
+    ],
+    "6,1": [
+      "bricks"
+    ],
+    "7,1": [
+      "bricks"
+    ],
+    "8,1": [
+      "bricks"
+    ],
+    "1,4": [
+      "bricks"
+    ],
+    "2,4": [
+      "bricks"
+    ],
+    "3,4": [
+      "bricks"
+    ],
+    "4,4": [
+      "bricks"
+    ],
+    "1,3": [
+      "bricks"
+    ],
+    "2,3": [
+      "bricks"
+    ]
+  },
+  "description": [
+    "<h1>Newspaper delivery</h1>",
+    "<p>Reeborg must deliver the newspaper <em>The Northern Star</em>.",
+    "    To do this, Reeborg must take the newspaper using the function",
+    "    <code>take()</code>, climb up three steps, ",
+    "    put down the newspaper using the function <code>put()</code>,",
+    "    and finally go back to its starting point.",
+    "</p>",
+    "<h3>What you need to know</h3>",
+    "<ul><li>The functions <code>move()</code>, <code>turn_left()</code>,",
+    "    <code>take()</code> and <code>put()</code>.</li></ul>",
+    "DIFFICULTY1",
+    "<h2>For more advanced students</h2>",
+    "<p>if you know how to define functions, ",
+    "    define the required functions so that your program can be run",
+    "    as follows</p>.",
+    "<pre class='python'>",
+    "take()",
+    "up_three_steps()",
+    "put()",
+    "turn_around()",
+    "down_three_steps()",
+    "</pre>",
+    "<p>You should also define other functions such as ",
+    "<code>turn_right()</code>, <code>up_one_step()</code>, etc.,",
+    "to avoid code repetition.</p>",
+    "DIFFICULTY2"
+  ]
+}

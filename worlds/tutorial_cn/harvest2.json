@@ -1,0 +1,459 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 10,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "goal": {
+    "objects": {}
+  },
+  "objects": {
+    "5,3": {
+      "carrot": "0-3"
+    },
+    "5,4": {
+      "carrot": "0-3"
+    },
+    "5,5": {
+      "carrot": "0-3"
+    },
+    "5,6": {
+      "carrot": "0-3"
+    },
+    "5,7": {
+      "carrot": "0-3"
+    },
+    "5,8": {
+      "carrot": "0-3"
+    },
+    "4,8": {
+      "carrot": "0-3"
+    },
+    "4,7": {
+      "carrot": "0-3"
+    },
+    "4,6": {
+      "carrot": "0-3"
+    },
+    "4,5": {
+      "carrot": "0-3"
+    },
+    "4,4": {
+      "carrot": "0-3"
+    },
+    "4,3": {
+      "carrot": "0-3"
+    },
+    "6,8": {
+      "carrot": "0-3"
+    },
+    "6,7": {
+      "carrot": "0-3"
+    },
+    "6,6": {
+      "carrot": "0-3"
+    },
+    "6,5": {
+      "carrot": "0-3"
+    },
+    "6,4": {
+      "carrot": "0-3"
+    },
+    "6,3": {
+      "carrot": "0-3"
+    },
+    "7,8": {
+      "carrot": "0-3"
+    },
+    "7,7": {
+      "carrot": "0-3"
+    },
+    "7,6": {
+      "carrot": "0-3"
+    },
+    "7,5": {
+      "carrot": "0-3"
+    },
+    "7,4": {
+      "carrot": "0-3"
+    },
+    "8,7": {
+      "carrot": "0-3"
+    },
+    "8,6": {
+      "carrot": "0-3"
+    },
+    "8,5": {
+      "carrot": "0-3"
+    },
+    "3,8": {
+      "carrot": "0-3"
+    },
+    "3,7": {
+      "carrot": "0-3"
+    },
+    "3,6": {
+      "carrot": "0-3"
+    },
+    "3,5": {
+      "carrot": "0-3"
+    },
+    "3,4": {
+      "carrot": "0-3"
+    },
+    "8,8": {
+      "carrot": "0-3"
+    },
+    "8,4": {
+      "carrot": "0-3"
+    },
+    "7,3": {
+      "carrot": "0-3"
+    },
+    "3,3": {
+      "carrot": "0-3"
+    },
+    "8,3": {
+      "carrot": "0-3"
+    }
+  },
+  "small_tiles": false,
+  "rows": 10,
+  "cols": 10,
+  "walls": {},
+  "tiles": {
+    "1,10": [
+      "grass"
+    ],
+    "2,10": [
+      "grass"
+    ],
+    "3,10": [
+      "grass"
+    ],
+    "4,10": [
+      "grass"
+    ],
+    "5,10": [
+      "grass"
+    ],
+    "6,10": [
+      "grass"
+    ],
+    "7,10": [
+      "grass"
+    ],
+    "8,10": [
+      "grass"
+    ],
+    "9,10": [
+      "grass"
+    ],
+    "10,10": [
+      "grass"
+    ],
+    "10,9": [
+      "grass"
+    ],
+    "10,8": [
+      "grass"
+    ],
+    "10,7": [
+      "grass"
+    ],
+    "10,6": [
+      "grass"
+    ],
+    "10,5": [
+      "grass"
+    ],
+    "10,4": [
+      "grass"
+    ],
+    "10,3": [
+      "grass"
+    ],
+    "10,2": [
+      "grass"
+    ],
+    "10,1": [
+      "grass"
+    ],
+    "9,1": [
+      "grass"
+    ],
+    "9,2": [
+      "grass"
+    ],
+    "9,3": [
+      "grass"
+    ],
+    "9,4": [
+      "grass"
+    ],
+    "9,5": [
+      "grass"
+    ],
+    "9,6": [
+      "grass"
+    ],
+    "9,7": [
+      "grass"
+    ],
+    "9,8": [
+      "grass"
+    ],
+    "9,9": [
+      "grass"
+    ],
+    "8,9": [
+      "grass"
+    ],
+    "7,9": [
+      "grass"
+    ],
+    "6,9": [
+      "grass"
+    ],
+    "5,9": [
+      "grass"
+    ],
+    "4,9": [
+      "grass"
+    ],
+    "3,9": [
+      "grass"
+    ],
+    "2,9": [
+      "grass"
+    ],
+    "1,9": [
+      "grass"
+    ],
+    "1,8": [
+      "grass"
+    ],
+    "2,8": [
+      "grass"
+    ],
+    "2,7": [
+      "grass"
+    ],
+    "1,7": [
+      "grass"
+    ],
+    "1,6": [
+      "grass"
+    ],
+    "2,6": [
+      "grass"
+    ],
+    "2,5": [
+      "grass"
+    ],
+    "1,5": [
+      "grass"
+    ],
+    "1,4": [
+      "grass"
+    ],
+    "2,4": [
+      "grass"
+    ],
+    "2,3": [
+      "grass"
+    ],
+    "1,3": [
+      "grass"
+    ],
+    "1,2": [
+      "grass"
+    ],
+    "2,2": [
+      "grass"
+    ],
+    "2,1": [
+      "grass"
+    ],
+    "1,1": [
+      "grass"
+    ],
+    "3,1": [
+      "grass"
+    ],
+    "3,2": [
+      "grass"
+    ],
+    "4,2": [
+      "grass"
+    ],
+    "5,2": [
+      "grass"
+    ],
+    "6,2": [
+      "grass"
+    ],
+    "7,2": [
+      "grass"
+    ],
+    "8,2": [
+      "grass"
+    ],
+    "8,1": [
+      "grass"
+    ],
+    "7,1": [
+      "grass"
+    ],
+    "6,1": [
+      "grass"
+    ],
+    "5,1": [
+      "grass"
+    ],
+    "4,1": [
+      "grass"
+    ],
+    "3,8": [
+      "pale_grass"
+    ],
+    "4,8": [
+      "pale_grass"
+    ],
+    "5,8": [
+      "pale_grass"
+    ],
+    "6,8": [
+      "pale_grass"
+    ],
+    "7,8": [
+      "pale_grass"
+    ],
+    "8,8": [
+      "pale_grass"
+    ],
+    "8,7": [
+      "pale_grass"
+    ],
+    "8,6": [
+      "pale_grass"
+    ],
+    "8,5": [
+      "pale_grass"
+    ],
+    "8,4": [
+      "pale_grass"
+    ],
+    "8,3": [
+      "pale_grass"
+    ],
+    "7,3": [
+      "pale_grass"
+    ],
+    "7,4": [
+      "pale_grass"
+    ],
+    "7,5": [
+      "pale_grass"
+    ],
+    "7,6": [
+      "pale_grass"
+    ],
+    "7,7": [
+      "pale_grass"
+    ],
+    "6,7": [
+      "pale_grass"
+    ],
+    "5,7": [
+      "pale_grass"
+    ],
+    "4,7": [
+      "pale_grass"
+    ],
+    "3,7": [
+      "pale_grass"
+    ],
+    "3,6": [
+      "pale_grass"
+    ],
+    "4,6": [
+      "pale_grass"
+    ],
+    "5,6": [
+      "pale_grass"
+    ],
+    "6,6": [
+      "pale_grass"
+    ],
+    "6,5": [
+      "pale_grass"
+    ],
+    "5,5": [
+      "pale_grass"
+    ],
+    "4,5": [
+      "pale_grass"
+    ],
+    "3,5": [
+      "pale_grass"
+    ],
+    "3,4": [
+      "pale_grass"
+    ],
+    "4,4": [
+      "pale_grass"
+    ],
+    "5,4": [
+      "pale_grass"
+    ],
+    "6,4": [
+      "pale_grass"
+    ],
+    "6,3": [
+      "pale_grass"
+    ],
+    "5,3": [
+      "pale_grass"
+    ],
+    "4,3": [
+      "pale_grass"
+    ],
+    "3,3": [
+      "pale_grass"
+    ]
+  },
+  "description": [
+    "<h1>Harvest time</h1>",
+    "<p>Reeborg's garden is ready to harvest.",
+    "Have Reeborg collect all the carrots in his garden.</p>",
+    "<h3>What you need to know</h3>",
+    "<ul><li>The functions <code>move()</code>, <code>turn_left()</code>, and <code>take()</code>.</li>",
+    "<li>The test <code>object_here()</code>.</li>",
+    "<li>How to use a <code>while</code> loop.</li></ul>",
+    "<p>You might find it convenient to define a function",
+    "named <code>harvest_one_row()</code> and",
+    "call this function 6 times.</p>",
+    "DIFFICULTY4"
+  ],
+  "pre": [
+    "RUR.success_custom_message = '<p class=\"success\">All carrots have been harvested.</p>'",
+    "RUR.failure_custom_message = '<p class=\"failure\">Some carrots have not been harvested.</p>'"]
+}

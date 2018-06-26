@@ -1,0 +1,195 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 2,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {
+    "1,2": [
+      "north",
+      "east"
+    ],
+    "1,1": ["north"]
+  },
+  "description": [
+    "<h1>Cleaning the path</h1>",
+    "<p>There was a storm last night and some leaves",
+    "    were blown on the gravel path.</p>",
+    "<p>Have Reeborg collect all the leaves, and",
+    "    <code>toss()</code> them in the compost bin.",
+    "    Make sure that Reeborg ends at home!</p>",
+    "<h3>What you need to know</h3>",
+    "<ul>",
+    "    <li>The functions <code>move()</code>, <code>turn_left()</code>,",
+    "        <code>take()</code>, ",
+    "        and <code>toss()</code>.</li>",
+    "    <li>How to use the test <code>object_here()</code>, ",
+    "        <code>carries_object()</code> and either",
+    "        <code>front_is_clear()</code> or <code>wall_in_front()</code>.</li>",
+    "    <li> How to use a <code>while</code> loop and an <code>if</code> statement.</li>",
+    "</ul>",
+    "<p>Ideally, you should define your own functions to make your",
+    "    program easier to understand.</p>",
+    "DIFFICULTY4"
+  ],
+  "small_tiles": false,
+  "rows": 6,
+  "cols": 6,
+  "goal": {
+    "possible_final_positions": [
+      [
+        1,
+        1
+      ]
+    ],
+    "position": {
+      "image": "house",
+      "x": 1,
+      "y": 1
+    },
+    "objects": {
+      "1,2": {
+        "leaf": "all"
+      }
+    }
+  },
+  "tiles": {
+    "1,1": [
+      "gravel"
+    ],
+    "1,2": [
+      "pale_grass"
+    ],
+    "1,3": [
+      "grass"
+    ],
+    "1,4": [
+      "grass"
+    ],
+    "1,5": [
+      "grass"
+    ],
+    "1,6": [
+      "grass"
+    ],
+    "2,1": [
+      "gravel"
+    ],
+    "2,2": [
+      "grass"
+    ],
+    "2,3": [
+      "grass"
+    ],
+    "2,4": [
+      "grass"
+    ],
+    "2,5": [
+      "grass"
+    ],
+    "2,6": [
+      "grass"
+    ],
+    "3,1": [
+      "gravel"
+    ],
+    "3,2": [
+      "grass"
+    ],
+    "3,3": [
+      "grass"
+    ],
+    "3,4": [
+      "grass"
+    ],
+    "3,5": [
+      "grass"
+    ],
+    "3,6": [
+      "grass"
+    ],
+    "4,1": [
+      "gravel"
+    ],
+    "4,2": [
+      "grass"
+    ],
+    "4,3": [
+      "grass"
+    ],
+    "4,4": [
+      "grass"
+    ],
+    "4,5": [
+      "grass"
+    ],
+    "4,6": [
+      "grass"
+    ],
+    "5,1": [
+      "gravel"
+    ],
+    "5,2": [
+      "grass"
+    ],
+    "5,3": [
+      "grass"
+    ],
+    "5,4": [
+      "grass"
+    ],
+    "5,5": [
+      "grass"
+    ],
+    "5,6": [
+      "grass"
+    ],
+    "6,1": [
+      "gravel"
+    ],
+    "6,2": [
+      "grass"
+    ],
+    "6,3": [
+      "grass"
+    ],
+    "6,4": [
+      "grass"
+    ],
+    "6,5": [
+      "grass"
+    ],
+    "6,6": [
+      "grass"
+    ]
+  },
+  "onload": [
+    "var nb, total, x;",
+    "total=0;",
+    "for(x=2; x<=6; x++) {",
+    "    nb = RUR.randint(0, 2);",
+    "    total += nb;",
+    "    RUR.add_object('leaf', x, 1, {'number': nb});",
+    "}",
+    "if (total==0) {RUR.add_object('leaf', 3, 1, {'number': 2})};",
+    ""
+  ]
+}

@@ -1,0 +1,375 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_orientation": 0,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ],
+      "objects": {},
+      "_is_leaky": true,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 4,
+      "model": "classic"
+    }
+  ],
+  "rows": 5,
+  "cols": 14,
+  "walls": {
+    "2,1": [
+      "east"
+    ],
+    "4,1": [
+      "east"
+    ],
+    "6,1": [
+      "east"
+    ],
+    "8,1": [
+      "east"
+    ],
+    "10,1": [
+      "east"
+    ],
+    "12,1": [
+      "east"
+    ]
+  },
+  "goal": {
+    "position": {
+      "image": "racing_flag",
+      "x": 4,
+      "y": 1
+    },
+    "possible_final_positions": [
+      [
+        7,
+        1
+      ],
+      [
+        9,
+        1
+      ],
+      [
+        11,
+        1
+      ],
+      [
+        13,
+        1
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        3,
+        1
+      ]
+    ]
+  },
+  "description": [
+    "<h1>Hurdles race</h1>",
+    "Reeborg has entered a hurdle race,",
+    "but he does not know in advance how long the race is. ",
+    "Make him run the course, following a path similar to the one shown,",
+    "but stopping at the only flag that will be shown after the race has started.",
+    "<h3>What you need to know</h3>",
+    "<ul><li>The functions <code>move()</code> and <code>turn_left()</code>.</li>",
+    "<li>The condition <code>at_goal()</code> and its negation.</li>",
+    "<li>How to use a <code>while</code> loop.</li></ul>",
+    "<p>Your program should also be valid for world <b>Hurdles 1</b>.</p>",
+    "DIFFICULTY3",
+    "<p>Background image: <a href='https://www.pexels.com/photo/action-athletes-audience-ball-270154/'>www.pexels.com</a></p>"
+  ],
+  "onload": [
+    "// This world has been defined with a background image",
+    "",
+    "var i, x, y;",
+    "",
+    "RUR.set_model('light blue');",
+    "RUR._set_trace_color_('cyan');",
+    "",
+    "// hard-coded path which may need to be trimmed",
+    "RUR.public['path'] = [[1,1], [2,1], [2,2], [3,2], [3,1], [4,1],",
+    "    [4,2], [5,2], [5,1], [6,1], [6,2], [7,2], [7,1], [8,1],",
+    "    [8,2], [9,2], [9,1], [10,1], [10,2], [11,2], [11,1], [12,1],",
+    "    [12,2], [13,2], [13,1]];",
+    "",
+    "// We show the desired path very clearly;  in the",
+    "// Pre editor, we will set it to be less visible",
+    "RUR.show_path(RUR.public['path'], 'black');",
+    "",
+    "// We also add semi-transparent tiles over the background",
+    "// image to show the desired path. We define a function",
+    "// as we will need to redo this once the path is trimmed",
+    "RUR.public.show_background = function () {",
+    "    for (i=0; i < RUR.public.path.length; i++ ){",
+    "        x = RUR.public.path[i][0];",
+    "        y = RUR.public.path[i][1];",
+    "        RUR.add_colored_tile('rgba(255, 255, 255, 0.3)', x, y);",
+    "    }",
+    "}",
+    "",
+    "RUR.public.show_background();",
+    "",
+    "// Since RUR.public['path'] is defined, setting the following to true ",
+    "// and not simply a truthy value, will make the grid show ONLY on",
+    "// the path",
+    "",
+    "RUR.state.visible_grid = RUR.PATH_ONLY;",
+    "// The following is going to be called in the Post editor",
+    "// we want users to be able to use either Python or Javascript",
+    "// to solve this task - so we cannot have Python or Javascript",
+    "// specific syntax in either the Pre or the Post editor",
+    "RUR.public.my_check = function (failure) {",
+    "    if ( RUR.check_path(RUR.public['path']) ) {",
+    "        return; // nothing else required.",
+    "    }",
+    "",
+    "    // The program did not work ... let's show all the required",
+    "    // feedback in essentially one step",
+    "    recording(false); // do not record a new frame for each action",
+    "",
+    "    //let's make the background picture less visible",
+    "    // by covering the entire background with semi-transparent black tiles",
+    "    RUR.fill_background('rgba(0, 0, 0, 0.6)');",
+    "    // We also show the path again",
+    "    RUR.show_path(RUR.public['path'], 'orange');",
+    "   ",
+    "    // all desired changes done; ready to show them",
+    "    recording(true);",
+    "",
+    "    // finally, we throw an error to end the execution",
+    "    // and record the final frame",
+    "    throw new RUR.ReeborgError(failure);",
+    "}",
+    "",
+    "// We define here a function that will be called",
+    "// in the Pre editor, after the path has been set.",
+    "RUR.public.trim_path = function(){",
+    "    var i, position, x, y, xx, yy, path = [];",
+    "    recording(false);  // show the final result in a single frame",
+    "    position = RUR.get_current_world().goal.position;",
+    "    x = position['x'];",
+    "    y = position['y'];",
+    "    for(i=0; i< RUR.public['path'].length; i++) {",
+    "        xx = RUR.public['path'][i][0];",
+    "        yy = RUR.public['path'][i][1];",
+    "        if(x == xx && y == yy){",
+    "            path.push([xx, yy]);",
+    "            break;",
+    "        }",
+    "        path.push([xx, yy]);",
+    "    }",
+    "    RUR.public['path'] = path;",
+    "    RUR.clear_background();",
+    "    RUR.public.show_background();",
+    "    RUR.show_path(RUR.public['path'], \"lightgray\");",
+    "    recording(true);",
+    "    RUR.record_frame(); // display the final result",
+    "}",
+    "",
+    ""
+  ],
+  "background_image": "worlds/images/stadium.png",
+  "pre": [
+    "RUR.public.trim_path()",
+    ""
+  ],
+  "post": [
+    "RUR.public.my_check(\"Reeborg did not follow the correct path.\");",
+    "",
+    ""
+  ],
+  "small_tiles": false,
+  "_CORRECT_PATH": [
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      2,
+      2
+    ],
+    [
+      3,
+      2
+    ],
+    [
+      3,
+      1
+    ],
+    [
+      4,
+      1
+    ],
+    [
+      4,
+      2
+    ],
+    [
+      5,
+      2
+    ],
+    [
+      5,
+      1
+    ],
+    [
+      6,
+      1
+    ],
+    [
+      6,
+      2
+    ],
+    [
+      7,
+      2
+    ],
+    [
+      7,
+      1
+    ],
+    [
+      8,
+      1
+    ],
+    [
+      8,
+      2
+    ],
+    [
+      9,
+      2
+    ],
+    [
+      9,
+      1
+    ],
+    [
+      10,
+      1
+    ],
+    [
+      10,
+      2
+    ],
+    [
+      11,
+      2
+    ],
+    [
+      11,
+      1
+    ],
+    [
+      12,
+      1
+    ],
+    [
+      12,
+      2
+    ],
+    [
+      13,
+      2
+    ],
+    [
+      13,
+      1
+    ]
+  ],
+  "_CORRECT_PATH_COLOR": "black",
+  "tiles": {
+    "1,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "2,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "2,2": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "3,2": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "3,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "4,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "4,2": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "5,2": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "5,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "6,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "6,2": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "7,2": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "7,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "8,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "8,2": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "9,2": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "9,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "10,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "10,2": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "11,2": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "11,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "12,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "12,2": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "13,2": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "13,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ]
+  }
+}
