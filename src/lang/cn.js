@@ -6,9 +6,9 @@ exports.cn = cn = {};
 
 cn["at_goal"] = "到达目的地";
 cn["front_is_clear"] = "前方通畅";
-cn["right_is_clear"] = "右边通畅";
+cn["right_is_clear"] = "右侧通畅";
 cn["wall_in_front"] = "前方有墙";
-cn["wall_on_right"] = "右边有墙";
+cn["wall_on_right"] = "右侧有墙";
 cn["object_here"] = "此处的物品";
 cn["carries_object"] = "携带的物品";
 cn["is_facing_north"] = "面向北方";
