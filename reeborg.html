@@ -37,6 +37,7 @@
     var RUR = {};
     RUR.DEFAULT_MENU_EN = '/worlds/menus/select_collection_en.json';
     RUR.DEFAULT_MENU_FR = '/worlds/menus/select_collection_fr.json';
+    RUR.DEFAULT_MENU_CN = '/worlds/menus/select_collection_cn.json';
   </script>
 </head>
 <body>
@@ -63,11 +64,14 @@
       <select id="human-language" title="Select UI language">
         <option value="en">English</option>
         <option value="fr">Français</option>
+        <option value="cn">中文</option>
         <optgroup label="------------">
           <option class="select-mixed" value="ko-en">한국어 + en</option>
           <option class="select-mixed" value="pl-en">Polski + en</option>
           <option class="select-mixed" value="fr-en">Français + en</option>
+          <option class="select-mixed" value="cn-en">中文 + en</option>
           <option class="select-mixed" value="en-fr">English + fr</option>
+          <option class="select-mixed" value="en-cn">English + 中文</option>
         </optgroup>
       </select>
     </div>
@@ -601,6 +605,7 @@
   <script type="text/javascript" src="src/blockly_msg/en.js"></script>
   <script type="text/javascript" src="src/blockly_msg/fr.js"></script>
   <script type="text/javascript" src="src/blockly_msg/ko.js"></script>
+  <script type="text/javascript" src="src/blockly_msg/cn.js"></script>
   <script type="text/javascript" defer src="src/blockly/python_compressed.js"></script>
 
   <script type="text/javascript" src="build/reeborg.js" defer></script>

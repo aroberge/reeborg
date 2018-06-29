@@ -54,6 +54,7 @@
     "<p><a class='fake-button' href='#' onclick=\"RUR.load_world_file('worlds/menus/varia_en.json')\">前往杂项</a></p>"
   ],
   "onload": [
+    "RUR.world_selector.empty_menu();",
     "RUR.show_description();",
     "RUR.world_selector.append_world({url:RUR.BASE_URL + '/worlds/menus/select_collection_cn.json', shortname:'其它的世界'})",
     "RUR.world_selector.append_world({url:RUR.BASE_URL + '/worlds/tutorial_en/alone.json', shortname:'空白'})"
