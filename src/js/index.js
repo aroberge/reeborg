@@ -206,17 +206,23 @@ function set_initial_language(url_query) {
 
 function set_initial_menu(url_query) {
     var last_menu;
+    var last_lang;
 
-    RUR.state.current_menu = decodeURIComponent(url_query.queryKey.menu);
-    last_menu = localStorage.getItem("world_menu");
+    last_lang = localStorage.getItem("human_language");
+    if (last_lang !== RUR.state.human_language) {
+        RUR.state.current_menu = RUR.initial_defaults.initial_menu;
+    } else {
+        RUR.state.current_menu = decodeURIComponent(url_query.queryKey.menu);
+        last_menu = localStorage.getItem("world_menu");
 
-    if (probably_invalid(RUR.state.current_menu)) {
-        if (!probably_invalid(last_menu)) {
-            RUR.state.current_menu = last_menu;
-        } else {
-            RUR.state.current_menu = RUR.initial_defaults.initial_menu;
+        if (probably_invalid(RUR.state.current_menu)) {
+            if (!probably_invalid(last_menu)) {
+                RUR.state.current_menu = last_menu;
+            } else {
+                RUR.state.current_menu = RUR.initial_defaults.initial_menu;
+            }
         }
-    }   
+    }
 
     RUR.state.creating_menu = true;
     RUR.load_world_file(RUR.state.current_menu);
