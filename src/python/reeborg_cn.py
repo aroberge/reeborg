@@ -447,7 +447,7 @@ class 机器人(object):  #py:UR
                 "random"。
 
             笑脸：机器人所携带的笑脸的初始数量，必须是一个正整数或字符串
-                "Infinity" 表示无穷数量。
+                "infinite" 表示无穷数量。
 
             其它：其它任何关键字参数（keyword argument）将被视为给与
                 机器人的物品。

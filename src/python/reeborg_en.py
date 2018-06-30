@@ -477,7 +477,7 @@ class UsedRobot(object):  #py:UR
                             "n" or "north", "s" or "south", or "random".
                tokens: Initial number of tokens to give to the robot;
                        its value must be a positive integer, or the string
-                       "Infinity" to indicate an infinite quantity.
+                       "infinite" to indicate an infinite quantity.
 
                other: any other keyword argument will be taken as a number of
                       objects to give to a robot.

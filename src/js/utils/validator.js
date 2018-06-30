@@ -42,13 +42,17 @@ RUR.is_valid_position = function(x, y) {
 https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/parseInt
 
 It is a stricter way than parseInt to extract integer values, and supports
-Infinity as a valid integer.
+the string "infinite" as a valid integer. We do not use the Javascript
+object Infinity as it cannot be serialized using JSON.
 
 See tests/unit_tests/utils/filterint.tests.js for tests illustrating sample
 uses.
 */
 RUR.utils.filterInt = function (value) {
-  if(/^(\-|\+)?([0-9]+|Infinity)$/.test(value)){
+  if (value == "infinite") {
+    return value;
+  }
+  if(/^(\-|\+)?([0-9]+)$/.test(value)){
     return Number(value);
   }
   return undefined;
