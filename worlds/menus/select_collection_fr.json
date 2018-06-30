@@ -59,6 +59,7 @@
     "<p><a class='fake-button' href='#' onclick=\"RUR.load_world_file('worlds/menus/varia_fr.json')\">Varia</a></p>"
   ],
   "onload": [
+    "RUR.world_selector.empty_menu();",
     "RUR.show_description();",
     "RUR.world_selector.append_world({url:RUR.BASE_URL + '/worlds/menus/select_collection_fr.json', shortname:'Autres mondes'})",
     "RUR.world_selector.append_world({url:RUR.BASE_URL + '/worlds/tutorial_fr/seul.json', shortname:'Seul'})"
