@@ -1,0 +1,387 @@
+{
+  "robots": [
+    {
+      "x": 4,
+      "y": 1,
+      "_prev_x": 4,
+      "_prev_y": 1,
+      "_prev_orientation": 1,
+      "objects": {},
+      "_orientation": 1,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 10,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          4,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {
+    "4,1": [
+      "east"
+    ],
+    "4,2": [
+      "east"
+    ],
+    "4,3": [
+      "east"
+    ],
+    "3,3": [
+      "north",
+      "east"
+    ],
+    "2,3": [
+      "north"
+    ],
+    "5,3": [
+      "east"
+    ],
+    "6,3": [
+      "north"
+    ],
+    "7,3": [
+      "north"
+    ],
+    "4,4": [
+      "east",
+      "north"
+    ],
+    "4,5": [
+      "east"
+    ],
+    "4,6": [
+      "east"
+    ],
+    "3,1": [
+      "east"
+    ],
+    "3,2": [
+      "east"
+    ],
+    "2,4": [
+      "north"
+    ],
+    "3,4": [
+      "north"
+    ],
+    "3,5": [
+      "north"
+    ],
+    "3,6": [
+      "east"
+    ],
+    "3,7": [
+      "east"
+    ],
+    "5,7": [
+      "east"
+    ],
+    "5,6": [
+      "east"
+    ],
+    "6,4": [
+      "north"
+    ],
+    "7,4": [
+      "north"
+    ],
+    "5,2": [
+      "east"
+    ],
+    "5,1": [
+      "east"
+    ],
+    "3,8": [
+      "east"
+    ],
+    "5,8": [
+      "east"
+    ],
+    "4,7": [
+      "east"
+    ],
+    "6,5": [
+      "north"
+    ],
+    "7,5": [
+      "north"
+    ],
+    "8,5": [
+      "north"
+    ],
+    "8,3": [
+      "north"
+    ],
+    "2,5": [
+      "north"
+    ],
+    "1,5": [
+      "north"
+    ],
+    "1,3": [
+      "north"
+    ],
+    "5,4": [
+      "north"
+    ]
+  },
+  "description": [
+    "<h1>I want to go home!</h1>",
+    "Write a program that makes Reeborg go home.",
+    "<h3>What you need to know</h3>",
+    "The functions <code>move()</code> and <code>turn_left()</code>.",
+    "To make Reeborg turn right, you will have to tell it to <code>turn_left()</code> three times in a row.",
+    "DIFFICULTY1",
+    "<hr><h2>More advanced</h2>",
+    "<p>You may have noticed that your solution as some repeated patterns",
+    "as you can see from the image below.</p><p>Once you know how to define functions,",
+    "write a solution with the repeated code put in functions. For example, the yellow",
+    "shape forms a letter <b>L</b>.</p>",
+    "<img src='worlds/images/home_4.png'>",
+    "<p>This suggest that, we could define two functions,",
+    "<code>L_shape()</code> and <code>next_L()</code> and use them to solve the problem.",
+    "Using Python and the special",
+    "keyword <code>repeat/for</code> unique to Reeborg's World, a solution could be written as</p>",
+    "<pre class='python'>repeat 3:",
+    "    L_shape()",
+    "    next_L()",
+    "L_shape()",
+    "</pre>",
+    "whereas in traditional Python, it would be written as",
+    "<pre class='python'>for _ in range(3):",
+    "    L_shape()",
+    "    next_L()",
+    "L_shape()",
+    "</pre>",
+    "and in Javascript, we would write",
+    "<pre class='javascript'>",
+    "for (var i=0; i<3; i++) {",
+    "    L_shape();",
+    "    next_L();",
+    "}",
+    "L_shape();",
+    "</pre>",
+    "<p>If you know how to define functions, you should attempt to write a similar program.</p>",
+    "DIFFICULTY2"
+  ],
+  "onload": ["// By defining RUR.public['path'] and setting",
+    "// RUR.state.visible_grid to true, only the tiles for the path will be",
+    "// seen as individual tiles.",
+    "RUR.state.visible_grid = RUR.PATH_ONLY;",
+    "RUR.public['path'] = [[4,1],[4,2],[4,3],",
+      "[4,4],[3,4],[2,4],[1,4],[1,5],[2,5],",
+      "[3,5],[4,5],[4,6],[4,7],[4,8],[5,8],",
+      "[5,7],[5,6],[5,5],[6,5],[7,5],[8,5],",
+      "[8,4],[7,4],[6,4],[5,4],[5,3],[5,2],[5,1]]"
+    ],
+  "small_tiles": false,
+  "rows": 8,
+  "cols": 8,
+  "tiles": {
+    "1,1": [
+      "grass"
+    ],
+    "1,2": [
+      "grass"
+    ],
+    "1,3": [
+      "grass"
+    ],
+    "1,4": [
+      "pale_grass"
+    ],
+    "1,5": [
+      "pale_grass"
+    ],
+    "1,6": [
+      "grass"
+    ],
+    "1,7": [
+      "grass"
+    ],
+    "2,1": [
+      "grass"
+    ],
+    "2,2": [
+      "grass"
+    ],
+    "2,3": [
+      "grass"
+    ],
+    "2,4": [
+      "gravel"
+    ],
+    "2,5": [
+      "gravel"
+    ],
+    "2,6": [
+      "grass"
+    ],
+    "2,7": [
+      "grass"
+    ],
+    "3,1": [
+      "grass"
+    ],
+    "3,2": [
+      "grass"
+    ],
+    "3,3": [
+      "grass"
+    ],
+    "3,4": [
+      "gravel"
+    ],
+    "3,5": [
+      "gravel"
+    ],
+    "3,6": [
+      "grass"
+    ],
+    "3,7": [
+      "grass"
+    ],
+    "4,1": [
+      "pale_grass"
+    ],
+    "4,2": [
+      "gravel"
+    ],
+    "4,3": [
+      "gravel"
+    ],
+    "4,4": [
+      "gravel"
+    ],
+    "4,5": [
+      "gravel"
+    ],
+    "4,6": [
+      "gravel"
+    ],
+    "4,7": [
+      "gravel"
+    ],
+    "5,1": [
+      "pale_grass"
+    ],
+    "5,2": [
+      "gravel"
+    ],
+    "5,3": [
+      "gravel"
+    ],
+    "5,4": [
+      "gravel"
+    ],
+    "5,5": [
+      "gravel"
+    ],
+    "5,6": [
+      "gravel"
+    ],
+    "5,7": [
+      "gravel"
+    ],
+    "6,1": [
+      "grass"
+    ],
+    "6,2": [
+      "grass"
+    ],
+    "6,3": [
+      "grass"
+    ],
+    "6,4": [
+      "gravel"
+    ],
+    "6,5": [
+      "gravel"
+    ],
+    "6,6": [
+      "grass"
+    ],
+    "6,7": [
+      "grass"
+    ],
+    "7,1": [
+      "grass"
+    ],
+    "7,2": [
+      "grass"
+    ],
+    "7,3": [
+      "grass"
+    ],
+    "7,4": [
+      "gravel"
+    ],
+    "7,5": [
+      "gravel"
+    ],
+    "7,6": [
+      "grass"
+    ],
+    "7,7": [
+      "grass"
+    ],
+    "8,1": [
+      "grass"
+    ],
+    "8,2": [
+      "grass"
+    ],
+    "8,3": [
+      "grass"
+    ],
+    "8,4": [
+      "pale_grass"
+    ],
+    "8,5": [
+      "pale_grass"
+    ],
+    "8,6": [
+      "grass"
+    ],
+    "8,7": [
+      "grass"
+    ],
+    "1,8": [
+      "grass"
+    ],
+    "2,8": [
+      "grass"
+    ],
+    "3,8": [
+      "grass"
+    ],
+    "4,8": [
+      "pale_grass"
+    ],
+    "5,8": [
+      "pale_grass"
+    ],
+    "6,8": [
+      "grass"
+    ],
+    "7,8": [
+      "grass"
+    ],
+    "8,8": [
+      "grass"
+    ]
+  },
+  "goal": {
+    "position": {
+      "image": "house",
+      "x": 5,
+      "y": 1
+    }
+  }
+}

@@ -1,7 +1,7 @@
 '''A collection of useful decorators'''
 
 from browser import window
-from common import _import_en, _import_fr
+from common import _import_en, _import_fr, _import_cn
 
 human_language = window['RUR'].state.human_language
 if human_language.endswith("en"):
@@ -9,6 +9,9 @@ if human_language.endswith("en"):
 elif human_language.endswith("fr"):
     _import_fr(globals())
     position_here = position_ici
+elif human_language.endswith("cn"):
+    _import_cn(globals())
+    position_here = 此处的坐标
 else:
     raise NotImplementedError("Unkown language %s" % human_language)
 

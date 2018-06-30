@@ -1,6 +1,7 @@
 require("./../rur.js");
 require("./../programming_api/reeborg_en.js");
 require("./../programming_api/reeborg_fr.js");
+require("./../programming_api/reeborg_cn.js");
 require("./../programming_api/blockly.js");
 require("./../ui/custom_world_select.js");
 require("./../permalink/permalink.js");
@@ -36,6 +37,13 @@ function update_translations(lang) {
             blockly_init_fr();
             $("#mixed-language-info").hide();
             break;
+        case "cn":
+            RUR.translation = RUR.ui_cn;
+            merge_dicts(RUR.translation, RUR.cn);
+            RUR.translation_to_english = RUR.cn_to_en;
+            blockly_init_cn();
+            $("#mixed-language-info").hide();
+            break;
         case "en-fr":
             RUR.translation = RUR.ui_en;
             merge_dicts(RUR.translation, RUR.fr);
@@ -60,6 +68,18 @@ function update_translations(lang) {
             RUR.translation_to_english = RUR.pl_to_en;
             blockly_init_en(); // to be updated
             break;
+        case "en-cn":
+            RUR.translation = RUR.ui_en;
+            merge_dicts(RUR.translation, RUR.cn);
+            RUR.translation_to_english = RUR.en_to_en;
+            blockly_init_cn();
+            break;
+        case "cn-en":
+            RUR.translation = RUR.ui_cn;
+            merge_dicts(RUR.translation, RUR.en);
+            RUR.translation_to_english = RUR.cn_to_en;
+            blockly_init_en();
+            break;
         default:
             RUR.translation = RUR.ui_en;
             merge_dicts(RUR.translation, RUR.en);
@@ -78,6 +98,12 @@ function update_commands (lang) {
             RUR.reset_definitions = RUR.reset_definitions_fr;
             RUR.library_name = "biblio";
             RUR.from_import = "from reeborg_fr import *";
+            break;
+        case "cn":
+        case "en-cn":
+            RUR.reset_definitions = RUR.reset_definitions_cn;
+            RUR.library_name = "库";
+            RUR.from_import = "from reeborg_cn import *";
             break;
         case "en":
         case "fr-en":
@@ -99,6 +125,10 @@ function update_home_url (lang) {
         case "fr":
         case "fr-en":
             $("#logo").prop("href", "index_fr.html");
+            break;
+        case "cn":
+        case "cn-en":
+            $("#logo").prop("href", "index_cn.html");
             break;
         case "en":
         case "en-fr":

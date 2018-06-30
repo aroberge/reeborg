@@ -1,0 +1,642 @@
+{
+  "robots": [
+    {
+      "x": 3,
+      "y": 5,
+      "_prev_x": 3,
+      "_prev_y": 5,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 9,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          3,
+          5
+        ]
+      ]
+    }
+  ],
+  "walls": {
+    "3,4": [
+      "east"
+    ],
+    "3,3": [
+      "east"
+    ],
+    "4,2": [
+      "north"
+    ],
+    "5,2": [
+      "north"
+    ],
+    "6,2": [
+      "north"
+    ],
+    "7,2": [
+      "north"
+    ],
+    "8,2": [
+      "north"
+    ],
+    "9,2": [
+      "north"
+    ],
+    "10,2": [
+      "north"
+    ],
+    "10,3": [
+      "east"
+    ],
+    "10,4": [
+      "east"
+    ],
+    "10,5": [
+      "east"
+    ],
+    "10,6": [
+      "east"
+    ],
+    "10,7": [
+      "east",
+      "north"
+    ],
+    "9,7": [
+      "north"
+    ],
+    "8,7": [
+      "north"
+    ],
+    "7,7": [
+      "north"
+    ],
+    "6,7": [
+      "north"
+    ],
+    "5,7": [
+      "north"
+    ],
+    "4,7": [
+      "north"
+    ],
+    "3,7": [
+      "east"
+    ],
+    "3,6": [
+      "east"
+    ]
+  },
+  "description": [
+    "<h1>Rain is falling.</h1>",
+    "<p>It's raining hard.  Water is going to come",
+    "    in through the open windows unless",
+    "    Reeborg closes them.</p>",
+    "<p>Have Reeborg move <b>around the room</b> and close the windows by using the <code>build_wall()</code>",
+    "    function.</p>",
+    "<p>The size of the room and the location of the windows are always changing.</p>",
+    "<h3>What you need to know</h3>",
+    "",
+    "<ul><li>The functions <code>move()</code>, ",
+    "    <code>turn_left()</code>, and <code>build_wall()</code>.</li>",
+    "<li>The conditions <code>right_is_clear()</code> or <code>wall_on_right()</code>",
+    " and <code>at_goal()</code></li>",
+    "<li>How to use a <code>while</code> loop and an <code>if</code> statement.</li></ul>",
+    "<p>Windows (missing walls) are always between two walls, all along a single line.",
+    "There can never be two windows side by side, nor can there be a window at the corner of a room.</p>",
+    "DIFFICULTY5",
+    ""
+  ],
+  "small_tiles": false,
+  "rows": 9,
+  "cols": 12,
+  "tiles": {
+    "1,1": [
+      "mud"
+    ],
+    "1,2": [
+      "mud"
+    ],
+    "1,3": [
+      "mud"
+    ],
+    "1,4": [
+      "mud"
+    ],
+    "1,6": [
+      "mud"
+    ],
+    "1,7": [
+      "mud"
+    ],
+    "1,8": [
+      "mud"
+    ],
+    "1,9": [
+      "mud"
+    ],
+    "2,1": [
+      "mud"
+    ],
+    "2,2": [
+      "mud"
+    ],
+    "2,3": [
+      "mud"
+    ],
+    "2,4": [
+      "mud"
+    ],
+    "2,6": [
+      "mud"
+    ],
+    "2,7": [
+      "mud"
+    ],
+    "2,8": [
+      "mud"
+    ],
+    "2,9": [
+      "mud"
+    ],
+    "3,1": [
+      "mud"
+    ],
+    "3,2": [
+      "mud"
+    ],
+    "3,3": [
+      "mud"
+    ],
+    "3,4": [
+      "mud"
+    ],
+    "3,6": [
+      "mud"
+    ],
+    "3,7": [
+      "mud"
+    ],
+    "3,8": [
+      "mud"
+    ],
+    "3,9": [
+      "mud"
+    ],
+    "4,1": [
+      "mud"
+    ],
+    "4,2": [
+      "mud"
+    ],
+    "4,8": [
+      "mud"
+    ],
+    "4,9": [
+      "mud"
+    ],
+    "5,1": [
+      "mud"
+    ],
+    "5,2": [
+      "mud"
+    ],
+    "5,8": [
+      "mud"
+    ],
+    "5,9": [
+      "mud"
+    ],
+    "6,1": [
+      "mud"
+    ],
+    "6,2": [
+      "mud"
+    ],
+    "6,8": [
+      "mud"
+    ],
+    "6,9": [
+      "mud"
+    ],
+    "7,1": [
+      "mud"
+    ],
+    "7,2": [
+      "mud"
+    ],
+    "7,8": [
+      "mud"
+    ],
+    "7,9": [
+      "mud"
+    ],
+    "8,1": [
+      "mud"
+    ],
+    "8,2": [
+      "mud"
+    ],
+    "8,8": [
+      "mud"
+    ],
+    "8,9": [
+      "mud"
+    ],
+    "9,1": [
+      "mud"
+    ],
+    "9,2": [
+      "mud"
+    ],
+    "9,8": [
+      "mud"
+    ],
+    "9,9": [
+      "mud"
+    ],
+    "10,1": [
+      "mud"
+    ],
+    "10,2": [
+      "mud"
+    ],
+    "10,9": [
+      "mud"
+    ],
+    "11,1": [
+      "mud"
+    ],
+    "11,2": [
+      "mud"
+    ],
+    "11,3": [
+      "mud"
+    ],
+    "11,4": [
+      "mud"
+    ],
+    "11,5": [
+      "mud"
+    ],
+    "11,6": [
+      "mud"
+    ],
+    "11,7": [
+      "mud"
+    ],
+    "11,8": [
+      "mud"
+    ],
+    "11,9": [
+      "mud"
+    ],
+    "12,1": [
+      "mud"
+    ],
+    "12,2": [
+      "mud"
+    ],
+    "12,3": [
+      "mud"
+    ],
+    "12,4": [
+      "mud"
+    ],
+    "12,5": [
+      "mud"
+    ],
+    "12,6": [
+      "mud"
+    ],
+    "12,7": [
+      "mud"
+    ],
+    "12,8": [
+      "mud"
+    ],
+    "12,9": [
+      "mud"
+    ],
+    "10,8": [
+      "mud"
+    ],
+    "3,5": [
+      "gravel"
+    ],
+    "2,5": [
+      "gravel"
+    ],
+    "1,5": [
+      "gravel"
+    ]
+  },
+  "goal": {
+    "position": {
+      "image": "green_home_tile",
+      "x": 4,
+      "y": 5
+    }
+  },
+  "decorative_objects": {
+    "1,6": [
+      "water"
+    ],
+    "2,6": [
+      "water"
+    ],
+    "3,6": [
+      "water"
+    ],
+    "3,7": [
+      "water"
+    ],
+    "2,7": [
+      "water"
+    ],
+    "1,7": [
+      "water"
+    ],
+    "1,8": [
+      "water"
+    ],
+    "2,8": [
+      "water"
+    ],
+    "3,8": [
+      "water"
+    ],
+    "3,9": [
+      "water"
+    ],
+    "2,9": [
+      "water"
+    ],
+    "1,9": [
+      "water"
+    ],
+    "4,9": [
+      "water"
+    ],
+    "5,9": [
+      "water"
+    ],
+    "6,9": [
+      "water"
+    ],
+    "7,9": [
+      "water"
+    ],
+    "8,9": [
+      "water"
+    ],
+    "9,9": [
+      "water"
+    ],
+    "10,9": [
+      "water"
+    ],
+    "11,9": [
+      "water"
+    ],
+    "12,9": [
+      "water"
+    ],
+    "12,8": [
+      "water"
+    ],
+    "12,7": [
+      "water"
+    ],
+    "12,6": [
+      "water"
+    ],
+    "12,5": [
+      "water"
+    ],
+    "12,4": [
+      "water"
+    ],
+    "12,3": [
+      "water"
+    ],
+    "12,2": [
+      "water"
+    ],
+    "12,1": [
+      "water"
+    ],
+    "11,1": [
+      "water"
+    ],
+    "10,1": [
+      "water"
+    ],
+    "9,1": [
+      "water"
+    ],
+    "8,1": [
+      "water"
+    ],
+    "7,1": [
+      "water"
+    ],
+    "6,1": [
+      "water"
+    ],
+    "5,1": [
+      "water"
+    ],
+    "4,1": [
+      "water"
+    ],
+    "3,1": [
+      "water"
+    ],
+    "2,1": [
+      "water"
+    ],
+    "1,1": [
+      "water"
+    ],
+    "1,2": [
+      "water"
+    ],
+    "1,3": [
+      "water"
+    ],
+    "1,4": [
+      "water"
+    ],
+    "2,4": [
+      "water"
+    ],
+    "3,4": [
+      "water"
+    ],
+    "3,3": [
+      "water"
+    ],
+    "2,3": [
+      "water"
+    ],
+    "2,2": [
+      "water"
+    ],
+    "3,2": [
+      "water"
+    ],
+    "4,2": [
+      "water"
+    ],
+    "5,2": [
+      "water"
+    ],
+    "6,2": [
+      "water"
+    ],
+    "7,2": [
+      "water"
+    ],
+    "8,2": [
+      "water"
+    ],
+    "9,2": [
+      "water"
+    ],
+    "10,2": [
+      "water"
+    ],
+    "11,2": [
+      "water"
+    ],
+    "11,3": [
+      "water"
+    ],
+    "11,4": [
+      "water"
+    ],
+    "11,5": [
+      "water"
+    ],
+    "11,6": [
+      "water"
+    ],
+    "11,7": [
+      "water"
+    ],
+    "11,8": [
+      "water"
+    ],
+    "10,8": [
+      "water"
+    ],
+    "9,8": [
+      "water"
+    ],
+    "8,8": [
+      "water"
+    ],
+    "7,8": [
+      "water"
+    ],
+    "6,8": [
+      "water"
+    ],
+    "5,8": [
+      "water"
+    ],
+    "4,8": [
+      "water"
+    ]
+  }, 
+  "onload" : [
+    "/* Start with a world having a gravel path,",
+    "  a rectangular room carved out from (4,3)",
+    "  to (10,7) [diagonal corners] enclosed by",
+    "  walls except for an entrance at left of",
+    "  (4,5).",
+    "  Other than for the gravel path, the background",
+    "  outside the room is filled with mud, so that",
+    "  it is fatal but undetectable. However, for",
+    "  visual appearance, 'water' is added as a",
+    "  decorative object on top */",
+    "// last tile in room",
+    "var left=4, right=10, bottom=3, top=7;",
+    "// other useful variables",
+    "var x, y, choice, window_added;",
+    "// decide if we make the room smaller",
+    "choice = RUR.randint(1, 2);",
+    "if (choice == 1) {",
+    "    for (y=bottom; y<=top; y++) {",
+    "        RUR.remove_wall('east', right, y);",
+    "    }",
+    "    RUR.remove_wall('north', right, top);",
+    "    RUR.remove_wall('south', right, bottom);",
+    "    ",
+    "    right -= 1;",
+    "    for (y=bottom; y<=top; y++){",
+    "        RUR.add_wall('east', right, y);",
+    "        RUR.add_background_tile('mud', right+1, y);",
+    "        RUR.add_decorative_object('water', right+1, y);",
+    "    }",
+    "}",
+    "// on bottom, top, and right wall of the room, add",
+    "// at least one window. Windows must not be at",
+    "// corners, nor can there be two consecutive windows",
+    "window_added = false; // bottom of the room",
+    "for (x=left+1; x<=right-1; x++) {",
+    "    choice = RUR.randint(1, 3);",
+    "    if (choice == 1) { // add window",
+    "        RUR.remove_wall('south', x, bottom);",
+    "        RUR.add_wall('south', x, bottom, {'goal': true});",
+    "        window_added = true;",
+    "        x++; // skip next position",
+    "    }",
+    "}",
+    "if (!window_added) { // add one in the middle of the wall",
+    "    x = Math.floor( (left+right)/2 );",
+    "    RUR.remove_wall('south', x, bottom);",
+    "    RUR.add_wall('south', x, bottom, {'goal': true});",
+    "} else {",
+    "    window_added = false;  // get ready for next wall",
+    "}",
+    "// repeat for top of roomo",
+    "for (x=left+1; x<=right-1; x++) {",
+    "    choice = RUR.randint(1, 3);",
+    "    if (choice == 1) { // add window",
+    "        RUR.remove_wall('north', x, top);",
+    "        RUR.add_wall('north', x, top, {'goal': true});",
+    "        window_added = true;",
+    "        x++; // skip next position",
+    "    }",
+    "}",
+    "if (!window_added) { // add one in the middle of the wall",
+    "    x = Math.floor( (left+right)/2 );",
+    "    RUR.remove_wall('north', x, top);",
+    "    RUR.add_wall('north', x, top, {'goal': true});",
+    "} else {",
+    "    window_added = false;  // get ready for next wall",
+    "}",
+    "// do the same for right wall",
+    "for(y=bottom+1; y <=top-1; y++) {",
+    "    choice = RUR.randint(1, 3);",
+    "    if (choice == 1) { // add window",
+    "        RUR.remove_wall('east', right, y);",
+    "        RUR.add_wall('east', right, y, {'goal': true});",
+    "        window_added = true;",
+    "        y++; // skip next position",
+    "    }",
+    "}",
+    "if (!window_added) { // add one in the middle of the wall",
+    "    y = Math.floor( (top + bottom)/2 );",
+    "    RUR.remove_wall('east', right, y);",
+    "    RUR.add_wall('east', right, y, {'goal': true});",
+    "}",
+    "    "
+    ]
+}

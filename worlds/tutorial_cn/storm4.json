@@ -1,0 +1,237 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 3,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {
+    "1,2": [
+      "north",
+      "east"
+    ],
+    "1,1": [
+      "north"
+    ]
+  },
+  "description": [
+    "<h1>Efficient cleaning</h1>",
+    "<p class='warning'>Make sure to do world *Storm 3* first.</p>",
+    "<h2>The most important thing about programming</h2>",
+    "<p>When you write programs, the most important thing is to make sure that they work.",
+    "    The second most important thing is to test them again and again to make sure they work.</p>",
+    "<p>By now, you should have written at least one program to solve world <b>Storm 3</b>;",
+    "   That program should also work for worlds <b>Storm 1</b> and <b>Storm 2</b>.</p>",
+    "<h3>Congratulations, that was a tough task!</h3>",
+    "<p>Sometimes, programs work, but they take too long, because they do not use",
+    " the best algorithm.</p>",
+    "<p>If you use Python, <em class='warning'>turn off code highlighting</em> to test your program. Code highlighting makes it",
+    "easy to follow which line of code is about to be executed, but it increases the",
+    "time taken for the program to run.</p>",
+    "<p>I had written a general program to solve all the <b>Storm</b> world.",
+    "However, I was not happy as I thought it took too long to run. So, I wrote a better one.",
+    "And then, I worked on it again to improve it.",
+    "When I used it on <em>this</em> world, <b>Storm 4</b>, my best program requires 126 steps.</p>",
+    "<h3>Can you do better?</h3>",
+    "<p>Feel free to test your program and see if it can do a more efficient cleaning job.</p>",
+    "<p>Remember: the most important thing is to have a program that <b>works</b> for all cases, not just for this one.</p>",
+    "<p><img src='/worlds/images/storm_4.png'></p>"
+  ],
+  "small_tiles": false,
+  "rows": 6,
+  "cols": 7,
+  "goal": {
+    "position": {
+      "image": "house",
+      "x": 1,
+      "y": 1
+    },
+    "objects": {
+      "1,2": {
+        "leaf": "all"
+      }
+    }
+  },
+  "tiles": {
+    "1,1": [
+      "gravel"
+    ],
+    "1,2": [
+      "pale_grass"
+    ],
+    "1,3": [
+      "grass"
+    ],
+    "1,4": [
+      "grass"
+    ],
+    "1,5": [
+      "grass"
+    ],
+    "1,6": [
+      "grass"
+    ],
+    "2,1": [
+      "gravel"
+    ],
+    "2,2": [
+      "grass"
+    ],
+    "2,3": [
+      "grass"
+    ],
+    "2,4": [
+      "grass"
+    ],
+    "2,5": [
+      "grass"
+    ],
+    "2,6": [
+      "grass"
+    ],
+    "3,1": [
+      "gravel"
+    ],
+    "3,2": [
+      "grass"
+    ],
+    "3,3": [
+      "grass"
+    ],
+    "3,4": [
+      "grass"
+    ],
+    "3,5": [
+      "grass"
+    ],
+    "3,6": [
+      "grass"
+    ],
+    "4,1": [
+      "gravel"
+    ],
+    "4,2": [
+      "grass"
+    ],
+    "4,3": [
+      "grass"
+    ],
+    "4,4": [
+      "grass"
+    ],
+    "4,5": [
+      "water"
+    ],
+    "4,6": [
+      "grass"
+    ],
+    "5,1": [
+      "gravel"
+    ],
+    "5,2": [
+      "grass"
+    ],
+    "5,3": [
+      "grass"
+    ],
+    "5,4": [
+      "grass"
+    ],
+    "5,5": [
+      "grass"
+    ],
+    "5,6": [
+      "grass"
+    ],
+    "6,1": [
+      "gravel"
+    ],
+    "6,2": [
+      "grass"
+    ],
+    "6,3": [
+      "grass"
+    ],
+    "6,4": [
+      "grass"
+    ],
+    "6,5": [
+      "grass"
+    ],
+    "6,6": [
+      "grass"
+    ],
+    "7,1": [
+      "gravel"
+    ],
+    "7,2": [
+      "grass"
+    ],
+    "7,3": [
+      "grass"
+    ],
+    "7,4": [
+      "grass"
+    ],
+    "7,5": [
+      "grass"
+    ],
+    "7,6": [
+      "grass"
+    ]
+  },
+  "decorative_objects": {
+    "4,5": [
+      "grass_top_left",
+      "grass_top_right",
+      "grass_bottom_left",
+      "grass_bottom_right"
+    ]
+  },
+  "objects": {
+    "4,4": {
+      "leaf": 1
+    },
+    "6,4": {
+      "leaf": 3
+    },
+    "3,6": {
+      "leaf": 3
+    },
+    "2,3": {},
+    "3,4": {
+      "leaf": 1
+    },
+    "5,1": {},
+    "6,5": {
+      "leaf": 1
+    },
+    "1,5": {
+      "leaf": 3
+    },
+    "3,1": {
+      "leaf": 3
+    },
+    "1,6": {
+      "leaf": 3
+    },
+    "2,4": {}
+  }
+}

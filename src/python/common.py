@@ -13,6 +13,8 @@ __REEBORG_EN = {}
 exec("from reeborg_en import *", __REEBORG_EN)
 __REEBORG_FR = {}
 exec("from reeborg_fr import *", __REEBORG_FR)
+__REEBORG_CN = {}
+exec("from reeborg_cn import *", __REEBORG_CN)
 
 def dir_py(obj, exclude=None):
     '''Prints all "public" attributes of an object, one per line, identifying
@@ -67,6 +69,25 @@ def _import_fr(namespace):
     MissingObjectError_saved = window['MissingObjectError_fr']
 
     namespace.update(__REEBORG_FR)
+
+    window['ReeborgOK'] = ReeborgOK_saved
+    window['ReeborgOk'] = ReeborgOk_saved
+    window['ReeborgError'] = ReeborgError_saved
+    window['WallCollisionError'] = WallCollisionError_saved
+    window['MissingObjectError'] = MissingObjectError_saved
+
+def _import_cn(namespace):
+    '''Does the clean equivalent of
+           from reeborg_cn import *
+       into a namespace.
+    '''
+    ReeborgOK_saved = window['ReeborgOK_cn']
+    ReeborgOk_saved = window['ReeborgOk_cn']
+    ReeborgError_saved = window['ReeborgError_cn']
+    WallCollisionError_saved = window['WallCollisionError_cn']
+    MissingObjectError_saved = window['MissingObjectError_cn']
+
+    namespace.update(__REEBORG_CN)
 
     window['ReeborgOK'] = ReeborgOK_saved
     window['ReeborgOk'] = ReeborgOk_saved
@@ -239,7 +260,7 @@ def __generic_translate_python(src, highlight=False, var_watch=False, pre_code='
     #     from reeborg_en import *
     # Similarly, library or biblio's content might have changed by the user
     # since the program was run last time
-    for mod in ["reeborg_en", "reeborg_fr", "library", "biblio", "extra"]:
+    for mod in ["reeborg_en", "reeborg_fr", "reeborg_cn", "library", "biblio", "库", "extra"]:
         if mod in sys.modules:
             del sys.modules[mod]
 
@@ -268,6 +289,8 @@ def __generic_translate_python(src, highlight=False, var_watch=False, pre_code='
         globals_.update(__REEBORG_EN)
     elif window.RUR.from_import == "from reeborg_fr import *":
         globals_.update(__REEBORG_FR)
+    elif window.RUR.from_import == "from reeborg_cn import *":
+        globals_.update(__REEBORG_CN)
     else:
         raise Exception("unknown import %s" % window.RUR.from_import)
 

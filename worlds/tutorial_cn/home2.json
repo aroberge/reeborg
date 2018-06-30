@@ -1,0 +1,56 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 3,
+      "_orientation": 3
+    }
+  ],
+  "small_tiles": false,
+  "rows": 3,
+  "cols": 3,
+  "goal": {
+    "position": {
+      "image": "house",
+      "x": 1,
+      "y": 1
+    }
+  },
+  "description": [
+    "<h1>I want to go home!</h1>",
+    "Write a program that makes Reeborg go home.",
+    "<h3>What you need to know</h3>",
+    "The function <code>move()</code>.",
+    "DIFFICULTY1"
+  ],
+  "onload": "RUR.state.visible_grid = true;",
+  "tiles": {
+    "2,1": [
+      "grass"
+    ],
+    "3,1": [
+      "grass"
+    ],
+    "3,2": [
+      "grass"
+    ],
+    "2,2": [
+      "grass"
+    ],
+    "2,3": [
+      "grass"
+    ],
+    "3,3": [
+      "grass"
+    ],
+    "1,3": [
+      "gravel"
+    ],
+    "1,2": [
+      "gravel"
+    ],
+    "1,1": [
+      "gravel"
+    ]
+  }
+}

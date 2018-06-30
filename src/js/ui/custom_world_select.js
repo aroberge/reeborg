@@ -59,6 +59,11 @@ RUR.make_default_menu = function(language) {
             RUR.load_world_file(RUR.BASE_URL + RUR.DEFAULT_MENU_FR);
             RUR.initial_defaults.initial_menu = RUR.BASE_URL + RUR.DEFAULT_MENU_FR;
             break;
+        case 'cn':
+        case 'en-cn':
+            RUR.load_world_file(RUR.BASE_URL + RUR.DEFAULT_MENU_CN);
+            RUR.initial_defaults.initial_menu = RUR.BASE_URL + RUR.DEFAULT_MENU_CN;
+            break;
         default: 
             RUR.load_world_file(RUR.BASE_URL + RUR.DEFAULT_MENU_EN);
             RUR.initial_defaults.initial_menu = RUR.BASE_URL + RUR.DEFAULT_MENU_EN;

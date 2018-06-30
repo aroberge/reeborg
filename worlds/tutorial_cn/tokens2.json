@@ -1,0 +1,78 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 18,
+      "model": "classic"
+    }
+  ],
+  "goal": {
+    "position": {
+      "image": "racing_flag",
+      "x": 7,
+      "y": 1
+    },
+    "objects": {
+      "6,1": {
+        "token": 1
+      }
+    }
+  },
+  "objects": {
+    "5,1": {
+      "token": 1
+    }
+  },
+  "rows": 1,
+  "cols": 10,
+  "small_tiles": false,
+  "description": [
+    "<h1>Token move again</h1>",
+    "<p>Have Reeborg move to the token location,",
+    "    take the token, move it to",
+    "    the next square and continue moving",
+    "    until it reaches its goal.</p>",
+    "<h3>What you need to know</h3>",
+    "    <ul><li>The functions <code>move()</code>, ",
+    "        <code>put()</code> and <code>take()</code>.",
+    "        </li></ul>",
+    "DIFFICULTY1",
+    "<h2>More advanced</h2>",
+    "<p>You can write a program that works for this",
+    "    world as well as <b>Tokens 1</b> if you know",
+    "    how to use a <code>for/repeat</code> loop",
+    "    and an <code>if</code> statement.",
+    "    Using Python, such a solution could be written",
+    "    as follows:</p>",
+    "<pre class='python'>",
+    "def move_until_done():",
+    "    move()",
+    "    if object_here():",
+    "        # something",
+    "        # something else",
+    "        # something else again",
+    "        # yet one more",
+    "        done()",
+    "",
+    "repeat 42:",
+    "    move_until_done()",
+    "</pre>",
+    "<p>You will see a better way when you look",
+    "    at world <b>Tokens 3</b>, but for now",
+    "    try to write a program like the one above",
+    "    and test it with both worlds, <b>Tokens 1</b>",
+    "    and <b>Tokens 2</b>.</p>",
+    "DIFFICULTY3"
+  ]
+}

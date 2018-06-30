@@ -1,7 +1,7 @@
 '''Before this can be imported, one needs to install code with
    RUR.set_extra_content'''
 from browser import window
-from common import _import_en, _import_fr
+from common import _import_en, _import_fr, _import_cn
 
 # Defining __watch and system_default_vars is only needed
 # to prevent an error if a user defines some code for the extra module
@@ -18,6 +18,8 @@ if human_language.endswith("en"):
     _import_en(globals())
 elif human_language.endswith("fr"):
     _import_fr(globals())
+elif human_language.endswith("cn"):
+    _import_cn(globals())
 else:
     raise NotImplementedError("Unkown language %s" % human_language)
 

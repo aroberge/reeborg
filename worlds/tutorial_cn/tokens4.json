@@ -1,0 +1,84 @@
+{
+    "robots": [{
+        "x": 1,
+        "y": 1,
+        "orientation": 0,
+        "prev_orientation": 0,
+        "objects": {
+            "token": 0
+        }
+    }],
+    "goal": {
+        "position": {
+            "image": "racing_flag",
+            "x": 7,
+            "y": 1
+        },
+        "objects": {
+            "6,1": {
+                "token": 5
+            }
+        }
+    },
+    "objects": {
+        "2,1": {
+            "token": 1
+        },
+        "3,1": {
+            "token": 1
+        },
+        "4,1": {
+            "token": 1
+        },
+        "5,1": {
+            "token": 1
+        },
+        "1,1": {
+            "token": 1
+        }
+    },
+    "rows": 1,
+    "cols": 10,
+  "description": [
+    "<h1>Many tokens to move</h1>",
+    "<p>Have Reeborg collect all the tokens,",
+    "    move them to a single pile,",
+    "    and go to its final goal.</p>",
+    "<h3>What you need to know</h3>",
+    "    <ul><li>The functions <code>move()</code>, ",
+    "        <code>put()</code> and <code>take()</code>.",
+    "        </li></ul>",
+    "DIFFICULTY1",
+    "<h2>More advanced</h2>",
+    "<p>Solving just <b>Tokens 4</b> on its own is not very difficult,",
+    "    but also not very interesting. Trying to write a single",
+    "    program that works also for all the <b>Tokens</b> worlds (1 to 5)",
+    "    is much more interesting.  Look at all these worlds;",
+    "    they share a common pattern:</p>",
+    "<ul><li>one or more tokens in a row, with no gap in between;</li>",
+    "<li>the pile of tokens must be made next to the last token.</li></ul>",
+    "<p><img src='worlds/images/tokens_ok_not.png'></p>",
+    "<p><em>Suggestion:</em> define two functions, <code>collect_all()</code> ",
+    " and <code>put_down_all_and_move()</code>, so that the solution can be written as</p>",
+    "<pre class='python'>",
+    "while not at_goal():",
+    "    if ...:",
+    "        collect_all()",
+    "    elif ...:",
+    "        put_down_all_and_move()",
+    "    else:",
+    "        move()",
+    "</pre>",
+    "<h3>What you need to know</h3>",
+    "<ul><li>The functions <code>move()</code>, <code>take()</code>, and <code>put()</code>.</li>",
+    "<li>The conditions <code>object_here()</code>, <code>carries_object()</code> and",
+    "    <code>at_goal()</code>.</li>",
+    "<li>How to use a <code>while</code> loop and <code>if/else</code> statements.</li>",
+    "<li>How to use the negation of a test (<code>not</code> in Python).</li>",
+    "<li>How to define functions</li>",
+    "</ul>",
+    "<p>Make sure your programs work for all five Tokens worlds.",
+    "DIFFICULTY5",
+    ""
+  ]
+}

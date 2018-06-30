@@ -1,0 +1,103 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 19,
+      "model": "classic"
+    }
+  ],
+  "goal": {
+    "position": {
+      "image": "racing_flag",
+      "x": 9,
+      "y": 1
+    },
+    "objects": {
+      "6,1": {
+        "token": 1
+      }
+    }
+  },
+  "objects": {
+    "5,1": {
+      "token": 1
+    }
+  },
+  "rows": 1,
+  "cols": 10,
+  "small_tiles": false,
+  "description": [
+    "<h1>Token move yet again</h1>",
+    "<p>Have Reeborg move to the token location,",
+    "    take the token, move it to",
+    "    the next square and continue moving",
+    "    until it reaches its goal.</p>",
+    "<h3>What you need to know</h3>",
+    "    <ul><li>The functions <code>move()</code>, ",
+    "        <code>put()</code> and <code>take()</code>.",
+    "        </li></ul>",
+    "DIFFICULTY1",
+    "<h2>More advanced</h2>",
+    "<p>Solving just <b>Tokens 3</b> on its own is not very difficult,",
+    "    but also not very interesting. Trying to write a single",
+    "    program that works also for worlds <b>Tokens 1</b>  and",
+    "    <b>Tokens 2</b> is more interesting.",
+    "The <a href='http://reeborg.ca/docs/en/basics/at_goal.html'>tutorial</a>",
+    "suggests to use some <code>if</code> statements to write a solution.",
+    "  Here are two",
+    "    possible outlines of such a program, both using ",
+    "    <code>while</code> loops instead.</p>",
+    "<p>The first possible solution considers each problem",
+    "    as having three separate parts</p>",
+    "<ol><li>Moving to the first token</li>",
+    "    <li>Taking the token and moving it</li>",
+    "    <li>Going to the final position</li>",
+    "</ol>",
+    "<pre class='python'>",
+    "while not ...:",
+    "    ...",
+    "",
+    "...",
+    "...",
+    "...",
+    "",
+    "while not ...:",
+    "    ...",
+    "</pre>",
+    "<p>The second way is to loop until we have reach",
+    "the goal, with only two possible cases to consider",
+    "in the meantime:</p>",
+    "<pre class='python'>",
+    "while not at_goal():",
+    "    if ...:",
+    "        ...",
+    "        ...",
+    "        ...",
+    "    else:",
+    "        ...",
+    "</pre>",
+    "<p>Try both approaches.</p>",
+    "<h3>What you need to know</h3>",
+    "<ul><li>The functions <code>move()</code>, <code>take()</code>, and <code>put()</code>.</li>",
+    "<li>The conditions <code>object_here()</code> and",
+    "    <code>at_goal()</code>.</li>",
+    "<li>How to use a <code>while</code> loop and <code>if/else</code> statements.</li>",
+    "<li>How to use the negation of a test (<code>not</code> in Python).</li>",
+    "</ul>",
+    "<p>Make sure your programs work for all first three Tokens worlds.",
+    "DIFFICULTY4",
+    "",
+    ""
+  ]
+}
