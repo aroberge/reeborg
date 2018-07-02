@@ -8,7 +8,7 @@ RUR.color_condition = 240;
 RUR.done_colour = "#aa0000";
 
 /****  Begin over-riding Blockly's default */
-Blockly.MSG["LOOPS_HUE"] = 230;
+Blockly.Msg["LOOPS_HUE"] = 230;
 
 Blockly.JavaScript['text_print'] = function(block) {
   var argument0 = Blockly.JavaScript.valueToCode(block, 'TEXT',
