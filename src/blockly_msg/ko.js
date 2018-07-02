@@ -9,6 +9,7 @@ goog.provide('Blockly.Msg.ko');
 
 //
 // goog.require('Blockly.Msg');
+// Blockly.Msg["LOOPS_HUE"] is commented out at bottom for Reeborg
 
 function blockly_init_ko () {
 
@@ -428,7 +429,7 @@ Blockly.Msg["LISTS_INDEX_OF_INPUT_IN_LIST"] = Blockly.Msg["LISTS_INLIST"];
 Blockly.Msg["PROCEDURES_DEFRETURN_COMMENT"] = Blockly.Msg["PROCEDURES_DEFNORETURN_COMMENT"];
 
 Blockly.Msg["MATH_HUE"] = "230";
-Blockly.Msg["LOOPS_HUE"] = "120";
+// Blockly.Msg["LOOPS_HUE"] = "120";
 Blockly.Msg["LISTS_HUE"] = "260";
 Blockly.Msg["LOGIC_HUE"] = "210";
 Blockly.Msg["VARIABLES_HUE"] = "330";

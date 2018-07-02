@@ -339,7 +339,7 @@ RUR.blockly.init = function () {
       init: function() {
         this.appendDummyInput()
             .appendField(RUR.translate("token"))
-            .appendField(new Blockly.FieldImage("/src/images/token.png", 15, 15, RUR.translate("token")));
+            .appendField(new Blockly.FieldImage("src/images/token.png", 15, 15, RUR.translate("token")));
         this.setOutput(true, "String");
         this.setColour(0);
       }
@@ -355,7 +355,7 @@ RUR.blockly.init = function () {
       init: function() {
         this.appendDummyInput()
             .appendField(RUR.translate("apple"))
-            .appendField(new Blockly.FieldImage("/src/images/apple.png", 15, 15, RUR.translate("apple")));
+            .appendField(new Blockly.FieldImage("src/images/apple.png", 15, 15, RUR.translate("apple")));
         this.setOutput(true, "String");
         this.setColour(0);
       }
@@ -371,7 +371,7 @@ RUR.blockly.init = function () {
       init: function() {
         this.appendDummyInput()
             .appendField(RUR.translate("carrot"))
-            .appendField(new Blockly.FieldImage("/src/images/carrot.png", 15, 15, RUR.translate("carrot")));
+            .appendField(new Blockly.FieldImage("src/images/carrot.png", 15, 15, RUR.translate("carrot")));
         this.setOutput(true, "String");
         this.setColour(0);
       }
@@ -387,7 +387,7 @@ RUR.blockly.init = function () {
       init: function() {
         this.appendDummyInput()
             .appendField(RUR.translate("dandelion"))
-            .appendField(new Blockly.FieldImage("/src/images/dandelion.png", 15, 15, RUR.translate("dandelion")));
+            .appendField(new Blockly.FieldImage("src/images/dandelion.png", 15, 15, RUR.translate("dandelion")));
         this.setOutput(true, "String");
         this.setColour(0);
       }
@@ -403,7 +403,7 @@ RUR.blockly.init = function () {
       init: function() {
         this.appendDummyInput()
             .appendField(RUR.translate("daisy"))
-            .appendField(new Blockly.FieldImage("/src/images/daisy.png", 15, 15, RUR.translate("daisy")));
+            .appendField(new Blockly.FieldImage("src/images/daisy.png", 15, 15, RUR.translate("daisy")));
         this.setOutput(true, "String");
         this.setColour(0);
       }
@@ -419,7 +419,7 @@ RUR.blockly.init = function () {
       init: function() {
         this.appendDummyInput()
             .appendField(RUR.translate("triangle"))
-            .appendField(new Blockly.FieldImage("/src/images/triangle.png", 15, 15, RUR.translate("triangle")));
+            .appendField(new Blockly.FieldImage("src/images/triangle.png", 15, 15, RUR.translate("triangle")));
         this.setOutput(true, "String");
         this.setColour(0);
       }
@@ -435,7 +435,7 @@ RUR.blockly.init = function () {
       init: function() {
         this.appendDummyInput()
             .appendField(RUR.translate("square"))
-            .appendField(new Blockly.FieldImage("/src/images/square.png", 15, 15, RUR.translate("square")));
+            .appendField(new Blockly.FieldImage("src/images/square.png", 15, 15, RUR.translate("square")));
         this.setOutput(true, "String");
         this.setColour(0);
       }
@@ -451,7 +451,7 @@ RUR.blockly.init = function () {
       init: function() {
         this.appendDummyInput()
             .appendField(RUR.translate("strawberry"))
-            .appendField(new Blockly.FieldImage("/src/images/strawberry.png", 15, 15, RUR.translate("strawberry")));
+            .appendField(new Blockly.FieldImage("src/images/strawberry.png", 15, 15, RUR.translate("strawberry")));
         this.setOutput(true, "String");
         this.setColour(0);
       }
@@ -467,7 +467,7 @@ RUR.blockly.init = function () {
       init: function() {
         this.appendDummyInput()
             .appendField(RUR.translate("leaf"))
-            .appendField(new Blockly.FieldImage("/src/images/leaf.png", 15, 15, RUR.translate("leaf")));
+            .appendField(new Blockly.FieldImage("src/images/leaf.png", 15, 15, RUR.translate("leaf")));
         this.setOutput(true, "String");
         this.setColour(0);
       }
@@ -483,7 +483,7 @@ RUR.blockly.init = function () {
       init: function() {
         this.appendDummyInput()
             .appendField(RUR.translate("banana"))
-            .appendField(new Blockly.FieldImage("/src/images/banana.png", 15, 15, RUR.translate("banana")));
+            .appendField(new Blockly.FieldImage("src/images/banana.png", 15, 15, RUR.translate("banana")));
         this.setOutput(true, "String");
         this.setColour(0);
       }
@@ -499,7 +499,7 @@ RUR.blockly.init = function () {
       init: function() {
         this.appendDummyInput()
             .appendField(RUR.translate("tulip"))
-            .appendField(new Blockly.FieldImage("/src/images/tulip.png", 15, 15, RUR.translate("tulip")));
+            .appendField(new Blockly.FieldImage("src/images/tulip.png", 15, 15, RUR.translate("tulip")));
         this.setOutput(true, "String");
         this.setColour(0);
       }
@@ -515,7 +515,7 @@ RUR.blockly.init = function () {
       init: function() {
         this.appendDummyInput()
             .appendField(RUR.translate("beeper"))
-            .appendField(new Blockly.FieldImage("/src/images/beeper0.png", 15, 15, RUR.translate("beeper")));
+            .appendField(new Blockly.FieldImage("src/images/beeper0.png", 15, 15, RUR.translate("beeper")));
         this.setOutput(true, "String");
         this.setColour(0);
       }
