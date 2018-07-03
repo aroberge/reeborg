@@ -249,7 +249,7 @@ function _restore_blockly () {
     xml_text = localStorage.getItem("blockly");
     if (xml_text) {
         xml = Blockly.Xml.textToDom(xml_text);
-        Blockly.Xml.domToWorkspace(RUR.blockly.workspace, xml);
+        Blockly.Xml.domToWorkspace(xml, RUR.blockly.workspace);
     }
 }
 
