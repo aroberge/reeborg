@@ -17,9 +17,9 @@
       "_prev_orientation": 0,
       "_trace_history": [],
       "_trace_style": "default",
-      "_trace_color": "seagreen",
-      "__id": 12,
-      "model": "classic"
+      "_trace_color": "cyan",
+      "__id": 7,
+      "model": "light blue"
     }
   ],
   "small_tiles": false,
@@ -47,25 +47,37 @@
     "<p>Background image: <a href='https://www.pexels.com/photo/action-athletes-audience-ball-270154/'>www.pexels.com</a></p>"
   ],
   "onload": [
-    "var x, y, height;",
+    "var x, y, height, last_element;",
     "RUR.public['path'] = [[1, 1]]",
     "RUR.set_model('light blue');",
     "RUR._set_trace_color_('cyan');",
     "",
+    "function append_unique(pt) {",
+    "    var last, arr = RUR.public.path;",
+    "    if (arr[arr.length -1] === undefined) {",
+    "        arr.push([pt[0], pt[1]]);",
+    "        return;",
+    "    }",
+    "    last = arr[arr.length-1];",
+    "    if (last[0] == pt[0] && last[1] == pt[1]) {",
+    "        return;",
+    "    }",
+    "    arr.push([pt[0], pt[1]]);",
+    "}",
     "// build a random path",
     "for (x=1; x <= 12; x++) {",
     "    if (RUR.randint(1, 2)==1) {",
     "        height = RUR.randint(1, 4);",
     "        for (y=1; y<=height; y++) {",
     "            RUR.add_wall(\"east\", x, y);",
-    "            RUR.public.path.push([x, y+1]);",
+    "            append_unique([x, y+1]);",
     "        }",
-    "        RUR.public.path.push([x+1, height+1])",
+    "        append_unique([x+1, height+1])",
     "        for(y=height; y>=1; y--) {",
-    "            RUR.public.path.push([x+1, y]);",
+    "            append_unique([x+1, y]);",
     "        }",
     "    }",
-    "    RUR.public.path.push([x+1, 1]);",
+    "    append_unique([x+1, 1]);",
     "}",
     "",
     "// We show the desired path very clearly;  in the",
@@ -88,7 +100,7 @@
     "// and not simply a truthy value, will make the grid show ONLY on",
     "// the path",
     "",
-    "RUR.state.visible_grid = RUR.PATH_ONLY;",
+    "RUR.state.visible_grid = true;",
     "// The following is going to be called in the Post editor",
     "// we want users to be able to use either Python or Javascript",
     "// to solve this task - so we cannot have Python or Javascript",
@@ -119,7 +131,6 @@
     ""
   ],
   "background_image": "worlds/images/stadium.png",
-  "walls": {},
   "goal": {
     "possible_final_positions": [
       [
@@ -132,5 +143,6 @@
       "x": 13,
       "y": 1
     }
-  }
+  },
+  "walls": {}
 }
