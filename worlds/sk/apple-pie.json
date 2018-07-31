@@ -1,178 +1,104 @@
 {
   "robots": [
     {
-      "x": 2,
-      "y": 4,
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
       "objects": {},
-      "model": "classic",
       "_orientation": 0,
       "_is_leaky": true,
-      "_prev_x": 2,
-      "_prev_y": 4,
-      "_prev_orientation": 0,
       "_trace_history": [],
       "_trace_style": "default",
       "_trace_color": "seagreen",
-      "__id": 2,
+      "__id": 5,
+      "model": "classic",
       "possible_initial_positions": [
         [
-          2,
-          4
+          1,
+          1
         ]
       ]
     }
   ],
-  "walls": {
-    "2,3": [
-      "north"
-    ],
-    "2,4": [
-      "east"
-    ],
-    "1,4": [
-      "east"
-    ],
-    "1,5": [
-      "east"
-    ],
-    "1,6": [
-      "east"
-    ],
-    "2,6": [
-      "north"
-    ],
-    "2,5": [
-      "east"
-    ],
-    "3,5": [
-      "east",
-      "north"
-    ],
-    "3,6": [
-      "north"
-    ],
-    "4,6": [
-      "east",
-      "north"
-    ],
-    "4,5": [
-      "east"
-    ],
-    "4,4": [
-      "east"
-    ],
-    "3,4": [
-      "east"
-    ],
-    "3,3": [
-      "east"
-    ],
-    "3,2": [
-      "east"
-    ],
-    "4,1": [
-      "north"
-    ],
-    "4,3": [
-      "east"
-    ],
-    "5,2": [
-      "north"
-    ],
-    "5,1": [
-      "north"
-    ],
-    "6,1": [
-      "north"
-    ],
-    "6,2": [
-      "east"
-    ],
-    "6,3": [
-      "east"
-    ],
-    "5,3": [
-      "east"
-    ],
-    "5,4": [
-      "east"
-    ],
-    "5,5": [
-      "east"
-    ],
-    "6,5": [
-      "north"
-    ],
-    "7,5": [
-      "east",
-      "north"
-    ],
-    "6,4": [
-      "east"
-    ],
-    "7,4": [
-      "north"
-    ]
-  },
+  "walls": {},
   "description": [
-    "<h1>Another path to follow</h1>",
-    "<p>Create a <code>turn_right()()</code> function and use it to walk along the path.</p>",
-    "",
+    "<h1>Easy as pie?</h1>",
+    "<p>Reeborg must go around the world, collecting",
+    "    all the apples so that he can make apple",
+    "    pies when he gets home.",
+    "</p>",
+    "<p>Try to make your code as short as possible using <code>for/repeat</code> loops.",
+    "<span class='warning'>Beware!</span> The apples keep changing place each time you reload this world.</p>",
     "<h3>What you need to know</h3>",
-    "<ul><li>The functions <code>move()</code> and <code>turn_left()</code>.</li>",
-    "<li>How to define functions.</li></ul>",
-    "DIFFICULTY2",
-    ""
+    "<ul><li>The functions <code>move()</code>, <code>turn_left()</code>, and <code>take()</code>.</li>",
+    "<li>how to use a <code>for/repeat</code> loop.</li></ul>",
+    "DIFFICULTY3",
+    "<h3>Acknowledgements</h3>",
+    "<p>Adapted from a world created by F. Lallemand.</p>"
+  ],
+  "onload": [
+    "var x, y, x_init, width, height, reeborg;",
+    "width = 10;",
+    "height = 10;",
+    "for(x = 2; x <= width; x++) {",
+    "    if(RUR.randint(1, 2) == 1) {",
+    "        RUR.add_object('apple', x, 1);",
+    "    }",
+    "}",
+    "for(y = 2; y<=height; y++) {",
+    "    if(RUR.randint(1, 2) == 1) {",
+    "        RUR.add_object('apple', width, y);",
+    "    }",
+    "}",
+    "for(x=width-1; x >= 1; x--) {",
+    "    if(RUR.randint(1, 2) == 1) {",
+    "        RUR.add_object('apple', x, height);",
+    "    }",
+    "}    ",
+    "for(y=height-1; y >= 2; y--) {",
+    "    if(RUR.randint(1, 2) == 1) {",
+    "        RUR.add_object('apple', 1, y);",
+    "    }",
+    "}"
   ],
   "small_tiles": false,
   "rows": 10,
   "cols": 10,
-  "goal": {
-    "possible_final_positions": [
-      [
-        7,
-        5
-      ]
-    ],
-    "position": {
-      "image": "racing_flag",
-      "x": 7,
-      "y": 5
-    }
-  },
   "tiles": {
     "1,1": [
-      "grass"
+      "gravel"
     ],
     "1,2": [
-      "grass"
+      "gravel"
     ],
     "1,3": [
-      "grass"
+      "gravel"
     ],
     "1,4": [
-      "grass"
+      "gravel"
     ],
     "1,5": [
-      "grass"
+      "gravel"
     ],
     "1,6": [
-      "grass"
+      "gravel"
     ],
     "1,7": [
-      "grass"
+      "gravel"
     ],
     "1,8": [
-      "grass"
+      "gravel"
     ],
     "1,9": [
-      "grass"
+      "gravel"
     ],
     "1,10": [
-      "grass"
+      "gravel"
     ],
     "2,1": [
-      "grass"
+      "gravel"
     ],
     "2,2": [
       "grass"
@@ -181,13 +107,13 @@
       "grass"
     ],
     "2,4": [
-      "gravel"
+      "grass"
     ],
     "2,5": [
-      "gravel"
+      "grass"
     ],
     "2,6": [
-      "gravel"
+      "grass"
     ],
     "2,7": [
       "grass"
@@ -199,10 +125,10 @@
       "grass"
     ],
     "2,10": [
-      "grass"
+      "gravel"
     ],
     "3,1": [
-      "grass"
+      "gravel"
     ],
     "3,2": [
       "grass"
@@ -217,7 +143,7 @@
       "grass"
     ],
     "3,6": [
-      "gravel"
+      "grass"
     ],
     "3,7": [
       "grass"
@@ -229,25 +155,25 @@
       "grass"
     ],
     "3,10": [
-      "grass"
+      "gravel"
     ],
     "4,1": [
-      "grass"
+      "gravel"
     ],
     "4,2": [
-      "gravel"
+      "grass"
     ],
     "4,3": [
-      "gravel"
+      "grass"
     ],
     "4,4": [
-      "gravel"
+      "grass"
     ],
     "4,5": [
-      "gravel"
+      "grass"
     ],
     "4,6": [
-      "gravel"
+      "grass"
     ],
     "4,7": [
       "grass"
@@ -259,13 +185,13 @@
       "grass"
     ],
     "4,10": [
-      "grass"
+      "gravel"
     ],
     "5,1": [
-      "grass"
+      "gravel"
     ],
     "5,2": [
-      "gravel"
+      "grass"
     ],
     "5,3": [
       "grass"
@@ -289,22 +215,22 @@
       "grass"
     ],
     "5,10": [
-      "grass"
+      "gravel"
     ],
     "6,1": [
-      "grass"
+      "gravel"
     ],
     "6,2": [
-      "gravel"
+      "grass"
     ],
     "6,3": [
-      "gravel"
+      "grass"
     ],
     "6,4": [
-      "gravel"
+      "grass"
     ],
     "6,5": [
-      "gravel"
+      "grass"
     ],
     "6,6": [
       "grass"
@@ -319,10 +245,10 @@
       "grass"
     ],
     "6,10": [
-      "grass"
+      "gravel"
     ],
     "7,1": [
-      "grass"
+      "gravel"
     ],
     "7,2": [
       "grass"
@@ -334,7 +260,7 @@
       "grass"
     ],
     "7,5": [
-      "gravel"
+      "grass"
     ],
     "7,6": [
       "grass"
@@ -349,10 +275,10 @@
       "grass"
     ],
     "7,10": [
-      "grass"
+      "gravel"
     ],
     "8,1": [
-      "grass"
+      "gravel"
     ],
     "8,2": [
       "grass"
@@ -379,10 +305,10 @@
       "grass"
     ],
     "8,10": [
-      "grass"
+      "gravel"
     ],
     "9,1": [
-      "grass"
+      "gravel"
     ],
     "9,2": [
       "grass"
@@ -409,37 +335,51 @@
       "grass"
     ],
     "9,10": [
-      "grass"
+      "gravel"
     ],
     "10,1": [
-      "grass"
+      "gravel"
     ],
     "10,2": [
-      "grass"
+      "gravel"
     ],
     "10,3": [
-      "grass"
+      "gravel"
     ],
     "10,4": [
-      "grass"
+      "gravel"
     ],
     "10,5": [
-      "grass"
+      "gravel"
     ],
     "10,6": [
-      "grass"
+      "gravel"
     ],
     "10,7": [
-      "grass"
+      "gravel"
     ],
     "10,8": [
-      "grass"
+      "gravel"
     ],
     "10,9": [
-      "grass"
+      "gravel"
     ],
     "10,10": [
-      "grass"
+      "gravel"
     ]
+  },
+  "goal": {
+    "possible_final_positions": [
+      [
+        1,
+        1
+      ]
+    ],
+    "position": {
+      "image": "house",
+      "x": 1,
+      "y": 1
+    },
+    "objects": {}
   }
 }

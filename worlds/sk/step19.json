@@ -1,11 +1,11 @@
 {
   "description": [
-    "<h1>Expert Walk</h1>",
-    "<p>Try to adapt the solution for the world Step 14a to also work with this new lake. ",
+    "<h1>Second Lake Walk</h1>",
+    "<p>Try to adapt the solution for the world Step 14 to also work with this new lake. ",
     "Reeborg should once again put down the banana at the starting position",
     " and continue walking along the border of the lake until it finds the banana again.",
     " Staying along the path will be trickier this time, but that’s the challenge! </p>",
-    "<p>Note: Your solution for this Expert Walk world should also work in the basic (Step 14a) world!</p>",
+    "<p>Note: Your solution for this Second Lake Walk world should also work in the basic (Step 14) world!</p>",
     "<p><strong>Reeborg will never start with an obstacle directly in front of it!</strong></p>",
     "<h3>What you need to know</h3>",
     "<ul><li>The functions <code>move()</code>, <code>turn_left()</code>, and <code>put()</code>.</li>",

@@ -1,0 +1,41 @@
+{
+  "walls": {},
+  "description": [
+    "<h1>Go To Origin</h1>",
+    "<p>Reeborg can start in any location in the world, ",
+    "  and your job is to return Reeborg to the bottom left ",
+    "  corner of the world (1, 1). Note that Reeborg can be ",
+    "  facing in any direction at the start of the program,  ",
+    "  and should be facing east when your code has completed.</p>",
+    "DIFFICULTY2"
+  ],
+  "small_tiles": false,
+  "goal": {
+    "possible_final_positions": [
+      [
+        1,
+        1
+      ]
+    ],
+    "position": {
+      "image": "racing_flag",
+      "x": 1,
+      "y": 1
+    }
+  },
+  "onload": [
+    "var height, width, x, y;",
+    "",
+    "width = RUR.randint(3, 12);",
+    "height = RUR.randint(3, 12);",
+    "RUR.set_world_size(width, height);",
+    "RUR.fill_background(\"pale_grass\");",
+    "",
+    "// add robot",
+    "x = RUR.randint(1, width);",
+    "y = RUR.randint(1, height);",
+    "r = new UsedRobot(x, y);",
+    "RUR.set_random_orientation();",
+    ""
+  ]
+}

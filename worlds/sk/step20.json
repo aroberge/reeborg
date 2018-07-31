@@ -416,7 +416,7 @@
     ]
   },
   "description": [
-    "<h1>Rain is falling.</h1>",
+    "<h1>Rain is falling</h1>",
     "<p>It's raining hard.  Water is going to come",
     "    in through the open windows unless",
     "    Reeborg closes them.</p>",
@@ -432,7 +432,7 @@
     "<li>How to use a <code>while</code> loop and an <code>if</code> statement.</li></ul>",
     "<p>Windows (missing walls) are always between two walls, all along a straight line.",
     "There can never be two windows side by side, nor can there be a window at the corner of a room.</p>",
-    "<p>Your program should work also for <b>Step 15a</b>.",
+    "<p>Your program should work also for <b>Step 15</b>.",
     "Note however that this task is much more difficult to do.<p>",
     "<p>Imagine that Reeborg is standing next to a wall, takes a single step,",
     "and finds that there is no longer a wall next to him. What can happen if Reeborg takes another step?",
