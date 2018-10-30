@@ -16,7 +16,7 @@
     "<hr>",
     "<h3>Saskatchewan CS 20</h3>",
     "<p>Saskatchewan CS 20 is a collection adapted from the worlds used in the",
-    "<a href='http://opensask.ca/' target='_blank'>",
+    "<a href='https://cs20.ca/' target='_blank'>",
     "Computer Science 20 open textbook</a> created by Dan Schellenberg. ",
     "Some worlds are identical to that of Reeborg's introduction.</p>",
     "<p><a class='fake-button' href='#' onclick=\"RUR.load_world_file('worlds/menus/sk_menu.json')\">Go to Saskatchewan CS 20</a></p>",
