@@ -4,7 +4,7 @@ require("./../world_utils/import_world.js"); // for process_onload
 require("./../drawing/visible_robot.js"); // for RUR.reset_default_robot_images
 
 RUR.reset_world = function() {
-    var world;
+    var i, world;
     RUR.reset_pre_run_defaults();
     $("#thought").hide(); // just in case
     RUR.success_custom_message = undefined;

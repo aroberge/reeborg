@@ -40,7 +40,7 @@ RUR.print_path = function () {
 };
 
 function compute_path(x_init, y_init, history) {
-    var x, y, prev_x, prev_y, path;
+    var i, x, y, prev_x, prev_y, path;
 
     prev_x = x_init;
     prev_y = y_init;

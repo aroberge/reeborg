@@ -19,7 +19,7 @@ RUR.BASE_URL = RUR.BASE_URL || '';
 
 function set_images(images) {
     "use strict"
-    var default_images, east, west, north, south, robot, model = images.model;
+    var default_images, robot, model = images.model;
 
     default_images = {east: RUR.BASE_URL + '/src/images/robot_e.png',
         north: RUR.BASE_URL + '/src/images/robot_n.png',
@@ -311,10 +311,13 @@ RUR.vis_robot.draw = function (robot) {
             break;
         case -1:
             RUR.vis_robot.draw_random(robot);
+            break;
         default:
             image = RUR.vis_robot.e_img;
         }
-    RUR.ROBOT_CTX.drawImage(image, x, y, width, height);
+    if (robot._orientation != -1){
+        RUR.ROBOT_CTX.drawImage(image, x, y, width, height);
+    }
     if (RUR.state.editing_world){
         return;
     }
@@ -420,7 +423,7 @@ RUR.vis_robot.draw_trace_segment = function (segment) {
  * function described here is preferable as it can be used with either
  * Javascript or Python.
  *
- * @param {Object} images A Javascript object (similar to a Python dict) that
+ * @param {images} images A Javascript object (similar to a Python dict) that
  * holds the relevant attributes.
  *
  * @param {string} [images.model]  The model name of the robot. Integer values
@@ -438,14 +441,12 @@ RUR.vis_robot.draw_trace_segment = function (segment) {
  */
 
 RUR.new_robot_images = function (images) {
-    var model, random;
     if (images.model !== undefined) {
         if (images.model == -1) {
             throw new RUR.ReeborgError(RUR.translate("Robot model cannot be -1."));
         }
-        model = images.model;
     } else {
-        images.model = model = "anonymous";
+        images.model = "anonymous";
     }
     set_images(images);
 };

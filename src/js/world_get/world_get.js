@@ -249,7 +249,7 @@ RUR.world_get.world_info = function (show_info_at_location) {
     $('.world_info_source').each(function() {
         var $this = $(this), $code = $this.text();
         $this.empty();
-        var myCodeMirror = CodeMirror(this, {
+        CodeMirror(this, {
             value: $code,
             mode:  RUR.state.programming_language,
             lineNumbers: !$this.is('.inline'),
@@ -260,7 +260,7 @@ RUR.world_get.world_info = function (show_info_at_location) {
     $('.world_info_onload').each(function() {
         var $this = $(this), $code = $this.text();
         $this.empty();
-        var myCodeMirror = CodeMirror(this, {
+        CodeMirror(this, {
             value: $code,
             mode:  RUR.state.onload_programming_language,
             lineNumbers: !$this.is('.inline'),
@@ -273,7 +273,7 @@ RUR.world_get.world_info = function (show_info_at_location) {
     $('.python').each(function() {
         var $this = $(this), $code = $this.text();
         $this.empty();
-        var myCodeMirror = CodeMirror(this, {
+        CodeMirror(this, {
             value: $code,
               mode: {
                 name: "python",
@@ -287,7 +287,7 @@ RUR.world_get.world_info = function (show_info_at_location) {
     $('.javascript').each(function() {
         var $this = $(this), $code = $this.text();
         $this.empty();
-        var myCodeMirror = CodeMirror(this, {
+        CodeMirror(this, {
             value: $code,
             mode:  'javascript',
             lineNumbers: !$this.is('.inline'),
@@ -298,7 +298,7 @@ RUR.world_get.world_info = function (show_info_at_location) {
     $('.html').each(function() {
         var $this = $(this), $code = $this.text();
         $this.empty();
-        var myCodeMirror = CodeMirror(this, {
+        CodeMirror(this, {
             value: $code,
             mode:  "htmlmixed",
             lineNumbers: !$this.is('.inline'),
@@ -316,7 +316,7 @@ function get_info_about_location() {
     "use strict";
     var position, x, y, coords, grid_info, need_heading, goals;
     var tile, tilename, tiles;
-    var obj, obj_here, obj_type;
+    var obj, obj_here, obj_type, need_heading;
     var special_info_about_location = "<h3>" + RUR.translate("Special information about this location:") + "</h3>";
 
     position = RUR.calculate_grid_position();
@@ -414,7 +414,7 @@ function get_info_about_location() {
                 }
             }
         }
-        if (goals.walls !== undefined && coords) {
+        if (goals.walls !== undefined) {
             if (goals.walls[coords] !== undefined){
                 if (goals.walls[coords].indexOf("east") != -1) {
                     if (need_heading){
@@ -454,14 +454,13 @@ function get_info_about_location() {
                     grid_info += RUR.translate("A wall must be built south of this location.") + "<br>";
                 }
             }
-            y += 1;
-            coords = x + "," + y;
+            y += 1; // TODO: is this needed?
+            coords = x + "," + y; // TODO: is this needed?
         }
     }
 
     return grid_info + '</div>';
 }
-
 
 $(document).ready(function () {
  RUR.create_and_activate_dialogs( $("#world-info-button"), $("#World-info"),

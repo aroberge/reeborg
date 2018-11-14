@@ -164,7 +164,7 @@ RUR.get_robot_by_id = function (id) {
 
 RUR.get_robot_location = function (robot_body) {
     "use strict";
-    var x, y, orientation;
+    var orientation;
     if (!robot_body || robot_body.x === undefined || robot_body.y === undefined ||
         robot_body._orientation === undefined) {
         throw new Error("robot body needed as argument for RUR.get_location().");
@@ -424,7 +424,7 @@ RUR.remove_initial_position = function (x, y) {
 
 RUR.set_random_orientation = function (robot_body) {
     "use strict";
-    var pos, world=RUR.get_current_world();
+    var world=RUR.get_current_world();
     if (robot_body === undefined) {
         if (world.robots === undefined || world.robots.length < 1) {
             throw new RUR.ReeborgError("This world has no robot; cannot set random orientation.");

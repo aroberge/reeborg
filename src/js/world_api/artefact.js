@@ -180,7 +180,7 @@ RUR._add_artefact = function (args) {
  */
 RUR._get_artefacts = function(args) {
     "use strict";
-    var base, coords, container, world = RUR.get_current_world();
+    var coords, container, world = RUR.get_current_world();
 
     ensure_valid_position(args);
     if (args.type === undefined) {

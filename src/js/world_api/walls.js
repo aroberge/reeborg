@@ -113,7 +113,6 @@ RUR.get_walls = function(x, y, options) {
  *
  */
 RUR.is_wall = function(orientation, x, y, options) {
-    var args;
     if (["east", "north", "west", "south"].indexOf(RUR.translate_to_english(orientation)) === -1) {
         throw new RUR.ReeborgError(
             RUR.translate("Invalid orientation.").supplant({orient:orientation}));

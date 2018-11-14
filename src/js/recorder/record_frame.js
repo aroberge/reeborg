@@ -6,7 +6,7 @@ require("./../utils/supplant.js");
 var identical = require("./../utils/identical.js").identical;
 
 function update_trace_history() {
-    var world = RUR.get_current_world();
+    var robot, world = RUR.get_current_world();
     if (world.robots !== undefined){
         for (robot of world.robots) { // jshint ignore:line
             update_robot_trace_history(robot);

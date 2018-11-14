@@ -21,7 +21,7 @@ RUR.get_protections = function (robot) {
     var objects_carried, obj_type, protections;
 
     objects_carried = RUR.control.carries_object(robot);
-    if (!objects_carried || !Object.keys(objects_carried)) {
+    if (objects_carried == 0) {
         return [];
     }
 
@@ -106,7 +106,7 @@ RUR.is_fatal_position = function (x, y, robot){
  */
 RUR.is_detectable_position = function (x, y){
     "use strict";
-    var detectable, tile, tiles;
+    var tile, tiles;
 
     /* Both obstacles and background tiles can be detectable;
        we combine both in a single array here */

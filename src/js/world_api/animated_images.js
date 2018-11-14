@@ -5,6 +5,7 @@
 require("./../rur.js");
 
 RUR.animate_images = function (obj) {
+    var i;
     for (i=0; i < obj.images.length; i++){
         obj["image"+i] = new Image();
         obj["image"+i].src = obj.images[i];

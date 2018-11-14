@@ -51,7 +51,7 @@ RUR.clear_background = function() {
  */
 
 RUR.fill_background = function(name) {
-    var add, recording_state = RUR._recording_(false);
+    var x, y, add, recording_state = RUR._recording_(false);
     if(RUR.KNOWN_THINGS.indexOf(RUR.translate_to_english(name)) === -1){
         add = RUR.add_colored_tile;
     } else {
@@ -247,7 +247,7 @@ RUR.get_background_tile = function (x, y) {
 
 RUR.is_background_tile = function (name, x, y) {
     "use strict";
-    var tile, args = {x:x, y:y, type:"tiles"};
+    var tile;
     tile = RUR.get_background_tile(x, y); // returns translated name
     if (tile === null) {
         return false;

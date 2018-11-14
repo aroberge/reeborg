@@ -153,7 +153,7 @@ test_utils.run_python_2 = function (world_url, program_url) {
 
 
 test_utils.run_program_2 = function(world_url, program_url, language) {
-    var last_frame, world, step;
+    var last_frame, world;
     test_utils.reset();
     RUR.state.programming_language = language;
 
@@ -169,7 +169,7 @@ test_utils.run_program_2 = function(world_url, program_url, language) {
         RUR.rec.conclude();
         return true;  //  TODO: make use of this return value??
     } catch(e) {
-        console.log(">>=========\nError raised", step, e);
+        console.log(">>=========\nError raised", e);
         console.log("  frames = ", RUR.frames);
         console.log("  program = ", test_utils.program, "\n------------<<");
         return false;

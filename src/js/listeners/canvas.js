@@ -21,7 +21,7 @@ $(document).ready(function () {
 
 
 function handleMouseMove(evt) {
-    var x, y, hit, position, world, robot, mouse_above_robot, image, nb_obj;
+    var i, j, x, y, hit, position, world, robot, mouse_above_robot, image, nb_obj;
     var size = 40, objects_carried;
 
     world = RUR.get_current_world();

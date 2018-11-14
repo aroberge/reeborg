@@ -295,8 +295,7 @@ function draw_grid_walls (ctx, edit){
 
 function draw_border (ctx) {
     "use strict";
-    var j, image, wall, x_offset, y_offset, world;
-    world = RUR.get_current_world();
+    var j, image, wall, x_offset, y_offset;
     wall = RUR.THINGS["east_border"];
     image = wall.image;
     x_offset = wall.x_offset;
@@ -526,7 +525,7 @@ function draw_animated_images (){
 
 function draw_anim (objects, ctx) {
     "use strict";
-    var i, j, i_j, coords, flag, k, n, image, obj, obj_here, elem,
+    var i, j, i_j, coords, flag, k, n, image, obj, obj_here,
         recording_state, remove_flag, images_to_remove=[];
 
     flag = false;
@@ -560,17 +559,17 @@ function draw_anim (objects, ctx) {
         }
     }
 
+    // removing object normally result in the recording of a
+    // frame since we normally want the display to be updated
+    // to reflect the removal. Here, we are updating the display,
+    // and we do not want to trigger new frames recording: at this
+    // stage, we are playing back the recorded frames.
+    recording_state = RUR.state.do_not_record;
+    RUR.state.do_not_record = true;
     for (k=0; k < images_to_remove.length; k++){
-        // removing object normally result in the recording of a
-        // frame since we normally want the display to be updated
-        // to reflect the removal. Here, we are updating the display,
-        // and we do not want to trigger new frames recording: at this
-        // stage, we are playing back the recorded frames.
-        recording_state = RUR.state.do_not_record;
-        RUR.state.do_not_record = true;
         __remove_animated_object(images_to_remove[k]);
-        RUR.state.do_not_record = false;
     }
+    RUR.state.do_not_record = recording_state;
     return flag;
 }
 
@@ -620,8 +619,7 @@ function draw_coloured_tile (colour, i, j, ctx) {
 }
 
 function draw_single_object (image, i, j, ctx, x_offset, y_offset) {
-    var x, y, offset=RUR.WALL_THICKNESS/2, grid_size=RUR.WALL_LENGTH,
-        world = RUR.get_current_world();
+    var x, y, offset=RUR.WALL_THICKNESS/2, grid_size=RUR.WALL_LENGTH;
     if (x_offset === undefined) {
         x_offset = 0;
     }
@@ -678,7 +676,7 @@ function compile_info () {
     // compiles the information about objects and goal found at each
     // grid location, so that we can determine what should be
     // drawn - if anything.
-    var coords, obj, quantity, world = RUR.get_current_world();
+    var world = RUR.get_current_world();
     RUR.vis_world.information = {};
     RUR.vis_world.goal_information = {};
     RUR.vis_world.goal_present = false;
