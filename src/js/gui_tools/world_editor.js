@@ -37,7 +37,7 @@ RUR.we.edit_world = function  () {
     "use strict";
     // usually triggered when canvas is clicked if editing world;
     // call explicitly if needed.
-    var value, split, root, x, y, position;
+    var value, split, root;
     split = RUR.we.edit_world_selection.split("-");
     root = split[0];
     value = split[1];
@@ -332,7 +332,7 @@ RUR.we.turn_robot = function (orientation) { // function used on reeborg.html
 };
 
 function calculate_wall_position () {
-    var ctx, x, y, orientation, remain_x, remain_y, del_x, del_y;
+    var x, y, orientation, remain_x, remain_y, del_x, del_y;
     x = RUR.mouse_x - $("#robot-anim-canvas").offset().left;
     y = RUR.mouse_y - $("#robot-anim-canvas").offset().top;
 
@@ -445,7 +445,7 @@ function add_goal_object (specific_object){
 RUR.we.set_goal_position = function (home){
     // will remove the position if clicked again.
     "use strict";
-    var position, world=RUR.get_current_world(), robot, arr=[], pos, present=false, goal;
+    var position, world=RUR.get_current_world(), arr=[], pos, present=false, goal;
 
     $("#cmd-result").html(RUR.translate("Click on world to set home position for robot.")).effect("highlight", {color: "gold"}, 1500);
 
@@ -522,8 +522,6 @@ function toggle_tile (name){
 
 function fill_with_tile (name) {
     "use strict";
-    var x, y;
-
     if (!name) {    // if we cancel the dialog
         return;
     } else if (name === "colour") {

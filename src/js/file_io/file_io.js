@@ -12,7 +12,7 @@ require("./../utils/supplant.js");
 
 RUR._load_world_from_program = function (url, shortname) {
     "use strict";
-    var selected, possible_url, new_world=false, new_selection=false;
+    var selected, possible_url, new_world=false;
     RUR.file_io_status = undefined;
 
     //this is only for the Javascript version; Python will intercept
@@ -40,7 +40,6 @@ RUR._load_world_from_program = function (url, shortname) {
         return;
     } else if (RUR.world_selector.url_from_shortname(shortname)!==undefined){
         url = RUR.world_selector.url_from_shortname(shortname);
-        new_selection = shortname;
     }  else {
         new_world = shortname;
     }

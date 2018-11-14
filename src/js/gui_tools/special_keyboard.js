@@ -45,7 +45,7 @@ RUR.kbd.insert_in_console = function (txt) {
 
 RUR.kbd.insert = function (txt){
     "use strict";
-    var doc, cursor, line, pos;
+    var doc, cursor, pos;
     if (RUR.state.input_method==="py-repl") {
         RUR.kbd.insert_in_console(txt);
         return;
@@ -57,7 +57,6 @@ RUR.kbd.insert = function (txt){
         doc = library;
     }
     cursor = doc.getCursor();
-    line = doc.getLine(cursor.line);
     pos = { // create a new object to avoid mutation of the original selection
        line: cursor.line,
        ch: cursor.ch // set the character position to the end of the line

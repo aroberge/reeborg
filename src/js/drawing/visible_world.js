@@ -741,7 +741,7 @@ function compile_partial_info (objects, information, type){
 
 function draw_info () {
     var i, j, coords, keys, key, info, ctx;
-    var scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT, text_width;
+    var scale = RUR.WALL_LENGTH, Y = RUR.HEIGHT;
 
     if (RUR.state.do_not_draw_info) {
         return;
@@ -764,7 +764,6 @@ function draw_info () {
             j = parseInt(coords[1], 10);
             info = RUR.vis_world.information[coords][1];
             if (i <= RUR.MAX_X && j <= RUR.MAX_Y){
-                text_width = ctx.measureText(info).width/2;
                 ctx.fillStyle = RUR.vis_world.information[coords][2];
                 // information drawn to left side of object
                 ctx.fillText(info, (i+0.2)*scale, Y - (j)*scale);
@@ -780,7 +779,6 @@ function draw_info () {
             j = parseInt(coords[1], 10);
             info = RUR.vis_world.goal_information[coords][1];
             if (i <= RUR.MAX_X && j <= RUR.MAX_Y){
-                text_width = ctx.measureText(info).width/2;
                 ctx.fillStyle = RUR.vis_world.goal_information[coords][2];
                 // information drawn to right side of object
                 ctx.fillText(info, (i+0.8)*scale, Y - (j)*scale);
