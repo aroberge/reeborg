@@ -49,7 +49,7 @@
     "    RUR.public['path'].push([x, 1]);",
     "}",
     "RUR.state.visible_grid = RUR.PATH_ONLY;",
-    "RUR.show_path(RUR.public['path'], 'white');"
+    "RUR.show_path(RUR.public['path'], 'black');"
   ],
   "pre": [
     "RUR.show_path()", 
@@ -59,6 +59,6 @@
     "RUR.check_path(RUR.public['path'],",
     "     {'failure':\"Reeborg n'a pas suivi le bon chemin.\", ",
     "      'success': 'Très bien fait !', ",
-    "      'show_path': 'true', 'color': 'white'})"
+    "      'show_path': 'true', 'color': 'black'})"
   ]
 }

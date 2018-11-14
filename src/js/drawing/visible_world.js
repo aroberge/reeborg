@@ -794,34 +794,66 @@ function draw_info () {
 
 function draw_correct_path (path, color) {
     "use strict";
-    var i, x, y, offset, prev_x, prev_y, ctx = RUR.OBJECTS_CTX; // below RUR.TRACE_CTX
+    var i, x, y, arrow_offset, offset, prev_x, prev_y, ctx = RUR.OBJECTS_CTX; // below RUR.TRACE_CTX
+    var grid_x, grid_y, prev_grid_x, prev_grid_y, current_segment, segments = new Set();
     ctx.strokeStyle = color;
     ctx.lineCap = "round";
 
     if(RUR.get_current_world().small_tiles) {
         offset = 12;
+        arrow_offset = 5;
         ctx.lineWidth = 1;
         ctx.setLineDash([2, 2]);
     } else {
         offset = 25;
-        ctx.lineWidth = 2;
+        arrow_offset = 8;
+        ctx.lineWidth = 1;
         ctx.setLineDash([4, 4]);
     }
+    grid_x = path[0][0];
+    grid_y = path[0][1];
 
-    x = path[0][0] * RUR.WALL_LENGTH + offset;
-    y = RUR.HEIGHT - (path[0][1] + 1) * RUR.WALL_LENGTH + offset;
+    x = grid_x * RUR.WALL_LENGTH + offset;
+    y = RUR.HEIGHT - (grid_y + 1) * RUR.WALL_LENGTH + offset;
 
     ctx.beginPath();
     ctx.moveTo(x, y);
+    prev_grid_x = grid_x;
+    prev_grid_y = grid_y;
+
+
     for (i=1; i < path.length; i++){
-        x = path[i][0] * RUR.WALL_LENGTH + offset;
-        y = RUR.HEIGHT - (path[i][1] + 1) * RUR.WALL_LENGTH + offset;
-        ctx.lineTo(x, y);
+        grid_x = path[i][0];
+        grid_y = path[i][1];
+        x = grid_x * RUR.WALL_LENGTH + offset;
+        y = RUR.HEIGHT - (grid_y + 1) * RUR.WALL_LENGTH + offset;
+        // We need to avoid redrawing over a previously drawn dashed path
+        // as this messes up the dash pattern.
+        // We first create string that identify uniquely any path segment, irrespective of
+        // the direction in which it is traversed
+        if (grid_x < prev_grid_x) {
+            current_segment = grid_x +"," + prev_grid_x + "," + grid_y + "," + grid_y;
+        } else if (grid_x > prev_grid_x) {
+            current_segment = prev_grid_x +"," + grid_x + "," + grid_y + "," + grid_y;
+        } else if (grid_y < prev_grid_y) {
+            current_segment = grid_x +"," + grid_x + "," + grid_y + "," + prev_grid_y;            
+        } else {
+            current_segment = grid_x +"," + grid_x + "," + prev_grid_y + "," + grid_y;            
+        }
+        if (segments.has(current_segment)) {
+            ctx.moveTo(x, y)
+        } else {
+            ctx.lineTo(x, y);
+            segments.add(current_segment);
+        }
+        prev_grid_x = grid_x;
+        prev_grid_y = grid_y;
     }
     ctx.stroke();
     ctx.setLineDash([]);
 
     // draw arrows.
+    ctx.lineWidth = 1;
     x = path[0][0] * RUR.WALL_LENGTH + offset;
     y = RUR.HEIGHT - (path[0][1] + 1) * RUR.WALL_LENGTH + offset;
     for (i=1; i < path.length; i++){
@@ -829,49 +861,81 @@ function draw_correct_path (path, color) {
         prev_y = y;
         x = path[i][0] * RUR.WALL_LENGTH + offset;
         y = RUR.HEIGHT - (path[i][1] + 1) * RUR.WALL_LENGTH + offset;
-        draw_arrow(x, y, prev_x, prev_y, ctx);
+        draw_arrow(x, y, prev_x, prev_y, ctx, arrow_offset);
     }
 }
 
 
-function draw_arrow(x, y, prev_x, prev_y, ctx) {
-    var len = ctx.lineWidth * 3;
+function draw_arrow(x, y, prev_x, prev_y, ctx, arrow_offset) {
+    var len = ctx.lineWidth * 4;
     ctx.beginPath();
     if (x == prev_x) { // vertical arrow
-        y = (y + prev_y)/2; 
-        ctx.moveTo(x, y);
         if (y > prev_y) {
+            x -= arrow_offset;
+        } else {
+            x += arrow_offset;
+        }
+        y = (y + prev_y)/2; 
+        if (y > prev_y) {
+            y += arrow_offset;
+            ctx.moveTo(x, y);
             ctx.lineTo(x-len, y-len);
             ctx.stroke();
             ctx.beginPath();
             ctx.moveTo(x, y);
             ctx.lineTo(x+len, y-len);
             ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x, y - 2*arrow_offset);
+            ctx.stroke();            
         } else {
+            y -= arrow_offset;
+            ctx.moveTo(x, y);            
             ctx.lineTo(x-len, y+len);
             ctx.stroke();
             ctx.beginPath();
             ctx.moveTo(x, y);
             ctx.lineTo(x+len, y+len);
             ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x, y + 2*arrow_offset);
+            ctx.stroke();              
         }
     } else {
-        x = (x + prev_x)/2;
-        ctx.moveTo(x, y);
         if (x > prev_x) {
+            y += arrow_offset;
+        } else {
+            y -= arrow_offset;
+        }
+        x = (x + prev_x)/2;
+        if (x > prev_x) {
+            x += arrow_offset;
+            ctx.moveTo(x, y);            
             ctx.lineTo(x-len, y-len);
             ctx.stroke();
             ctx.beginPath();
             ctx.moveTo(x, y);
             ctx.lineTo(x-len, y+len);
             ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x - 2* arrow_offset, y);
+            ctx.stroke();  
         } else {
+            x -= arrow_offset
+            ctx.moveTo(x, y);
             ctx.lineTo(x+len, y-len);
             ctx.stroke();
             ctx.beginPath();
             ctx.moveTo(x, y);
             ctx.lineTo(x+len, y+len);
             ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + 2* arrow_offset, y);
+            ctx.stroke();              
         }
     }
 }

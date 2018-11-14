@@ -24,6 +24,8 @@ own site, please consult this repository: https://github.com/aroberge/reeborg-di
 Important information for developers
 ====================================
 
+[![DeepScan grade](https://deepscan.io/api/teams/2513/projects/3632/branches/32005/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=2513&pid=3632&bid=32005)
+
 If you wish to make changes to fork this project, you should consult
 [this document](https://github.com/aroberge/reeborg/blob/master/dev_tools/readme_for_devel.md). 
 
