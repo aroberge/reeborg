@@ -168,10 +168,6 @@ RUR.rec.conclude = function () {
 
 RUR.rec.handle_error = function (frame) {
     "use strict";
-    var world;
-
-    world = RUR.get_current_world();
-
     if (frame.error.reeborg_shouts === RUR.translate("Done!")){
         if (frame.world_map.goal !== undefined){
             return RUR.rec.conclude();
@@ -199,7 +195,8 @@ RUR.rec.handle_error = function (frame) {
 
 RUR.rec.check_current_world_status = function() {
     // this function is to check goals from the Python console.
-    frame = {};
+    "use strict";
+    var frame = {}, goal_status;
     frame.world_map = RUR.get_current_world();
     if (frame.world_map.goal === undefined){
         if (RUR.success_custom_message !== undefined) {

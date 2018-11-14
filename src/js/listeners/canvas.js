@@ -21,7 +21,7 @@ $(document).ready(function () {
 
 
 function handleMouseMove(evt) {
-    var i, j, x, y, hit, position, world, robot, mouse_above_robot, image, nb_obj;
+    var i, j, x, y, position, world, robot, mouse_above_robot, image, nb_obj;
     var size = 40, objects_carried;
 
     world = RUR.get_current_world();
@@ -83,7 +83,7 @@ function handleMouseMove(evt) {
 }
 
 RUR.calculate_grid_position = function () {
-    var ctx, x, y;
+    var x, y;
     x = RUR.mouse_x - $("#robot-anim-canvas").offset().left;
     y = RUR.mouse_y - $("#robot-anim-canvas").offset().top;
 

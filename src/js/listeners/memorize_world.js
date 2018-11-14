@@ -6,7 +6,7 @@ var record_id = require("./../../lang/msg.js").record_id;
 record_id("memorize-world", "Save world in browser");
 
 memorize_world = function () {
-    var existing_names, i, key, response;
+    var existing_names, i, key;
 
     existing_names = '';
     for (i = 0; i <= localStorage.length - 1; i++) {

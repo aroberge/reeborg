@@ -21,8 +21,8 @@ RUR.control = {};
 
 RUR.control.move = function (robot) {
     "use strict";
-    var position, next_x, next_y, orientation, pushable_in_the_way, tile, tiles,
-        x_beyond, y_beyond, recording_state, next_position, current_x, current_y,
+    var position, next_x, next_y, pushable_in_the_way,
+        x_beyond, y_beyond, next_position, current_x, current_y,
         message;
 
     if (RUR.control.wall_in_front(robot)) {
@@ -130,7 +130,8 @@ RUR.control.done = function () {
 };
 
 RUR.control.put = function(robot, arg){
-    var arg_in_english, objects_carried, obj_type, all_objects;
+    "use strict";
+    var arg_in_english, all_objects;
     RUR.state.sound_id = "#put-sound";
     arg_in_english = confirm_object_is_known(arg);
     all_objects = get_names_of_objects_carried(robot.objects);
@@ -140,7 +141,8 @@ RUR.control.put = function(robot, arg){
 };
 
 RUR.control.toss = function(robot, arg){
-    var arg_in_english, objects_carried, obj_type, all_objects;
+    "use strict";
+    var arg_in_english, all_objects;
     arg_in_english = confirm_object_is_known(arg);
     all_objects = get_names_of_objects_carried(robot.objects);
     put_check_for_error (arg, arg_in_english, all_objects, robot.objects);
@@ -360,7 +362,7 @@ RUR.control.wall_on_right = function (robot) {
 
 
 RUR.control.front_is_clear = function(robot){
-    var tile, tiles, solid, name, position, next_x, next_y;
+    var position, next_x, next_y;
     if( RUR.control.wall_in_front(robot)) {
         return false;
     }

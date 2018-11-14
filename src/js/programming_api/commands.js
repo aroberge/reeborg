@@ -31,15 +31,7 @@ RUR._inspect_ = function (obj){
             result += typeof(obj[props]) + "</td></tr>";
         }
     }
-    if (result == head) {
-        if (result == "[object Object]") {
-            result = "{}";
-        } else {
-            result = "<pre>" + obj.toString() + "</pre>";
-        }
-    } else {
-        result += "</table>";
-    }
+    result += "</table>";
     RUR._print_html_(result, true); // true will replace existing content
 };
 
