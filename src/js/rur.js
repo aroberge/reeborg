@@ -442,7 +442,7 @@ RUR.get_current_world = function () {
 
 RUR.world_map = function () {
     "use strict";
-    var world, to_remove, i;
+    var world, i;
     // clone the world so as not to modify the original
     world = JSON.parse(JSON.stringify(RUR.get_current_world()));
     // we don't need the editor content

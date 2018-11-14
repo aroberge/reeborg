@@ -32,6 +32,5 @@ RUR.reset_world = function() {
     }
 
     RUR.set_current_world(RUR.clone_world(RUR.WORLD_BEFORE_ONLOAD));
-    world = RUR.get_current_world();
     RUR.world_utils.process_onload();
 };

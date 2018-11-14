@@ -9,7 +9,7 @@ RUR.custom_world_select = {};
 
 RUR.custom_world_select.make = function (contents) {  // aka RUR._MakeCustomMenu_
     "use strict";
-    var i, url, last_menu;
+    var i;
 
     RUR.state.creating_menu = true;
     RUR.world_selector.empty_menu();

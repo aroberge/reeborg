@@ -11,7 +11,7 @@ var edit_robot_menu = require("./../ui/edit_robot_menu.js");
 
 RUR.world_utils.import_world = function (json_string) {
     "use strict";
-    var body, editor_content, library_content, i, keys, more_keys, coord, index, obstacles;
+    var body;
 
     RUR.hide_end_dialogs();
 
@@ -73,11 +73,11 @@ function show_onload_feedback (e, lang) {
         if (window.translate_python === undefined) {
             return;
         }
-        lang_info = "Invalid Python code in Onload editor";
+        lang_info = RUR.translate("Invalid Python code in Onload editor");
     } else {
-        lang_info = "Invalid Javascript code in Onload editor";
+        lang_info = RUR.translate("Invalid Javascript code in Onload editor");
     }
-    RUR.show_feedback("#Reeborg-shouts", e.message + "<br>" +
+    RUR.show_feedback("#Reeborg-shouts", lang_info + "<br>" + e.message + "<br>" +
         RUR.translate("Problem with onload code.") + "<pre>" +
         RUR.CURRENT_WORLD.onload + "</pre>");
 }

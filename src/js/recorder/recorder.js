@@ -41,7 +41,7 @@ function update_editor_highlight(frame_no) {
 RUR.rec.display_frame = function () {
     // set current world to frame being played.
     "use strict";
-    var frame, goal_status;
+    var frame;
 
     $("#thought").hide();
 

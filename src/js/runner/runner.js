@@ -71,7 +71,8 @@ RUR.runner.run = function (playback) {
 
 /* RUR.runner.eval returns true if a fatal error is found, false otherwise */
 RUR.runner.eval = function(src) {  // jshint ignore:line
-    var message, response, other_info, from_python, error;
+    "use strict";
+    var message, response, other_info, error;
     other_info = '';
 
     /* At some point around version 3.2.0, Brython changed the way it
@@ -278,7 +279,8 @@ RUR.runner.find_line_number = function(bad_code) {
 
 
 RUR.runner.check_colons = function(line_of_code) {
-    var tokens, line, nb_token;
+    "use strict";
+    var tokens, nb_token;
     tokens = ['if ', 'if(', 'else', 'elif ','elif(','while ','while(',
               'for ','for(', 'def '];
     for (nb_token=0; nb_token < tokens.length; nb_token++){

@@ -316,7 +316,7 @@ function get_info_about_location() {
     "use strict";
     var position, x, y, coords, grid_info, need_heading, goals;
     var tile, tilename, tiles;
-    var obj, obj_here, obj_type, need_heading;
+    var obj, obj_here, obj_type;
     var special_info_about_location = "<h3>" + RUR.translate("Special information about this location:") + "</h3>";
 
     position = RUR.calculate_grid_position();
