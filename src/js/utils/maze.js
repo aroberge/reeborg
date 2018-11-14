@@ -175,7 +175,7 @@ function fit_non_overlapping_rooms(world_width, world_height) {
        for putting rooms that are entirely contained with the world and
         do not overlap with each other */
     "use strict";
-    var i, nb_attempts, nb_rooms, nb_rooms_goal, overlap, room, x, y, xx, yy, width, height,
+    var i, nb_attempts, nb_rooms, nb_rooms_goal, overlap, x, y, xx, yy, width, height,
         maze;
 
     maze = RUR.get_current_world().maze;

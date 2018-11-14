@@ -56,7 +56,7 @@ QUnit.test("Harvest 4", function(assert) { //TODO: Move this!!
 
 QUnit.test("Newspaper", function(assert) {
     "use strict";
-    var frames, last_frame, base_url, world_file;
+    var last_frame, base_url, world_file;
     var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
 
@@ -93,7 +93,7 @@ QUnit.module("Tutorial worlds: French Python programs", {
 
 QUnit.test("Newspaper", function(assert) {
     "use strict";
-    var frames, last_frame, base_url, world_file;
+    var last_frame, base_url, world_file;
     var done = assert.async();
     base_url = "/src/worlds/tutorial_en/";
     world_file = "newspaper0.json";

@@ -139,7 +139,7 @@ function _get_programming_method() {
 
  */
 function _retrieve_progress () {
-    var prog_method, progress, user_progress, valid_methods, i, method;
+    var prog_method, progress, user_progress, valid_methods, i;
     valid_methods = ["python", "javascript", "blockly"];
     progress = localStorage.getItem("user-progress");
     prog_method = _get_programming_method();

@@ -356,7 +356,7 @@ RUR.Graph = function (options) {
 
 function get_turn (current, neighbour) {
     "use strict";
-    var action, direction, to_direction;
+    var direction, to_direction;
     direction = current[2];
     to_direction = neighbour[2];
     switch (direction) {

@@ -25,7 +25,7 @@ RUR.vis_world.refresh_world_edited = function () {
 
 RUR.set_world_size = function (max_x, max_y) {
     "use strict";
-    var height, width, canvas, ctx, world;
+    var height, width, canvas, world;
     set_scale();
 
     if (max_x !== undefined && max_y !== undefined) {
@@ -525,7 +525,7 @@ function draw_animated_images (){
 
 function draw_anim (objects, ctx) {
     "use strict";
-    var i, j, i_j, coords, flag, k, n, image, obj, obj_here,
+    var i, j, i_j, coords, flag, k, n, obj, obj_here,
         recording_state, remove_flag, images_to_remove=[];
 
     flag = false;
