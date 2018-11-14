@@ -6,6 +6,8 @@ QUnit.module("Examples from Advanced World Creation documentation", {
   }
 });
 
+// TODO: recreate frame insertion and test it properly
+//
 // QUnit.test("Frame_insertion_1", function(assert) {
 //     var last_frame, result, world, done = assert.async();
 //     world = "/worlds/jsdoc/frame_insertion_1.json";
@@ -20,7 +22,7 @@ QUnit.module("Examples from Advanced World Creation documentation", {
 // });
 
 QUnit.test("colors", function(assert) {
-    var last_frame, result, world, done = assert.async();
+    var last_frame, done = assert.async();
     test_utils.load_world_file(test_utils.base_url + "colors.json");
     // The code we wish to test is in the Pre editor; we
     // run a simple program as a test.

@@ -125,7 +125,6 @@ test_utils.run_python = function (world_url, program_url) {
 
 
 test_utils.run_program = function(world_url, program_url, language) {
-    var world;
     test_utils.reset();
     RUR.state.programming_language = language;
 
