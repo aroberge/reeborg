@@ -38,7 +38,6 @@ test('adding and removing known solid object', function (assert) {
 });
 
 test('trying to add a second pushable', function (assert) {
-    var identical = require("../../../src/js/utils/identical.js").identical;
     require("../../../src/js/world_api/pushables.js");
     assert.plan(3);
     RUR.CURRENT_WORLD = RUR.create_empty_world();

@@ -63,7 +63,7 @@ QUnit.test("But 1, 2, 3, 4", function(assert) {
     world_files = ["home1.json", "home2.json", "home3.json", "home4.json"];
 
     for (py_js = 0; py_js < test_utils.runners.length; py_js++){
-        for (w in world_files) {
+        for (w = 0; py_js < world_files.length; w++) {
             test_utils.runners[py_js](
                 test_utils.world_dir + world_files[w], 
                 test_utils.program_dir + program_files[py_js]
@@ -81,7 +81,7 @@ QUnit.test("But 1, 2, 3, 4", function(assert) {
 
 
 QUnit.test("Récolte 1, 2, 3", function(assert) {
-    var py_js, info, program_files, program, world, world_files, message;
+    var py_js, info, program_files, world, world_files, message;
     var done = assert.async();
     program_files = ["harvest12_fr.js", "harvest12_fr.py"];
     world_files = ["harvest1.json", "harvest2.json"];
@@ -122,7 +122,7 @@ QUnit.test("Haies 1, 2, 3, 4", function(assert) {
     program_files = ["hurdle_fr.js", "hurdle_fr.py"];
     world_files = ["hurdle1.json", "hurdle2.json", "hurdle3.json", "hurdle4.json"];
     for (py_js = 0; py_js < test_utils.runners.length; py_js++){
-        for (w in world_files) {
+        for (w = 0; py_js < world_files.length; w++) {
             test_utils.runners[py_js](
                 test_utils.world_dir + world_files[w], 
                 test_utils.program_dir + program_files[py_js]
