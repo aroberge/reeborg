@@ -36,7 +36,6 @@ test('is_add_remove', function (assert) {
 
 
 test('replacing a bridge', function (assert) {
-    var identical = require("../../../src/js/utils/identical.js").identical;
     require("../../../src/js/world_api/bridges.js");
     assert.plan(4);
     RUR.set_current_world(RUR.create_empty_world());
@@ -60,7 +59,6 @@ test('replacing a bridge', function (assert) {
 });
 
 test('adding unknown bridge', function (assert) {
-    var out;
     assert.plan(3);
     silencer.reset();
     silencer.disable('warn');
@@ -79,7 +77,6 @@ test('adding unknown bridge', function (assert) {
 });
 
 test('Attempting to remove missing bridge', function (assert) {
-    var out;
     assert.plan(3);
     silencer.reset();
     silencer.disable('warn');
@@ -98,7 +95,6 @@ test('Attempting to remove missing bridge', function (assert) {
 });
 
 test('Attempting to remove named bridge different from the one present', function (assert) {
-    var out;
     assert.plan(3);
     silencer.reset();
     silencer.disable('warn');

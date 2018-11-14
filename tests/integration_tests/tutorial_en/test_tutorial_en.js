@@ -52,7 +52,7 @@ QUnit.test("Home 1, 2, 3, 4", function(assert) {
 
 
 QUnit.test("Harvest 1, 2, 3", function(assert) {
-    var py_js, info, program_files, program, world, world_files, message;
+    var py_js, info, program_files, world, world_files, message;
     var done = assert.async();
     program_files = ["harvest12_en.js", "harvest12_en.py"];
     world_files = ["harvest1.json", "harvest2.json"];
@@ -68,7 +68,7 @@ QUnit.test("Harvest 1, 2, 3", function(assert) {
             info = "Feedback element ok for " + world_files[world] + " ; language = " + RUR.state.programming_language;
             assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
             info = "Feedback text ok for " + world_files[world] + " ; language = " + RUR.state.programming_language;
-            assert.equal(test_utils.content, message, "Feedback text ok.");
+            assert.equal(test_utils.content, message, "Feedback text ok.", info);
         }
     }
 

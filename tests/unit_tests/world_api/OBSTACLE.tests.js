@@ -38,7 +38,6 @@ test('adding and removing known obstacle', function (assert) {
 });
 
 test('adding two and removing one known obstacle', function (assert) {
-    var identical = require("../../../src/js/utils/identical.js").identical;
     require("../../../src/js/world_api/obstacles.js");
     assert.plan(1);
     RUR.CURRENT_WORLD = RUR.create_empty_world();

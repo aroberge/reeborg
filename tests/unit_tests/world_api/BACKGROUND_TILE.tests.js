@@ -82,7 +82,6 @@ test('adding and removing known solid object', function (assert) {
 });
 
 test('adding two and removing one tile', function (assert) {
-    var identical = require("../../../src/js/utils/identical.js").identical;
     require("../../../src/js/world_api/background_tile.js");
     assert.plan(2);
     RUR.CURRENT_WORLD = RUR.create_empty_world();

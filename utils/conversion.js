@@ -178,7 +178,7 @@ function convert_world (old_world){
 }
 
 function convert_permalink(old_permalink){
-    var url_query, new_permalink, world, query_keys;
+    var url_query, new_permalink, world;
 
     url_query = parseUri(old_permalink);
     if (url_query.queryKey.world === undefined) {
@@ -198,9 +198,7 @@ function convert_permalink(old_permalink){
     new_permalink += url_query.path;
 
     new_permalink += "?proglang=" + url_query.queryKey.proglang;
-    if (url_query.queryKey.world !== undefined){
-        new_permalink += "&world=" + world;
-    }
+    new_permalink += "&world=" + world;
     if (url_query.queryKey.editor !== undefined){
         new_permalink += "&editor=" + url_query.queryKey.editor;
     }
@@ -251,7 +249,6 @@ function convert_rurple_world (wld_file) {
         reeborg = {};
         reeborg.x = parseInt(robot[0]);
         reeborg.y = parseInt(robot[1]);
-        if (robot[2].toLowerCase() == 'e'){}
         orientation = {"e":0, "n":1, "w":2, "s":3};
         reeborg.orientation = orientation[eval(robot[2]).toLowerCase()];
         reeborg.objects = {"token": robot[3]};

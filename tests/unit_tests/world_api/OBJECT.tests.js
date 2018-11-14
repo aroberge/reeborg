@@ -59,7 +59,6 @@ test('adding and removing fixed number of known object as goal', function (asser
 });
 
 test('adding fixed number for two different objects and removing one type', function (assert) {
-    var identical = require("../../../src/js/utils/identical.js").identical;
     RUR.CURRENT_WORLD = RUR.create_empty_world();
     RUR.KNOWN_THINGS = ['a', 'b'];
     RUR.untranslated['a'] = true;
@@ -72,7 +71,6 @@ test('adding fixed number for two different objects and removing one type', func
 });
 
 test('adding fixed number for two different objects as goal and removing one type', function (assert) {
-    var identical = require("../../../src/js/utils/identical.js").identical;
     RUR.CURRENT_WORLD = RUR.create_empty_world();
     RUR.KNOWN_THINGS = ['a', 'b'];
     RUR.untranslated['a'] = true;
@@ -85,7 +83,6 @@ test('adding fixed number for two different objects as goal and removing one typ
 });
 
 test('adding unknown object', function (assert) {
-    var out;
     assert.plan(3);
     silencer.reset();
     silencer.disable('warn');
@@ -104,7 +101,6 @@ test('adding unknown object', function (assert) {
 });
 
 test('removing unknown object', function (assert) {
-    var out;
     assert.plan(3);
     silencer.reset();
     silencer.disable('warn');
