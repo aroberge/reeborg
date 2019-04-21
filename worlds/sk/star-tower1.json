@@ -14,7 +14,7 @@
       "_trace_history": [],
       "_trace_style": "default",
       "_trace_color": "seagreen",
-      "__id": 4,
+      "__id": 3,
       "model": "classic",
       "possible_initial_positions": [
         [
@@ -30,27 +30,7 @@
   ],
   "small_tiles": false,
   "rows": 4,
-  "cols": 6,
-  "pre": [
-    "world = RUR.get_current_world()",
-    "",
-    "towers = []",
-    "",
-    "for i in range(world.cols):",
-    "\tif i%2==0:",
-    "\t\ttowers.append(i+1)",
-    "",
-    "think(300)",
-    ""
-  ],
-  "post": [
-    "for base in towers:",
-    "    if not (RUR.is_object(\"star\",base,1) and RUR.is_object(\"star\",base,2) and RUR.is_object(\"star\",base,3)):",
-    "        raise ReeborgError(\"Reeborg did not follow the required path.\")",
-    "",
-    "raise ReeborgOK(\"Well done!\")",
-    ""
-  ],
+  "cols": 8,
   "onload": [
     "#python onload",
     "import random",
@@ -61,6 +41,11 @@
     "RUR.fill_background(\"grass\")",
     "RUR.give_object_to_robot(\"star\",99)",
     "",
+    "#create goals",
+    "options = {'goal' : True}",
+    "for x in range(0, width,2):",
+    "    for y in range(1,4):",
+    "        RUR.add_object(\"star\", x+1,y, options)    ",
     "",
     ""
   ]
