@@ -96,6 +96,16 @@ function loadSolution () {
         };
 
         file = fileInput.files[0];
+        let worldToLoad = file.name.replace(/\.[^/.]+$/, "");
+        let worldURL = RUR.world_selector.url_from_shortname(worldToLoad);
+        if (worldURL !== undefined) {
+            RUR.world_selector.set_url(worldURL);
+        }
+        //might be a good idea to provide a UI dialogue if the world can't auto-load?
+        // else {
+        //     alert("Can't auto-load the correct world file... please select the correct world from the menu."));
+        // }
+        RUR.reload();
         reader.readAsText(file);
     });
 }
