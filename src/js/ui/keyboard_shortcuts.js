@@ -1,5 +1,5 @@
 /*  Original idea from Dan Schellenberg for saving and loading a solution
-    using standard keyboard shortcuts using the world's name as base file name 
+    using standard keyboard shortcuts using the world's name as base file name
     and, if using Python, include the code from the library in the saved file.
 */
 
@@ -14,7 +14,7 @@ function saveSolution() {
     code in the library) for a given world in a single file.
 
     The base file name is taken to be the World's name, as it appears
-    in the html selector. 
+    in the html selector.
     */
     var blob, extension, filename, filetype, parts, selectedWorld;
 
@@ -22,7 +22,7 @@ function saveSolution() {
 
     filename = selectedWorld.options[selectedWorld.selectedIndex].text;
     // If the world was loaded from a URL without using a second argument
-    // the filename might contain "/" which is an invalid filename character    
+    // the filename might contain "/" which is an invalid filename character
     if (filename.indexOf("/") !== -1) {
         parts = filename.split("/");
         filename = parts[parts.length-1];
@@ -42,15 +42,15 @@ function saveSolution() {
             filetype = "text/xml;charset=utf-8";
             extension = ".xml";
             content = RUR.blockly.getValue();
-            break;                 
+            break;
         case "javascript":
             filetype = "text/javascript;charset=utf-8";
             extension = ".js";
             content = editor.getValue();
-            break;      
+            break;
         case "py-repl":
             alert(RUR.translate("No solution can be saved when using REPL (Py)."));
-            return;  
+            return;
     }
 
     blob = new Blob([content], {type: filetype});
@@ -79,13 +79,13 @@ function loadSolution () {
                 case "blockly-py":
                 case "blockly-js":
                     target = RUR.blockly;
-                    break;   
+                    break;
                 case "py-repl":
                     alert(RUR.translate(
                             "No solution can be loaded when using REPL (Py).")
                          );
-                    return;                  
-            }   
+                    return;
+            }
             content = reader.result;
             parts = content.split(RUR.library_separator());
             if (parts.length == 2) {
@@ -96,12 +96,17 @@ function loadSolution () {
         };
 
         file = fileInput.files[0];
-        let worldToLoad = file.name.replace(/\.[^/.]+$/, "");
+        // We assume that the file name has been saved with the default
+        //    world name.py
+        // where "world name" is the name of the corresponding world as
+        // shown in the HTML select. We thus remove the .py extension
+        // and try to load that world, for convenience.
+        let worldToLoad = file.name.split(".")[0];
         let worldURL = RUR.world_selector.url_from_shortname(worldToLoad);
         if (worldURL !== undefined) {
             RUR.world_selector.set_url(worldURL);
         }
-        //might be a good idea to provide a UI dialogue if the world can't auto-load?
+        //It could be a good idea to provide a UI dialogue if the world can't auto-load?
         // else {
         //     alert("Can't auto-load the correct world file... please select the correct world from the menu."));
         // }
