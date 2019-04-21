@@ -1,4 +1,4 @@
-// 
+//
 function droite() {
     tourne_a_gauche();
     tourne_à_gauche();  // test accent

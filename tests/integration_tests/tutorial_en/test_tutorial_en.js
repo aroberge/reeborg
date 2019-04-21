@@ -8,6 +8,7 @@ QUnit.module("Tutorial_en tests", {
     }
 });
 
+
 QUnit.test("Around 1, 2, 3, 4", function(assert) {
     var py_js, info, program_files, world, world_files;
     var done = assert.async();
@@ -16,18 +17,20 @@ QUnit.test("Around 1, 2, 3, 4", function(assert) {
     for (py_js = 0; py_js < test_utils.runners.length; py_js++){
         for (world = 0; world < world_files.length; world++) {
             test_utils.runners[py_js](
-                test_utils.world_dir + world_files[world], 
+                test_utils.world_dir + world_files[world],
                 test_utils.program_dir + program_files[py_js]
                 );
             info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
             assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
+            info = "Feedback text ok for " + world_files + " ; language = " + RUR.state.programming_language;
             assert.equal(test_utils.content,
                 "Well done!",
-                "Feedback text ok.");
+                info);
         }
     }
     done();
 });
+
 
 QUnit.test("Home 1, 2, 3, 4", function(assert) {
     var py_js, info, program_files, world, world_files;
@@ -37,14 +40,15 @@ QUnit.test("Home 1, 2, 3, 4", function(assert) {
     for (py_js = 0; py_js < test_utils.runners.length; py_js++){
         for (world = 0; world < world_files.length; world++) {
             test_utils.runners[py_js](
-                test_utils.world_dir + world_files[world], 
+                test_utils.world_dir + world_files[world],
                 test_utils.program_dir + program_files[py_js]
                 );
             info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
             assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
+            info = "Feedback text ok for " + world_files + " ; language = " + RUR.state.programming_language;
             assert.equal(test_utils.content,
                 "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></ul>",
-                "Feedback text ok.");
+                info);
         }
     }
     done();
@@ -62,7 +66,7 @@ QUnit.test("Harvest 1, 2, 3", function(assert) {
     for (py_js = 0; py_js < test_utils.runners.length; py_js++){
         for (world = 0; world < world_files.length; world++) {
             test_utils.runners[py_js](
-                test_utils.world_dir + world_files[world], 
+                test_utils.world_dir + world_files[world],
                 test_utils.program_dir + program_files[py_js]
                 );
             info = "Feedback element ok for " + world_files[world] + " ; language = " + RUR.state.programming_language;
@@ -77,16 +81,17 @@ QUnit.test("Harvest 1, 2, 3", function(assert) {
     program_files = ["harvest3_en.js", "harvest3_en.py"];
     for (py_js = 0; py_js < test_utils.runners.length; py_js++){
         world = test_utils.world_dir + "harvest3.json";
-        test_utils.runners[py_js](world, 
+        test_utils.runners[py_js](world,
             test_utils.program_dir + program_files[py_js]
             );
         info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
         assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
-        assert.equal(test_utils.content, message, "Feedback text ok.");
-    }
+        info = "Feedback text ok for " + world_files + " ; language = " + RUR.state.programming_language;
+        assert.equal(test_utils.content, message, info);    }
 
     done();
 });
+
 
 QUnit.test("Hurdles 1, 2, 3, 4", function(assert) {
     var py_js, info, program_files, world, world_files;
@@ -96,18 +101,20 @@ QUnit.test("Hurdles 1, 2, 3, 4", function(assert) {
     for (py_js = 0; py_js < test_utils.runners.length; py_js++){
         for (world = 0; world < world_files.length; world++) {
             test_utils.runners[py_js](
-                test_utils.world_dir + world_files[world], 
+                test_utils.world_dir + world_files[world],
                 test_utils.program_dir + program_files[py_js]
                 );
             info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
             assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
+            info = "Feedback text ok for " + world_files + " ; language = " + RUR.state.programming_language;
             assert.equal(test_utils.content,
                 "<ul><li class='success'>Reeborg is at the correct x position.</li><li class='success'>Reeborg is at the correct y position.</li></ul>",
-                "Feedback text ok.");
+                info);
         }
     }
     done();
 });
+
 
 QUnit.test("Maze", function(assert) {
     var py_js, info, program_files, world, world_files;
@@ -117,7 +124,7 @@ QUnit.test("Maze", function(assert) {
     for (py_js = 0; py_js < test_utils.runners.length; py_js++){
         for (world = 0; world < world_files.length; world++) {
             test_utils.runners[py_js](
-                test_utils.world_dir + world_files[world], 
+                test_utils.world_dir + world_files[world],
                 test_utils.program_dir + program_files[py_js]
                 );
             info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
@@ -139,20 +146,22 @@ QUnit.test("Rain 0, 1, 2", function(assert) {
     for (py_js = 0; py_js < test_utils.runners.length; py_js++){
         for (world = 0; world < world_files.length; world++) {
             test_utils.runners[py_js](
-                test_utils.world_dir + world_files[world], 
+                test_utils.world_dir + world_files[world],
                 test_utils.program_dir + program_files[py_js]
                 );
             info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
             assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
-        assert.equal(test_utils.content,
-            "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
-            "<li class='success'>Reeborg is at the correct y position.</li>" +
-            "<li class='success'>All walls have been built correctly.</li></ul>",
-            "Feedback text ok.");
+            info = "Feedback text ok for " + world_files + " ; language = " + RUR.state.programming_language;
+            assert.equal(test_utils.content,
+                "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
+                "<li class='success'>Reeborg is at the correct y position.</li>" +
+                "<li class='success'>All walls have been built correctly.</li></ul>",
+                info);
         }
     }
     done();
 });
+
 
 QUnit.test("Storm 1, 2, 3, 4", function(assert) {
     var py_js, info, program_files, world, world_files;
@@ -162,7 +171,7 @@ QUnit.test("Storm 1, 2, 3, 4", function(assert) {
     for (py_js = 0; py_js < test_utils.runners.length; py_js++){
         for (world = 0; world < world_files.length; world++) {
             test_utils.runners[py_js](
-                test_utils.world_dir + world_files[world], 
+                test_utils.world_dir + world_files[world],
                 test_utils.program_dir + program_files[py_js]
                 );
             info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
@@ -176,6 +185,7 @@ QUnit.test("Storm 1, 2, 3, 4", function(assert) {
     }
     done();
 });
+
 
 QUnit.test("Tokens 1, 2, 3, 4, 5", function(assert) {
     var py_js, info, program_files, world, world_files;
@@ -185,7 +195,7 @@ QUnit.test("Tokens 1, 2, 3, 4, 5", function(assert) {
     for (py_js = 0; py_js < test_utils.runners.length; py_js++){
         for (world = 0; world < world_files.length; world++) {
             test_utils.runners[py_js](
-                test_utils.world_dir + world_files[world], 
+                test_utils.world_dir + world_files[world],
                 test_utils.program_dir + program_files[py_js]
                 );
             info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
@@ -200,6 +210,7 @@ QUnit.test("Tokens 1, 2, 3, 4, 5", function(assert) {
     done();
 });
 
+
 QUnit.test("Center 1, 2", function(assert) {
     var py_js, info, program_files, world, world_files;
     var done = assert.async();
@@ -208,7 +219,7 @@ QUnit.test("Center 1, 2", function(assert) {
     for (py_js = 0; py_js < test_utils.runners.length; py_js++){
         for (world = 0; world < world_files.length; world++) {
             test_utils.runners[py_js](
-                test_utils.world_dir + world_files[world], 
+                test_utils.world_dir + world_files[world],
                 test_utils.program_dir + program_files[py_js]
                 );
             info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;

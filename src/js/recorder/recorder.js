@@ -21,6 +21,7 @@ RUR.set_lineno_highlight = function(lineno) {
         RUR.record_frame("highlight", lineno);
     }
     RUR.prev_line_no = RUR.current_line_no;
+    return true;
 };
 
 function update_editor_highlight(frame_no) {

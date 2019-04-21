@@ -82,6 +82,7 @@ QUnit.config.collapse = false;</script>
 </body>
 """
 
+
 def make_qunit_version(infile, outfile):
     '''Makes versions (online/offline) that run functional tests with qunit.'''
     with open(infile, 'r') as f:

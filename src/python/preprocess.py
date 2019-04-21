@@ -23,10 +23,10 @@ def transform(text):
                 stripped = stripped.replace(':', '')
                 index = line.find(loop_keyword)
                 try:
-                    #n = int(stripped)
+                    n = int(stripped)
                     line = ' '*index + 'for ' + var_names.pop() + ' in range(%s):' % n
                 except:  # make sure we capture everything so as to avoid
-                         # exposing weird error messages to students.
+                        # exposing weird error messages to students.
                     pass
         processed_lines.append(line)
     result = '\n'.join(processed_lines)
