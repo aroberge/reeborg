@@ -1,0 +1,85 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {
+        "banana": 1
+      },
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 23,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": [
+    "<h1>호수 주변 산책</h1>",
+    "<p>리보그는 특히 호수 주변에서 산책을 좋아해요. 리보그 인근의 호수는 직사각형의 크기가 모두 다르기 때문에 리보그는 시작지점으로 돌아 오는 데 얼마나 많은 단계가 필요한지 몰라요. 고맙게도 리보그는 바나나를 들고 다니며, 리보그가 시작 시 <code>put()</code>",
+    "을 사용해 내려 놓을 수 있습니다. 리보그는 바나나에 다시 도달하면 걷기가 끝났다는 것을 알고 있습니다.</p>",
+    "<p><code>while</code> 문을 사용해 바나나를 찾고 <code>if/else</code>",
+    "문을 사용하여 리보그가 모험을 완료하도록 하십시오.</p>",
+    "<p>참고 : 리보그는 걸어 다니는 호수의 크기를 모르기 때문에 반복문을 사용할 수 없습니다.</p>",
+    "<h3>알아 두어야 할 것</h3>",
+    "<ul><li>함수 <code>move()</code>, <code>turn_left()</code>, 및 <code>put()</code>.</li>",
+    "<li><code>front_is_clear()</code> 또는 <code>wall_in_front()</code>및 <code>object_here()</code> 조건문.</li>",
+    "<li><code>while</code> 문과  <code>if/else</code> 문 및 <code>not</code> 키워드를 사용하는 방법.</li></ul>",
+    "DIFFICULTY2",
+    ""
+  ],
+  "small_tiles": false,
+  "rows": 6,
+  "cols": 8,
+  "pre": "set_trace_color(\"black\")",
+  "post": [
+    "RUR.check_path(RUR.public['path'],",
+    "     {'failure':\"Reeborg did not follow the required path.\", ",
+    "      'success': 'Well done!',",
+    "      'show_path': 'true', 'color': 'white'})"
+  ],
+  "onload": [
+    "var x, y, width, height;",
+    "",
+    "width = RUR.randint(3, 13);",
+    "height = RUR.randint(3, 13);",
+    "RUR.set_world_size(width, height);",
+    "RUR.fill_background(\"water\");",
+    "",
+    "RUR.public.path = [];",
+    "",
+    "function add_tile(x, y) {",
+    "    RUR.add_background_tile(\"grass\", x, y);",
+    "    RUR.public.path.push([x, y]);",
+    "}",
+    "",
+    "// bottom row",
+    "for(x=1; x<=width; x++) {",
+    "    add_tile(x, 1);",
+    "}",
+    "// right column",
+    "for(y=2; y<=height; y++) {",
+    "    add_tile(width, y);",
+    "}",
+    "// top row",
+    "for(x=width-1; x>=1; x--) {",
+    "    add_tile(x, height);",
+    "}",
+    "// right column",
+    "for(y=height-1; y>=1; y--) {",
+    "    add_tile(1, y);",
+    "}",
+    ""
+  ]
+}

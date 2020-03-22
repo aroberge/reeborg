@@ -29,7 +29,7 @@ RUR.custom_world_select.make = function (contents) {  // aka RUR._MakeCustomMenu
 
 function load_user_worlds() {
     var key, name, i;
-    
+
     for (i = localStorage.length - 1; i >= 0; i--) {
         key = localStorage.key(i);
         if (key.slice(0, 11) === "user_world:") {
@@ -44,15 +44,18 @@ RUR.make_default_menu = function(language) {
     if (RUR.state.session_initialized) {
         RUR.state.world_url = undefined;
         RUR.state.world_name = undefined;
-        RUR.state.current_menu = undefined;   
+        RUR.state.current_menu = undefined;
     }
 
     switch (language) {
         case 'en':
         case 'fr-en':
-        case 'ko-en':
             RUR.initial_defaults.initial_menu = RUR.BASE_URL + RUR.DEFAULT_MENU_EN;
             RUR.load_world_file(RUR.BASE_URL + RUR.DEFAULT_MENU_EN);
+            break;
+        case 'ko-en':
+            RUR.initial_defaults.initial_menu = RUR.BASE_URL + RUR.DEFAULT_MENU_KO;
+            RUR.load_world_file(RUR.BASE_URL + RUR.DEFAULT_MENU_KO);
             break;
         case 'fr':
         case 'en-fr':
@@ -64,7 +67,7 @@ RUR.make_default_menu = function(language) {
             RUR.load_world_file(RUR.BASE_URL + RUR.DEFAULT_MENU_CN);
             RUR.initial_defaults.initial_menu = RUR.BASE_URL + RUR.DEFAULT_MENU_CN;
             break;
-        default: 
+        default:
             RUR.load_world_file(RUR.BASE_URL + RUR.DEFAULT_MENU_EN);
             RUR.initial_defaults.initial_menu = RUR.BASE_URL + RUR.DEFAULT_MENU_EN;
     }

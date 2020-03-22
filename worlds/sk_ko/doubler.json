@@ -1,0 +1,63 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {
+        "square": "infinite"
+      },
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 46,
+      "model": "classic"
+    }
+  ],
+  "walls": {},
+  "description": [
+    "리보그는 정사각형을 충분히 가지고 있어요. 이 정사각형은 당신이 원하는 더미를 만들때 사용할 수 있어요. 리보그의 앞 어딘가에 매번 개수가 바뀌는 정사각형이 있어요. 정사각형이 위치한 곳 바로 오른쪽에 주어진 정사각형을 주워서 주운 정사각형의 개수의 2배를 놓으세요."
+  ],
+  "small_tiles": false,
+  "rows": 1,
+  "cols": 7,
+  "tiles": {
+    "1,1": [
+      "grass"
+    ],
+    "2,1": [
+      "grass"
+    ],
+    "3,1": [
+      "grass"
+    ],
+    "4,1": [
+      "grass"
+    ],
+    "5,1": [
+      "grass"
+    ],
+    "6,1": [
+      "grass"
+    ],
+    "7,1": [
+      "grass"
+    ]
+  },
+  "onload": [
+    "#python onload code",
+    "import random",
+    "x = random.randint(2, 6)",
+    "initial_stack = random.randint(1,25)",
+    "doubled_amount = initial_stack * 2",
+    "options = {'number': initial_stack}",
+    "RUR.add_object(\"square\", x, 1, options)",
+    "options = {'goal' : True, 'number': doubled_amount}",
+    "RUR.add_object(\"square\", x+1, 1, options)",
+    ""
+  ]
+}

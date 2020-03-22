@@ -85,7 +85,7 @@ ko_to_en["울타리 vertical"] = "fence_vertical";
 ui_ko["Invalid Javascript code in Onload editor"] = "유효하지 않은 자바스크립트 onload 코드입니다; 이 월드의 제작자에게 연락하세요.";
 ui_ko["Invalid Python code in Onload editor"] = "유효하지 않은 파이썬 onload 코드입니다; 이 월드의 제작자에게 연락하세요.";
 
-ui_ko["Too many steps:"] = "너무 많은 steps: {max_steps}<br>Use <code>set_max_nb_steps(nb)</code> to increase the limit.";
+ui_ko["Too many steps:"] = "단계가 너무 많습니다: {max_steps}<br>한계를 높이려면 <code>set_max_nb_steps(nb)</code>를 사용하십시오.";
 ui_ko["<li class='success'>Reeborg is at the correct x position.</li>"] = "<li class='success'>리보그는 올바른 x 위치에 있습니다. </li>";
 ui_ko["<li class='failure'>Reeborg is at the wrong x position.</li>"] = "<li class='failure'>리보그는 잘못된 x 위치에 있습니다. </li>";
 ui_ko["<li class='success'>Reeborg is at the correct y position.</li>"] = "<li class='success'>리보그는 올바른 y 위치에 있습니다. </li>";
@@ -333,7 +333,7 @@ ui_ko["mg-objects"] = "객체";
 
 ui_ko["Reeborg says: I'm done!"] = "리보그 : 다했어요";
 ui_ko["Reeborg writes:"] = "리보그 쓰기:";
-ui_ko["Reeborg shouts: Something is wrong!"] = "리보그 : 뭔가가 잘못 됬어요!";
+ui_ko["Reeborg shouts: Something is wrong!"] = "리보그의 외침: 뭔가 잘못 되었어!";
 ui_ko["Reeborg explores some Javascript code"] = "리보그는 일부 자바스크립트 코드를 조사했습니다";
 ui_ko["Reeborg states:"] = "리보그 상태:";
 ui_ko["Reeborg watches some variables!"] = "리보그는 몇가지의 변수를 보고 있습니다!";
@@ -396,7 +396,7 @@ ui_ko["No solution can be loaded when using REPL (Py)."] = "No solution can be l
 ui_ko["You are not allowed to use <code>done</code> in this world!"] = "You are not allowed to use <code>done()</code> in this world!";
 ui_ko["Execution ended before the <em>Post</em> code was executed."] = "Execution ended before the <em>Post</em> code was executed.";
 
-ui_ko["Difficulty level"] = "Difficulty level";
+ui_ko["Difficulty level"] = "난이도";
 
 ui_ko["Expected result"] = "Expected result";
 ui_ko["Differences highlighted"] = "Differences highlighted";
@@ -406,4 +406,4 @@ ui_ko["Cannot parse progress file."] = "Cannot parse progress file.";
 ui_ko["Cannot merge progress."] = "Cannot merge progress.";
 ui_ko["No solution found for this world."] = "No solution found for this world.";
 
-ui_ko["THINKING"] = "Thinking ...";
+ui_ko["THINKING"] = "생각 중";

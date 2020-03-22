@@ -1,0 +1,70 @@
+{
+  "walls": {},
+  "description": [
+    "<h1>더 많은 당근을 원해요</h1>",
+    "<p>리보그는 다시 당근을 수확하고 있습니다. 하지만, 이번에는 정원의 크기가 제각각입니다. 당근은 어떤 지역에서는 매우 잘 자라고(당근이 1개보다 많이자람) 어떤 지점에서는 잘 자라지 않습니다(당근이 자라지 않음). 리보그는 정원의 모든곳에서 아무 방향에서나 시작할 수 있습니다.</p>",
+    "<p>리보그의 일은 모든 당근을 주워 정원의  북동쪽 구석에 있는 큰 당근 통에",
+    "  내려놓고, 충분한 휴식을 위해 정원의 남서쪽 구석으로 다시 향하는 것입니다.</p>",
+    "<h3>알아두어야 할 것</h3>",
+    "<ul>",
+    "    <li>함수 <code>move()</code>, <code>turn_left()</code>,",
+    "        <code>take()</code>, ",
+    "        그리고 <code>put()</code>.</li>",
+    "    <li><code>object_here()</code>, <code>at_goal()</code>",
+    "        <code>is_facing_north()</code>,",
+    "        <code>carries_object()</code>, <code>right_is_clear()</code>  또는 <code>wall_on_right()</code>,",
+    " 그리고 <code>front_is_clear()</code> 또는 <code>wall_in_front()</code>.</li>",
+    "    <li><code>while</code> 문과 <code>if</code> 문 사용방법</li>",
+    "</ul>",
+    "DIFFICULTY6"
+  ],
+  "small_tiles": false,
+  "rows": 5,
+  "cols": 5,
+  "goal": {
+    "possible_final_positions": [
+      [
+        1,
+        1
+      ]
+    ],
+    "position": {
+      "image": "racing_flag",
+      "x": 1,
+      "y": 1
+    }
+  },
+  "onload": [
+    "var height, width, nb_carrots, total_nb, x, y;",
+    "",
+    "width = RUR.randint(3, 8);",
+    "height = RUR.randint(3, 8);",
+    "total_nb = 0;",
+    "RUR.set_world_size(width, height);",
+    "RUR.fill_background(\"pale_grass\");",
+    "",
+    "for (x=1; x<=width; x++) {",
+    "    for (y=1; y<=height; y++) {",
+    "        if ((x==1 && y==1) || (x==width && y==height)){",
+    "            continue;",
+    "        }",
+    "        if (RUR.randint(1, 10) >= 7){",
+    "            if (total_nb < 100) {",
+    "                nb_carrots = RUR.randint(1, 6);",
+    "                total_nb += nb_carrots;",
+    "                RUR.add_object(\"carrot\", x, y, {'number': nb_carrots});",
+    "            }",
+    "        }",
+    "    }",
+    "}",
+    "",
+    "RUR.add_object(\"carrot\", width, height, {'goal': true, 'number': total_nb});",
+    "",
+    "// add robot",
+    "x = RUR.randint(1, width);",
+    "y = RUR.randint(1, height);",
+    "r = new UsedRobot(x, y);",
+    "RUR.set_random_orientation();",
+    ""
+  ]
+}

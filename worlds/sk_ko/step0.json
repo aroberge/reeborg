@@ -1,0 +1,18 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0
+    }
+  ],
+  "walls": {},
+  "description": "리보그가 탐사할 수 있는 간단하고, 비어있는 세계.",
+  "small_tiles": false,
+  "rows": 6,
+  "cols": 6
+}

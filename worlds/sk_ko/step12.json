@@ -1,0 +1,427 @@
+{
+  "description": [
+    "<h1>퇴비</h1>",
+    "<p>리보그의 집안일 중 하나는 퇴비를 꺼내는 거에요. 하지만 리보그가 밖에서 퇴비를 가져올 때마다 집에 있는 컨테이너에는 다른 양의 퇴비가 있어요. 리보그가 퇴비를 꺼내 집으로 돌아 오게 하는 프로그램을 만들세요. 리보그는 퇴비 통에 있는만큼 썩은 사과를 들고 바깥의 퇴비 용기로 옮긴 다음 목적지로 돌아가야 해요. 해결법 에서 while 반복문을 사용해야 해요.</p>",
+    "<h3>알아 두어야 할 것</h3>",
+    "<ul><li>함수 <code>move()</code>, <code>turn_left()</code>,",
+    "<code>take()</code>, 및 <code>put()</code></li>",
+    "<li><code>object_here()</code> 조건문 및 <code>carries_object()</code></li>",
+    "<li><code>while</code> 반복문을 사용하는 방법.</li></ul>",
+    "DIFFICULTY2",
+    ""
+  ],
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 10,
+  "walls": {
+    "1,2": [
+      "east"
+    ],
+    "2,1": [
+      "north"
+    ],
+    "2,2": [
+      "east"
+    ],
+    "5,3": [
+      "east"
+    ],
+    "6,2": [
+      "north"
+    ],
+    "7,2": [
+      "north"
+    ],
+    "8,2": [
+      "north"
+    ],
+    "8,3": [
+      "east"
+    ],
+    "8,4": [
+      "east"
+    ],
+    "8,5": [
+      "east"
+    ],
+    "8,6": [
+      "east"
+    ],
+    "8,7": [
+      "east"
+    ],
+    "8,8": [
+      "east"
+    ],
+    "8,9": [
+      "east",
+      "north"
+    ],
+    "7,9": [
+      "north"
+    ],
+    "6,9": [
+      "north"
+    ],
+    "5,9": [
+      "east"
+    ],
+    "5,8": [
+      "east"
+    ],
+    "5,7": [
+      "east"
+    ],
+    "5,4": [
+      "east"
+    ],
+    "5,5": [
+      "east"
+    ]
+  },
+  "robots": [
+    {
+      "x": 7,
+      "y": 5,
+      "objects": {},
+      "model": "classic",
+      "_orientation": 2,
+      "_is_leaky": true,
+      "_prev_x": 7,
+      "_prev_y": 5,
+      "_prev_orientation": 2,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 22,
+      "possible_initial_positions": [
+        [
+          7,
+          5
+        ]
+      ]
+    }
+  ],
+  "objects": {
+    "6,3": {
+      "apple": "2-15"
+    }
+  },
+  "goal": {
+    "objects": {
+      "2,2": {
+        "apple": "all"
+      }
+    },
+    "possible_final_positions": [
+      [
+        7,
+        8
+      ]
+    ],
+    "position": {
+      "image": "racing_flag",
+      "x": 7,
+      "y": 8
+    }
+  },
+  "tiles": {
+    "1,1": [
+      "grass"
+    ],
+    "1,2": [
+      "grass"
+    ],
+    "1,3": [
+      "grass"
+    ],
+    "1,4": [
+      "grass"
+    ],
+    "1,5": [
+      "gravel"
+    ],
+    "1,6": [
+      "gravel"
+    ],
+    "1,7": [
+      "gravel"
+    ],
+    "1,8": [
+      "grass"
+    ],
+    "1,9": [
+      "grass"
+    ],
+    "1,10": [
+      "grass"
+    ],
+    "1,11": [
+      "grass"
+    ],
+    "1,12": [
+      "grass"
+    ],
+    "2,1": [
+      "grass"
+    ],
+    "2,2": [
+      "grass"
+    ],
+    "2,3": [
+      "grass"
+    ],
+    "2,4": [
+      "grass"
+    ],
+    "2,5": [
+      "gravel"
+    ],
+    "2,6": [
+      "gravel"
+    ],
+    "2,7": [
+      "gravel"
+    ],
+    "2,8": [
+      "grass"
+    ],
+    "2,9": [
+      "grass"
+    ],
+    "2,10": [
+      "grass"
+    ],
+    "2,11": [
+      "grass"
+    ],
+    "2,12": [
+      "grass"
+    ],
+    "3,1": [
+      "grass"
+    ],
+    "3,2": [
+      "grass"
+    ],
+    "3,3": [
+      "grass"
+    ],
+    "3,4": [
+      "grass"
+    ],
+    "3,5": [
+      "gravel"
+    ],
+    "3,6": [
+      "gravel"
+    ],
+    "3,7": [
+      "gravel"
+    ],
+    "3,8": [
+      "grass"
+    ],
+    "3,9": [
+      "grass"
+    ],
+    "3,10": [
+      "grass"
+    ],
+    "3,11": [
+      "grass"
+    ],
+    "3,12": [
+      "grass"
+    ],
+    "4,1": [
+      "grass"
+    ],
+    "4,2": [
+      "grass"
+    ],
+    "4,3": [
+      "grass"
+    ],
+    "4,4": [
+      "grass"
+    ],
+    "4,5": [
+      "gravel"
+    ],
+    "4,6": [
+      "gravel"
+    ],
+    "4,7": [
+      "gravel"
+    ],
+    "4,8": [
+      "grass"
+    ],
+    "4,9": [
+      "grass"
+    ],
+    "4,10": [
+      "grass"
+    ],
+    "4,11": [
+      "grass"
+    ],
+    "4,12": [
+      "grass"
+    ],
+    "5,1": [
+      "grass"
+    ],
+    "5,2": [
+      "grass"
+    ],
+    "5,3": [
+      "grass"
+    ],
+    "5,4": [
+      "grass"
+    ],
+    "5,5": [
+      "gravel"
+    ],
+    "5,6": [
+      "gravel"
+    ],
+    "5,7": [
+      "gravel"
+    ],
+    "5,8": [
+      "grass"
+    ],
+    "5,9": [
+      "grass"
+    ],
+    "5,10": [
+      "grass"
+    ],
+    "5,11": [
+      "grass"
+    ],
+    "5,12": [
+      "grass"
+    ],
+    "6,1": [
+      "grass"
+    ],
+    "6,2": [
+      "grass"
+    ],
+    "6,10": [
+      "grass"
+    ],
+    "6,11": [
+      "grass"
+    ],
+    "6,12": [
+      "grass"
+    ],
+    "7,1": [
+      "grass"
+    ],
+    "7,2": [
+      "grass"
+    ],
+    "7,10": [
+      "grass"
+    ],
+    "7,11": [
+      "grass"
+    ],
+    "7,12": [
+      "grass"
+    ],
+    "8,1": [
+      "grass"
+    ],
+    "8,2": [
+      "grass"
+    ],
+    "8,10": [
+      "grass"
+    ],
+    "8,11": [
+      "grass"
+    ],
+    "8,12": [
+      "grass"
+    ],
+    "9,1": [
+      "grass"
+    ],
+    "9,2": [
+      "grass"
+    ],
+    "9,3": [
+      "grass"
+    ],
+    "9,4": [
+      "grass"
+    ],
+    "9,5": [
+      "grass"
+    ],
+    "9,6": [
+      "grass"
+    ],
+    "9,7": [
+      "grass"
+    ],
+    "9,8": [
+      "grass"
+    ],
+    "9,9": [
+      "grass"
+    ],
+    "9,10": [
+      "grass"
+    ],
+    "9,11": [
+      "grass"
+    ],
+    "9,12": [
+      "grass"
+    ],
+    "10,1": [
+      "grass"
+    ],
+    "10,2": [
+      "grass"
+    ],
+    "10,3": [
+      "grass"
+    ],
+    "10,4": [
+      "grass"
+    ],
+    "10,5": [
+      "grass"
+    ],
+    "10,6": [
+      "grass"
+    ],
+    "10,7": [
+      "grass"
+    ],
+    "10,8": [
+      "grass"
+    ],
+    "10,9": [
+      "grass"
+    ],
+    "10,10": [
+      "grass"
+    ],
+    "10,11": [
+      "grass"
+    ],
+    "10,12": [
+      "grass"
+    ]
+  }
+}

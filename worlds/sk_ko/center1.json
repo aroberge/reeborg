@@ -1,0 +1,56 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {
+        "token": 99
+      },
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 23,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": [
+    "주어진 공간의 정가운데(중심)에 토큰을 내려놓아라. 주어진 공간의 너비(가로)는 홀수가 될것이며,높이는 1로 일정하다."
+  ],
+  "small_tiles": false,
+  "rows": 1,
+  "cols": 3,
+  "onload": [
+    "#python onload code",
+    "import random",
+    "width = 2",
+    "while width % 2 == 0:",
+    "    width = random.randint(3, 15)",
+    "height = 1",
+    "",
+    "RUR.set_world_size(width, height)",
+    "RUR.fill_background(\"grass\")",
+    "RUR.give_object_to_robot(\"token\",99)",
+    "",
+    "#Find Target Location",
+    "target_x = (width//2)+1",
+    "target_y = (height//2)+1",
+    "",
+    "",
+    "options = {'goal' : True}",
+    "RUR.add_object(\"token\", target_x, target_y, options)",
+    "",
+    ""
+  ]
+}

@@ -1,0 +1,588 @@
+{
+  "robots": [
+    {
+      "x": 3,
+      "y": 1,
+      "_prev_x": 3,
+      "_prev_y": 1,
+      "_prev_orientation": 1,
+      "objects": {},
+      "_orientation": 1,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 4,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          3,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {
+    "2,1": [
+      "east",
+      "north"
+    ],
+    "1,2": [
+      "east"
+    ],
+    "2,2": [
+      "north"
+    ],
+    "2,3": [
+      "east",
+      "north"
+    ],
+    "1,4": [
+      "east"
+    ],
+    "2,4": [
+      "north"
+    ],
+    "2,5": [
+      "east",
+      "north"
+    ],
+    "1,6": [
+      "east"
+    ],
+    "2,6": [
+      "north"
+    ],
+    "2,7": [
+      "east",
+      "north"
+    ],
+    "1,8": [
+      "east"
+    ],
+    "2,8": [
+      "north"
+    ],
+    "2,9": [
+      "east",
+      "north"
+    ],
+    "1,10": [
+      "east"
+    ],
+    "2,10": [
+      "north"
+    ],
+    "2,11": [
+      "east",
+      "north"
+    ],
+    "1,12": [
+      "east"
+    ],
+    "2,12": [
+      "north"
+    ],
+    "3,12": [
+      "north"
+    ],
+    "4,12": [
+      "north"
+    ],
+    "5,12": [
+      "north"
+    ],
+    "6,12": [
+      "north"
+    ],
+    "7,12": [
+      "north"
+    ],
+    "8,12": [
+      "east",
+      "north"
+    ],
+    "7,1": [
+      "east"
+    ]
+  },
+  "description": [
+    "<h1>Alcove - Version 2</h1>",
+    "<p>This time, the distance between the alcove on the right and ", 
+    "   left is not consistent (in other words, the alcoves can be different ",
+    "   distances apart). Once again, for each alcove on the left side that ",
+    "   contains a daisy, make Reeborg move the daisy to the opposite alcove ",
+    "   on the right hand side. </p>",
+    "DIFFICULTY4"
+  ],
+  "small_tiles": false,
+  "rows": 13,
+  "cols": 9,
+  "tiles": {
+    "1,1": [
+      "pale_grass"
+    ],
+    "1,2": [
+      "pale_grass"
+    ],
+    "1,3": [
+      "pale_grass"
+    ],
+    "1,4": [
+      "pale_grass"
+    ],
+    "1,5": [
+      "pale_grass"
+    ],
+    "1,6": [
+      "pale_grass"
+    ],
+    "1,7": [
+      "pale_grass"
+    ],
+    "1,8": [
+      "pale_grass"
+    ],
+    "1,9": [
+      "pale_grass"
+    ],
+    "1,10": [
+      "pale_grass"
+    ],
+    "1,11": [
+      "pale_grass"
+    ],
+    "1,12": [
+      "pale_grass"
+    ],
+    "2,1": [
+      "pale_grass"
+    ],
+    "2,2": [
+      "pale_grass"
+    ],
+    "2,3": [
+      "pale_grass"
+    ],
+    "2,4": [
+      "pale_grass"
+    ],
+    "2,5": [
+      "pale_grass"
+    ],
+    "2,6": [
+      "pale_grass"
+    ],
+    "2,7": [
+      "pale_grass"
+    ],
+    "2,8": [
+      "pale_grass"
+    ],
+    "2,9": [
+      "pale_grass"
+    ],
+    "2,10": [
+      "pale_grass"
+    ],
+    "2,11": [
+      "pale_grass"
+    ],
+    "2,12": [
+      "pale_grass"
+    ],
+    "3,1": [
+      "pale_grass"
+    ],
+    "3,2": [
+      "pale_grass"
+    ],
+    "3,3": [
+      "pale_grass"
+    ],
+    "3,4": [
+      "pale_grass"
+    ],
+    "3,5": [
+      "pale_grass"
+    ],
+    "3,6": [
+      "pale_grass"
+    ],
+    "3,7": [
+      "pale_grass"
+    ],
+    "3,8": [
+      "pale_grass"
+    ],
+    "3,9": [
+      "pale_grass"
+    ],
+    "3,10": [
+      "pale_grass"
+    ],
+    "3,11": [
+      "pale_grass"
+    ],
+    "3,12": [
+      "pale_grass"
+    ],
+    "4,1": [
+      "pale_grass"
+    ],
+    "4,2": [
+      "pale_grass"
+    ],
+    "4,3": [
+      "pale_grass"
+    ],
+    "4,4": [
+      "pale_grass"
+    ],
+    "4,5": [
+      "pale_grass"
+    ],
+    "4,6": [
+      "pale_grass"
+    ],
+    "4,7": [
+      "pale_grass"
+    ],
+    "4,8": [
+      "pale_grass"
+    ],
+    "4,9": [
+      "pale_grass"
+    ],
+    "4,10": [
+      "pale_grass"
+    ],
+    "4,11": [
+      "pale_grass"
+    ],
+    "4,12": [
+      "pale_grass"
+    ],
+    "5,1": [
+      "pale_grass"
+    ],
+    "5,2": [
+      "pale_grass"
+    ],
+    "5,3": [
+      "pale_grass"
+    ],
+    "5,4": [
+      "pale_grass"
+    ],
+    "5,5": [
+      "pale_grass"
+    ],
+    "5,6": [
+      "pale_grass"
+    ],
+    "5,7": [
+      "pale_grass"
+    ],
+    "5,8": [
+      "pale_grass"
+    ],
+    "5,9": [
+      "pale_grass"
+    ],
+    "5,10": [
+      "pale_grass"
+    ],
+    "5,11": [
+      "pale_grass"
+    ],
+    "5,12": [
+      "pale_grass"
+    ],
+    "6,1": [
+      "pale_grass"
+    ],
+    "6,2": [
+      "pale_grass"
+    ],
+    "6,3": [
+      "pale_grass"
+    ],
+    "6,4": [
+      "pale_grass"
+    ],
+    "6,5": [
+      "pale_grass"
+    ],
+    "6,6": [
+      "pale_grass"
+    ],
+    "6,7": [
+      "pale_grass"
+    ],
+    "6,8": [
+      "pale_grass"
+    ],
+    "6,9": [
+      "pale_grass"
+    ],
+    "6,10": [
+      "pale_grass"
+    ],
+    "6,11": [
+      "pale_grass"
+    ],
+    "6,12": [
+      "pale_grass"
+    ],
+    "7,1": [
+      "pale_grass"
+    ],
+    "7,2": [
+      "pale_grass"
+    ],
+    "7,3": [
+      "pale_grass"
+    ],
+    "7,4": [
+      "pale_grass"
+    ],
+    "7,5": [
+      "pale_grass"
+    ],
+    "7,6": [
+      "pale_grass"
+    ],
+    "7,7": [
+      "pale_grass"
+    ],
+    "7,8": [
+      "pale_grass"
+    ],
+    "7,9": [
+      "pale_grass"
+    ],
+    "7,10": [
+      "pale_grass"
+    ],
+    "7,11": [
+      "pale_grass"
+    ],
+    "7,12": [
+      "pale_grass"
+    ],
+    "8,1": [
+      "pale_grass"
+    ],
+    "8,2": [
+      "pale_grass"
+    ],
+    "8,3": [
+      "pale_grass"
+    ],
+    "8,4": [
+      "pale_grass"
+    ],
+    "8,5": [
+      "pale_grass"
+    ],
+    "8,6": [
+      "pale_grass"
+    ],
+    "8,7": [
+      "pale_grass"
+    ],
+    "8,8": [
+      "pale_grass"
+    ],
+    "8,9": [
+      "pale_grass"
+    ],
+    "8,10": [
+      "pale_grass"
+    ],
+    "8,11": [
+      "pale_grass"
+    ],
+    "8,12": [
+      "pale_grass"
+    ],
+    "9,1": [
+      "pale_grass"
+    ],
+    "9,2": [
+      "pale_grass"
+    ],
+    "9,3": [
+      "pale_grass"
+    ],
+    "9,4": [
+      "pale_grass"
+    ],
+    "9,5": [
+      "pale_grass"
+    ],
+    "9,6": [
+      "pale_grass"
+    ],
+    "9,7": [
+      "pale_grass"
+    ],
+    "9,8": [
+      "pale_grass"
+    ],
+    "9,9": [
+      "pale_grass"
+    ],
+    "9,10": [
+      "pale_grass"
+    ],
+    "9,11": [
+      "pale_grass"
+    ],
+    "9,12": [
+      "pale_grass"
+    ],
+    "1,13": [
+      "pale_grass"
+    ],
+    "2,13": [
+      "pale_grass"
+    ],
+    "3,13": [
+      "pale_grass"
+    ],
+    "4,13": [
+      "pale_grass"
+    ],
+    "5,13": [
+      "pale_grass"
+    ],
+    "6,13": [
+      "pale_grass"
+    ],
+    "7,13": [
+      "pale_grass"
+    ],
+    "8,13": [
+      "pale_grass"
+    ],
+    "9,13": [
+      "pale_grass"
+    ]
+  },
+  "onload": [
+    "let theWorld = RUR.randint(1,2);",
+    "for (let y=2; y<13; y+=2) {",
+    "   if (RUR.randint(0,100) > 50) {",
+    "     RUR.add_object(\"daisy\", 2, y);",
+    "     if (theWorld === 1) {",
+    "       let daisyLocations = {2:8, 4:7, 6:5, 8:8, 10:6, 12:8};",
+    "       RUR.add_object(\"daisy\", daisyLocations[y], y, {'goal': true});",
+    "     } else {",
+    "       daisyLocations = {2:8, 4:7, 6:7, 8:8, 10:7, 12:8};",
+    "       RUR.add_object(\"daisy\", daisyLocations[y], y, {'goal': true});",
+    "     }",
+    "   }",
+    "}",
+    "",
+    "if (theWorld === 1) {",
+    "   RUR.add_wall(\"east\", 8, 12);",
+    "   RUR.add_wall(\"north\", 8, 11);",
+    "   RUR.add_wall(\"north\", 7, 11);",
+    "   RUR.add_wall(\"north\", 6, 11);",
+    "   RUR.add_wall(\"east\", 5, 11);",
+    "   RUR.add_wall(\"north\", 6, 10);",
+    "   RUR.add_wall(\"east\", 6, 10);",
+    "   RUR.add_wall(\"south\", 6, 10);",
+    "   RUR.add_wall(\"west\", 6, 9);",
+    "   RUR.add_wall(\"south\", 6, 9);",
+    "   RUR.add_wall(\"south\", 7, 9);",
+    "   RUR.add_wall(\"south\", 8, 9);",
+    "   RUR.add_wall(\"east\", 8, 8);",
+    "   RUR.add_wall(\"south\", 8, 8);",
+    "   RUR.add_wall(\"south\", 7, 8);",
+    "   RUR.add_wall(\"south\", 6, 8);",
+    "   RUR.add_wall(\"south\", 5, 8);",
+    "   RUR.add_wall(\"south\", 4, 8);",
+    "   RUR.add_wall(\"west\", 4, 7);",
+    "   RUR.add_wall(\"south\", 4, 7);",
+    "   RUR.add_wall(\"south\", 5, 7);",
+    "   RUR.add_wall(\"east\", 5, 6);",
+    "   RUR.add_wall(\"north\", 5, 5);",
+    "   RUR.add_wall(\"west\", 5, 5);",
+    "   RUR.add_wall(\"south\", 5, 5);",
+    "   RUR.add_wall(\"south\", 6, 5);",
+    "   RUR.add_wall(\"south\", 7, 5);",
+    "   RUR.add_wall(\"east\", 7, 4);",
+    "   RUR.add_wall(\"south\", 7, 4);",
+    "   RUR.add_wall(\"south\", 6, 4);",
+    "   RUR.add_wall(\"west\", 6, 3);",
+    "   RUR.add_wall(\"south\", 6, 3);",
+    "   RUR.add_wall(\"south\", 7, 3);",
+    "   RUR.add_wall(\"south\", 8, 3);",
+    "   RUR.add_wall(\"east\", 8, 2);",
+    "   RUR.add_wall(\"south\", 8, 2);",
+    "   RUR.add_wall(\"west\", 8, 1);",
+    "} else {",
+    "   RUR.add_wall(\"east\", 8, 12);",
+    "   RUR.add_wall(\"north\", 8, 11);",
+    "   RUR.add_wall(\"north\", 7, 11);",
+    "   RUR.add_wall(\"east\", 6, 11);",
+    "   RUR.add_wall(\"north\", 7, 10);",
+    "   RUR.add_wall(\"east\", 7, 10);",
+    "   RUR.add_wall(\"south\", 7, 10);",
+    "   RUR.add_wall(\"north\", 6, 9);",
+    "   RUR.add_wall(\"west\", 6, 9);",
+    "   RUR.add_wall(\"south\", 6, 9);",
+    "   RUR.add_wall(\"south\", 7, 9);",
+    "   RUR.add_wall(\"south\", 8, 9);",
+    "   RUR.add_wall(\"east\", 8, 8);",
+    "   RUR.add_wall(\"south\", 8, 8);",
+    "   RUR.add_wall(\"south\", 7, 8);",
+    "   RUR.add_wall(\"south\", 6, 8);",
+    "   RUR.add_wall(\"west\", 6, 7);",
+    "   RUR.add_wall(\"south\", 6, 7);",
+    "   RUR.add_wall(\"south\", 7, 7);",
+    "   RUR.add_wall(\"east\", 7, 6);",
+    "   RUR.add_wall(\"north\", 7, 5);",
+    "   RUR.add_wall(\"west\", 7, 5);",
+    "   RUR.add_wall(\"south\", 7, 5);",
+    "   RUR.add_wall(\"east\", 7, 4);",
+    "   RUR.add_wall(\"south\", 7, 4);",
+    "   RUR.add_wall(\"south\", 6, 4);",
+    "   RUR.add_wall(\"west\", 6, 3);",
+    "   RUR.add_wall(\"south\", 6, 3);",
+    "   RUR.add_wall(\"south\", 7, 3);",
+    "   RUR.add_wall(\"south\", 8, 3);",
+    "   RUR.add_wall(\"east\", 8, 2);",
+    "   RUR.add_wall(\"south\", 8, 2);",
+    "   RUR.add_wall(\"west\", 8, 1);",
+    "};"
+  ],
+  "goal": {
+    "possible_final_positions": [
+      [
+        3,
+        12
+      ]
+    ],
+    "position": {
+      "image": "racing_flag",
+      "x": 3,
+      "y": 12
+    },
+    "objects": {
+      "8,2": {},
+      "8,4": {},
+      "8,8": {},
+      "8,10": {}
+    }
+  },
+  "objects": {
+    "2,2": {},
+    "2,4": {},
+    "2,8": {},
+    "2,10": {}
+  }
+}

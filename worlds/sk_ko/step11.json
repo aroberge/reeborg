@@ -1,0 +1,59 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0
+    }
+  ],
+  "walls": {},
+  "description": [
+    "<h1>친구들을 위한 꽃</h1>",
+    "<p>리보그는 그의 친구인 조이와 에리를 위해 꽃다발을 만들고 싶어해요.",
+    "    리보그는 이웃집 마당에서 튤립을 가져가는 것(<code>take()</code>) ",
+    "    을 허락받았어요.",
+    "    유감스럽게도 마당의 크기가 각각 달라요. 리보그는 마당이 직사각형인",
+    "    것을 알고 있고, 마당을 돌아다니기 위한 행동을 23번이나 반복해야 한다는 것을 알고 있어요. 그리고 마당의 각 코너에 튤립이 있는데,",
+    "    리보그가 출발하는 곳은 제외해요.</p>",
+    "<p>리보그가 마당의 바깥부분을 돌게 하고, 튤립이 있다면 줍고,",
+    "    튤립이 없다면 나아가게 하는 프로그램을 만드세요.",
+    "</p>",
+    "<pre class=\"python\">",
+    "repeat 23:",
+    "    ...",
+    "    ...",
+    "    ...",
+    "    ...",
+    "    ...</pre>",
+    "<h3>알아 두어야 할 것</h3>",
+    "<ul><li>함수  <code>move()</code>, <code>turn_left()</code>,",
+    "와 <code>take()</code></li>",
+    "<li><code>object_here()</code> 조건문</li>",
+    "<li><code>if/else</code> 조건문 사용 방법.</li></ul>",
+    "DIFFICULTY2",
+    ""
+  ],
+  "small_tiles": false,
+  "rows": 5,
+  "cols": 7,
+  "goal": {
+    "objects": {}
+  },
+  "onload": [
+    "var height, width;",
+    "width = RUR.randint(4, 8);",
+    "height = 12 - width;",
+    "RUR.set_world_size(width, height);",
+    "RUR.fill_background(\"grass\");",
+    "RUR.add_final_position(\"house\", 1, 1);",
+    "",
+    "RUR.add_object(\"tulip\", width, 1)",
+    "RUR.add_object(\"tulip\", width, height)",
+    "RUR.add_object(\"tulip\", 1, height)",
+    ""
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "objects": {},
+      "model": "classic",
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 13,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": [
+    "<h1>집으로 돌아가기</h1>",
+    "<p>리보그에게 집에 돌아가기 위한 알맞은 지시사항을 내려주세요! 알맞은 지시사항을 필요한 만큼 사용하세요.</p>",
+      "<h3>알아 두어야 할것</h3>",
+    "    <ul><li>함수  <code>move()</code>.</li></ul>",
+    "DIFFICULTY1"
+  ],
+  "small_tiles": false,
+  "rows": 1,
+  "cols": 5,
+  "goal": {
+    "possible_final_positions": [
+      [
+        5,
+        1
+      ]
+    ],
+    "position": {
+      "image": "house",
+      "x": 5,
+      "y": 1
+    }
+  }
+}

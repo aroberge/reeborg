@@ -1,0 +1,244 @@
+{
+  "description": [
+    "<h1>잃어버린 도시락</h1>",
+    "<p>Reeborg는 도시락을 잃어버렸어요.</p>",
+    "<p>Reeborg는 미로에서 도시락을 내려놓고, 주위를 돌아다녔어요. 이제 Reeborg는 배가 고파요. 도시락은 깃발로 표시됩니다. 시작버튼을 누를 때마다 깃발과 Reeborg의 위치가 변경됩니다.</p>",
+    "<p>Reeborg가 점심을 먹을 수 있도록  <code>if/elif/else</code>",
+    "문을 사용하여 프로그램을 작성하세요. 비결은 Reeborg가 미로의 오른쪽 가장자리를 따라 가고, 할 수 있으면 우회전을, 우회전 할 수없는 경우 직진하거나 최후의 수단으로 좌회전을 하는 것이에요.</p>",
+    "<h3>알아 두어야 할 것</h3>",
+    "<ul><li>함수 <code>move()</code> 와 <code>turn_left()</code>.</li>",
+    "<li><code>front_is_clear()</code> 또는 <code>wall_in_front()</code>,",
+    "<code>right_is_clear()</code> 또는 <code>wall_on_right()</code>, and <code>at_goal()</code>.</li>",
+    "<li><code>while</code> 루프와 <code>if/elif/else</code>문을 사용하는 시험 중 하나입니다.</li>",
+    "<li>Python이 아닌 조건문의 부정을 사용하는 방법을 아는 것이 유용 할 수 있습니다.</li></ul>",
+    "DIFFICULTY4",
+    ""
+  ],
+  "robots": [
+    {
+      "x": 3,
+      "y": 3,
+      "objects": {},
+      "_orientation": -1,
+      "_is_leaky": true,
+      "_prev_x": 3,
+      "_prev_y": 3,
+      "_prev_orientation": -1,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 13,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          3,
+          3
+        ]
+      ]
+    }
+  ],
+  "walls": {
+    "2,5": [
+      "north"
+    ],
+    "1,5": [
+      "north"
+    ],
+    "3,5": [
+      "north"
+    ],
+    "4,5": [
+      "north"
+    ],
+    "5,5": [
+      "east",
+      "north"
+    ],
+    "5,1": [
+      "east"
+    ],
+    "5,3": [
+      "east"
+    ],
+    "5,2": [
+      "east"
+    ],
+    "5,4": [
+      "east"
+    ],
+    "1,1": [
+      "north"
+    ],
+    "2,1": [
+      "east"
+    ],
+    "2,2": [
+      "east",
+      "north"
+    ],
+    "1,3": [
+      "east"
+    ],
+    "3,2": [
+      "north"
+    ],
+    "3,3": [
+      "east",
+      "north"
+    ],
+    "2,4": [
+      "east"
+    ],
+    "3,4": [
+      "north"
+    ],
+    "4,4": [
+      "east"
+    ],
+    "4,3": [
+      "east"
+    ],
+    "4,2": [
+      "east"
+    ],
+    "4,1": [
+      "north"
+    ],
+    "3,1": [
+      "east"
+    ]
+  },
+  "small_tiles": false,
+  "rows": 5,
+  "cols": 5,
+  "goal": {
+    "position": {
+      "image": "racing_flag",
+      "x": 2,
+      "y": 5
+    },
+    "possible_final_positions": [
+      [
+        2,
+        3
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        2,
+        5
+      ]
+    ]
+  },
+  "tiles": {
+    "1,1": [
+      "gravel"
+    ],
+    "1,2": [
+      "gravel"
+    ],
+    "1,3": [
+      "gravel"
+    ],
+    "1,4": [
+      "gravel"
+    ],
+    "1,5": [
+      "gravel"
+    ],
+    "2,1": [
+      "gravel"
+    ],
+    "2,2": [
+      "gravel"
+    ],
+    "2,3": [
+      "gravel"
+    ],
+    "2,4": [
+      "gravel"
+    ],
+    "2,5": [
+      "gravel"
+    ],
+    "3,1": [
+      "gravel"
+    ],
+    "3,2": [
+      "gravel"
+    ],
+    "3,3": [
+      "gravel"
+    ],
+    "3,4": [
+      "gravel"
+    ],
+    "3,5": [
+      "gravel"
+    ],
+    "4,1": [
+      "gravel"
+    ],
+    "4,2": [
+      "gravel"
+    ],
+    "4,3": [
+      "gravel"
+    ],
+    "4,4": [
+      "gravel"
+    ],
+    "4,5": [
+      "gravel"
+    ],
+    "5,1": [
+      "gravel"
+    ],
+    "5,2": [
+      "gravel"
+    ],
+    "5,3": [
+      "gravel"
+    ],
+    "5,4": [
+      "gravel"
+    ],
+    "5,5": [
+      "gravel"
+    ]
+  }
+}
