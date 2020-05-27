@@ -138,7 +138,7 @@ RUR.world_utils.process_onload = process_onload;
 function convert_old_worlds () {
     // TODO: convert goal.possible_positions to goal.possible_final_positions ?
     // TODO: convert start_positions to possible_initial_positions ?
-    var i, index, coord, keys;
+    var i, index, coord, keys, obstacles;
 
     // Backward compatibility following change done on Jan 5, 2016
     // top_tiles has been renamed obstacles (and prior to that [or after?],

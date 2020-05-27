@@ -259,11 +259,11 @@ RUR.we.toggle_editing_mode = function () {
 record_id("edit-world", "EDIT WORLD");
 record_id("edit-world-text", "EDIT WORLD EXPLAIN");
 $(document).ready( function () {
-        RUR.create_and_activate_dialogs( 
-            $("#edit-world"), $("#edit-world-panel"), {}, 
+        RUR.create_and_activate_dialogs(
+            $("#edit-world"), $("#edit-world-panel"), {},
             function () {
                 RUR.we.toggle_editing_mode();
-                $("#more-menus").dialog("minimize"); 
+                $("#more-menus").dialog("minimize");
             }
         );
     }
@@ -286,6 +286,8 @@ function place_robot () {
             robot.possible_initial_positions = [[robot.x, robot.y]];
             return;
         }
+    } else {
+        alert("Problem: place_robot called but world.robots is undefined.")
     }
 
     for (var i=0; i < robot.possible_initial_positions.length; i++){

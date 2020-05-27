@@ -209,7 +209,8 @@ function convert_permalink(old_permalink){
 }
 
 function convert_rurple_world (wld_file) {
-    var coord, i, world_info, new_coord, reeborg, orientation, world = {"robots": []};
+    var coord, i, world_info, new_coord, reeborg, orientation, wall_info;
+    var world = {"robots": []};
 
     wld_file = wld_file.replace(/\(/g, '"').replace(/\)/g, '"').replace(/ /g, '');
     eval(wld_file);

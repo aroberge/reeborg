@@ -85,7 +85,7 @@ function object_of_type_here (robot, obj, object_type) {
  * editors in the world's description (**World Info** button for English UI).
  *
  * @param {bool} show
- * 
+ *
  */
 
 RUR.show_editors_content = function (show) {
@@ -116,19 +116,19 @@ RUR.world_get.world_info = function (show_info_at_location) {
     if (RUR.SHOW_EDITORS_CONTENTS) {
         if (RUR.get_current_world().onload) {
             description = "<h3>Onload editor content</h3>INSERT_ONLOAD" + description;
-        }   
+        }
          if (RUR.get_current_world().pre) {
             description = "<h3>Pre editor content</h3>INSERT_PRE" + description;
-        }   
+        }
         if (RUR.get_current_world().post) {
             description = "<h3>Post editor content</h3>INSERT_POST" + description;
-        }   
+        }
         if (RUR.get_current_world().editor) {
             description = "<h3>World's Editor content</h3>INSERT_EDITOR" + description;
-        }   
+        }
         if (RUR.get_current_world().library) {
             description = "<h3>World's Library content</h3>INSERT_LIBRARY" + description;
-        }    
+        }
     }
 
     if (description) {
@@ -145,16 +145,16 @@ RUR.world_get.world_info = function (show_info_at_location) {
             content = RUR.get_current_world().editor;
             if (typeof content != "string") {
                 content = content.join("\n");
-            }            
+            }
             insertion = "<pre class='world_info_source'>" + content + "</pre>";
             to_replace = "INSERT_EDITOR";
             description = description.replace(to_replace, insertion);
-        }        
+        }
         if (RUR.get_current_world().library) {
             content = RUR.get_current_world().library;
             if (typeof content != "string") {
                 content = content.join("\n");
-            }            
+            }
             insertion = "<pre class='world_info_source'>" + content + "</pre>";
             to_replace = "INSERT_LIBRARY";
             description = description.replace(to_replace, insertion);
@@ -163,7 +163,7 @@ RUR.world_get.world_info = function (show_info_at_location) {
             content = RUR.get_current_world().post;
             if (typeof content != "string") {
                 content = content.join("\n");
-            }            
+            }
             insertion = "<pre class='world_info_source'>" + content + "</pre>";
             to_replace = "INSERT_POST";
             description = description.replace(to_replace, insertion);
@@ -172,7 +172,7 @@ RUR.world_get.world_info = function (show_info_at_location) {
             content = RUR.get_current_world().onload;
             if (typeof content != "string") {
                 content = content.join("\n");
-            }            
+            }
             insertion = "<pre class='world_info_onload'>" + content + "</pre>";
             to_replace = "INSERT_ONLOAD";
             description = description.replace(to_replace, insertion);
@@ -315,7 +315,7 @@ function get_info_about_location() {
        user has clicked. */
     "use strict";
     var position, x, y, coords, grid_info, need_heading, goals;
-    var tile, tilename, tiles;
+    var tile, tilename, tiles, fence_noted;
     var obj, obj_here, obj_type;
     var special_info_about_location = "<h3>" + RUR.translate("Special information about this location:") + "</h3>";
 
@@ -469,10 +469,10 @@ $(document).ready(function () {
  * @memberof RUR
  * @instance
  *
- * @desc Ensures that the world description window 
+ * @desc Ensures that the world description window
  * (usually open from **World Info** button for English UI)
  * is shown.
- * 
+ *
  */
 RUR.show_description = function () {
     if ($("#world-info-button").hasClass("blue-gradient")) {
