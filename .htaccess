@@ -1,5 +1,5 @@
 Header set Access-Control-Allow-Origin "*"
-redirect 301 /index.html http://reeborg.ca/index_en.html
+redirect 301 /index.html https://reeborg.ca/index_en.html
 ErrorDocument 404 /404.html
 # cache images and flash content for one month
 <FilesMatch ".(flv|gif|jpg|jpeg|png|ico|swf)$">
@@ -12,5 +12,5 @@ Header set Cache-Control "max-age=21600"
 </FilesMatch>
 RemoveHandler .py
 
-RedirectMatch 301 ^/docs/begin_py_fr(.*) http://reeborg.ca/docs/fr/index.html
-RedirectMatch 301 ^/docs/begin_py_en(.*) http://reeborg.ca/docs/en/index.html
+RedirectMatch 301 ^/docs/begin_py_fr(.*) https://reeborg.ca/docs/fr/index.html
+RedirectMatch 301 ^/docs/begin_py_en(.*) https://reeborg.ca/docs/en/index.html
