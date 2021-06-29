@@ -117,7 +117,7 @@ def main(port, host):
         webbrowser.register('firefox',
             None,
             webbrowser.BackgroundBrowser(
-            'C:/Program Files (x86)/mozilla firefox/firefox.exe'))
+            'C:/Program Files/mozilla firefox/firefox.exe'))
         browser = webbrowser.get('firefox')
     else:
         browser = webbrowser.get()

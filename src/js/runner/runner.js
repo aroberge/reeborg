@@ -74,6 +74,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
     "use strict";
     var message, response, other_info, error;
     other_info = '';
+    console.log("entering eval");
 
     /* At some point around version 3.2.0, Brython changed the way it
        handled uncaught errors, and no longer pass a "nice" object
@@ -177,7 +178,7 @@ RUR.runner.simplify_python_traceback = function(e) {
     other_info = '';
     if (e.reeborg_shouts === undefined) {
         message = e.args[0];
-        error_name = e.__name__;
+        error_name = e.__name__ || e.__class__.__name__;
         diagnostic = '';
         switch (error_name) {
             case "SyntaxError":
