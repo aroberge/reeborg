@@ -79,7 +79,8 @@
     },
     "objects": {
       "7,4": {
-        "star": 1
+        "star": 1,
+        "token":0
       }
     }
   },
@@ -165,15 +166,17 @@
     "    the very nice Ms. Ada Lovelace, who always leaves between",
     "    one and three tokens to Reeborg as a gift.",
     "</p>",
+    "<p>You must help Reeborg to deliver the newspapers, and collect his tokens",
+
     "<h3>What you need to know</h3>",
     "<p>Before attempting to write a solution for this world, you",
     "    should know how to write a solution for the simpler",
     "    <b>Newspaper</b> world.</p>",
     "<ul><li>The functions <code>move()</code>, <code>turn_left()</code>,",
     "    <code>take()</code> and <code>put()</code>.</li>",
-    "    <li>How to use a function argument and either the string",
-    "    <code>\"token\"</code> or <code>\"star\"</code>, or both.</li></ul>",
-    "DIFFICULTY4",
+    "    <li>How to call a function with an argument.</li>",
+    "    <li>The object name <code>\"token\"</code></li>",
+    "DIFFICULTY3",
     ""
   ]
 }
