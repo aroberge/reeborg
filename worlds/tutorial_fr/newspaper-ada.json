@@ -170,9 +170,10 @@
     "<p>Vous devriez savoir comment résoudre le monde <b>Journal</b>.",
     "</p>",
     "<ul><li>Les fonctions <code>avance()</code>, <code>tourne_a_gauche()</code>,",
-    "    <code>prend()</code> et <code>depose()</code>.</li>",
+    "    <code>objet_ici()</code>, <code>prend()</code> et <code>depose()</code>.</li>",
     "    <li>Comment utiliser des arguments de fonctions et les chaînes",
     "    <code>\"jeton\"</code> ou <code>\"étoile\"</code>.</li>",
+    "    <li>Les boucles <code>while</code>.</li>"
     "</ul>",
     "DIFFICULTY4"
   ]

@@ -79,8 +79,7 @@
     },
     "objects": {
       "7,4": {
-        "star": 1,
-        "token":0
+        "star": 1
       }
     }
   },
@@ -173,10 +172,11 @@
     "    should know how to write a solution for the simpler",
     "    <b>Newspaper</b> world.</p>",
     "<ul><li>The functions <code>move()</code>, <code>turn_left()</code>,",
-    "    <code>take()</code> and <code>put()</code>.</li>",
+    "    <code>take()</code>, <code>object_here()</code> and <code>put()</code>.</li>",
     "    <li>How to call a function with an argument.</li>",
-    "    <li>The object name <code>\"token\"</code></li>",
-    "DIFFICULTY3",
-    ""
+    "    <li>The object names <code>\"star\"</code> and <code>\"token\"</code>.</li>",
+    "    <li>How to use <code>while</code> loops.</li>",
+    "</ul>",
+    "DIFFICULTY4"
   ]
 }
