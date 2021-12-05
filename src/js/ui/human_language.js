@@ -2,6 +2,8 @@ require("./../rur.js");
 require("./../programming_api/reeborg_en.js");
 require("./../programming_api/reeborg_fr.js");
 require("./../programming_api/reeborg_cn.js");
+require("./../programming_api/reeborg_pl.js");
+
 require("./../programming_api/blockly.js");
 require("./../ui/custom_world_select.js");
 require("./../permalink/permalink.js");
@@ -37,6 +39,13 @@ function update_translations(lang) {
             blockly_init_fr();
             $("#mixed-language-info").hide();
             break;
+        case "pl":
+            RUR.translation = RUR.ui_pl;
+            merge_dicts(RUR.translation, RUR.pl);
+            RUR.translation_to_english = RUR.pl_to_en;
+            blockly_init_pl();
+            $("#mixed-language-info").hide();
+            break;
         case "cn":
             RUR.translation = RUR.ui_cn;
             merge_dicts(RUR.translation, RUR.cn);
@@ -66,7 +75,7 @@ function update_translations(lang) {
             RUR.translation = RUR.ui_pl;
             merge_dicts(RUR.translation, RUR.en);
             RUR.translation_to_english = RUR.pl_to_en;
-            blockly_init_en(); // to be updated
+            blockly_init_pl(); // to be updated
             break;
         case "en-cn":
             RUR.translation = RUR.ui_en;
@@ -81,6 +90,7 @@ function update_translations(lang) {
             blockly_init_en();
             break;
         default:
+        console.log("Default used");
             RUR.translation = RUR.ui_en;
             merge_dicts(RUR.translation, RUR.en);
             RUR.translation_to_english = RUR.en_to_en;
@@ -98,6 +108,12 @@ function update_commands (lang) {
             RUR.reset_definitions = RUR.reset_definitions_fr;
             RUR.library_name = "biblio";
             RUR.from_import = "from reeborg_fr import *";
+            break;
+        case "pl":  // TODO: complete this
+        case "en-pl":
+            RUR.reset_definitions = RUR.reset_definitions_pl;
+            RUR.library_name = "biblioteka";
+            RUR.from_import = "from reeborg_pl import *";
             break;
         case "cn":
         case "en-cn":

@@ -74,7 +74,6 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
     "use strict";
     var message, response, other_info, error;
     other_info = '';
-    console.log("entering eval");
 
     /* At some point around version 3.2.0, Brython changed the way it
        handled uncaught errors, and no longer pass a "nice" object

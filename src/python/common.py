@@ -15,6 +15,8 @@ __REEBORG_FR = {}
 exec("from reeborg_fr import *", __REEBORG_FR)
 __REEBORG_CN = {}
 exec("from reeborg_cn import *", __REEBORG_CN)
+__REEBORG_PL = {}
+exec("from reeborg_pl import *", __REEBORG_PL)
 
 
 def dir_py(obj, exclude=None):
@@ -82,6 +84,27 @@ def _import_fr(namespace):
     window["ReeborgError"] = ReeborgError_saved
     window["WallCollisionError"] = WallCollisionError_saved
     window["MissingObjectError"] = MissingObjectError_saved
+
+
+def _import_pl(namespace):
+    """Does the clean equivalent of
+           from reeborg_pl import *
+       into a namespace.
+    """
+    ReeborgOK_saved = window["ReeborgOK_pl"]
+    ReeborgOk_saved = window["ReeborgOk_pl"]
+    ReeborgError_saved = window["ReeborgError_pl"]
+    WallCollisionError_saved = window["WallCollisionError_pl"]
+    MissingObjectError_saved = window["MissingObjectError_pl"]
+
+    namespace.update(__REEBORG_FR)
+
+    window["ReeborgOK"] = ReeborgOK_saved
+    window["ReeborgOk"] = ReeborgOk_saved
+    window["ReeborgError"] = ReeborgError_saved
+    window["WallCollisionError"] = WallCollisionError_saved
+    window["MissingObjectError"] = MissingObjectError_saved
+
 
 
 def _import_cn(namespace):
@@ -215,6 +238,10 @@ def __default_help():
         import reeborg_fr  # NOQA
 
         dir_py(reeborg_fr, exclude=exclude)
+    elif lang in ["pl", "en_pl"]:
+        import reeborg_pl  # NOQA
+
+        dir_py(reeborg_pl, exclude=exclude)
     else:
         print("Unrecognized language; please file an issue!")
 
@@ -287,6 +314,7 @@ def __generic_translate_python(
         "reeborg_en",
         "reeborg_fr",
         "reeborg_cn",
+        "reeborg_pl",
         "library",
         "biblio",
         "库",
@@ -322,6 +350,8 @@ def __generic_translate_python(
         globals_.update(__REEBORG_FR)
     elif window.RUR.from_import == "from reeborg_cn import *":
         globals_.update(__REEBORG_CN)
+    elif window.RUR.from_import == "from reeborg_pl import *":
+        globals_.update(__REEBORG_PL)
     else:
         raise Exception("unknown import %s" % window.RUR.from_import)
 
