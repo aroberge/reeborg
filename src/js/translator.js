@@ -6,7 +6,7 @@ var uien = require("./../lang/ui_en.js"),
     uicn = require("./../lang/ui_cn.js"),
     en = require("./../lang/en.js"),
     fr = require("./../lang/fr.js"),
-    cn = require("./../lang/cn.js");
+    cn = require("./../lang/cn.js"),
     pl = require("./../lang/pl.js");
 
 RUR.ui_en = uien.ui_en;
