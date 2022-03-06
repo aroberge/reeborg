@@ -24,13 +24,15 @@
   },
   "homepage": "https://github.com/aroberge/reeborg#readme",
   "devDependencies": {
-    "browserify": "^13.0.0",
     "faucet": "0.0.1",
     "ink-docstrap": "^1.1.0",
     "jsdoc": "^3.4.3",
+    "madge": "^5.0.1",
     "mock-require": "^1.2.1",
     "silencer": "0.0.2",
-    "tape": "^4.4.0",
-    "madge": ">=4.0.1"
+    "tape": "^4.4.0"
+  },
+  "dependencies": {
+    "browserify": "^17.0.0"
   }
 }

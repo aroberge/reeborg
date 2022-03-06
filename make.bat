@@ -1,7 +1,7 @@
 @ECHO OFF
 
 REM Create offline version as well as integrated version to use with QUnit
-python dev_tools/make_offline.py
+py dev_tools/make_offline.py
 
 REM Combine all javascript files and run some unit tests
 call npm run build
@@ -14,6 +14,6 @@ IF %ERRORLEVEL% NEQ 0 (
 )
 
 REM Run the integrated tests with a custom server
-python dev_tools/run_qunit_test.py
+py dev_tools/run_qunit_test.py
 
 @ECHO ON

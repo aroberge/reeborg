@@ -10,3 +10,4 @@ temp
 build
 tests/integration_tests/reeborg_*.html
 _scratchpad*
+package-lock.json

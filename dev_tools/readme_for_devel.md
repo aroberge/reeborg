@@ -103,12 +103,6 @@ integration tests.  So, you should really install Python if you wish to
 add new features so that you can run all the tests (and add new ones!)
 to ensure that nothing is broken.
 
-As a Python enthusiast working on Windows,
-I found that installing Python from the
-[Anaconda distribution](https://www.continuum.io/downloads) was preferable
-to using the official Python distribution from the PSF as it made
-installing some non-Python native modules (e.g. numpy) much easier.
-
 ### Document new features using jsdoc
 
 I use jsdoc (http://usejsdoc.org/)
