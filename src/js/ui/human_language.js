@@ -3,6 +3,7 @@ require("./../programming_api/reeborg_en.js");
 require("./../programming_api/reeborg_fr.js");
 require("./../programming_api/reeborg_cn.js");
 require("./../programming_api/reeborg_pl.js");
+require("./../programming_api/reeborg_de.js");
 
 require("./../programming_api/blockly.js");
 require("./../ui/custom_world_select.js");
@@ -37,6 +38,13 @@ function update_translations(lang) {
             merge_dicts(RUR.translation, RUR.fr);
             RUR.translation_to_english = RUR.fr_to_en;
             blockly_init_fr();
+            $("#mixed-language-info").hide();
+            break;
+        case "de":
+            RUR.translation = RUR.ui_de;
+            merge_dicts(RUR.translation, RUR.de);
+            RUR.translation_to_english = RUR.de_to_en;
+            blockly_init_de();
             $("#mixed-language-info").hide();
             break;
         case "pl":
@@ -89,6 +97,18 @@ function update_translations(lang) {
             RUR.translation_to_english = RUR.cn_to_en;
             blockly_init_en();
             break;
+        case "en-de":
+            RUR.translation = RUR.ui_en;
+            merge_dicts(RUR.translation, RUR.de);
+            RUR.translation_to_english = RUR.en_to_en;
+            blockly_init_de();
+            break;
+        case "de-en":
+            RUR.translation = RUR.ui_de;
+            merge_dicts(RUR.translation, RUR.en);
+            RUR.translation_to_english = RUR.de_to_en;
+            blockly_init_en();
+            break;            
         default:
         console.log("Default used");
             RUR.translation = RUR.ui_en;
@@ -103,6 +123,12 @@ function update_translations(lang) {
 
 function update_commands (lang) {
     switch(lang) {
+        case "de":
+        case "en-de":
+            RUR.reset_definitions = RUR.reset_definitions_de;
+            RUR.library_name = "bibliothek";
+            RUR.from_import = "from reeborg_de import *";
+            break;        
         case "fr":
         case "en-fr":
             RUR.reset_definitions = RUR.reset_definitions_fr;
@@ -123,6 +149,7 @@ function update_commands (lang) {
             break;
         case "en":
         case "fr-en":
+        case "de-en":
         case "ko-en":
             RUR.reset_definitions = RUR.reset_definitions_en;
             RUR.library_name = "library";

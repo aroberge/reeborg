@@ -3,7 +3,7 @@
 
 import sys
 from browser import document, window
-from common import _import_en, _import_fr, _import_cn, print_dir
+from common import _import_en, _import_de, _import_fr, _import_cn, print_dir
 RUR = window['RUR']
 
 
@@ -173,6 +173,10 @@ class Interpreter():
             _import_en(self.namespace)
             self.namespace["done"] = self.done
             self.namespace["World"] = self.world
+        elif lang == 'de':
+            _import_de(self.namespace)
+            self.namespace["ende"] = self.done
+            self.namespace["Welt"] = self.world
         elif lang == 'fr':
             _import_fr(self.namespace)
             self.namespace["termine"] = self.done

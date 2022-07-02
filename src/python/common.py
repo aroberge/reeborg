@@ -11,6 +11,8 @@ from browser import window, console
 
 __REEBORG_EN = {}
 exec("from reeborg_en import *", __REEBORG_EN)
+__REEBORG_DE = {}
+exec("from reeborg_de import *", __REEBORG_DE)
 __REEBORG_FR = {}
 exec("from reeborg_fr import *", __REEBORG_FR)
 __REEBORG_CN = {}
@@ -127,6 +129,26 @@ def _import_cn(namespace):
     window["MissingObjectError"] = MissingObjectError_saved
 
 
+def _import_de(namespace):
+    """Does the clean equivalent of
+           from reeborg_de import *
+       into a namespace.
+    """
+    ReeborgOK_saved = window["ReeborgOK_de"]
+    ReeborgOk_saved = window["ReeborgOk_de"]
+    ReeborgError_saved = window["ReeborgError_de"]
+    WallCollisionError_saved = window["WallCollisionError_de"]
+    MissingObjectError_saved = window["MissingObjectError_de"]
+
+    namespace.update(__REEBORG_DE)
+
+    window["ReeborgOK"] = ReeborgOK_saved
+    window["ReeborgOk"] = ReeborgOk_saved
+    window["ReeborgError"] = ReeborgError_saved
+    window["WallCollisionError"] = WallCollisionError_saved
+    window["MissingObjectError"] = MissingObjectError_saved
+
+
 def __add_watch(expr):
     window.RUR.watched_expressions.append(expr)
 
@@ -230,7 +252,7 @@ def __default_help():
     """Lists available commands"""
     exclude = ["toString"]
     lang = window.RUR.state.human_language
-    if lang in ["en", "fr_en", "ko_en"]:
+    if lang in ["en", "fr_en", "ko_en", "de_en"]:
         import reeborg_en  # NOQA
 
         dir_py(reeborg_en, exclude=exclude)
@@ -242,6 +264,10 @@ def __default_help():
         import reeborg_pl  # NOQA
 
         dir_py(reeborg_pl, exclude=exclude)
+    elif lang in ["de", "en_de"]:
+        import reeborg_de  # NOQA
+
+        dir_py(reeborg_de, exclude=exclude)
     else:
         print("Unrecognized language; please file an issue!")
 
@@ -315,8 +341,10 @@ def __generic_translate_python(
         "reeborg_fr",
         "reeborg_cn",
         "reeborg_pl",
+        "reeborg_de",
         "library",
         "biblio",
+        "bibliothek",
         "库",
         "extra",
     ]:
@@ -352,6 +380,8 @@ def __generic_translate_python(
         globals_.update(__REEBORG_CN)
     elif window.RUR.from_import == "from reeborg_pl import *":
         globals_.update(__REEBORG_PL)
+    elif window.RUR.from_import == "from reeborg_de import *":
+        globals_.update(__REEBORG_DE)
     else:
         raise Exception("unknown import %s" % window.RUR.from_import)
 

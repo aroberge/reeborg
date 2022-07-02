@@ -77,7 +77,6 @@ def loesche_ausgabe():  #py:clear_print
 def gib_farbe():  #py:color_here
     '''Returns the value of the color found at Reeborg's location'''
     return RUR._color_here_()
-colour_here = color_here
 
 def default_roboter():  #py:default_robot
     """Returns a recreated version of the default robot."""
@@ -155,6 +154,14 @@ def neues_roboter_bild(images):  #py:new_robot_images
 
             images["south"]  Similar to images["east"]
     """
+    if "Ost" in images:
+        images["east"] = images["Ost"]
+    if "West" in images:
+        images["west"] = images["West"]
+    if "Nord" in images:
+        images["north"] = images["Nord"]
+    if "Süd" in images:
+        images["south"] = images["Süd"]
     RUR._new_robot_images_(images)
 
 
@@ -794,8 +801,8 @@ class ReeborgOK(Exception):  #py:RE
     def __str__(self):  #py:RE.__str__
         return self.reeborg_concludes
 try:
-    window['ReeborgOK_en'] = ReeborgOK
-    window['ReeborgOk_en'] = ReeborgOK # preventing an annoying typo
+    window['ReeborgOK_de'] = ReeborgOK
+    window['ReeborgOk_de'] = ReeborgOK # preventing an annoying typo
 except:
     pass
 ReeborgOk = ReeborgOK  # preventing an annoying typo
@@ -826,7 +833,7 @@ class ReeborgError(Exception):  #py:RE
     def __str__(self):  #py:RE.__str__
         return self.reeborg_shouts
 try:
-    window['ReeborgError_en'] = ReeborgError
+    window['ReeborgError_de'] = ReeborgError
 except:
     pass
 
@@ -839,7 +846,7 @@ class WallCollisionError(ReeborgError):  #py:WCE
     """
     pass
 try:
-    window['WallCollisionError_en'] = WallCollisionError
+    window['WallCollisionError_de'] = WallCollisionError
 except:
     pass
 
@@ -851,7 +858,7 @@ class MissingObjectError(ReeborgError):
     """
     pass
 try:
-    window['MissingObjectError_en'] = MissingObjectError
+    window['MissingObjectError_de'] = MissingObjectError
 except:
     pass
 
