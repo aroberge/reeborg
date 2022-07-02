@@ -152,15 +152,4 @@ RUR.reset_definitions_de = function () {
 
     // make prototype available with known English name in RUR namespace
     RUR.UsedRobot = UsedRobot;
-
-    // English specific and only for compatibility with rur-ple
-    // do not translate the following
-    window.put_beeper = put;
-    window.pick_beeper = take;
-    window.turn_off = done;
-    window.on_beeper = object_here;
-    window.next_to_a_beeper = object_here;
-    window.carries_beepers = carries_object;
-    window.set_delay = think;
-    window.facing_north = is_facing_north;
 };

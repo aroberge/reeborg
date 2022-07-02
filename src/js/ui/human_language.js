@@ -1,6 +1,7 @@
 require("./../rur.js");
 require("./../programming_api/reeborg_en.js");
 require("./../programming_api/reeborg_fr.js");
+require("./../programming_api/reeborg_ko.js");
 require("./../programming_api/reeborg_cn.js");
 require("./../programming_api/reeborg_pl.js");
 require("./../programming_api/reeborg_de.js");
@@ -40,6 +41,13 @@ function update_translations(lang) {
             blockly_init_fr();
             $("#mixed-language-info").hide();
             break;
+        case "ko":
+            RUR.translation = RUR.ui_ko;
+            merge_dicts(RUR.translation, RUR.ko);
+            RUR.translation_to_english = RUR.ko_to_en;
+            blockly_init_ko();
+            $("#mixed-language-info").hide();
+            break;
         case "de":
             RUR.translation = RUR.ui_de;
             merge_dicts(RUR.translation, RUR.de);
@@ -72,6 +80,12 @@ function update_translations(lang) {
             merge_dicts(RUR.translation, RUR.en);
             RUR.translation_to_english = RUR.fr_to_en;
             blockly_init_en();
+            break;
+        case "en-ko":
+            RUR.translation = RUR.ui_en;
+            merge_dicts(RUR.translation, RUR.ko);
+            RUR.translation_to_english = RUR.en_to_en;
+            blockly_init_fr();
             break;
         case "ko-en":
             RUR.translation = RUR.ui_ko;
@@ -134,6 +148,12 @@ function update_commands (lang) {
             RUR.reset_definitions = RUR.reset_definitions_fr;
             RUR.library_name = "biblio";
             RUR.from_import = "from reeborg_fr import *";
+            break;
+        case "ko":
+        case "en-ko":
+            RUR.reset_definitions = RUR.reset_definitions_ko;
+            RUR.library_name = "library_ko";
+            RUR.from_import = "from reeborg_ko import *";
             break;
         case "pl":  // TODO: complete this
         case "en-pl":

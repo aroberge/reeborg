@@ -3,7 +3,7 @@
 
 import sys
 from browser import document, window
-from common import _import_en, _import_de, _import_fr, _import_cn, print_dir
+from common import _import_en, _import_de, _import_fr, _import_cn, print_dir, _import_ko
 RUR = window['RUR']
 
 

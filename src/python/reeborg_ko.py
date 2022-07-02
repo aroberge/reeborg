@@ -421,7 +421,7 @@ def 오른쪽에_벽이_있음(): #py:wall_on_right
     return RUR._wall_on_right_()
 
 
-def 사용자지정_메뉴_만들기(내용):    #py:MakeCustomMenu
+def MakeCustomMenu(내용):    #py:MakeCustomMenu
     """
     Designed for use by educators.  Makes it possible to create custom world
     menus.  See the documentation for more details.
@@ -825,7 +825,7 @@ class ReeborgError(Exception):  #py:RE
     def __str__(self):  #py:RE.__str__
         return self.reeborg_shouts
 try:
-    window['ReeborgError_cn'] = ReeborgError
+    window['ReeborgError_ko'] = ReeborgError
 except:
     pass
 
@@ -838,7 +838,7 @@ class WallCollisionError(ReeborgError):  #py:WCE
     """
     pass
 try:
-    window['WallCollisionError_cn'] = WallCollisionError
+    window['WallCollisionError_ko'] = WallCollisionError
 except:
     pass
 
@@ -850,7 +850,7 @@ class MissingObjectError(ReeborgError):
     """
     pass
 try:
-    window['MissingObjectError_cn'] = MissingObjectError
+    window['MissingObjectError_ko'] = MissingObjectError
 except:
     pass
 

@@ -26,7 +26,7 @@ require("./../world_api/robot.js");
         }
 **/
 
-RUR.reset_definitions_kr = function () {
+RUR.reset_definitions_ko = function () {
 
     window.목적지에_도착함 = RUR._at_goal_;
     window.벽_만들기 = RUR._build_wall_;
@@ -76,7 +76,7 @@ RUR.reset_definitions_kr = function () {
     window.오른쪽에_벽이_있음 = RUR._wall_on_right_;
     window.write = RUR._write_;
     window.writeln = RUR._write_ln;
-    window.사용자지정_메뉴_만들기 = RUR._MakeCustomMenu_;
+    window.MakeCustomMenu = RUR._MakeCustomMenu_;
     window.월드 = RUR._World_;
 
     // The following are for OOP programming in Javascript

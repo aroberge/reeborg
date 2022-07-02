@@ -7,6 +7,7 @@ var uien = require("./../lang/ui_en.js"),
     uide = require("./../lang/ui_de.js"),
     en = require("./../lang/en.js"),
     fr = require("./../lang/fr.js"),
+    ko = require("./../lang/ko.js"),
     cn = require("./../lang/cn.js"),
     pl = require("./../lang/pl.js"),
     de = require("./../lang/de.js");
@@ -26,11 +27,12 @@ RUR.de_to_en = uide.de_to_en;
 
 RUR.en = en.en;
 RUR.fr = fr.fr;
+RUR.ko = ko.ko;
 RUR.cn = cn.cn;
 RUR.pl = pl.pl;
 RUR.de = de.de;
 
-RUR.untranslated = {"en":true, "fr":true, "cn":true, "pl": true, "de": true};
+RUR.untranslated = {"en":true, "fr":true, "cn":true, "pl": true, "de": true, "ko": true};
 
 function merge_dicts (base, other) {
     var key;
