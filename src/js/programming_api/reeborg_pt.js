@@ -53,7 +53,7 @@ RUR.reset_definitions_pt = function () {
     window.parede_a_direita = RUR._wall_on_right_;
     window.salvar = RUR._write_;
     window.salvar_sobre = RUR._write_ln;
-    window.menu_customizado = RUR._MakeCustomMenu_;
+    window.criarMenu = RUR._MakeCustomMenu_;
     window.Mundo = RUR._World_;
 
 

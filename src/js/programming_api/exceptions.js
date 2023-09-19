@@ -11,10 +11,12 @@ RUR.ReeborgError = function (message) {
             (RUR.state.evaluating_onload && RUR.state.onload_programming_language == "python")
         ){
         try { // see comment above
-            if (["en", "fr-en", "ko-en", "cn-en"].indexOf(RUR.state.human_language) != -1) {
+            if (["en", "fr-en", "ko-en", "cn-en", "pt-en"].indexOf(RUR.state.human_language) != -1) {
                 return __BRYTHON__.$call(window.ReeborgError_en)(message);
             } else if (["cn", "en-cn"].indexOf(RUR.state.human_language) != -1) {
                 return __BRYTHON__.$call(window.ReeborgError_cn)(message);
+            } else if (["pt"].indexOf(RUR.state.human_language) != -1) {
+                return __BRYTHON__.$call(window.ReeborgError_pt)(message);
             } else {
                 return __BRYTHON__.$call(window.ReeborgError_fr)(message);                
             }
@@ -29,10 +31,12 @@ RUR.ReeborgError = function (message) {
 RUR.ReeborgOK = function (message) {
     if (RUR.state.programming_language == "python"){
         try { // see comment above
-            if (["en", "fr-en", "ko-en", "cn-en"].indexOf(RUR.state.human_language) != -1) {
+            if (["en", "fr-en", "ko-en", "cn-en", "pt-en"].indexOf(RUR.state.human_language) != -1) {
                 return __BRYTHON__.$call(window.ReeborgOK_en)(message);
             } else if (["cn", "en-cn"].indexOf(RUR.state.human_language) != -1) {
                 return __BRYTHON__.$call(window.ReeborgOK_cn)(message);
+            } else if (["pt"].indexOf(RUR.state.human_language) != -1) {
+                return __BRYTHON__.$call(window.ReeborgOK_pt)(message);
             } else {
                 return __BRYTHON__.$call(window.ReeborgOK_fr)(message);
             }
@@ -47,10 +51,12 @@ RUR.ReeborgOk = RUR.ReeborgOK; // preventing an annoying typo...
 
 RUR.WallCollisionError = function (message) {
     if (RUR.state.programming_language == "python"){
-        if (["en", "fr-en", "ko-en", "cn-en"].indexOf(RUR.state.human_language) != -1) {
+        if (["en", "fr-en", "ko-en", "cn-en", "pt-en"].indexOf(RUR.state.human_language) != -1) {
             return __BRYTHON__.$call(window.WallCollisionError_en)(message);
         } else if (["cn", "en-cn"].indexOf(RUR.state.human_language) != -1) {
                 return __BRYTHON__.$call(window.WallCollisionError_cn)(message);
+        } else if (["pt"].indexOf(RUR.state.human_language) != -1) {
+                return __BRYTHON__.$call(window.WallCollisionError_pt)(message);
         } else {
             return __BRYTHON__.$call(window.WallCollisionError_fr)(message);            
         }
@@ -63,10 +69,12 @@ RUR.WallCollisionError = function (message) {
 
 RUR.MissingObjectError = function (message) {
     if (RUR.state.programming_language == "python"){
-        if (["en", "fr-en", "ko-en", "cn-en"].indexOf(RUR.state.human_language) != -1) {
+        if (["en", "fr-en", "ko-en", "cn-en", "pt-en"].indexOf(RUR.state.human_language) != -1) {
             return __BRYTHON__.$call(window.MissingObjectError_en)(message);
         } else if (["cn", "en-cn"].indexOf(RUR.state.human_language) != -1) {
                 return __BRYTHON__.$call(window.MissingObjectError_cn)(message);
+        } else if (["pt"].indexOf(RUR.state.human_language) != -1) {
+                return __BRYTHON__.$call(window.MissingObjectError_pt)(message);
         } else {
             return __BRYTHON__.$call(window.MissingObjectError_fr)(message);
         }

@@ -423,6 +423,7 @@ def criarMenu(content):  #py:MakeCustomMenu
     menus.  See the documentation for more details.
     """
     RUR._MakeCustomMenu_(content)
+MakeCustomMenu = criarMenu  # so that we can load menu files in any language
 
 
 def Mundo(url, shortname=None):  #py:World
@@ -793,8 +794,8 @@ class ReeborgOK(Exception):  #py:RE
     def __str__(self):  #py:RE.__str__
         return self.reeborg_concludes
 try:
-    window['ReeborgOK_en'] = ReeborgOK
-    window['ReeborgOk_en'] = ReeborgOK # preventing an annoying typo
+    window['ReeborgOK_pt'] = ReeborgOK
+    window['ReeborgOk_pt'] = ReeborgOK # preventing an annoying typo
 except:
     pass
 ReeborgOk = ReeborgOK  # preventing an annoying typo
@@ -825,7 +826,7 @@ class ReeborgError(Exception):  #py:RE
     def __str__(self):  #py:RE.__str__
         return self.reeborg_shouts
 try:
-    window['ReeborgError_en'] = ReeborgError
+    window['ReeborgError_pt'] = ReeborgError
 except:
     pass
 
@@ -838,7 +839,7 @@ class WallCollisionError(ReeborgError):  #py:WCE
     """
     pass
 try:
-    window['WallCollisionError_en'] = WallCollisionError
+    window['WallCollisionError_pt'] = WallCollisionError
 except:
     pass
 
@@ -850,7 +851,7 @@ class MissingObjectError(ReeborgError):
     """
     pass
 try:
-    window['MissingObjectError_en'] = MissingObjectError
+    window['MissingObjectError_pt'] = MissingObjectError
 except:
     pass
 
