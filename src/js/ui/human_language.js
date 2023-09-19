@@ -5,6 +5,7 @@ require("./../programming_api/reeborg_ko.js");
 require("./../programming_api/reeborg_cn.js");
 require("./../programming_api/reeborg_pl.js");
 require("./../programming_api/reeborg_de.js");
+require("./../programming_api/reeborg_pt.js");
 
 require("./../programming_api/blockly.js");
 require("./../ui/custom_world_select.js");
@@ -62,6 +63,13 @@ function update_translations(lang) {
             blockly_init_pl();
             $("#mixed-language-info").hide();
             break;
+        case "pt":
+            RUR.translation = RUR.ui_pt;
+            merge_dicts(RUR.translation, RUR.pt);
+            RUR.translation_to_english = RUR.pt_to_en;
+            blockly_init_en();  // Need to add portuguese
+            $("#mixed-language-info").hide();
+            break;
         case "cn":
             RUR.translation = RUR.ui_cn;
             merge_dicts(RUR.translation, RUR.cn);
@@ -98,6 +106,12 @@ function update_translations(lang) {
             merge_dicts(RUR.translation, RUR.en);
             RUR.translation_to_english = RUR.pl_to_en;
             blockly_init_pl(); // to be updated
+            break;
+        case "pt-en":
+            RUR.translation = RUR.ui_pt;
+            merge_dicts(RUR.translation, RUR.en);
+            RUR.translation_to_english = RUR.pt_to_en;
+            blockly_init_en(); // Need to add portuguese
             break;
         case "en-cn":
             RUR.translation = RUR.ui_en;
@@ -161,6 +175,11 @@ function update_commands (lang) {
             RUR.library_name = "biblioteka";
             RUR.from_import = "from reeborg_pl import *";
             break;
+        case "pt": 
+            RUR.reset_definitions = RUR.reset_definitions_pt;
+            RUR.library_name = "biblioteca";
+            RUR.from_import = "from reeborg_pt import *";
+            break;
         case "cn":
         case "en-cn":
             RUR.reset_definitions = RUR.reset_definitions_cn;
@@ -169,6 +188,7 @@ function update_commands (lang) {
             break;
         case "en":
         case "fr-en":
+        case "pt-en":
         case "de-en":
         case "ko-en":
             RUR.reset_definitions = RUR.reset_definitions_en;

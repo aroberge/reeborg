@@ -4,7 +4,7 @@ require("./../world_api/robot.js");
 
 /* See reeborg_en.js for an explanation about the purpose of this file. */
 
-RUR.reset_definitions_de = function () {
+RUR.reset_definitions_pt = function () {
 
     window.chegou = RUR._at_goal_;
     window.frente_esta_livre = RUR._build_wall_;

@@ -77,7 +77,6 @@ def limpa_tela():  #py:clear_print
 def cor_aqui():  #py:color_here
     '''Returns the value of the color found at Reeborg's location'''
     return RUR._color_here_()
-colour_here = color_here
 
 def default_robo():  #py:default_robot
     """Returns a recreated version of the default robot."""

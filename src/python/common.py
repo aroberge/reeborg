@@ -22,7 +22,7 @@ exec("from reeborg_pl import *", __REEBORG_PL)
 __REEBORG_KO = {}
 exec("from reeborg_ko import *", __REEBORG_KO)
 __REEBORG_PT = {}
-exec("from reeborg_en import *", __REEBORG_PT)
+exec("from reeborg_pt import *", __REEBORG_PT)
 
 
 def dir_py(obj, exclude=None):
@@ -307,6 +307,11 @@ def __default_help():
         import reeborg_pl  # NOQA
 
         dir_py(reeborg_pl, exclude=exclude)
+
+    elif lang in ["pt", "en_pt"]:
+        import reeborg_pl  # NOQA
+
+        dir_py(reeborg_pt, exclude=exclude)
     elif lang in ["de", "en_de"]:
         import reeborg_de  # NOQA
 
@@ -389,11 +394,13 @@ def __generic_translate_python(
         "reeborg_ko",
         "reeborg_cn",
         "reeborg_pl",
+        "reeborg_pt",
         "reeborg_de",
         "library",
         "library_ko",
         "biblio",
         "bibliothek",
+        "biblioteca",
         "库",
         "extra",
     ]:
@@ -431,6 +438,8 @@ def __generic_translate_python(
         globals_.update(__REEBORG_CN)
     elif window.RUR.from_import == "from reeborg_pl import *":
         globals_.update(__REEBORG_PL)
+    elif window.RUR.from_import == "from reeborg_pt import *":
+        globals_.update(__REEBORG_PT)
     elif window.RUR.from_import == "from reeborg_de import *":
         globals_.update(__REEBORG_DE)
     else:
