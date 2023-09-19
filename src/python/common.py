@@ -21,6 +21,8 @@ __REEBORG_PL = {}
 exec("from reeborg_pl import *", __REEBORG_PL)
 __REEBORG_KO = {}
 exec("from reeborg_ko import *", __REEBORG_KO)
+__REEBORG_PT = {}
+exec("from reeborg_en import *", __REEBORG_PT)
 
 
 def dir_py(obj, exclude=None):
@@ -110,7 +112,6 @@ def _import_ko(namespace):
     window["MissingObjectError"] = MissingObjectError_saved
 
 
-
 def _import_pl(namespace):
     """Does the clean equivalent of
            from reeborg_pl import *
@@ -129,7 +130,6 @@ def _import_pl(namespace):
     window["ReeborgError"] = ReeborgError_saved
     window["WallCollisionError"] = WallCollisionError_saved
     window["MissingObjectError"] = MissingObjectError_saved
-
 
 
 def _import_cn(namespace):
@@ -164,6 +164,26 @@ def _import_de(namespace):
     MissingObjectError_saved = window["MissingObjectError_de"]
 
     namespace.update(__REEBORG_DE)
+
+    window["ReeborgOK"] = ReeborgOK_saved
+    window["ReeborgOk"] = ReeborgOk_saved
+    window["ReeborgError"] = ReeborgError_saved
+    window["WallCollisionError"] = WallCollisionError_saved
+    window["MissingObjectError"] = MissingObjectError_saved
+
+
+def _import_pt(namespace):
+    """Does the clean equivalent of
+           from reeborg_pt import *
+       into a namespace.
+    """
+    ReeborgOK_saved = window["ReeborgOK_pt"]
+    ReeborgOk_saved = window["ReeborgOk_pt"]
+    ReeborgError_saved = window["ReeborgError_pt"]
+    WallCollisionError_saved = window["WallCollisionError_pt"]
+    MissingObjectError_saved = window["MissingObjectError_pt"]
+
+    namespace.update(__REEBORG_PT)
 
     window["ReeborgOK"] = ReeborgOK_saved
     window["ReeborgOk"] = ReeborgOk_saved
