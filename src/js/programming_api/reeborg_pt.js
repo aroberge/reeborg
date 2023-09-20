@@ -54,6 +54,7 @@ RUR.reset_definitions_pt = function () {
     window.salvar = RUR._write_;
     window.salvar_sobre = RUR._write_ln;
     window.criarMenu = RUR._MakeCustomMenu_;
+    window.MakeCustomMenu = RUR._MakeCustomMenu_;
     window.Mundo = RUR._World_;
 
 

@@ -1,5 +1,5 @@
 // the following is used in a few places below
-var mac_user_save_files_en = ' <b>Mac Nutzer:</b> Siehe <a href="https://github.com/aroberge/reeborg/blob/master/dev_tools/known_problems.md" target="_blank" rel="noopener">bekannte Probleme</a>.';
+var mac_user_save_files_en = ' <b>Mac:</b> Por favor consulte <a href="https://github.com/aroberge/reeborg/blob/master/dev_tools/known_problems.md" target="_blank" rel="noopener">problema conhecido</a>.';
 
 exports.ui_pt = ui_pt = {};
 exports.en_to_pt = en_to_pt = {};
@@ -12,7 +12,7 @@ ui_pt["SITE NAME"] = "Mundo de Reeborg";
 ui_pt["WORLD INFO"] = "Info sobre Mundo";
 ui_pt["EDITOR VISIBLE"] = "Mostrar Editor";
 
-ui_pt["apple"] = en_to_pt["apple"] = "maça";
+ui_pt["apple"] = en_to_pt["apple"] = "maçã";
 ui_pt["banana"] = en_to_pt["banana"] = "banana";
 ui_pt["beeper"] = en_to_pt["beeper"] = "bipe";
 ui_pt["box"] = en_to_pt["box"] = "caixa";
@@ -41,7 +41,6 @@ ui_pt["ice"] = en_to_pt["ice"] = "gelo";
 ui_pt["fire"] = en_to_pt["fire"] = "fogo";
 
 ui_pt["infinite"] = "Infinito";
-
 ui_pt["fence_right"] = en_to_pt["fence_right"] = "cerca_a_direita";
 ui_pt["fence_left"] = en_to_pt["fence_left"] = "cerca_a_esquerda";
 ui_pt["fence_vertical"] = en_to_pt["fence_vertical"] = "cerca_vertical";
@@ -150,7 +149,7 @@ ui_pt["Grass: usually safe."] = "Grama: normalmente seguro.";
 ui_pt["Gravel: usually safe."] = "Cascalho: normalmente seguro.";
 ui_pt["I'm in water!"] = "Estou na água!";
 ui_pt["Water: Reeborg <b>can</b> detect this but will get damaged if it moves to this location."] = "Água: Reeborg <b>pode</b> detectar a água mas irá se danificar se você mover para essa direção.";
-ui_pt["green home tile: Reeborg <b>can</b> detect this tile using at_goal()."] = "Bloco verde: Reeborg <b>pode</b> detectar este bloco usando a função at_goal().";
+ui_pt["green home tile: Reeborg <b>can</b> detect this tile using at_goal()."] = "Bloco verde: Reeborg <b>pode</b> detectar este bloco usando a função chegou().";
 ui_pt["Crash!"] = "Crash!";
 ui_pt["brick wall: Reeborg <b>can</b> detect this but will hurt himself if he attemps to move through it."] = "Parede de tijolos: Reeborg <b>pode</b> detectar mas irá se danificar se tentar se mover através da parede.";
 ui_pt["I hit a fence!"] = "Atingi uma cerca!";
@@ -162,7 +161,7 @@ ui_pt["Tulip bulb: might grow into a nice tulip with some water from a bucket."]
 
 
 ui_pt["Something is blocking the way!"] = "Algo está bloqueando o caminho!";
-ui_pt["Reeborg <b>can</b> detect this tile using at_goal()."] = "Reeborg <b>pode</b> detectar esse bloco usando at_goal().";
+ui_pt["Reeborg <b>can</b> detect this tile using at_goal()."] = "Reeborg <b>pode</b> detectar esse bloco usando chegou().";
 ui_pt["green home tile:"] = "Bloco verde:";
 ui_pt["home:"] = "Home:";
 ui_pt["racing flag:"] = "Bandeira:";
@@ -208,39 +207,39 @@ ui_pt["SAVE WORLD EXPLAIN"] = "Explica o salvamento de Mundo." + mac_user_save_f
 ui_pt["PROGRESS SECTION TITLE"] = "Título da Seção de Progresso:";
 ui_pt["PROGRESS EXPLAIN"] = "As tarefas são resolvidas com " + RUR.CHECKMARK +
     "e as informações são salvas no seu navegador. Se você usar outro navegador " +
-    "as tarefas que você resolveu em outro navegador não serão mostradas" +
-    "Se você clicar no botão salvar abaixo, um arquivo chamado progress.json com as tarefas resolvidas será salvo, " +
-    "gravado no navegador atual. Você pode importar este arquivo para outro navegador para que seu progresso possa ser atualizado.";
+    "as tarefas que você resolveu em outro navegador não serão mostradas. " +
+    "Se você clicar no botão salvar abaixo, um arquivo chamado progress.json com as tarefas resolvidas será salvo " +
+    "no navegador atual. Você pode importar este arquivo para outro navegador para que seu progresso possa ser atualizado.";
 ui_pt["SAVE PROGRESS"] = "Salvar Progresso";
 ui_pt["IMPORT PROGRESS"] = "Importar Progresso";
-ui_pt["RETRIEVE SOLUTION"] = "Revelar Solução!";
-ui_pt["RETRIEVE SOLUTION EXPLAIN"] = "Explicação de revelar solução.";
+ui_pt["RETRIEVE SOLUTION"] = "Revelar Solução";
+ui_pt["RETRIEVE SOLUTION EXPLAIN"] = "Mostra solução para as tarefas deste mundo";
 
 ui_pt["ADD CONTENT TO WORLD"] = "Adicionar conteúdo ao Mundo.";
 ui_pt["ADD BLOCKLY TEXT"] = "Adicionar código Blockly";
 ui_pt["ADD EDITOR TEXT"] = "Adicionar código no Editor";
-ui_pt["ADD LIBRARY TEXT"] = "Adicionar Biblioteca";
+ui_pt["ADD LIBRARY TEXT"] = "Adicionar biblioteca";
 ui_pt["ADD PRE TEXT"] = "Adicionar texto pré";
 ui_pt["ADD POST TEXT"] = "Adicionar texto pós";
-ui_pt["ADD DESCRIPTION TEXT"] = "Adicionar descrição apenas";
-ui_pt["ADD ONLOAD TEXT"] = "Adicionar text de carreagmento";
+ui_pt["ADD DESCRIPTION TEXT"] = "Adicionar descrição";
+ui_pt["ADD ONLOAD TEXT"] = "Adicionar texto de carregamento";
 
-ui_pt["KEYBOARD BUTTON"] = "Botão do Teclado";
+ui_pt["KEYBOARD BUTTON"] = "Teclado Reeborg";
 ui_pt["ADDITIONAL OPTIONS"] = "Opções adicionais";
 
-ui_pt["BASIC COMMANDS"] = "COMANDOS BÁSICOS";
-ui_pt["DEFINING"] = "DEFINIÇÕES";
-ui_pt["LOOPS"] = "REPETIÇÕES";
-ui_pt["DECISIONS"] = "DECISÕES";
-ui_pt["CONDITIONS"] = "CONDIÇÕES";
-ui_pt["USING VARIABLES"] = "USANDO VARIÁVEIS";
-ui_pt["COMMANDS"] = "COMANDOS";
-ui_pt["OTHER"] = "OUTROS";
-ui_pt["OBJECTS"] = "OBJETOS";
+ui_pt["BASIC COMMANDS"] = "Comandos Básicos";
+ui_pt["DEFINING"] = "Definições";
+ui_pt["LOOPS"] = "Repetições";
+ui_pt["DECISIONS"] = "Decisões";
+ui_pt["CONDITIONS"] = "Condicionais";
+ui_pt["USING VARIABLES"] = "Usando variáveis";
+ui_pt["COMMANDS"] = "Comandos";
+ui_pt["OTHER"] = "Outros";
+ui_pt["OBJECTS"] = "Objetos";
 
 ui_pt["Python Code"] = "Código Python";
 ui_pt["Javascript Code"] = "Código Javascript";
-ui_pt["LIBRARY"] = "Biblioteca";
+ui_pt["LIBRARY"] = "biblioteca";
 ui_pt["EXTRA"] = "Extra";
 ui_pt["PRE"] = "Pré";
 ui_pt["POST"] = "Pós";
@@ -255,9 +254,9 @@ ui_pt["PYTHON ONLY"] = "Python somente";
 ui_pt["COLLABORATION"] = "Colaboração";
 ui_pt["TOGETHERJS EXPLAIN"] = "Ferramento para colaborar com uma ou mais pessoas usando Mozilla TogetherJS. Não funciona com Blockly.";
 ui_pt["WORLD CREATION TITLE"] = "Mundo: Criação, Edição, ...";
-ui_pt["EDIT WORLD"] = "EDITAR MUNDO";
-ui_pt["EDIT WORLD EXPLAIN"] = "EDITAR DESCRIÇÂO DO MUNDO.";
-ui_pt["PROGRAM IN EDITOR"] = "PROGRAMA EM EDITOR";
+ui_pt["EDIT WORLD"] = "Editar Mundo";
+ui_pt["EDIT WORLD EXPLAIN"] = "Edita configuração do Mundo.";
+ui_pt["PROGRAM IN EDITOR"] = "Programa em editor";
 ui_pt["PROGRAM IN BLOCKLY WORKSPACE"] = "Programa em Blockly-Workspace";
 ui_pt["CONTACT"] = "(Somente Inglês/Francês) Email:";
 ui_pt["ISSUES"] = "Relatórios, Sugestões, etc (Inglês/Francês)";
@@ -275,7 +274,7 @@ ui_pt["m-south"] = "Sul";
 ui_pt["m-random"] = "Aleatório";
 ui_pt["m-dimensions"] = "Dimensões";
 ui_pt["m-add"] = "Adicionar";
-ui_pt["m-add-robot"] = "Adicioanr Robô";
+ui_pt["m-add-robot"] = "Adicionar Robô";
 ui_pt["m-robot"] = "Robô";
 ui_pt["m-position"] = "Posição";
 ui_pt["m-turn"] = "Virar";
@@ -307,7 +306,7 @@ ui_pt["kbd-python-btn"] = "Python";
 ui_pt["kbd-py-console-btn"] = "Python";
 ui_pt["kbd-javascript-btn"] = "JavaScript";
 ui_pt["kbd-objects-btn"] = "Objetos";
-ui_pt["kbd-special-btn"] = "Special";
+ui_pt["kbd-special-btn"] = "Especial";
 
 ui_pt["UNDO"] = "Desfazer";
 ui_pt["REDO"] = "Refazer";
@@ -344,9 +343,9 @@ ui_pt["Unlimited:"] = "Ilimitado:";
 ui_pt["Give object to robot"] = "Dar objeto ao Robô:";
 ui_pt["GIVE OBJECT EXPLAIN"] = "Escolha um número de objetos para o Robô carregar. Clique no checkbox caso você deseje que o número seja ilimitado.";
 
-ui_pt["UPDATE BLOCKLY CONTENT"] = "This world has some default content for the blocks workspace. To replace the current blocks content, click on the button";
-ui_pt["UPDATE BLOCKLY BUTTON"] = "Ersetze bisherige Blöcke";
-ui_pt["Contents from World"] = "Inhalte von World";
+ui_pt["UPDATE BLOCKLY CONTENT"] = "Este mundo possui contéudo padrão para a área de trabalho de blocos. Para substituir os blocos, clique no botão.";
+ui_pt["UPDATE BLOCKLY BUTTON"] = "Atualizar Blockly";
+ui_pt["Contents from World"] = "Conteúdo do Mundo";
 
 ui_pt["WARNING: Do not change this comment."] = "WARNING: Do not change this comment.";
 ui_pt["Library Code is below."] = "Código da biblioteca abaixo.";
