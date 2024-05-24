@@ -167,6 +167,7 @@ ui_ko["Enter url of image to use as background."] = "배경화면으로 쓰일 �
 ui_ko["Replace editor content"] = "당신의 이 월드의 제작자에 의해 제공되는 에디터 코드를 대체 하고 싶나요?";
 ui_ko["Replace library content"] = "당신은 이 월드의 제작자에 의해 제공되는 라이브러리 코드를 대체 하고 싶나요?";
 ui_ko["colour"] = "색";
+ui_en["There is already a bridge here."] = "There is already a bridge here.";
 
 ui_ko["Name already exist; confirm that you want to replace its content."] = "이름이 이미 존재합니다; 당신이 내용을 교체하고 싶으면 확인합니다.";
 ui_ko["No such world!"] = "월드가 존재하지 않습니다!";

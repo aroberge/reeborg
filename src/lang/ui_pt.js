@@ -127,6 +127,7 @@ ui_pt["Enter url of image to use as background."] = "Entre com URL de imagem a s
 ui_pt["Replace editor content"] = "Alterar conteúdo do editor?";
 ui_pt["Replace library content"] = "Alterar conteúdo de biblioteca?";
 ui_pt["colour"] = "Cor";
+ui_en["There is already a bridge here."] = "There is already a bridge here.";
 
 ui_pt["Name already exist; confirm that you want to replace its content."] = "Nome já existente. Confirme a substituição do conteúdo deste nome.";
 ui_pt["No such world!"] = "Não existe este mundo!";

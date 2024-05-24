@@ -160,6 +160,7 @@ ui_fr["Enter url of image to use as background."] = "Fournir l'adresse (URL) de 
 ui_fr["Replace editor content"] = "Voulez-vous remplacer le contenu du code de votre éditeur par celui défini par le créateur du monde?";
 ui_fr["Replace library content"] = "Voulez-vous remplacer le contenu du code de votre biliothèque par celui défini par le créateur du monde?";
 ui_fr["colour"] = "couleur";
+ui_en["There is already a bridge here."] = "Il y a déjà un pont ici.";
 
 ui_fr["Name already exist; confirm that you want to replace its content."] = "Ce nom existe déjà; confirmez que vous voulez remplacer son contenu.";
 ui_fr["No such world!"] = "Ce monde n'existe pas !";

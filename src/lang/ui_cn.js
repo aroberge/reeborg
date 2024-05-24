@@ -159,6 +159,7 @@ ui_cn["Enter url of image to use as background."] = "请输入背景图片的链
 ui_cn["Replace editor content"] = "你想把编辑器里的代码替换为这个世界的作者所提供的代码吗？";
 ui_cn["Replace library content"] = "你想把库里的代码替换为这个世界的作者所提供的代码吗？";
 ui_cn["colour"] = "颜色";
+ui_en["There is already a bridge here."] = "There is already a bridge here.";
 
 ui_cn["Name already exist; confirm that you want to replace its content."] = "该名称已经存在，请确认你想替换其中的内容。";
 ui_cn["No such world!"] = "该世界不存在！";

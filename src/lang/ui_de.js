@@ -128,6 +128,7 @@ ui_de["Enter url of image to use as background."] = "Gebe die URL des Bildes ein
 ui_de["Replace editor content"] = "Möchtest du deinen Editor-Code durch den vom Weltersteller vorgegebenen ersetzen?";
 ui_de["Replace library content"] = "Möchtest du deinen Library-Code durch den vom Weltersteller vorgegebenen ersetzen?";
 ui_de["colour"] = "Farbe";
+ui_en["There is already a bridge here."] = "There is already a bridge here.";
 
 ui_de["Name already exist; confirm that you want to replace its content."] = "Name existiert bereits; bestätige, dass du seinen Inhalt ersetzen möchtest.";
 ui_de["No such world!"] = "Eine solche Welt existiert nicht!";
