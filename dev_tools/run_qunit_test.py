@@ -35,7 +35,8 @@ print("""
 server_address = ('', 8800)
 
 url = "http://localhost:8800/tests/integration_tests/reeborg_qunit_offline.html?lang=en&mode=python"
-chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s --incognito'
+# Note: this is where chrome is located on my computer; your results may vary.
+chrome_path = '"C:/Program Files/Google/Chrome/Application/chrome.exe" %s --incognito'
 try:
     webbrowser.get(chrome_path).open_new(url)
 except:
