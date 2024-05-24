@@ -3,7 +3,8 @@ from preprocess import transform
 from common import _import_ko
 
 _import_ko(globals())
-RUR = window.RUR   # line added
+
+RUR = window.RUR
 src = transform(window.library.getValue())
 try:
     exec(src)
