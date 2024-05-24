@@ -4,6 +4,7 @@ from common import _import_fr
 
 _import_fr(globals())
 
+RUR = window.RUR
 src = transform(window.library.getValue())
 try:
     exec(src)
