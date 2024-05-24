@@ -175,6 +175,12 @@ So, qunit will run automated tests with the fully complete reeborg.html file,
 loading worlds, executing programs, testing results, etc.  The entire test suite
 currently (June 2017) takes approximately 40 seconds to run.
 
+**Important** The server code is run in Chrome in incognito mode. To do this,
+it is necessary to hard-code the Chrome path in the python script.
+The current path is that used on my Windows 11 computer. 
+If Chrome does not launch for you, you likely need to modify the python script
+to select your desired browser (preferably in private/incognito mode).
+
 **Important** When running the entire qunit tests, a few tests
 (including `"Storm 3; also tests library"`) fail.
 However, if run in isolation, the tests pass. (You should make sure that this
