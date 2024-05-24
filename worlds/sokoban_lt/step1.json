@@ -1,0 +1,288 @@
+{
+  "robots": [
+    {
+      "x": 3,
+      "y": 7,
+      "_prev_x": 3,
+      "_prev_y": 7,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": false,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 25,
+      "model": "classic",
+      "initial_position": [
+        3,
+        7
+      ],
+      "possible_initial_positions": [
+        [
+          3,
+          7
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "small_tiles": false,
+  "rows": 9,
+  "cols": 8,
+  "tiles": {
+    "1,8": [
+      "bricks"
+    ],
+    "2,8": [
+      "bricks"
+    ],
+    "3,8": [
+      "bricks"
+    ],
+    "3,9": [
+      "bricks"
+    ],
+    "1,5": [
+      "bricks"
+    ],
+    "1,7": [
+      "bricks"
+    ],
+    "1,6": [
+      "bricks"
+    ],
+    "1,4": [
+      "bricks"
+    ],
+    "1,3": [
+      "bricks"
+    ],
+    "1,2": [
+      "bricks"
+    ],
+    "1,1": [
+      "bricks"
+    ],
+    "3,6": [
+      "bricks"
+    ],
+    "3,5": [
+      "bricks"
+    ],
+    "3,4": [
+      "bricks"
+    ],
+    "4,5": [
+      "bricks"
+    ],
+    "2,6": [
+      "bricks"
+    ],
+    "2,1": [
+      "bricks"
+    ],
+    "3,1": [
+      "bricks"
+    ],
+    "4,1": [
+      "bricks"
+    ],
+    "5,1": [
+      "bricks"
+    ],
+    "6,1": [
+      "bricks"
+    ],
+    "8,1": [
+      "bricks"
+    ],
+    "7,1": [
+      "bricks"
+    ],
+    "8,2": [
+      "bricks"
+    ],
+    "8,3": [
+      "bricks"
+    ],
+    "8,4": [
+      "bricks"
+    ],
+    "7,4": [
+      "bricks"
+    ],
+    "7,5": [
+      "bricks"
+    ],
+    "7,6": [
+      "bricks"
+    ],
+    "7,7": [
+      "bricks"
+    ],
+    "7,8": [
+      "bricks"
+    ],
+    "7,9": [
+      "bricks"
+    ],
+    "4,9": [
+      "bricks"
+    ],
+    "5,9": [
+      "bricks"
+    ],
+    "6,9": [
+      "bricks"
+    ],
+    "2,7": [
+      "gravel"
+    ],
+    "3,7": [
+      "gravel"
+    ],
+    "4,7": [
+      "gravel"
+    ],
+    "4,8": [
+      "gravel"
+    ],
+    "4,6": [
+      "gravel"
+    ],
+    "5,7": [
+      "gravel"
+    ],
+    "5,8": [
+      "gravel"
+    ],
+    "6,8": [
+      "gravel"
+    ],
+    "6,7": [
+      "gravel"
+    ],
+    "6,6": [
+      "gravel"
+    ],
+    "5,6": [
+      "gravel"
+    ],
+    "5,5": [
+      "gravel"
+    ],
+    "6,5": [
+      "gravel"
+    ],
+    "6,4": [
+      "gravel"
+    ],
+    "5,4": [
+      "gravel"
+    ],
+    "4,4": [
+      "gravel"
+    ],
+    "4,3": [
+      "gravel"
+    ],
+    "5,3": [
+      "gravel"
+    ],
+    "6,3": [
+      "gravel"
+    ],
+    "7,3": [
+      "gravel"
+    ],
+    "7,2": [
+      "gravel"
+    ],
+    "6,2": [
+      "gravel"
+    ],
+    "5,2": [
+      "gravel"
+    ],
+    "4,2": [
+      "gravel"
+    ],
+    "3,2": [
+      "gravel"
+    ],
+    "2,2": [
+      "gravel"
+    ],
+    "2,3": [
+      "gravel"
+    ],
+    "3,3": [
+      "gravel"
+    ],
+    "2,4": [
+      "gravel"
+    ],
+    "2,5": [
+      "gravel"
+    ],
+    "1,9": [
+      "pale_grass"
+    ],
+    "2,9": [
+      "pale_grass"
+    ],
+    "8,9": [
+      "pale_grass"
+    ],
+    "8,8": [
+      "pale_grass"
+    ],
+    "8,7": [
+      "pale_grass"
+    ],
+    "8,6": [
+      "pale_grass"
+    ],
+    "8,5": [
+      "pale_grass"
+    ]
+  },
+   "description": [
+     "<h1>Didesnis sandėliukas</h1>",
+     "<p>Robotukas įsigijo naują sandėliuką. Jis didesnės ir jame voliojasi visa krūva dėžių - nustumkite jas į numatytas vietas.</p>",
+     "<p>Ką reikia žinoti:</p>",
+     "<ul>",
+     "    <li>Jei kode nėra, importuokite tokią biblioteką pirmoje eilutėje: <code>from sokoban import *</code>.</li>",
+     "    <li>Funkcijas <code>kairėn()</code>, <code>dešinėn()</code>, <code>aukštyn()</code> ir <code>žemyn()</code>.</li>",
+     "</ul>",
+    "DIFFICULTY2"
+  ],
+  "onload": [
+    "RUR.add_pushable('box',4,7)",
+    "RUR.add_pushable('box',5,6)",
+    "RUR.add_pushable('box',5,5)",
+    "RUR.add_pushable('box',2,3)",
+    "RUR.add_pushable('box',4,3)",
+    "RUR.add_pushable('box',5,3)",
+    "RUR.add_pushable('box',6,3)",
+    "RUR.add_pushable('box',2,7,{goal: true})",
+    "RUR.add_pushable('box',6,6,{goal: true})",
+    "RUR.add_pushable('box',2,5,{goal: true})",
+    "RUR.add_pushable('box',5,4,{goal: true})",
+    "RUR.add_pushable('box',7,3,{goal: true})",
+    "RUR.add_pushable('box',4,3,{goal: true})",
+    "RUR.add_pushable('box',5,2,{goal: true})"
+  ],
+  "editor": [
+    "from sokoban import *",
+    "dešinėn()",
+    "aukštyn()"
+  ],
+  "library": [
+    ""
+  ],
+  "pre": [
+    "set_trace_style(\"invisible\")"
+  ]
+}

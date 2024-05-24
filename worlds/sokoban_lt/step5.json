@@ -1,0 +1,567 @@
+{
+  "robots": [
+    {
+      "x": 5,
+      "y": 6,
+      "objects": {},
+      "model": "classic",
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_prev_x": 5,
+      "_prev_y": 6,
+      "_prev_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 7,
+      "possible_initial_positions": [
+        [
+          5,
+          6
+        ]
+      ]
+    }
+  ],
+  "walls": {
+    "2,5": [
+      "east"
+    ],
+    "2,7": [
+      "east"
+    ],
+    "4,8": [
+      "north"
+    ],
+    "6,8": [
+      "north"
+    ],
+    "7,7": [
+      "east"
+    ],
+    "7,5": [
+      "east"
+    ],
+    "6,3": [
+      "north"
+    ],
+    "4,3": [
+      "north"
+    ]
+  },
+  "small_tiles": false,
+  "rows": 10,
+  "cols": 13,
+  "tiles": {
+    "1,8": [
+      "water"
+    ],
+    "2,8": [
+      "water"
+    ],
+    "3,8": [
+      "water"
+    ],
+    "3,9": [
+      "water"
+    ],
+    "1,5": [
+      "water"
+    ],
+    "1,7": [
+      "water"
+    ],
+    "1,6": [
+      "water"
+    ],
+    "1,4": [
+      "water"
+    ],
+    "1,3": [
+      "water"
+    ],
+    "1,2": [
+      "water"
+    ],
+    "1,1": [
+      "water"
+    ],
+    "3,6": [
+      "water"
+    ],
+    "3,5": [
+      "gravel"
+    ],
+    "3,4": [
+      "water"
+    ],
+    "4,5": [
+      "gravel"
+    ],
+    "2,6": [
+      "water"
+    ],
+    "2,1": [
+      "water"
+    ],
+    "3,1": [
+      "water"
+    ],
+    "4,1": [
+      "grass"
+    ],
+    "5,1": [
+      "grass"
+    ],
+    "6,1": [
+      "grass"
+    ],
+    "8,1": [
+      "grass"
+    ],
+    "7,1": [
+      "grass"
+    ],
+    "8,2": [
+      "grass"
+    ],
+    "8,3": [
+      "water"
+    ],
+    "8,4": [
+      "water"
+    ],
+    "7,4": [
+      "water"
+    ],
+    "7,5": [
+      "gravel"
+    ],
+    "7,6": [
+      "water"
+    ],
+    "7,7": [
+      "gravel"
+    ],
+    "7,8": [
+      "water"
+    ],
+    "7,9": [
+      "water"
+    ],
+    "4,9": [
+      "water"
+    ],
+    "5,9": [
+      "water"
+    ],
+    "6,9": [
+      "water"
+    ],
+    "2,7": [
+      "water"
+    ],
+    "3,7": [
+      "gravel"
+    ],
+    "4,7": [
+      "gravel"
+    ],
+    "4,8": [
+      "gravel"
+    ],
+    "4,6": [
+      "gravel"
+    ],
+    "5,7": [
+      "gravel"
+    ],
+    "5,8": [
+      "water"
+    ],
+    "6,8": [
+      "gravel"
+    ],
+    "6,7": [
+      "gravel"
+    ],
+    "6,6": [
+      "gravel"
+    ],
+    "5,6": [
+      "gravel"
+    ],
+    "5,5": [
+      "gravel"
+    ],
+    "6,5": [
+      "gravel"
+    ],
+    "6,4": [
+      "gravel"
+    ],
+    "5,4": [
+      "water"
+    ],
+    "4,4": [
+      "gravel"
+    ],
+    "4,3": [
+      "water"
+    ],
+    "5,3": [
+      "water"
+    ],
+    "6,3": [
+      "water"
+    ],
+    "7,3": [
+      "water"
+    ],
+    "7,2": [
+      "grass"
+    ],
+    "6,2": [
+      "grass"
+    ],
+    "5,2": [
+      "grass"
+    ],
+    "4,2": [
+      "grass"
+    ],
+    "3,2": [
+      "water"
+    ],
+    "2,2": [
+      "water"
+    ],
+    "2,3": [
+      "water"
+    ],
+    "3,3": [
+      "water"
+    ],
+    "2,4": [
+      "water"
+    ],
+    "2,5": [
+      "water"
+    ],
+    "1,9": [
+      "water"
+    ],
+    "2,9": [
+      "water"
+    ],
+    "8,9": [
+      "water"
+    ],
+    "8,8": [
+      "water"
+    ],
+    "8,7": [
+      "water"
+    ],
+    "8,6": [
+      "water"
+    ],
+    "8,5": [
+      "gravel"
+    ],
+    "1,10": [
+      "water"
+    ],
+    "2,10": [
+      "water"
+    ],
+    "4,10": [
+      "water"
+    ],
+    "3,10": [
+      "water"
+    ],
+    "5,10": [
+      "water"
+    ],
+    "6,10": [
+      "water"
+    ],
+    "7,10": [
+      "water"
+    ],
+    "8,10": [
+      "water"
+    ],
+    "9,10": [
+      "water"
+    ],
+    "10,10": [
+      "water"
+    ],
+    "10,9": [
+      "water"
+    ],
+    "10,8": [
+      "water"
+    ],
+    "9,9": [
+      "water"
+    ],
+    "9,8": [
+      "water"
+    ],
+    "9,7": [
+      "water"
+    ],
+    "10,7": [
+      "water"
+    ],
+    "10,6": [
+      "water"
+    ],
+    "9,6": [
+      "water"
+    ],
+    "9,1": [
+      "water"
+    ],
+    "10,1": [
+      "water"
+    ],
+    "10,2": [
+      "water"
+    ],
+    "10,3": [
+      "water"
+    ],
+    "10,4": [
+      "water"
+    ],
+    "10,5": [
+      "gravel"
+    ],
+    "9,5": [
+      "gravel"
+    ],
+    "9,2": [
+      "water"
+    ],
+    "9,3": [
+      "water"
+    ],
+    "9,4": [
+      "water"
+    ],
+    "11,10": [
+      "water"
+    ],
+    "12,10": [
+      "water"
+    ],
+    "13,10": [
+      "water"
+    ],
+    "13,9": [
+      "grass"
+    ],
+    "12,9": [
+      "grass"
+    ],
+    "11,9": [
+      "grass"
+    ],
+    "11,8": [
+      "grass"
+    ],
+    "12,8": [
+      "grass"
+    ],
+    "13,8": [
+      "grass"
+    ],
+    "13,7": [
+      "grass"
+    ],
+    "11,7": [
+      "grass"
+    ],
+    "12,7": [
+      "grass"
+    ],
+    "12,6": [
+      "grass"
+    ],
+    "11,6": [
+      "water"
+    ],
+    "11,5": [
+      "grass"
+    ],
+    "12,5": [
+      "grass"
+    ],
+    "13,6": [
+      "water"
+    ],
+    "13,5": [
+      "grass"
+    ],
+    "13,4": [
+      "grass"
+    ],
+    "12,4": [
+      "grass"
+    ],
+    "11,4": [
+      "grass"
+    ],
+    "11,3": [
+      "grass"
+    ],
+    "12,3": [
+      "grass"
+    ],
+    "13,3": [
+      "grass"
+    ],
+    "13,2": [
+      "water"
+    ],
+    "12,2": [
+      "water"
+    ],
+    "11,2": [
+      "water"
+    ],
+    "11,1": [
+      "water"
+    ],
+    "12,1": [
+      "water"
+    ],
+    "13,1": [
+      "water"
+    ]
+  },
+  "description": [
+    "<h1>Liūtis</h1>",
+    "<p>Prasidėjo liūtis ir smarkiai pakilo ežero vandens lygis ir pro atviras ertmes pradėjo semti garažą.</p>",
+    "<p>Jums reikia sutvarkyti ertmes, per kurias veržiasi vanduo naudojant funkciją <code>statyti_sieną()</code>.</p>",
+    "<p>Ką reikia žinoti:</p>",
+    "<ul>",
+    "    <li>Jei kode nėra, importuokite tokią biblioteką pirmoje eilutėje: <code>from sokoban import *</code>.</li>",
+    "    <li>Funkcijas <code>kairėn()</code>, <code>dešinėn()</code>, <code>aukštyn()</code> ir <code>žemyn()</code>.</li>",
+    "    <li>Funkcijas <code>suktis_kairėn()</code>, <code>pirmyn()</code>.</li>",
+    "    <li>Sąlygas <code>dešinėje_siena()</code>, <code>priekyje_laisva()</code>.</li>",
+    "    <li>Jums gali praversti ciklas <code>while</code>, taip pat siūlome susikurti funkciją <code>suktis_dešinėn()</code>.</li>",
+    "</ul>",
+    "DIFFICULTY5"
+  ],
+  "onload": [
+    "RUR.add_pushable('box',4,5)",
+    "RUR.add_pushable('box',4,6)",
+    "RUR.add_pushable('box',4,7)",
+    "RUR.add_pushable('box',5,7)",
+    "RUR.add_pushable('box',6,7)",
+    "RUR.add_pushable('box',6,6)",
+    "RUR.add_pushable('box',6,5)",
+    "RUR.add_pushable('box',5,5)"
+  ],
+  "pre": [
+    "set_trace_style(\"invisible\")"
+  ],
+  "goal": {
+    "objects": {
+      "3,8": {}
+    },
+    "walls": {
+      "2,4": [
+        "east"
+      ],
+      "3,8": [
+        "north"
+      ],
+      "2,8": [
+        "east"
+      ],
+      "2,6": [
+        "east"
+      ],
+      "3,3": [
+        "north"
+      ],
+      "5,3": [
+        "north"
+      ],
+      "7,3": [
+        "north"
+      ],
+      "7,4": [
+        "east"
+      ],
+      "7,6": [
+        "east"
+      ],
+      "7,8": [
+        "east",
+        "north"
+      ],
+      "5,8": [
+        "north"
+      ]
+    }
+  },
+  "objects": {
+    "13,9": {}
+  },
+  "decorative_objects": {
+    "11,8": [
+      "tulip"
+    ],
+    "12,8": [
+      "tulip"
+    ],
+    "12,7": [
+      "tulip"
+    ],
+    "11,7": [
+      "tulip"
+    ],
+    "11,9": [
+      "leaf"
+    ],
+    "12,9": [
+      "leaf"
+    ],
+    "13,9": [
+      "leaf"
+    ],
+    "13,8": [
+      "leaf"
+    ],
+    "13,7": [
+      "leaf"
+    ],
+    "12,4": [
+      "leaf"
+    ],
+    "13,5": [
+      "leaf"
+    ],
+    "13,3": [
+      "leaf"
+    ],
+    "11,3": [
+      "leaf"
+    ],
+    "5,1": [
+      "daisy"
+    ],
+    "6,1": [
+      "daisy"
+    ],
+    "7,1": [
+      "daisy"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "blank_canvas": true,
+  "onload": [
+    "contents = [",
+    "    [\"worlds/sokoban_lt/step0.json\", \"Lygis 0\"],",
+    "    [\"worlds/sokoban_lt/step1.json\", \"Lygis 1\"],",
+    "    [\"worlds/sokoban_lt/step2.json\", \"Lygis 2\"],",
+    "    [\"worlds/sokoban_lt/step3.json\", \"Lygis 3\"],",
+    "    [\"worlds/sokoban_lt/step4.json\", \"Lygis 4\"],",
+    "    [\"worlds/sokoban_lt/step5.json\", \"Lygis 5\"],",
+    "    ]",
+    "MakeCustomMenu(contents)"
+  ]
+}
