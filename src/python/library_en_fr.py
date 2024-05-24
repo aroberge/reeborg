@@ -15,6 +15,7 @@ from preprocess import transform
 
 lang = window.RUR.state.human_language
 
+RUR = window.RUR
 if lang in ["fr", "en_fr"]:
     # This block contains the code found in biblio.py
     from common import _import_fr
