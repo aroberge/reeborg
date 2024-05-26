@@ -54,6 +54,7 @@
       <select id="programming-mode" title="Select programming mode">
         <option value="python">Python</option>
         <option value="javascript">Javascript</option>
+        <option value="coffeescript">CoffeeScript</option>
         <option value="blockly-py">Blockly (Py)</option>
         <option value="blockly-js">Blockly (Js)</option>
         <option value="py-repl">REPL (Py)</option>
@@ -585,6 +586,8 @@
   <!--online--><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython@3.12.1/brython_stdlib.js"></script><!--/online-->
   <!--offline <script type="text/javascript" src="offline/brython/brython_stdlib.js"></script> /offline-->
 
+<script type="text/javascript" src="offline/coffee/coffeescript.js"></script>
+
   <!--offline <script type="text/javascript" src="offline/jquery-2.1.0/jquery.min.js"></script> /offline-->
   <!--online--><script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script><!--/online-->
 
@@ -596,6 +599,8 @@
 
   <!--offline <script type="text/javascript" src="offline/codemirror-5.8.0/mode/javascript/javascript.js"></script> /offline-->
   <!--online--><script defer type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/javascript/javascript.min.js"></script><!--/online-->
+
+  <!--online--><script defer type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/coffeescript/coffeescript.min.js"></script><!--/online-->
 
   <!--offline <script type="text/javascript" src="offline/codemirror-5.8.0/mode/xml/xml.js"></script> /offline-->
   <!--online--><script defer type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/xml/xml.min.js"></script><!--/online-->
@@ -866,6 +871,7 @@
       <button id="kbd-python-btn" class="blue-gradient"></button>
       <button id="kbd-py-console-btn" class="blue-gradient"></button>
       <button id="kbd-javascript-btn" class="blue-gradient"></button>
+      <button id="kbd-coffee-btn" class="blue-gradient"></button>
       <button id="kbd-objects-btn" class="blue-gradient"></button>
       <button id="kbd-special-btn" class="blue-gradient"></button>
       <ul class="kbd-command">
@@ -959,6 +965,23 @@
         <li id="kbd-js-or"></li>
         <li id="kbd-js-continue"></li>
         <li id="kbd-js-break"></li>
+      </ul>
+      <ul class="kbd-coffee">
+        <li id="kbd-coffee-function"></li>
+        <li id="kbd-coffee-if"></li>
+        <li id="kbd-coffee-else"></li>
+        <li id="kbd-coffee-ternary"></li>
+        <li id="kbd-coffee-while"></li>
+        <li id="kbd-coffee-for"></li>
+        <li id="kbd-coffee-true"></li>
+        <li id="kbd-coffee-false"></li>
+        <li id="kbd-coffee-write"></li>
+        <li id="kbd-coffee-undefined"></li>
+        <li id="kbd-coffee-not"></li>
+        <li id="kbd-coffee-and"></li>
+        <li id="kbd-coffee-or"></li>
+        <li id="kbd-coffee-continue"></li>
+        <li id="kbd-coffee-break"></li>
       </ul>
       <ul class="kbd-objects">
         <li id="kbd-token"><img src="src/images/token.png"></li>

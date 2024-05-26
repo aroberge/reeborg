@@ -86,6 +86,8 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
     try {
         if (RUR.state.programming_language === "javascript") {
             RUR.runner.eval_javascript(src);
+        } else if (RUR.state.programming_language === "coffeescript") {
+            RUR.runner.eval_coffeescript(src);
         } else if (RUR.state.programming_language === "python") {
             RUR.runner.eval_python(src);
             // This is the error handling referenced in the above comment.
@@ -161,6 +163,22 @@ RUR.runner.eval_javascript = function (src) {
     } 
 };
 
+RUR.runner.eval_coffeescript = function (src) {
+    // do not "use strict"
+    var pre_code, post_code;
+    pre_code = pre_code_editor.getValue();
+    post_code = post_code_editor.getValue();
+    RUR.reset_definitions();
+    src = pre_code + "\n" + src + "\n" + post_code;
+    try {
+        eval(CoffeeScript.compile(src, {bare: true})); // jshint ignore:line
+    } catch (e) {
+        if (RUR.state.done_executed){
+            eval(post_code); // jshint ignore:line
+        }
+        throw e;// throw original message from Done if nothing else is raised
+    }
+};
 
 RUR.runner.eval_python = function (src) {
     // do not  "use strict"

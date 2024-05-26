@@ -13,6 +13,7 @@ RUR.kbd.set_programming_language = function (lang) {
     $("#kbd-python-btn").hide();
     $("#kbd-py-console-btn").hide();
     $("#kbd-javascript-btn").hide();
+    $("#kbd-coffee-btn").hide();
     switch (lang) {
         case "python":
             if (RUR.state.input_method==="py-repl"){
@@ -23,6 +24,9 @@ RUR.kbd.set_programming_language = function (lang) {
             break;
         case "javascript":
             $("#kbd-javascript-btn").show();
+            break;
+        case "coffeescript":
+            $("#kbd-coffee-btn").show();
             break;
     }
     RUR.kbd.select();
@@ -143,6 +147,7 @@ RUR.kbd.select = function (choice) {
     $(".kbd-condition").hide();
     $(".kbd-objects").hide();
     $(".kbd-python").hide();
+    $(".kbd-coffee").hide();
     $(".kbd-py-console").hide();
     $(".kbd-javascript").hide();
     $(".kbd-special").hide();
@@ -162,6 +167,9 @@ RUR.kbd.select = function (choice) {
     } else if ($("#kbd-javascript-btn").hasClass("active-element")) {
         $("#kbd-javascript-btn").removeClass("active-element");
         $("#kbd-javascript-btn").addClass("blue-gradient");
+    } else if ($("#kbd-coffee-btn").hasClass("active-element")) {
+        $("#kbd-coffee-btn").removeClass("active-element");
+        $("#kbd-coffee-btn").addClass("blue-gradient");
     } else if ($("#kbd-objects-btn").hasClass("active-element")) {
         $("#kbd-objects-btn").removeClass("active-element");
         $("#kbd-objects-btn").addClass("blue-gradient");
@@ -194,6 +202,11 @@ RUR.kbd.select = function (choice) {
             $(".kbd-javascript").show();
             $("#kbd-javascript-btn").removeClass("blue-gradient");
             $("#kbd-javascript-btn").addClass("active-element");
+            break;
+        case "kbd-coffee":
+            $(".kbd-coffee").show();
+            $("#kbd-coffee-btn").removeClass("blue-gradient");
+            $("#kbd-coffee-btn").addClass("active-element");
             break;
         case "kbd-special":
             $(".kbd-special").show();
@@ -282,6 +295,7 @@ function init() {
     add_onclick_select("kbd-python");
     add_onclick_select("kbd-py-console");
     add_onclick_select("kbd-javascript");
+    add_onclick_select("kbd-coffee");
     add_onclick_select("kbd-objects");
     add_onclick_select("kbd-special");
 
@@ -341,6 +355,22 @@ function init() {
     add_onclick_insert_untranslated_statement("kbd-js-return", "return");
     add_onclick_insert_untranslated_statement("kbd-js-continue", "continue");
     add_onclick_insert_untranslated_statement("kbd-js-break", "break");
+
+    add_onclick_insert_untranslated("kbd-coffee-function", "? = ( ) ->");
+    add_onclick_insert_untranslated("kbd-coffee-if", "if ?");
+    add_onclick_insert_untranslated("kbd-coffee-else", "else");
+    add_onclick_insert_untranslated("kbd-coffee-ternary", "? = ? if ?");
+    add_onclick_insert_untranslated("kbd-coffee-while", "while ?");
+    add_onclick_insert_untranslated("kbd-coffee-for", "? = ? for ? in [?..?] by ?");
+    add_onclick_insert_untranslated("kbd-coffee-true", "true");
+    add_onclick_insert_untranslated("kbd-coffee-false", "false");
+    add_onclick_insert_untranslated("kbd-coffee-undefined", "variable?");
+    add_onclick_insert_untranslated("kbd-coffee-not", "not");
+    add_onclick_insert_untranslated("kbd-coffee-and", "and");
+    add_onclick_insert_untranslated("kbd-coffee-or", "or");
+    add_onclick_insert_function_statement("kbd-coffee-write", "write");
+    add_onclick_insert_untranslated_statement("kbd-coffee-continue", "continue");
+    add_onclick_insert_untranslated_statement("kbd-coffee-break", "break");
 
     add_onclick_insert_untranslated_statement("kbd-py-def", "def ? ( ):");
     add_onclick_insert_untranslated_statement("kbd-py-if", "if ? :");

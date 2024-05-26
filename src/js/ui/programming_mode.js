@@ -51,6 +51,8 @@ RUR.onload_set_programming_language = function(language) {
             RUR.state.input_method == "blockly-js")) {
             RUR.onload_set_programming_mode("javascript");
         }
+    }  else if (language == "coffeescript") {
+        RUR.onload_set_programming_mode("coffeescript");
     } else {
         RUR.onload_set_programming_mode("python");
     }
@@ -124,6 +126,17 @@ RUR.listeners['programming-mode'] = function () {
             RUR.state.programming_language = "javascript";
             $("#editor-tab").html(RUR.translate("Javascript Code"));
             show_editor("javascript");
+            editor.setOption("readOnly", false);
+            editor.setOption("theme", "reeborg-dark");
+            try {
+                $("#kbd-undo").show();
+                $("#kbd-redo").show();
+            } catch(e) {}
+            break;
+        case "coffeescript":
+            RUR.state.programming_language = "coffeescript";
+            $("#editor-tab").html(RUR.translate("Coffeescript Code"));
+            show_editor("coffeescript");
             editor.setOption("readOnly", false);
             editor.setOption("theme", "reeborg-dark");
             try {
@@ -232,6 +245,8 @@ function hide_blockly () {
 function show_editor(lang) {
     if (lang == "python") {
         show_python_editor();
+    } else if (lang == "coffeescript") {
+        show_coffee_editor();
     } else {
         show_javascript_editor();
     }
@@ -255,6 +270,13 @@ function show_javascript_editor () {
     onload_editor.setOption("mode", "javascript"); // could be changed in import_world
     pre_code_editor.setOption("mode", "javascript");
     post_code_editor.setOption("mode", "javascript");
+}
+
+function show_coffee_editor () {
+    editor.setOption("mode", "coffeescript");
+    onload_editor.setOption("mode", "coffeescript"); // could be changed in import_world
+    pre_code_editor.setOption("mode", "coffeescript");
+    post_code_editor.setOption("mode", "coffeescript");
 }
 
 function show_python_editor () {

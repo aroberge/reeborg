@@ -256,6 +256,8 @@ RUR.listeners['human-language'] = function() {
 
     if (RUR.state.programming_language == "python") {
         $("#editor-tab").html(RUR.translate("Python Code"));
+    } else if (RUR.state.programming_language == "coffeescript") {
+        $("#editor-tab").html(RUR.translate("Coffeescript Code"));
     } else {
         $("#editor-tab").html(RUR.translate("Javascript Code"));
     }
