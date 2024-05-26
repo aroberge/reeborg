@@ -1,0 +1,297 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 3,
+      "objects": {},
+      "model": "classic",
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_prev_x": 1,
+      "_prev_y": 3,
+      "_prev_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 33,
+      "possible_initial_positions": [
+        [
+          1,
+          3
+        ]
+      ]
+    }
+  ],
+    "description": [
+      "<h1>Prakeiktos pienės - ir vėl!</h1>",
+      "<p>Patikslinkite sprendimą, kurį sukūrėte 8 lygyje, šį kartą naudodami du kartojimo ciklus.",
+      "Pasaulis nuo 8 žingsnio nepasikeis, tačiau jūsų sprendimas taps daug gražesniu. ",
+      " Nepamirškite naudoti komentarų, kad sprendimas būtų lengviau skaitomas!</p>",
+      "<h3>Ką reikia žinoti</h3>",
+      "<p>Jūs jau turėtumėte turėti veikiantį 8 lygio sprendimą.",
+    "DIFFICULTY2"
+  ],
+  "small_tiles": false,
+  "rows": 5,
+  "cols": 14,
+  "goal": {
+    "position": {
+      "image": "racing_flag",
+      "x": 1,
+      "y": 3
+    },
+    "objects": {
+      "2,3": {
+        "dandelion": "all"
+      }
+    }
+  },
+  "objects": {
+    "3,3": {
+      "dandelion": "0-1"
+    },
+    "4,3": {
+      "dandelion": "0-1"
+    },
+    "5,3": {
+      "dandelion": "0-1"
+    },
+    "6,3": {
+      "dandelion": "0-1"
+    },
+    "7,3": {
+      "dandelion": "0-1"
+    },
+    "8,3": {
+      "dandelion": "0-1"
+    },
+    "9,3": {
+      "dandelion": "0-1"
+    },
+    "10,3": {
+      "dandelion": "0-1"
+    },
+    "11,3": {
+      "dandelion": "0-1"
+    },
+    "12,3": {
+      "dandelion": "0-1"
+    },
+    "13,3": {
+      "dandelion": "0-1"
+    }
+  },
+  "tiles": {
+    "1,1": [
+      "grass"
+    ],
+    "1,2": [
+      "grass"
+    ],
+    "1,3": [
+      "grass"
+    ],
+    "1,4": [
+      "grass"
+    ],
+    "1,5": [
+      "grass"
+    ],
+    "2,1": [
+      "grass"
+    ],
+    "2,2": [
+      "grass"
+    ],
+    "2,3": [
+      "grass"
+    ],
+    "2,4": [
+      "grass"
+    ],
+    "2,5": [
+      "grass"
+    ],
+    "3,1": [
+      "grass"
+    ],
+    "3,2": [
+      "grass"
+    ],
+    "3,3": [
+      "grass"
+    ],
+    "3,4": [
+      "grass"
+    ],
+    "3,5": [
+      "grass"
+    ],
+    "4,1": [
+      "grass"
+    ],
+    "4,2": [
+      "grass"
+    ],
+    "4,3": [
+      "grass"
+    ],
+    "4,4": [
+      "grass"
+    ],
+    "4,5": [
+      "grass"
+    ],
+    "5,1": [
+      "grass"
+    ],
+    "5,2": [
+      "grass"
+    ],
+    "5,3": [
+      "grass"
+    ],
+    "5,4": [
+      "grass"
+    ],
+    "5,5": [
+      "grass"
+    ],
+    "6,1": [
+      "grass"
+    ],
+    "6,2": [
+      "grass"
+    ],
+    "6,3": [
+      "grass"
+    ],
+    "6,4": [
+      "grass"
+    ],
+    "6,5": [
+      "grass"
+    ],
+    "7,1": [
+      "grass"
+    ],
+    "7,2": [
+      "grass"
+    ],
+    "7,3": [
+      "grass"
+    ],
+    "7,4": [
+      "grass"
+    ],
+    "7,5": [
+      "grass"
+    ],
+    "8,1": [
+      "grass"
+    ],
+    "8,2": [
+      "grass"
+    ],
+    "8,3": [
+      "grass"
+    ],
+    "8,4": [
+      "grass"
+    ],
+    "8,5": [
+      "grass"
+    ],
+    "9,1": [
+      "grass"
+    ],
+    "9,2": [
+      "grass"
+    ],
+    "9,3": [
+      "grass"
+    ],
+    "9,4": [
+      "grass"
+    ],
+    "9,5": [
+      "grass"
+    ],
+    "10,1": [
+      "grass"
+    ],
+    "10,2": [
+      "grass"
+    ],
+    "10,3": [
+      "grass"
+    ],
+    "10,4": [
+      "grass"
+    ],
+    "10,5": [
+      "grass"
+    ],
+    "11,1": [
+      "grass"
+    ],
+    "11,2": [
+      "grass"
+    ],
+    "11,3": [
+      "grass"
+    ],
+    "11,4": [
+      "grass"
+    ],
+    "11,5": [
+      "grass"
+    ],
+    "12,1": [
+      "grass"
+    ],
+    "12,2": [
+      "grass"
+    ],
+    "12,3": [
+      "grass"
+    ],
+    "12,4": [
+      "grass"
+    ],
+    "12,5": [
+      "grass"
+    ],
+    "13,1": [
+      "grass"
+    ],
+    "13,2": [
+      "grass"
+    ],
+    "13,3": [
+      "grass"
+    ],
+    "13,4": [
+      "grass"
+    ],
+    "13,5": [
+      "grass"
+    ],
+    "14,1": [
+      "grass"
+    ],
+    "14,2": [
+      "grass"
+    ],
+    "14,3": [
+      "grass"
+    ],
+    "14,4": [
+      "grass"
+    ],
+    "14,5": [
+      "grass"
+    ]
+  },
+  "walls": {}
+}

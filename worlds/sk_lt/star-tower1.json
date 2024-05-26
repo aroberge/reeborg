@@ -1,0 +1,54 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {
+        "star": 99
+      },
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 3,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": [
+    "<h1>Žvaigždžių bokštai - 1</h1>",
+    "Robotukas mėgsta konstruoti - šiandien jis gamina žvaigždių bokštus. Jis turi daug žvaigždžių detalių ir nori pasigaminti 3 žvaigždžių aukščio bokštus. Parašykite programą, kuri sukurtų Žvaigždžių bokštą Robotuko pradinėje padėtyje, o po to - visuose nelyginiuose stulpeliuose.",
+    "DIFFICULTY2"
+  ],
+  "small_tiles": false,
+  "rows": 4,
+  "cols": 8,
+  "onload": [
+    "#python onload",
+    "import random",
+    "width = random.randint(6, 13)",
+    "height = 4",
+    "",
+    "RUR.set_world_size(width, height)",
+    "RUR.fill_background(\"grass\")",
+    "RUR.give_object_to_robot(\"star\",99)",
+    "",
+    "#create goals",
+    "options = {'goal' : True}",
+    "for x in range(0, width,2):",
+    "    for y in range(1,4):",
+    "        RUR.add_object(\"star\", x+1,y, options)    ",
+    "",
+    ""
+  ]
+}

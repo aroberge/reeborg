@@ -1,0 +1,79 @@
+{
+  "walls": {},
+  "description": [
+    "<h1>Dar daugiau morkų</h1>",
+    "<p>Robotukas vėl skina morkas. ",
+    "  Šį kartą visi daržai yra skirtingo dydžio. ",
+    "  Kai kuriose vietose morkos auga labai gerai. ",
+    " (todėl kai kur jų yra daugiau nei viena), ",
+    ", o kai kuriose vietose - visai blogai",
+    " (taigi yra vietų, kur morkos neauga). ",
+    "  Robotukas gali atsirasti bet kurioje sodo vietoje, ",
+    " ir gali būti pasuktas bet kuria kryptimi. </p>",
+    "<p>Robotuko užduotis - nuskinti visas morkas, ",
+    " sudėti jas į didelę morkų dėžę, esančią ",
+    " šiaurės rytiniame sodo kampe, tada grįžti į ",
+    " pietvakarinį sodo kampą, kad galėtų pelnytai pailsėti.</p>",
+    "<h3>Ką reikia žinoti</h3>",
+    "<ul>",
+    "    <li>Funkcijas <code>pirmyn()</code>, <code>suktis_kairėn()</code>,",
+    "        <code>paimti()</code>, ",
+    " ir <code>padėti()</code>.</li>",
+    "    <li>Kaip naudoti sąlygą <code>aptiktas_objektas()</code>, <code>prie_tikslo()</code>",
+    "        <code>pasisukęs_šiaurėn()</code>,",
+    "        <code>neša_objektą()</code>, <code>dešinėje_laisva()</code> arba <code>dešinėje_siena()</code>,",
+    " ir <code>priekyje_laisva()</code> arba <code>priekyje_siena()</code>.</li>",
+    "    <li>Kaip naudoti <code>while</code> ciklą ir <code>if</code> sakinį.</li>",
+    "</ul>",
+    "DIFFICULTY6"
+  ],
+  "small_tiles": false,
+  "rows": 5,
+  "cols": 5,
+  "goal": {
+    "possible_final_positions": [
+      [
+        1,
+        1
+      ]
+    ],
+    "position": {
+      "image": "racing_flag",
+      "x": 1,
+      "y": 1
+    }
+  },
+  "onload": [
+    "var height, width, nb_carrots, total_nb, x, y;",
+    "",
+    "width = RUR.randint(3, 8);",
+    "height = RUR.randint(3, 8);",
+    "total_nb = 0;",
+    "RUR.set_world_size(width, height);",
+    "RUR.fill_background(\"pale_grass\");",
+    "",
+    "for (x=1; x<=width; x++) {",
+    "    for (y=1; y<=height; y++) {",
+    "        if ((x==1 && y==1) || (x==width && y==height)){",
+    "            continue;",
+    "        }",
+    "        if (RUR.randint(1, 10) >= 7){",
+    "            if (total_nb < 100) {",
+    "                nb_carrots = RUR.randint(1, 6);",
+    "                total_nb += nb_carrots;",
+    "                RUR.add_object(\"carrot\", x, y, {'number': nb_carrots});",
+    "            }",
+    "        }",
+    "    }",
+    "}",
+    "",
+    "RUR.add_object(\"carrot\", width, height, {'goal': true, 'number': total_nb});",
+    "",
+    "// add robot",
+    "x = RUR.randint(1, width);",
+    "y = RUR.randint(1, height);",
+    "r = new RUR.UsedRobot(x, y);",
+    "RUR.set_random_orientation();",
+    ""
+  ]
+}

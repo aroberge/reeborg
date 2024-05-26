@@ -23,7 +23,7 @@ except ImportError:
 # functions or classes that should appear near the end.
 
 
-def u_celu():  #py:at_goal
+def prie_tikslo():  #py:at_goal
     """
     Indicates if Reeborg has reached the desired location.
 
@@ -32,11 +32,12 @@ def u_celu():  #py:at_goal
     """
     return RUR._at_goal_()
 
-def wybuduj_mur():  #py:build_wall
+def statyti_sieną():  #py:build_wall
     """Instructs Reeborg to build a wall at the location in front of itself."""
     RUR._build_wall_()
 
-def obiekt_niesiony(obj=None):  #py:carries_object
+
+def neša_objektą(obj=None):  #py:carries_object
     """
     Indicates whether Reeborg carries an object or not.
 
@@ -102,7 +103,7 @@ def get_robot_by_id(serial_number):  #py:default_robot
     return Robot()
 
 
-def skonczone():  #py:done
+def baigti():  #py:done
     """
     Causes a program's execution to end.
 
@@ -111,7 +112,7 @@ def skonczone():  #py:done
     RUR._done_()
 
 
-def droga_wolna():  #py:front_is_clear
+def priekyje_laisva():  #py:front_is_clear
     """
     Indicates if an obstacle (wall, fence, water, etc.) blocks the path.
 
@@ -121,12 +122,12 @@ def droga_wolna():  #py:front_is_clear
     return RUR._front_is_clear_()
 
 
-def skierowany_na_polnoc():  #py:is_facing_north
+def pasisukęs_šiaurėn():  #py:is_facing_north
     """Indicates if Reeborg is facing North (top of the screen) or not."""
     return RUR._is_facing_north_()
 
 
-def ruch():  #py:move
+def pirmyn():  #py:move
     """Move forward, by one grid position."""
     RUR._move_()
 
@@ -157,7 +158,7 @@ def new_robot_images(images):  #py:new_robot_images
     RUR._new_robot_images_(images)
 
 
-def bez_podswietlenia():  #py:no_highlight
+def be_paryškinimo():  #py:no_highlight
     """
     Prevents code highlighting from occurring.
 
@@ -173,7 +174,7 @@ def bez_podswietlenia():  #py:no_highlight
     RUR._no_highlight_()
 
 
-def wykryto_obiekt(obj=None):  #py:object_here
+def aptiktas_objektas(obj=None):  #py:object_here
     """
     Indicates whether any type of objects are present at Reeborg's location.
 
@@ -211,7 +212,7 @@ def paint_square(color):  #py:paint_square
     RUR._paint_square_(color)
 
 
-def pauza(ms=None):  #py:pause
+def pauzė(ms=None):  #py:pause
     """
     Pauses a program's execution (playback).
 
@@ -265,7 +266,7 @@ def print_html(html, replace=False):  #py:print_html
     RUR._print_html_(html, replace)
 
 
-def odloz(obj=None):  #py:put
+def padėti(obj=None):  #py:put
     """
     Puts down an object.  If Reeborg carries more than one type of objects,
     the type must be specified as an argument, otherwise an exception
@@ -277,7 +278,7 @@ def odloz(obj=None):  #py:put
         RUR._put_(obj)
 
 
-def toss(obj=None):
+def mesti(obj=None):
     """
     Reeborg throws an object on the square in front of its current position.
     If Reeborg carries more than one type of objects,
@@ -306,7 +307,7 @@ def remove_robots():  #py:remove_robots
     RUR._remove_robots_()
 
 
-def prawo_wolne():  #py:right_is_clear
+def dešinėje_laisva():  #py:right_is_clear
     """
     Indicates if an obstacle (wall, fence, water, etc.) is on the
     immediate right of Reeborg.
@@ -365,12 +366,12 @@ def set_trace_style(style="default"):  #py:set_trace_style
     RUR._set_trace_style_(style)
 
 
-def dzwiek(boolean):  #py:sound
+def garsas(boolean):  #py:sound
     """Activate or deactivate sound effects."""
     RUR._sound_(boolean)
 
 
-def wez(obj=None):  #py:take
+def paimti(obj=None):  #py:take
     """
     Takes an object.  If more than one type of objects is at Reeborg's location,
     the type must be specified as an argument, otherwise an exception
@@ -382,7 +383,7 @@ def wez(obj=None):  #py:take
         RUR._take_(obj)
 
 
-def mysl(ms):  #py:think
+def galvoti(ms):  #py:think
     """
     Set a time delay (in milliseconds) between Reeborg's actions
     played back.
@@ -392,12 +393,12 @@ def mysl(ms):  #py:think
     return RUR._think_(ms)
 
 
-def obrot_w_lewo():  #py:turn_left
+def suktis_kairėn():  #py:turn_left
     """Reeborg turns to its left."""
     RUR._turn_left_()
 
 
-def mur_z_przodu():  #py:wall_in_front
+def priekyje_siena():  #py:wall_in_front
     """
     Indicates if a wall blocks the way.
 
@@ -407,7 +408,7 @@ def mur_z_przodu():  #py:wall_in_front
     return RUR._wall_in_front_()
 
 
-def mur_po_prawej():  #py:wall_on_right
+def dešinėje_siena():  #py:wall_on_right
     """
     Indicates if an wall is on the immediate right of Reeborg.
 
@@ -425,7 +426,7 @@ def MakeCustomMenu(content):  #py:MakeCustomMenu
     RUR._MakeCustomMenu_(content)
 
 
-def swiat(url, shortname=None):  #py:World
+def Pasaulis(url, shortname=None):  #py:World
     """
     Allows to select a specific world within a program.
 
@@ -462,7 +463,7 @@ def swiat(url, shortname=None):  #py:World
         RUR._World_(url, shortname)
 
 
-class RobotWUzyciu(object):  #py:UR
+class NaudojamasRobotas(object):  #py:UR
     '''The OOP version of Reeborg'''
     def __init__(self, x=1, y=1, orientation='e', tokens=None, **kwargs):  #py:UR.__init__
         """
@@ -512,7 +513,7 @@ class RobotWUzyciu(object):  #py:UR
             carries = 'carries no objects'
         return "UsedRobot at {} {} {}.".format(location, facing, carries)
 
-    def u_celu(self):  #py:UR.at_goal
+    def prie_tikslo(self):  #py:UR.at_goal
         """
         Indicates if Reeborg has reached the desired location.
 
@@ -521,14 +522,14 @@ class RobotWUzyciu(object):  #py:UR
         """
         return RUR._UR.at_goal_(self.body)
 
-    def wybuduj_mur(self):  #py:UR.build_wall
+    def statyti_sieną(self):  #py:UR.build_wall
         """
         Instructs Reeborg to build a wall at the location in
         front of itself.
         """
         RUR._UR.build_wall_(self.body)
 
-    def obiekt_niesiony(self, obj=None):  #py:UR.carries_object
+    def neša_objektą(self, obj=None):  #py:UR.carries_object
         """
         Indicates whether Reeborg carries an object or not.
 
@@ -572,7 +573,7 @@ class RobotWUzyciu(object):  #py:UR
         return self.color_here()
 
 
-    def droga_wolna(self):  #py:UR.front_is_clear
+    def priekyje_laisva(self):  #py:UR.front_is_clear
         """
         Indicates if an obstacle (wall, fence, water, etc.) blocks the path.
 
@@ -581,15 +582,15 @@ class RobotWUzyciu(object):  #py:UR
         """
         return RUR._UR.front_is_clear_(self.body)
 
-    def skierowany_na_polnoc(self):  #py:UR.is_facing_north
+    def pasisukęs_šiaurėn(self):  #py:UR.is_facing_north
         """Indicates if Reeborg is facing North (top of the screen) or not."""
         return RUR._UR.is_facing_north_(self.body)
 
-    def ruch(self):  #py:UR.move
+    def keliauti(self):  #py:UR.move
         """Move forward, by one grid position."""
         RUR._UR.move_(self.body)
 
-    def wykryto_obiekt(self, obj=None):  #py:UR.object_here
+    def aptiktas_objektas(self, obj=None):  #py:UR.object_here
         """
         Indicates whether any type of objects are present at Reeborg's location.
 
@@ -654,7 +655,7 @@ class RobotWUzyciu(object):  #py:UR
             return tuple()
 
 
-    def odloz(self, obj=None):  #py:UR.put
+    def padėti(self, obj=None):  #py:UR.put
         """
         Puts down an object.  If Reeborg carries more than one type of objects,
         the type must be specified as an argument, otherwise an exception
@@ -677,7 +678,7 @@ class RobotWUzyciu(object):  #py:UR
         else:
             RUR._UR.toss_(self.body, obj)
 
-    def prawo_wolne(self):  #py:UR.right_is_clear
+    def dešinėje_laisva(self):  #py:UR.right_is_clear
         """
         Indicates if an obstacle (wall, fence, water, etc.) is on the
         immediate right of Reeborg.
@@ -732,7 +733,7 @@ class RobotWUzyciu(object):  #py:UR
             raise ReeborgError("Unrecognized style in set_trace_style().")
         RUR._UR.set_trace_style_(self.body, style)
 
-    def wez(self, obj=None):  #py:UR.take
+    def paimti(self, obj=None):  #py:UR.take
         """
         Instruct Reeborg to take an object.
         If more than one type of objects is at Reeborg's location,
@@ -744,11 +745,11 @@ class RobotWUzyciu(object):  #py:UR
         else:
             RUR._UR.take_(self.body, obj)
 
-    def obrot_w_lewo(self):  #py:UR.turn_left
+    def suktis_kairėn(self):  #py:UR.turn_left
         """Reeborg turns to its left."""
         RUR._UR.turn_left_(self.body)
 
-    def mur_z_przodu(self):  #py:UR.wall_in_front
+    def priekyje_siena(self):  #py:UR.wall_in_front
         """
         Indicates if a wall blocks the way.
 
@@ -757,7 +758,7 @@ class RobotWUzyciu(object):  #py:UR
         """
         return RUR._UR.wall_in_front_(self.body)
 
-    def mur_po_prawej(self):  #py:UR.wall_on_right
+    def dešinėje_siena(self):  #py:UR.wall_on_right
         """
         Indicates if an wall is on the immediate right of Reeborg.
 
@@ -793,8 +794,8 @@ class ReeborgOK(Exception):  #py:RE
     def __str__(self):  #py:RE.__str__
         return self.reeborg_concludes
 try:
-    window['ReeborgOK_pl'] = ReeborgOK
-    window['ReeborgOk_pl'] = ReeborgOK # preventing an annoying typo
+    window['ReeborgOK_lt'] = ReeborgOK
+    window['ReeborgOk_lt'] = ReeborgOK # preventing an annoying typo
 except:
     pass
 ReeborgOk = ReeborgOK  # preventing an annoying typo
@@ -825,7 +826,7 @@ class ReeborgError(Exception):  #py:RE
     def __str__(self):  #py:RE.__str__
         return self.reeborg_shouts
 try:
-    window['ReeborgError_pl'] = ReeborgError
+    window['ReeborgError_lt'] = ReeborgError
 except:
     pass
 
@@ -838,7 +839,7 @@ class WallCollisionError(ReeborgError):  #py:WCE
     """
     pass
 try:
-    window['WallCollisionError_pl'] = WallCollisionError
+    window['WallCollisionError_lt'] = WallCollisionError
 except:
     pass
 
@@ -850,7 +851,7 @@ class MissingObjectError(ReeborgError):
     """
     pass
 try:
-    window['MissingObjectError_pl'] = MissingObjectError
+    window['MissingObjectError_lt'] = MissingObjectError
 except:
     pass
 

@@ -1,0 +1,41 @@
+{
+  "walls": {},
+  "description": [
+    "<h1>Grįžimas į pradžią</h1>",
+    "<p>Robotukas gali atsidurti bet kuriame pasaulio taške. ",
+    "  Tavo užduotis - sugražinti Robotuką į kairį apatinį kampą (1, 1). ",
+    "  Atkreipkite dėmesį, kad Robotukas gali būti pasuktas ",
+    "  bet kuria kryptimi startavus programą. ",
+    "  Baigus programos vykdymą jis turėtų būti pasisukęs į rytus.</p>",
+    "DIFFICULTY3"
+  ],
+  "small_tiles": false,
+  "goal": {
+    "possible_final_positions": [
+      [
+        1,
+        1
+      ]
+    ],
+    "position": {
+      "image": "racing_flag",
+      "x": 1,
+      "y": 1
+    }
+  },
+  "onload": [
+    "var height, width, x, y;",
+    "",
+    "width = RUR.randint(3, 12);",
+    "height = RUR.randint(3, 12);",
+    "RUR.set_world_size(width, height);",
+    "RUR.fill_background(\"pale_grass\");",
+    "",
+    "// add robot",
+    "x = RUR.randint(1, width);",
+    "y = RUR.randint(1, height);",
+    "r = new RUR.UsedRobot(x, y);",
+    "RUR.set_random_orientation();",
+    ""
+  ]
+}

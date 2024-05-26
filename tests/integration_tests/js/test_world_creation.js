@@ -94,8 +94,8 @@ QUnit.test("Load world by running Python programs", function(assert) {
     frames = test_utils.run_python(null, "/tests/integration_tests/programs/select_home2_en.py");
     console.log("frames = ", frames);
     //playback should have been prevented, and only the feedback shown.
-    assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element expected.");
-    assert.equal(test_utils.content, "World Home 2 selected", "Correct information about world selected.");
+    assert.equal(test_utils.feedback_element, "#Reeborg-shouts", "Feedback element expected.");
+    assert.equal(test_utils.content, "<h3>ReeborgOK</h3><p>World Home 2 selected</p><p></p>", "Correct information about world selected.");
 
     // second time runs the rest of the program as the correct world is selected
     test_utils.run_python(null, "/tests/integration_tests/programs/select_home2_en.py");

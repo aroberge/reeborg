@@ -1,0 +1,61 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 3,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": [
+    "Robotukas nusprendė praleisti dieną lavindamas šaudymo iš lanko įgūdžius. Kažkur pasaulyje yra trikampio formos objektas. Parašykite programą, kuri leistų Robotukui surasti šį objektą, o tada sukurtų visą pasaulį aprėpiantį ir į tą taikinį nukreiptą taikiklį.",
+    ""
+  ],
+  "small_tiles": false,
+  "rows": 12,
+  "cols": 14,
+  "onload": [
+    "#python onload",
+    "import random",
+    "width = random.randint(10, 14)",
+    "height = random.randint(10, 14)",
+    "",
+    "RUR.set_world_size(width, height)",
+    "RUR.fill_background(\"grass\")",
+    "RUR.give_object_to_robot(\"triangle\",99)",
+    "",
+    "#Find Target Location",
+    "",
+    "target_x = random.randint(1, width)",
+    "target_y = random.randint(1, height)",
+    "",
+    "options = {'goal' : True}",
+    "RUR.add_object(\"triangle\", target_x, target_y)",
+    "#RUR.add_object(\"triangle\", target_x, target_y, options)",
+    "",
+    "for x in range(width):",
+    "\tRUR.add_object(\"triangle\", x+1, target_y, options)",
+    "",
+    "for y in range(height):",
+    "\tif( y+1 != target_y):",
+    "\t\tRUR.add_object(\"triangle\", target_x, y+1, options)\t",
+    "",
+    ""
+  ]
+}

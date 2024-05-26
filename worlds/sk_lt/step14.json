@@ -1,0 +1,100 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {
+        "banana": 1
+      },
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 23,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": [
+    "<h1>Aplink ežerą</h1>",
+    "<p>Robotukas mėgsta pasivaikščioti, ",
+    "ypač patinka eiti aplink ežerą. ",
+    "Robotuko kaimynystėje esantys ežerai ",
+    "primena įvairių dydžių stačiakampius, ",
+    "todėl Rėborgas nežino, kiek ",
+    "žingsnių reikės norint grįžti į ",
+    "pasivaikščiojimo pradžią. ",
+    "Laimei, Robotukas nešasi ",
+    "bananą, kurį galima naudoti kaip žymę",
+    "pasakant Robotukui, kad padėtų jį ",
+    "kelionės pradžioje. ",
+    "Robotukas žinos, kad baigė pasivaikščiojimą, kai ",
+    "jis pasieks bananą.</p>",
+    "<p>Panaudokite <code>while</code> ciklą ",
+    "(ieškodami banano objekto) ",
+    "ir <code>if/else</code> tam, kad Robotukas ",
+    "užbaigtų savo nuotykį. </p>",
+    "<p>Pastaba: Robotukas negali naudoti <code>repeat</code> ",
+    "sakinio, nes jis neturi supratimo apie ",
+    "ežero matmenis.</p>",
+    "<h3>Ką reikia žinoti</h3>",
+    "<ul><li>Funkcijas <code>pirmyn()</code>, <code>suktis_kairėn()</code> ir <code>padėti()</code>.</li>",
+    "<li>Patikrinimą <code>priekyje_laisva()</code> arba <code>priekyje_siena()</code>, ir <code>aptiktas_objektas()</code>.</li>",
+    "<li>Kaip naudoti <code>while</code> ciklą ir <code>if/else</code> sakinį bei raktažodį <code>not</code>.</li></ul>",
+    "DIFFICULTY2",
+    ""
+  ],
+  "small_tiles": false,
+  "rows": 6,
+  "cols": 8,
+  "pre": "set_trace_color(\"black\")",
+  "post": [
+    "RUR.check_path(RUR.public['path'],",
+    "     {'failure':\"Robotukas nėjo teisingu keliu.\", ",
+    "      'success': 'Super!',",
+    "      'show_path': 'true', 'color': 'white'})"
+  ],
+  "onload": [
+    "var x, y, width, height;",
+    "",
+    "width = RUR.randint(3, 13);",
+    "height = RUR.randint(3, 13);",
+    "RUR.set_world_size(width, height);",
+    "RUR.fill_background(\"water\");",
+    "",
+    "RUR.public.path = [];",
+    "",
+    "function add_tile(x, y) {",
+    "    RUR.add_background_tile(\"grass\", x, y);",
+    "    RUR.public.path.push([x, y]);",
+    "}",
+    "",
+    "// bottom row",
+    "for(x=1; x<=width; x++) {",
+    "    add_tile(x, 1);",
+    "}",
+    "// right column",
+    "for(y=2; y<=height; y++) {",
+    "    add_tile(width, y);",
+    "}",
+    "// top row",
+    "for(x=width-1; x>=1; x--) {",
+    "    add_tile(x, height);",
+    "}",
+    "// right column",
+    "for(y=height-1; y>=1; y--) {",
+    "    add_tile(1, y);",
+    "}",
+    ""
+  ]
+}

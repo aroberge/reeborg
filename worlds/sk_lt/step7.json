@@ -1,0 +1,596 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "objects": {
+        "daisy": 500
+      },
+      "model": "classic",
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 4,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "small_tiles": false,
+  "rows": 7,
+  "cols": 19,
+  "goal": {
+    "objects": {
+      "2,2": {
+        "daisy": 1
+      },
+      "2,3": {
+        "daisy": 1
+      },
+      "2,4": {
+        "daisy": 1
+      },
+      "2,5": {
+        "daisy": 1
+      },
+      "2,6": {
+        "daisy": 1
+      },
+      "4,2": {
+        "daisy": 1
+      },
+      "4,3": {
+        "daisy": 1
+      },
+      "4,4": {
+        "daisy": 1
+      },
+      "4,5": {
+        "daisy": 1
+      },
+      "4,6": {
+        "daisy": 1
+      },
+      "5,6": {
+        "daisy": 1
+      },
+      "6,6": {
+        "daisy": 1
+      },
+      "6,5": {
+        "daisy": 1
+      },
+      "6,4": {
+        "daisy": 1
+      },
+      "6,3": {
+        "daisy": 1
+      },
+      "6,2": {
+        "daisy": 1
+      },
+      "5,2": {
+        "daisy": 1
+      },
+      "8,6": {
+        "daisy": 1
+      },
+      "8,5": {
+        "daisy": 1
+      },
+      "8,4": {
+        "daisy": 1
+      },
+      "8,3": {
+        "daisy": 1
+      },
+      "8,2": {
+        "daisy": 1
+      },
+      "9,2": {
+        "daisy": 1
+      },
+      "10,2": {
+        "daisy": 1
+      },
+      "10,3": {
+        "daisy": 1
+      },
+      "10,4": {
+        "daisy": 1
+      },
+      "10,5": {
+        "daisy": 1
+      },
+      "10,6": {
+        "daisy": 1
+      },
+      "9,6": {
+        "daisy": 1
+      },
+      "12,6": {
+        "daisy": 1
+      },
+      "12,5": {
+        "daisy": 1
+      },
+      "12,4": {
+        "daisy": 1
+      },
+      "12,3": {
+        "daisy": 1
+      },
+      "12,2": {
+        "daisy": 1
+      },
+      "14,6": {
+        "daisy": 1
+      },
+      "14,5": {
+        "daisy": 1
+      },
+      "14,4": {
+        "daisy": 1
+      },
+      "14,3": {
+        "daisy": 1
+      },
+      "14,2": {
+        "daisy": 1
+      },
+      "15,2": {
+        "daisy": 1
+      },
+      "16,2": {
+        "daisy": 1
+      },
+      "16,3": {
+        "daisy": 1
+      },
+      "16,4": {
+        "daisy": 1
+      },
+      "16,5": {
+        "daisy": 1
+      },
+      "16,6": {
+        "daisy": 1
+      },
+      "15,6": {
+        "daisy": 1
+      }
+    },
+    "position": {
+      "image": "racing_flag",
+      "x": 18,
+      "y": 1
+    }
+  },
+  "description": [
+    "<h1>10010</h1>",
+    "<p>Robotukui ką tik sukako 18 metų ir jis nori, kad visi visatoje tai sužinotų.",
+    "Jis mano, kad būtų smagus pokštas, jei švenčių proga pasodintų ramunėlių kieme.",
+    "Robotukas moka tik dvejetainę skaičiavimo sistemą, o skaičius 18 dešimtainėje skaičiavimo sistemoje reiškia 10010 dvejetainėje skaičiavimo sistemoje. ",
+    " Sukurkite šias naujas funkcijas: <ul><li><code>piešti_1()</code>, kad nupieštumėte skaičių 1 ramunėlėmis;",
+    " </li><li><code>piešti_0()</code>, kad nupieštumėte skaičių 0 ramunėlėmis.</li></ul> ",
+    "Naudokite sukurtas funkcijas, kad pasodintumėte iš ramunėlių jo metus. ",
+    "Kiekviena instrukcija turi nustatyti Robotuko padėtį ir pasukti jį kitam skaitmeniui piešti.",
+    "Galite sukurti ir kitas funkcijas, kad išvengtumėte pasikartojimų savo kode.",
+    "Būtinai naudokite komentarus, kad padidintumėte savo sprendimo skaitomumą!</p>",
+    "<h3>Ką reikia žinoti</h3>",
+    "<ul><li>Funkcijos <code>pirmyn()</code>, <code>suktis_kairėn()</code>,",
+    "ir <code>padėti()</code>.</li>",
+    "<li>Kaip sukurti funkcijas.</li></ul>",
+    "DIFFICULTY3"
+  ],
+  "tiles": {
+    "1,1": [
+      "pale_grass"
+    ],
+    "1,2": [
+      "pale_grass"
+    ],
+    "1,3": [
+      "pale_grass"
+    ],
+    "1,4": [
+      "pale_grass"
+    ],
+    "1,5": [
+      "pale_grass"
+    ],
+    "1,6": [
+      "pale_grass"
+    ],
+    "1,7": [
+      "pale_grass"
+    ],
+    "2,1": [
+      "pale_grass"
+    ],
+    "2,2": [
+      "pale_grass"
+    ],
+    "2,3": [
+      "pale_grass"
+    ],
+    "2,4": [
+      "pale_grass"
+    ],
+    "2,5": [
+      "pale_grass"
+    ],
+    "2,6": [
+      "pale_grass"
+    ],
+    "2,7": [
+      "pale_grass"
+    ],
+    "3,1": [
+      "pale_grass"
+    ],
+    "3,2": [
+      "pale_grass"
+    ],
+    "3,3": [
+      "pale_grass"
+    ],
+    "3,4": [
+      "pale_grass"
+    ],
+    "3,5": [
+      "pale_grass"
+    ],
+    "3,6": [
+      "pale_grass"
+    ],
+    "3,7": [
+      "pale_grass"
+    ],
+    "4,1": [
+      "pale_grass"
+    ],
+    "4,2": [
+      "pale_grass"
+    ],
+    "4,3": [
+      "pale_grass"
+    ],
+    "4,4": [
+      "pale_grass"
+    ],
+    "4,5": [
+      "pale_grass"
+    ],
+    "4,6": [
+      "pale_grass"
+    ],
+    "4,7": [
+      "pale_grass"
+    ],
+    "5,1": [
+      "pale_grass"
+    ],
+    "5,2": [
+      "pale_grass"
+    ],
+    "5,3": [
+      "pale_grass"
+    ],
+    "5,4": [
+      "pale_grass"
+    ],
+    "5,5": [
+      "pale_grass"
+    ],
+    "5,6": [
+      "pale_grass"
+    ],
+    "5,7": [
+      "pale_grass"
+    ],
+    "6,1": [
+      "pale_grass"
+    ],
+    "6,2": [
+      "pale_grass"
+    ],
+    "6,3": [
+      "pale_grass"
+    ],
+    "6,4": [
+      "pale_grass"
+    ],
+    "6,5": [
+      "pale_grass"
+    ],
+    "6,6": [
+      "pale_grass"
+    ],
+    "6,7": [
+      "pale_grass"
+    ],
+    "7,1": [
+      "pale_grass"
+    ],
+    "7,2": [
+      "pale_grass"
+    ],
+    "7,3": [
+      "pale_grass"
+    ],
+    "7,4": [
+      "pale_grass"
+    ],
+    "7,5": [
+      "pale_grass"
+    ],
+    "7,6": [
+      "pale_grass"
+    ],
+    "7,7": [
+      "pale_grass"
+    ],
+    "8,1": [
+      "pale_grass"
+    ],
+    "8,2": [
+      "pale_grass"
+    ],
+    "8,3": [
+      "pale_grass"
+    ],
+    "8,4": [
+      "pale_grass"
+    ],
+    "8,5": [
+      "pale_grass"
+    ],
+    "8,6": [
+      "pale_grass"
+    ],
+    "8,7": [
+      "pale_grass"
+    ],
+    "9,1": [
+      "pale_grass"
+    ],
+    "9,2": [
+      "pale_grass"
+    ],
+    "9,3": [
+      "pale_grass"
+    ],
+    "9,4": [
+      "pale_grass"
+    ],
+    "9,5": [
+      "pale_grass"
+    ],
+    "9,6": [
+      "pale_grass"
+    ],
+    "9,7": [
+      "pale_grass"
+    ],
+    "10,1": [
+      "pale_grass"
+    ],
+    "10,2": [
+      "pale_grass"
+    ],
+    "10,3": [
+      "pale_grass"
+    ],
+    "10,4": [
+      "pale_grass"
+    ],
+    "10,5": [
+      "pale_grass"
+    ],
+    "10,6": [
+      "pale_grass"
+    ],
+    "10,7": [
+      "pale_grass"
+    ],
+    "11,1": [
+      "pale_grass"
+    ],
+    "11,2": [
+      "pale_grass"
+    ],
+    "11,3": [
+      "pale_grass"
+    ],
+    "11,4": [
+      "pale_grass"
+    ],
+    "11,5": [
+      "pale_grass"
+    ],
+    "11,6": [
+      "pale_grass"
+    ],
+    "11,7": [
+      "pale_grass"
+    ],
+    "12,1": [
+      "pale_grass"
+    ],
+    "12,2": [
+      "pale_grass"
+    ],
+    "12,3": [
+      "pale_grass"
+    ],
+    "12,4": [
+      "pale_grass"
+    ],
+    "12,5": [
+      "pale_grass"
+    ],
+    "12,6": [
+      "pale_grass"
+    ],
+    "12,7": [
+      "pale_grass"
+    ],
+    "13,1": [
+      "pale_grass"
+    ],
+    "13,2": [
+      "pale_grass"
+    ],
+    "13,3": [
+      "pale_grass"
+    ],
+    "13,4": [
+      "pale_grass"
+    ],
+    "13,5": [
+      "pale_grass"
+    ],
+    "13,6": [
+      "pale_grass"
+    ],
+    "13,7": [
+      "pale_grass"
+    ],
+    "14,1": [
+      "pale_grass"
+    ],
+    "14,2": [
+      "pale_grass"
+    ],
+    "14,3": [
+      "pale_grass"
+    ],
+    "14,4": [
+      "pale_grass"
+    ],
+    "14,5": [
+      "pale_grass"
+    ],
+    "14,6": [
+      "pale_grass"
+    ],
+    "14,7": [
+      "pale_grass"
+    ],
+    "15,1": [
+      "pale_grass"
+    ],
+    "15,2": [
+      "pale_grass"
+    ],
+    "15,3": [
+      "pale_grass"
+    ],
+    "15,4": [
+      "pale_grass"
+    ],
+    "15,5": [
+      "pale_grass"
+    ],
+    "15,6": [
+      "pale_grass"
+    ],
+    "15,7": [
+      "pale_grass"
+    ],
+    "16,1": [
+      "pale_grass"
+    ],
+    "16,2": [
+      "pale_grass"
+    ],
+    "16,3": [
+      "pale_grass"
+    ],
+    "16,4": [
+      "pale_grass"
+    ],
+    "16,5": [
+      "pale_grass"
+    ],
+    "16,6": [
+      "pale_grass"
+    ],
+    "16,7": [
+      "pale_grass"
+    ],
+    "17,1": [
+      "pale_grass"
+    ],
+    "17,2": [
+      "pale_grass"
+    ],
+    "17,3": [
+      "pale_grass"
+    ],
+    "17,4": [
+      "pale_grass"
+    ],
+    "17,5": [
+      "pale_grass"
+    ],
+    "17,6": [
+      "pale_grass"
+    ],
+    "17,7": [
+      "pale_grass"
+    ],
+    "18,1": [
+      "pale_grass"
+    ],
+    "18,2": [
+      "pale_grass"
+    ],
+    "18,3": [
+      "pale_grass"
+    ],
+    "18,4": [
+      "pale_grass"
+    ],
+    "18,5": [
+      "pale_grass"
+    ],
+    "18,6": [
+      "pale_grass"
+    ],
+    "18,7": [
+      "pale_grass"
+    ],
+    "19,1": [
+      "pale_grass"
+    ],
+    "19,2": [
+      "pale_grass"
+    ],
+    "19,3": [
+      "pale_grass"
+    ],
+    "19,4": [
+      "pale_grass"
+    ],
+    "19,5": [
+      "pale_grass"
+    ],
+    "19,6": [
+      "pale_grass"
+    ],
+    "19,7": [
+      "pale_grass"
+    ]
+  }
+}

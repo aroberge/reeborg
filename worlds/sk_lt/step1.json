@@ -1,0 +1,50 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "objects": {},
+      "model": "classic",
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 13,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": [
+    "<h1>Grįžimas namo</h1>",
+    "<p>Duokite Robotukui tinkamas instrukcijas, kad jis grįžtų namo!",
+    "Naudokite reikiamą funkciją tiek kartų, kiek reikia.</p>",
+    "<h3>Ką turite žinoti</h3>",
+    "<ul><li>Funkcija <code>pirmyn()</code>.</li></ul>",
+    "DIFFICULTY1"
+  ],
+  "small_tiles": false,
+  "rows": 1,
+  "cols": 5,
+  "goal": {
+    "possible_final_positions": [
+      [
+        5,
+        1
+      ]
+    ],
+    "position": {
+      "image": "house",
+      "x": 5,
+      "y": 1
+    }
+  }
+}

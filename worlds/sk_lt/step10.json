@@ -1,0 +1,289 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_orientation": 0,
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ],
+      "objects": {},
+      "_is_leaky": true,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 2,
+      "model": "classic"
+    }
+  ],
+  "rows": 5,
+  "cols": 14,
+  "walls": {
+    "2,1": [
+      "east"
+    ],
+    "4,1": [
+      "east"
+    ],
+    "6,1": [
+      "east"
+    ],
+    "8,1": [
+      "east"
+    ],
+    "10,1": [
+      "east"
+    ],
+    "12,1": [
+      "east"
+    ]
+  },
+  "goal": {
+    "position": {
+      "image": "racing_flag",
+      "x": 13,
+      "y": 1
+    }
+  },
+  "description": [
+    "<h1>Bėgimas su kliūtimis</h1>",
+    "<p>Robotukas pastaruoju metu atlieka savo fizinių gebėjimų bandymus. ",
+    "Vienas iš dalykų, kuriuos jis praktikuoja, yra šokinėjimas per mažas kliūtis. ",
+    "Šiame pasaulyje Robotukui reikia peršokti kliūtis, kurios yra vienodo aukščio,",
+    " ir išdėstytos vienodais atstumais viena nuo kitos. Reikia sukurti tokią funkciją:",
+    " <code>def peršokti_kliūtį()</code>. Turėtumėte naudoti kartojimo ciklą, kad Robotukas šokinėtų per kliūtis, ",
+    "ir baigtų ties tikslu (13, 1).</p>",
+    "<h3>Ką reikia žinoti</h3>",
+    "<ul><li>Funkcijos <code>pirmyn()</code> ir <code>suktis_kairėn()</code>.</li>",
+    "<li>Kaip sukurti funkcijas</li></ul>",
+    "DIFFICULTY2"
+  ],
+  "onload": [
+    "// This world has been defined with a background image",
+    "",
+    "var i, x, y;",
+    "",
+    "RUR.set_model('light blue');",
+    "RUR._set_trace_color_('cyan');",
+    "",
+    "// hard-coded path which does not change",
+    "RUR.public['path'] = [[1,1], [2,1], [2,2], [3,2], [3,1], [4,1],",
+    "    [4,2], [5,2], [5,1], [6,1], [6,2], [7,2], [7,1], [8,1],",
+    "    [8,2], [9,2], [9,1], [10,1], [10,2], [11,2], [11,1], ",
+    "    [12,1], [12,2], [13,2], [13,1]];",
+    "",
+    "// We show the desired path very clearly;  in the",
+    "// Pre editor, we will set it to be less visible",
+    "RUR.show_path(RUR.public['path'], 'black');",
+    "",
+    "// We also add semi-transparent tiles over the background",
+    "// image to show the desired path",
+    "",
+    "for (i=0; i < RUR.public.path.length; i++ ){",
+    "    x = RUR.public.path[i][0];",
+    "    y = RUR.public.path[i][1];",
+    "    RUR.add_colored_tile('rgba(255, 255, 255, 0.3)', x, y);",
+    "}",
+    "",
+    "// Since RUR.public['path'] is defined, setting the following to true ",
+    "// and not simply a truthy value, will make the grid show ONLY on",
+    "// the path",
+    "",
+    "RUR.state.visible_grid = RUR.PATH_ONLY;",
+    "// The following is going to be called in the Post editor",
+    "// we want users to be able to use either Python or Javascript",
+    "// to solve this task - so we cannot have Python or Javascript",
+    "// specific syntax in either the Pre or the Post editor",
+    "RUR.public.my_check = function (failure) {",
+    "    if ( RUR.check_path(RUR.public['path']) ) {",
+    "        return; // nothing else required.",
+    "    }",
+    "",
+    "    // The program did not work ... let's show all the required",
+    "    // feedback in essentially one step",
+    "    recording(false); // do not record a new frame for each action",
+    "",
+    "    //let's make the background picture less visible",
+    "    // by covering the entire background with semi-transparent black tiles",
+    "    RUR.fill_background('rgba(0, 0, 0, 0.6)');",
+    "    // We also show the path again",
+    "    RUR.show_path(RUR.public['path'], 'orange');",
+    "   ",
+    "    // all desired changes done; ready to show them",
+    "    recording(true);",
+    "",
+    "    // finally, we throw an error to end the execution",
+    "    // and record the final frame",
+    "    throw new RUR.ReeborgError(failure);",
+    "}",
+    ""
+  ],
+  "background_image": "worlds/images/stadium.png",
+  "pre": [
+    "RUR.show_path(RUR.public['path'], \"lightgray\");",
+    ""
+  ],
+  "post": [
+    "RUR.public.my_check(\"Robotukas nėjo teisingu keliu.\");",
+    ""
+  ],
+  "small_tiles": false,
+  "_CORRECT_PATH": [
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      2,
+      2
+    ],
+    [
+      3,
+      2
+    ],
+    [
+      3,
+      1
+    ],
+    [
+      4,
+      1
+    ],
+    [
+      4,
+      2
+    ],
+    [
+      5,
+      2
+    ],
+    [
+      5,
+      1
+    ],
+    [
+      6,
+      1
+    ],
+    [
+      6,
+      2
+    ],
+    [
+      7,
+      2
+    ],
+    [
+      7,
+      1
+    ],
+    [
+      8,
+      1
+    ],
+    [
+      8,
+      2
+    ],
+    [
+      9,
+      2
+    ],
+    [
+      9,
+      1
+    ],
+    [
+      10,
+      1
+    ],
+    [
+      10,
+      2
+    ],
+    [
+      11,
+      2
+    ],
+    [
+      11,
+      1
+    ]
+  ],
+  "_CORRECT_PATH_COLOR": "black",
+  "tiles": {
+    "1,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "2,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "2,2": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "3,2": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "3,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "4,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "4,2": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "5,2": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "5,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "6,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "6,2": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "7,2": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "7,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "8,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "8,2": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "9,2": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "9,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "10,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "10,2": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "11,2": [
+      "rgba(255, 255, 255, 0.3)"
+    ],
+    "11,1": [
+      "rgba(255, 255, 255, 0.3)"
+    ]
+  }
+}

@@ -1,0 +1,313 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 3,
+      "objects": {},
+      "model": "classic",
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_prev_x": 1,
+      "_prev_y": 3,
+      "_prev_orientation": 0,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 6,
+      "possible_initial_positions": [
+        [
+          1,
+          3
+        ]
+      ]
+    }
+  ],
+  "description": [
+    "<h1>Prakeiktos pienės</h1>",
+    "<p>Robotuko draugė Sofija mėgsta skinti pienes ir pūsti jų sėklas kuo toliau.</p>",
+    "<img src='worlds/images/dandelion-pexels-36424.png'>",
+    "<p>Dėl to Robotukas dažnai randa kieme augančių pienių. ",
+    "Tačiau pienės ne visada būna toje pačioje vietoje. ",
+    "Norėdami tuo įsitikinti, paspauskite atkūrimo mygtuką 8 lygio pasaulyje ir pastebėkite, kad pienės ",
+    " kiekvieną kartą pasirodo skirtingose vietose. ",
+    "<em>Jūs galite pamatyti, kad tai įvyks, nes apačioje yra juodas klaustukas",
+    " po pienės paveikslėliu.</em></p>",
+    "<p> Sukurkite programą, kad Robotukas vaikščiotų per kiemą,",
+    " ir paimtų pienę, kai tik ją randa. ",
+    "pienė gali būti bet kurioje iš vietų, kuriose gali augti pienės",
+    " Paveikslėlį su klaustuku po juo vėl pamatysite, jei paspausite perkrovimo mygtuką. ",
+    " Robotukui judant po kiemą reikės užduoti klausimus. ",
+    "Kai bus surinktos visos įmanomos pienės, liepkite Robotukui padėti",
+    "visas pienes, kurias jis surinko ties (2,3) langeliu. Tada grįžkite prie finišo (1,3).",
+    " Nepamirškite naudoti komentarų, kad padidintumėte sprendimo skaitomumą!</p>",
+    "<h3>Ką reikia žinoti</h3>",
+    "<ul><li>Funkcijos <code>pirmyn()</code>, <code>suktis_kairėn()</code>,",
+    "<code>paimti()</code> ir <code>padėti()</code></li>",
+    "<li>Sąlyga <code>aptiktas_objektas()</code>.</li>",
+    "<li>Kaip naudoti sąlygos sakinį <code>if</code>.</li></ul>",
+    "DIFFICULTY3"
+  ],
+  "small_tiles": false,
+  "rows": 5,
+  "cols": 14,
+  "goal": {
+    "position": {
+      "image": "racing_flag",
+      "x": 1,
+      "y": 3
+    },
+    "objects": {
+      "2,3": {
+        "dandelion": "all"
+      }
+    }
+  },
+  "objects": {
+    "3,3": {
+      "dandelion": "0-1"
+    },
+    "4,3": {
+      "dandelion": "0-1"
+    },
+    "5,3": {
+      "dandelion": "0-1"
+    },
+    "6,3": {
+      "dandelion": "0-1"
+    },
+    "7,3": {
+      "dandelion": "0-1"
+    },
+    "8,3": {
+      "dandelion": "0-1"
+    },
+    "9,3": {
+      "dandelion": "0-1"
+    },
+    "10,3": {
+      "dandelion": "0-1"
+    },
+    "11,3": {
+      "dandelion": "0-1"
+    },
+    "12,3": {
+      "dandelion": "0-1"
+    },
+    "13,3": {
+      "dandelion": "0-1"
+    }
+  },
+  "tiles": {
+    "1,1": [
+      "grass"
+    ],
+    "1,2": [
+      "grass"
+    ],
+    "1,3": [
+      "grass"
+    ],
+    "1,4": [
+      "grass"
+    ],
+    "1,5": [
+      "grass"
+    ],
+    "2,1": [
+      "grass"
+    ],
+    "2,2": [
+      "grass"
+    ],
+    "2,3": [
+      "grass"
+    ],
+    "2,4": [
+      "grass"
+    ],
+    "2,5": [
+      "grass"
+    ],
+    "3,1": [
+      "grass"
+    ],
+    "3,2": [
+      "grass"
+    ],
+    "3,3": [
+      "grass"
+    ],
+    "3,4": [
+      "grass"
+    ],
+    "3,5": [
+      "grass"
+    ],
+    "4,1": [
+      "grass"
+    ],
+    "4,2": [
+      "grass"
+    ],
+    "4,3": [
+      "grass"
+    ],
+    "4,4": [
+      "grass"
+    ],
+    "4,5": [
+      "grass"
+    ],
+    "5,1": [
+      "grass"
+    ],
+    "5,2": [
+      "grass"
+    ],
+    "5,3": [
+      "grass"
+    ],
+    "5,4": [
+      "grass"
+    ],
+    "5,5": [
+      "grass"
+    ],
+    "6,1": [
+      "grass"
+    ],
+    "6,2": [
+      "grass"
+    ],
+    "6,3": [
+      "grass"
+    ],
+    "6,4": [
+      "grass"
+    ],
+    "6,5": [
+      "grass"
+    ],
+    "7,1": [
+      "grass"
+    ],
+    "7,2": [
+      "grass"
+    ],
+    "7,3": [
+      "grass"
+    ],
+    "7,4": [
+      "grass"
+    ],
+    "7,5": [
+      "grass"
+    ],
+    "8,1": [
+      "grass"
+    ],
+    "8,2": [
+      "grass"
+    ],
+    "8,3": [
+      "grass"
+    ],
+    "8,4": [
+      "grass"
+    ],
+    "8,5": [
+      "grass"
+    ],
+    "9,1": [
+      "grass"
+    ],
+    "9,2": [
+      "grass"
+    ],
+    "9,3": [
+      "grass"
+    ],
+    "9,4": [
+      "grass"
+    ],
+    "9,5": [
+      "grass"
+    ],
+    "10,1": [
+      "grass"
+    ],
+    "10,2": [
+      "grass"
+    ],
+    "10,3": [
+      "grass"
+    ],
+    "10,4": [
+      "grass"
+    ],
+    "10,5": [
+      "grass"
+    ],
+    "11,1": [
+      "grass"
+    ],
+    "11,2": [
+      "grass"
+    ],
+    "11,3": [
+      "grass"
+    ],
+    "11,4": [
+      "grass"
+    ],
+    "11,5": [
+      "grass"
+    ],
+    "12,1": [
+      "grass"
+    ],
+    "12,2": [
+      "grass"
+    ],
+    "12,3": [
+      "grass"
+    ],
+    "12,4": [
+      "grass"
+    ],
+    "12,5": [
+      "grass"
+    ],
+    "13,1": [
+      "grass"
+    ],
+    "13,2": [
+      "grass"
+    ],
+    "13,3": [
+      "grass"
+    ],
+    "13,4": [
+      "grass"
+    ],
+    "13,5": [
+      "grass"
+    ],
+    "14,1": [
+      "grass"
+    ],
+    "14,2": [
+      "grass"
+    ],
+    "14,3": [
+      "grass"
+    ],
+    "14,4": [
+      "grass"
+    ],
+    "14,5": [
+      "grass"
+    ]
+  },
+  "walls": {}
+}

@@ -1,8 +1,7 @@
 from browser import window
 from preprocess import transform
 
-# The following is more complicated than it needs to be and is done only
-# for testing purpose.
+# The following is done only for testing purpose.
 # Usually, the "library" tab will have a unique name
 # for that language. For example, in French, it is
 # named "biblio" which is short for "bibliothèque".
@@ -16,7 +15,7 @@ from preprocess import transform
 lang = window.RUR.state.human_language
 
 RUR = window.RUR
-if lang in ["fr", "en_fr"]:
+if lang.endswith("fr"):
     # This block contains the code found in biblio.py
     from common import _import_fr
 

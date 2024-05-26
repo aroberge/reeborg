@@ -1,0 +1,18 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0
+    }
+  ],
+  "walls": {},
+  "description": "Paprastas, tuščias pasaulis, paruoštas Robutuko tyrinėjimui.",
+  "small_tiles": false,
+  "rows": 6,
+  "cols": 6
+}

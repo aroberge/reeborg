@@ -1,0 +1,67 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {},
+      "_orientation": 0
+    }
+  ],
+  "walls": {},
+  "description": [
+    "<h1>Gėlės mano draugams</h1>",
+    "<p>Robotukas norėtų padaryti keletą gėlių puokščių ",
+    " savo draugams Andriui ir Donatai. ",
+    "    Robotukas turi leidimą <code>paimti()</code> ",
+    " tulpes iš kaimynų kiemų. ",
+    "    Robotuko nelaimei, kiekvienas iš kiemų ",
+    " skiriasi. ",
+    "    Robotukas žino, kad kiemas bus ",
+    " stačiakampio formos ir kad reikės kartoti tam tikrus",
+    " veiksmus norint apeiti kiemą per 23 ėjimus. ",
+    " Kiekvieno kiemo kampe bus po tulpę",
+    " išskyrus pačia pradžią, kur Robotukas startuoja.</p>",
+    " <p>Sukurkite programą, kuri apvestų Robotuką ",
+    " kiemo pakraščiu. Robotukas turi paimti tulpę, jei tik gali,",
+    " arba judėti į priekį, jei tulpės nėra. ",
+
+    "    Turite naudoti <code>repeat ?:</code> ir <code>if/else</code>. ",
+    "</p>",
+    "<pre class=\"python\">",
+    "repeat 23:",
+    "    ...",
+    "    ...",
+    "    ...",
+    "    ...",
+    "    ...</pre>",
+    "<h3>Ką reikia žinoti</h3>",
+    "<ul><li>Funkcijas <code>pirmyn()</code>, <code>suktis_kairėn()</code>,",
+    "ir <code>paimti()</code></li>",
+    "<li>Sąlygą <code>aptiktas_objektas()</code>.</li>",
+    "<li>Kaip naudoti <code>if/else</code> sąlygos sakinį.</li></ul>",
+    "DIFFICULTY2",
+    ""
+  ],
+  "small_tiles": false,
+  "rows": 5,
+  "cols": 7,
+  "goal": {
+    "objects": {}
+  },
+  "onload": [
+    "var height, width;",
+    "width = RUR.randint(4, 8);",
+    "height = 12 - width;",
+    "RUR.set_world_size(width, height);",
+    "RUR.fill_background(\"grass\");",
+    "RUR.add_final_position(\"house\", 1, 1);",
+    "",
+    "RUR.add_object(\"tulip\", width, 1)",
+    "RUR.add_object(\"tulip\", width, height)",
+    "RUR.add_object(\"tulip\", 1, height)",
+    ""
+  ]
+}

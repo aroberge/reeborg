@@ -125,7 +125,7 @@ def _import_pl(namespace):
     WallCollisionError_saved = window["WallCollisionError_pl"]
     MissingObjectError_saved = window["MissingObjectError_pl"]
 
-    namespace.update(__REEBORG_FR)
+    namespace.update(__REEBORG_PL)
 
     window["ReeborgOK"] = ReeborgOK_saved
     window["ReeborgOk"] = ReeborgOk_saved
@@ -151,20 +151,6 @@ def _import_lt(namespace):
     window["ReeborgError"] = ReeborgError_saved
     window["WallCollisionError"] = WallCollisionError_saved
     window["MissingObjectError"] = MissingObjectError_saved
-
-    # ReeborgOK_saved = window["ReeborgOK_de"]
-    # ReeborgOk_saved = window["ReeborgOk_de"]
-    # ReeborgError_saved = window["ReeborgError_de"]
-    # WallCollisionError_saved = window["WallCollisionError_de"]
-    # MissingObjectError_saved = window["MissingObjectError_de"]
-    #
-    # namespace.update(__REEBORG_DE)
-    #
-    # window["ReeborgOK"] = ReeborgOK_saved
-    # window["ReeborgOk"] = ReeborgOk_saved
-    # window["ReeborgError"] = ReeborgError_saved
-    # window["WallCollisionError"] = WallCollisionError_saved
-    # window["MissingObjectError"] = MissingObjectError_saved
 
 def _import_cn(namespace):
     """Does the clean equivalent of
@@ -329,38 +315,39 @@ def __default_help():
     """Lists available commands"""
     exclude = ["toString"]
     lang = window.RUR.state.human_language
-    if lang in ["en", "fr_en", "ko_en", "de_en"]:
+    if lang.endswith("en"):
         import reeborg_en  # NOQA
 
         dir_py(reeborg_en, exclude=exclude)
-    elif lang in ["fr", "en_fr"]:
+    elif lang.endswith("fr"):
         import reeborg_fr  # NOQA
 
         dir_py(reeborg_fr, exclude=exclude)
-    elif lang in ["pl", "en_pl"]:
+
+    elif lang.endswith("lt"):
+        import reeborg_lt  # NOQA
+
+        dir_py(reeborg_lt, exclude=exclude)
+        
+    elif lang.endswith("pl"):
         import reeborg_pl  # NOQA
 
         dir_py(reeborg_pl, exclude=exclude)
 
-    elif lang in ["lt", "en_lt"]:
-        import reeborg_lt  # NOQA
-
-        dir_py(reeborg_lt, exclude=exclude)
-
-    elif lang in ["pt", "en_pt"]:
+    elif lang.endswith("pt"):
         import reeborg_pt  # NOQA
 
         dir_py(reeborg_pt, exclude=exclude)
-    elif lang in ["de", "en_de"]:
+    elif lang.endswith("de"):
         import reeborg_de  # NOQA
 
         dir_py(reeborg_de, exclude=exclude)
-    elif lang in ["ko", "en_ko"]:
+    elif lang.endswith("ko"):
         import reeborg_ko  # NOQA
 
         dir_py(reeborg_ko, exclude=exclude)
     else:
-        print("Unrecognized language; please file an issue!")
+        print(f"Unrecognized language {lang}; please file an issue!")
 
 
 # TODO: use textwrap.dedent to improve format of help.

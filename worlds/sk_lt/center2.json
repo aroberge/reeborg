@@ -1,0 +1,60 @@
+{
+  "robots": [
+    {
+      "x": 1,
+      "y": 1,
+      "_prev_x": 1,
+      "_prev_y": 1,
+      "_prev_orientation": 0,
+      "objects": {
+        "token": 99
+      },
+      "_orientation": 0,
+      "_is_leaky": true,
+      "_trace_history": [],
+      "_trace_style": "default",
+      "_trace_color": "seagreen",
+      "__id": 38,
+      "model": "classic",
+      "possible_initial_positions": [
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "walls": {},
+  "description": [
+    "<h1>Pasaulio centras - 2</h1>",
+    "Padėkite ženkliuką šio pasaulio geometriniame centre. Garantuojame, kad pasaulio plotis ir aukštis bus nelyginiai skaičiai.",
+    "DIFFICULTY2"
+  ],
+  "small_tiles": false,
+  "rows": 5,
+  "cols": 9,
+  "onload": [
+    "#python onload code",
+    "import random",
+    "",
+    "width = 2",
+    "height = 2",
+    "while width % 2 == 0:",
+    "    width = random.randint(3, 15)",
+    "while height % 2 == 0:",
+    "    height = random.randint(3, 15)",
+    "",
+    "RUR.set_world_size(width, height)",
+    "RUR.fill_background(\"grass\")",
+    "RUR.give_object_to_robot(\"token\",99)",
+    "",
+    "#Find Target Location",
+    "target_x = (width//2)+1",
+    "target_y = (height//2)+1",
+    "",
+    "",
+    "options = {'goal' : True}",
+    "RUR.add_object(\"token\", target_x, target_y, options)",
+    ""
+  ]
+}
