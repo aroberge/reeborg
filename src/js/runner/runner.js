@@ -120,8 +120,19 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             message = response.message;
             other_info = response.other_info;
             error.name = response.error_name;
+            let translated_error;
+            translated_error = RUR.translate(message);
             error.message = "<h3>" + error.name + "</h3><p>" +
-                                    message + "</p><p>" + other_info + '</p>';
+                translated_error + "</p><p>" + other_info + '</p>';
+            if (RUR.state.prevent_playback) {
+                RUR.show_feedback("#Reeborg-concludes", e.reeborg_concludes);
+            } else {
+                RUR.record_frame("error", error);
+            }
+            if (error.name === "ReeborgOK") return false;
+            if (error.name === "ReeborgError") return false;
+            if (error.name === "MissingObjectError") return false;
+            if (error.name === "WallCollisionError") return false;
         } else {
             error.name = e.name;
             message = e.message;
