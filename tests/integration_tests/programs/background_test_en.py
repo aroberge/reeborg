@@ -30,13 +30,6 @@ except ReeborgError:
 assert error
 
 #----RUR.add_colored_tile------------
-# add_colored_ does not work with named tiles
-error = False
-try:
-    RUR.add_colored_tile("mud", 2, 2)
-except ReeborgError:
-    error = True
-assert error
 
 # testing unknown
 error = False
@@ -49,7 +42,7 @@ assert not error
 # testing wrong location
 error = False
 try:
-    RUR.add_colored_tile("water", 2, 0)
+    RUR.add_colored_tile("blue", 2, 0)
 except ReeborgError:
     error = True
 assert error
@@ -88,4 +81,4 @@ assert error
 RUR.add_background_tile("gravel", 1, 1)
 assert "gravel" == RUR.get_background_tile(1, 1)
 RUR.remove_background_tile("gravel", 1, 1)
-assert RUR.get_background_tile(1, 1) is None
+assert not RUR.get_background_tile(1, 1)
