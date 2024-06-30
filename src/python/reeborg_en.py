@@ -788,6 +788,7 @@ class ReeborgOK(Exception):  #py:RE
 
     def __init__(self, message):  #py:RE.__init__
         self.reeborg_success = message
+        RUR.__reeborg_success = message
         self.message = message
         super().__init__(message)
 
@@ -820,6 +821,7 @@ class ReeborgError(Exception):  #py:RE
 
     def __init__(self, message):  #py:RE.__init__
         self.reeborg_failure = message
+        RUR.__reeborg_failure = message
         self.message = message
         super().__init__(message)
 

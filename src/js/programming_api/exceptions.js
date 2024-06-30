@@ -29,6 +29,10 @@ RUR.ReeborgError = function (message) {
 
 
 RUR.ReeborgOK = function (message) {
+    this.name = "ReeborgOK";
+    this.reeborg_success = message;
+    this.message = message;
+    RUR.__reeborg_success = message;
     if (RUR.state.programming_language == "python"){
         try { // see comment above
             if (["en", "fr-en", "ko-en", "cn-en", "pt-en"].indexOf(RUR.state.human_language) != -1) {
@@ -42,9 +46,6 @@ RUR.ReeborgOK = function (message) {
             }
         } catch (e) {}
     }
-    this.name = "ReeborgOK";
-    this.reeborg_success = message;
-    this.message = message;
 };
 RUR.ReeborgOk = RUR.ReeborgOK; // preventing an annoying typo...
 

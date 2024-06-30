@@ -83,6 +83,8 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
        guard against any future changes by doing our own handling. */
 
     RUR.__python_error = false;
+    RUR.__reeborg_failure = false;
+    RUR.__reeborg_success = false;
     try {
         if (RUR.state.programming_language === "javascript") {
             RUR.runner.eval_javascript(src);
@@ -104,8 +106,20 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             console.dir(e);
         }
         error = {};
-        if (e.reeborg_success !== undefined || RUR.__reeborg_success) {  // indicates success
-            error.message = e.reeborg_success || RUR.__reeborg_success;
+        if (e.reeborg_success) {
+            error.reeborg_success = e.reeborg_success;
+        }
+        else if (RUR.__reeborg_success) {
+            error.reeborg_success = RUR.__reeborg_success;
+        }
+        if (e.reeborg_failure) {
+            error.reeborg_failure = e.reeborg_failure;
+        }
+        else if (RUR.__reeborg_failure) {
+            error.reeborg_failure = RUR.__reeborg_failure;
+        }
+        
+        if (error.reeborg_success) {
             error.name = "ReeborgOK";
             if (RUR.state.prevent_playback) {
                 RUR.show_feedback("#Reeborg-success", error.reeborg_success);
@@ -114,8 +128,8 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             }
             return false; // since success, not a fatal error.
         }
+
         if (RUR.state.programming_language === "python") {
-            error.reeborg_failure = RUR.__reeborg_failure;
             response = RUR.runner.simplify_python_traceback(e);
             message = response.message;
             other_info = response.other_info;
@@ -143,7 +157,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             }
         }
 
-        if (e.reeborg_failure !== undefined){
+        if (error.reeborg_failure !== undefined){
             RUR.record_frame("error", error);
         } else {
             RUR.show_feedback("#Reeborg-failure",

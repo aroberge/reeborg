@@ -499,20 +499,23 @@ def __generic_translate_python(
         system_vars = "\n"
     src = "help=__help\n" + pre_code + "\n" + system_vars + src + "\n" + post_code
 
-    window.RUR.__reeborg_success = None
-    window.RUR.__reeborg_failure = None
-
     try:
         exec(src, globals_)
     except Exception as e:
+        window.console.log(e.args)
+        window.console.log(src)
         window.RUR.__python_error = e
         if hasattr(e, "reeborg_success"):
             window.RUR.__reeborg_success = e.reeborg_success
         if hasattr(e, "reeborg_failure"):
-            window.RUR.__reeborg_failure = e.reeborg_failure           
+            window.RUR.__reeborg_failure = e.reeborg_failure
 
     if window.RUR.state.done_executed:
         try:
             exec(post_code, globals_)
         except Exception as e:
             window.RUR.__python_error = e
+        if hasattr(e, "reeborg_success"):
+            window.RUR.__reeborg_success = e.reeborg_success
+        if hasattr(e, "reeborg_failure"):
+            window.RUR.__reeborg_failure = e.reeborg_failure
