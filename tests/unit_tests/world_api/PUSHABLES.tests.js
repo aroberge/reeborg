@@ -49,7 +49,7 @@ test('trying to add a second pushable', function (assert) {
         RUR.add_pushable('a', 2, 3, {number:4});
     } catch (e) {
         assert.equal(e.message, "There can be at most one pushable object at a given location.");
-        assert.equal(e.reeborg_shouts, "There can be at most one pushable object at a given location.", "reeborg_shouts");
+        assert.equal(e.reeborg_failure, "There can be at most one pushable object at a given location.", "reeborg_failure");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();

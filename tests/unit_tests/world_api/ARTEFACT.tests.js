@@ -15,7 +15,7 @@ require("../../../src/js/world_api/artefact.js");
    we test every single possible exceptions once,
    trying to use different values each time.  The first time we
    do a test, we ensure that all the exception parameters
-   (message, reeborg_shouts, name) are correct, after which we focus
+   (message, reeborg_failure, name) are correct, after which we focus
    on a single message.
 
    Afterwards, for each specific function, we just do one test that
@@ -35,7 +35,7 @@ test('ensure_common_required_args_present: invalid position', function (assert) 
         RUR.UnitTest.ensure_common_required_args_present(args);
     } catch (e) {
         assert.equal(e.message, "(0, 0) is an invalid position.", "error message ok");
-        assert.equal(e.reeborg_shouts, "(0, 0) is an invalid position.", "reeborg_shouts");
+        assert.equal(e.reeborg_failure, "(0, 0) is an invalid position.", "reeborg_failure");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();

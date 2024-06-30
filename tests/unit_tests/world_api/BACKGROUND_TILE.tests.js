@@ -22,7 +22,7 @@ test('invalid position', function (assert) {
         RUR.add_background_tile('a', 0, 0);
     } catch (e) {
         assert.equal(e.message, "(0, 0) is an invalid position.", "error message ok");
-        assert.equal(e.reeborg_shouts, "(0, 0) is an invalid position.", "reeborg_shouts");
+        assert.equal(e.reeborg_failure, "(0, 0) is an invalid position.", "reeborg_failure");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();
@@ -50,7 +50,7 @@ test('adding unknown tile', function (assert) {
         global.RUR.add_background_tile('red', 2, 3);
     } catch (e) {
         assert.equal(e.message, "Invalid name: red", "error message ok");
-        assert.equal(e.reeborg_shouts, "Invalid name: red", "reeborg_shouts");
+        assert.equal(e.reeborg_failure, "Invalid name: red", "reeborg_failure");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();

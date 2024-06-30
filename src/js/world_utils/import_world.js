@@ -16,7 +16,7 @@ RUR.world_utils.import_world = function (json_string) {
     RUR.hide_end_dialogs();
 
     if (json_string === undefined || json_string === "undefined"){
-        RUR.show_feedback("#Reeborg-shouts",
+        RUR.show_feedback("#Reeborg-failure",
             RUR.translate("Problem in RUR.world_utils.import_world: world not defined."));
         console.log("Problem: no argument passed to RUR.world_utils.import_world");
         RUR.CURRENT_WORLD = RUR.create_empty_world();
@@ -77,7 +77,7 @@ function show_onload_feedback (e, lang) {
     } else {
         lang_info = RUR.translate("Invalid Javascript code in Onload editor");
     }
-    RUR.show_feedback("#Reeborg-shouts", lang_info + "<br>" + e.message + "<br>" +
+    RUR.show_feedback("#Reeborg-failure", lang_info + "<br>" + e.message + "<br>" +
         RUR.translate("Problem with onload code.") + "<pre>" +
         RUR.CURRENT_WORLD.onload + "</pre>");
 }

@@ -15,7 +15,7 @@ QUnit.test("L3: Test obsolete RUR.add_object_image; test nouvelles_images_de_rob
     // We run a program that is definitely **not** a solution for this world.
     RUR.runner.eval("avance()");
     last_frame = RUR.frames[RUR.frames.length - 1];
-    assert.equal(last_frame.error.reeborg_shouts,
+    assert.equal(last_frame.error.reeborg_failure,
                  "Il reste du fromage !",
                  "Failure to complete task properly recognized.");
     done();

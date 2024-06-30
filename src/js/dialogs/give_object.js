@@ -90,6 +90,6 @@ RUR.give_object_to_robot = function (obj, nb, robot) {
             delete robot.objects[obj];
         }
     } else {
-        RUR.show_feedback("#Reeborg-shouts", nb + RUR.translate(" is not a valid value!"));
+        RUR.show_feedback("#Reeborg-failure", nb + RUR.translate(" is not a valid value!"));
     }
 };

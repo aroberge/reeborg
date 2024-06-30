@@ -24,7 +24,7 @@ test('get_walls: invalid position', function (assert) {
     try {
         RUR.get_walls(0, 0);
     } catch (e) {
-        assert.ok(e.reeborg_shouts, "reeborg_shouts");
+        assert.ok(e.reeborg_failure, "reeborg_failure");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();
@@ -36,7 +36,7 @@ test('is_wall: invalid position', function (assert) {
     try {
         RUR.is_wall("north", 1, 100);
     } catch (e) {
-        assert.ok(e.reeborg_shouts, "reeborg_shouts");
+        assert.ok(e.reeborg_failure, "reeborg_failure");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();
@@ -49,7 +49,7 @@ test('is_wall: invalid orientation', function (assert) {
     try {
         RUR.is_wall("n", 1, 2);
     } catch (e) {
-        assert.ok(e.reeborg_shouts, "reeborg_shouts");
+        assert.ok(e.reeborg_failure, "reeborg_failure");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();
@@ -61,7 +61,7 @@ test('add_wall: invalid position', function (assert) {
     try {
         RUR.add_wall("north", 1, 100, true);  // test for goal wall
     } catch (e) {
-        assert.ok(e.reeborg_shouts, "reeborg_shouts");
+        assert.ok(e.reeborg_failure, "reeborg_failure");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();
@@ -72,7 +72,7 @@ test('add_wall: invalid orientation', function (assert) {
     try {
         RUR.add_wall("n", 1, 2, true);
     } catch (e) {
-        assert.ok(e.reeborg_shouts, "reeborg_shouts");
+        assert.ok(e.reeborg_failure, "reeborg_failure");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();
@@ -84,7 +84,7 @@ test('remove_wall: invalid position', function (assert) {
     try {
         RUR.remove_wall("north", 1, 100);
     } catch (e) {
-        assert.ok(e.reeborg_shouts, "reeborg_shouts");
+        assert.ok(e.reeborg_failure, "reeborg_failure");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();
@@ -96,7 +96,7 @@ test('remove_wall: invalid orientation', function (assert) {
     try {
         RUR.remove_wall("n", 1, 2);
     } catch (e) {
-        assert.ok(e.reeborg_shouts, "reeborg_shouts");
+        assert.ok(e.reeborg_failure, "reeborg_failure");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();
@@ -109,7 +109,7 @@ test('add_wall: twice at the same location', function (assert) {
         RUR.add_wall("north", 1, 2);
         RUR.add_wall("north", 1, 2);
     } catch (e) {
-        assert.ok(e.reeborg_shouts, "reeborg_shouts");
+        assert.ok(e.reeborg_failure, "reeborg_failure");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();
@@ -121,7 +121,7 @@ test('remove_wall: removing missing wall', function (assert) {
     try {
         RUR.remove_wall("north", 1, 2);
     } catch (e) {
-        assert.ok(e.reeborg_shouts, "reeborg_shouts");
+        assert.ok(e.reeborg_failure, "reeborg_failure");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();

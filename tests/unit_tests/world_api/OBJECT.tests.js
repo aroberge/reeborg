@@ -94,7 +94,7 @@ test('adding unknown object', function (assert) {
         RUR.add_object('a', 2, 3, {number:4});
     } catch (e) {
         assert.equal(e.message, "Invalid name: a", "error message");
-        assert.equal(e.reeborg_shouts, "Invalid name: a", "reeborg_shouts");
+        assert.equal(e.reeborg_failure, "Invalid name: a", "reeborg_failure");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();
@@ -112,7 +112,7 @@ test('removing unknown object', function (assert) {
         RUR.add_object('an object', 2, 3, {number:4});
     } catch (e) {
         assert.equal(e.message, "Invalid name: an object", "error message");
-        assert.equal(e.reeborg_shouts, "Invalid name: an object", "reeborg_shouts");
+        assert.equal(e.reeborg_failure, "Invalid name: an object", "reeborg_failure");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();
@@ -125,7 +125,7 @@ test('invalid x value', function (assert) {
     try {
         RUR.add_object('a', 0, 3, {number:4});
     } catch (e) {
-        assert.ok(e.reeborg_shouts, "reeborg_shouts ok");
+        assert.ok(e.reeborg_failure, "reeborg_failure ok");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();
@@ -138,7 +138,7 @@ test('invalid y value', function (assert) {
     try {
         RUR.add_object('a', 3, -1, {number:4});
     } catch (e) {
-        assert.ok(e.reeborg_shouts,"reeborg_shouts ok");
+        assert.ok(e.reeborg_failure,"reeborg_failure ok");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();

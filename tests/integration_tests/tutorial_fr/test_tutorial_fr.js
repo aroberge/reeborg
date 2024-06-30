@@ -21,7 +21,7 @@ QUnit.test("Autour 1, 2, 3, 4", function(assert) {
                 test_utils.program_dir + program_files[py_js]
                 );
             info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
-            assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
+            assert.equal(test_utils.feedback_element, "#Reeborg-success", info);
             info = "Feedback text ok for " + world_files + " ; language = " + RUR.state.programming_language;
             assert.equal(test_utils.content,
                 "Très bien fait !",
@@ -44,7 +44,7 @@ QUnit.test("But 1, 2, 3, 4", function(assert) {
                 test_utils.program_dir + program_files[py_js]
                 );
             info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
-            assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
+            assert.equal(test_utils.feedback_element, "#Reeborg-success", info);
             info = "Feedback text ok for " + world_files + " ; language = " + RUR.state.programming_language;
             assert.equal(test_utils.content,
                 "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li><li class='success'>Reeborg est à la bonne coordonnée y.</li></ul>",
@@ -70,7 +70,7 @@ QUnit.test("Récolte 1, 2, 3", function(assert) {
                 test_utils.program_dir + program_files[py_js]
                 );
             info = "Feedback element ok for " + world_files[world] + " ; language = " + RUR.state.programming_language;
-            assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
+            assert.equal(test_utils.feedback_element, "#Reeborg-success", info);
             info = "Feedback text ok for " + world_files[world] + " ; language = " + RUR.state.programming_language;
             assert.equal(test_utils.content, message, "Feedback text ok.", info);
         }
@@ -85,7 +85,7 @@ QUnit.test("Récolte 1, 2, 3", function(assert) {
             test_utils.program_dir + program_files[py_js]
             );
         info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
-        assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
+        assert.equal(test_utils.feedback_element, "#Reeborg-success", info);
         info = "Feedback text ok for " + world_files + " ; language = " + RUR.state.programming_language;
         assert.equal(test_utils.content, message, info);
     }
@@ -105,7 +105,7 @@ QUnit.test("Haies 1, 2, 3, 4", function(assert) {
                 test_utils.program_dir + program_files[py_js]
                 );
             info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
-            assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
+            assert.equal(test_utils.feedback_element, "#Reeborg-success", info);
             info = "Feedback text ok for " + world_files + " ; language = " + RUR.state.programming_language;
             assert.equal(test_utils.content,
                 "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li><li class='success'>Reeborg est à la bonne coordonnée y.</li></ul>",
@@ -128,7 +128,7 @@ QUnit.test("Labyrinthe", function(assert) {
                 test_utils.program_dir + program_files[py_js]
                 );
             info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
-            assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
+            assert.equal(test_utils.feedback_element, "#Reeborg-success", info);
             assert.equal(test_utils.content,
                 "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li><li class='success'>Reeborg est à la bonne coordonnée y.</li></ul>",
                 "Feedback text ok.");
@@ -150,7 +150,7 @@ QUnit.test("Rain 0, 1, 2", function(assert) {
                 test_utils.program_dir + program_files[py_js]
                 );
             info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
-            assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
+            assert.equal(test_utils.feedback_element, "#Reeborg-success", info);
             info = "Feedback text ok for " + world_files + " ; language = " + RUR.state.programming_language;
             assert.equal(test_utils.content,
                 "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li>" +
@@ -175,7 +175,7 @@ QUnit.test("Tempêtes 1, 2, 3, 4", function(assert) {
                 test_utils.program_dir + program_files[py_js]
                 );
             info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
-            assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
+            assert.equal(test_utils.feedback_element, "#Reeborg-success", info);
             assert.equal(test_utils.content,
                 "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li>"+
                 "<li class='success'>Reeborg est à la bonne coordonnée y.</li>"+
@@ -199,7 +199,7 @@ QUnit.test("Jetons 1, 2, 3, 4, 5", function(assert) {
                 test_utils.program_dir + program_files[py_js]
                 );
             info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
-            assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
+            assert.equal(test_utils.feedback_element, "#Reeborg-success", info);
             assert.equal(test_utils.content,
                 "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li>"+
                 "<li class='success'>Reeborg est à la bonne coordonnée y.</li>"+
@@ -223,7 +223,7 @@ QUnit.test("Centrer 1, 2", function(assert) {
                 test_utils.program_dir + program_files[py_js]
                 );
             info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
-            assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
+            assert.equal(test_utils.feedback_element, "#Reeborg-success", info);
             assert.equal(test_utils.content,
                 "<ul><li class='success'>Tous les objets sont aux bons endroits.</li></ul>",
                 "Feedback text ok.");
@@ -248,7 +248,7 @@ QUnit.test("Une marche d'expert", function(assert) {
                 test_utils.program_dir + program_files[py_js]
                 );
             info = "Feedback element ok for " + world_files + " ; language = " + RUR.state.programming_language;
-            assert.equal(test_utils.feedback_element, "#Reeborg-concludes", info);
+            assert.equal(test_utils.feedback_element, "#Reeborg-success", info);
             info = "Feedback text ok for " + world_files + " ; language = " + RUR.state.programming_language;
             assert.equal(test_utils.content, "Bien fait !", info);
         }

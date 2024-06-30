@@ -24,7 +24,7 @@ RUR.ReeborgError = function (message) {
     }
     this.name = "ReeborgError";
     this.message = message;
-    this.reeborg_shouts = message;
+    this.reeborg_failure = message;
 };
 
 
@@ -43,7 +43,7 @@ RUR.ReeborgOK = function (message) {
         } catch (e) {}
     }
     this.name = "ReeborgOK";
-    this.reeborg_concludes = message;
+    this.reeborg_success = message;
     this.message = message;
 };
 RUR.ReeborgOk = RUR.ReeborgOK; // preventing an annoying typo...
@@ -63,7 +63,7 @@ RUR.WallCollisionError = function (message) {
     }
     this.name = "WallCollisionError";
     this.message = message;
-    this.reeborg_shouts = message;
+    this.reeborg_failure = message;
 };
 
 
@@ -81,5 +81,5 @@ RUR.MissingObjectError = function (message) {
     }
     this.name = "MissingObjectError";
     this.message = message;
-    this.reeborg_shouts = message;
+    this.reeborg_failure = message;
 };

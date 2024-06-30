@@ -231,11 +231,11 @@ class Interpreter():
         try:
             RUR._World_(*args)
         except Exception as e:
-            if hasattr(e, "reeborg_concludes"):
+            if hasattr(e, "reeborg_success"):
                 self.restart()
-                print(e.reeborg_concludes)
-            elif hasattr(e, "reeborg_shouts"):
-                print(e.reeborg_shouts)
+                print(e.reeborg_success)
+            elif hasattr(e, "reeborg_failure"):
+                print(e.reeborg_failure)
             else:
                 raise e
 
@@ -295,13 +295,13 @@ class Interpreter():
             self.status = "main"
         except Exception as e:
             exc = __BRYTHON__.current_exception  # NOQA
-            if hasattr(e, 'reeborg_shouts'):
-                message = RUR.translate(getattr(e, 'reeborg_shouts'))
+            if hasattr(e, 'reeborg_failure'):
+                message = RUR.translate(getattr(e, 'reeborg_failure'))
                 message = message.replace('<code>', '').replace('</code>', '')
                 py_console.append("{}: {}".format(e.__name__, message))  # NOQA
-            elif hasattr(e, 'reeborg_concludes'):
-                window.console.log("yes, it has attribute reeborg_concludes")
-                message = RUR.translate(getattr(e, 'reeborg_concludes'))
+            elif hasattr(e, 'reeborg_success'):
+                window.console.log("yes, it has attribute reeborg_success")
+                message = RUR.translate(getattr(e, 'reeborg_success'))
                 py_console.append("{}: {}".format(e.__name__, message)) # NOQA
             else:
                  print_exc(exc)

@@ -67,7 +67,7 @@ QUnit.test("Newspaper", function(assert) {
     last_frame = RUR.frames[RUR.frames.length - 1];
     assert.deepEqual(last_frame.world_map.robots[0].objects, {"token": 5}, "5 tokens carried.");
     RUR.rec.conclude();
-    assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
+    assert.equal(test_utils.feedback_element, "#Reeborg-success", "Feedback element ok.");
     assert.equal(test_utils.content,
         "<ul><li class='success'>Reeborg is at the correct x position.</li>" +
         "<li class='success'>Reeborg is at the correct y position.</li>" +
@@ -108,7 +108,7 @@ QUnit.test("Newspaper", function(assert) {
     last_frame = RUR.frames[RUR.frames.length - 1];
     assert.deepEqual(last_frame.world_map.robots[0].objects, {"token": 5}, "5 tokens carried.");
     RUR.rec.conclude();
-    assert.equal(test_utils.feedback_element, "#Reeborg-concludes", "Feedback element ok.");
+    assert.equal(test_utils.feedback_element, "#Reeborg-success", "Feedback element ok.");
     assert.equal(test_utils.content,
         "<ul><li class='success'>Reeborg est à la bonne coordonnée x.</li>" +
         "<li class='success'>Reeborg est à la bonne coordonnée y.</li>" +
@@ -147,7 +147,7 @@ QUnit.test("API: Testing add/remove/is/get",
     // every time we make changes.
     assert.ok(RUR.frames.length > 10, "Pre has been executed.");
     last_frame = RUR.frames[RUR.frames.length - 1];
-    assert.equal(last_frame.error.reeborg_shouts, "Done!", "Task run correctly.");
+    assert.equal(last_frame.error.reeborg_failure, "Done!", "Task run correctly.");
     done();
 });
 
@@ -165,7 +165,7 @@ QUnit.test("API: Protection given by bridges",
     // every time we make changes.
     assert.ok(RUR.frames.length > 10, "Pre has been executed.");
     last_frame = RUR.frames[RUR.frames.length - 1];
-    assert.equal(last_frame.error.reeborg_shouts, "Done!", "Task run correctly.");
+    assert.equal(last_frame.error.reeborg_failure, "Done!", "Task run correctly.");
     done();
 });
 
@@ -183,7 +183,7 @@ QUnit.test("API: Protection given by carried objects",
     // every time we make changes.
     assert.ok(RUR.frames.length > 10, "Pre has been executed.");
     last_frame = RUR.frames[RUR.frames.length - 1];
-    assert.equal(last_frame.error.reeborg_shouts, "The wicked witch got me.", "Task run correctly.");
+    assert.equal(last_frame.error.reeborg_failure, "The wicked witch got me.", "Task run correctly.");
     done();
 });
 
@@ -195,6 +195,6 @@ QUnit.test("API: Protection given by carried objects - second test function",
     RUR.runner.eval("test_front_is_clear()");
     assert.ok(RUR.frames.length > 10, "Pre has been executed.");
     last_frame = RUR.frames[RUR.frames.length - 1];
-    assert.equal(last_frame.error.reeborg_shouts, "The wicked witch got me.", "Task run correctly.");
+    assert.equal(last_frame.error.reeborg_failure, "The wicked witch got me.", "Task run correctly.");
     done();
 });

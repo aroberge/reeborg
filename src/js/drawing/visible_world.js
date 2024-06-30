@@ -76,7 +76,7 @@ RUR.vis_world.draw_all = function () {
     var ctx, world = RUR.get_current_world();
     if (world.blank_canvas) { // for game environment
         if (RUR.state.editing_world) {
-            RUR.show_feedback("#Reeborg-shouts",
+            RUR.show_feedback("#Reeborg-failure",
                                 RUR.translate("Editing of blank canvas is not supported."));
             return;
          }

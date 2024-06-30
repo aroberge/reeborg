@@ -134,18 +134,18 @@ RUR.rec.conclude = function () {
                 RUR._play_sound("#success-sound");
             }
             if (RUR.success_custom_message !== undefined) {
-                RUR.show_feedback("#Reeborg-concludes", RUR.success_custom_message);
+                RUR.show_feedback("#Reeborg-success", RUR.success_custom_message);
             } else {
-                RUR.show_feedback("#Reeborg-concludes", goal_status.message);
+                RUR.show_feedback("#Reeborg-success", goal_status.message);
             }
         } else {
             if (RUR.state.sound_on) {
                 RUR._play_sound("#error-sound");
             }
             if (RUR.failure_custom_message !== undefined) {
-                RUR.show_feedback("#Reeborg-shouts", RUR.failure_custom_message);
+                RUR.show_feedback("#Reeborg-failure", RUR.failure_custom_message);
             } else {
-                RUR.show_feedback("#Reeborg-shouts", goal_status.message);
+                RUR.show_feedback("#Reeborg-failure", goal_status.message);
             }
         }
     } else {
@@ -155,9 +155,9 @@ RUR.rec.conclude = function () {
         }
 
         if (RUR.success_custom_message !== undefined) {
-            RUR.show_feedback("#Reeborg-concludes", RUR.success_custom_message);
+            RUR.show_feedback("#Reeborg-success", RUR.success_custom_message);
         } else {
-            RUR.show_feedback("#Reeborg-concludes",
+            RUR.show_feedback("#Reeborg-success",
                              "<p class='center'>" +
                              RUR.translate("Last instruction completed!") +
                              "</p>");
@@ -169,18 +169,18 @@ RUR.rec.conclude = function () {
 
 RUR.rec.handle_error = function (frame) {
     "use strict";
-    if (frame.error.reeborg_shouts === RUR.translate("Done!")){
+    if (frame.error.reeborg_failure === RUR.translate("Done!")){
         if (frame.world_map.goal !== undefined){
             return RUR.rec.conclude();
         } else{
             if (RUR.state.sound_on) {
                 RUR._play_sound("#success-sound");
             }
-            RUR.show_feedback("#Reeborg-concludes",
+            RUR.show_feedback("#Reeborg-success",
                 RUR.translate("<p class='center'>Instruction <code>done()</code> executed.</p>"));
         }
     } else if (frame.error.name == "ReeborgOK") {
-        RUR.show_feedback("#Reeborg-concludes",
+        RUR.show_feedback("#Reeborg-success",
                              "<p class='center'>" +
                              frame.error.message +
                              "</p>");
@@ -188,7 +188,7 @@ RUR.rec.handle_error = function (frame) {
         if (RUR.state.sound_on) {
             RUR._play_sound("#error-sound");
         }
-        RUR.show_feedback("#Reeborg-shouts", frame.error.message);
+        RUR.show_feedback("#Reeborg-failure", frame.error.message);
     }
     RUR.stop();
     return "stopped";
@@ -201,9 +201,9 @@ RUR.rec.check_current_world_status = function() {
     frame.world_map = RUR.get_current_world();
     if (frame.world_map.goal === undefined){
         if (RUR.success_custom_message !== undefined) {
-            RUR.show_feedback("#Reeborg-concludes", RUR.success_custom_message);
+            RUR.show_feedback("#Reeborg-success", RUR.success_custom_message);
         } else {
-            RUR.show_feedback("#Reeborg-concludes",
+            RUR.show_feedback("#Reeborg-success",
                              "<p class='center'>" +
                              RUR.translate("Last instruction completed!") +
                              "</p>");
@@ -211,9 +211,9 @@ RUR.rec.check_current_world_status = function() {
     } else {
         goal_status = RUR.rec.check_goal(frame);
         if (goal_status.success) {
-            RUR.show_feedback("#Reeborg-concludes", goal_status.message);
+            RUR.show_feedback("#Reeborg-success", goal_status.message);
         } else {
-            RUR.show_feedback("#Reeborg-shouts", goal_status.message);
+            RUR.show_feedback("#Reeborg-failure", goal_status.message);
         }
     }
 };

@@ -104,18 +104,18 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             console.dir(e);
         }
         error = {};
-        if (e.reeborg_concludes !== undefined) {  // indicates success
-            error.message = e.reeborg_concludes;
+        if (e.reeborg_success !== undefined || RUR.__reeborg_success) {  // indicates success
+            error.message = e.reeborg_success || RUR.__reeborg_success;
             error.name = "ReeborgOK";
             if (RUR.state.prevent_playback) {
-                RUR.show_feedback("#Reeborg-concludes", e.reeborg_concludes);
+                RUR.show_feedback("#Reeborg-success", error.reeborg_success);
             } else {
                 RUR.record_frame("error", error);
             }
             return false; // since success, not a fatal error.
         }
         if (RUR.state.programming_language === "python") {
-            error.reeborg_shouts = e.reeborg_shouts;
+            error.reeborg_failure = RUR.__reeborg_failure;
             response = RUR.runner.simplify_python_traceback(e);
             message = response.message;
             other_info = response.other_info;
@@ -125,7 +125,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             error.message = "<h3>" + error.name + "</h3><p>" +
                 translated_error + "</p><p>" + other_info + '</p>';
             if (RUR.state.prevent_playback) {
-                RUR.show_feedback("#Reeborg-concludes", e.reeborg_concludes);
+                RUR.show_feedback("#Reeborg-success", e.reeborg_success);
             } else {
                 RUR.record_frame("error", error);
             }
@@ -137,16 +137,16 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             error.name = e.name;
             message = e.message;
             other_info = '';
-            if (e.reeborg_shouts !== undefined) {
-                error.message = e.reeborg_shouts;
-                error.reeborg_shouts = e.reeborg_shouts;
+            if (e.reeborg_failure !== undefined) {
+                error.message = e.reeborg_failure;
+                error.reeborg_failure = e.reeborg_failure;
             }
         }
 
-        if (e.reeborg_shouts !== undefined){
+        if (e.reeborg_failure !== undefined){
             RUR.record_frame("error", error);
         } else {
-            RUR.show_feedback("#Reeborg-shouts",
+            RUR.show_feedback("#Reeborg-failure",
                                     "<h3>" + error.name + "</h3><p>" +
                                     message + "</p><p>" + other_info + '</p>');
             return true;
@@ -204,7 +204,7 @@ RUR.runner.simplify_python_traceback = function(e) {
     "use strict";
     var message, error_name, other_info, diagnostic, parts;
     other_info = '';
-    if (e.reeborg_shouts === undefined) {
+    if (e.reeborg_failure === undefined) {
         message = e.args[0];
         error_name = e.__name__ || e.__class__.__name__;
         diagnostic = '';
@@ -270,7 +270,7 @@ RUR.runner.simplify_python_traceback = function(e) {
                 other_info = "";
         }
     } else {
-        message = e.reeborg_shouts;
+        message = e.reeborg_failure;
         if (e.__name__ === undefined) {
             error_name = "ReeborgError";
         } else {

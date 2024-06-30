@@ -408,7 +408,7 @@ def __generic_translate_python(
 
     # reeborg_en and reeborg_fr define some attributes to window; these
     # could have been redefined when importing a different language version -
-    # or, perhas even when running a Javascript version; so it
+    # or, perhaps even when running a Javascript version; so it
     # is important to ensure that they have their proper definition by forcing
     # a fresh import each time such a request is made via something like
     #     from reeborg_en import *
@@ -452,7 +452,7 @@ def __generic_translate_python(
         src = src.replace("\xa0", " ")
         window.console.warn("Some nonbreaking spaces were replaced in the Python code.")
 
-    # Notwithstanding what is writte above regarding fresh imports,
+    # Notwithstanding what is written above regarding fresh imports,
     # we simulate this here by doing a dict update, thus effectively using a
     # cached version of a previous import  while ensuring that and
     # global ("window") definition is done properly.
@@ -498,10 +498,18 @@ def __generic_translate_python(
     else:
         system_vars = "\n"
     src = "help=__help\n" + pre_code + "\n" + system_vars + src + "\n" + post_code
+
+    window.RUR.__reeborg_success = None
+    window.RUR.__reeborg_failure = None
+
     try:
         exec(src, globals_)
     except Exception as e:
         window.RUR.__python_error = e
+        if hasattr(e, "reeborg_success"):
+            window.RUR.__reeborg_success = e.reeborg_success
+        if hasattr(e, "reeborg_failure"):
+            window.RUR.__reeborg_failure = e.reeborg_failure           
 
     if window.RUR.state.done_executed:
         try:

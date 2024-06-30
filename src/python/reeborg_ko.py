@@ -786,12 +786,12 @@ class ReeborgOK(Exception):  #py:RE
     """
 
     def __init__(self, message):  #py:RE.__init__
-        self.reeborg_concludes = message
+        self.reeborg_success = message
         self.message = message
         super().__init__(message)
 
     def __str__(self):  #py:RE.__str__
-        return self.reeborg_concludes
+        return self.reeborg_success
 try:
     window['ReeborgOK_ko'] = ReeborgOK
     window['ReeborgOk_ko'] = ReeborgOK # preventing an annoying typo
@@ -818,12 +818,12 @@ class ReeborgError(Exception):  #py:RE
     """
 
     def __init__(self, message):  #py:RE.__init__
-        self.reeborg_shouts = message
+        self.reeborg_failure = message
         self.message = message
         super().__init__(message)
 
     def __str__(self):  #py:RE.__str__
-        return self.reeborg_shouts
+        return self.reeborg_failure
 try:
     window['ReeborgError_ko'] = ReeborgError
 except:

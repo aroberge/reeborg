@@ -46,7 +46,7 @@ RUR._load_world_from_program = function (url, shortname) {
 
     RUR.load_world_file(url, shortname);
     if (RUR.file_io_status === "no link") {
-        RUR.show_feedback("#Reeborg-shouts", RUR.translate("Could not find link: ") + url);
+        RUR.show_feedback("#Reeborg-failure", RUR.translate("Could not find link: ") + url);
         throw new RUR.ReeborgError(RUR.translate("Could not find link: ") + url);
     } else if (RUR.file_io_status === "success") {
         RUR.state.prevent_playback = true;

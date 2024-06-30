@@ -66,7 +66,7 @@ test('RUR.add_new_thing: error raised if name attribute missing.', function (ass
         RUR.add_new_thing(obj);
     } catch (e) {
         assert.equal(e.message, message, "error message ok");
-        assert.equal(e.reeborg_shouts, message, "reeborg_shouts ok");
+        assert.equal(e.reeborg_failure, message, "reeborg_failure ok");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();

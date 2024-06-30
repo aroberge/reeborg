@@ -96,7 +96,7 @@ RUR.record_frame = function (name, obj) {
             RUR.state.frame_insertion_called = false;
             if (py_err && py_err.__name__) {
                 if (RUR[py_err.__name__] !== undefined) {
-                    throw new RUR[py_err.__name__](py_err.reeborg_shouts);
+                    throw new RUR[py_err.__name__](py_err.reeborg_failure);
                 } else {
                     throw new RUR.ReeborgError(py_err.__name__);
                 }

@@ -33,8 +33,8 @@ header                 {z-index: 100;}
 ensure that it replaces #robot-anim-canvas in world_editor.js and canvas.js */
 #tooltip               {z-index: 100;}
 #Reeborg-writes        {z-index: 210;}
-#Reeborg-concludes     {z-index: 211;}
-#Reeborg-shouts        {z-index: 211;}
+#Reeborg-success     {z-index: 211;}
+#Reeborg-failure        {z-index: 211;}
 #World-info            {z-index: 205;}
 #world-panel           {z-index: 120;}
 #editor-panel.active   {z-index: 200;}

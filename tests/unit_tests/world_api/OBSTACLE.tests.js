@@ -79,7 +79,7 @@ test('attempting to add twice the same obstacle', function (assert) {
         RUR.add_obstacle('a', 2, 3);
     } catch(e) {
         assert.equal(e.message, "There is already such an obstacle here: a", "error message");
-        assert.equal(e.reeborg_shouts, "There is already such an obstacle here: a", "reeborg_shouts");
+        assert.equal(e.reeborg_failure, "There is already such an obstacle here: a", "reeborg_failure");
         assert.equal(e.name, "ReeborgError", "error name ok");
     }
     assert.end();

@@ -14,7 +14,7 @@ QUnit.module("Examples from Advanced World Creation documentation", {
 //     last_frame = test_utils.run_world(world, "python");
 //     result = RUR.rec.handle_error(last_frame);
 //     assert.equal(result, "stopped", "program run successfully");
-//     assert.equal(test_utils.feedback_element, "#Reeborg-shouts", "Feedback element ok.");
+//     assert.equal(test_utils.feedback_element, "#Reeborg-failure", "Feedback element ok.");
 //     assert.equal(test_utils.content,
 //         "<h3>WallCollisionError</h3><p>Ouch! I hit a wall!</p><p></p>",
 //         "Feedback text ok.");
@@ -33,8 +33,8 @@ QUnit.test("colors", function(assert) {
     // every time we make changes.
     assert.ok(RUR.frames.length > 10, "Pre has been executed.");
     last_frame = RUR.frames[RUR.frames.length - 1];
-    console.log("Last frame follows:");
+    console.log("Test log: last frame follows:");
     console.log(last_frame);
-    assert.equal(last_frame.error.reeborg_concludes, "Done!", "Task run correctly.");
+    assert.equal(last_frame.error.reeborg_success, "Done!", "Task run correctly.");
     done();
 });
