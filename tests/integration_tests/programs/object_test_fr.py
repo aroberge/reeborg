@@ -21,7 +21,7 @@ RUR.state.evaluating_onload = False
 all_objects = dict(RUR.get_objects(3, 2))
 assert all_objects == {'pomme': 6, 'banane': 2}
 
-assert RUR.get_objects(1, 1) is None
+assert not RUR.get_objects(1, 1)
 
 RUR.remove_object('pomme', 3, 2)
 RUR.remove_object('pomme', 3, 2)

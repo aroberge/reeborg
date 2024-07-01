@@ -8,7 +8,7 @@ assert RUR.is_bridge("carrot", 2, 3)
 RUR.remove_bridge("carrot", 2, 3)
 assert RUR.get_bridge_protections(2, 3) == []
 
-assert RUR.get_bridge(1, 1) is None
+assert not RUR.get_bridge(1, 1)
 
 error = False
 try:

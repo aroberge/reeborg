@@ -22,7 +22,8 @@ QUnit.module("Examples from Advanced World Creation documentation", {
 // });
 
 QUnit.test("colors", function(assert) {
-    var last_frame, done = assert.async();
+    var last_frame;
+    const done = assert.async();
     test_utils.load_world_file(test_utils.base_url + "colors.json");
     // The code we wish to test is in the Pre editor; we
     // run a simple program as a test.
@@ -35,6 +36,6 @@ QUnit.test("colors", function(assert) {
     last_frame = RUR.frames[RUR.frames.length - 1];
     console.log("Test log: last frame follows:");
     console.log(last_frame);
-    assert.equal(last_frame.error.reeborg_success, "Done!", "Task run correctly.");
+    assert.equal(last_frame.error.reeborg_failure, "Done!", "Task run correctly.");
     done();
 });

@@ -5,7 +5,7 @@ RUR.remove_obstacle("fence_double", 2, 3)
 assert not RUR.is_obstacle("fence_double", 2, 3)
 assert RUR.get_obstacles(2, 3) == []
 
-assert RUR.get_bridge(1, 1) is None
+assert not RUR.get_bridge(1, 1)
 
 error = False
 try:

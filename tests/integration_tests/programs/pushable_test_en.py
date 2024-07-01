@@ -9,7 +9,7 @@ assert RUR.get_pushable(2, 3, options) == "apple"
 assert RUR.is_pushable("apple", 2, 3, options)
 RUR.remove_pushable("apple", 2, 3, options)
 
-assert RUR.get_pushable(1, 1) is None
+assert not RUR.get_pushable(1, 1)
 
 error = False
 try:

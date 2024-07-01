@@ -169,6 +169,9 @@ RUR.rec.conclude = function () {
 
 RUR.rec.handle_error = function (frame) {
     "use strict";
+    alert(frame.error.reeborg_failure);
+    alert(frame.error.reeborg_success);
+    
     if (frame.error.reeborg_failure === RUR.translate("Done!")){
         if (frame.world_map.goal !== undefined){
             return RUR.rec.conclude();
