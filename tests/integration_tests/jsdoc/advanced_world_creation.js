@@ -34,8 +34,6 @@ QUnit.test("colors", function(assert) {
     // every time we make changes.
     assert.ok(RUR.frames.length > 10, "Pre has been executed.");
     last_frame = RUR.frames[RUR.frames.length - 1];
-    console.log("Test log: last frame follows:");
-    console.log(last_frame);
     assert.equal(last_frame.error.reeborg_failure, "Done!", "Task run correctly.");
     done();
 });
