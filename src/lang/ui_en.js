@@ -306,6 +306,8 @@ ui_en["kbd-condition-btn"] = "Conditions";
 ui_en["kbd-python-btn"] = "Python";
 ui_en["kbd-py-console-btn"] = "Python";
 ui_en["kbd-javascript-btn"] = "Javascript";
+ui_en["kbd-cpp-btn"] = "C++";
+ui_en["kbd-coffee-btn"] = "CoffeeScript";
 ui_en["kbd-objects-btn"] = "Objects";
 ui_en["kbd-special-btn"] = "Special";
 

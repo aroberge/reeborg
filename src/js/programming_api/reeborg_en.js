@@ -20,7 +20,7 @@ require("./../world_api/robot.js");
     a separate declaration.
 
         RUR.reset_definitions = function () {
-            window.fn_name = ...;
+            fn_name = ...;
             ...
             UsedRobot.prototype.fn_name = ...
         }
@@ -28,58 +28,6 @@ require("./../world_api/robot.js");
 
 
 RUR.reset_definitions_en = function () {
-
-    window.at_goal = RUR._at_goal_;
-    window.build_wall = RUR._build_wall_;
-    window.carries_object = RUR._carries_object_;
-    window.color_here = RUR._color_here_;
-    window.colour_here = RUR._color_here_;
-    window.default_robot = function () {
-        var r = Object.create(UsedRobot.prototype);
-        r.body = RUR._default_robot_body_();
-        return r;
-    };
-    window.help_js = RUR._inspect_;
-    window.done = RUR._done_;
-    window.front_is_clear = RUR._front_is_clear_;
-    window.is_facing_north = RUR._is_facing_north_;
-    window.move = RUR._move_;
-    window.new_robot_images = RUR._new_robot_images_;
-    window.object_here = RUR._object_here_;
-    window.pause = RUR._pause_;
-    window.paint_square = RUR._paint_square_;
-    window.position_here = function () {
-        var body = RUR._default_robot_body_();
-        return [body.x, body.y];
-    };
-    window.position_in_front = function () {
-        var pos, body = RUR._default_robot_body_();
-        pos = RUR.get_position_in_front(body);
-        if (RUR.is_valid_position(pos["x"], pos["y"])) {
-            return [pos["x"], pos["y"]];}
-        else {
-            return undefined;
-        }
-    };
-    window.print_html = RUR._print_html_;
-    window.put = RUR._put_;
-    window.toss = RUR._toss_;
-    window.recording = RUR._recording_;
-    window.remove_robots = RUR._remove_robots_;
-    window.right_is_clear = RUR._right_is_clear_;
-    window.set_max_nb_steps = RUR._set_max_nb_steps_;
-    window.set_trace_color = RUR._set_trace_color_;
-    window.sound = RUR._sound_;
-    window.take = RUR._take_;
-    window.think = RUR._think_;
-    window.turn_left = RUR._turn_left_;
-    window.wall_in_front = RUR._wall_in_front_;
-    window.wall_on_right = RUR._wall_on_right_;
-    window.write = RUR._write_;
-    window.writeln = RUR._write_ln;
-    window.MakeCustomMenu = RUR._MakeCustomMenu_;
-    window.World = RUR._World_;
-
 
     var UsedRobot = window.UsedRobot = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
@@ -164,7 +112,6 @@ RUR.reset_definitions_en = function () {
         RUR._UR.take_(this.body);
     };
 
-
     UsedRobot.prototype.turn_left = function () {
         RUR._UR.turn_left_(this.body);
     };
@@ -180,14 +127,71 @@ RUR.reset_definitions_en = function () {
     // make prototype available with known English name in RUR namespace
     RUR.UsedRobot = UsedRobot;
 
+    const API = {
+        at_goal : RUR._at_goal_,
+        build_wall : RUR._build_wall_,
+        carries_object : RUR._carries_object_,
+        color_here : RUR._color_here_,
+        colour_here : RUR._color_here_,
+        default_robot : function () {
+            var r = Object.create(UsedRobot.prototype);
+            r.body = RUR._default_robot_body_();
+            return r;
+        },
+        help_js : RUR._inspect_,
+        done : RUR._done_,
+        front_is_clear : RUR._front_is_clear_,
+        is_facing_north : RUR._is_facing_north_,
+        move : RUR._move_,
+        new_robot_images : RUR._new_robot_images_,
+        object_here : RUR._object_here_,
+        pause : RUR._pause_,
+        paint_square : RUR._paint_square_,
+        position_here : function () {
+            var body = RUR._default_robot_body_();
+            return [body.x, body.y];
+        },
+        position_in_front : function () {
+            var pos, body = RUR._default_robot_body_();
+            pos = RUR.get_position_in_front(body);
+            if (RUR.is_valid_position(pos["x"], pos["y"])) {
+                return [pos["x"], pos["y"]];
+            } else {
+                return undefined;
+            }
+        },
+        print_html : RUR._print_html_,
+        put : RUR._put_,
+        toss : RUR._toss_,
+        recording : RUR._recording_,
+        remove_robots : RUR._remove_robots_,
+        right_is_clear : RUR._right_is_clear_,
+        set_max_nb_steps : RUR._set_max_nb_steps_,
+        set_trace_color : RUR._set_trace_color_,
+        sound : RUR._sound_,
+        take : RUR._take_,
+        think : RUR._think_,
+        turn_left : RUR._turn_left_,
+        wall_in_front : RUR._wall_in_front_,
+        wall_on_right : RUR._wall_on_right_,
+        write : RUR._write_,
+        writeln : RUR._write_ln,
+        MakeCustomMenu : RUR._MakeCustomMenu_,
+        World : RUR._World_,
+
+    }
+    Object.assign(window, API);
+
     // English specific and only for compatibility with rur-ple
     // do not translate the following
-    window.put_beeper = put;
-    window.pick_beeper = take;
-    window.turn_off = done;
-    window.on_beeper = object_here;
-    window.next_to_a_beeper = object_here;
-    window.carries_beepers = carries_object;
-    window.set_delay = think;
-    window.facing_north = is_facing_north;
+    window.put_beeper = API.put;
+    window.pick_beeper = API.take;
+    window.turn_off = API.done;
+    window.on_beeper = API.object_here;
+    window.next_to_a_beeper = API.object_here;
+    window.carries_beepers = API.carries_object;
+    window.set_delay = API.think;
+    window.facing_north = API.is_facing_north;
+
+    return API;
 };

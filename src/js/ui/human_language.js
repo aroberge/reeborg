@@ -258,8 +258,10 @@ RUR.listeners['human-language'] = function() {
         $("#editor-tab").html(RUR.translate("Python Code"));
     } else if (RUR.state.programming_language == "coffeescript") {
         $("#editor-tab").html(RUR.translate("Coffeescript Code"));
+    } else if (RUR.state.programming_language == "cpp") {
+        $("#editor-tab").html(RUR.translate("C++ Code"));
     } else {
-        $("#editor-tab").html(RUR.translate("Javascript Code"));
+        $("#editor-tab").html(RUR.translate("JavaScript Code"));
     }
 
     if (RUR.state.input_method == "py-repl") {

@@ -338,6 +338,8 @@ ui_cn["kbd-condition-btn"] = "条件";
 ui_cn["kbd-python-btn"] = "Python";
 ui_cn["kbd-py-console-btn"] = "Python";
 ui_cn["kbd-javascript-btn"] = "JavaScript";
+ui_cn["kbd-cpp-btn"] = "C++";
+ui_cn["kbd-coffee-btn"] = "CoffeeScript";
 ui_cn["kbd-objects-btn"] = "物品";
 ui_cn["kbd-special-btn"] = "特殊";
 

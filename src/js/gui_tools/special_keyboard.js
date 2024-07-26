@@ -13,6 +13,7 @@ RUR.kbd.set_programming_language = function (lang) {
     $("#kbd-python-btn").hide();
     $("#kbd-py-console-btn").hide();
     $("#kbd-javascript-btn").hide();
+    $("#kbd-cpp-btn").hide();
     $("#kbd-coffee-btn").hide();
     switch (lang) {
         case "python":
@@ -24,6 +25,9 @@ RUR.kbd.set_programming_language = function (lang) {
             break;
         case "javascript":
             $("#kbd-javascript-btn").show();
+            break;
+        case "cpp":
+            $("#kbd-cpp-btn").show();
             break;
         case "coffeescript":
             $("#kbd-coffee-btn").show();
@@ -150,6 +154,7 @@ RUR.kbd.select = function (choice) {
     $(".kbd-coffee").hide();
     $(".kbd-py-console").hide();
     $(".kbd-javascript").hide();
+    $(".kbd-cpp").hide();
     $(".kbd-special").hide();
     $(".no-console").hide();
     if ($("#kbd-command-btn").hasClass("active-element")) {
@@ -167,6 +172,9 @@ RUR.kbd.select = function (choice) {
     } else if ($("#kbd-javascript-btn").hasClass("active-element")) {
         $("#kbd-javascript-btn").removeClass("active-element");
         $("#kbd-javascript-btn").addClass("blue-gradient");
+    } else if ($("#kbd-cpp-btn").hasClass("active-element")) {
+        $("#kbd-cpp-btn").removeClass("active-element");
+        $("#kbd-cpp-btn").addClass("blue-gradient");
     } else if ($("#kbd-coffee-btn").hasClass("active-element")) {
         $("#kbd-coffee-btn").removeClass("active-element");
         $("#kbd-coffee-btn").addClass("blue-gradient");
@@ -202,6 +210,11 @@ RUR.kbd.select = function (choice) {
             $(".kbd-javascript").show();
             $("#kbd-javascript-btn").removeClass("blue-gradient");
             $("#kbd-javascript-btn").addClass("active-element");
+            break;
+        case "kbd-cpp":
+            $(".kbd-cpp").show();
+            $("#kbd-cpp-btn").removeClass("blue-gradient");
+            $("#kbd-cpp-btn").addClass("active-element");
             break;
         case "kbd-coffee":
             $(".kbd-coffee").show();
@@ -270,12 +283,18 @@ function add_onclick_insert_function(id, arg) {
     });
     msg.record_fn(id, arg);
 }
+
+function decodeLtGtEntities(text) {
+    return text.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+}
+
 function add_onclick_insert_untranslated(id, arg) {
+    var decodedArg = decodeLtGtEntities(arg);
     $("#"+id).on("click", function (evt) {
-        RUR.kbd.insert(arg);
+        RUR.kbd.insert(decodedArg);
     });
     msg.record_id(id, arg);
-    RUR.untranslated[arg] = true;
+    RUR.untranslated[decodedArg] = true;
 }
 function add_onclick_insert_object(id, arg) {
     $("#"+id).on("click", function (evt) {
@@ -295,6 +314,7 @@ function init() {
     add_onclick_select("kbd-python");
     add_onclick_select("kbd-py-console");
     add_onclick_select("kbd-javascript");
+    add_onclick_select("kbd-cpp");
     add_onclick_select("kbd-coffee");
     add_onclick_select("kbd-objects");
     add_onclick_select("kbd-special");
@@ -355,6 +375,31 @@ function init() {
     add_onclick_insert_untranslated_statement("kbd-js-return", "return");
     add_onclick_insert_untranslated_statement("kbd-js-continue", "continue");
     add_onclick_insert_untranslated_statement("kbd-js-break", "break");
+
+    add_onclick_insert_untranslated("kbd-cpp-boiler", "#include &lt;reeborg&gt;\n\nint main() {\n\n    return 0;\n}");
+    add_onclick_insert_untranslated("kbd-cpp-include", "#include &lt;?&gt;");
+    add_onclick_insert_untranslated("kbd-cpp-include-reeborg", "#include &lt;reeborg&gt;");
+    add_onclick_insert_untranslated("kbd-cpp-include-iostream", "#include &lt;iostream&gt;");
+    add_onclick_insert_untranslated("kbd-cpp-include-string", "#include &lt;string&gt;");
+    add_onclick_insert_untranslated("kbd-cpp-int", "int ");
+    add_onclick_insert_untranslated("kbd-cpp-double", "double ");
+    add_onclick_insert_untranslated("kbd-cpp-string", "string ");
+    add_onclick_insert_untranslated("kbd-cpp-bool", "bool ");
+    add_onclick_insert_untranslated("kbd-cpp-function", "? function ? { \n\n}");
+    add_onclick_insert_untranslated("kbd-cpp-if", "if ( ? ) { \n\n}");
+    add_onclick_insert_untranslated("kbd-cpp-elif", "else if ( ? ) { \n\n}");
+    add_onclick_insert_untranslated("kbd-cpp-else", "else { \n\n}");
+    add_onclick_insert_untranslated("kbd-cpp-while", "while ( ? ) { \n\n}");
+    add_onclick_insert_untranslated("kbd-cpp-for", "for (? ; ? ; ?) { \n\n}");
+    add_onclick_insert_untranslated("kbd-cpp-true", "true");
+    add_onclick_insert_untranslated("kbd-cpp-false", "false");
+    add_onclick_insert_untranslated("kbd-cpp-not", "!");
+    add_onclick_insert_untranslated("kbd-cpp-and", "&&");
+    add_onclick_insert_untranslated("kbd-cpp-or", "||");
+    add_onclick_insert_untranslated("kbd-cpp-write", "cout << ?;");
+    add_onclick_insert_untranslated("kbd-cpp-return", "return ?;");
+    add_onclick_insert_untranslated("kbd-cpp-continue", "continue;");
+    add_onclick_insert_untranslated("kbd-cpp-break", "break;");
 
     add_onclick_insert_untranslated("kbd-coffee-function", "? = ( ) ->");
     add_onclick_insert_untranslated("kbd-coffee-if", "if ?");

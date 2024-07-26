@@ -348,6 +348,7 @@ ui_lt["kbd-condition-btn"] = "Sąlygos";
 ui_lt["kbd-python-btn"] = "Pitonas";
 ui_lt["kbd-py-console-btn"] = "Pitonas";
 ui_lt["kbd-javascript-btn"] = "Javascript";
+ui_lt["kbd-cpp-btn"] = "C++";
 ui_lt["kbd-coffee-btn"] = "CoffeeScript";
 ui_lt["kbd-objects-btn"] = "Objektai";
 ui_lt["kbd-special-btn"] = "Specialūs";

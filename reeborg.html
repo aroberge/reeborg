@@ -53,8 +53,9 @@
       <button class="blue-gradient" id="world-info-button"></button>
       <select id="programming-mode" title="Select programming mode">
         <option value="python">Python</option>
-        <option value="javascript">Javascript</option>
+        <option value="javascript">JavaScript</option>
         <option value="coffeescript">CoffeeScript</option>
+        <option value="cpp">C++</option>
         <option value="blockly-py">Blockly (Py)</option>
         <option value="blockly-js">Blockly (Js)</option>
         <option value="py-repl">REPL (Py)</option>
@@ -587,6 +588,7 @@
   <!--offline <script type="text/javascript" src="offline/brython/brython_stdlib.js"></script> /offline-->
 
 <script type="text/javascript" src="offline/coffee/coffeescript.js"></script>
+<script type="text/javascript" src="offline/jscpp/JSCPP.js"></script>
 
   <!--offline <script type="text/javascript" src="offline/jquery-2.1.0/jquery.min.js"></script> /offline-->
   <!--online--><script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script><!--/online-->
@@ -613,6 +615,8 @@
 
   <!--offline <script type="text/javascript" src="offline/codemirror-5.8.0/mode/python/python.js"></script> /offline-->
   <!--online--><script defer type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/python/python.min.js"></script><!--/online-->
+
+  <!--offline--> <script type="text/javascript" src="offline/codemirror-5.8.0/mode/clike/clike.js"></script> <!--/offline-->
 
   <script type="text/javascript" src="src/blockly/blockly_compressed.js"></script>
   <script type="text/javascript" src="src/blockly/blocks_compressed.js"></script>
@@ -872,6 +876,7 @@
       <button id="kbd-py-console-btn" class="blue-gradient"></button>
       <button id="kbd-javascript-btn" class="blue-gradient"></button>
       <button id="kbd-coffee-btn" class="blue-gradient"></button>
+      <button id="kbd-cpp-btn" class="blue-gradient"></button>
       <button id="kbd-objects-btn" class="blue-gradient"></button>
       <button id="kbd-special-btn" class="blue-gradient"></button>
       <ul class="kbd-command">
@@ -982,6 +987,29 @@
         <li id="kbd-coffee-or"></li>
         <li id="kbd-coffee-continue"></li>
         <li id="kbd-coffee-break"></li>
+      </ul>
+      <ul class="kbd-cpp">
+        <li id="kbd-cpp-boiler"></li>
+        <li id="kbd-cpp-include"></li>
+        <li id="kbd-cpp-include-reeborg"></li>
+        <li id="kbd-cpp-int"></li>
+        <li id="kbd-cpp-double"></li>
+        <li id="kbd-cpp-string"></li>
+        <li id="kbd-cpp-bool"></li>
+        <li id="kbd-cpp-function"></li>
+        <li id="kbd-cpp-if"></li>
+        <li id="kbd-cpp-else"></li>
+        <li id="kbd-cpp-while"></li>
+        <li id="kbd-cpp-for"></li>
+        <li id="kbd-cpp-true"></li>
+        <li id="kbd-cpp-false"></li>
+        <li id="kbd-cpp-write"></li>
+        <li id="kbd-cpp-return"></li>
+        <li id="kbd-cpp-not"></li>
+        <li id="kbd-cpp-and"></li>
+        <li id="kbd-cpp-or"></li>
+        <li id="kbd-cpp-continue"></li>
+        <li id="kbd-cpp-break"></li>
       </ul>
       <ul class="kbd-objects">
         <li id="kbd-token"><img src="src/images/token.png"></li>

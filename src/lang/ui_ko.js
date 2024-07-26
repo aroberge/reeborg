@@ -346,6 +346,8 @@ ui_ko["kbd-condition-btn"] = "상태";
 ui_ko["kbd-python-btn"] = "파이썬";
 ui_ko["kbd-py-console-btn"] = "파이썬";
 ui_ko["kbd-javascript-btn"] = "자비스크립트";
+ui_ko["kbd-cpp-btn"] = "C++";
+ui_ko["kbd-coffee-btn"] = "CoffeeScript";
 ui_ko["kbd-objects-btn"] = "객체";
 ui_ko["kbd-special-btn"] = "특수키";
 

@@ -156,7 +156,7 @@ RUR.rec.conclude = function () {
 
         if (RUR.success_custom_message !== undefined) {
             RUR.show_feedback("#Reeborg-success", RUR.success_custom_message);
-        } else {
+        } else if (!RUR.__reeborg_failure) {
             RUR.show_feedback("#Reeborg-success",
                              "<p class='center'>" +
                              RUR.translate("Last instruction completed!") +
@@ -169,8 +169,6 @@ RUR.rec.conclude = function () {
 
 RUR.rec.handle_error = function (frame) {
     "use strict";
-    alert(frame.error.reeborg_failure);
-    alert(frame.error.reeborg_success);
     
     if (frame.error.reeborg_failure === RUR.translate("Done!")){
         if (frame.world_map.goal !== undefined){

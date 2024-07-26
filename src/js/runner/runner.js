@@ -96,6 +96,8 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             if (RUR.__python_error) {
                 throw RUR.__python_error;
             }
+        } else if (RUR.state.programming_language === "cpp") {
+            RUR.runner.eval_cpp(src);
         } else {
             alert("FATAL ERROR: Unrecognized programming language. " + RUR.state.programming_language);
             return true;
@@ -163,6 +165,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             RUR.show_feedback("#Reeborg-failure",
                                     "<h3>" + error.name + "</h3><p>" +
                                     message + "</p><p>" + other_info + '</p>');
+            $("#Reeborg-success").dialog("close");
             return true;
         }
     }
@@ -212,6 +215,55 @@ RUR.runner.eval_python = function (src) {
     pre_code = pre_code_editor.getValue();
     post_code = "\n" + post_code_editor.getValue();
     translate_python(src, RUR.state.highlight, RUR.state.watch_vars, pre_code, post_code);
+};
+
+RUR.runner.eval_cpp = function (src) {    
+    // do not "use strict"
+    var pre_code, post_code;
+    pre_code = pre_code_editor.getValue();
+    post_code = post_code_editor.getValue();
+    const definitions = RUR.reset_definitions();
+    src = pre_code + "\n" + src + "\n" + post_code;
+
+    // stopExecutionFlag = false;
+    const config = {
+        reeborg: definitions,
+        debug: false,
+        stdio: {
+            finishCallback: function(exitCode) {
+                console.log(`JSCPP: program exited with code " + ${exitCode};`);
+            },
+            promiseError: function(promise_error) {
+                RUR.show_feedback("#Reeborg-failure", promise_error);
+                RUR.__reeborg_failure = true;
+            },
+            write: function(s) {
+                console.log(`JSCPP: ${s}`);
+                RUR.write(s);
+            }
+        },
+        set_lineno_highlight: function(lineno) {
+            RUR.set_lineno_highlight([lineno - 1]);
+        },
+        // stopExecutionCheck: function() {
+        //     return stopExecutionFlag;
+        // },
+        //maxExecutionSteps: (100 * 100) * 10, // (lines of code * loop iterations) * 10 times buffer
+        maxTimeout: 3 * 60 * 1000, // 3 mins
+        eventLoopSteps: 10_000,
+        unsigned_overflow: "error"
+    };
+    
+    try {
+        // stopExecutionFlag = false;
+        JSCPP.run(src, () => Promise.resolve(), config);
+    } catch (error) {
+        errorOccured = true;
+        if (RUR.state.done_executed){
+            JSCPP.run(post_code, () => Promise.resolve(), config);
+        }
+        throw error; // throw original message from Done if nothing else is raised
+    }
 };
 
 RUR.runner.simplify_python_traceback = function(e) {
