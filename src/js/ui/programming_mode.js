@@ -121,6 +121,13 @@ RUR.listeners['programming-mode'] = function () {
                 $("#kbd-undo").show();
                 $("#kbd-redo").show();
             } catch(e) {}
+
+        // re-use element
+        $("#mixed-language-info").html(
+            "<pre>#include &lt;reeborg&gt;\n" +
+            "int main(){...\nreturn 0;}</pre>");
+        $("#mixed-language-info").show();
+
             break;
         case "python":
             RUR.state.programming_language = "python";
@@ -225,6 +232,7 @@ function hide_everything () {
         $("#kbd-undo").hide();
         $("#kbd-redo").hide();
     } catch(e) {}
+    $("#mixed-language-info").hide();
 
 }
 
