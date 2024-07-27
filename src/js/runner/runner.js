@@ -115,19 +115,17 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
         error = {};
         if (e.reeborg_success) {
             error.reeborg_success = e.reeborg_success;
-        }
-        else if (RUR.__reeborg_success) {
+        } else if (RUR.__reeborg_success) {
             error.reeborg_success = RUR.__reeborg_success;
         }
+
         if (e.reeborg_failure) {
             error.reeborg_failure = e.reeborg_failure;
-        }
-        else if (RUR.__reeborg_failure) {
+        } else if (RUR.__reeborg_failure) {
             error.reeborg_failure = RUR.__reeborg_failure;
         }
         
         if (error.reeborg_success) {
-            console.log("reeborg_success");
             error.name = "ReeborgOK";
             if (RUR.state.prevent_playback) {
                 RUR.show_feedback("#Reeborg-success", error.reeborg_success);
@@ -241,8 +239,10 @@ RUR.runner.eval_cpp = function (src) {
     // do not "use strict"
     const definitions = RUR.reset_definitions();
     var post_code = post_code_editor.getValue();
+    var pre_code = pre_code_editor.getValue();
+
     RUR.reset_definitions();
-    src = insert_world_code(src);
+    eval(pre_code);
 
     // stopExecutionFlag = false;
     const config = {
@@ -253,7 +253,7 @@ RUR.runner.eval_cpp = function (src) {
                 console.log(`JSCPP: program exited with code " + ${exitCode};`);
             },
             promiseError: function(promise_error) {
-                try{
+                try{ // highlight problematic line if a Syntax Error occurs
                     var lineno = promise_error.split(":")[0];
                     if (parseInt(lineno)) {
                         RUR.set_lineno_highlight([lineno - 1]);
@@ -262,8 +262,6 @@ RUR.runner.eval_cpp = function (src) {
                 if (!RUR.state.done_executed){
                     RUR.__reeborg_failure = true;
                     RUR.record_frame("error", {message:promise_error});
-                } else {
-                    throw new RUR.ReeborgError(RUR.translate("Done!"));
                 }
             },
             write: function(s) {
@@ -286,9 +284,16 @@ RUR.runner.eval_cpp = function (src) {
     try {
         // stopExecutionFlag = false;
         JSCPP.run(src, () => Promise.resolve(), config);
+        eval(post_code);
     } catch (error) {
+        if (RUR.state.done_executed){
+            eval(post_code);
+        }
         RUR.record_frame("error", error);
         throw error;
+    }
+    if (RUR.state.done_executed){
+        throw new RUR.ReeborgError(RUR.translate("Done!"));
     }
 };
 
