@@ -6,57 +6,6 @@ require("./../world_api/robot.js");
 
 RUR.reset_definitions_de = function () {
 
-    window.ist_am_ziel = RUR._at_goal_;
-    window.baue_wand = RUR._build_wall_;
-    window.hat_objekt = RUR._carries_object_;
-    window.gib_farbe = RUR._color_here_;
-    window.standard_roboter = function () {
-        var r = Object.create(UsedRobot.prototype);
-        r.body = RUR._default_robot_body_();
-        return r;
-    };
-    window.help_js = RUR._inspect_;
-    window.beenden = RUR._done_;
-    window.ist_vorne_frei = RUR._front_is_clear_;
-    window.ist_norden = RUR._is_facing_north_;
-    window.schritt = RUR._move_;
-    window.neues_roboter_bild = RUR._new_robot_images_;
-    window.ist_objekt_hier = RUR._object_here_;
-    window.pause = RUR._pause_;
-    window.male_zelle = RUR._paint_square_;
-    window.gib_koordinaten = function () {
-        var body = RUR._default_robot_body_();
-        return [body.x, body.y];
-    };
-    window.gib_koordinaten_vorne = function () {
-        var pos, body = RUR._default_robot_body_();
-        pos = RUR.get_position_in_front(body);
-        if (RUR.is_valid_position(pos["x"], pos["y"])) {
-            return [pos["x"], pos["y"]];}
-        else {
-            return undefined;
-        }
-    };
-    window.drucke_html = RUR._print_html_;
-    window.hinlegen = RUR._put_;
-    window.hinwerfen = RUR._toss_;
-    window.setze_aufnahme = RUR._recording_;
-    window.entferne_roboter = RUR._remove_robots_;
-    window.ist_rechts_frei = RUR._right_is_clear_;
-    window.setze_max_anzahl_instruktionen = RUR._set_max_nb_steps_;
-    window.setze_spur_farbe = RUR._set_trace_color_;
-    window.ton_an = RUR._sound_;
-    window.nimm = RUR._take_;
-    window.denke = RUR._think_;
-    window.drehe_links = RUR._turn_left_;
-    window.ist_wand_vorne = RUR._wall_in_front_;
-    window.ist_wand_rechts = RUR._wall_on_right_;
-    window.gibaus = RUR._write_;
-    window.gibaus_zeile = RUR._write_ln;
-    window.ErstelleEigenesMenu = RUR._MakeCustomMenu_;
-    window.Welt = RUR._World_;
-
-
     var UsedRobot = window.UsedRobot = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
         RUR.add_robot(this.body);
@@ -152,4 +101,61 @@ RUR.reset_definitions_de = function () {
 
     // make prototype available with known English name in RUR namespace
     RUR.UsedRobot = UsedRobot;
+
+    const API = {
+
+        ist_am_ziel : RUR._at_goal_,
+        baue_wand : RUR._build_wall_,
+        hat_objekt : RUR._carries_object_,
+        gib_farbe : RUR._color_here_,
+        standard_roboter : function () {
+            var r = Object.create(UsedRobot.prototype);
+            r.body = RUR._default_robot_body_();
+            return r;
+        },
+        help_js : RUR._inspect_,
+        beenden : RUR._done_,
+        ist_vorne_frei : RUR._front_is_clear_,
+        ist_norden : RUR._is_facing_north_,
+        schritt : RUR._move_,
+        neues_roboter_bild : RUR._new_robot_images_,
+        ist_objekt_hier : RUR._object_here_,
+        pause : RUR._pause_,
+        male_zelle : RUR._paint_square_,
+        gib_koordinaten : function () {
+            var body = RUR._default_robot_body_();
+            return [body.x, body.y];
+        },
+        gib_koordinaten_vorne : function () {
+            var pos, body = RUR._default_robot_body_();
+            pos = RUR.get_position_in_front(body);
+            if (RUR.is_valid_position(pos["x"], pos["y"])) {
+                return [pos["x"], pos["y"]];
+            } else {
+                return undefined;
+            }
+        },
+        drucke_html : RUR._print_html_,
+        hinlegen : RUR._put_,
+        hinwerfen : RUR._toss_,
+        setze_aufnahme : RUR._recording_,
+        entferne_roboter : RUR._remove_robots_,
+        ist_rechts_frei : RUR._right_is_clear_,
+        setze_max_anzahl_instruktionen : RUR._set_max_nb_steps_,
+        setze_spur_farbe : RUR._set_trace_color_,
+        ton_an : RUR._sound_,
+        nimm : RUR._take_,
+        denke : RUR._think_,
+        drehe_links : RUR._turn_left_,
+        ist_wand_vorne : RUR._wall_in_front_,
+        ist_wand_rechts : RUR._wall_on_right_,
+        gibaus : RUR._write_,
+        gibaus_zeile : RUR._write_ln,
+        ErstelleEigenesMenu : RUR._MakeCustomMenu_,
+        Welt : RUR._World_
+    }
+    Object.assign(window, API);
+    return API;
+
+
 };

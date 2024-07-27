@@ -32,9 +32,9 @@ RUR.runner.run = function (playback) {
         RUR.set_current_world(RUR.clone_world(RUR.WORLD_AFTER_ONLOAD));
         RUR.world_init();
 
-        if (!(RUR.state.programming_language === "python" && RUR.state.highlight) ) {
+        if (!RUR.state.highlight) {
             RUR.record_frame();  // record the starting state as first frame;
-            // for python with highlighting on, the first frame will be the first
+            // if highlighting on, the first frame will be the first
             // instruction to be executed highlighted.
         }
 
@@ -52,21 +52,21 @@ RUR.runner.run = function (playback) {
         fatal_error_found = RUR.runner.eval(editor.getValue()); // jshint ignore:line
     }
     $("#thought").hide();
-    if (!fatal_error_found) {
-        // save program so that it a new browser session can use it as
-        // starting point.
-        try {
-            localStorage.setItem("editor", editor.getValue());
-            localStorage.setItem("library", library.getValue());
-        } catch (e) {}
-        // "playback" is a function called to play back the code in a sequence of frames
-        // or a "null function", f(){} can be passed if the code is not
-        // dependent on the robot world.
-        if (RUR.state.prevent_playback) {
-            return;
-        }
-        playback();
+
+    // save program so that it a new browser session can use it as
+    // starting point.
+    try {
+        localStorage.setItem("editor", editor.getValue());
+        localStorage.setItem("library", library.getValue());
+    } catch (e) {}
+    // "playback" is a function called to play back the code in a sequence of frames
+    // or a "null function", f(){} can be passed if the code is not
+    // dependent on the robot world.
+    if (RUR.state.prevent_playback) {
+        return;
     }
+    playback();
+
 };
 
 /* RUR.runner.eval returns true if a fatal error is found, false otherwise */
@@ -83,6 +83,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
        guard against any future changes by doing our own handling. */
 
     RUR.__python_error = false;
+    RUR.__cpp_error = false;
     RUR.__reeborg_failure = false;
     RUR.__reeborg_success = false;
     try {
@@ -103,6 +104,9 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
             return true;
         }
     } catch (e) {
+        console.log("error caught");
+        console.log(e);
+
         RUR.state.code_evaluated = true;
         if (RUR.__debug){
             console.dir(e);
@@ -122,6 +126,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
         }
         
         if (error.reeborg_success) {
+            console.log("reeborg_success");
             error.name = "ReeborgOK";
             if (RUR.state.prevent_playback) {
                 RUR.show_feedback("#Reeborg-success", error.reeborg_success);
@@ -173,39 +178,40 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
     return false;
 };
 
-
-RUR.runner.eval_javascript = function (src) {
-    // do not "use strict"
+insert_world_code = function(src){
     var pre_code, post_code;
     pre_code = pre_code_editor.getValue();
     post_code = post_code_editor.getValue();
+    // In the absence of pre_code and post_code, if a parsing error
+    // occurs, we want the line number to be accurate; otherwise,
+    // we insert new lines characters just to ensure that
+    // the code is valid.
+    if (pre_code){
+        pre_code = pre_code + "\n";
+    }
+    if (post_code){
+        post_code = "\n" + post_code;
+    }
+    return pre_code + src + post_code;
+}
+
+RUR.runner.eval_javascript = function (src) {
+    // do not "use strict"
     RUR.reset_definitions();
-    src = pre_code + "\n" + src + "\n" + post_code;
-    try {
-        eval(src); // jshint ignore:line
-    } catch (e) {
-        if (RUR.state.done_executed){
-            eval(post_code); // jshint ignore:line
-        }
-        throw e;// throw original message from Done if nothing else is raised
-    } 
+    src = insert_world_code(src);
+
+    eval(src); // jshint ignore:line
+
 };
 
 RUR.runner.eval_coffeescript = function (src) {
     // do not "use strict"
-    var pre_code, post_code;
-    pre_code = pre_code_editor.getValue();
-    post_code = post_code_editor.getValue();
     RUR.reset_definitions();
-    src = pre_code + "\n" + src + "\n" + post_code;
-    try {
-        eval(CoffeeScript.compile(src, {bare: true})); // jshint ignore:line
-    } catch (e) {
-        if (RUR.state.done_executed){
-            eval(post_code); // jshint ignore:line
-        }
-        throw e;// throw original message from Done if nothing else is raised
-    }
+
+    src = insert_world_code(src);
+
+    eval(CoffeeScript.compile(src, {bare: true})); // jshint ignore:line
+
 };
 
 RUR.runner.eval_python = function (src) {
@@ -219,11 +225,9 @@ RUR.runner.eval_python = function (src) {
 
 RUR.runner.eval_cpp = function (src) {    
     // do not "use strict"
-    var pre_code, post_code;
-    pre_code = pre_code_editor.getValue();
-    post_code = post_code_editor.getValue();
     const definitions = RUR.reset_definitions();
-    src = pre_code + "\n" + src + "\n" + post_code;
+    RUR.reset_definitions();
+    src = insert_world_code(src);
 
     // stopExecutionFlag = false;
     const config = {
@@ -234,8 +238,14 @@ RUR.runner.eval_cpp = function (src) {
                 console.log(`JSCPP: program exited with code " + ${exitCode};`);
             },
             promiseError: function(promise_error) {
-                RUR.show_feedback("#Reeborg-failure", promise_error);
+                try{
+                    var lineno = promise_error.split(":")[0];
+                    if (parseInt(lineno)) {
+                        RUR.set_lineno_highlight([lineno - 1]);
+                    }
+                } catch(e){}
                 RUR.__reeborg_failure = true;
+                RUR.record_frame("error", {message:promise_error});
             },
             write: function(s) {
                 console.log(`JSCPP: ${s}`);
@@ -259,9 +269,7 @@ RUR.runner.eval_cpp = function (src) {
         JSCPP.run(src, () => Promise.resolve(), config);
     } catch (error) {
         errorOccured = true;
-        if (RUR.state.done_executed){
-            JSCPP.run(post_code, () => Promise.resolve(), config);
-        }
+        RUR.record_frame("error", error);
         throw error; // throw original message from Done if nothing else is raised
     }
 };

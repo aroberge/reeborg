@@ -6,56 +6,6 @@ require("./../world_api/robot.js");
 
 RUR.reset_definitions_cn = function () {
 
-    window.到达目的地 = RUR._at_goal_;
-    window.砌墙 = RUR._build_wall_;
-    window.携带的物品 = RUR._carries_object_;
-    window.此处的颜色 = RUR._color_here_;
-    window.默认机器人 = function () {
-        var r = Object.create(机器人.prototype);
-        r.body = RUR._default_robot_body_();
-        return r;
-    };
-    window.help_js = RUR._inspect_;
-    window.完成 = RUR._done_;
-    window.前方通畅 = RUR._front_is_clear_;
-    window.面向北方 = RUR._is_facing_north_;
-    window.前进 = RUR._move_;
-    window.新机器人图片 = RUR._new_robot_images_;
-    window.此处的物品 = RUR._object_here_;
-    window.暂停 = RUR._pause_;
-    window.粉刷格子 = RUR._paint_square_;
-    window.此处的坐标 = function () {
-        var body = RUR._default_robot_body_();
-        return [body.x, body.y];
-    };
-    window.前方的坐标 = function () {
-        var pos, body = RUR._default_robot_body_();
-        pos = RUR.get_position_in_front(body);
-        if (RUR.is_valid_position(pos["x"], pos["y"])) {
-            return [pos["x"], pos["y"]];
-        } else {
-            return undefined;
-        }
-    };
-    window.打印超文本 = window.print_html = RUR._print_html_;
-    window.放下 = RUR._put_;
-    window.抛出 = RUR._toss_;
-    window.记录 = RUR._recording_;
-    window.移除机器人 = RUR._remove_robots_;
-    window.右侧通畅 = RUR._right_is_clear_;
-    window.设置最大步骤 = RUR._set_max_nb_steps_;
-    window.设置路径颜色 = RUR._set_trace_color_;
-    window.音效 = RUR._sound_;
-    window.拾起 = RUR._take_;
-    window.思考 = RUR._think_;
-    window.左转 = RUR._turn_left_;
-    window.前方有墙 = RUR._wall_in_front_;
-    window.右侧有墙 = RUR._wall_on_right_;
-    window.write = RUR._write_;
-    window.writeln = RUR._write_ln;
-    window.创建定制菜单 = RUR._MakeCustomMenu_;
-    window.世界 = RUR._World_;
-
     // The following are for OOP programming in Javascript
     var 机器人 = window.机器人 = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
@@ -154,4 +104,60 @@ RUR.reset_definitions_cn = function () {
 
     // make prototype available with known English name in RUR namespace
     RUR.UsedRobot = 机器人;
+
+    const API = {
+        到达目的地 : RUR._at_goal_,
+        砌墙 : RUR._build_wall_,
+        携带的物品 : RUR._carries_object_,
+        此处的颜色 : RUR._color_here_,
+        默认机器人 : function () {
+            var r = Object.create(机器人.prototype);
+            r.body = RUR._default_robot_body_();
+            return r;
+        },
+        help_js : RUR._inspect_,
+        完成 : RUR._done_,
+        前方通畅 : RUR._front_is_clear_,
+        面向北方 : RUR._is_facing_north_,
+        前进 : RUR._move_,
+        新机器人图片 : RUR._new_robot_images_,
+        此处的物品 : RUR._object_here_,
+        暂停 : RUR._pause_,
+        粉刷格子 : RUR._paint_square_,
+        此处的坐标 : function () {
+            var body = RUR._default_robot_body_();
+            return [body.x, body.y];
+        },
+        前方的坐标 : function () {
+            var pos, body = RUR._default_robot_body_();
+            pos = RUR.get_position_in_front(body);
+            if (RUR.is_valid_position(pos["x"], pos["y"])) {
+                return [pos["x"], pos["y"]];
+            } else {
+                return undefined;
+            }
+        },
+        打印超文本 : RUR._print_html_,
+        print_html : RUR._print_html_,
+        放下 : RUR._put_,
+        抛出 : RUR._toss_,
+        记录 : RUR._recording_,
+        移除机器人 : RUR._remove_robots_,
+        右侧通畅 : RUR._right_is_clear_,
+        设置最大步骤 : RUR._set_max_nb_steps_,
+        设置路径颜色 : RUR._set_trace_color_,
+        音效 : RUR._sound_,
+        拾起 : RUR._take_,
+        思考 : RUR._think_,
+        左转 : RUR._turn_left_,
+        前方有墙 : RUR._wall_in_front_,
+        右侧有墙 : RUR._wall_on_right_,
+        write : RUR._write_,
+        writeln : RUR._write_ln,
+        创建定制菜单 : RUR._MakeCustomMenu_,
+        世界 : RUR._World_
+    }
+    Object.assign(window, API);
+    return API;
+
 };

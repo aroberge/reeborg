@@ -20,8 +20,7 @@ RUR.reset_world = function() {
 
     clearTimeout(RUR._TIMER);
 
-    if (RUR.state.programming_language === "python" &&
-        RUR.state.highlight) {
+    if (RUR.state.highlight) {
         for (i=0; i < editor.lineCount(); i++){
             editor.removeLineClass(i, 'background', 'editor-highlight');
         }

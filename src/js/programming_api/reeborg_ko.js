@@ -28,57 +28,6 @@ require("./../world_api/robot.js");
 
 RUR.reset_definitions_ko = function () {
 
-    window.목적지에_도착함 = RUR._at_goal_;
-    window.벽_만들기 = RUR._build_wall_;
-    window.물건을_가지고_있음 = RUR._carries_object_;
-    window.바닥_색상 = RUR._color_here_;
-    window.기본_로봇 = function () {
-        var r = Object.create(사용_로봇.prototype);
-        r.body = RUR._default_robot_body_();
-        return r;
-    };
-    window.help_js = RUR._inspect_;
-    window.종료 = RUR._done_;
-    window.앞이_비어_있음 = RUR._front_is_clear_;
-    window.북쪽을_향하고_있음 = RUR._is_facing_north_;
-    window.전진 = RUR._move_;
-    window.새_로봇_그림 = RUR._new_robot_images_;
-    window.바닥에_물건이_있음 = RUR._object_here_;
-    window.정지 = RUR._pause_;
-    window.바닥_색칠 = RUR._paint_square_;
-    window.현재_좌표 = function () {
-        var body = RUR._default_robot_body_();
-        return [body.x, body.y];
-    };
-    window.전면_좌표 = function () {
-        var pos, body = RUR._default_robot_body_();
-        pos = RUR.get_position_in_front(body);
-        if (RUR.is_valid_position(pos["x"], pos["y"])) {
-            return [pos["x"], pos["y"]];
-        } else {
-            return undefined;
-        }
-    };
-    window.print_html = RUR._print_html_;
-    window.놓기 = RUR._put_;
-    window.던지기 = RUR._toss_;
-    window.기록 = RUR._recording_;
-    window.로봇_제거 = RUR._remove_robots_;
-    window.오른쪽이_비어_있음 = RUR._right_is_clear_;
-    window.최대_명령실행_수_설정 = RUR._set_max_nb_steps_;
-    window.경로_색상_설정 = RUR._set_trace_color_;
-    //window.경로_모양_설정 = RUR._set_trace_style_;
-    window.소리 = RUR._sound_;
-    window.줍기 = RUR._take_;
-    window.생각 = RUR._think_;
-    window.좌회전 = RUR._turn_left_;
-    window.앞에_벽이_있음 = RUR._wall_in_front_;
-    window.오른쪽에_벽이_있음 = RUR._wall_on_right_;
-    window.write = RUR._write_;
-    window.writeln = RUR._write_ln;
-    window.MakeCustomMenu = RUR._MakeCustomMenu_;
-    window.월드 = RUR._World_;
-
     // The following are for OOP programming in Javascript
     var 사용_로봇 = window.사용_로봇 = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
@@ -177,4 +126,61 @@ RUR.reset_definitions_ko = function () {
 
     // make prototype available with known English name in RUR namespace
     RUR.UsedRobot = 사용_로봇;
+
+    const API = {
+
+        목적지에_도착함 : RUR._at_goal_,
+        벽_만들기 : RUR._build_wall_,
+        물건을_가지고_있음 : RUR._carries_object_,
+        바닥_색상 : RUR._color_here_,
+        기본_로봇 : function () {
+            var r = Object.create(사용_로봇.prototype);
+            r.body = RUR._default_robot_body_();
+            return r;
+        },
+        help_js : RUR._inspect_,
+        종료 : RUR._done_,
+        앞이_비어_있음 : RUR._front_is_clear_,
+        북쪽을_향하고_있음 : RUR._is_facing_north_,
+        전진 : RUR._move_,
+        새_로봇_그림 : RUR._new_robot_images_,
+        바닥에_물건이_있음 : RUR._object_here_,
+        정지 : RUR._pause_,
+        바닥_색칠 : RUR._paint_square_,
+        현재_좌표 : function () {
+            var body = RUR._default_robot_body_();
+            return [body.x, body.y];
+        },
+        전면_좌표 : function () {
+            var pos, body = RUR._default_robot_body_();
+            pos = RUR.get_position_in_front(body);
+            if (RUR.is_valid_position(pos["x"], pos["y"])) {
+                return [pos["x"], pos["y"]];
+            } else {
+                return undefined;
+            }
+        },
+        print_html : RUR._print_html_,
+        놓기 : RUR._put_,
+        던지기 : RUR._toss_,
+        기록 : RUR._recording_,
+        로봇_제거 : RUR._remove_robots_,
+        오른쪽이_비어_있음 : RUR._right_is_clear_,
+        최대_명령실행_수_설정 : RUR._set_max_nb_steps_,
+        경로_색상_설정 : RUR._set_trace_color_,
+        //window.경로_모양_설정 : RUR._set_trace_style_,
+        소리 : RUR._sound_,
+        줍기 : RUR._take_,
+        생각 : RUR._think_,
+        좌회전 : RUR._turn_left_,
+        앞에_벽이_있음 : RUR._wall_in_front_,
+        오른쪽에_벽이_있음 : RUR._wall_on_right_,
+        write : RUR._write_,
+        writeln : RUR._write_ln,
+        MakeCustomMenu : RUR._MakeCustomMenu_,
+        월드 : RUR._World_
+    }
+    Object.assign(window, API);
+    return API;
+
 };

@@ -56,7 +56,8 @@ RUR.rec.display_frame = function () {
 
     frame = RUR.frames[RUR.current_frame_no];
     RUR.update_frame_nb_info();
-    if ((RUR.state.programming_language === "python" && RUR.state.highlight)) {
+    if ((RUR.state.programming_language === "python" || RUR.state.programming_language === "cpp")
+        && RUR.state.highlight) {
         update_editor_highlight(RUR.current_frame_no);
     }
     RUR.current_frame_no++;

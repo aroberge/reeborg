@@ -177,8 +177,7 @@ RUR.reset_definitions_en = function () {
         write : RUR._write_,
         writeln : RUR._write_ln,
         MakeCustomMenu : RUR._MakeCustomMenu_,
-        World : RUR._World_,
-
+        World : RUR._World_
     }
     Object.assign(window, API);
 

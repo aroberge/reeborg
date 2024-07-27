@@ -29,58 +29,6 @@ require("./../world_api/robot.js");
 
 RUR.reset_definitions_lt = function () {
 
-    window.prie_tikslo = RUR._at_goal_;
-    window.statyti_sieną = RUR._build_wall_;
-    window.neša_objektą = RUR._carries_object_;
-    window.color_here = RUR._color_here_;
-    window.colour_here = RUR._color_here_;
-    window.default_robot = function () {
-        var r = Object.create(NaudojamasRobotas.prototype);
-        r.body = RUR._default_robot_body_();
-        return r;
-    };
-    window.help_js = RUR._inspect_;
-    window.baigti = RUR._done_;
-    window.priekyje_laisva = RUR._front_is_clear_;
-    window.pasisukęs_šiaurėn = RUR._is_facing_north_;
-    window.pirmyn = RUR._move_;
-    window.new_robot_images = RUR._new_robot_images_;
-    window.aptiktas_objektas = RUR._object_here_;
-    window.pauzė = RUR._pause_;
-    window.paint_square = RUR._paint_square_;
-    window.position_here = function () {
-        var body = RUR._default_robot_body_();
-        return [body.x, body.y];
-    };
-    window.position_in_front = function () {
-        var pos, body = RUR._default_robot_body_();
-        pos = RUR.get_position_in_front(body);
-        if (RUR.is_valid_position(pos["x"], pos["y"])) {
-            return [pos["x"], pos["y"]];}
-        else {
-            return undefined;
-        }
-    };
-    window.print_html = RUR._print_html_;
-    window.padėti = RUR._put_;
-    window.mesti = RUR._toss_;
-    window.recording = RUR._recording_;
-    window.remove_robots = RUR._remove_robots_;
-    window.dešinėje_laisva = RUR._right_is_clear_;
-    window.set_max_nb_steps = RUR._set_max_nb_steps_;
-    window.set_trace_color = RUR._set_trace_color_;
-    window.garsas = RUR._sound_;
-    window.paimti = RUR._take_;
-    window.galvoti = RUR._think_;
-    window.suktis_kairėn = RUR._turn_left_;
-    window.priekyje_siena = RUR._wall_in_front_;
-    window.dešinėje_siena = RUR._wall_on_right_;
-    window.rašyti = RUR._write_;
-    window.writeln = RUR._write_ln;
-    window.MakeCustomMenu = RUR._MakeCustomMenu_;
-    window.Pasaulis = RUR._World_;
-
-
     var NaudojamasRobotas = window.NaudojamasRobotas = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
         RUR.add_robot(this.body);
@@ -179,5 +127,60 @@ RUR.reset_definitions_lt = function () {
 
     // make prototype available with known English name in RUR namespace
     RUR.UsedRobot = NaudojamasRobotas;
+
+    const API = {
+        prie_tikslo : RUR._at_goal_,
+        statyti_sieną : RUR._build_wall_,
+        neša_objektą : RUR._carries_object_,
+        color_here : RUR._color_here_,
+        colour_here : RUR._color_here_,
+        default_robot : function () {
+            var r = Object.create(NaudojamasRobotas.prototype);
+            r.body = RUR._default_robot_body_();
+            return r;
+        },
+        help_js : RUR._inspect_,
+        baigti : RUR._done_,
+        priekyje_laisva : RUR._front_is_clear_,
+        pasisukęs_šiaurėn : RUR._is_facing_north_,
+        pirmyn : RUR._move_,
+        new_robot_images : RUR._new_robot_images_,
+        aptiktas_objektas : RUR._object_here_,
+        pauzė : RUR._pause_,
+        paint_square : RUR._paint_square_,
+        position_here : function () {
+            var body = RUR._default_robot_body_();
+            return [body.x, body.y];
+        },
+        position_in_front : function () {
+            var pos, body = RUR._default_robot_body_();
+            pos = RUR.get_position_in_front(body);
+            if (RUR.is_valid_position(pos["x"], pos["y"])) {
+                return [pos["x"], pos["y"]];
+            } else {
+                return undefined;
+            }
+        },
+        print_html : RUR._print_html_,
+        padėti : RUR._put_,
+        mesti : RUR._toss_,
+        recording : RUR._recording_,
+        remove_robots : RUR._remove_robots_,
+        dešinėje_laisva : RUR._right_is_clear_,
+        set_max_nb_steps : RUR._set_max_nb_steps_,
+        set_trace_color : RUR._set_trace_color_,
+        garsas : RUR._sound_,
+        paimti : RUR._take_,
+        galvoti : RUR._think_,
+        suktis_kairėn : RUR._turn_left_,
+        priekyje_siena : RUR._wall_in_front_,
+        dešinėje_siena : RUR._wall_on_right_,
+        rašyti : RUR._write_,
+        writeln : RUR._write_ln,
+        MakeCustomMenu : RUR._MakeCustomMenu_,
+        Pasaulis : RUR._World_,
+    }
+    Object.assign(window, API);
+    return API;
 
 };

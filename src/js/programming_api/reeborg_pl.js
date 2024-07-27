@@ -29,58 +29,6 @@ require("./../world_api/robot.js");
 
 RUR.reset_definitions_pl = function () {
 
-    window.u_celu = RUR._at_goal_;
-    window.wybuduj_mur = RUR._build_wall_;
-    window.obiekt_niesiony = RUR._carries_object_;
-    window.color_here = RUR._color_here_;
-    window.colour_here = RUR._color_here_;
-    window.default_robot = function () {
-        var r = Object.create(RobotWUzyciu.prototype);
-        r.body = RUR._default_robot_body_();
-        return r;
-    };
-    window.help_js = RUR._inspect_;
-    window.skonczone = RUR._done_;
-    window.droga_wolna = RUR._front_is_clear_;
-    window.skierowany_na_polnoc = RUR._is_facing_north_;
-    window.ruch = RUR._move_;
-    window.new_robot_images = RUR._new_robot_images_;
-    window.wykryto_obiekt = RUR._object_here_;
-    window.pauza = RUR._pause_;
-    window.paint_square = RUR._paint_square_;
-    window.position_here = function () {
-        var body = RUR._default_robot_body_();
-        return [body.x, body.y];
-    };
-    window.position_in_front = function () {
-        var pos, body = RUR._default_robot_body_();
-        pos = RUR.get_position_in_front(body);
-        if (RUR.is_valid_position(pos["x"], pos["y"])) {
-            return [pos["x"], pos["y"]];}
-        else {
-            return undefined;
-        }
-    };
-    window.print_html = RUR._print_html_;
-    window.odloz = RUR._put_;
-    window.toss = RUR._toss_;
-    window.recording = RUR._recording_;
-    window.remove_robots = RUR._remove_robots_;
-    window.prawo_wolne = RUR._right_is_clear_;
-    window.set_max_nb_steps = RUR._set_max_nb_steps_;
-    window.set_trace_color = RUR._set_trace_color_;
-    window.dzwiek = RUR._sound_;
-    window.wez = RUR._take_;
-    window.mysl = RUR._think_;
-    window.obrot_w_lewo = RUR._turn_left_;
-    window.mur_z_przodu = RUR._wall_in_front_;
-    window.mur_po_prawej = RUR._wall_on_right_;
-    window.napisz = RUR._write_;
-    window.writeln = RUR._write_ln;
-    window.MakeCustomMenu = RUR._MakeCustomMenu_;
-    window.swiat = RUR._World_;
-
-
     var RobotWUzyciu = window.RobotWUzyciu = function (x, y, orientation, tokens)  {
         this.body = RUR.robot.create_robot(x, y, orientation, tokens);
         RUR.add_robot(this.body);
@@ -179,5 +127,59 @@ RUR.reset_definitions_pl = function () {
 
     // make prototype available with known English name in RUR namespace
     RUR.UsedRobot = RobotWUzyciu;
-
+    
+    const API = {
+        u_celu : RUR._at_goal_,
+        wybuduj_mur : RUR._build_wall_,
+        obiekt_niesiony : RUR._carries_object_,
+        color_here : RUR._color_here_,
+        colour_here : RUR._color_here_,
+        default_robot : function () {
+            var r = Object.create(RobotWUzyciu.prototype);
+            r.body = RUR._default_robot_body_();
+            return r;
+        },
+        help_js : RUR._inspect_,
+        skonczone : RUR._done_,
+        droga_wolna : RUR._front_is_clear_,
+        skierowany_na_polnoc : RUR._is_facing_north_,
+        ruch : RUR._move_,
+        new_robot_images : RUR._new_robot_images_,
+        wykryto_obiekt : RUR._object_here_,
+        pauza : RUR._pause_,
+        paint_square : RUR._paint_square_,
+        position_here : function () {
+            var body = RUR._default_robot_body_();
+            return [body.x, body.y];
+        },
+        position_in_front : function () {
+            var pos, body = RUR._default_robot_body_();
+            pos = RUR.get_position_in_front(body);
+            if (RUR.is_valid_position(pos["x"], pos["y"])) {
+                return [pos["x"], pos["y"]]
+            } else {
+                return undefined
+            }
+        },
+        print_html : RUR._print_html_,
+        odloz : RUR._put_,
+        toss : RUR._toss_,
+        recording : RUR._recording_,
+        remove_robots : RUR._remove_robots_,
+        prawo_wolne : RUR._right_is_clear_,
+        set_max_nb_steps : RUR._set_max_nb_steps_,
+        set_trace_color : RUR._set_trace_color_,
+        dzwiek : RUR._sound_,
+        wez : RUR._take_,
+        mysl : RUR._think_,
+        obrot_w_lewo : RUR._turn_left_,
+        mur_z_przodu : RUR._wall_in_front_,
+        mur_po_prawej : RUR._wall_on_right_,
+        napisz : RUR._write_,
+        writeln : RUR._write_ln,
+        MakeCustomMenu : RUR._MakeCustomMenu_,
+        swiat : RUR._World_
+    }
+    Object.assign(window, API);
+    return API;
 };
