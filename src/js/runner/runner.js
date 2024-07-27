@@ -110,6 +110,7 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
         RUR.state.code_evaluated = true;
         if (RUR.__debug){
             console.dir(e);
+            console.log(RUR.frames);
         }
         error = {};
         if (e.reeborg_success) {
@@ -167,9 +168,11 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
         if (error.reeborg_failure !== undefined){
             RUR.record_frame("error", error);
         } else {
-            RUR.show_feedback("#Reeborg-failure",
-                                    "<h3>" + error.name + "</h3><p>" +
-                                    message + "</p><p>" + other_info + '</p>');
+            RUR.record_frame("error", {message:"<h3>" + error.name + "</h3><p>" +
+                                    message + "</p><p>" + other_info + '</p>'});
+            // RUR.show_feedback("#Reeborg-failure",
+            //                         "<h3>" + error.name + "</h3><p>" +
+            //                         message + "</p><p>" + other_info + '</p>');
             $("#Reeborg-success").dialog("close");
             return true;
         }
