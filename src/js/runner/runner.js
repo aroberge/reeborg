@@ -170,9 +170,6 @@ RUR.runner.eval = function(src) {  // jshint ignore:line
         } else {
             RUR.record_frame("error", {message:"<h3>" + error.name + "</h3><p>" +
                                     message + "</p><p>" + other_info + '</p>'});
-            // RUR.show_feedback("#Reeborg-failure",
-            //                         "<h3>" + error.name + "</h3><p>" +
-            //                         message + "</p><p>" + other_info + '</p>');
             $("#Reeborg-success").dialog("close");
             return true;
         }
@@ -201,19 +198,33 @@ insert_world_code = function(src){
 RUR.runner.eval_javascript = function (src) {
     // do not "use strict"
     RUR.reset_definitions();
+    var post_code = post_code_editor.getValue();
     src = insert_world_code(src);
 
-    eval(src); // jshint ignore:line
-
+    try {
+        eval(src); // jshint ignore:line
+    } catch (e) {
+        if (RUR.state.done_executed){ // user code stopped before post_code was evaluated
+            eval(post_code); // jshint ignore:line
+        }
+        throw e;// throw original message from Done if nothing else is raised
+    } 
 };
 
 RUR.runner.eval_coffeescript = function (src) {
     // do not "use strict"
     RUR.reset_definitions();
-
+    var post_code = post_code_editor.getValue();
     src = insert_world_code(src);
 
-    eval(CoffeeScript.compile(src, {bare: true})); // jshint ignore:line
+    try {
+        eval(CoffeeScript.compile(src, {bare: true})); // jshint ignore:line
+    } catch (e) {
+        if (RUR.state.done_executed){ // user code stopped before post_code was evaluated
+            eval(post_code); // jshint ignore:line
+        }
+        throw e;// throw original message from Done if nothing else is raised
+    } 
 
 };
 
@@ -229,6 +240,7 @@ RUR.runner.eval_python = function (src) {
 RUR.runner.eval_cpp = function (src) {    
     // do not "use strict"
     const definitions = RUR.reset_definitions();
+    var post_code = post_code_editor.getValue();
     RUR.reset_definitions();
     src = insert_world_code(src);
 
@@ -247,8 +259,12 @@ RUR.runner.eval_cpp = function (src) {
                         RUR.set_lineno_highlight([lineno - 1]);
                     }
                 } catch(e){}
-                RUR.__reeborg_failure = true;
-                RUR.record_frame("error", {message:promise_error});
+                if (!RUR.state.done_executed){
+                    RUR.__reeborg_failure = true;
+                    RUR.record_frame("error", {message:promise_error});
+                } else {
+                    throw new RUR.ReeborgError(RUR.translate("Done!"));
+                }
             },
             write: function(s) {
                 console.log(`JSCPP: ${s}`);
@@ -271,9 +287,8 @@ RUR.runner.eval_cpp = function (src) {
         // stopExecutionFlag = false;
         JSCPP.run(src, () => Promise.resolve(), config);
     } catch (error) {
-        errorOccured = true;
         RUR.record_frame("error", error);
-        throw error; // throw original message from Done if nothing else is raised
+        throw error;
     }
 };
 
