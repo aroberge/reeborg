@@ -50,10 +50,6 @@ $(document).ready( function () {
                                     position:{my: "left", at: "left", of: $("#editor-panel")}});
     $("#Reeborg-writes").dialog({minimize: false, maximize: false, autoOpen:false, width:800, height:350,
                                     position:{my: "bottom", at: "bottom-20", of: window}});
-
-    // TODO: see if Reeborg-explores is still needed
-    $("#Reeborg-explores").dialog({minimize: false, maximize: false, autoOpen:false, width:600,
-                                    position:{my: "center", at: "center", of: $("#robot-canvas")}});
     $("#Reeborg-proclaims").dialog({minimize: false, maximize: false, autoOpen:false, width:800, height:400, dialogClass: "proclaims",
                                     position:{my: "bottom", at: "bottom-80", of: window}});
     $("#Reeborg-watches").dialog({minimize: false, maximize: false, autoOpen:false, width:600, height:400, dialogClass: "watches",

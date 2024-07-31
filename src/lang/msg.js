@@ -154,7 +154,6 @@ record_id("mg-objects", "mg-objects");
 record_title("ui-dialog-title-Reeborg-success", "Reeborg says: I'm done!");
 record_title("ui-dialog-title-Reeborg-writes", "Reeborg writes:");
 record_title("ui-dialog-title-Reeborg-failure", "Reeborg shouts: Something is wrong!");
-record_title("ui-dialog-title-Reeborg-explores", "Reeborg explores some Javascript code");
 record_title("ui-dialog-title-Reeborg-proclaims", "Reeborg states:");
 record_title("ui-dialog-title-Reeborg-watches", "Reeborg watches some variables!");
 record_title("ui-dialog-title-World-info", "Click on the world to get some additional information.");
