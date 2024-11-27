@@ -266,7 +266,7 @@ RUR.runner.eval_cpp = function (src) {
             },
             write: function(s) {
                 console.log(`JSCPP: ${s}`);
-                RUR.write(s);
+                RUR._write_(s);
             }
         },
         set_lineno_highlight: function(lineno) {
